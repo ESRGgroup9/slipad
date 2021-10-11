@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 
-\graphicspath{{./images}}
+\graphicspath{{./images/}}
 
 \begin{document}
 
@@ -14,7 +14,12 @@ Despite knowing that smart TV’s market is growing, because of its features, a 
 \section{Problem Statement Analysis}
 In order to have a better and deeper understanding of the problem, it’s essential to identify the entities involved and their relationships. Using that analysis, a system diagram can be built, [ref], relating the known entities and presenting some attributes.
 
-[FIGURE] Problem Statement Analysis Diagram
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.75\textwidth]{prob_statement}
+	\caption{Problem Statement Analysis Diagram}
+	\label{fig:prob_statement}
+\end{figure}
 
 This image [ref] shows that the remote controller is the only interface between the user and the TV. The user interacts with the remote by pressing one of the existing buttons, and in turn, the remote interacts with the television via an infrared beam. Knowing that the remote controller must have a long lifespan, it must be well built, in order to resist eventual falls, and also, it must have a low consumption, in order to avoid the frequent change of batteries. For a better user experience, the remote should be lightweight, have a simple interface and respond quickly to user commands.
 
