@@ -15,4 +15,32 @@ Regarding the application field, since this allows the operation of devices that
 
 - Bench-Marking
 
+Most of the time, when you buy a device that requires a remote control, it's already included. In the table below [ref], there are shown some of the most popular remotes in the market right now.
+
+[TABLE]
+
+- System Overview
+
+As shown in [fig], the push buttons on the remote behave as sensors, which produce an electrical signal whenever they are pressed. This electrical signal is processed by the controller, transmitting to the infrared emitter (actuator) a signal identifying the operation performed by the user. 
+
+[FIGURE]
+
+- System Requirements and Constraints
+
+Functional Requirements
+- Three push buttons;
+
+Non-Functional Requirements
+- Lightweight;
+- Low-Power consumption;
+- Well built;
+- Simple interface;
+- Low response times;
+
+System Constraints
+- Time constraint;
+- 2 Members team;
+- Infrared communication;
+
+- Hardware and Software Specification
 
