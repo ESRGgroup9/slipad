@@ -1,12 +1,8 @@
-% Requirements
-% 	Problem Statement
-% 	Constraints
-% 	Requirements
-% 	HW and SW Specification
-% 	Analysis Verification
-
 \documentclass[12pt, letterpaper]{report}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\graphicspath{{./images}}
 
 \begin{document}
 
@@ -16,6 +12,11 @@ Due to COVID-19 [ref], many countries established mandatory lockdown, which incr
 Despite knowing that smart TV’s market is growing, because of its features, a large percentage of the televisions in use are non-smart TV’s [ref], which use infrared sensors to allow the user to control the TV, via a remote control. In this report, it will be analyzed and designed a remote control with the following characteristics: it must control the TV using an infrared sensor, it must be light and battery powered. It should have three buttons: one to switch the TV on/off, called “Power”; the other two buttons are used to scroll up/down and select the available channels, and they are labeled with the arrows up/down, respectively. The main goal of this project is to consolidate the methods of the Waterfall model, as it is a classic model in software development methodology, suitable for small-scale projects.
 
 \section{Problem Statement Analysis}
+In order to have a better and deeper understanding of the problem, it’s essential to identify the entities involved and their relationships. Using that analysis, a system diagram can be built, [ref], relating the known entities and presenting some attributes.
+
+[FIGURE] Problem Statement Analysis Diagram
+
+This image [ref] shows that the remote controller is the only interface between the user and the TV. The user interacts with the remote by pressing one of the existing buttons, and in turn, the remote interacts with the television via an infrared beam. Knowing that the remote controller must have a long lifespan, it must be well built, in order to resist eventual falls, and also, it must have a low consumption, in order to avoid the frequent change of batteries. For a better user experience, the remote should be lightweight, have a simple interface and respond quickly to user commands.
 
 \chapter{Analysis}
 \section{Market Research}
