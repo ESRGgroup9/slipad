@@ -32,7 +32,7 @@ This image [ref] shows that the remote controller is the only interface between 
 \chapter{Analysis}
 \section{Market Research}
 \subsection{Market Definition}
-A remote control, by definition, is an electronic device used to operate another device from a distance, usually wirelessly. These allow you to control different types of devices, such as televisions, air conditioning, DVD players, sound systems, among others. Remote controllers have different technologies to communicate with the devices they control, such as Bluetooth, Wi-Fi, Radio Frequency and Infrared, the latter being the most used technology in remote controls.
+A remote control, by definition, is an electronic device used to operate another device from a distance, usually wirelessly. These allow you to control different types of devices, such as televisions, air conditioning, DVD players, sound systems, among others. Remote controllers have different technologies to communicate with the devices they control, such as Bluetooth, Wi-Fi, Radio Frequency (RF) and Infrared (IR), the latter being the most used technology in remote controls.
 
 There are three types of remotes:
 
@@ -49,8 +49,23 @@ Regarding the application field, since this allows the operation of devices that
 \subsection{Bench-Marking}
 Most of the time, when you buy a device that requires a remote control, it's already included. In the table below [ref], there are shown some of the most popular remotes in the market right now.
 
-[TABLE]
-
+\begin{table}[h]
+	\centering
+	\begin{tabular}{||c c c c c||} 
+	\hline
+	Product Name & Price (€) & Weight (g) & Comm. Technology & Remote Type\\
+	\hline\hline
+	Roku Voice & 17,30 & 90,72 & Wi-Fi & Dedicated\\ 
+	Apple TV & 25,00 & 18,14 & Wi-Fi, Bluetooth & Dedicated \\
+	DIRECTV RC73 & 6,05 & 90,71 & IR, RF & Programmable\\
+	IR-1316 & 12,97 & 49,89 & IR & Universal\\
+	\hline
+\end{tabular}
+				
+\caption{Most popular Amazon's remote controllers. }
+\label{table:popular_remotes}
+\end{table}
+		
 \section{System}
 \subsection{System Overview}
 As shown in [fig], the push buttons on the remote behave as sensors, which produce an electrical signal whenever they are pressed. This electrical signal is processed by the controller, transmitting to the infrared emitter (actuator) a signal identifying the operation performed by the user. 
@@ -58,20 +73,27 @@ As shown in [fig], the push buttons on the remote behave as sensors, which produ
 [FIGURE]
 
 \subsection{System Requirements and Constraints}
-Functional Requirements
-- Three push buttons;
 
-Non-Functional Requirements
-- Lightweight;
-- Low-Power consumption;
-- Well built;
-- Simple interface;
-- Low response times;
+Functional Requirements:
+\begin{itemize}
+	\item Three push buttons.
+\end{itemize}
 
-System Constraints
-- Time constraint;
-- 2 Members team;
-- Infrared communication;
+Non-Functional Requirements:
+\begin{itemize}
+	\item Lightweight;
+	\item Low-Power consumption;
+	\item Well built;
+	\item Simple interface;
+	\item Low response times.
+\end{itemize}
+
+System Constraints:
+\begin{itemize}
+	\item Time constraint;
+	\item 2 Members team;
+	\item Infrared communication.
+\end{itemize}
 \subsection{Hardware and Software Specification}
 
 \section{Analysis Verification}

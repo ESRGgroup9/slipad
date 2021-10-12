@@ -18,7 +18,10 @@ Regarding the application field, since this allows the operation of devices that
 Most of the time, when you buy a device that requires a remote control, it's already included. In the table below [ref], there are shown some of the most popular remotes in the market right now.
 
 [TABLE]
-
+Roku Voice Remote		17,30€	90,72g	Wi-Fi			Dedicated
+Apple TV Remote		25,00€	18,14g	Wi-Fi, Bluetooth	Dedicated
+DIRECTV RC73 Remote	6,05€		90,71g	Infrared, Radio Frequency	 Programmable
+IR-1316 Remote		12,97€	49,89g	Infrared		Universal
 - System Overview
 
 As shown in [fig], the push buttons on the remote behave as sensors, which produce an electrical signal whenever they are pressed. This electrical signal is processed by the controller, transmitting to the infrared emitter (actuator) a signal identifying the operation performed by the user. 
@@ -41,6 +44,3 @@ System Constraints
 - Time constraint;
 - 2 Members team;
 - Infrared communication;
-
-- Hardware and Software Specification
-
