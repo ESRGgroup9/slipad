@@ -1,2 +1,9 @@
-﻿- Hardware and Software Specification
+﻿- System architecture
+A system architecture is the conceptual model that describes the system, based on its structure and behavior. In this way, the system must be described in two ways: hardware architecture, which describes the existing connections between hardware components, and software architecture, which describes the flow of information in the system.
+
+- Hardware Architecture
+
+The core of this system is the integrated circuit, which reads the data from the sensors (push buttons) and produces an electrical signal that identifies the operation carried out by the user. This signal is transmitted to the infrared emitter, which converts it into a light signal (infrared). The system's batteries allow powering all components. In figure [ref] it is possible to identify all the hardware components that make up the system. 
+
+[FIG] Hardware Architecture Scheme.
 
