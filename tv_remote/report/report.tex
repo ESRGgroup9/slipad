@@ -1,6 +1,7 @@
 \documentclass[12pt, letterpaper]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{indentfirst}
 
 \graphicspath{{./images/}}
 
@@ -82,8 +83,9 @@ As shown in figure \ref{fig:sys_overview}, the push buttons on the remote behave
 \subsection{System Requirements and Constraints}
 
 Functional Requirements:
+
 \begin{itemize}
-	\item Three push buttons: Power button, scroll up button, scroll down button.
+	\item Three push buttons: Power button, scroll up button, scroll down button.\\
 \end{itemize}
 
 Non-Functional Requirements:
@@ -92,14 +94,14 @@ Non-Functional Requirements:
 	\item Low-Power consumption;
 	\item Well built;
 	\item Simple interface;
-	\item Low response times.
+	\item Low response times.\\
 \end{itemize}
 
 System Constraints:
 \begin{itemize}
 	\item Time constraint;
 	\item 2 Members team;
-	\item Infrared communication.
+	\item Infrared communication.\\
 \end{itemize}
 \section{System Architecture}
 A system architecture is the conceptual model that describes the system, based on its structure and behavior. In this way, the system must be described in two ways: hardware architecture, which describes the existing connections between hardware components, and software architecture, which describes the flow of information in the system.
@@ -154,16 +156,37 @@ A sequence diagram is another graphical representation that describes how and in
 % Resistors
 % Buttons
 % Batteries
+In this section it will be specified the chosen hardware and the presented the interface between each of the components.
 
-\subsection{Microprocessor: }
+\subsection{Microprocessor}
+The integrated circuit that will control the operating status of the remote will be the ATtiny85 [ref] (figure FIGURE). This is a well known microcontroller due to its small dimensions, associated capabilities and its low price. Its a good fit for this system because of its low operating voltage and of its ability to read the data given by the sensors, the remote buttons, and produce an adequate response.
+
+\begin{itemize}
+	\item Operating Supply Voltage: 1.8V to 5.5V
+	\item 8 bit Microcontroller
+	\item 8 pins, 6 GPIO pins;
+	\item 8 kB of program memory size;
+	\item 512 B data RAM size;
+\end{itemize}
+
+[FIGURE]
+
+
+For programming the ATtiny85 it can be used an Arduino board, like Arduino UNO board [ref], which is a one-time process.
 
 \subsection{IR Emitter}
+The system’s actuator is an infrared emitter, which has been used in remote controls since the early 1980s. IR sensors are used to measure and detect infrared radiation in its surrounding environment. An IR emitter can be easily found, having the appearence represented in the figure [ref].
+
+[FIGURE]
 
 \subsection{Resistors}
+It is known that a light emitting diode (LED), like the IR emitter presented above, admits a maximum forward current. To do that, and as well as to control how much current flows through the remote button’s circuit, it may be used some resistors.
 
 \subsection{Buttons}
+??
 
 \subsection{Batteries}
+In order to supply the system components, focusing on the microprocessor operating supply voltage, the system may be supplied by two or three batteries AAA, having in mind that each of this batteries works within the range 0.9 V to 1.5 V.
 
 \section{Software Specification}
 % Sw used
