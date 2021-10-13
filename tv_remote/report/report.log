@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  13 OCT 2021 22:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  13 OCT 2021 23:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -149,6 +149,10 @@ Package pdftex.def Info: ./images/prob_statement.png  used on input line 52.
 
 ] [3 <./images/prob_statement.png>]
 Chapter 2.
+
+LaTeX Warning: Citation `RokuVoiceRemote' on page 4 undefined on input line 85.
+
+
 [4
 
 ]
@@ -162,12 +166,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
-[5 <./images/SysOverview.png>]
+
 Underfull \hbox (badness 10000) in paragraph at lines 121--122
 
  []
 
-
+[5 <./images/SysOverview.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 128--129
 
  []
@@ -175,54 +179,54 @@ Underfull \hbox (badness 10000) in paragraph at lines 128--129
 <./images/HW_Arch.png, id=31, 573.14125pt x 211.79124pt>
 File: ./images/HW_Arch.png Graphic file (type png)
 <use ./images/HW_Arch.png>
-Package pdftex.def Info: ./images/HW_Arch.png  used on input line 138.
+Package pdftex.def Info: ./images/HW_Arch.png  used on input line 139.
 (pdftex.def)             Requested size: 292.5pt x 108.08643pt.
 <./images/Use-Case.png, id=32, 834.11626pt x 353.32pt>
 File: ./images/Use-Case.png Graphic file (type png)
 <use ./images/Use-Case.png>
-Package pdftex.def Info: ./images/Use-Case.png  used on input line 149.
+Package pdftex.def Info: ./images/Use-Case.png  used on input line 150.
 (pdftex.def)             Requested size: 467.99881pt x 198.24063pt.
 
-Overfull \hbox (77.99881pt too wide) in paragraph at lines 149--150
+Overfull \hbox (77.99881pt too wide) in paragraph at lines 150--151
  [][] 
  []
 
-[6] [7 <./images/HW_Arch.png> <./images/Use-Case.png>]
-<./images/SequeceDiagram.png, id=42, 402.50375pt x 181.67876pt>
+[6 <./images/HW_Arch.png>]
+<./images/SequeceDiagram.png, id=38, 402.50375pt x 181.67876pt>
 File: ./images/SequeceDiagram.png Graphic file (type png)
 <use ./images/SequeceDiagram.png>
-Package pdftex.def Info: ./images/SequeceDiagram.png  used on input line 161.
+Package pdftex.def Info: ./images/SequeceDiagram.png  used on input line 162.
 (pdftex.def)             Requested size: 292.5pt x 132.02557pt.
- [8 <./images/SequeceDiagram.png>]
+ [7 <./images/Use-Case.png> <./images/SequeceDiagram.png>]
 Chapter 3.
-<./images/attiny.png, id=47, 421.575pt x 458.71375pt>
+<./images/attiny.png, id=44, 421.575pt x 458.71375pt>
 File: ./images/attiny.png Graphic file (type png)
 <use ./images/attiny.png>
-Package pdftex.def Info: ./images/attiny.png  used on input line 189.
+Package pdftex.def Info: ./images/attiny.png  used on input line 190.
 (pdftex.def)             Requested size: 58.49762pt x 63.64552pt.
-[9
+[8
 
  <./images/attiny.png>]
-<./images/iremitter.jpg, id=52, 602.25pt x 602.25pt>
+<./images/iremitter.jpg, id=49, 602.25pt x 602.25pt>
 File: ./images/iremitter.jpg Graphic file (type jpg)
 <use ./images/iremitter.jpg>
-Package pdftex.def Info: ./images/iremitter.jpg  used on input line 209.
+Package pdftex.def Info: ./images/iremitter.jpg  used on input line 210.
 (pdftex.def)             Requested size: 136.50238pt x 136.50206pt.
- [10 <./images/iremitter.jpg>]
+ [9 <./images/iremitter.jpg>]
 
-LaTeX Warning: Citation `arduino' on page 11 undefined on input line 225.
+LaTeX Warning: Citation `arduino' on page 10 undefined on input line 226.
 
-<./images/arduino.png, id=56, 1027.84pt x 783.92876pt>
+<./images/arduino.png, id=53, 1027.84pt x 783.92876pt>
 File: ./images/arduino.png Graphic file (type png)
 <use ./images/arduino.png>
-Package pdftex.def Info: ./images/arduino.png  used on input line 229.
+Package pdftex.def Info: ./images/arduino.png  used on input line 230.
 (pdftex.def)             Requested size: 97.5pt x 74.35439pt.
-<./images/Flowchart.png, id=57, 490.83376pt x 554.07pt>
+<./images/Flowchart.png, id=54, 490.83376pt x 554.07pt>
 File: ./images/Flowchart.png Graphic file (type png)
 <use ./images/Flowchart.png>
-Package pdftex.def Info: ./images/Flowchart.png  used on input line 239.
+Package pdftex.def Info: ./images/Flowchart.png  used on input line 240.
 (pdftex.def)             Requested size: 292.5pt x 330.1957pt.
-(./report.bbl [11 <./images/arduino.png>] [12 <./images/Flowchart.png>]
+(./report.bbl [10 <./images/arduino.png>] [11 <./images/Flowchart.png>]
 Underfull \hbox (badness 5388) in paragraph at lines 28--32
 []\OT1/cmr/m/n/12 ``Report: Smart tvs ac-count for 50% of tvs over-all; found
  []
@@ -249,11 +253,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--37
 \OT1/cmr/m/n/12 Microchip-[]Technology-[]Atmel / ATTINY85V-[]10SU ? qs =
  []
 
-) [13
+) [12
 
 ] (./report.aux)
 
 LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
@@ -263,14 +270,14 @@ Here is how much of TeX's memory you used:
  16495 multiletter control sequences out of 15000+600000
  538756 words of font info for 45 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 30i,7n,25p,873b,266s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 30i,8n,25p,873b,266s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/fernandes/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200
 .600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on report.pdf (14 pages, 345769 bytes).
+Output written on report.pdf (13 pages, 344598 bytes).
 PDF statistics:
- 84 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 81 PDF objects out of 1000 (max. 8388607)
+ 42 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
