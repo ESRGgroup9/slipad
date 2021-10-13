@@ -156,23 +156,23 @@ A sequence diagram is another graphical representation that describes how and in
 % Resistors
 % Buttons
 % Batteries
-In this section it will be specified the chosen hardware and the presented the interface between each of the components.
+In this section it will be specified the chosen hardware and presented the interface between each of the components.
 
 \subsection{Microprocessor}
 The integrated circuit that will control the operating status of the remote will be the ATtiny85 [ref] (figure FIGURE). This is a well known microcontroller due to its small dimensions, associated capabilities and its low price. Its a good fit for this system because of its low operating voltage and of its ability to read the data given by the sensors, the remote buttons, and produce an adequate response.
 
 \begin{itemize}
-	\item Operating Supply Voltage: 1.8V to 5.5V
-	\item 8 bit Microcontroller
+	\item Operating Supply Voltage: 1.8V to 5.5V;
+	\item 8 bit Microcontroller;
 	\item 8 pins, 6 GPIO pins;
 	\item 8 kB of program memory size;
-	\item 512 B data RAM size;
+	\item 512 B data RAM size.
 \end{itemize}
 
 [FIGURE]
 
 
-For programming the ATtiny85 it can be used an Arduino board, like Arduino UNO board [ref], which is a one-time process.
+For programming the ATtiny85 it can be used an Arduino board, like Arduino UNO [ref], which is a one-time process.
 
 \subsection{IR Emitter}
 The system’s actuator is an infrared emitter, which has been used in remote controls since the early 1980s. IR sensors are used to measure and detect infrared radiation in its surrounding environment. An IR emitter can be easily found, having the appearence represented in the figure [ref].
@@ -191,7 +191,20 @@ In order to supply the system components, focusing on the microprocessor operati
 \section{Software Specification}
 % Sw used
 % Flowcharts
+To program the system’s microprocessor it can be used the Arduino Software (IDE) [ref], which is an open-source software, that makes it easy to write code and upload it to the board. This software can be used with any Arduino board, an so, adequate to program Arduino UNO.
+
+[FIG]
 
 \section{Flowcharts}
+In order 
+
+De forma a que o comando emita o sinal correspondente ao botão pressionado pelo utilizador, deve ser criado um programa 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.75\textwidth]{Flowchart}
+	\caption{Main system flowchart.}
+	\label{fig:Flowchart}
+\end{figure}
 
 \end{document}
