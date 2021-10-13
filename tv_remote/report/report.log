@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  13 OCT 2021 23:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  13 OCT 2021 23:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -149,10 +149,6 @@ Package pdftex.def Info: ./images/prob_statement.png  used on input line 52.
 
 ] [3 <./images/prob_statement.png>]
 Chapter 2.
-
-LaTeX Warning: Citation `RokuVoiceRemote' on page 4 undefined on input line 85.
-
-
 [4
 
 ]
@@ -213,9 +209,6 @@ File: ./images/iremitter.jpg Graphic file (type jpg)
 Package pdftex.def Info: ./images/iremitter.jpg  used on input line 210.
 (pdftex.def)             Requested size: 136.50238pt x 136.50206pt.
  [9 <./images/iremitter.jpg>]
-
-LaTeX Warning: Citation `arduino' on page 10 undefined on input line 226.
-
 <./images/arduino.png, id=53, 1027.84pt x 783.92876pt>
 File: ./images/arduino.png Graphic file (type png)
 <use ./images/arduino.png>
@@ -226,8 +219,14 @@ File: ./images/Flowchart.png Graphic file (type png)
 <use ./images/Flowchart.png>
 Package pdftex.def Info: ./images/Flowchart.png  used on input line 240.
 (pdftex.def)             Requested size: 292.5pt x 330.1957pt.
-(./report.bbl [10 <./images/arduino.png>] [11 <./images/Flowchart.png>]
-Underfull \hbox (badness 5388) in paragraph at lines 28--32
+ (./report.bbl [10 <./images/arduino.png>] [11 <./images/Flowchart.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
+[]\OT1/cmr/m/n/12 ``Covid-19,'' $https : / / en . wikipedia . org / wiki / COVI
+D-[]19$, Wikipedia,
+ []
+
+
+Underfull \hbox (badness 4254) in paragraph at lines 28--32
 []\OT1/cmr/m/n/12 ``Report: Smart tvs ac-count for 50% of tvs over-all; found
  []
 
@@ -237,47 +236,86 @@ Underfull \hbox (badness 10000) in paragraph at lines 28--32
  []
 
 
-Overfull \hbox (73.06888pt too wide) in paragraph at lines 28--32
+Overfull \hbox (78.94382pt too wide) in paragraph at lines 28--32
 \OT1/cmr/m/n/12 report-[]smart-[]tvs-[]account-[]for-[]50-[]percent-[]of-[]tvs-
 []overall-[]found-[]in-[]70-[]percent-[]tv-[]homes/$,
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 34--37
+[]\OT1/cmr/m/n/12 ``Roku voice re-mote,'' $https : / / www . amazon . com /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--37
+\OT1/cmr/m/n/12 Roku-[]RCAL7R-[]Voice-[]Remote-[]New / dp / B07WVFCKSS ? ref[] 
+=
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--42
+[]\OT1/cmr/m/n/12 ``Apple tv re-mote,'' $https : / / www . amazon . com /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--42
+\OT1/cmr/m/n/12 Apple-[]MM4T2AM-[]A-[]TV-[]Remote / dp / B01DN08VAY ? ref[] =
+ []
+
+
+Underfull \hbox (badness 5681) in paragraph at lines 44--47
+[]\OT1/cmr/m/n/12 ``Directv rc73 ir/rf re-mote con-trol,'' $https : / / www . a
+mazon . com /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--47
+\OT1/cmr/m/n/12 DIRECTV-[]RC73-[]IR-[]Remote-[]Control / dp / B00WY0077A ? ref[
+] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 53--56
 []\OT1/cmr/m/n/12 ``Attiny85v-10su,'' $https : / / pt . mouser . com / ProductD
 etail /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--37
+Underfull \hbox (badness 10000) in paragraph at lines 53--56
 \OT1/cmr/m/n/12 Microchip-[]Technology-[]Atmel / ATTINY85V-[]10SU ? qs =
  []
 
-) [12
 
-] (./report.aux)
+Underfull \hbox (badness 1490) in paragraph at lines 58--60
+[]\OT1/cmr/m/n/12 ``Arduino uno,'' $https : / / store . arduino . cc / products
+ / arduino-[]uno-[]rev3$,
+ []
 
-LaTeX Warning: There were undefined references.
 
+Underfull \hbox (badness 10000) in paragraph at lines 62--65
+[]\OT1/cmr/m/n/12 ``Ir emit-ter,'' $https : / / www . sparkfun . com / datashee
+ts / Components /
+ []
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+[12
 
- ) 
+]) [13] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 1457 strings out of 483140
- 21608 string characters out of 5965150
- 249900 words of memory out of 5000000
- 16495 multiletter control sequences out of 15000+600000
+ 1463 strings out of 483140
+ 21703 string characters out of 5965150
+ 250918 words of memory out of 5000000
+ 16501 multiletter control sequences out of 15000+600000
  538756 words of font info for 45 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 30i,8n,25p,873b,266s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/fernandes/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200
-.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on report.pdf (13 pages, 344598 bytes).
+ 30i,8n,25p,873b,278s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/fernandes/.texlive2019/texmf-var/fonts/pk/ljfou
+r/jknappen/ec/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr12.pfb>
+Output written on report.pdf (14 pages, 345283 bytes).
 PDF statistics:
- 81 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 84 PDF objects out of 1000 (max. 8388607)
+ 44 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
