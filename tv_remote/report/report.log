@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.11)  13 OCT 2021 14:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  13 OCT 2021 22:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -60,6 +60,12 @@ Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/titling/titling.sty
+Package: titling 2009/09/04 v2.1d maketitle typesetting
+\thanksmarkwidth=\skip49
+\thanksmargin=\skip50
+\droptitle=\skip51
+)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count176
@@ -68,20 +74,20 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -105,6 +111,19 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+<./images/EEUMLOGO.png, id=1, 301.125pt x 273.02pt>
+File: ./images/EEUMLOGO.png Graphic file (type png)
+<use ./images/EEUMLOGO.png>
+Package pdftex.def Info: ./images/EEUMLOGO.png  used on input line 29.
+(pdftex.def)             Requested size: 136.50238pt x 123.76604pt.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 32.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 32.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./images/EEUMLOGO.png>]
 (./report.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 2.
@@ -118,13 +137,15 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
  [1
 
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+]
 Chapter 1.
-<./images/prob_statement.png, id=8, 392.46625pt x 312.16624pt>
+
+LaTeX Warning: Citation `covid' on page 2 undefined on input line 44.
+
+<./images/prob_statement.png, id=14, 392.46625pt x 312.16624pt>
 File: ./images/prob_statement.png Graphic file (type png)
 <use ./images/prob_statement.png>
-Package pdftex.def Info: ./images/prob_statement.png  used on input line 29.
+Package pdftex.def Info: ./images/prob_statement.png  used on input line 52.
 (pdftex.def)             Requested size: 292.5pt x 232.66655pt.
 [2
 
@@ -134,96 +155,98 @@ Chapter 2.
 [4
 
 ]
-Overfull \hbox (41.15666pt too wide) in paragraph at lines 58--68
+Overfull \hbox (41.15666pt too wide) in paragraph at lines 81--91
  [][] 
  []
 
-<./images/SysOverview.png, id=21, 432.61626pt x 191.71625pt>
+<./images/SysOverview.png, id=26, 432.61626pt x 191.71625pt>
 File: ./images/SysOverview.png Graphic file (type png)
 <use ./images/SysOverview.png>
-Package pdftex.def Info: ./images/SysOverview.png  used on input line 79.
+Package pdftex.def Info: ./images/SysOverview.png  used on input line 102.
 (pdftex.def)             Requested size: 292.5pt x 129.62813pt.
 [5 <./images/SysOverview.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 89--90
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 98--99
+Underfull \hbox (badness 10000) in paragraph at lines 121--122
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--106
+Underfull \hbox (badness 10000) in paragraph at lines 128--129
 
  []
 
 [6]
-<./images/HW_Arch.png, id=29, 573.14125pt x 211.79124pt>
+<./images/HW_Arch.png, id=35, 573.14125pt x 211.79124pt>
 File: ./images/HW_Arch.png Graphic file (type png)
 <use ./images/HW_Arch.png>
-Package pdftex.def Info: ./images/HW_Arch.png  used on input line 115.
+Package pdftex.def Info: ./images/HW_Arch.png  used on input line 138.
 (pdftex.def)             Requested size: 292.5pt x 108.08643pt.
-<./images/Use-Case.png, id=30, 834.11626pt x 353.32pt>
+<./images/Use-Case.png, id=36, 834.11626pt x 353.32pt>
 File: ./images/Use-Case.png Graphic file (type png)
 <use ./images/Use-Case.png>
-Package pdftex.def Info: ./images/Use-Case.png  used on input line 126.
+Package pdftex.def Info: ./images/Use-Case.png  used on input line 149.
 (pdftex.def)             Requested size: 292.5pt x 123.90106pt.
  [7 <./images/HW_Arch.png> <./images/Use-Case.png>]
-<./images/SequeceDiagram.png, id=37, 402.50375pt x 181.67876pt>
+<./images/SequeceDiagram.png, id=42, 402.50375pt x 181.67876pt>
 File: ./images/SequeceDiagram.png Graphic file (type png)
 <use ./images/SequeceDiagram.png>
-Package pdftex.def Info: ./images/SequeceDiagram.png  used on input line 138.
+Package pdftex.def Info: ./images/SequeceDiagram.png  used on input line 161.
 (pdftex.def)             Requested size: 292.5pt x 132.02557pt.
  [8 <./images/SequeceDiagram.png>]
 Chapter 3.
-<./images/attiny.png, id=42, 421.575pt x 458.71375pt>
+<./images/attiny.png, id=47, 421.575pt x 458.71375pt>
 File: ./images/attiny.png Graphic file (type png)
 <use ./images/attiny.png>
-Package pdftex.def Info: ./images/attiny.png  used on input line 166.
+Package pdftex.def Info: ./images/attiny.png  used on input line 189.
 (pdftex.def)             Requested size: 58.49762pt x 63.64552pt.
 [9
 
  <./images/attiny.png>]
-<./images/iremitter.jpg, id=47, 602.25pt x 602.25pt>
+<./images/iremitter.jpg, id=52, 602.25pt x 602.25pt>
 File: ./images/iremitter.jpg Graphic file (type jpg)
 <use ./images/iremitter.jpg>
-Package pdftex.def Info: ./images/iremitter.jpg  used on input line 186.
+Package pdftex.def Info: ./images/iremitter.jpg  used on input line 209.
 (pdftex.def)             Requested size: 136.50238pt x 136.50206pt.
  [10 <./images/iremitter.jpg>]
-<./images/arduino.png, id=51, 1027.84pt x 783.92876pt>
+<./images/arduino.png, id=56, 1027.84pt x 783.92876pt>
 File: ./images/arduino.png Graphic file (type png)
 <use ./images/arduino.png>
-Package pdftex.def Info: ./images/arduino.png  used on input line 206.
+Package pdftex.def Info: ./images/arduino.png  used on input line 229.
 (pdftex.def)             Requested size: 97.5pt x 74.35439pt.
-<./images/Flowchart.png, id=52, 490.83376pt x 554.07pt>
+<./images/Flowchart.png, id=57, 490.83376pt x 554.07pt>
 File: ./images/Flowchart.png Graphic file (type png)
 <use ./images/Flowchart.png>
-Package pdftex.def Info: ./images/Flowchart.png  used on input line 216.
+Package pdftex.def Info: ./images/Flowchart.png  used on input line 239.
 (pdftex.def)             Requested size: 292.5pt x 330.1957pt.
- (./report.bbl [11 <./images/arduino.png>] [12 <./images/Flowchart.png>]
+ (./report.bbl [11 <./images/arduino.png>] [12 <./images/Flowchart.png>]) [13
 
-LaTeX Warning: Empty `thebibliography' environment on input line 24.
+] (./report.aux)
 
-) [13
+LaTeX Warning: There were undefined references.
 
-] (./report.aux) ) 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 1374 strings out of 481239
- 20432 string characters out of 5920376
- 253591 words of memory out of 5000000
- 16660 multiletter control sequences out of 15000+600000
- 537535 words of font info for 41 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 30i,7n,25p,864b,224s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/te
-xmf/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on report.pdf (13 pages, 339139 bytes).
+ 1454 strings out of 483140
+ 21587 string characters out of 5965150
+ 249888 words of memory out of 5000000
+ 16492 multiletter control sequences out of 15000+600000
+ 538756 words of font info for 45 fonts, out of 8000000 for 9000
+ 36 hyphenation exceptions out of 8191
+ 30i,7n,25p,864b,226s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/fernandes/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200
+.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
+Output written on report.pdf (14 pages, 344327 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 84 PDF objects out of 1000 (max. 8388607)
+ 44 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

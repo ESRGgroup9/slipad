@@ -3,10 +3,33 @@
 \usepackage{graphicx}
 \usepackage{indentfirst}
 \usepackage{url}
+\usepackage{titling}
 
 \graphicspath{{./images/}}
 
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\LARGE#1\end{center}
+    \vskip0.5em}%
+}
+
+\title{\textbf{Remote Control}}
+
+\subtitle{{\large Master in Industrial Eletronics and Computers Engeneering} \\ {\large Embedded Systems}}
+
+\author{Authors:\\Diogo Fernandes PG47150\\José Tomás Abreu PG47386\\ \\ Supervisors:\\Prof. Dr. Tiago Gomes\\Prof. Dr. Sandro Pinto}
+
+\date{\today}
+
 \begin{document}
+
+{\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.35\textwidth]{EEUMLOGO}
+	\end{figure}}
+
+\maketitle
 
 \tableofcontents
 \clearpage
@@ -18,7 +41,7 @@
 %	Analysis Verification
 \chapter{Introduction}
 \section{Problem Statement}
-Due to COVID-19 [ref], many countries established mandatory lockdown, which increased the usage of entertainment platforms. Television continues to have an important role in this matter, and that’s why a better user experience, through a good interface, is increasingly needed.
+Due to COVID-19 \cite{covid}, many countries established mandatory lockdown, which increased the usage of entertainment platforms. Television continues to have an important role in this matter, and that’s why a better user experience, through a good interface, is increasingly needed.
 Despite knowing that smart TV’s market is growing, because of its features, a large percentage of the televisions in use are non-smart TV’s [ref], which use infrared sensors to allow the user to control the TV, via a remote control. In this report, it will be analyzed and designed a remote control with the following characteristics: it must control the TV using an infrared sensor, it must be light and battery powered. It should have three buttons: one to switch the TV on/off, called “Power”; the other two buttons are used to scroll up/down and select the available channels, and they are labeled with the arrows up/down, respectively. The main goal of this project is to consolidate the methods of the Waterfall model, as it is a classic model in software development methodology, suitable for small-scale projects.
 
 \section{Problem Statement Analysis}

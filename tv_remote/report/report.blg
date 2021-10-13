@@ -2,57 +2,63 @@ This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: report.aux
 The style file: IEEEtran.bst
-I found no \citation commands---while reading file report.aux
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: References.bib
+Warning--entry type for "covid" isn't style-file defined
+--line 36 of file References.bib
+Illegal end of database file---line 43 of file References.bib
+ : 
+ : 
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 0 entries,
+You've used 1 entry,
             4087 wiz_defined-function locations,
-            821 strings with 7291 characters,
-and the built_in function-call counts, 104 in all, are:
-= -- 0
-> -- 0
+            824 strings with 7308 characters,
+and the built_in function-call counts, 373 in all, are:
+= -- 16
+> -- 1
 < -- 0
-+ -- 0
++ -- 1
 - -- 0
-* -- 19
-:= -- 27
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
+* -- 25
+:= -- 68
+add.period$ -- 2
+call.type$ -- 1
+change.case$ -- 1
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
+cite$ -- 1
+duplicate$ -- 28
+empty$ -- 35
 format.name$ -- 0
-if$ -- 3
+if$ -- 65
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 23
+int.to.str$ -- 1
+missing$ -- 6
+newline$ -- 26
 num.names$ -- 0
-pop$ -- 0
+pop$ -- 21
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1
+skip$ -- 23
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 1
+swap$ -- 12
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 0
+type$ -- 1
 warning$ -- 0
 while$ -- 0
-width$ -- 0
-write$ -- 22
+width$ -- 2
+write$ -- 28
 (There was 1 error message)
