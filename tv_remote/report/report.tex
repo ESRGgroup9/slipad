@@ -61,17 +61,17 @@ This image, figure \ref{fig:prob_statement}, shows that the remote controller is
 \subsection{Market Definition}
 A remote control, by definition, is an electronic device used to operate another device from a distance, usually wirelessly. These allow you to control different types of devices, such as televisions, air conditioning, DVD players, sound systems, among others. Remote controllers have different technologies to communicate with the devices they control, such as Bluetooth, Wi-Fi, Radio Frequency (RF) and Infrared (IR), the latter being the most used technology in remote controls.
 
-There are three types of remotes:
+%There are three types of remotes:
+%
+%\begin{itemize}
+%	\item Dedicated Remote: a remote programmed to control one or more 					specific devices; 
+%
+%	\item Universal Remote Control: also called a ‘library’ remote, it’s 				programmed by manufacture to control almost all common home devices;
+%
+%	\item Programmable Remote Control: can be programmed either with codes 				to control devices or create more elaborate functions via a 					computer or mobile app, using USB communication, Bluetooth or Wifi.
+%\end{itemize}
 
-\begin{itemize}
-	\item Dedicated Remote: a remote programmed to control one or more 					specific devices; 
-
-	\item Universal Remote Control: also called a ‘library’ remote, it’s 				programmed by manufacture to control almost all common home devices;
-
-	\item Programmable Remote Control: can be programmed either with codes 				to control devices or create more elaborate functions via a 					computer or mobile app, using USB communication, Bluetooth or Wifi.
-\end{itemize}
-
-Regarding the application field, since this allows the operation of devices that are out of convenient reach for direct operation of controls, they may be used in different fields, like industry, civil, military, space, and others.
+%Regarding the application field, since this allows the operation of devices that are out of convenient reach for direct operation of controls, they may be used in different fields, like industry, civil, military, space, and others.
 
 \subsection{Bench-Marking}
 Most of the time, when you buy a device that requires a remote control, it's already included. In the table below, table \ref{table:popular_remotes}, there are shown some of the most popular remotes in the market right now.
@@ -109,7 +109,7 @@ As shown in figure \ref{fig:sys_overview}, the push buttons on the remote behave
 Functional Requirements:
 
 \begin{itemize}
-	\item Three push buttons: Power button, scroll up button, scroll down button.\\
+	\item Three push buttons: Power button, scroll up button, scroll down button.
 \end{itemize}
 
 Non-Functional Requirements:
@@ -118,19 +118,19 @@ Non-Functional Requirements:
 	\item Low-Power consumption;
 	\item Well built;
 	\item Simple interface;
-	\item Low response times.\\
+	\item Low response times.
 \end{itemize}
 
 System Constraints:
 \begin{itemize}
 	\item Time constraint;
 	\item 2 Members team;
-	\item Infrared communication.\\
+	\item Infrared communication.
 \end{itemize}
-\section{System Architecture}
-A system architecture is the conceptual model that describes the system, based on its structure and behavior. In this way, the system must be described in two ways: hardware architecture, which describes the existing connections between hardware components, and software architecture, which describes the flow of information in the system.
+%\section{System Architecture}
+%A system architecture is the conceptual model that describes the system, based on its structure and behavior. In this way, the system must be described in two ways: hardware architecture, which describes the existing connections between hardware components, and software architecture, which describes the flow of information in the system.
 
-\subsection{Hardware Architecture}
+\section{Hardware Architecture}
 The core of this system is the integrated circuit, which reads the data from the sensors (push buttons) and produces an electrical signal that identifies the operation carried out by the user. This signal is transmitted to the infrared emitter, which converts it into a light signal (infrared). The system's batteries allow powering all components. In figure \ref{fig:hw_arch} it is possible to identify all the hardware components that make up the system. 
 
 \begin{figure}[ht]
