@@ -42,7 +42,7 @@
 \chapter{Introduction}
 \section{Problem Statement}
 Due to COVID-19 \cite{covid}, many countries established mandatory lockdown, which increased the usage of entertainment platforms. Television continues to have an important role in this matter, and that’s why a better user experience, through a good interface, is increasingly needed.
-Despite knowing that smart TV’s market is growing, because of its features, a large percentage of the televisions in use are non-smart TV’s [ref], which use infrared sensors to allow the user to control the TV, via a remote control. In this report, it will be analyzed and designed a remote control with the following characteristics: it must control the TV using an infrared sensor, it must be light and battery powered. It should have three buttons: one to switch the TV on/off, called “Power”; the other two buttons are used to scroll up/down and select the available channels, and they are labeled with the arrows up/down, respectively. The main goal of this project is to consolidate the methods of the Waterfall model, as it is a classic model in software development methodology, suitable for small-scale projects.
+Despite knowing that smart TV’s market is growing, because of its features, a large percentage of the televisions in use are non-smart TV’s \cite{smarttv}, which use infrared sensors to allow the user to control the TV, via a remote control. In this report, it will be analyzed and designed a remote control with the following characteristics: it must control the TV using an infrared sensor, it must be light and battery powered. It should have three buttons: one to switch the TV on/off, called “Power”; the other two buttons are used to scroll up/down and select the available channels, and they are labeled with the arrows up/down, respectively. The main goal of this project is to consolidate the methods of the Waterfall model, as it is a classic model in software development methodology, suitable for small-scale projects.
 
 \section{Problem Statement Analysis}
 In order to have a better and deeper understanding of the problem, it’s essential to identify the entities involved and their relationships. Using that analysis, a system diagram can be built, figure \ref{fig:prob_statement}, relating the known entities and presenting some attributes.
@@ -70,23 +70,27 @@ A remote control, by definition, is an electronic device used to operate another
 %
 %	\item Programmable Remote Control: can be programmed either with codes 				to control devices or create more elaborate functions via a 					computer or mobile app, using USB communication, Bluetooth or Wifi.
 %\end{itemize}
+<<<<<<< HEAD
 
+=======
+%
+>>>>>>> master
 %Regarding the application field, since this allows the operation of devices that are out of convenient reach for direct operation of controls, they may be used in different fields, like industry, civil, military, space, and others.
 
 \subsection{Bench-Marking}
 Most of the time, when you buy a device that requires a remote control, it's already included. In the table below, table \ref{table:popular_remotes}, there are shown some of the most popular remotes in the market right now.
 
 \begin{table}[h]
-	\centering
-	\begin{tabular}{||c c c c c||} 
-	\hline
-	Product Name & Price (€) & Weight (g) & Comm. Technology & Remote Type\\
-	\hline\hline
-	Roku Voice & 17,30 & 90,72 & Wi-Fi & Dedicated\\ 
-	Apple TV & 25,00 & 18,14 & Wi-Fi, Bluetooth & Dedicated \\
-	DIRECTV RC73 & 6,05 & 90,71 & IR, RF & Programmable\\
-	IR-1316 & 12,97 & 49,89 & IR & Universal\\
-	\hline
+    \centering
+    \begin{tabular}{||c c c c||} 
+    \hline
+    Product Name & Price (€) & Weight (g) & Comm. Technology\\
+    \hline\hline
+    Roku Voice \cite{RokuVoiceRemote} & 17,30 & 90,72 & Wi-Fi\\ 
+    Apple TV \cite{AppleTVRemote} & 25,00 & 18,14 & Wi-Fi, Bluetooth \\
+    DIRECTV RC73 \cite{DIRECTV_RC73} & 6,05 & 90,71 & IR, RF \\
+    IR-1316 \cite{UniversalRemoteControl_Samsung} & 12,97 & 49,89 & IR \\
+    \hline
 \end{tabular}
 				
 \caption{Most popular Amazon's remote controllers. }
@@ -99,7 +103,7 @@ As shown in figure \ref{fig:sys_overview}, the push buttons on the remote behave
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.75\textwidth]{SysOverview}
+	\includegraphics[width=0.60\textwidth]{SysOverview}
 	\caption{System Overview Diagram.}
 	\label{fig:sys_overview}
 \end{figure}
@@ -109,24 +113,25 @@ As shown in figure \ref{fig:sys_overview}, the push buttons on the remote behave
 Functional Requirements:
 
 \begin{itemize}
-	\item Three push buttons: Power button, scroll up button, scroll down button.
+    \item Three push buttons: Power button, scroll up button, scroll down button.\\
 \end{itemize}
 
 Non-Functional Requirements:
 \begin{itemize}
-	\item Lightweight;
-	\item Low-Power consumption;
-	\item Well built;
-	\item Simple interface;
-	\item Low response times.
+    \item Lightweight;
+    \item Low-Power consumption;
+    \item Well built;
+    \item Simple interface;
+    \item Low response times.\\
 \end{itemize}
 
 System Constraints:
 \begin{itemize}
-	\item Time constraint;
-	\item 2 Members team;
-	\item Infrared communication.
+    \item Time constraint;
+    \item 2 Members team;
+    \item Infrared communication.\\
 \end{itemize}
+
 %\section{System Architecture}
 %A system architecture is the conceptual model that describes the system, based on its structure and behavior. In this way, the system must be described in two ways: hardware architecture, which describes the existing connections between hardware components, and software architecture, which describes the flow of information in the system.
 
@@ -146,7 +151,7 @@ The core of this system is the integrated circuit, which reads the data from the
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.75\textwidth]{Use-Case}
+	\includegraphics[width=1.2\textwidth]{Use-Case}
 	\caption{Use Case Diagram.}
 	\label{fig:use_case}
 \end{figure}
@@ -182,12 +187,12 @@ A sequence diagram is another graphical representation that describes how and in
 In this section it will be specified the chosen hardware and presented the interface between each of the components.
 
 \subsection{Microprocessor}
-The integrated circuit that will control the operating status of the remote will be the ATtiny85 [ref] (figure \ref{fig:attiny}). This is a well known microcontroller due to its small dimensions, associated capabilities and its low price. Its a good fit for this system because of its low operating voltage and of its ability to read the data given by the sensors, the remote buttons, and produce an adequate response.
+The integrated circuit that will control the operating status of the remote will be the ATtiny85 \cite{microp} (figure \ref{fig:attiny}). This is a well known microcontroller due to its small dimensions, associated capabilities and its low price. Its a good fit for this system because of its low operating voltage and of its ability to read the data given by the sensors, the remote buttons, and produce an adequate response.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.15\textwidth]{attiny}
-	\caption{ATtiny85 10-SU [ref].}
+	\caption{ATtiny85 10-SU.}
 	\label{fig:attiny}
 \end{figure}
 
@@ -199,7 +204,7 @@ The integrated circuit that will control the operating status of the remote will
 	\item 512 B data RAM size.
 \end{itemize}
 
-For programming the ATtiny85 it can be used an Arduino board, like Arduino UNO [ref], which is a one-time process.
+For programming the ATtiny85 it can be used an Arduino board, like Arduino UNO \cite{arduno}, which is a one-time process.
 
 \subsection{IR Emitter}
 The system’s actuator is an infrared emitter, which has been used in remote controls since the early 1980s. IR sensors are used to measure and detect infrared radiation in its surrounding environment. An IR emitter can be easily found, having the appearence represented in the figure \ref{fig:iremitter}.
@@ -207,7 +212,7 @@ The system’s actuator is an infrared emitter, which has been used in remote co
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.35\textwidth]{iremitter}
-	\caption{IR Emitter [ref].}
+	\caption{IR Emitter \cite{ir}.}
 	\label{fig:iremitter}
 \end{figure}
 
@@ -222,7 +227,7 @@ In order to supply the system components, focusing on the microprocessor operati
 \section{Software Specification}
 % Sw used
 % Flowcharts
-To program the system’s microprocessor it can be used the Arduino Software (IDE) [ref], figure \ref{fig:arduino}, which is an open-source software, that makes it easy to write code and upload it to the board. This software can be used with any Arduino board, an so, adequate to program Arduino UNO.
+To program the system’s microprocessor it can be used the Arduino Software (IDE) \cite{arduino}, figure \ref{fig:arduino}, which is an open-source software, that makes it easy to write code and upload it to the board. This software can be used with any Arduino board, an so, adequate to program Arduino UNO.
 
 \begin{figure}[ht]
 	\centering
