@@ -2,62 +2,55 @@ This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: report.aux
 The style file: IEEEtran.bst
-I couldn't open database file References.bib
----line 3 of file report.aux
- : \bibdata{References
- :                    }
-I'm skipping whatever remains of this command
-I found no \citation commands---while reading file report.aux
-I found no database files---while reading file report.aux
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: References.bib
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 0 entries,
+You've used 3 entries,
             4087 wiz_defined-function locations,
-            821 strings with 7291 characters,
-and the built_in function-call counts, 104 in all, are:
-= -- 0
-> -- 0
+            835 strings with 7786 characters,
+and the built_in function-call counts, 1087 in all, are:
+= -- 84
+> -- 3
 < -- 0
-+ -- 0
++ -- 3
 - -- 0
-* -- 19
-:= -- 27
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
+* -- 49
+:= -- 200
+add.period$ -- 6
+call.type$ -- 3
+change.case$ -- 3
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
+cite$ -- 3
+duplicate$ -- 90
+empty$ -- 109
 format.name$ -- 0
-if$ -- 3
+if$ -- 231
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 23
+int.to.str$ -- 3
+missing$ -- 18
+newline$ -- 32
 num.names$ -- 0
-pop$ -- 0
+pop$ -- 51
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1
+skip$ -- 87
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 3
+swap$ -- 48
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 0
+type$ -- 3
 warning$ -- 0
 while$ -- 0
-width$ -- 0
-write$ -- 22
-(There were 3 error messages)
+width$ -- 4
+write$ -- 46
