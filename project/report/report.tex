@@ -1,4 +1,4 @@
-\documentclass[12pt, letterpaper]{article}
+\documentclass[12pt, letterpaper]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{indentfirst}
@@ -30,14 +30,30 @@
 \end{figure}}
 
 \maketitle
-
-%\tableofcontents
 \clearpage
-\section{Problem Statement}
-Nowadays, the energy crisis is a constant theme because of the inflated energy prices \cite{energy_crisis}. Furthermore, huge energy consumption is a burden to the environment, as not all means of energy production are non-polluting \cite{owidenergy}. It is known that, in cities, street lamps are continuously switched on at night, most of the time unnecessarily since there are many places not regularly used, which leads to a great waste of energy, also contributing to the increase in light pollution \cite{light_pollution}.
-	
-With that in mind, the main objective of this project is the creation of a monitoring device, capable of controlling an intelligent street lamps network. These are capable of turning on only when they detect movement in the surroundings, adjusting their luminosity according to the needs of the surrounding environment and monitor nearby traffic. The device to be developed must be able to connect to all the sensors of each street lamp, must have knowledge of each operating conditions and location, and also must be able to control the street lamps individually, if necessary.
 
+\tableofcontents
+\clearpage
+
+\listoffigures
+\clearpage
+
+\listoftables
+\clearpage
+
+\chapter{Introduction}
+\section{Problem Statement}
+Nowadays, the energy crisis is a constant theme because of the inflated energy prices \cite{energy_crisis}. Furthermore, huge energy consumption is a burden to the environment, as not all means of energy production are non-polluting. According to "Our World in Data"\cite{owidenergy}, in 2019, 63,3\% of eletrical energy production comes from fossil fuels. It is known that, in cities, street lamps are continuously switched on at night, most of the time unnecessarily glowing with its full intensity in the absence of any activities in the street.  This leads to a great waste of energy, also contributing to the increase in light pollution. As claimed by National Geographic \cite{light_pollution}, 83\% of world population lives under light-polluted skies. This is a problem since it alters the biochemical rhythms that normally flow with natural light levels and also endangers ecosystems by harming animals whose life cycles depend on dark.
+
+With that in mind, the main objective of this project is the creation of a monitoring device, capable of controlling an intelligent street lamps network. These are capable of turning on only when they detect movement in the surroundings, adjusting their luminosity according to the needs of the surrounding environment. The device to be developed must be able to connect to all the sensors of each street lamp, must have knowledge of each operating conditions and location, and also must be able to control the street lamps individually, if necessary.
+
+\section{Problem Statement Analysis}
+In order to have a better and deeper understanding of the problem, it’s essential to identify the entities involved and their relationships. Using that analysis, a system diagram can be built, figure \ref{fig:prob_statement}, relating the known entities and presenting some attributes.
+
+
+
+%When Los Angeles recently replaced more than 150,000 streetlights with LEDs, the city saved roughly 8 million dollars annually, or more than 60 percent on energy costs.
+%Now, as the consequences of light pollution tiptoe from the shadows and into the spotlight, cities, regulatory agencies, and conservation groups are agitating for solutions.
 
 
 \bibliographystyle{IEEEtran}
