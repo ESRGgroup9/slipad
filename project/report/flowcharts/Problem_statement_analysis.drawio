@@ -1,9 +1,27 @@
-<mxfile host="app.diagrams.net" modified="2021-10-31T18:30:00.827Z" agent="5.0 (X11)" etag="lmzYwsPGfjMG837p3qfY" version="15.6.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-10-31T18:54:05.308Z" agent="5.0 (X11)" etag="dBIPcDAEnlxWVvUBaPU0" version="15.6.3" type="github">
   <diagram id="GV7fddVUWi21_tPSA-Fl" name="Page-1">
     <mxGraphModel dx="981" dy="1716" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="0AEqZ0coXG4K2BfvZ1Me-78" value="Sensors" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0AEqZ0coXG4K2BfvZ1Me-79" value="Secondary Controller " style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="540" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0AEqZ0coXG4K2BfvZ1Me-80" value="Lamp" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="820" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0AEqZ0coXG4K2BfvZ1Me-75" value="Sensors" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="250" y="149" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0AEqZ0coXG4K2BfvZ1Me-76" value="Secondary Controller " style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="530" y="149" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0AEqZ0coXG4K2BfvZ1Me-77" value="Lamp" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="810" y="149" width="120" height="60" as="geometry" />
+        </mxCell>
         <mxCell id="0AEqZ0coXG4K2BfvZ1Me-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontSize=10;labelBackgroundColor=#DAD2D8;strokeColor=#A8201A;fontColor=#143642;" edge="1" parent="1" source="0AEqZ0coXG4K2BfvZ1Me-2" target="0AEqZ0coXG4K2BfvZ1Me-49">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
