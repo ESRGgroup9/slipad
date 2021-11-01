@@ -5,6 +5,8 @@
 \usepackage{url}
 \usepackage{titling}
 \graphicspath{{./images/}}
+\usepackage{fancyhdr}
+
 
 % ----- Capa -----
 \newcommand{\subtitle}[1]{%
@@ -21,6 +23,21 @@
 \author{Authors:\\Diogo Fernandes PG47150\\José Tomás Abreu PG47386\\ \\ Supervisors:\\Prof. Dr. Tiago Gomes\\Prof. Ricardo Roriz\\Prof. Sérgio Pereira}
 
 \date{\today}
+
+%HEADER AND FOOTER
+\pagestyle{fancy}	
+\fancyhf{}			%clear header and footer
+
+%header
+\renewcommand{\headrulewidth}{0.5pt}
+\chead{\nouppercase\leftmark}
+
+%footer
+\renewcommand{\footrulewidth}{0.5pt}
+\fancyfoot[R]{\small{\thepage}}
+\fancyfoot[L]{\small{Embedded Systems - Smart Street Lighting}}
+%\rfoot{\small\thepage}
+%\lfoot{\small Embedded Systems - Smart Street Lighting}
 
 \begin{document}
 
