@@ -4,9 +4,9 @@
 \usepackage{indentfirst}
 \usepackage{url}
 \usepackage{titling}
+\usepackage{emptypage}
 \graphicspath{{./images/}}
 \usepackage{fancyhdr}
-
 
 % ----- Capa -----
 \newcommand{\subtitle}[1]{%
@@ -24,20 +24,32 @@
 
 \date{\today}
 
-%HEADER AND FOOTER
+%HEADER AND FOOTER CHAPTER PAGES
+\fancypagestyle{plain}{%
+	\fancyhf{}			%clear header and footer
+	%footer
+	\fancyfoot[R]{\small{\thepage}}
+	\fancyfoot[L]{\small{Embedded Systems - Smart Street Lighting}}
+	\renewcommand{\headrulewidth}{0pt}% Line at the header invisible
+	\renewcommand{\footrulewidth}{0.5pt}% Line at the footer visible
+}
+
+%HEADER AND FOOTER NORMAL PAGES
+\fancypagestyle{IHA-fancy-style}{%
+	%header
+	\renewcommand{\headrulewidth}{0.5pt}
+	\chead{\nouppercase\leftmark}
+	
+	%footer
+	\renewcommand{\footrulewidth}{0.5pt}
+	\fancyfoot[R]{\small{\thepage}}
+	\fancyfoot[L]{\small{Embedded Systems - Smart Street Lighting}}
+	%\rfoot{\small\thepage}
+	%\lfoot{\small Embedded Systems - Smart Street Lighting}
+}
+
 \pagestyle{fancy}	
 \fancyhf{}			%clear header and footer
-
-%header
-\renewcommand{\headrulewidth}{0.5pt}
-\chead{\nouppercase\leftmark}
-
-%footer
-\renewcommand{\footrulewidth}{0.5pt}
-\fancyfoot[R]{\small{\thepage}}
-\fancyfoot[L]{\small{Embedded Systems - Smart Street Lighting}}
-%\rfoot{\small\thepage}
-%\lfoot{\small Embedded Systems - Smart Street Lighting}
 
 \begin{document}
 
@@ -47,18 +59,27 @@
 \end{figure}}
 
 \maketitle
-\clearpage
 
+%doesnt work
+\cleardoublepage
+\pagestyle{empty}
+
+\pagenumbering{roman}	%roman numbering
 \tableofcontents
 \clearpage
 
-\listoffigures
 \clearpage
+\addcontentsline{toc}{section}{\listfigurename}\listoffigures
 
-\listoftables
 \clearpage
+\addcontentsline{toc}{section}{\listtablename}\listoftables
+
+\newpage
+
+\pagenumbering{arabic} %arabic numbering
 
 % ---------------------- INTRODUCTION ----------------------
+\pagestyle{IHA-fancy-style}
 \chapter{Introduction}
 % Problem statement
 % Problem statement analysis
