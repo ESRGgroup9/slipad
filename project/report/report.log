@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.11)  2 NOV 2021 15:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.11)  2 NOV 2021 16:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -314,14 +314,14 @@ This may cause the page layout to be inconsistent, however.
 Chapter 2.
 (./texts/market_research.tex [4
 
-]) (./texts/system.tex
-<./images/system_overview.png, id=39, 1518.67375pt x 897.3525pt>
+]) (./texts/system.tex [5]
+<./images/system_overview.png, id=42, 1518.67375pt x 898.35625pt>
 File: ./images/system_overview.png Graphic file (type png)
 <use ./images/system_overview.png>
 Package pdftex.def Info: ./images/system_overview.png  used on input line 6.
-(pdftex.def)             Requested size: 390.0pt x 230.44441pt.
- [5])
-(./texts/gantt_chart.tex) (./report.bbl [6 <./images/system_overview.png>]
+(pdftex.def)             Requested size: 390.0pt x 230.70218pt.
+ [6 <./images/system_overview.png>] [7]) (./texts/gantt_chart.tex) (./report.bb
+l [8]
 Underfull \hbox (badness 10000) in paragraph at lines 25--29
 []\OT1/cmr/m/n/12 C. Hel-man, ``En-ergy cri-sis 2021: How bad is
  []
@@ -397,14 +397,14 @@ Underfull \hbox (badness 3229) in paragraph at lines 51--54
 -[]council-[]case-[]study$
  []
 
-) [7
+) [9
 
 ] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 5899 strings out of 481239
- 131213 string characters out of 5920376
- 367432 words of memory out of 5000000
- 21071 multiletter control sequences out of 15000+600000
+ 5947 strings out of 481239
+ 132612 string characters out of 5920376
+ 367651 words of memory out of 5000000
+ 21119 multiletter control sequences out of 15000+600000
  539403 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  43i,10n,45p,1010b,304s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -414,10 +414,10 @@ hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf/fonts/typ
 e1/public/cm-super/sfrm1200.pfb>
-Output written on report.pdf (12 pages, 394220 bytes).
+Output written on report.pdf (14 pages, 403434 bytes).
 PDF statistics:
- 71 PDF objects out of 1000 (max. 8388607)
- 45 compressed objects within 1 object stream
+ 78 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
