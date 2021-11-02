@@ -5,8 +5,11 @@
 \usepackage{url}
 \usepackage{titling}
 \usepackage{emptypage}
-\graphicspath{{./images/}}
+
 \usepackage{fancyhdr}
+\usepackage{acro}
+
+\graphicspath{{./images/}}
 
 % ----- Capa -----
 \newcommand{\subtitle}[1]{%
@@ -51,6 +54,8 @@
 \pagestyle{fancy}	
 \fancyhf{}			%clear header and footer
 
+\input{./acronyms} % load all acronyms
+
 \begin{document}
 
 {\begin{figure}[t]
@@ -73,6 +78,10 @@
 
 \clearpage
 \addcontentsline{toc}{section}{\listtablename}\listoftables
+
+\clearpage
+\addcontentsline{toc}{section}{Acronyms}
+\printacronyms
 
 \newpage
 
