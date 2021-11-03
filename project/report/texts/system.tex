@@ -8,11 +8,11 @@ Through the system overview diagram, in figure \ref{fig:system_overview}, it is 
 	\label{fig:system_overview}
 \end{figure}
 
-The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, and a light sensor, to detect the light conditions of the pole’s surroundings. The controller, through sensors information, controls the luminosity of the lamp and communicates via wireless with the monitoring device. The monitoring device exchanges data with a database, recording all information relating to each local system. This information can also be viewed and managed by a mobile application, which can be accessed by a person responsible for the street lamp network. Knowing that the public lighting network is directly related to the electrical network, this will be used to power local systems, such as the monitoring device.
+The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a light sensor, to detect the light conditions of the pole’s surroundings, and a LED state sensor to know if the LED lamp is working. The controller, through sensors information, controls the luminosity of the lamp and communicates via wireless with the monitoring device. The monitoring device exchanges data with a database, recording all information relating to each local system. This information can also be viewed and managed by a mobile application, which can be accessed by a person responsible for the street lamp network. The monitoring device can also control a series of LEDs regarding network state. Knowing that the public lighting network is directly related to the electrical network, this will be used to power local systems, such as the monitoring device.
 
 \subsection{System Requirements and Constraints}
+In order for the system to have the desired performance, these requirements and constraints must be respected:
 
-\noindent
 \subparagraph{Functional Requirements}
 \begin{itemize}
 	\item Sensors data acquisition				\item Motion detector
@@ -49,6 +49,17 @@ The local system is composed of sensors, a controller and a lamp. Regarding the 
 	
 \end{itemize}
 
-\section{Software Architecture}
+\section{System Architecture}
+Using the system overview diagram information, one can describe the system in two different architectures. Hardware architecture, as how the hardware modules interfaces with itself, and what are the physical components of the system, and software architecture, which details how the information is processed among different software layers.
 
-\section{Hardware Architecture}
+\subsection{Hardware Architecture}
+In figure \ref{fig:hw_arch}, one can see the diagram that represents the physical connections of the system. The power of most system components will be the output of the DC/DC converter, powering the controller and its associated sensors. In order to power the lamp and at the same time control its brightness, a driver must be used, taking the controller output and system power as inputs. The Raspberry Pi, despite not belonging to the local system, is powered similarly to the controller, via a DC/DC converter. Furthermore, it communicates with the controller wirelessly through its wireless interface, with the controller's wireless communication module.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\textwidth]{hw_arch}
+	\caption{Hardware Architecture Diagram.}
+	\label{fig:hw_arch}
+\end{figure}
+
+\subsection{Software Architecture}
