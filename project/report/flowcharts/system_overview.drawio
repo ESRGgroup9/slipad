@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-03T09:46:25.324Z" agent="5.0 (X11)" etag="tqhp3mY1GJkyJLMizat_" version="15.6.6" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2021-11-03T11:56:33.251Z" agent="5.0 (X11)" etag="lHVKArSSFAFvTW2Z6DO_" version="15.6.6" type="github" pages="5">
   <diagram id="EQGx9o1L-gMM6Sx8-_Ex" name="sys_overview">
     <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -620,7 +620,7 @@
         <mxCell id="j54kdKdezbFyS3DmXMZz-1" value="Luminosity Sensor Driver" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="cqi6LLjhCKUpaNgvB_9j-1">
           <mxGeometry x="280" y="290" width="115" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="j54kdKdezbFyS3DmXMZz-2" value="LED Faillure Sensor Driver" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="cqi6LLjhCKUpaNgvB_9j-1">
+        <mxCell id="j54kdKdezbFyS3DmXMZz-2" value="LED Failure Sensor Driver" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="cqi6LLjhCKUpaNgvB_9j-1">
           <mxGeometry x="160" y="290" width="115" height="40" as="geometry" />
         </mxCell>
       </root>
