@@ -63,3 +63,28 @@ In figure \ref{fig:hw_arch}, one can see the diagram that represents the physica
 \end{figure}
 
 \subsection{Software Architecture}
+As seen previously, the system is divided into two subsystems: the local system and the monitoring system. Their software architectures are divided into three layers:
+
+\begin{itemize}
+	\item The Operating System layer, which is composed by the Operating System drivers and Board Support Packages;
+	\item The Middleware layer, which includes software for abstracting the lower level layer packages. It works as a pipe since it links two applications, in different layers, so that data can be easily transmitted;
+	\item The Application layer, where the core functionality of the program is built, with a resource for the API's in the lower level layers.
+\end{itemize}
+
+Regarding the local system, shown in figure \ref{fig:sw_arch_local}, the operating system layer is composed by the sensor drivers, such as the LED Failure Sensor, the Luminosity Sensor, the Motion Detector Sensor and also the Wireless Communication driver. As this system will acquire data from the environment through the mentioned sensors, at a low rate, and communicate this data to the monitoring device, multitasking will not be necessary, so this system will be bare metal, that is, it won’t have an operating system. In the middleware layer are the tools needed to acquire data from sensors and communicate wirelessly with the monitoring system. Finally, the communication between the different devices is managed in the application layer.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\textwidth]{sw_arch_local}
+	\caption{Software Architecture Diagram - Local System.}
+	\label{fig:sw_arch_local}
+\end{figure}
+
+Regarding the monitoring system, represented in figure \ref{fig:sw_arch_rasp}, the operating system layer is responsible for the network feedback LED drivers and for the wireless communication driver. This operating system will be a \ac{rtos}, due to the need to respond to events in a certain period of time and also multitasking. In the middleware layer, there will be the PThreads execution model, for multitasking, as well as the wireless communication and data acquisition frameworks. The application layer manages the system database, as well as the graphical user interface and all communications with local systems.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\textwidth]{sw_arch_rasp}
+	\caption{Software Architecture Diagram - Monitoring System.}
+	\label{fig:sw_arch_rasp}
+\end{figure}
