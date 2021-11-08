@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-08T20:20:42.786Z" agent="5.0 (X11)" etag="pcsbBE-6nPuKBaXgYFod" version="15.7.0" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2021-11-08T22:41:16.862Z" agent="5.0 (X11)" etag="q3YK36sGA2LGCzN8qUoe" version="15.7.0" type="github" pages="6">
   <diagram name="sys_overview" id="RgtBxT8wIkngtmlaWKN6">
     <mxGraphModel dx="1422" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -178,7 +178,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Copy of sys_overview" id="myO2ZcbmAKwq7T55fzPX">
-    <mxGraphModel dx="981" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="981" dy="566" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="PGPTeJ8bdxFz9rZC7ruh-0" />
         <mxCell id="PGPTeJ8bdxFz9rZC7ruh-1" parent="PGPTeJ8bdxFz9rZC7ruh-0" />
@@ -268,8 +268,10 @@
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PGPTeJ8bdxFz9rZC7ruh-102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.668;entryY=-0.031;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;strokeColor=#A8201A;" edge="1" parent="PGPTeJ8bdxFz9rZC7ruh-1" source="PGPTeJ8bdxFz9rZC7ruh-56" target="PGPTeJ8bdxFz9rZC7ruh-93">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="PGPTeJ8bdxFz9rZC7ruh-102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.668;entryY=-0.031;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;strokeColor=#A8201A;" edge="1" parent="PGPTeJ8bdxFz9rZC7ruh-1" target="PGPTeJ8bdxFz9rZC7ruh-93">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440.44827586206884" y="283.0300000000002" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="PGPTeJ8bdxFz9rZC7ruh-77" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#A8201A;" edge="1" parent="PGPTeJ8bdxFz9rZC7ruh-1" source="PGPTeJ8bdxFz9rZC7ruh-4">
           <mxGeometry relative="1" as="geometry">
@@ -348,16 +350,16 @@
         <mxCell id="PGPTeJ8bdxFz9rZC7ruh-35" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=none;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.discordapp.com/attachments/897132688518025257/905108842776514650/813774.png;fontColor=default;" vertex="1" parent="PGPTeJ8bdxFz9rZC7ruh-107">
           <mxGeometry x="2.226000000000006" y="2.3127272727271535" width="59.334" height="59.334" as="geometry" />
         </mxCell>
-        <mxCell id="PGPTeJ8bdxFz9rZC7ruh-115" value="" style="group" vertex="1" connectable="0" parent="PGPTeJ8bdxFz9rZC7ruh-1">
-          <mxGeometry x="322.71999999999997" y="112.96000000000001" width="235.46999999999997" height="170.07000000000008" as="geometry" />
-        </mxCell>
-        <mxCell id="PGPTeJ8bdxFz9rZC7ruh-7" value="&lt;div&gt;&lt;font size=&quot;1&quot;&gt;&lt;b style=&quot;font-size: 17px&quot;&gt;Controller&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontColor=default;verticalAlign=top;" vertex="1" parent="PGPTeJ8bdxFz9rZC7ruh-115">
-          <mxGeometry x="27.730000000000018" width="180" height="169" as="geometry" />
-        </mxCell>
-        <mxCell id="PGPTeJ8bdxFz9rZC7ruh-56" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=none;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.okdo.com/us/wp-content/uploads/sites/8/2020/07/Board_05.png;fontColor=default;rotation=0;" vertex="1" parent="PGPTeJ8bdxFz9rZC7ruh-115">
-          <mxGeometry y="12.940000000000055" width="235.47" height="157.13" as="geometry" />
-        </mxCell>
         <mxCell id="PGPTeJ8bdxFz9rZC7ruh-117" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.921;entryY=1.008;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=15;strokeColor=#A8201A;" edge="1" parent="PGPTeJ8bdxFz9rZC7ruh-1" source="PGPTeJ8bdxFz9rZC7ruh-33" target="PGPTeJ8bdxFz9rZC7ruh-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PGPTeJ8bdxFz9rZC7ruh-7" value="&lt;div&gt;&lt;font size=&quot;1&quot;&gt;&lt;b style=&quot;font-size: 17px&quot;&gt;Controller&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontColor=default;verticalAlign=top;" vertex="1" parent="PGPTeJ8bdxFz9rZC7ruh-1">
+          <mxGeometry x="350.45" y="112.96000000000001" width="180" height="169" as="geometry" />
+        </mxCell>
+        <mxCell id="g2g196TTwXaxDgMBEXZy-0" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.discordapp.com/attachments/897132688518025257/905244486689517719/Raspi-PGB001.png;fontColor=default;" vertex="1" parent="PGPTeJ8bdxFz9rZC7ruh-1">
+          <mxGeometry x="386.16999999999996" y="153.17000000000002" width="108.57" height="96.67" as="geometry" />
+        </mxCell>
+        <mxCell id="yMeaReqjjHt9hJ1QTHVY-2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;strokeColor=#A8201A;" edge="1" parent="PGPTeJ8bdxFz9rZC7ruh-1" source="PGPTeJ8bdxFz9rZC7ruh-84" target="PGPTeJ8bdxFz9rZC7ruh-82">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
