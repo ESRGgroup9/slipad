@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  3 NOV 2021 11:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  8 NOV 2021 14:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -196,26 +196,29 @@ Package: translations 2017/08/31 v1.7a internationalization of LaTeX2e packages
 Package: scrlfile 2020/01/24 v3.29 KOMA-Script package (loading files)
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/acro/acro.definitions.tex))
-(./acronyms.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+) (./acronyms.tex)
 Package translations Info: No language package found. I am going to use `englis
-h' as default language. on input line 59.
- (./report.aux)
+h' as default language. on input line 60.
+
+(./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -247,16 +250,16 @@ File: translations-basic-dictionary-english.trsl (english translation file `tra
 nslations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' f
-or `english'. on input line 59.
+or `english'. on input line 60.
 <./images/EEUMLOGO.png, id=1, 301.125pt x 273.02pt>
 File: ./images/EEUMLOGO.png Graphic file (type png)
 <use ./images/EEUMLOGO.png>
-Package pdftex.def Info: ./images/EEUMLOGO.png  used on input line 63.
+Package pdftex.def Info: ./images/EEUMLOGO.png  used on input line 64.
 (pdftex.def)             Requested size: 136.50238pt x 123.76604pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 66.
+(Font)              <14.4> on input line 67.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 66.
+(Font)              <7> on input line 67.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./images/EEUMLOGO.png>] (.
@@ -296,147 +299,50 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 Chapter 1.
 (./texts/problem_statement.tex [1
 
-]
-<./images/Problem_statement_analysis.png, id=27, 703.62875pt x 663.47874pt>
-File: ./images/Problem_statement_analysis.png Graphic file (type png)
-<use ./images/Problem_statement_analysis.png>
-Package pdftex.def Info: ./images/Problem_statement_analysis.png  used on input
- line 11.
-(pdftex.def)             Requested size: 390.0pt x 367.73898pt.
-)
+])
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
 Make it at least 14.49998pt.
 We now make it that large for the rest of the document.
 This may cause the page layout to be inconsistent, however.
 
-[2 <./images/Problem_statement_analysis.png>] [3]
+[2]
 Chapter 2.
-(./texts/market_research.tex [4
+(./texts/market_research.tex [3
 
-]) (./texts/system.tex [5]
-<./images/system_overview.png, id=42, 1200.485pt x 946.53625pt>
+]) (./texts/system.tex [4]
+<./images/system_overview.png, id=37, 832.61063pt x 659.46375pt>
 File: ./images/system_overview.png Graphic file (type png)
 <use ./images/system_overview.png>
 Package pdftex.def Info: ./images/system_overview.png  used on input line 6.
-(pdftex.def)             Requested size: 390.0pt x 307.49065pt.
- [6 <./images/system_overview.png>] [7] [8]
-<./images/hw_arch.png, id=55, 1268.74pt x 952.55875pt>
+(pdftex.def)             Requested size: 390.0pt x 308.90149pt.
+ [5 <./images/system_overview.png>] [6] [7]
+<./images/hw_arch.png, id=48, 782.17218pt x 588.69937pt>
 File: ./images/hw_arch.png Graphic file (type png)
 <use ./images/hw_arch.png>
 Package pdftex.def Info: ./images/hw_arch.png  used on input line 60.
-(pdftex.def)             Requested size: 390.0pt x 292.8047pt.
- [9 <./images/hw_arch.png>]
-<./images/sw_arch_local.png, id=60, 633.36626pt x 302.12875pt>
+(pdftex.def)             Requested size: 390.0pt x 293.53151pt.
+ [8 <./images/hw_arch.png>]
+<./images/sw_arch_local.png, id=53, 633.36626pt x 302.12875pt>
 File: ./images/sw_arch_local.png Graphic file (type png)
 <use ./images/sw_arch_local.png>
 Package pdftex.def Info: ./images/sw_arch_local.png  used on input line 78.
 (pdftex.def)             Requested size: 390.0pt x 186.04088pt.
- [10 <./images/sw_arch_local.png>]
-<./images/sw_arch_rasp.png, id=65, 553.06625pt x 302.12875pt>
+ [9 <./images/sw_arch_local.png>]
+<./images/sw_arch_rasp.png, id=58, 553.06625pt x 302.12875pt>
 File: ./images/sw_arch_rasp.png Graphic file (type png)
 <use ./images/sw_arch_rasp.png>
 Package pdftex.def Info: ./images/sw_arch_rasp.png  used on input line 87.
 (pdftex.def)             Requested size: 390.0pt x 213.04689pt.
-) (./texts/gantt_chart.tex
+) (./texts/gantt_chart.tex [10 <./images/sw_arch_rasp.png>]
+<./images/Gantt_chart.png, id=63, 1676.2625pt x 543.02875pt>
+File: ./images/Gantt_chart.png Graphic file (type png)
+<use ./images/Gantt_chart.png>
+Package pdftex.def Info: ./images/Gantt_chart.png  used on input line 10.
+(pdftex.def)             Requested size: 390.0pt x 126.33572pt.
+ [11
 
-! LaTeX Error: Can be used only in preamble.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.2 \usepackage
-               {pdflscape}
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-! Undefined control sequence.
-l.7  \includepdf
-                [pages=-]{./texts/Smart_Street_Lighting.pdf}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.7  \includepdf[pages=-]{./texts/Smart_
-                                        Street_Lighting.pdf}
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Extra }, or forgotten $.
-l.7 ...pages=-]{./texts/Smart_Street_Lighting.pdf}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.8 \end{figure}
-                
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.8 \end{figure}
-                
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-! LaTeX Error: Environment landscape undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.10 \begin{landscape}
-                      
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: \begin{document} ended by \end{landscape}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.11 \end{landscape}
-                    
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-) (./report.bbl [11 <./images/sw_arch_rasp.png>]
-
-! LaTeX Error: Float(s) lost.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.2 \begin{thebibliography}{1}
-                              
-You've lost some text.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
+ <./images/Gantt_chart.png>]) (./report.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 25--29
 []\OT1/cmr/m/n/12 C. Hel-man, ``En-ergy cri-sis 2021: How bad is
  []
@@ -514,23 +420,28 @@ Underfull \hbox (badness 3229) in paragraph at lines 51--54
 
 ) [12
 
-] (./report.aux) ) 
+
+] (./report.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 6019 strings out of 483140
- 134579 string characters out of 5965150
- 363201 words of memory out of 5000000
- 20947 multiletter control sequences out of 15000+600000
+ 6038 strings out of 483140
+ 134827 string characters out of 5965150
+ 363404 words of memory out of 5000000
+ 20963 multiletter control sequences out of 15000+600000
  539403 words of font info for 47 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  43i,10n,45p,1016b,304s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/fernandes/.texlive2019/texmf-var/fonts/pk/ljfour/jkna
-ppen/ec/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on report.pdf (17 pages, 430055 bytes).
+ </home/fernandes/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200
+.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on report.pdf (17 pages, 394762 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
+ 92 PDF objects out of 1000 (max. 8388607)
  56 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
