@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  8 NOV 2021 14:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  8 NOV 2021 22:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -421,25 +421,25 @@ Underfull \hbox (badness 3229) in paragraph at lines 51--54
 ) [12
 
 
-] (./report.aux)
+] (./report.aux
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: Acronyms may have changed. Please rerun LaTeX.
 
- ) 
+) ) 
 Here is how much of TeX's memory you used:
- 6038 strings out of 483140
- 134827 string characters out of 5965150
- 363404 words of memory out of 5000000
- 20963 multiletter control sequences out of 15000+600000
+ 6135 strings out of 483140
+ 137597 string characters out of 5965150
+ 364909 words of memory out of 5000000
+ 21060 multiletter control sequences out of 15000+600000
  539403 words of font info for 47 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 43i,10n,45p,1016b,304s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/fernandes/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200
-.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on report.pdf (17 pages, 394762 bytes).
+ 43i,10n,45p,1296b,304s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/fernandes/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm120
+0.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on report.pdf (17 pages, 396157 bytes).
 PDF statistics:
  92 PDF objects out of 1000 (max. 8388607)
  56 compressed objects within 1 object stream
