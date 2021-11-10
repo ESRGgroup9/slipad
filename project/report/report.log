@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  10 NOV 2021 12:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  10 NOV 2021 12:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -285,15 +285,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 
 
-] (./report.lot)
-\tf@lot=\write5
-\openout5 = `report.lot'.
-
-
-[3
-
-
-] [4
+] [3
 
 ]
 Chapter 1.
@@ -311,7 +303,7 @@ Chapter 2.
 (./texts/market_research.tex [3
 
 ]
-<./images/market_growth_mordor.png, id=34, 3170.09344pt x 1684.04156pt>
+<./images/market_growth_mordor.png, id=31, 3170.09344pt x 1684.04156pt>
 File: ./images/market_growth_mordor.png Graphic file (type png)
 <use ./images/market_growth_mordor.png>
 Package pdftex.def Info: ./images/market_growth_mordor.png  used on input line 
@@ -323,25 +315,25 @@ pdfTeX warning: /usr/bin/pdflatex (file ./images/market_growth_mordor.png): lar
 ge interlaced PNG might cause out of memory (use non-interlaced PNG to fix this
 )
 >]
-<./images/telensa.png, id=39, 602.25pt x 401.5pt>
+<./images/telensa.png, id=36, 602.25pt x 401.5pt>
 File: ./images/telensa.png Graphic file (type png)
 <use ./images/telensa.png>
 Package pdftex.def Info: ./images/telensa.png  used on input line 26.
 (pdftex.def)             Requested size: 312.00119pt x 208.00926pt.
  [5 <./images/telensa.png (PNG copy)>]
-<./images/intelilight.png, id=43, 1254.6875pt x 627.34375pt>
+<./images/intelilight.png, id=40, 1254.6875pt x 627.34375pt>
 File: ./images/intelilight.png Graphic file (type png)
 <use ./images/intelilight.png>
 Package pdftex.def Info: ./images/intelilight.png  used on input line 37.
 (pdftex.def)             Requested size: 312.00119pt x 156.00273pt.
-<./images/intuvision.png, id=44, 1336.24219pt x 813.0375pt>
+<./images/intuvision.png, id=41, 1336.24219pt x 813.0375pt>
 File: ./images/intuvision.png Graphic file (type png)
 <use ./images/intuvision.png>
 Package pdftex.def Info: ./images/intuvision.png  used on input line 47.
 (pdftex.def)             Requested size: 312.00119pt x 189.83565pt.
 ) [6 <./images/intelilight.png>]
 [7 <./images/intuvision.png>] (./texts/system.tex
-<./images/system_overview.png, id=53, 1473.505pt x 850.17625pt>
+<./images/system_overview.png, id=50, 1473.505pt x 850.17625pt>
 File: ./images/system_overview.png Graphic file (type png)
 <use ./images/system_overview.png>
 Package pdftex.def Info: ./images/system_overview.png  used on input line 6.
@@ -349,20 +341,20 @@ Package pdftex.def Info: ./images/system_overview.png  used on input line 6.
  [8
 
  <./images/system_overview.png>] [9] [10]
-<./images/hw_arch.png, id=66, 1393.205pt x 718.685pt>
+<./images/hw_arch.png, id=63, 1393.205pt x 718.685pt>
 File: ./images/hw_arch.png Graphic file (type png)
 <use ./images/hw_arch.png>
 Package pdftex.def Info: ./images/hw_arch.png  used on input line 66.
 (pdftex.def)             Requested size: 390.0pt x 201.1756pt.
  [11 <./images/hw_arch.png>]
-<./images/sw_arch.png, id=71, 593.21625pt x 302.12875pt>
+<./images/sw_arch.png, id=68, 593.21625pt x 302.12875pt>
 File: ./images/sw_arch.png Graphic file (type png)
 <use ./images/sw_arch.png>
 Package pdftex.def Info: ./images/sw_arch.png  used on input line 84.
 (pdftex.def)             Requested size: 390.0pt x 198.6357pt.
 ) [12 <./images/sw_arch.png>]
 (./texts/gantt_chart.tex
-<./images/Gantt_chart.png, id=76, 1239.63126pt x 649.42625pt>
+<./images/Gantt_chart.png, id=73, 1239.63126pt x 649.42625pt>
 File: ./images/Gantt_chart.png Graphic file (type png)
 <use ./images/Gantt_chart.png>
 Package pdftex.def Info: ./images/Gantt_chart.png  used on input line 7.
@@ -454,10 +446,10 @@ com / intuvisionVA[]
 
 ) [15] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 6298 strings out of 483140
- 142254 string characters out of 5965150
+ 6293 strings out of 483140
+ 142212 string characters out of 5965150
  364638 words of memory out of 5000000
- 21223 multiletter control sequences out of 15000+600000
+ 21221 multiletter control sequences out of 15000+600000
  539403 words of font info for 47 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  43i,10n,45p,1508b,397s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -467,10 +459,10 @@ msfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 r12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pf
 b>
-Output written on report.pdf (20 pages, 4058123 bytes).
+Output written on report.pdf (19 pages, 4057945 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
- 63 compressed objects within 1 object stream
+ 106 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

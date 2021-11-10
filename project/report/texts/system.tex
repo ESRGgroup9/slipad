@@ -1,4 +1,4 @@
-\subsection{System Overview}
+\section{System Overview}
 Through the system overview diagram, in figure \ref{fig:system_overview}, it is possible to identify the main modules of the system to be developed, and how they interact. We can divide the system into two subsystems: the local system, which represents a lamp post, and the remote system, that allows interaction with the system users.
 
 \begin{figure}[ht]
@@ -11,7 +11,7 @@ Through the system overview diagram, in figure \ref{fig:system_overview}, it is 
 The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a luminosity sensor, to detect the light conditions of the pole’s surroundings, a camera to find empty parking spots and a LED failure detector to know if the LED lamp is working. The controller, through sensors information, controls the luminosity of the lamp and communicates through the internet with a remote server, via Wi-Fi connection. 
 The remote server consists of a database that stores all information about each lamp post location and operating status. This information can be accessed through a mobile application by the operator  responsible for the street lights network, in order to carry out the necessary maintenance of the lamp of each pole. Furthermore, the operator when installing a new lamp post can add its location to the database, using the mobile application. In addition, the database stores information on available parking spaces. When a user, a car driver, wants to know where there are empty parking places, he can access a website that informs him of the location of the empty parking spaces. Knowing that the public lighting network is directly related to the electrical network, this will be used to power each local system.
 
-\subsection{System Requirements and Constraints}
+\section{System Requirements and Constraints}
 In order for the system to have the desired performance, these requirements and constraints must be respected:
 
 \subparagraph{Functional Requirements}
