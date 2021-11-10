@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-10T10:02:52.624Z" agent="5.0 (X11)" etag="g_NvatFoCtvd9rQpEmhk" version="15.7.1" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2021-11-10T10:07:39.381Z" agent="5.0 (X11)" etag="kSfDtx86ToJhqTV96Zci" version="15.7.1" type="github" pages="8">
   <diagram name="sys_overview_first" id="RgtBxT8wIkngtmlaWKN6">
     <mxGraphModel dx="1422" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -913,7 +913,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Copy of sw_arch_rasp" id="fpag8uKSOF6jSnyfxXOz">
-    <mxGraphModel dx="1561" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="892" dy="473" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-0" />
         <mxCell id="rTfBJTmCusdj6inRNWWQ-1" parent="rTfBJTmCusdj6inRNWWQ-0" />
@@ -921,8 +921,8 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="630" y="220" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="631" y="230" />
-              <mxPoint x="631" y="230" />
+              <mxPoint x="621" y="230" />
+              <mxPoint x="621" y="230" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -932,30 +932,28 @@
         <mxCell id="rTfBJTmCusdj6inRNWWQ-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.919;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;labelBorderColor=none;fontColor=default;strokeColor=#A8201A;labelBackgroundColor=default;" edge="1" parent="rTfBJTmCusdj6inRNWWQ-1" source="rTfBJTmCusdj6inRNWWQ-5" target="rTfBJTmCusdj6inRNWWQ-7">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="631" y="130" />
-              <mxPoint x="631" y="130" />
+              <mxPoint x="623" y="120" />
+              <mxPoint x="623" y="120" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-5" value="Middleware" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#d6b656;strokeWidth=0.6;fillColor=#fff2cc;align=left;verticalAlign=middle;fontStyle=1;fontColor=default;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
-          <mxGeometry x="270" y="160" width="400" height="60" as="geometry" />
+          <mxGeometry x="160" y="160" width="510" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="rTfBJTmCusdj6inRNWWQ-6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=#A8201A;" edge="1" parent="rTfBJTmCusdj6inRNWWQ-1" source="rTfBJTmCusdj6inRNWWQ-7">
+        <mxCell id="rTfBJTmCusdj6inRNWWQ-6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=#A8201A;entryX=0.127;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="rTfBJTmCusdj6inRNWWQ-1" target="rTfBJTmCusdj6inRNWWQ-3">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="229" y="280" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="229" y="160" />
-              <mxPoint x="229" y="160" />
-            </Array>
+            <Array as="points" />
+            <mxPoint x="120" y="101" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-7" value="Application" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#6c8ebf;strokeWidth=0.6;fillColor=#dae8fc;align=left;verticalAlign=middle;fontStyle=1;fontColor=default;glass=0;sketch=0;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
-          <mxGeometry x="190" y="40" width="480" height="60" as="geometry" />
+          <mxGeometry x="90" y="40" width="580" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="rTfBJTmCusdj6inRNWWQ-8" value="Wireless Communication Drivers" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
+        <mxCell id="rTfBJTmCusdj6inRNWWQ-8" value="Wi-Fi Drivers" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
           <mxGeometry x="510" y="290" width="150" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="rTfBJTmCusdj6inRNWWQ-9" value="Wireless Communication Framework" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#000000;strokeWidth=0.6;fillColor=#fff2cc;align=center;verticalAlign=middle;fontColor=default;opacity=80;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
+        <mxCell id="rTfBJTmCusdj6inRNWWQ-9" value="Wi-Fi Communication Framework" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#000000;strokeWidth=0.6;fillColor=#fff2cc;align=center;verticalAlign=middle;fontColor=default;opacity=80;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
           <mxGeometry x="510" y="170" width="150" height="40" as="geometry" />
         </mxCell>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-10" value="Database" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#6c8ebf;strokeWidth=0.6;fillColor=#dae8fc;align=center;verticalAlign=middle;shadow=1;fontColor=default;glass=0;sketch=0;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
@@ -981,6 +979,12 @@
         </mxCell>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-20" value="PWM Drivers" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
           <mxGeometry x="180" y="290" width="105" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CkrygHN5k43zn_iCaklq-0" value="OpenCV" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#000000;strokeWidth=0.6;fillColor=#fff2cc;align=center;verticalAlign=middle;fontColor=default;opacity=80;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
+          <mxGeometry x="270" y="170" width="75" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CkrygHN5k43zn_iCaklq-1" value="Web Site" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#6c8ebf;strokeWidth=0.6;fillColor=#dae8fc;align=center;verticalAlign=middle;shadow=1;fontColor=default;glass=0;sketch=0;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
+          <mxGeometry x="290" y="50" width="77.5" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
