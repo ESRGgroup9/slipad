@@ -9,7 +9,7 @@ Through the system overview diagram, in figure \ref{fig:system_overview}, it is 
 \end{figure}
 
 The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a luminosity sensor, to detect the light conditions of the pole’s surroundings, a camera to find empty parking spots and a LED failure detector to know if the LED lamp is working. The controller, through sensors information, controls the luminosity of the lamp and communicates through the internet with a remote server, via Wi-Fi connection. 
-The remote server consists of a database that stores all information about each lamp post location and operating status. This information can be accessed through a mobile application by the operator  responsible for the street lights network, in order to carry out the necessary maintenance of the lamp of each pole. Furthermore, the operator when installing a new lamp post can add its location to the database, using the mobile application. In addition, the database stores information on available parking spaces. When a user, a car driver, wants to know where there are empty parking places, he can access a website that informs him of the location of the empty parking spaces. \textbf{Knowing that the public lighting network is directly related to the electrical network, this will be used to power the local systems.}
+The remote server consists of a database that stores all information about each lamp post location and operating status. This information can be accessed through a mobile application by the operator  responsible for the street lights network, in order to carry out the necessary maintenance of the lamp of each pole. Furthermore, the operator when installing a new lamp post can add its location to the database, using the mobile application. In addition, the database stores information on available parking spaces. When a user, a car driver, wants to know where there are empty parking places, he can access a website that informs him of the location of the empty parking spaces. Knowing that the public lighting network is directly related to the electrical network, this will be used to power each local system.
 
 \subsection{System Requirements and Constraints}
 In order for the system to have the desired performance, these requirements and constraints must be respected:
@@ -53,11 +53,13 @@ In order for the system to have the desired performance, these requirements and 
 	\item Low budget
 \end{itemize}
 
+
 \section{System Architecture}
 Using the system overview diagram information, one can describe the system in two different architectures. Hardware architecture, as how the hardware modules interfaces with itself, and what are the physical components of the system, and software architecture, which details how the information is processed among different software layers.
 
 \subsection{Hardware Architecture}
-In figure \ref{fig:hw_arch}, one can see the diagram that represents the physical connections of the system. The power of most system components will be the output of the DC/DC converter, powering the controller and its associated sensors. In order to power the lamp and at the same time control its brightness, a driver must be used, taking the controller output and system power as inputs. The Raspberry Pi, despite not belonging to the local system, is powered similarly to the controller, via a DC/DC converter. Furthermore, it communicates with the controller wirelessly through its wireless interface, with the controller's wireless communication module.
+In figure \ref{fig:hw_arch}, one can see the diagram that represents the physical connections of the system. The Raspberry Pi is the main component in the system, processing all the information given by the sensors, via \ac{gpio} pins and \ac{csi} for the camera, and also controlling the \ac{led} lamp brightness. 
+The power of all system components comes from the power grid and, through an AC/DC converter, will power the Raspberry Pi and its associated sensors. In order to power the lamp and at the same time control its brightness, a driver is used, taking the controller output, a \ac{pwm} signal, and system power as inputs. 
 
 \begin{figure}[ht]
 	\centering
@@ -67,28 +69,19 @@ In figure \ref{fig:hw_arch}, one can see the diagram that represents the physica
 \end{figure}
 
 \subsection{Software Architecture}
-As seen previously, the system is divided into two subsystems: the local system and the monitoring system. Their software architectures are divided into three layers:
+The software architecture is divided into three layers:
 
 \begin{itemize}
-	\item The Operating System layer, which is composed by the Operating System drivers and Board Support Packages;
-	\item The Middleware layer, which includes software for abstracting the lower level layer packages. It works as a pipe since it links two applications, in different layers, so that data can be easily transmitted;
-	\item The Application layer, where the core functionality of the program is built, with a resource for the API's in the lower level layers.
+	\item The \textbf{Operating System} layer, which is composed by the Operating System drivers and Board Support Packages;
+	\item The \textbf{Middleware} layer, which includes software for abstracting the lower level layer packages. It works as a pipe since it links two applications, in different layers, so that data can be easily transmitted;
+	\item The \textbf{Application} layer, where the core functionality of the program is built, with a resource for the API's in the lower level layers.
 \end{itemize}
 
-Regarding the local system, shown in figure \ref{fig:sw_arch_local}, the operating system layer is composed by the sensor drivers, such as the LED Failure Sensor, the Luminosity Sensor, the Motion Detector Sensor and also the Wireless Communication driver. As this system will acquire data from the environment through the mentioned sensors, at a low rate, and communicate this data to the monitoring device, multitasking will not be necessary, so this system will be bare metal, that is, it won’t have an operating system. In the middleware layer are the tools needed to acquire data from sensors and communicate wirelessly with the monitoring system. Finally, the communication between the different devices is managed in the application layer.
+As shown in figure \ref{fig:sw_arch}, the operating system layer is composed by the sensor drivers, such as the LED Failure Sensor, the Luminosity Sensor, the Motion Detector which uses \ac{gpio} drivers, the camera, that uses CSI drivers and also the Wi-Fi Communication driver. In the middleware layer are the tools needed to process the images from the camera, to multitasking, using PThreads execution model, to acquire data from sensors and to communicate via Wi-Fi with the remote server. Finally, the application layer manages the system database, as well as the graphical user interface, that is the mobile application and the web site, and also all communications with the neighbor street poles.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\textwidth]{sw_arch_local}
-	\caption{Software Architecture Diagram - Local System.}
-	\label{fig:sw_arch_local}
-\end{figure}
-
-Regarding the monitoring system, represented in figure \ref{fig:sw_arch_rasp}, the operating system layer is responsible for the network feedback LED drivers and for the wireless communication driver. This operating system will be a \ac{rtos}, due to the need to respond to events in a certain period of time and also multitasking. In the middleware layer, there will be the PThreads execution model, for multitasking, as well as the wireless communication and data acquisition frameworks. The application layer manages the system database, as well as the graphical user interface and all communications with local systems.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=1\textwidth]{sw_arch_rasp}
-	\caption{Software Architecture Diagram - Monitoring System.}
-	\label{fig:sw_arch_rasp}
+	\includegraphics[width=1\textwidth]{sw_arch}
+	\caption{Software Architecture Diagram.}
+	\label{fig:sw_arch}
 \end{figure}
