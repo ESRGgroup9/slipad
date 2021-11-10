@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-10T11:36:20.984Z" agent="5.0 (X11)" etag="ZoJ6M-TAf0DVFa_gY2J4" version="15.7.1" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2021-11-10T11:39:28.142Z" agent="5.0 (X11)" etag="P64URT69ttBRNx4Ay63c" version="15.7.1" type="github" pages="8">
   <diagram name="sys_overview_first" id="RgtBxT8wIkngtmlaWKN6">
     <mxGraphModel dx="1422" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -178,7 +178,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="sys_overview" id="myO2ZcbmAKwq7T55fzPX">
-    <mxGraphModel dx="706" dy="414" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="826" dy="414" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="PGPTeJ8bdxFz9rZC7ruh-0" />
         <mxCell id="PGPTeJ8bdxFz9rZC7ruh-1" parent="PGPTeJ8bdxFz9rZC7ruh-0" />
@@ -701,7 +701,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="hw_arch" id="yV4Tl3WlULae0qgzAwJa">
-    <mxGraphModel dx="855" dy="501" grid="0" gridSize="7" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1001" dy="501" grid="0" gridSize="7" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="mFuTaCtOZCncO_Q4BWWo-0" />
         <mxCell id="mFuTaCtOZCncO_Q4BWWo-1" parent="mFuTaCtOZCncO_Q4BWWo-0" />
@@ -821,9 +821,9 @@
           <mxGeometry x="147" y="293.87000000000006" width="120" height="52.63" as="geometry" />
         </mxCell>
         <mxCell id="mFuTaCtOZCncO_Q4BWWo-29" value="" style="group" vertex="1" connectable="0" parent="mFuTaCtOZCncO_Q4BWWo-1">
-          <mxGeometry y="273.19" width="107" height="94" as="geometry" />
+          <mxGeometry x="5" y="273.19" width="107" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="mFuTaCtOZCncO_Q4BWWo-30" value="Power Module" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=default;fontStyle=1;verticalAlign=top;fontSize=15;" vertex="1" parent="mFuTaCtOZCncO_Q4BWWo-29">
+        <mxCell id="mFuTaCtOZCncO_Q4BWWo-30" value="Power Grid" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=default;fontStyle=1;verticalAlign=top;fontSize=15;" vertex="1" parent="mFuTaCtOZCncO_Q4BWWo-29">
           <mxGeometry width="107" height="94" as="geometry" />
         </mxCell>
         <mxCell id="mFuTaCtOZCncO_Q4BWWo-31" value="" style="whiteSpace=wrap;html=1;aspect=fixed;rounded=0;sketch=0;fillColor=#dae8fc;strokeColor=#000000;strokeWidth=0.6;fontColor=default;" vertex="1" parent="mFuTaCtOZCncO_Q4BWWo-29">
@@ -835,7 +835,8 @@
         <mxCell id="mFuTaCtOZCncO_Q4BWWo-33" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#A8201A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="mFuTaCtOZCncO_Q4BWWo-1" source="mFuTaCtOZCncO_Q4BWWo-30" target="mFuTaCtOZCncO_Q4BWWo-23">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="107" y="320" />
+              <mxPoint x="116" y="320" />
+              <mxPoint x="116" y="320" />
             </Array>
           </mxGeometry>
         </mxCell>
