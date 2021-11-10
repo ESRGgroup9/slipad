@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-10T10:52:46.051Z" agent="5.0 (X11)" etag="91c6gJTOQhcKeKKDQv-g" version="15.7.1" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2021-11-10T11:36:20.984Z" agent="5.0 (X11)" etag="ZoJ6M-TAf0DVFa_gY2J4" version="15.7.1" type="github" pages="8">
   <diagram name="sys_overview_first" id="RgtBxT8wIkngtmlaWKN6">
     <mxGraphModel dx="1422" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -178,7 +178,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="sys_overview" id="myO2ZcbmAKwq7T55fzPX">
-    <mxGraphModel dx="781" dy="414" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="706" dy="414" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="PGPTeJ8bdxFz9rZC7ruh-0" />
         <mxCell id="PGPTeJ8bdxFz9rZC7ruh-1" parent="PGPTeJ8bdxFz9rZC7ruh-0" />
@@ -366,7 +366,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="2YMkQsnhhbPbL5Rh4rdP" name="hw_arch_first">
-    <mxGraphModel dx="1422" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1411" dy="827" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="rzghQZXNpjI42Efn0ldZ-0" />
         <mxCell id="rzghQZXNpjI42Efn0ldZ-1" parent="rzghQZXNpjI42Efn0ldZ-0" />
@@ -538,7 +538,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="hw_arch_second" id="YGVPrFuNElY__KZbzgBz">
-    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1411" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="FKu8q8iJp5mjpwkCajYu-0" />
         <mxCell id="FKu8q8iJp5mjpwkCajYu-1" parent="FKu8q8iJp5mjpwkCajYu-0" />
@@ -701,7 +701,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="hw_arch" id="yV4Tl3WlULae0qgzAwJa">
-    <mxGraphModel dx="946" dy="501" grid="0" gridSize="7" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="855" dy="501" grid="0" gridSize="7" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="mFuTaCtOZCncO_Q4BWWo-0" />
         <mxCell id="mFuTaCtOZCncO_Q4BWWo-1" parent="mFuTaCtOZCncO_Q4BWWo-0" />
@@ -817,7 +817,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="mFuTaCtOZCncO_Q4BWWo-23" value="&lt;div style=&quot;font-size: 15px&quot;&gt;DC/DC &lt;br style=&quot;font-size: 15px&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 15px&quot;&gt;Converter&lt;br style=&quot;font-size: 15px&quot;&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=default;fontStyle=1;verticalAlign=middle;fontSize=15;" vertex="1" parent="mFuTaCtOZCncO_Q4BWWo-1">
+        <mxCell id="mFuTaCtOZCncO_Q4BWWo-23" value="&lt;div style=&quot;font-size: 15px&quot;&gt;AC/DC &lt;br style=&quot;font-size: 15px&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 15px&quot;&gt;Converter&lt;br style=&quot;font-size: 15px&quot;&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=default;fontStyle=1;verticalAlign=middle;fontSize=15;" vertex="1" parent="mFuTaCtOZCncO_Q4BWWo-1">
           <mxGeometry x="147" y="293.87000000000006" width="120" height="52.63" as="geometry" />
         </mxCell>
         <mxCell id="mFuTaCtOZCncO_Q4BWWo-29" value="" style="group" vertex="1" connectable="0" parent="mFuTaCtOZCncO_Q4BWWo-1">
