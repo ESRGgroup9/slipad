@@ -1,5 +1,5 @@
 \subsection{System Overview}
-Through the system overview diagram, in figure \ref{fig:system_overview}, it is possible to identify the main modules of the system to be developed, and how they interact. We can divide the system into two subsystems: the local system, which represents a lamp post, and the monitoring device, which can monitor a network of lamp posts.
+Through the system overview diagram, in figure \ref{fig:system_overview}, it is possible to identify the main modules of the system to be developed, and how they interact. We can divide the system into two subsystems: the local system, which represents a lamp post, and the remote system, that allows interaction with the system users.
 
 \begin{figure}[ht]
 	\centering
@@ -8,22 +8,27 @@ Through the system overview diagram, in figure \ref{fig:system_overview}, it is 
 	\label{fig:system_overview}
 \end{figure}
 
-The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a light sensor, to detect the light conditions of the pole’s surroundings, and a LED state sensor to know if the LED lamp is working. The controller, through sensors information, controls the luminosity of the lamp and communicates via wireless with the monitoring device. The monitoring device exchanges data with a database, recording all information relating to each local system. This information can also be viewed and managed by a mobile application, which can be accessed by a person responsible for the street lamp network. The monitoring device can also control a series of LEDs regarding network state. Knowing that the public lighting network is directly related to the electrical network, this will be used to power local systems, such as the monitoring device.
+The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a luminosity sensor, to detect the light conditions of the pole’s surroundings, a camera to find empty parking spots and a LED failure detector to know if the LED lamp is working. The controller, through sensors information, controls the luminosity of the lamp and communicates through the internet with a remote server, via Wi-Fi connection. 
+The remote server consists of a database that stores all information about each lamp post location and operating status. This information can be accessed through a mobile application by the operator  responsible for the street lights network, in order to carry out the necessary maintenance of the lamp of each pole. Furthermore, the operator when installing a new lamp post can add its location to the database, using the mobile application. In addition, the database stores information on available parking spaces. When a user, a car driver, wants to know where there are empty parking places, he can access a website that informs him of the location of the empty parking spaces. \textbf{Knowing that the public lighting network is directly related to the electrical network, this will be used to power the local systems.}
 
 \subsection{System Requirements and Constraints}
 In order for the system to have the desired performance, these requirements and constraints must be respected:
 
 \subparagraph{Functional Requirements}
 \begin{itemize}
-	\item Sensors data acquisition				\item Motion detector
+	\item Sensors data acquisition				
+	\item Motion detector
 	\item Control of a street lamp
-	\item Control a network of street poles		\item Wireless communication
-	\item Access system information through a mobile application
+	\item Wi-Fi communication
+	\item Empty parking spots detection
+	\item Manage system information through a mobile application
+	\item Add lamp post location through a mobile application
+	\item Access available parking spots location through a web site
 \end{itemize}
 
 \subparagraph{Non-Functional Requirements}
 \begin{itemize}
-	\item User friendly mobile application
+	\item User friendly mobile application and web site
 	\item Ambient luminosity sensing
 	\item Lower power consumption than actual street lights
 	\item Soft Real-Time Embedded System
@@ -32,7 +37,7 @@ In order for the system to have the desired performance, these requirements and 
 \subparagraph{Technical Constraints}
 \begin{itemize}
 	\item Buildroot
-	\item C/C++ 
+	\item C and C++ 
 	\item Device Drivers
 	\item Linux
 	\item Raspberry Pi
@@ -46,7 +51,6 @@ In order for the system to have the desired performance, these requirements and 
 	\item Two members team
 	\item Project deadline at the end of the semester
 	\item Low budget
-	
 \end{itemize}
 
 \section{System Architecture}
