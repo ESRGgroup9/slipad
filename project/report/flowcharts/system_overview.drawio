@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-10T10:22:50.830Z" agent="5.0 (X11)" etag="nMqqjIsvt3kbX1efx8Mh" version="15.7.1" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2021-11-10T10:52:46.051Z" agent="5.0 (X11)" etag="91c6gJTOQhcKeKKDQv-g" version="15.7.1" type="github" pages="8">
   <diagram name="sys_overview_first" id="RgtBxT8wIkngtmlaWKN6">
     <mxGraphModel dx="1422" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -887,7 +887,7 @@
           <mxGeometry x="570" y="290" width="90" height="40" as="geometry" />
         </mxCell>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-9" value="Wi-Fi Services" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#000000;strokeWidth=0.6;fillColor=#fff2cc;align=center;verticalAlign=middle;fontColor=default;opacity=80;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
-          <mxGeometry x="510" y="170" width="150" height="40" as="geometry" />
+          <mxGeometry x="560" y="170" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-10" value="Database" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#6c8ebf;strokeWidth=0.6;fillColor=#dae8fc;align=center;verticalAlign=middle;shadow=1;fontColor=default;glass=0;sketch=0;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
           <mxGeometry x="580" y="50" width="70" height="40" as="geometry" />
@@ -899,10 +899,10 @@
           <mxGeometry x="376.25" y="50" width="107.5" height="40" as="geometry" />
         </mxCell>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-13" value="Data Aquisition" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#000000;strokeWidth=0.6;fillColor=#fff2cc;align=center;verticalAlign=middle;fontColor=default;opacity=80;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
-          <mxGeometry x="430" y="170" width="75" height="40" as="geometry" />
+          <mxGeometry x="480" y="170" width="75" height="40" as="geometry" />
         </mxCell>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-15" value="&lt;div&gt;PThreads&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#000000;strokeWidth=0.6;fillColor=#fff2cc;align=center;verticalAlign=middle;fontColor=default;opacity=80;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
-          <mxGeometry x="350" y="170" width="75" height="40" as="geometry" />
+          <mxGeometry x="400" y="170" width="75" height="40" as="geometry" />
         </mxCell>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-16" value="GPIO Drivers" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
           <mxGeometry x="460" y="290" width="105" height="40" as="geometry" />
@@ -914,13 +914,13 @@
           <mxGeometry x="240" y="290" width="105" height="40" as="geometry" />
         </mxCell>
         <mxCell id="CkrygHN5k43zn_iCaklq-0" value="Image Processing" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#000000;strokeWidth=0.6;fillColor=#fff2cc;align=center;verticalAlign=middle;fontColor=default;opacity=80;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
-          <mxGeometry x="270" y="170" width="75" height="40" as="geometry" />
+          <mxGeometry x="320" y="170" width="75" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="w0nG-ewcZfd1jOW8a1ow" name="sw_arch_rasp">
-    <mxGraphModel dx="1561" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1411" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="5wax7KZYNt1jfCTd_mId-0" />
         <mxCell id="5wax7KZYNt1jfCTd_mId-1" parent="5wax7KZYNt1jfCTd_mId-0" />
@@ -987,7 +987,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="sw_arch_local" id="6reTSMS23gcO3UInIFfJ">
-    <mxGraphModel dx="1561" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1411" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="cqi6LLjhCKUpaNgvB_9j-0" />
         <mxCell id="cqi6LLjhCKUpaNgvB_9j-1" parent="cqi6LLjhCKUpaNgvB_9j-0" />
