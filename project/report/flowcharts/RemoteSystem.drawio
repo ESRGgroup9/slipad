@@ -1,10 +1,10 @@
-<mxfile host="app.diagrams.net" modified="2021-11-15T22:34:45.670Z" agent="5.0 (X11)" etag="FIO9bIX6AmsvWkSaoAOP" version="15.7.3" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-11-15T22:35:47.395Z" agent="5.0 (X11)" etag="F0Cwuv-yEzTXTeqpagVb" version="15.7.3" type="github" pages="4">
   <diagram id="smE5fnJAyVyCLhYMQo8Z" name="AppSystem_UseCases">
     <mxGraphModel dx="1185" dy="661" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="Z5xYq3RRcm3EjHd7aSkA-1" value="Application System" style="swimlane;startSize=0;verticalAlign=top;" vertex="1" parent="1">
+        <mxCell id="Z5xYq3RRcm3EjHd7aSkA-1" value="Remote client - Application " style="swimlane;startSize=0;verticalAlign=top;" vertex="1" parent="1">
           <mxGeometry x="120" y="120" width="520" height="440" as="geometry" />
         </mxCell>
         <mxCell id="Z5xYq3RRcm3EjHd7aSkA-31" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;" edge="1" parent="Z5xYq3RRcm3EjHd7aSkA-1" source="Z5xYq3RRcm3EjHd7aSkA-7" target="Z5xYq3RRcm3EjHd7aSkA-28">
@@ -112,7 +112,7 @@
       <root>
         <mxCell id="5bZJ5uvaay_0yBccqVm7-0" />
         <mxCell id="5bZJ5uvaay_0yBccqVm7-1" parent="5bZJ5uvaay_0yBccqVm7-0" />
-        <mxCell id="5bZJ5uvaay_0yBccqVm7-2" value="Web Site System" style="swimlane;startSize=0;verticalAlign=top;" vertex="1" parent="5bZJ5uvaay_0yBccqVm7-1">
+        <mxCell id="5bZJ5uvaay_0yBccqVm7-2" value="Remote Client - Web Site " style="swimlane;startSize=0;verticalAlign=top;" vertex="1" parent="5bZJ5uvaay_0yBccqVm7-1">
           <mxGeometry x="120" y="120" width="520" height="240" as="geometry" />
         </mxCell>
         <mxCell id="HWeHAJftkcvxa5E9LvG0-5" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;" edge="1" parent="5bZJ5uvaay_0yBccqVm7-2" source="5bZJ5uvaay_0yBccqVm7-12" target="HWeHAJftkcvxa5E9LvG0-4">
