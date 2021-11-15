@@ -1,0 +1,11 @@
+Event						System Response														Source					Type
+
+Login 						Show application main screen if successful							Operator				Assynchronous
+Obtain geolocation			Request device geolocation							 				Application's Device 	Assynchronous
+App notification 			Notifies the operator about the lamps status						Data Base				Assynchronous
+Register operator			Add operator information to database								Operator				Assynchronous
+Modify street post			Update street post information to database							Operator				Assynchronous
+Register street post		Add street post information to database								Operator				Assynchronous
+
+Insert location				Displays parking spots												User					Assynchronous
+Obtain geolocation			Request device geolocation											Browser's Device 		Assynchronous
