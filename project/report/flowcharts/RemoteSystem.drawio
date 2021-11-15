@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-11-15T22:23:37.987Z" agent="5.0 (X11)" etag="6pT-9HuFsmdnQCNBCuzi" version="15.7.3" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-11-15T22:29:24.267Z" agent="5.0 (X11)" etag="SuFeTum0J3Tk2q8BGEY3" version="15.7.3" type="github" pages="4">
   <diagram id="smE5fnJAyVyCLhYMQo8Z" name="AppSystem_UseCases">
-    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1185" dy="661" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -108,7 +108,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="WebSiteSys_UseCases" id="4FfJd1EmiULP9ebMevSI">
-    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1185" dy="661" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="5bZJ5uvaay_0yBccqVm7-0" />
         <mxCell id="5bZJ5uvaay_0yBccqVm7-1" parent="5bZJ5uvaay_0yBccqVm7-0" />
@@ -133,8 +133,8 @@
         <mxCell id="HWeHAJftkcvxa5E9LvG0-6" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;" edge="1" parent="5bZJ5uvaay_0yBccqVm7-2" source="HWeHAJftkcvxa5E9LvG0-4" target="5bZJ5uvaay_0yBccqVm7-20">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="HWeHAJftkcvxa5E9LvG0-4" value="Display Parking Spots" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="5bZJ5uvaay_0yBccqVm7-2">
-          <mxGeometry x="220" y="40" width="80" height="40" as="geometry" />
+        <mxCell id="HWeHAJftkcvxa5E9LvG0-4" value="Show Available Parking Spots" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="5bZJ5uvaay_0yBccqVm7-2">
+          <mxGeometry x="210" y="35" width="100" height="50" as="geometry" />
         </mxCell>
         <mxCell id="lhICtqO1B-pOkqbgifs4-2" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;" edge="1" parent="5bZJ5uvaay_0yBccqVm7-2" source="lhICtqO1B-pOkqbgifs4-0" target="5bZJ5uvaay_0yBccqVm7-13">
           <mxGeometry relative="1" as="geometry" />
@@ -146,7 +146,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="5bZJ5uvaay_0yBccqVm7-22" value="&lt;div&gt; Device where &lt;br&gt;&lt;/div&gt;&lt;div&gt;the WebSite&lt;/div&gt;&lt;div&gt; is running&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="5bZJ5uvaay_0yBccqVm7-1">
-          <mxGeometry x="680" y="280" width="30" height="60" as="geometry" />
+          <mxGeometry x="680" y="250" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="5bZJ5uvaay_0yBccqVm7-26" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="5bZJ5uvaay_0yBccqVm7-1" source="5bZJ5uvaay_0yBccqVm7-28" target="5bZJ5uvaay_0yBccqVm7-12">
           <mxGeometry relative="1" as="geometry" />
@@ -333,7 +333,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="bABfZ5KSR_ARfo-jGFOm-0" value="Accept Location Access?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=none;align=center;verticalAlign=middle;" vertex="1" parent="fxeLt2PDO6SFIFV0pFWX-1">
+        <mxCell id="bABfZ5KSR_ARfo-jGFOm-0" value="Use GPS Location?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=none;align=center;verticalAlign=middle;" vertex="1" parent="fxeLt2PDO6SFIFV0pFWX-1">
           <mxGeometry x="360" y="200" width="120" height="100" as="geometry" />
         </mxCell>
         <mxCell id="YDjZGpQ12eDDHxPqJp9n-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;verticalAlign=middle;" edge="1" parent="fxeLt2PDO6SFIFV0pFWX-1" source="PTSw33NLbifbEQkw_JY2-0">
@@ -344,7 +344,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="PTSw33NLbifbEQkw_JY2-0" value="Ask and Find Location" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.1;arcSize=6;fillColor=none;labelPosition=center;align=center;" vertex="1" parent="fxeLt2PDO6SFIFV0pFWX-1">
+        <mxCell id="PTSw33NLbifbEQkw_JY2-0" value="Insert Location" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.1;arcSize=6;fillColor=none;labelPosition=center;align=center;" vertex="1" parent="fxeLt2PDO6SFIFV0pFWX-1">
           <mxGeometry x="524" y="290" width="150" height="60" as="geometry" />
         </mxCell>
         <mxCell id="rBYO_LJDjtLjBQALx_wB-0" value="Invalid Location" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=1;curved=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;html=1;bendable=1;" edge="1" parent="fxeLt2PDO6SFIFV0pFWX-1" source="PTSw33NLbifbEQkw_JY2-0" target="PTSw33NLbifbEQkw_JY2-0">
@@ -362,7 +362,7 @@
         <mxCell id="YDjZGpQ12eDDHxPqJp9n-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=1;verticalAlign=middle;" edge="1" parent="fxeLt2PDO6SFIFV0pFWX-1" source="rBYO_LJDjtLjBQALx_wB-2" target="YDjZGpQ12eDDHxPqJp9n-4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="rBYO_LJDjtLjBQALx_wB-2" value="Display Parking Spots" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.08823529411764706;arcSize=6;fillColor=none;labelPosition=center;align=center;" vertex="1" parent="fxeLt2PDO6SFIFV0pFWX-1">
+        <mxCell id="rBYO_LJDjtLjBQALx_wB-2" value="Show Available Parking Spots" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;whiteSpace=wrap;rounded=1;size=0.08823529411764706;arcSize=6;fillColor=none;labelPosition=center;align=center;" vertex="1" parent="fxeLt2PDO6SFIFV0pFWX-1">
           <mxGeometry x="335" y="440" width="170" height="40" as="geometry" />
         </mxCell>
         <mxCell id="YDjZGpQ12eDDHxPqJp9n-4" value="END" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fillColor=none;align=center;verticalAlign=middle;" vertex="1" parent="fxeLt2PDO6SFIFV0pFWX-1">
