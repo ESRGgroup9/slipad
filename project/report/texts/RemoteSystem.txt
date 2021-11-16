@@ -7,5 +7,5 @@ Register operator			Add operator information to database								Operator				Assy
 Modify street post			Update street post information to database							Operator				Assynchronous
 Register street post		Add street post information to database								Operator				Assynchronous
 
-Insert location				Displays parking spots												User					Assynchronous
+Insert location				Shows parking spots												User					Assynchronous
 Obtain geolocation			Request device geolocation											Browser's Device 		Assynchronous
