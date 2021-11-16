@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-15T22:46:23.250Z" agent="5.0 (X11)" etag="NTMoQvltfszNATZp_XCX" version="15.7.3" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-11-16T00:21:13.802Z" agent="5.0 (X11)" etag="70Ake8FULrK4XVhrdS0u" version="15.7.3" type="github" pages="2">
   <diagram id="QrgwSfwA3ZyEnwDPh4sy" name="Page-1">
     <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -69,10 +69,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="mUUMDVEmyQ42DfhIIiiI-11" value="AP" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;" parent="1" vertex="1">
+        <mxCell id="mUUMDVEmyQ42DfhIIiiI-11" value="AP" style="text;html=1;strokeColor=#d6b656;fillColor=#FAE5C7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="390" y="470" width="40" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="mUUMDVEmyQ42DfhIIiiI-12" value="Power Grid" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;" parent="1" vertex="1">
+        <mxCell id="mUUMDVEmyQ42DfhIIiiI-12" value="Power Grid" style="text;html=1;strokeColor=#d6b656;fillColor=#FAE5C7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="440" y="260" width="70" height="80" as="geometry" />
         </mxCell>
         <mxCell id="mUUMDVEmyQ42DfhIIiiI-13" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;curved=1;entryX=0.828;entryY=0.514;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#A8201A;dashed=1;" parent="1" target="Rqz7mpYMq3LJf2_j5biJ-6" edge="1">
@@ -104,10 +104,10 @@
             <mxPoint x="13" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="mUUMDVEmyQ42DfhIIiiI-16" value="Wi-Fi Router" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;" parent="1" vertex="1">
+        <mxCell id="mUUMDVEmyQ42DfhIIiiI-16" value="Wi-Fi Router" style="text;html=1;strokeColor=#d6b656;fillColor=#FAE5C7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="649.92" y="460" width="110" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="mUUMDVEmyQ42DfhIIiiI-18" value="Remote Server" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;" parent="1" vertex="1">
+        <mxCell id="mUUMDVEmyQ42DfhIIiiI-18" value="Remote Server" style="text;html=1;strokeColor=#d6b656;fillColor=#FAE5C7;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="916" y="460" width="110" height="30" as="geometry" />
         </mxCell>
       </root>
