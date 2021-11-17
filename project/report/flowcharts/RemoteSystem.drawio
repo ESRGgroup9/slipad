@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-17T02:33:45.133Z" agent="5.0 (X11)" etag="BNZhxLqibhpzvPoB6472" version="15.7.4" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2021-11-17T02:53:01.236Z" agent="5.0 (X11)" etag="tleDGopNd1u4hTowmUHm" version="15.7.4" type="github" pages="6">
   <diagram id="smE5fnJAyVyCLhYMQo8Z" name="AppSystem_UseCases">
     <mxGraphModel dx="931" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -406,7 +406,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="cPRygELZNogxZ97G4dhh" name="AppSystem_SeqDiagram">
-    <mxGraphModel dx="1125" dy="637" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="771" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="BRzkZ_ajTPaAjKOZRPbq-0" />
         <mxCell id="BRzkZ_ajTPaAjKOZRPbq-1" parent="BRzkZ_ajTPaAjKOZRPbq-0" />
@@ -611,7 +611,7 @@
             <mxPoint x="250" y="595" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="II56WVqGBvnLB74IxPo9-30" value="Geolocation coordinates" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" vertex="1" connectable="0" parent="II56WVqGBvnLB74IxPo9-29">
+        <mxCell id="II56WVqGBvnLB74IxPo9-30" value="Geolocation coordinates" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;fontColor=#143642;" vertex="1" connectable="0" parent="II56WVqGBvnLB74IxPo9-29">
           <mxGeometry x="0.0688" y="-1" relative="1" as="geometry">
             <mxPoint x="8" y="-9" as="offset" />
           </mxGeometry>
