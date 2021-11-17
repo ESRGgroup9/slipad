@@ -93,6 +93,53 @@
 \chapter{Introduction}
 % Problem statement
 % Problem statement analysis
+
+\begin{table}[h]
+	\centering
+	\resizebox{\columnwidth}{!}{
+	\begin{tabular}{||c | c | c | c||} 
+		\hline
+		Event & System Response & Source & Type\\
+		\hline\hline
+Luminosity detector OFF & Power the lamp & Environment & Asynchronous\\\hline
+LED failure detector ON & Notify remote system & Local system & Asynchronous\\\hline
+Motion detected & Turn on the lamp & User & Asynchronous\\\hline
+Requested to turn on the lamp & Turn on the lamp & Local system & Asynchronous\\\hline
+Camera sample & Image processing & Timer & Synchronous\\\hline
+Update system information & Send data to remote system & Local system & Asynchronous\\
+
+		\hline
+	\end{tabular}
+	}		
+	
+	\caption{Base station events.}
+	\label{table:data}
+\end{table}
+
+\begin{table}[ht]
+	\centering
+	\resizebox{\columnwidth}{!}{
+	\begin{tabular}{||c | c | c | c||} 
+		\hline
+		Event & System Response & Source & Type\\
+		\hline\hline
+Login & Show application main screen if successful & Operator & Asynchronous\\\hline
+Obtain geolocation & Request device geolocation & Mobile device & Asynchronous\\\hline
+App notification & Notifies the operator about the lamppost status & Remote Server & Asynchronous\\\hline
+Register operator & Add operator information to databas & Operator & Asynchronous\\\hline
+Modify lamppost & Update lamppost information to database & Operator & Asynchronous\\\hline
+Register lamppost & Add lamppost information to database & Operator & Asynchronous\\\hline
+Insert location	& Show parking spots & User & Asynchronous\\\hline
+Obtain geolocation & Request device geolocation & Mobile Device & Asynchronous
+		\\\hline
+	\end{tabular}
+	}
+		
+	\caption{Remote system events.}
+	\label{table:data}
+\end{table}
+
+
 \input{./texts/problem_statement}
 
 % ---------------------- ANALYSIS ----------------------
