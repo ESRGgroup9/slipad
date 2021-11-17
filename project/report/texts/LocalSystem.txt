@@ -1,8 +1,8 @@
 Event;System Response;Source;Type
 
 Luminosity Detector OFF; Power the lamp; Environment; Asynchronous
-LED Failure Detector ON; Send notification to remote system; Local System;Asynchronous
+LED Failure Detector ON; Notify the remote system; Local System;Asynchronous
 Motion Detected; Turn-on the lamp; User; Asynchronous
-Request to turn-on the lamp; Turn-on the lamp; Other Local System; Asynchronous
+Request to turn-on the lamp; Turn-on the lamp; Base Station; Asynchronous
 Camera sample; Image processing;Timer;Synchronous
-Update system information; Send data to remote system;Local System;Asynchronous
+Update system information; Send data to remote system; Base Station;Asynchronous
