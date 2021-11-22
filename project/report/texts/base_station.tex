@@ -1,0 +1,31 @@
+\subsection{Events}
+
+
+\begin{table}[h]
+	\centering
+	\resizebox{\columnwidth}{!}{
+	\begin{tabular}{||c | c | c | c||} 
+		\hline
+		Event & System Response & Source & Type\\
+		\hline\hline
+Luminosity detector OFF & Power the lamp & Environment & Asynchronous\\\hline
+LED failure detector ON & Notify remote system & Local system & Asynchronous\\\hline
+Motion detected & Turn on the lamp & User & Asynchronous\\\hline
+Requested to turn on the lamp & Turn on the lamp & Local system & Asynchronous\\\hline
+Camera sample & Image processing & Timer & Synchronous\\\hline
+Update system information & Send data to remote system & Local system & Asynchronous\\
+
+		\hline
+	\end{tabular}
+	}		
+	
+	\caption{Base station events.}
+	\label{table:data}
+\end{table}
+
+
+\subsection{Use Cases}
+
+\subsection{State Chart}
+
+\subsection{Sequence Diagram}

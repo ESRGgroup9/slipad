@@ -88,97 +88,50 @@
 
 \pagenumbering{arabic} %arabic numbering
 
-% ---------------------- INTRODUCTION ----------------------
+% ---------- INTRODUCTION ----------
 \pagestyle{IHA-fancy-style}
 \chapter{Introduction}
 % Problem statement
 % Problem statement analysis
 \input{./texts/problem_statement}
 
-% ---------------------- ANALYSIS ----------------------
-\chapter{Analysis}
+% ---------- MARKET RESEARCH ----------
+\chapter{Market Research}
 % Market Research
 \input{./texts/market_research}
-\clearpage
+
+% ---------- SYSTEM ----------
+\chapter{System}
+
+\section{Network Architecture}
+% Network Architecture
+\input{./texts/network_arch}
 
 % System Overview
-% Requirements
-% Constraints
+% Requirements & Constraints
 % System Architecture
 \input{./texts/system}
+
+% ---------- SYSTEM ANALYSIS ----------
+\chapter{System Analysis}
+
+\section{Base Station}
+\input{./texts/base_station}
+
+\section{Local System}
+\input{./texts/local_system}
+
+\section{Remote System}
+\input{./texts/remote_system}
+
+\section{Estimated Budget}
+\input{./texts/estimated_budget}
+
 % Task Division and Gantt Chart
-
-\begin{table}[h]
-	\centering
-	\resizebox{\columnwidth}{!}{
-	\begin{tabular}{||c | c | c | c||} 
-		\hline
-		Event & System Response & Source & Type\\
-		\hline\hline
-Luminosity detector OFF & Power the lamp & Environment & Asynchronous\\\hline
-LED failure detector ON & Notify remote system & Local system & Asynchronous\\\hline
-Motion detected & Turn on the lamp & User & Asynchronous\\\hline
-Requested to turn on the lamp & Turn on the lamp & Local system & Asynchronous\\\hline
-Camera sample & Image processing & Timer & Synchronous\\\hline
-Update system information & Send data to remote system & Local system & Asynchronous\\
-
-		\hline
-	\end{tabular}
-	}		
-	
-	\caption{Base station events.}
-	\label{table:data}
-\end{table}
-
-\begin{table}[ht]
-	\centering
-	\resizebox{\columnwidth}{!}{
-	\begin{tabular}{||c | c | c | c||} 
-		\hline
-		Event & System Response & Source & Type\\
-		\hline\hline
-Login & Show application main screen if successful & Operator & Asynchronous\\\hline
-Obtain geolocation & Request device geolocation & Mobile device & Asynchronous\\\hline
-App notification & Notifies the operator about the lamppost status & Remote Server & Asynchronous\\\hline
-Register operator & Add operator information to databas & Operator & Asynchronous\\\hline
-Modify lamppost & Update lamppost information to database & Operator & Asynchronous\\\hline
-Register lamppost & Add lamppost information to database & Operator & Asynchronous\\\hline
-Insert location	& Show parking spots & User & Asynchronous\\\hline
-Obtain geolocation & Request device geolocation & Mobile Device & Asynchronous
-		\\\hline
-	\end{tabular}
-	}
-		
-	\caption{Remote system events.}
-	\label{table:data}
-\end{table}
-
-\begin{table}[ht]
-	\centering
-	
-	\begin{tabular}{||c | c||} 
-		\hline
-		Product & Price (€)\\
-		\hline\hline
-		Raspberry Pi 4B & 63,50\\\hline
-		Industrial power supply 12 V & 5,00\\\hline
-		Video camera & 8,86\\\hline
-		Motion detector & 4,60\\\hline
-		Luminosity sensor & 1,69\\\hline
-		LED lamp 12 V & 3,63\\\hline
-		Driver (MOSFET) & 1,00\\\hline
-		Basic Eletronic Components & 5,00
-		\\\hline
-	\end{tabular}
-	\caption{Estimated budget.}
-	\label{table:data}
-\end{table}
-
-\clearpage
 \input{./texts/gantt_chart}
 
 
-% ---------------------- BIBLIOGRAPHY ----------------------
+% ---------- BIBLIOGRAPHY ----------
 \bibliographystyle{IEEEtran}
 \bibliography{References}
 
