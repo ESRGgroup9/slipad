@@ -1,10 +1,10 @@
-<mxfile host="app.diagrams.net" modified="2021-11-22T00:03:09.647Z" agent="5.0 (X11)" etag="4jx0MUZRgKEXfBX4JAbp" version="15.8.2" type="github">
+<mxfile host="app.diagrams.net" modified="2021-11-22T18:18:00.773Z" agent="5.0 (X11)" etag="t3IO3QsUCumKY1gjXmj3" version="15.8.3" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
     <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="j-XfJcJ-BRer3KUw5DXA-1" value="light_pole" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
+        <mxCell id="j-XfJcJ-BRer3KUw5DXA-1" value="lamppost" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
           <mxGeometry x="40" y="40" width="290" height="130" as="geometry">
             <mxRectangle x="40" y="40" width="90" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -30,7 +30,7 @@
             <mxRectangle width="30" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="j-XfJcJ-BRer3KUw5DXA-14" value="localization double[2] " style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=0;overflow=hidden;strokeColor=#0F8B8D;fontColor=#143642;" parent="j-XfJcJ-BRer3KUw5DXA-12" vertex="1">
+        <mxCell id="j-XfJcJ-BRer3KUw5DXA-14" value="gps double[2] " style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=0;overflow=hidden;strokeColor=#0F8B8D;fontColor=#143642;" parent="j-XfJcJ-BRer3KUw5DXA-12" vertex="1">
           <mxGeometry x="30" width="260" height="30" as="geometry">
             <mxRectangle width="260" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -61,7 +61,7 @@
             <mxRectangle width="30" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="j-XfJcJ-BRer3KUw5DXA-22" value="localization double[2] " style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=1;strokeColor=#0F8B8D;fontColor=#143642;" parent="j-XfJcJ-BRer3KUw5DXA-20" vertex="1">
+        <mxCell id="j-XfJcJ-BRer3KUw5DXA-22" value="gps double[2] " style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=1;strokeColor=#0F8B8D;fontColor=#143642;" parent="j-XfJcJ-BRer3KUw5DXA-20" vertex="1">
           <mxGeometry x="30" width="220" height="30" as="geometry">
             <mxRectangle width="220" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -219,7 +219,7 @@
             <mxRectangle width="30" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="j-XfJcJ-BRer3KUw5DXA-69" value="localization double[2] " style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=0;overflow=hidden;strokeColor=#0F8B8D;fontColor=#143642;" parent="j-XfJcJ-BRer3KUw5DXA-67" vertex="1">
+        <mxCell id="j-XfJcJ-BRer3KUw5DXA-69" value="gps double[2] " style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=0;overflow=hidden;strokeColor=#0F8B8D;fontColor=#143642;" parent="j-XfJcJ-BRer3KUw5DXA-67" vertex="1">
           <mxGeometry x="30" width="250" height="30" as="geometry">
             <mxRectangle width="250" height="30" as="alternateBounds" />
           </mxGeometry>
