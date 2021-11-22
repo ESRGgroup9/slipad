@@ -1,9 +1,9 @@
 Through the system overview diagram, in figure \ref{fig:system_overview}, it is possible to identify the main modules of the system to be developed, and how they interact. We can divide the system into three subsystems: the local system, which represents a lamp post, the base station, a lamp post that controls a network of street lamp poles, and the remote system, that allows interaction with the system users.
 \begin{figure}[ht]
-        \centering
-        \includegraphics[width=1\textwidth]{system_overview}
-        \caption{System Overview Diagram.}
-        \label{fig:system_overview}
+	\centering
+	\includegraphics[width=1\textwidth]{03system_overview/system_overview}
+	\caption{System Overview Diagram.}
+	\label{fig:system_overview}
 \end{figure}
 
 The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a luminosity sensor, to detect the light conditions of the pole’s surroundings and a LED failure detector to know if the LED lamp is working. The base station have the same components as the local system but it includes a camera to find empty parking spots.The controllers of the base station and local systems, the Raspberry Pi, use the sensors information and communicate with each other through a Wi-Fi module in order to so that the lights are dynamically turned on. The base station controller also communicates via internet with a remote server.
@@ -51,18 +51,19 @@ In order for the system to have the desired performance, these requirements and 
 \end{itemize}
 \section{System Architecture}
 Using the system overview diagram information, one can describe the system in two different architectures. Hardware architecture, as how the hardware modules interfaces with itself, and what are the physical components of the system, and software architecture, which details how the information is processed among different software layers.
-%\clearpage
+
 \subsection{Hardware Architecture}
 In figure \ref{fig:hw_arch}, one can see the diagram that represents the physical connections of the system. The Raspberry Pi is the main component in the system, processing all the information given by the sensors, via \ac{gpio} pins and \ac{csi} for the camera. The communication with the Wi-Fi module is straightforward since its built-in into the Raspberry-Pi.
 %, and also controlling the \ac{led} lamp brightness. 
 The power of all system components comes from the power grid and, through an AC/DC converter, will power the Raspberry Pi and its associated sensors.
 In order to power the lamp and at the same time control its brightness, a driver is used, taking the controller output, a \ac{pwm} signal, and system power as inputs. 
 \begin{figure}[ht]
-        \centering
-        \includegraphics[width=1\textwidth]{hw_arch}
-        \caption{Hardware Architecture Diagram.}
-        \label{fig:hw_arch}
+	\centering
+	\includegraphics[width=1\textwidth]{03system_overview/hw_arch}
+	\caption{Hardware Architecture Diagram.}
+	\label{fig:hw_arch}
 \end{figure}
+
 \subsection{Software Architecture}
 The software architecture is divided into three layers:
 \begin{itemize}
@@ -72,8 +73,8 @@ The software architecture is divided into three layers:
 \end{itemize}
 As shown in figure \ref{fig:sw_arch}, the operating system layer is composed by the sensor drivers, such as the LED Failure Sensor, the Luminosity Sensor, the Motion Detector which uses \ac{gpio} drivers, the camera, that uses \ac{csi} drivers and also the Wi-Fi Communication driver. In the middleware layer are the tools needed to process the images from the camera, to multitasking, using PThreads execution model, to acquire data from sensors and to communicate via Wi-Fi with the remote server. Finally, the application layer manages the system database, as well as the \ac{gui}, that is the mobile application and the web site, and also all communications with the neighbor street poles.
 \begin{figure}[ht]
-        \centering
-        \includegraphics[width=1\textwidth]{sw_arch}
-        \caption{Software Architecture Diagram.}
-        \label{fig:sw_arch}
+	\centering
+	\includegraphics[width=1\textwidth]{03system_overview/sw_arch}
+	\caption{Software Architecture Diagram.}
+	\label{fig:sw_arch}
 \end{figure}

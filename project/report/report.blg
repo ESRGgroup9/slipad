@@ -8,49 +8,65 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: References.bib
+You're missing a field name---line 24 of file References.bib
+ : 
+ : % author = {Nadia Drake},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 45 of file References.bib
+ : 
+ : % journal = {History of Lighting},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 51 of file References.bib
+ : 
+ : % title={LED vs HPS Street Lights: What’s Better in 2020},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 10 entries,
+You've used 12 entries,
             4087 wiz_defined-function locations,
-            868 strings with 9186 characters,
-and the built_in function-call counts, 3455 in all, are:
-= -- 250
-> -- 30
+            874 strings with 9273 characters,
+and the built_in function-call counts, 4318 in all, are:
+= -- 319
+> -- 47
 < -- 0
-+ -- 17
-- -- 6
-* -- 122
-:= -- 594
-add.period$ -- 20
-call.type$ -- 10
-change.case$ -- 20
++ -- 24
+- -- 11
+* -- 144
+:= -- 755
+add.period$ -- 24
+call.type$ -- 12
+change.case$ -- 24
 chr.to.int$ -- 0
-cite$ -- 10
-duplicate$ -- 326
-empty$ -- 354
-format.name$ -- 7
-if$ -- 759
+cite$ -- 12
+duplicate$ -- 394
+empty$ -- 434
+format.name$ -- 12
+if$ -- 947
 int.to.chr$ -- 0
-int.to.str$ -- 10
-missing$ -- 70
-newline$ -- 53
-num.names$ -- 5
-pop$ -- 209
+int.to.str$ -- 12
+missing$ -- 91
+newline$ -- 59
+num.names$ -- 10
+pop$ -- 264
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 265
+skip$ -- 331
 stack$ -- 0
-substring$ -- 30
-swap$ -- 159
+substring$ -- 36
+swap$ -- 201
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 10
+type$ -- 12
 warning$ -- 0
-while$ -- 5
-width$ -- 12
-write$ -- 94
+while$ -- 10
+width$ -- 14
+write$ -- 111
+(There were 3 error messages)
