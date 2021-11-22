@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.11)  17 NOV 2021 20:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.11)  22 NOV 2021 15:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -297,159 +297,169 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 Chapter 1.
 (./texts/problem_statement.tex [1
 
-]
+])
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
 Make it at least 14.49998pt.
 We now make it that large for the rest of the document.
 This may cause the page layout to be inconsistent, however.
 
-[2]) [3
+[2
 
 ]
 Chapter 2.
-(./texts/market_research.tex [4
+(./texts/market_research.tex [3
 
 ]
-<./images/market_growth_mordor.png, id=35, 3170.09344pt x 1684.04156pt>
+<./images/market_growth_mordor.png, id=31, 3170.09344pt x 1684.04156pt>
 File: ./images/market_growth_mordor.png Graphic file (type png)
 <use ./images/market_growth_mordor.png>
 Package pdftex.def Info: ./images/market_growth_mordor.png  used on input line 
 15.
 (pdftex.def)             Requested size: 390.0pt x 207.16415pt.
- [5 <./images/market_growth_mordor.png
+ [4 <./images/market_growth_mordor.png
 
 pdfTeX warning: /usr/bin/pdflatex (file ./images/market_growth_mordor.png): lar
 ge interlaced PNG might cause out of memory (use non-interlaced PNG to fix this
 )
 >]
-<./images/telensa.png, id=40, 602.25pt x 401.5pt>
+<./images/telensa.png, id=36, 602.25pt x 401.5pt>
 File: ./images/telensa.png Graphic file (type png)
 <use ./images/telensa.png>
 Package pdftex.def Info: ./images/telensa.png  used on input line 36.
 (pdftex.def)             Requested size: 312.00119pt x 208.00926pt.
- [6 <./images/telensa.png (PNG copy)>]
-<./images/intelilight.png, id=44, 1254.6875pt x 627.34375pt>
+ [5 <./images/telensa.png (PNG copy)>]
+<./images/intelilight.png, id=40, 1254.6875pt x 627.34375pt>
 File: ./images/intelilight.png Graphic file (type png)
 <use ./images/intelilight.png>
 Package pdftex.def Info: ./images/intelilight.png  used on input line 49.
 (pdftex.def)             Requested size: 370.49881pt x 185.24667pt.
-<./images/intuvision.png, id=45, 1336.24219pt x 813.0375pt>
+<./images/intuvision.png, id=41, 1336.24219pt x 813.0375pt>
 File: ./images/intuvision.png Graphic file (type png)
 <use ./images/intuvision.png>
 Package pdftex.def Info: ./images/intuvision.png  used on input line 59.
 (pdftex.def)             Requested size: 312.00119pt x 189.83565pt.
-) [7 <./images/intelilight.png>]
-[8 <./images/intuvision.png>] (./texts/system.tex
-<./images/system_overview.png, id=54, 1297.84875pt x 894.34125pt>
+) [6 <./images/intelilight.png>]
+[7 <./images/intuvision.png>] (./texts/system.tex
+<./images/system_overview.png, id=50, 1297.84875pt x 894.34125pt>
 File: ./images/system_overview.png Graphic file (type png)
 <use ./images/system_overview.png>
 Package pdftex.def Info: ./images/system_overview.png  used on input line 6.
 (pdftex.def)             Requested size: 390.0pt x 268.74113pt.
- [9
+ [8
 
- <./images/system_overview.png>] [10] [11]
-<./images/hw_arch.png, id=66, 1393.205pt x 718.685pt>
+ <./images/system_overview.png>] [9] [10]
+<./images/hw_arch.png, id=63, 1393.205pt x 718.685pt>
 File: ./images/hw_arch.png Graphic file (type png)
 <use ./images/hw_arch.png>
 Package pdftex.def Info: ./images/hw_arch.png  used on input line 74.
 (pdftex.def)             Requested size: 390.0pt x 201.1756pt.
- [12
+ [11
 
  <./images/hw_arch.png>]
-<./images/sw_arch.png, id=71, 593.21625pt x 302.12875pt>
+<./images/sw_arch.png, id=68, 593.21625pt x 302.12875pt>
 File: ./images/sw_arch.png Graphic file (type png)
 <use ./images/sw_arch.png>
 Package pdftex.def Info: ./images/sw_arch.png  used on input line 92.
 (pdftex.def)             Requested size: 390.0pt x 198.6357pt.
-) [13 <./images/sw_arch.png>]
-(./texts/gantt_chart.tex
+)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[12 <./images/sw_arch.png>] [13] (./texts/gantt_chart.tex
 <./images/Gantt_chart.png, id=76, 1239.63126pt x 649.42625pt>
 File: ./images/Gantt_chart.png Graphic file (type png)
 <use ./images/Gantt_chart.png>
 Package pdftex.def Info: ./images/Gantt_chart.png  used on input line 7.
 (pdftex.def)             Requested size: 390.0pt x 204.3127pt.
-) (./report.bbl [14
+) (./report.bbl
+[14
 
  <./images/Gantt_chart.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 25--29
+\OT1/cmr/m/n/12 com / industry-[]reports / connected-[]street-[]lights-[]market
+$ [Ac-cessed on
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--35
 []\OT1/cmr/m/n/12 C. Hel-man, ``En-ergy cri-sis 2021: How bad is
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--29
+Underfull \hbox (badness 10000) in paragraph at lines 31--35
 \OT1/cmr/m/n/12 it, and how long will it last?'' \OT1/cmr/m/it/12 Forbes\OT1/cm
 r/m/n/12 , 2021,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--29
+Underfull \hbox (badness 10000) in paragraph at lines 31--35
 \OT1/cmr/m/n/12 https://www.forbes.com/sites/christopherhelman/2021/10/19/energ
 y-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--29
+Underfull \hbox (badness 10000) in paragraph at lines 31--35
 \OT1/cmr/m/n/12 crisis-2021-how-bad-is-it-and-how-long-will-it-last/?sh=6a5feff
 14c63
  []
 
 
-Underfull \hbox (badness 1033) in paragraph at lines 31--33
+Underfull \hbox (badness 1033) in paragraph at lines 37--39
 []\OT1/cmr/m/n/12 H. Ritchie and M. Roser, ``En-ergy,'' \OT1/cmr/m/it/12 Our Wo
 rld in Data\OT1/cmr/m/n/12 , 2020,
  []
 
 
-Underfull \hbox (badness 3375) in paragraph at lines 35--38
+Underfull \hbox (badness 3375) in paragraph at lines 41--44
 []\OT1/cmr/m/n/12 ``Cars parked 23 hours a day,'' $https : / / www . racfoundat
 ion . org /
  []
 
 
-Underfull \hbox (badness 1102) in paragraph at lines 40--43
+Underfull \hbox (badness 1454) in paragraph at lines 46--49
+[]\OT1/cmr/m/n/12 R. Pi, ``Rasp-berry pi 4,'' $https : / / www . raspberrypi . 
+com / products /
+ []
+
+
+Underfull \hbox (badness 1102) in paragraph at lines 51--54
 []\OT1/cmr/m/n/12 ``History of street light-ing - de-vel-op-ment of street ligh
 t-ing tech-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--43
+Underfull \hbox (badness 10000) in paragraph at lines 51--54
 \OT1/cmr/m/n/12 nol-ogy,'' $http : / / www . historyo^^Mighting . net / electri
 c-[]lighting-[]history /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 45--49
+Underfull \hbox (badness 10000) in paragraph at lines 56--60
 []\OT1/cmr/m/n/12 N. Drake, ``Our nights are get-ting brighter, and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 45--49
+Underfull \hbox (badness 10000) in paragraph at lines 56--60
 \OT1/cmr/m/n/12 earth is pay-ing the price,'' \OT1/cmr/m/it/12 Na-tional Ge-o-g
 raphic\OT1/cmr/m/n/12 , 2019,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 45--49
+Underfull \hbox (badness 10000) in paragraph at lines 56--60
 \OT1/cmr/m/n/12 https://www.nationalgeographic.com/science/article/nights-are-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 45--49
+Underfull \hbox (badness 10000) in paragraph at lines 56--60
 \OT1/cmr/m/n/12 getting-brighter-earth-paying-the-price-light-pollution-dark-sk
 ies
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--60
-\OT1/cmr/m/n/12 com / industry-[]reports / connected-[]street-[]lights-[]market
-$ [Ac-cessed on
  []
 
 [15
 
 ]
-Underfull \hbox (badness 1762) in paragraph at lines 71--74
+Underfull \hbox (badness 1762) in paragraph at lines 76--79
 []\OT1/cmr/m/n/12 ``intuvision park-ing,'' $https : / / www . intuvisiontech . 
 com / intuvisionVA[]
  []
@@ -460,20 +470,20 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6344 strings out of 481239
- 143649 string characters out of 5920376
- 377881 words of memory out of 5000000
- 21516 multiletter control sequences out of 15000+600000
+ 6345 strings out of 481239
+ 143658 string characters out of 5920376
+ 378838 words of memory out of 5000000
+ 21517 multiletter control sequences out of 15000+600000
  539403 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,11n,45p,1120b,397s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,11n,45p,1209b,395s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf/fonts/type1/public/cm-sup
 er/sfrm1200.pfb>
-Output written on report.pdf (20 pages, 4060010 bytes).
+Output written on report.pdf (20 pages, 4059271 bytes).
 PDF statistics:
  108 PDF objects out of 1000 (max. 8388607)
  63 compressed objects within 1 object stream

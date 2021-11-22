@@ -20,7 +20,7 @@
     \vskip0.5em}%
 }
 
-\title{\textbf{Smart Street Lighting}}
+\title{\textbf{Smart City}}
 
 \subtitle{{\large Master in Industrial Eletronics and Computers Engeneering} \\ {\large Embedded Systems}}
 
@@ -33,7 +33,7 @@
 	\fancyhf{}			%clear header and footer
 	%footer
 	\fancyfoot[R]{\small{\thepage}}
-	\fancyfoot[L]{\small{Embedded Systems - Smart Street Lighting}}
+	\fancyfoot[L]{\small{Embedded Systems - Smart City}}
 	\renewcommand{\headrulewidth}{0pt}% Line at the header invisible
 	\renewcommand{\footrulewidth}{0.5pt}% Line at the footer visible
 }
@@ -47,9 +47,9 @@
 	%footer
 	\renewcommand{\footrulewidth}{0.5pt}
 	\fancyfoot[R]{\small{\thepage}}
-	\fancyfoot[L]{\small{Embedded Systems - Smart Street Lighting}}
+	\fancyfoot[L]{\small{Embedded Systems - Smart City}}
 	%\rfoot{\small\thepage}
-	%\lfoot{\small Embedded Systems - Smart Street Lighting}
+	%\lfoot{\small Embedded Systems - Smart City}
 }
 
 \pagestyle{fancy}	
@@ -93,6 +93,20 @@
 \chapter{Introduction}
 % Problem statement
 % Problem statement analysis
+\input{./texts/problem_statement}
+
+% ---------------------- ANALYSIS ----------------------
+\chapter{Analysis}
+% Market Research
+\input{./texts/market_research}
+\clearpage
+
+% System Overview
+% Requirements
+% Constraints
+% System Architecture
+\input{./texts/system}
+% Task Division and Gantt Chart
 
 \begin{table}[h]
 	\centering
@@ -156,27 +170,10 @@ Obtain geolocation & Request device geolocation & Mobile Device & Asynchronous
 		Basic Eletronic Components & 5,00
 		\\\hline
 	\end{tabular}
-	
-		
 	\caption{Estimated budget.}
 	\label{table:data}
 \end{table}
 
-
-\input{./texts/problem_statement}
-
-% ---------------------- ANALYSIS ----------------------
-\chapter{Analysis}
-% Market Research
-\input{./texts/market_research}
-\clearpage
-
-% System Overview
-% Requirements
-% Constraints
-% System Architecture
-\input{./texts/system}
-% Task Division and Gantt Chart
 \clearpage
 \input{./texts/gantt_chart}
 
