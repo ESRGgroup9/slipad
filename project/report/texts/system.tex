@@ -1,4 +1,6 @@
+\section{System Overview}
 Through the system overview diagram, in figure \ref{fig:system_overview}, it is possible to identify the main modules of the system to be developed, and how they interact. We can divide the system into three subsystems: the local system, which represents a lamp post, the base station, a lamp post that controls a network of street lamp poles, and the remote system, that allows interaction with the system users.
+
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{03system_overview/system_overview}
@@ -6,13 +8,17 @@ Through the system overview diagram, in figure \ref{fig:system_overview}, it is 
 	\label{fig:system_overview}
 \end{figure}
 
-The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a luminosity sensor, to detect the light conditions of the pole’s surroundings and a LED failure detector to know if the LED lamp is working. The base station have the same components as the local system but it includes a camera to find empty parking spots.The controllers of the base station and local systems, the Raspberry Pi, use the sensors information and communicate with each other through a Wi-Fi module in order to so that the lights are dynamically turned on. The base station controller also communicates via internet with a remote server.
+The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a luminosity sensor, to detect the light conditions of the pole’s surroundings and a LED failure detector to know if the LED lamp is working.
+
+The base station have the same components as the local system but it includes a camera to find empty parking spots. The controllers of the base station and local systems, the Raspberry Pi, use the sensors information and communicate with each other through a Wi-Fi module in order to so that the lights are dynamically turned on. The base station controller also communicates via internet with a remote server.
+
 The remote system is composed by the remote server and the remote client. The remote server consists of a database that stores all information about each lamp post location and operating status. This information can be accessed through a mobile application by the operator in order to carry out the necessary maintenance of the lamp of each pole. Furthermore, the operator when installing a new lamp post can add its location to the database, using the mobile application. In addition, the database stores information on available parking spaces. When a user, a car driver, wants to know where there are empty parking places, he can access a website that informs him of the location of the empty parking spaces.
+
 Knowing that the public lighting network is directly related to the electrical network, this will be used to power each local system.
 
 \section{System Requirements and Constraints}
 In order for the system to have the desired performance, these requirements and constraints must be respected:
-\subparagraph{Functional Requirements}
+\subsubsection{Functional Requirements}
 \begin{itemize}
         \item Sensors data acquisition                          
         \item Motion detection
@@ -25,14 +31,14 @@ In order for the system to have the desired performance, these requirements and 
         \item Add lamp post location through a mobile application
         \item Access available parking spots location through a web site
 \end{itemize}
-\subparagraph{Non-Functional Requirements}
+\subsubsection{Non-Functional Requirements}
 \begin{itemize}
         \item User friendly mobile application and web site
         \item Ambient luminosity sensing
         \item Lower power consumption than actual street lights
         \item Soft Real-Time Embedded System
 \end{itemize}
-\subparagraph{Technical Constraints}
+\subsubsection{Technical Constraints}
 \begin{itemize}
         \item Buildroot
         \item C and C++ 
@@ -43,12 +49,13 @@ In order for the system to have the desired performance, these requirements and 
         \item Makefiles
         \item Pthreads
 \end{itemize}
-\subparagraph{Non-Technical Constraints}
+\subsubsection{Non-Technical Constraints}
 \begin{itemize}
         \item Two members team
         \item Project deadline at the end of the semester
         \item Low budget
 \end{itemize}
+
 \section{System Architecture}
 Using the system overview diagram information, one can describe the system in two different architectures. Hardware architecture, as how the hardware modules interfaces with itself, and what are the physical components of the system, and software architecture, which details how the information is processed among different software layers.
 
@@ -57,6 +64,8 @@ In figure \ref{fig:hw_arch}, one can see the diagram that represents the physica
 %, and also controlling the \ac{led} lamp brightness. 
 The power of all system components comes from the power grid and, through an AC/DC converter, will power the Raspberry Pi and its associated sensors.
 In order to power the lamp and at the same time control its brightness, a driver is used, taking the controller output, a \ac{pwm} signal, and system power as inputs. 
+
+\clearpage 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{03system_overview/hw_arch}
