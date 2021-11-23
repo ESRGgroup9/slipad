@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  23 NOV 2021 16:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  23 NOV 2021 22:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -300,12 +300,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \tf@toc=\write3
 \openout3 = `report.toc'.
 
- [2] (./report.lof
-
-LaTeX Warning: Citation `smart_cities_solutions' on page iii undefined on input
- line 4.
-
-)
+ [2] (./report.lof)
 \tf@lof=\write4
 \openout4 = `report.lof'.
 
@@ -317,30 +312,17 @@ LaTeX Warning: Citation `smart_cities_solutions' on page iii undefined on input
 \tf@lot=\write5
 \openout5 = `report.lot'.
 
- [4
+
+[4
 
 
 ] [5
 
 ]
 Chapter 1.
-(./texts/problem_statement.tex
+(./texts/problem_statement.tex [1
 
-LaTeX Warning: Citation `energy_crisis' on page 1 undefined on input line 2.
-
-
-LaTeX Warning: Citation `owidenergy' on page 1 undefined on input line 2.
-
-
-LaTeX Warning: Citation `cars_parked' on page 1 undefined on input line 2.
-
-[1
-
-]
-
-LaTeX Warning: Citation `rasp_pi' on page 2 undefined on input line 8.
-
-)
+])
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
 Make it at least 14.49998pt.
@@ -352,10 +334,6 @@ This may cause the page layout to be inconsistent, however.
 ]
 Chapter 2.
 (./texts/market_research.tex
-
-LaTeX Warning: Citation `smart_city_application_needs' on page 3 undefined on i
-nput line 2.
-
 <./images//02market_research/smart_cities_market.jpg, id=34, 458.46281pt x 261.
 22594pt>
 File: ./images//02market_research/smart_cities_market.jpg Graphic file (type jp
@@ -364,13 +342,9 @@ g)
 Package pdftex.def Info: ./images//02market_research/smart_cities_market.jpg  u
 sed on input line 6.
 (pdftex.def)             Requested size: 331.50238pt x 188.89166pt.
-[3
+ [3
 
  <./images//02market_research/smart_cities_market.jpg>]
-
-LaTeX Warning: Citation `smart_cities_market' on page 4 undefined on input line
- 13.
-
 <./images//02market_research/applications_for_smart_cities.png, id=38, 1239.631
 26pt x 423.5825pt>
 File: ./images//02market_research/applications_for_smart_cities.png Graphic fil
@@ -379,18 +353,7 @@ e (type png)
 Package pdftex.def Info: ./images//02market_research/applications_for_smart_cit
 ies.png  used on input line 19.
 (pdftex.def)             Requested size: 390.0pt x 133.26114pt.
-
-LaTeX Warning: Citation `smart_cities_solutions' on page 4 undefined on input l
-ine 20.
-
-
-LaTeX Warning: Citation `smart_light_market' on page 4 undefined on input line 
-25.
-
-
-LaTeX Warning: Citation `telensa' on page 4 undefined on input line 28.
-
-[4
+ [4
 
  <./images//02market_research/applications_for_smart_cities.png>]
 <./images//02market_research/telensa.png, id=43, 602.25pt x 401.5pt>
@@ -399,10 +362,6 @@ File: ./images//02market_research/telensa.png Graphic file (type png)
 Package pdftex.def Info: ./images//02market_research/telensa.png  used on input
  line 32.
 (pdftex.def)             Requested size: 312.00119pt x 208.00926pt.
-
-
-LaTeX Warning: Citation `inteli_light' on page 5 undefined on input line 38.
-
 <./images//02market_research/intelilight.png, id=44, 1254.6875pt x 627.34375pt>
 
 File: ./images//02market_research/intelilight.png Graphic file (type png)
@@ -410,14 +369,8 @@ File: ./images//02market_research/intelilight.png Graphic file (type png)
 Package pdftex.def Info: ./images//02market_research/intelilight.png  used on i
 nput line 44.
 (pdftex.def)             Requested size: 370.49881pt x 185.24667pt.
+
 [5 <./images//02market_research/telensa.png (PNG copy)>]
-
-LaTeX Warning: Citation `smart_parking_market' on page 6 undefined on input lin
-e 50.
-
-
-LaTeX Warning: Citation `parking' on page 6 undefined on input line 53.
-
 <./images//02market_research/intuvision.png, id=48, 1336.24219pt x 813.0375pt>
 File: ./images//02market_research/intuvision.png Graphic file (type png)
 <use ./images//02market_research/intuvision.png>
@@ -446,13 +399,6 @@ File: ./images//03system_overview/network_arch.png Graphic file (type png)
 Package pdftex.def Info: ./images//03system_overview/network_arch.png  used on 
 input line 14.
 (pdftex.def)             Requested size: 390.0pt x 160.72226pt.
-
-
-LaTeX Warning: Citation `wi_fi_range' on page 9 undefined on input line 21.
-
-
-LaTeX Warning: Citation `wi_fi_802_11n' on page 9 undefined on input line 23.
-
 ) [9 <./images//03system_overview/network_arch.png>] (./texts/system.tex
 <./images/03system_overview/system_overview.png, id=68, 912.40875pt x 919.435pt
 >
@@ -594,45 +540,152 @@ File: ./images/06remote_system/WebSite_StateChart.png Graphic file (type png)
 Package pdftex.def Info: ./images/06remote_system/WebSite_StateChart.png  used 
 on input line 69.
 (pdftex.def)             Requested size: 292.5pt x 333.38889pt.
-) [31 <./images/06remote_system/WebSite_StateChart.png>] (./texts/estimated_bud
-get.tex) [32
+ [31 <./images/06remote_system/WebSite_StateChart.png>]
+<./images/06remote_system/AppSystem_SeqDiagram.png, id=169, 524.96124pt x 783.9
+2876pt>
+File: ./images/06remote_system/AppSystem_SeqDiagram.png Graphic file (type png)
 
-]
-(./texts/gantt_chart.tex
-<./images/Gantt_chart.png, id=173, 1239.63126pt x 649.42625pt>
+<use ./images/06remote_system/AppSystem_SeqDiagram.png>
+Package pdftex.def Info: ./images/06remote_system/AppSystem_SeqDiagram.png  use
+d on input line 81.
+(pdftex.def)             Requested size: 292.5pt x 436.8081pt.
+ [32] [33 <./images/06remote_system/AppSystem_SeqDiagram.png>]
+<./images/06remote_system/WebSite_SeqDiagram.png, id=177, 512.91624pt x 372.391
+25pt>
+File: ./images/06remote_system/WebSite_SeqDiagram.png Graphic file (type png)
+<use ./images/06remote_system/WebSite_SeqDiagram.png>
+Package pdftex.def Info: ./images/06remote_system/WebSite_SeqDiagram.png  used 
+on input line 92.
+(pdftex.def)             Requested size: 292.5pt x 212.3618pt.
+) [34 <./images/06remote_system/WebSite_SeqDiagram.png>]
+(./texts/estimated_budget.tex) [35
+
+] (./texts/gantt_chart.tex
+<./images/Gantt_chart.png, id=186, 1239.63126pt x 649.42625pt>
 File: ./images/Gantt_chart.png Graphic file (type png)
 <use ./images/Gantt_chart.png>
 Package pdftex.def Info: ./images/Gantt_chart.png  used on input line 7.
 (pdftex.def)             Requested size: 390.0pt x 204.3127pt.
-)
-No file report.bbl.
-[33
+) (./report.bbl
+[36
 
- <./images/Gantt_chart.png>] (./report.aux)
+ <./images/Gantt_chart.png>]
+Underfull \hbox (badness 2020) in paragraph at lines 25--28
+[]\OT1/cmr/m/n/12 libelium, ``Iot so-lu-tions smart cities,'' $https : / / www 
+. libelium . com /
+ []
 
-LaTeX Warning: There were undefined references.
 
+Underfull \hbox (badness 10000) in paragraph at lines 30--34
+[]\OT1/cmr/m/n/12 C. Hel-man, ``En-ergy cri-sis 2021: How bad is
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--34
+\OT1/cmr/m/n/12 it, and how long will it last?'' |   [], 2021,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--34
+\OT1/cmr/m/n/12 https://www.forbes.com/sites/christopherhelman/2021/10/19/energ
+y-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--34
+\OT1/cmr/m/n/12 crisis-2021-how-bad-is-it-and-how-long-will-it-last/?sh=6a5feff
+14c63
+ []
+
+
+Underfull \hbox (badness 1038) in paragraph at lines 36--38
+[]\OT1/cmr/m/n/12 H. Ritchie and M. Roser, ``En-ergy,'' |   []   |   []   |   [
+]   |   [], 2020,
+ []
+
+
+Underfull \hbox (badness 3375) in paragraph at lines 40--43
+[]\OT1/cmr/m/n/12 ``Cars parked 23 hours a day,'' $https : / / www . racfoundat
+ion . org /
+ []
+
+
+Underfull \hbox (badness 1454) in paragraph at lines 45--48
+[]\OT1/cmr/m/n/12 R. Pi, ``Rasp-berry pi 4,'' $https : / / www . raspberrypi . 
+com / products /
+ []
+
+
+Underfull \hbox (badness 3158) in paragraph at lines 55--58
+[]\OT1/cmr/m/n/12 MarketsandMarkets, ``Smart cities mar-ket,'' 2021, $https : /
+ / www .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 55--58
+\OT1/cmr/m/n/12 marketsandmarkets . com / Market-[]Reports / smart-[]cities-[]m
+arket-[]542 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--64
+[]\OT1/cmr/m/n/12 M. In-tel-li-gence, ``Global con-nected street light-ing mar-
+ket
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--64
+\OT1/cmr/m/n/12 - growth, trends, covid-19 im-pact, and fore-casts (2021 -
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--64
+\OT1/cmr/m/n/12 2026),'' $https : / / www . mordorintelligence . com / industry
+-[]reports /
+ []
+
+[37
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 75--78
+\OT1/cmr/m/n/12 databridgemarketresearch . com / reports / global-[]smart-[]par
+king-[]market$
+ []
+
+
+Underfull \hbox (badness 1762) in paragraph at lines 80--83
+[]\OT1/cmr/m/n/12 ``intuvision park-ing,'' $https : / / www . intuvisiontech . 
+com / intuvisionVA[]
+ []
+
+
+Underfull \hbox (badness 1360) in paragraph at lines 85--88
+[]\OT1/cmr/m/n/12 ``What is the range of a typ-i-cal wi-fi net-work?'' 2020, $h
+ttps :
+ []
+
+) [38] (./report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6933 strings out of 483140
- 160179 string characters out of 5965150
- 372318 words of memory out of 5000000
- 21802 multiletter control sequences out of 15000+600000
+ 6973 strings out of 483140
+ 161292 string characters out of 5965150
+ 372473 words of memory out of 5000000
+ 21838 multiletter control sequences out of 15000+600000
  539503 words of font info for 48 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 43i,11n,47p,1221b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,11n,47p,1221b,391s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/fernandes/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcbx1200
 .600pk> </home/fernandes/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcr
 m1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
 2.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on report.pdf (39 pages, 4111715 bytes).
+Output written on report.pdf (44 pages, 4178113 bytes).
 PDF statistics:
- 201 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
+ 222 PDF objects out of 1000 (max. 8388607)
+ 118 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 121 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 131 words of extra memory for PDF output out of 10000 (max. 10000000)
 
