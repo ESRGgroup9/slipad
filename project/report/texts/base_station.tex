@@ -13,6 +13,7 @@ LED failure detector ON & Notify remote system & Base station & Asynchronous\\\h
 Motion detected & Turn on the lamp & User & Asynchronous\\\hline
 Requested to turn on the lamp & Turn on the lamp & Local system & Asynchronous\\\hline
 Camera sample & Image processing & Timer & Synchronous\\\hline
+Sensors data acquisition & Sample sensor values & Timer & Synchronous\\\hline
 Update system information & Send data to remote system & Local system & Asynchronous\\
 		\hline
 	\end{tabular}
@@ -25,7 +26,7 @@ Update system information & Send data to remote system & Local system & Asynchro
 \subsection{Use Cases}
 The base station use cases are presented in figure \ref{fig:bs_use_cases}. A street passerby, a car or a pedestrian, can interact with the base station by moving in the vicinity of the lamppost, triggering it's motion detector, or by clearing a parking space.
 
-When movement is detected, the base station lights up the lamp and requests to the neighbor lampposts to turn on their lamps. The opposite can also happen, when a neighbor local system, with the lamp already on, requests the base station to turn on its lamp. At the same time, in both situations, the information that the lamppost was activated is sent to the remote server. Since the base station is the "primary" station of the network, a third scenario can be put, when there is a local system requesting the base station to turn on the lamp of that local system neighbor lampposts.
+When movement is detected, the base station lights up the lamp and requests to the neighbor lampposts to turn on their lamps. The opposite can also happen, when a neighbor local system, with the lamp already on, requests the base station to turn on its lamp. At the same time, in both situations, the information that the lamppost was activated is sent to the remote server. Since the base station is the "primary" station of the network, a third scenario can be put, when there is a local system requesting the base station to turn on the lamp of the local system's neighbor lampposts.
 
 Moreover, the base station is frequently doing image processing through the capture of camera frames. So when the street passerby clears a parking space, the system will detect that, sending that information to the remote system.
 
@@ -54,7 +55,7 @@ The sampling of the sensors is represented through the state chart detailed in f
 
 Firstly, the LED failure detector is checked. If it is on, means that is detecting that the lamp has a failure, if not, the other sensors can be checked.
 
-When low luminosity conditions are detected, through the luminosity sensor, the lamp is powered on, putting the lamp at a predefined minimum bright level. If motion is detected, the lamp is turned on to its maximum bright level, and a timeout is started, as explained before. Besides that, the base station requests the neighbor lampposts to turn their lamps on. When motion is not detected, it is checked if the timeout for the lamp light being on has already ended. If that is true, the lamp is turned-off.
+When low luminosity conditions are detected, through the luminosity sensor, the lamp is powered on, putting the lamp at a predefined minimum bright level. If motion is detected, the lamp is turned on to its maximum bright level, and a timeout is started, as explained before. Besides that, the base station requests the neighbor lampposts to turn their lamps on. When motion is not detected, it is checked if the turn off time has already ended. If that is true, the lamp is turned off.
 
 Note that, regarding the lamp control, one will use "turn on" to represent the lamp bright transition from minimum bright level to maximum bright level, and use "turn off" to represent the opposite, the transition from maximum bright level to minimum bright level. The lamp is only off when low luminosity conditions is not verified, i.e, during the day.
 
@@ -67,7 +68,7 @@ Note that, regarding the lamp control, one will use "turn on" to represent the l
 
 \clearpage
 \subsection{Sequence Diagram}
-In figure \ref{fig:bs_seq_diagram} it is shown the base station sequence diagram. When a street passerby triggers the motion detector, the base station turns on its lamp, and at that moment that information is updated in the remote server. After that, the communication management of the base station is free to communicate with the neighbor local systems to turn on their lamps. If however no more movement is detected, the lamp turns off after a predefined time (turn off time), and again, the lamp status is updated in the remote server.
+In figure \ref{fig:bs_seq_diagram} it is shown the base station sequence diagram. When a street passerby triggers the motion detector, the base station turns on its lamp, and, at that moment, that information is updated in the remote server. After that, the communication management of the base station is free to communicate with the neighbor local systems to turn on their lamps. If, however, no more movement is detected, the lamp turns off after a predefined time (turn off time), and again, the lamp status is updated in the remote server.
 
 An alternative of an interaction with the base station is when a local system requests the base station to turn on its lamp, this being processed in a similar way to the previous example.
 

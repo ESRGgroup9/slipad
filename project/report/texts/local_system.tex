@@ -14,6 +14,7 @@ Luminosity detector OFF & Power the lamp & Environment & Asynchronous\\\hline
 LED failure detector ON & Notify remote system & Local system & Asynchronous\\\hline
 Motion detected & Turn on the lamp & User & Asynchronous\\\hline
 Requested to turn on the lamp & Turn on the lamp & Base station & Asynchronous\\\hline
+Sensors data acquisition & Sample sensor values & Timer & Synchronous\\\hline
 Update system information & Send data to remote system & Base station & Asynchronous\\
 		\hline
 	\end{tabular}
@@ -26,7 +27,7 @@ Update system information & Send data to remote system & Base station & Asynchro
 \subsection{Use Cases}
 The local system use cases are represented on figure \ref{fig:ls_use_cases}. Like the base station, a street passerby, can interact with the local system by moving in the vicinity of the lamppost, triggering it's motion detector.
 
-When movement is detected, the lamp is turned on and requests the base station to turn on the local system's neighbor lampposts. At the same time, the information that the lamppost was activated is sent to the base station, for this to send to the remote system.
+When movement is detected, the lamp is turned on and requests the base station to turn on the local system's neighbor lampposts. At the same time, the information that the lamppost was activated is sent to the base station, for this to be sent to the remote system.
 
 Also, the local system can be asked, by the base station, to turn on its lamp.
 \clearpage
@@ -39,7 +40,7 @@ Also, the local system can be asked, by the base station, to turn on its lamp.
 \end{figure}
 
 \subsection{State Chart}
-In figure \ref{fig:ls_state_chart} is represented the state chart of the local system. After the system configuration, which initializes the wi-fi communication management, sensors data acquisition, the system enters an idle state. To do the sensors data acquisition, like in the base station, it is used a sample period, that periodically triggers the execution of the function "SampleSensors", presented previously, in figure \ref{fig:sample_sensors}. When the local system is requested by the base station to turn on its lamp, the lamp is turned-on and a timeout is started (turn off time, as mentioned before). The lamppost status is then sent to the base station, in order to get to the remote server.
+In figure \ref{fig:ls_state_chart} is represented the state chart of the local system. After the system configuration, which initializes the Wi-Fi communication management, sensors data acquisition, the system enters an idle state. To do the sensors data acquisition, like in the base station, it is used a sample period, that periodically triggers the execution of the function "SampleSensors", presented previously, in figure \ref{fig:sample_sensors}. When the local system is requested by the base station to turn on its lamp, the lamp is turned-on and a timeout is started (turn off time, as mentioned before). The lamppost status is then sent to the base station, in order to send it to the remote server.
 
 \begin{figure}[ht]
 	\centering
