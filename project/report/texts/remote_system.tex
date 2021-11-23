@@ -74,6 +74,8 @@ In figure \ref{fig:StateChart_WebSite}, one can see the web site state chart. Th
 \subsection{Sequence Diagram}
 \textbf{Mobile Application}
 
+In figure \ref{fig:SeqDiagram_application}, one can see the web site state chart. The system initiates with the system configuration. Then it asks the user if he wants to use his location (through the mobile phone's GPS tracking system) or type manually the location. If the user enters the location manually (the street name, for example), it will be checked and, if valid, the free parking spaces will be displayed.
+
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.75\textwidth]{06remote_system/AppSystem_SeqDiagram}
@@ -82,6 +84,8 @@ In figure \ref{fig:StateChart_WebSite}, one can see the web site state chart. Th
 \end{figure}
 
 \textbf{Web Site}
+
+The sequence diagram of the web site is shown in the figure \ref{fig:SeqDiagram_WebSite}. To know where there are empty parking spots, the user can insert manually a location or use his \ac{gps} location. In both cases the web site asks the remote server (database) if there are available parking spots near the location and displays them to the user. However, in the case of using the \ac{gps} location, the web site has to get the \ac{gps} coordinates from the mobile device running the web site.
 
 \begin{figure}[H]
         \centering
