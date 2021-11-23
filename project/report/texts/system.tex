@@ -8,11 +8,9 @@ Through the system overview diagram, in figure \ref{fig:system_overview}, it is 
 	\label{fig:system_overview}
 \end{figure}
 
-The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a luminosity sensor, to detect the light conditions of the pole’s surroundings and a LED failure detector to know if the LED lamp is working.
+The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a luminosity sensor, to detect the light conditions of the pole’s surroundings and a LED failure detector to know if the LED lamp is working. The base station have the same components as the local system but it includes a camera to detect parking spots availability. The controllers of the base station and local systems, the Raspberry Pi, use the sensors information and communicate with each other through a Wi-Fi module so that the lights are dynamically turned on. The base station controller also communicates through internet with a remote server.
 
-The base station have the same components as the local system but it includes a camera to find empty parking spots. The controllers of the base station and local systems, the Raspberry Pi, use the sensors information and communicate with each other through a Wi-Fi module in order to so that the lights are dynamically turned on. The base station controller also communicates via internet with a remote server.
-
-The remote system is composed by the remote server and the remote client. The remote server consists of a database that stores all information about each lamp post location and operating status. This information can be accessed through a mobile application by the operator in order to carry out the necessary maintenance of the lamp of each pole. Furthermore, the operator when installing a new lamp post can add its location to the database, using the mobile application. In addition, the database stores information on available parking spaces. When a user, a car driver, wants to know where there are empty parking places, he can access a website that informs him of the location of the empty parking spaces.
+The remote system is composed by the remote server and the remote client. The remote server consists of a database that stores all information about each lamp post location and operating status. This information can be accessed through a mobile application by the operator in order to carry out the necessary maintenance of the lamp of each pole. Furthermore, the operator when installing a new lamp post can add its location to the database, using the mobile application. In addition, the database stores information on available parking spaces detected by the camera. When a user, a car driver, wants to know where there are empty parking places, he can access a website that informs him of the location of the empty parking spaces.
 
 Knowing that the public lighting network is directly related to the electrical network, this will be used to power each local system.
 
@@ -57,7 +55,7 @@ In order for the system to have the desired performance, these requirements and 
 \end{itemize}
 
 \section{System Architecture}
-Using the system overview diagram information, one can describe the system in two different architectures. Hardware architecture, as how the hardware modules interfaces with itself, and what are the physical components of the system, and software architecture, which details how the information is processed among different software layers.
+Using the system overview diagram information, one can describe the system in two different architectures. Hardware architecture, as how the hardware modules interfaces with itself, what are the physical components of the system, and software architecture, which details how the information is processed among different software layers. In this section, it will only be referenced the architectures of the base station, since the local system architecture is similar, as seen previously. 
 
 \subsection{Hardware Architecture}
 In figure \ref{fig:hw_arch}, one can see the diagram that represents the physical connections of the system. The Raspberry Pi is the main component in the system, processing all the information given by the sensors, via \ac{gpio} pins and \ac{csi} for the camera. The communication with the Wi-Fi module is straightforward since its built-in into the Raspberry-Pi.
@@ -80,10 +78,29 @@ The software architecture is divided into three layers:
         \item The \textbf{Middleware} layer, which includes software for abstracting the lower level layer packages. It works as a pipe since it links two applications, in different layers, so that data can be easily transmitted;
         \item The \textbf{Application} layer, where the core functionality of the program is built, with a resource for the API's in the lower level layers.
 \end{itemize}
+
 As shown in figure \ref{fig:sw_arch}, the operating system layer is composed by the sensor drivers, such as the LED Failure Sensor, the Luminosity Sensor, the Motion Detector which uses \ac{gpio} drivers, the camera, that uses \ac{csi} drivers and also the Wi-Fi Communication driver. In the middleware layer are the tools needed to process the images from the camera, to multitasking, using PThreads execution model, to acquire data from sensors and to communicate via Wi-Fi with the remote server. Finally, the application layer manages the system database, as well as the \ac{gui}, that is the mobile application and the web site, and also all communications with the neighbor street poles.
+
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{03system_overview/sw_arch}
 	\caption{Software Architecture Diagram.}
 	\label{fig:sw_arch}
 \end{figure}
+
+\subsection{Database E-R Diagram}
+In the database will be stored all the information about each lamppost, its operators and parking spots. In the figure \ref{fig:Database} one can see the \ac{erd} that displays the relationships between the entities, that is the things of interest in this specific domain of knowledge. This database has five entities: lamppost, location, region, operator and parking\_space. A light pole have a unique \ac{id}, a \ac{gps} coordinates and the status of the lamp (light dimmed/ light fully ON/ OFF/ broken). The location has the \ac{gps} coordinates, the post code associated and the street name. A region has multiple locations associated, that are defined by the post code. This entity has also information about parish, county, district of the specified region and the operator responsible for the lampposts in that region. The entity operator has the operator \ac{id} and the operator name. A parking spot is defined by the entity parking\_space and has the attributes \ac{id} of the parking space, its \ac{gps} coordinates, the parking space type (normal park/ park for disabled people/ restrict park) and the park status (taken/ not taken).
+
+\begin{figure}[ht]
+        \centering
+        \includegraphics[width=1\textwidth]{03system_overview/database}
+        \caption{Database E-R Diagram.}
+        \label{fig:Database}
+\end{figure}
+
+\textbf{Database Relational Model}\\
+lamppost(\uline{pole\_id}, \dotuline{gps}, pole\_status)\\
+location(\uline{gps}, \dotuline{post\_code}, street\_name)\\
+region(\uline{post\_code}, \dotuline{operator\_id}, parish, county, district)\\
+operator(\uline{operator\_id}, operator\_name)\\
+parking\_space(\uline{park\_id}, \dotuline{gps}, park\_type, park\_status)
