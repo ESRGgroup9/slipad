@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  23 NOV 2021 16:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  23 NOV 2021 16:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -954,14 +954,53 @@ Missing character: There is no a in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
-! Undefined control sequence.
-l.30 \paragraph
-               {}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 28--30
+[]
+ []
+
+
+Overfull \hbox (20.4999pt too wide) in paragraph at lines 28--30
+\OT1/cmr/bx/n/10 Mo-
+ []
+
+
+Overfull \hbox (18.04852pt too wide) in paragraph at lines 28--30
+\OT1/cmr/bx/n/10 bile
+ []
+
+
+Overfull \hbox (18.91656pt too wide) in paragraph at lines 28--30
+\OT1/cmr/bx/n/10 Ap-
+ []
+
+
+Overfull \hbox (16.61102pt too wide) in paragraph at lines 28--30
+\OT1/cmr/bx/n/10 pli-
+ []
+
+
+Overfull \hbox (14.53462pt too wide) in paragraph at lines 28--30
+\OT1/cmr/bx/n/10 ca-
+ []
+
+
+Overfull \hbox (19.80545pt too wide) in paragraph at lines 28--30
+\OT1/cmr/bx/n/10 tion 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.31 T
+      he mobile application use cases diagram is represented in figure \ref{...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 Missing character: There is no T in font nullfont!
 Missing character: There is no h in font nullfont!
@@ -1363,42 +1402,12 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 28--32
+Overfull \hbox (20.0pt too wide) in paragraph at lines 31--32
 []
  []
 
 
-Overfull \hbox (20.4999pt too wide) in paragraph at lines 28--32
-\OT1/cmr/bx/n/10 Mo-
- []
-
-
-Overfull \hbox (18.04852pt too wide) in paragraph at lines 28--32
-\OT1/cmr/bx/n/10 bile
- []
-
-
-Overfull \hbox (18.91656pt too wide) in paragraph at lines 28--32
-\OT1/cmr/bx/n/10 Ap-
- []
-
-
-Overfull \hbox (16.61102pt too wide) in paragraph at lines 28--32
-\OT1/cmr/bx/n/10 pli-
- []
-
-
-Overfull \hbox (14.53462pt too wide) in paragraph at lines 28--32
-\OT1/cmr/bx/n/10 ca-
- []
-
-
-Overfull \hbox (19.80545pt too wide) in paragraph at lines 28--32
-\OT1/cmr/bx/n/10 tion
- []
-
-
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 28--32
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 31--32
 []
  []
 
@@ -1560,14 +1569,27 @@ Overfull \hbox (333.54755pt too wide) in paragraph at lines 33--39
 []\OML/cmm/m/it/10 ystem=AppSystem[]seCases[][]$ 
  []
 
-! Undefined control sequence.
-l.40 \paragraph
-               {}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.40 \textbf{Web Site}
+                      
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (42.59016pt too wide) in paragraph at lines 40--41
+[]\OT1/cmr/bx/n/10 Web
+ []
+
+
+Overfull \hbox (19.3263pt too wide) in paragraph at lines 40--41
+\OT1/cmr/bx/n/10 Site 
+ []
 
 
 ! LaTeX Error: Missing \begin{document}.
@@ -1576,19 +1598,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.41 \textbf{Web Site}
-                      
+l.42 T
+      he web site use cases diagram is shown in figure \ref{fig:UseCases_Web...
+
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
-
-! Undefined control sequence.
-l.42 \paragraph
-               {}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
 Missing character: There is no T in font nullfont!
 Missing character: There is no h in font nullfont!
@@ -1633,7 +1647,7 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...fig:UseCases_WebSite' on page \thepage 
                                                   \space undefined\on@line .
-l.43 ...shown in figure \ref{fig:UseCases_WebSite}
+l.42 ...shown in figure \ref{fig:UseCases_WebSite}
                                                   . The main actors are a us...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1643,7 +1657,7 @@ and I'll forget about whatever was undefined.
 
 
 LaTeX Warning: Reference `fig:UseCases_WebSite' on page  undefined on input lin
-e 43.
+e 42.
 
 Missing character: There is no . in font nullfont!
 Missing character: There is no T in font nullfont!
@@ -1944,17 +1958,12 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (42.59016pt too wide) in paragraph at lines 41--44
-[]\OT1/cmr/bx/n/10 Web
+Overfull \hbox (20.0pt too wide) in paragraph at lines 42--43
+[]
  []
 
 
-Overfull \hbox (19.3263pt too wide) in paragraph at lines 41--44
-\OT1/cmr/bx/n/10 Site
- []
-
-
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 41--44
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 42--43
 []
  []
 
@@ -1965,7 +1974,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.45 \begin{figure}
+l.44 \begin{figure}
                    [H]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1978,7 +1987,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.45 \begin{figure}[
+l.44 \begin{figure}[
                     H]
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -1987,7 +1996,7 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 ! Undefined control sequence.
-l.47         \includegraphics
+l.46         \includegraphics
                              [width=0.75\textwidth]{06remote_system/WebSite_...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2009,7 +2018,7 @@ Missing character: There is no 5 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    ]
-l.47 ...    \includegraphics[width=0.75\textwidth]
+l.46 ...    \includegraphics[width=0.75\textwidth]
                                                   {06remote_system/WebSite_U...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2018,7 +2027,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    ]
-l.47 ...    \includegraphics[width=0.75\textwidth]
+l.46 ...    \includegraphics[width=0.75\textwidth]
                                                   {06remote_system/WebSite_U...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2039,13 +2048,13 @@ Missing character: There is no e in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.47 ...degraphics[width=0.75\textwidth]{06remote_
+l.46 ...degraphics[width=0.75\textwidth]{06remote_
                                                   system/WebSite_UseCases}
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.47 ...xtwidth]{06remote_system/WebSite_UseCases}
+l.46 ...xtwidth]{06remote_system/WebSite_UseCases}
                                                   
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -2060,16 +2069,16 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.48         \caption
+l.47         \caption
                      {Remote System – Web Site Use Cases.}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-LaTeX Warning: Command \textendash invalid in math mode on input line 48.
+LaTeX Warning: Command \textendash invalid in math mode on input line 47.
 
 
-LaTeX Warning: Command \textendash invalid in math mode on input line 48.
+LaTeX Warning: Command \textendash invalid in math mode on input line 47.
 
 
 ! LaTeX Error: \begin{document} ended by \end{figure}.
@@ -2078,7 +2087,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.50 \end{figure}
+l.49 \end{figure}
                  
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -2087,7 +2096,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.50 \end{figure}
+l.49 \end{figure}
                  
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -2098,7 +2107,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.50 \end{figure}
+l.49 \end{figure}
                  
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -2107,17 +2116,17 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 45--51
+Overfull \hbox (20.0pt too wide) in paragraph at lines 44--50
 []
  []
 
 
-Overfull \hbox (276.31984pt too wide) in paragraph at lines 45--51
+Overfull \hbox (276.31984pt too wide) in paragraph at lines 44--50
 []\OML/cmm/m/it/10 ystem=WebSite[]seCases[][]$ 
  []
 
 ! Undefined control sequence.
-l.52 \subsection
+l.51 \subsection
                 {State Chart}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2132,7 +2141,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.52 \subsection{S
+l.51 \subsection{S
                   tate Chart}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2147,14 +2156,53 @@ Missing character: There is no h in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no t in font nullfont!
-! Undefined control sequence.
-l.54 \paragraph
-               {}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 51--53
+[]
+ []
+
+
+Overfull \hbox (20.4999pt too wide) in paragraph at lines 51--53
+\OT1/cmr/bx/n/10 Mo-
+ []
+
+
+Overfull \hbox (18.04852pt too wide) in paragraph at lines 51--53
+\OT1/cmr/bx/n/10 bile
+ []
+
+
+Overfull \hbox (18.91656pt too wide) in paragraph at lines 51--53
+\OT1/cmr/bx/n/10 Ap-
+ []
+
+
+Overfull \hbox (16.61102pt too wide) in paragraph at lines 51--53
+\OT1/cmr/bx/n/10 pli-
+ []
+
+
+Overfull \hbox (14.53462pt too wide) in paragraph at lines 51--53
+\OT1/cmr/bx/n/10 ca-
+ []
+
+
+Overfull \hbox (19.80545pt too wide) in paragraph at lines 51--53
+\OT1/cmr/bx/n/10 tion 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.54 I
+      n the figure \ref{fig:StateChart_application} is represented the state...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 Missing character: There is no I in font nullfont!
 Missing character: There is no n in font nullfont!
@@ -2170,7 +2218,7 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...ateChart_application' on page \thepage 
                                                   \space undefined\on@line .
-l.55 ...he figure \ref{fig:StateChart_application}
+l.54 ...he figure \ref{fig:StateChart_application}
                                                    is represented the state ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2180,7 +2228,7 @@ and I'll forget about whatever was undefined.
 
 
 LaTeX Warning: Reference `fig:StateChart_application' on page  undefined on inp
-ut line 55.
+ut line 54.
 
 Missing character: There is no i in font nullfont!
 Missing character: There is no s in font nullfont!
@@ -2583,47 +2631,17 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no m in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 52--56
+Overfull \hbox (20.0pt too wide) in paragraph at lines 54--55
 []
  []
 
 
-Overfull \hbox (20.4999pt too wide) in paragraph at lines 52--56
-\OT1/cmr/bx/n/10 Mo-
- []
-
-
-Overfull \hbox (18.04852pt too wide) in paragraph at lines 52--56
-\OT1/cmr/bx/n/10 bile
- []
-
-
-Overfull \hbox (18.91656pt too wide) in paragraph at lines 52--56
-\OT1/cmr/bx/n/10 Ap-
- []
-
-
-Overfull \hbox (16.61102pt too wide) in paragraph at lines 52--56
-\OT1/cmr/bx/n/10 pli-
- []
-
-
-Overfull \hbox (14.53462pt too wide) in paragraph at lines 52--56
-\OT1/cmr/bx/n/10 ca-
- []
-
-
-Overfull \hbox (19.80545pt too wide) in paragraph at lines 52--56
-\OT1/cmr/bx/n/10 tion
- []
-
-
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 52--56
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 54--55
 []
  []
 
 
-Overfull \hbox (2.77779pt too wide) in paragraph at lines 52--56
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 54--55
 \OT1/cmr/m/n/10 '
  []
 
@@ -2634,7 +2652,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.57 \begin{figure}
+l.56 \begin{figure}
                    [H]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -2647,7 +2665,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.57 \begin{figure}[
+l.56 \begin{figure}[
                     H]
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2656,7 +2674,7 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 ! Undefined control sequence.
-l.59         \includegraphics
+l.58         \includegraphics
                              [width=1\textwidth]{06remote_system/AppSystem_S...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2675,7 +2693,7 @@ Missing character: There is no 1 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    ]
-l.59         \includegraphics[width=1\textwidth]
+l.58         \includegraphics[width=1\textwidth]
                                                 {06remote_system/AppSystem_S...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -2684,7 +2702,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    ]
-l.59         \includegraphics[width=1\textwidth]
+l.58         \includegraphics[width=1\textwidth]
                                                 {06remote_system/AppSystem_S...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -2705,13 +2723,13 @@ Missing character: There is no e in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.59 ...cludegraphics[width=1\textwidth]{06remote_
+l.58 ...cludegraphics[width=1\textwidth]{06remote_
                                                   system/AppSystem_StateChart}
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.59 ...dth]{06remote_system/AppSystem_StateChart}
+l.58 ...dth]{06remote_system/AppSystem_StateChart}
                                                   
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -2726,16 +2744,16 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.60         \caption
+l.59         \caption
                      {Remote System – Mobile Application State Chart.}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-LaTeX Warning: Command \textendash invalid in math mode on input line 60.
+LaTeX Warning: Command \textendash invalid in math mode on input line 59.
 
 
-LaTeX Warning: Command \textendash invalid in math mode on input line 60.
+LaTeX Warning: Command \textendash invalid in math mode on input line 59.
 
 
 ! LaTeX Error: \begin{document} ended by \end{figure}.
@@ -2744,7 +2762,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.62 \end{figure}
+l.61 \end{figure}
                  
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -2753,7 +2771,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.62 \end{figure}
+l.61 \end{figure}
                  
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -2764,7 +2782,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.62 \end{figure}
+l.61 \end{figure}
                  
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -2773,23 +2791,14 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 57--63
+Overfull \hbox (20.0pt too wide) in paragraph at lines 56--62
 []
  []
 
 
-Overfull \hbox (347.33554pt too wide) in paragraph at lines 57--63
+Overfull \hbox (347.33554pt too wide) in paragraph at lines 56--62
 []\OML/cmm/m/it/10 ystem=AppSystem[]tateChart[][]$ 
  []
-
-! Undefined control sequence.
-l.64 \paragraph
-               {}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
 
 ! LaTeX Error: Missing \begin{document}.
@@ -2798,19 +2807,33 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.65 \textbf{Web Site}
+l.63 \textbf{Web Site}
                       
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-! Undefined control sequence.
-l.66 \paragraph
-               {}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+
+Overfull \hbox (42.59016pt too wide) in paragraph at lines 63--64
+[]\OT1/cmr/bx/n/10 Web
+ []
+
+
+Overfull \hbox (19.3263pt too wide) in paragraph at lines 63--64
+\OT1/cmr/bx/n/10 Site 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.65 I
+      n figure \ref{fig:StateChart_WebSite}, one can see the web site state ...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 Missing character: There is no I in font nullfont!
 Missing character: There is no n in font nullfont!
@@ -2823,7 +2846,7 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...g:StateChart_WebSite' on page \thepage 
                                                   \space undefined\on@line .
-l.67 In figure \ref{fig:StateChart_WebSite}
+l.65 In figure \ref{fig:StateChart_WebSite}
                                            , one can see the web site state ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2833,7 +2856,7 @@ and I'll forget about whatever was undefined.
 
 
 LaTeX Warning: Reference `fig:StateChart_WebSite' on page  undefined on input l
-ine 67.
+ine 65.
 
 Missing character: There is no , in font nullfont!
 Missing character: There is no o in font nullfont!
@@ -3146,17 +3169,12 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (42.59016pt too wide) in paragraph at lines 65--68
-[]\OT1/cmr/bx/n/10 Web
+Overfull \hbox (20.0pt too wide) in paragraph at lines 65--66
+[]
  []
 
 
-Overfull \hbox (19.3263pt too wide) in paragraph at lines 65--68
-\OT1/cmr/bx/n/10 Site
- []
-
-
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 65--68
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 65--66
 []
  []
 
@@ -3167,7 +3185,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.69 \begin{figure}
+l.67 \begin{figure}
                    [H]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -3180,7 +3198,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.69 \begin{figure}[
+l.67 \begin{figure}[
                     H]
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -3189,7 +3207,7 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 ! Undefined control sequence.
-l.71         \includegraphics
+l.69         \includegraphics
                              [width=0.75\textwidth]{06remote_system/WebSite_...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3211,7 +3229,7 @@ Missing character: There is no 5 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    ]
-l.71 ...    \includegraphics[width=0.75\textwidth]
+l.69 ...    \includegraphics[width=0.75\textwidth]
                                                   {06remote_system/WebSite_S...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3220,7 +3238,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    ]
-l.71 ...    \includegraphics[width=0.75\textwidth]
+l.69 ...    \includegraphics[width=0.75\textwidth]
                                                   {06remote_system/WebSite_S...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3241,13 +3259,13 @@ Missing character: There is no e in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.71 ...degraphics[width=0.75\textwidth]{06remote_
+l.69 ...degraphics[width=0.75\textwidth]{06remote_
                                                   system/WebSite_StateChart}
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.71 ...width]{06remote_system/WebSite_StateChart}
+l.69 ...width]{06remote_system/WebSite_StateChart}
                                                   
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -3262,16 +3280,16 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.72         \caption
+l.70         \caption
                      {Remote System – Web Site State Chart.}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-LaTeX Warning: Command \textendash invalid in math mode on input line 72.
+LaTeX Warning: Command \textendash invalid in math mode on input line 70.
 
 
-LaTeX Warning: Command \textendash invalid in math mode on input line 72.
+LaTeX Warning: Command \textendash invalid in math mode on input line 70.
 
 
 ! LaTeX Error: \begin{document} ended by \end{figure}.
@@ -3280,7 +3298,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.74 \end{figure}
+l.72 \end{figure}
                  
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -3289,7 +3307,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.74 \end{figure}
+l.72 \end{figure}
                  
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -3300,7 +3318,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.74 \end{figure}
+l.72 \end{figure}
                  
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -3309,17 +3327,17 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 69--75
+Overfull \hbox (20.0pt too wide) in paragraph at lines 67--73
 []
  []
 
 
-Overfull \hbox (290.10783pt too wide) in paragraph at lines 69--75
+Overfull \hbox (290.10783pt too wide) in paragraph at lines 67--73
 []\OML/cmm/m/it/10 ystem=WebSite[]tateChart[][]$ 
  []
 
 ! Undefined control sequence.
-l.76 \subsection
+l.74 \subsection
                 {Sequence Diagram}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3334,7 +3352,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.76 \subsection{S
+l.74 \subsection{S
                   equence Diagram}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
