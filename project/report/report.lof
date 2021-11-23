@@ -13,6 +13,7 @@
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Software Architecture Diagram.}}{15}%
 \contentsline {figure}{\numberline {3.6}{\ignorespaces Database E-R Diagram.}}{16}%
 \addvspace {10\p@ }
+<<<<<<< HEAD
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Base station use cases.}}{18}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Base station state chart.}}{19}%
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Sampling of the sensors state chart.}}{21}%
@@ -25,3 +26,13 @@
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Remote System – Mobile Application State Chart.}}{30}%
 \contentsline {figure}{\numberline {4.11}{\ignorespaces Remote System – Web Site State Chart.}}{31}%
 \contentsline {figure}{\numberline {4.12}{\ignorespaces Gantt chart.}}{33}%
+=======
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Base station use cases.}}{17}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Base station state chart.}}{18}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Sampling of the sensors state chart.}}{20}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Base station sequence diagram.}}{22}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Local system use cases.}}{24}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Local system state chart.}}{25}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Local system sequence diagram.}}{26}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Gantt chart.}}{29}%
+>>>>>>> 3f2995c1eb044700b79230d620986fabbc930612
