@@ -1,5 +1,25 @@
 \subsection{Events}
 
+\begin{table}[h]
+	\centering
+	\resizebox{\columnwidth}{!}{
+	\begin{tabular}{||c | c | c | c||} 
+		\hline
+		\textbf{Event} & \textbf{System Response} & \textbf{Source} & \textbf{Type}\\
+		\hline\hline
+Luminosity detector OFF & Power the lamp & Environment & Asynchronous\\\hline
+LED failure detector ON & Notify remote system & Local system & Asynchronous\\\hline
+Motion detected & Turn on the lamp & User & Asynchronous\\\hline
+Requested to turn on the lamp & Turn on the lamp & Base station & Asynchronous\\\hline
+Update system information & Send data to remote system & Base station & Asynchronous\\
+		\hline
+	\end{tabular}
+	}		
+	
+	\caption{Local system events.}
+	\label{table:ls_events}
+\end{table}
+
 \subsection{Use Cases}
 
 \begin{figure}[ht]
