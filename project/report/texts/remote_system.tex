@@ -74,7 +74,7 @@ In figure \ref{fig:StateChart_WebSite}, one can see the web site state chart. Th
 \subsection{Sequence Diagram}
 \textbf{Mobile Application}
 
-In figure \ref{fig:SeqDiagram_application}, one can see the web site state chart. The system initiates with the system configuration. Then it asks the user if he wants to use his location (through the mobile phone's GPS tracking system) or type manually the location. If the user enters the location manually (the street name, for example), it will be checked and, if valid, the free parking spaces will be displayed.
+In figure \ref{fig:SeqDiagram_application} is represented the sequence diagram of the mobile application. Most of the actions are triggered by the operator, starting with the registration or login operations in the application. If the login is valid, information about the network of lampposts will be shown and, depending on the interaction with the operator, the application may have different execution flows: registration of a lamppost; changing information about a lamppost; verification of the existence of damaged posts, notifying the operator if so. If the login is invalid, the application returns an error to the operator.
 
 \begin{figure}[H]
         \centering
