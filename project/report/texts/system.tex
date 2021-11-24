@@ -63,10 +63,10 @@ In figure \ref{fig:hw_arch}, one can see the diagram that represents the physica
 The power of all system components comes from the power grid and, through an AC/DC converter, will power the Raspberry Pi and its associated sensors.
 In order to power the lamp and at the same time control its brightness, a driver is used, taking the controller output, a \ac{pwm} signal, and system power as inputs. 
 
-\clearpage 
+%\clearpage 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\textwidth]{03system_overview/hw_arch}
+	\includegraphics[width=.95\textwidth]{03system_overview/hw_arch}
 	\caption{Hardware Architecture Diagram.}
 	\label{fig:hw_arch}
 \end{figure}
@@ -83,22 +83,16 @@ As shown in figure \ref{fig:sw_arch}, the operating system layer is composed by 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\textwidth]{03system_overview/sw_arch}
+	\includegraphics[width=.85\textwidth]{03system_overview/sw_arch}
 	\caption{Software Architecture Diagram.}
 	\label{fig:sw_arch}
 \end{figure}
 
+\clearpage
 \subsection{Database E-R Diagram}
-In the database will be stored all the information about each lamppost, its operators and parking spots. In the figure \ref{fig:Database} one can see the \ac{erd} that displays the relationships between the entities, that is the things of interest in this specific domain of knowledge. This database has five entities: lamppost, location, region, operator and parking\_space. A light pole have a unique \ac{id}, a \ac{gps} coordinates and the status of the lamp (light dimmed/ light fully ON/ OFF/ broken). The location has the \ac{gps} coordinates, the post code associated and the street name. A region has multiple locations associated, that are defined by the post code. This entity has also information about parish, county, district of the specified region and the operator responsible for the lampposts in that region. The entity operator has the operator \ac{id} and the operator name. A parking spot is defined by the entity parking\_space and has the attributes \ac{id} of the parking space, its \ac{gps} coordinates, the parking space type (normal park/ park for disabled people/ restrict park) and the park status (taken/ not taken).
+In the database will be stored all the information about each lamppost, its operators and parking spots. In the figure \ref{fig:Database} one can see the Entity Relationship Diagram (E-R Diagram) that displays the relationships between the entities, that is the things of interest in this specific domain of knowledge. This database has five entities: lamppost, location, region, operator and parking\_space. A light pole have a unique identification, a \ac{gps} coordinates and the status of the lamp (light dimmed/ light fully ON/ OFF/ broken). The location has the \ac{gps} coordinates, the post code associated and the street name. A region has multiple locations associated, that are defined by the post code. This entity has also information about parish, county, district of the specified region and the operator responsible for the lampposts in that region. The entity operator has the operator identification and the operator name. A parking spot is defined by the entity parking\_space and has the attributes identification of the parking space, its \ac{gps} coordinates, the parking space type (normal park/ park for disabled people/ restrict park) and the park status (taken/ not taken).
 
-\begin{figure}[ht]
-        \centering
-        \includegraphics[width=1\textwidth]{03system_overview/database}
-        \caption{Database E-R Diagram.}
-        \label{fig:Database}
-\end{figure}
-
-\textbf{Database Relational Model}\\
+\subsubsection{Relational Model}
 
 lamppost(\uline{pole\_id}, \dotuline{gps}, pole\_status)
 
@@ -109,3 +103,11 @@ region(\uline{post\_code}, \dotuline{operator\_id}, parish, county, district)
 operator(\uline{operator\_id}, operator\_name)
 
 parking\_space(\uline{park\_id}, \dotuline{gps}, park\_type, park\_status)
+
+\begin{figure}[ht]
+        \centering
+        \includegraphics[width=.92\textwidth]{03system_overview/database}
+        \caption{Database E-R Diagram.}
+        \label{fig:Database}
+\end{figure}
+
