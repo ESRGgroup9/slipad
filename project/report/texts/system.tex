@@ -1,16 +1,16 @@
 \section{System Overview}
-Through the system overview diagram, in figure \ref{fig:system_overview}, it is possible to identify the main modules of the system to be developed, and how they interact. We can divide the system into three subsystems: the local system, which represents a lamp post, the base station, a lamp post that controls a network of street lamp poles, and the remote system, that allows interaction with the system users.
+Through the system overview diagram, in figure \ref{fig:system_overview}, it is possible to identify the main modules of the system to be developed, and how they interact. We can divide the system into three subsystems: the local system, which represents a lamppost, the gateway, device connected to the lampposts network and to the remote server, and the remote system, that stores information about the lamppost network and allows interaction with the system users by remote client applications.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{03system_overview/system_overview}
 	\caption{System Overview Diagram.}
 	\label{fig:system_overview}
 \end{figure}
 
-The local system is composed of sensors, a controller and a lamp. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a luminosity sensor, to detect the light conditions of the pole’s surroundings and a LED failure detector to know if the LED lamp is working. The base station have the same components as the local system but it includes a camera to detect parking spots availability. The controllers of the base station and local systems, the Raspberry Pi, use the sensors information and communicate with each other through a Wi-Fi module so that the lights are dynamically turned on. The base station controller also communicates through internet with a remote server.
+The local system is composed of sensors, a controller, a lamp and a wireless communication module. Regarding the sensors, there will be a motion detector, to allow the detection of movement in the vicinity of the pole, a luminosity sensor, to detect the light conditions of the pole’s surroundings, a lamp failure detector to know if the lamp is working and a camera to detect empty parking spots in the lamppost vicinity. The controller of the local system is a Raspberry Pi, that use the sensors information and communicate wirelessly with the gateway using a LoRa communication module, so that the lights are dinamically turned on. The gateway controller also communicates through internet with a remote server.
 
-The remote system is composed by the remote server and the remote client. The remote server consists of a database that stores all information about each lamp post location and operating status. This information can be accessed through a mobile application by the operator in order to carry out the necessary maintenance of the lamp of each pole. Furthermore, the operator when installing a new lamp post can add its location to the database, using the mobile application. In addition, the database stores information on available parking spaces detected by the camera. When a user, a car driver, wants to know where there are empty parking places, he can access a website that informs him of the location of the empty parking spaces.
+The remote system is composed by the remote server and the remote client. The remote server consists of a database that stores all information about each lamp post location and operating status. This information can be accessed through a mobile application by the operator in order to carry out the necessary maintenance of the lamp of each pole. Furthermore, the operator, when installing a new lamppost, can add its location to the database, using the mobile application. In addition, the database stores information on available parking spaces detected by the camera. When a user, a car driver, wants to know where there are empty parking places, he can access a website that informs him of the location of the empty parking spaces.
 
 Knowing that the public lighting network is directly related to the electrical network, this will be used to power each local system.
 
@@ -30,14 +30,16 @@ In order for the system to have the desired performance, these requirements and 
         \item Add lamp post location through a mobile application
         \item Access available parking spots location through a web site
 \end{itemize}
+
 \subsubsection{Non-Functional Requirements}
 \begin{itemize}
         \item User friendly mobile application and web site
         \item Ambient luminosity sensing
         \item Lower power consumption than actual street lights
         \item Soft Real-Time Embedded System
-\subsubsection{Technical Constraints}
 \end{itemize}
+
+\subsubsection{Technical Constraints}
 \begin{itemize}
         \item Buildroot
         \item C and C++ 
@@ -48,6 +50,7 @@ In order for the system to have the desired performance, these requirements and 
         \item Makefiles
         \item Pthreads
 \end{itemize}
+
 \subsubsection{Non-Technical Constraints}
 \begin{itemize}
         \item Two members team
