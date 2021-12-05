@@ -1,9 +1,9 @@
 \section{System Overview}
-Through the system overview diagram, in figure \ref{fig:system_overview}, it is possible to identify the main modules of the system to be developed, and how they interact. We can divide the system into three subsystems: the local system, which represents a lamppost, the gateway, device connected to the lampposts network and to the remote server, and the remote system, that stores information about the lamppost network and allows interaction with the system users by remote client applications.
+Through the system overview diagram, in figure \ref{fig:system_overview}, it is possible to identify the main modules of the system to be developed, and how they interact. We can divide the system into three subsystems: the local system, which represents a lamppost, the gateway system, device connected to the lampposts network and to the remote server, and the remote system, that stores information about the lamppost network and allows interaction with the system users by remote client applications.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{03system_overview/system_overview}
+	\includegraphics[width=0.92\textwidth]{03system_overview/system_overview}
 	\caption{System Overview Diagram.}
 	\label{fig:system_overview}
 \end{figure}
@@ -62,7 +62,10 @@ In order for the system to have the desired performance, these requirements and 
 Using the system overview diagram information, one can describe the system in two different architectures. Hardware architecture, as how the hardware modules interfaces with itself, what are the physical components of the system, and software architecture, which details how the information is processed among different software layers. In this section, it will only be referenced the architectures of the base station, since the local system architecture is similar, as seen previously. 
 
 \subsection{Hardware Architecture}
-In figure \ref{fig:hw_arch}, one can see the diagram that represents the physical connections of the system. The Raspberry Pi is the main component in the system, processing all the information given by the sensors, via \ac{gpio} pins and \ac{csi} for the camera. The communication with the Wi-Fi module is straightforward since its built-in into the Raspberry-Pi.
+
+\subsubsection{Local System}
+
+In figure \ref{fig:local_hw_arch}, one can see the diagram that represents the physical connections of the system. The Raspberry Pi is the main component in the system, processing all the information given by the sensors, via \ac{gpio} pins and \ac{csi} for the camera. The communication between the Raspberry Pi and the LoRa module is done by \ac{spi} protocol.
 %, and also controlling the \ac{led} lamp brightness. 
 The power of all system components comes from the power grid and, through an AC/DC converter, will power the Raspberry Pi and its associated sensors.
 In order to power the lamp and at the same time control its brightness, a driver is used, taking the controller output, a \ac{pwm} signal, and system power as inputs. 
@@ -70,9 +73,21 @@ In order to power the lamp and at the same time control its brightness, a driver
 %\clearpage 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.95\textwidth]{03system_overview/hw_arch}
-	\caption{Hardware Architecture Diagram.}
-	\label{fig:hw_arch}
+	\includegraphics[width=.75\textwidth]{03system_overview/local_hw_arch}
+	\caption{Local System Hardware Architecture Diagram.}
+	\label{fig:local_hw_arch}
+\end{figure}
+
+\subsubsection{Gateway}
+
+The hardware achitecture of the gateway is shown in figure \ref{fig:gateway_hw_arch}. The purpose of this device is communicate with the local systems and control a network of street lampposts, so the hardware needed to complete these tasks is only the LoRa communication module that uses \ac{spi} to interface with the Raspberry Pi, the gateway controller.
+
+%\clearpage 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.45\textwidth]{03system_overview/gateway_hw_arch}
+	\caption{Gateway Hardware Architecture Diagram.}
+	\label{fig:gateway_hw_arch}
 \end{figure}
 
 \subsection{Software Architecture}
@@ -83,13 +98,26 @@ The software architecture is divided into three layers:
         \item The \textbf{Application} layer, where the core functionality of the program is built, with a resource for the API's in the lower level layers.
 \end{itemize}
 
-As shown in figure \ref{fig:sw_arch}, the operating system layer is composed by the sensor drivers, such as the LED Failure Sensor, the Luminosity Sensor, the Motion Detector which uses \ac{gpio} drivers, the camera, that uses \ac{csi} drivers and also the Wi-Fi Communication driver. In the middleware layer are the tools needed to process the images from the camera, to multitasking, using PThreads execution model, to acquire data from sensors and to communicate via Wi-Fi with the remote server. Finally, the application layer manages the system database, as well as the \ac{gui}, that is the mobile application and the web site, and also all communications with the neighbor street poles.
+\subsubsection{Local System}
 
-\begin{figure}[ht]
+As shown in figure \ref{fig:local_sw_arch}, the operating system layer is composed by the sensor drivers, such as the LED Failure Sensor, the Luminosity Sensor, the Motion Detector which uses \ac{gpio} drivers, the camera, that uses \ac{csi} drivers and also the LoRa Communication driver. In the middleware layer are the tools needed to process the images from the camera, to multitasking, using PThreads execution model, to acquire data from sensors and to communicate via LoRa protocol with the gateway. The application layer manages the communication with the gateway.
+
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=.85\textwidth]{03system_overview/sw_arch}
-	\caption{Software Architecture Diagram.}
-	\label{fig:sw_arch}
+	\includegraphics[width=.85\textwidth]{03system_overview/local_sw_arch}
+	\caption{Local System Software Architecture Diagram.}
+	\label{fig:local_sw_arch}
+\end{figure}
+
+\subsubsection{Gateway}
+
+In figure \ref{fig:gateway_sw_arch} is shown the software architecture of gateway device. The operating system layer is composed by the LoRa communication device driver, whose interface is done using \ac{spi} protocol. The middleware layer deals with the PThreads execution model, in order to have multitasking, and the LoRa protocol services. Finally, the application layer manages the system database, as well as the \ac{gui}, that is the mobile application and the web site, and also all communications with the neighbor street poles.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{03system_overview/gateway_sw_arch}
+	\caption{Gateway Software Architecture Diagram.}
+	\label{fig:gateway_sw_arch}
 \end{figure}
 
 \clearpage

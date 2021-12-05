@@ -28,7 +28,7 @@ Obtain geolocation & Request device geolocation & Mobile Device & Asynchronous
 
 
 \subsection{Use Cases}
-\textbf{Mobile Application}
+\subsubsection{Mobile Application}
 
 The mobile application use cases diagram is represented in figure \ref{fig:UseCases_application}, showing that the main actors in the system are the operator, the database and the mobile device. The operator can perform operations such as login, logout, register, modify data about a lamppost and register newly installed posts that are installed, using, for this, the database (to obtain and record data) and the mobile device (to obtain the device location when registering a new post).
 
@@ -39,7 +39,7 @@ The mobile application use cases diagram is represented in figure \ref{fig:UseCa
         \label{fig:UseCases_application}
 \end{figure}
 
-\textbf{Web Site}
+\subsubsection{Web Site}
 
 The web site use cases diagram is shown in figure \ref{fig:UseCases_WebSite}. The main actors are a user, the database and a mobile device. In order to know if there are free parking spaces in a certain location, the user can enter a location (through the street name, for example) or, as in the application, use his mobile device to obtain the location automatically. The database lets the user know where there are empty parking spaces.
 
@@ -51,7 +51,7 @@ The web site use cases diagram is shown in figure \ref{fig:UseCases_WebSite}. Th
 \end{figure}
 
 \subsection{State Chart}
-\textbf{Mobile Application}
+\subsubsection{Mobile Application}
 
 In the figure \ref{fig:StateChart_application} is represented the state chart of the mobile application. It initiates with the system configuration, showing a home screen that allows the operator, the application user, to log into the system or register himself, if he doesn’t have login credentials. After a successful login, the system will show information about the lampposts associated to the logged in operator and he can do operations like register lampposts, modify lampposts information and logout of the system.
 
@@ -62,7 +62,7 @@ In the figure \ref{fig:StateChart_application} is represented the state chart of
         \label{fig:StateChart_application}
 \end{figure}
 
-\textbf{Web Site}
+\subsubsection{Web Site}
 
 In figure \ref{fig:StateChart_WebSite}, one can see the web site state chart. The system initiates with the system configuration. Then it asks the user if he wants to use his location (through the mobile phone's GPS tracking system) or type manually the location. If the user enters the location manually (the street name, for example), it will be checked and, if valid, the free parking spaces will be displayed.
 
@@ -75,9 +75,9 @@ In figure \ref{fig:StateChart_WebSite}, one can see the web site state chart. Th
 
 \clearpage
 \subsection{Sequence Diagram}
-\textbf{Mobile Application}
+\subsubsection{Mobile Application}
 
-In figure \ref{fig:SeqDiagram_application} is represented the sequence diagram of the mobile application. Most of the actions are triggered by the operator, starting with the registration or login operations in the application. If the login is valid, information about the network of lampposts will be shown and, depending on the interaction with the operator, the application may have different execution flows: registration of a lamppost; changing information about a lamppost; verification of the existence of damaged posts, notifying the operator if so. If the login is invalid, the application returns an error to the operator.
+In figure \ref{fig:SeqDiagram_WebSite} is represented the sequence diagram of the mobile application. Most of the actions are triggered by the operator, starting with the registration or login operations in the application. If the login is valid, information about the network of lampposts will be shown and, depending on the interaction with the operator, the application may have different execution flows: registration of a lamppost; changing information about a lamppost; verification of the existence of damaged posts, notifying the operator if so. If the login is invalid, the application returns an error to the operator.
 
 \begin{figure}[H]
         \centering
@@ -86,7 +86,7 @@ In figure \ref{fig:SeqDiagram_application} is represented the sequence diagram o
         \label{fig:SeqDiagram_application}
 \end{figure}
 
-\textbf{Web Site}
+\subsubsection{Web Site}
 
 The sequence diagram of the web site is shown in the figure \ref{fig:SeqDiagram_WebSite}. To know where there are empty parking spots, the user can insert manually a location or use his \ac{gps} location. In both cases the web site asks the remote server (database) if there are available parking spots near the location and displays them to the user. However, in the case of using the \ac{gps} location, the web site has to get the \ac{gps} coordinates from the mobile device running the web site.
 
