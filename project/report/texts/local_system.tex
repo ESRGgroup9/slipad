@@ -38,13 +38,13 @@ To better understand the local system behavior, it is necessary to be aware of t
 \end{table}
 
 \subsection{Use Cases}
-The base station use cases are presented in figure \ref{fig:bs_use_cases}. A street passerby, a car or a pedestrian, can interact with each local system by moving in the vicinity of the lamppost, triggering it's motion detector, or by clearing a parking space.
+The base station use cases are presented in figure \ref{fig:ls_use_cases}. A street passerby, a car or a pedestrian, can interact with each local system by moving in the vicinity of the lamppost, triggering it's motion detector, or by clearing a parking space.
 
 \begin{figure}[ht] 
 	\centering
-	\includegraphics[width=1\textwidth]{/05base_station/BS_UseCase}
+	\includegraphics[width=1\textwidth]{/04local_system/LS_UseCase}
 	\caption{Local system use cases.}
-	\label{fig:bs_use_cases}
+	\label{fig:ls_use_cases}
 \end{figure}
 
 When movement is detected, the lamp is put at maximum bright level. The system then informs this occurrence to the remote system, though the gateway, in order to turn on the neighbor lampposts. The opposite can also happen, when a neighbor local system, with the lamp already on, requests this local system to turn on its lamp. 
@@ -52,33 +52,33 @@ When movement is detected, the lamp is put at maximum bright level. The system t
 Moreover, the local system is periodically doing image processing after the capture of camera frames. So when the street passerby clears a parking space, the system will detect that, and will send that notification to the remote system.
 
 \subsection{State Chart}
-In figure \ref{fig:bs_state_chart} its represented the state chart of the base station. It initiates with the system configuration, initializing all subsystems inside the base station, as the Wi-Fi communications management, sensors data acquisition, image processing. After that, the system enters an idle state.
+In figure \ref{fig:ls_state_chart} its represented the state chart of the local system. It initiates with the system configuration, initializing all subsystems inside the base station, as the Wi-Fi communications management, sensors data acquisition, image processing. After that, the system enters an idle state.
 
 To do the sensors data acquisition, it is used a sample period, that periodically triggers the execution of the function “SampleSensors”, detailed in figure \ref{fig:sample_sensors}. When the base station is requested to turn on its lamp, the lamp is turned on and a timeout is started, named “turn off time” on the diagram. This timeout makes sure that the lamp stays on for a predefined period of time, after being triggered for being on. To do the image processing, it is also used a sample period to get image frames through the camera. If there is an available parking space detected, that information is sent to the remote server, as well as when the lamp is turned on or off, or when a LED failure is detected.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.85\textwidth]{/05base_station/BS_StateChart}
+	\includegraphics[width=1\textwidth]{/04local_system/LS_StateChart}
 	\caption{Base station state chart.}
-	\label{fig:bs_state_chart}
+	\label{fig:ls_state_chart}
 \end{figure}
 
 \clearpage
-\subsubsection{Sample Sensors}
-The sampling of the sensors is represented through the state chart detailed in figure \ref{fig:sample_sensors}.
-
-Firstly, the LED failure detector is checked. If it is on, means that is detecting that the lamp has a failure, if not, the other sensors can be checked.
-
-When low luminosity conditions are detected, through the luminosity sensor, the lamp is powered on, putting the lamp at a predefined minimum bright level. If motion is detected, the lamp is turned on to its maximum bright level, and a timeout is started, as explained before. Besides that, the base station requests the neighbor lampposts to turn their lamps on. When motion is not detected, it is checked if the turn off time has already ended. If that is true, the lamp is turned off.
-
-Note that, regarding the lamp control, one will use “turn on” to represent the lamp bright transition from minimum bright level to maximum bright level, and use “turn off” to represent the opposite, the transition from maximum bright level to minimum bright level. The lamp is only off when low luminosity conditions is not verified, i.e, during the day.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=.90\textwidth]{/05base_station/SampleSensors}
-	\caption{Sampling of the sensors state chart.}
-	\label{fig:sample_sensors}
-\end{figure}
+%\subsubsection{Sample Sensors}
+%The sampling of the sensors is represented through the state chart detailed in figure \ref{fig:sample_sensors}.
+%
+%Firstly, the LED failure detector is checked. If it is on, means that is detecting that the lamp has a failure, if not, the other sensors can be checked.
+%
+%When low luminosity conditions are detected, through the luminosity sensor, the lamp is powered on, putting the lamp at a predefined minimum bright level. If motion is detected, the lamp is turned on to its maximum bright level, and a timeout is started, as explained before. Besides that, the base station requests the neighbor lampposts to turn their lamps on. When motion is not detected, it is checked if the turn off time has already ended. If that is true, the lamp is turned off.
+%
+%Note that, regarding the lamp control, one will use “turn on” to represent the lamp bright transition from minimum bright level to maximum bright level, and use “turn off” to represent the opposite, the transition from maximum bright level to minimum bright level. The lamp is only off when low luminosity conditions is not verified, i.e, during the day.
+%
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=.90\textwidth]{/04local_system/SampleSensors}
+%	\caption{Sampling of the sensors state chart.}
+%	\label{fig:sample_sensors}
+%\end{figure}
 
 \clearpage
 \subsection{Sequence Diagram}
@@ -89,7 +89,7 @@ An alternative of an interaction with the base station is when a local system re
 Finally, the base station can also be requested to turn on the neighbor local systems of the local system that is requesting that.
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\textwidth]{/05base_station/BS_SeqDiagram}
+%	\includegraphics[width=1\textwidth]{/04local_system/BS_SeqDiagram}
 	\caption{Base station sequence diagram.}
 	\label{fig:bs_seq_diagram}
 \end{figure}
