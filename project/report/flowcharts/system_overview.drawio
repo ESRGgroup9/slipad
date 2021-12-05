@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-05T17:49:02.816Z" agent="5.0 (X11)" etag="yhZWqLZqaFeSYm_uW7Ji" version="15.9.1" type="github" pages="7">
+<mxfile host="app.diagrams.net" modified="2021-12-05T18:39:22.640Z" agent="5.0 (X11)" etag="OEII-PfSyi3I_KboajRb" version="15.9.1" type="github" pages="7">
   <diagram name="review_sys_overview" id="FKUYxz_ZdpuzisjiMlFq">
     <mxGraphModel dx="1662" dy="749" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -558,7 +558,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="sys_overview" id="GLnSHbyWHsVJ7qAjZ8iS">
-    <mxGraphModel dx="1662" dy="749" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1497" dy="788" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="gJxe0Pwek5bZMDXrnRmA-0" />
         <mxCell id="gJxe0Pwek5bZMDXrnRmA-1" parent="gJxe0Pwek5bZMDXrnRmA-0" />
@@ -701,7 +701,7 @@
         <mxCell id="gJxe0Pwek5bZMDXrnRmA-106" value="" style="group" parent="gJxe0Pwek5bZMDXrnRmA-100" vertex="1" connectable="0">
           <mxGeometry x="13.000000000000014" y="125.37" width="66.41000000000001" height="87.63" as="geometry" />
         </mxCell>
-        <mxCell id="gJxe0Pwek5bZMDXrnRmA-107" value="" style="whiteSpace=wrap;html=1;aspect=fixed;rounded=0;sketch=0;fillColor=#dae8fc;strokeColor=default;strokeWidth=0.6;fontColor=default;" parent="gJxe0Pwek5bZMDXrnRmA-106" vertex="1">
+        <mxCell id="gJxe0Pwek5bZMDXrnRmA-107" value="" style="whiteSpace=wrap;html=1;aspect=fixed;rounded=0;sketch=0;fillColor=#dae8fc;strokeColor=#000000;strokeWidth=0.6;fontColor=default;" parent="gJxe0Pwek5bZMDXrnRmA-106" vertex="1">
           <mxGeometry width="65.63" height="65.63" as="geometry" />
         </mxCell>
         <mxCell id="gJxe0Pwek5bZMDXrnRmA-108" value="Camera" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;sketch=0;fontColor=default;fontSize=9;strokeWidth=0.6;" parent="gJxe0Pwek5bZMDXrnRmA-106" vertex="1">
@@ -711,12 +711,12 @@
           <mxGeometry x="3.819999999999979" y="3.8100000000000023" width="58" height="58" as="geometry" />
         </mxCell>
         <mxCell id="gJxe0Pwek5bZMDXrnRmA-110" value="" style="group" parent="gJxe0Pwek5bZMDXrnRmA-100" vertex="1" connectable="0">
-          <mxGeometry x="96" y="122.55000000000001" width="80.56000000000003" height="87.82" as="geometry" />
+          <mxGeometry x="96" y="124.55000000000001" width="80.56000000000003" height="87.82" as="geometry" />
         </mxCell>
         <mxCell id="gJxe0Pwek5bZMDXrnRmA-111" value="LED Failure Detector" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;sketch=0;fontColor=default;fontSize=9;strokeWidth=0.6;" parent="gJxe0Pwek5bZMDXrnRmA-110" vertex="1">
           <mxGeometry y="67.82" width="80.56" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="gJxe0Pwek5bZMDXrnRmA-112" value="" style="whiteSpace=wrap;html=1;aspect=fixed;rounded=0;sketch=0;fillColor=#dae8fc;strokeColor=default;strokeWidth=0.6;fontColor=default;" parent="gJxe0Pwek5bZMDXrnRmA-110" vertex="1">
+        <mxCell id="gJxe0Pwek5bZMDXrnRmA-112" value="" style="whiteSpace=wrap;html=1;aspect=fixed;rounded=0;sketch=0;fillColor=#dae8fc;strokeColor=#000000;strokeWidth=0.6;fontColor=default;" parent="gJxe0Pwek5bZMDXrnRmA-110" vertex="1">
           <mxGeometry x="7.780000000000001" y="0.18999999999999773" width="65.63" height="65.63" as="geometry" />
         </mxCell>
         <mxCell id="gJxe0Pwek5bZMDXrnRmA-113" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.discordapp.com/attachments/897132688518025257/905213539512352788/92558-200.png;strokeColor=default;fontColor=default;" parent="gJxe0Pwek5bZMDXrnRmA-110" vertex="1">
