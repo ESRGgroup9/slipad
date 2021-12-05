@@ -1,81 +1,62 @@
+The local system's analysis is very similar to the base station analysis. Comparing to the base station, this system doesn't implement the parking spaces detection, since it doesn't have a camera, and only communicates with the base station. As in the base station, one can say that this is a passive system since it is most of the time waiting for something to happen.
+
 \subsection{Events}
-To better understand the base station behavior, it is necessary to be aware of the events that may occur, defining how the system will respond to each one of them, as shown in table \ref{table:bs_events}. The asynchronous events are generally triggered from external sources. In contrast, the synchronous events are triggered periodically.
+Listed in the table below, table \ref{table:ls_events}, are the main events that will occur in the local system and will affect its behavior. 
 
 \begin{table}[h]
 	\centering
-	\resizebox{\columnwidth}{!}{
+	\resizebox{\columnwidth}{!}
+	{
 	\begin{tabular}{||c | c | c | c||} 
 		\hline
 		\textbf{Event} & \textbf{System Response} & \textbf{Source} & \textbf{Type}\\
 		\hline\hline
 Luminosity detector OFF & Power the lamp & Environment & Asynchronous\\\hline
-LED failure detector ON & Notify remote system & Base station & Asynchronous\\\hline
+LED failure detector ON & Notify remote system & Local system & Asynchronous\\\hline
 Motion detected & Turn on the lamp & User & Asynchronous\\\hline
-Requested to turn on the lamp & Turn on the lamp & Local system & Asynchronous\\\hline
-Camera sample & Image processing & Timer & Synchronous\\\hline
+Requested to turn on the lamp & Turn on the lamp & Base station & Asynchronous\\\hline
 Sensors data acquisition & Sample sensor values & Timer & Synchronous\\\hline
-Update system information & Send data to remote system & Local system & Asynchronous\\
+Update system information & Send data to remote system & Base station & Asynchronous\\
 		\hline
 	\end{tabular}
-	}		
+	}
 	
-	\caption{Base station events.}
-	\label{table:bs_events}
+	\caption{Local system events.}
+	\label{table:ls_events}
 \end{table}
 
 \subsection{Use Cases}
-The base station use cases are presented in figure \ref{fig:bs_use_cases}. A street passerby, a car or a pedestrian, can interact with the base station by moving in the vicinity of the lamppost, triggering it's motion detector, or by clearing a parking space.
+The local system use cases are represented on figure \ref{fig:ls_use_cases}. Like the base station, a street passerby, can interact with the local system by moving in the vicinity of the lamppost, triggering it's motion detector.
 
-When movement is detected, the base station lights up the lamp and requests to the neighbor lampposts to turn on their lamps. The opposite can also happen, when a neighbor local system, with the lamp already on, requests the base station to turn on its lamp. At the same time, in both situations, the information that the lamppost was activated is sent to the remote server. Since the base station is the “primary” station of the network, a third scenario can be put, when there is a local system requesting the base station to turn on the lamp of the local system's neighbor lampposts.
+When movement is detected, the lamp is turned on and requests the base station to turn on the local system's neighbor lampposts. At the same time, the information that the lamppost was activated is sent to the base station, for this to be sent to the remote system.
 
-Moreover, the base station is frequently doing image processing through the capture of camera frames. So when the street passerby clears a parking space, the system will detect that, sending that information to the remote system.
+Also, the local system can be asked, by the base station, to turn on its lamp.
+\clearpage
 
-\begin{figure}[ht] 
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\textwidth]{/05base_station/BS_UseCase}
-	\caption{Base station use cases.}
-	\label{fig:bs_use_cases}
+	\includegraphics[width=1\textwidth]{/04local_system/LS_UseCase}
+	\caption{Local system use cases.}
+	\label{fig:ls_use_cases}
 \end{figure}
 
 \subsection{State Chart}
-In figure \ref{fig:bs_state_chart} its represented the state chart of the base station. It initiates with the system configuration, initializing all subsystems inside the base station, as the Wi-Fi communications management, sensors data acquisition, image processing. After that, the system enters an idle state.
-
-To do the sensors data acquisition, it is used a sample period, that periodically triggers the execution of the function “SampleSensors”, detailed in figure \ref{fig:sample_sensors}. When the base station is requested to turn on its lamp, the lamp is turned on and a timeout is started, named “turn off time” on the diagram. This timeout makes sure that the lamp stays on for a predefined period of time, after being triggered for being on. To do the image processing, it is also used a sample period to get image frames through the camera. If there is an available parking space detected, that information is sent to the remote server, as well as when the lamp is turned on or off, or when a LED failure is detected.
+In figure \ref{fig:ls_state_chart} is represented the state chart of the local system. After the system configuration, which initializes the Wi-Fi communication management, sensors data acquisition, the system enters an idle state. To do the sensors data acquisition, like in the base station, it is used a sample period, that periodically triggers the execution of the function “SampleSensors”, presented previously, in figure \ref{fig:sample_sensors}. When the local system is requested by the base station to turn on its lamp, the lamp is turned-on and a timeout is started (turn off time, as mentioned before). The lamppost status is then sent to the base station, in order to send it to the remote server.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.85\textwidth]{/05base_station/BS_StateChart}
-	\caption{Base station state chart.}
-	\label{fig:bs_state_chart}
-\end{figure}
-
-\clearpage
-\subsubsection{Sample Sensors}
-The sampling of the sensors is represented through the state chart detailed in figure \ref{fig:sample_sensors}.
-
-Firstly, the LED failure detector is checked. If it is on, means that is detecting that the lamp has a failure, if not, the other sensors can be checked.
-
-When low luminosity conditions are detected, through the luminosity sensor, the lamp is powered on, putting the lamp at a predefined minimum bright level. If motion is detected, the lamp is turned on to its maximum bright level, and a timeout is started, as explained before. Besides that, the base station requests the neighbor lampposts to turn their lamps on. When motion is not detected, it is checked if the turn off time has already ended. If that is true, the lamp is turned off.
-
-Note that, regarding the lamp control, one will use “turn on” to represent the lamp bright transition from minimum bright level to maximum bright level, and use “turn off” to represent the opposite, the transition from maximum bright level to minimum bright level. The lamp is only off when low luminosity conditions is not verified, i.e, during the day.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=.90\textwidth]{/05base_station/SampleSensors}
-	\caption{Sampling of the sensors state chart.}
-	\label{fig:sample_sensors}
+	\includegraphics[width=.60\textwidth]{/04local_system/LS_StateChart}
+	\caption{Local system state chart.}
+	\label{fig:ls_state_chart}
 \end{figure}
 
 \clearpage
 \subsection{Sequence Diagram}
-In figure \ref{fig:bs_seq_diagram} it is shown the base station sequence diagram. When a street passerby triggers the motion detector, the base station turns on its lamp, and, at that moment, that information is updated in the remote server. After that, the communication management of the base station is free to communicate with the neighbor local systems to turn on their lamps. If, however, no more movement is detected, the lamp turns off after a predefined time (turn off time), and again, the lamp status is updated in the remote server.
+The sequence diagram for the local system is represented in figure \ref{fig:ls_seq_diagram}. Again, this diagram is analogous to the one shown on the base station (figure \ref{fig:bs_seq_diagram}), having the differences that the local system only communicates with the base station, so any request that the local system wants to make to another local system has to go through the base station, and, due to that, the local system doesn't have the power to request another local system to turn its lamp on.
 
-An alternative of an interaction with the base station is when a local system requests the base station to turn on its lamp, this being processed in a similar way to the previous example.
-
-Finally, the base station can also be requested to turn on the neighbor local systems of the local system that is requesting that.
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\textwidth]{/05base_station/BS_SeqDiagram}
-	\caption{Base station sequence diagram.}
-	\label{fig:bs_seq_diagram}
+	\includegraphics[width=.95\textwidth]{/04local_system/LS_SeqDiagram}
+	\caption{Local system sequence diagram.}
+	\label{fig:ls_seq_diagram}
 \end{figure}
