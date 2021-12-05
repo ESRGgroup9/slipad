@@ -1,26 +1,34 @@
-Sensor de corrente ou tensão?
+----------------------------------------------------
+ANALYSIS
+----------------------------------------------------
+- flexibility on choosing the pole to have the camera
+- camera detecting range
 
-Onde se põe estas cenas? Neste momento o projeto só diz respeito a ligar e desligar a lâmpada, ou seja à parte do sistema local.
+state chart vs flowchart
 
-Dizer algo a respeito da poluição luminosa e consumo concretamente? Por exemplo, imagem do National Geographic a mostrar a dispersão da luz, informações relativas à iluminancia de uma luz de rua, temp de cor, etc?
+- sensor luminosidade não é GPIO (I2C??)
+- colocar req e constraints antes do sys overview
+- TCP/IP entre o gateway e o remote sys
 
-Aplicação:
-- inserir um novo registo de um poste aquando a sua instalação
-- utilizar o GPS do telemovel nesse registo, para registar a posição do poste
+----------------------------------------------------
+DESIGN
+----------------------------------------------------
+network arch
+- aloha?
+- consumo por nodo
+- num ligações por gateway (packets per node)
+- range do sinal
+- segurança?
 
-- mapear os postes
-- conhecimento das suas condições
-	avariado?
-	ligado?
-	log do tempo ligado
+definir tempo que a lampada fica ligada após uma deteção
 
-A aplicação deve ser capaz de mapear todos os postes colocados na cidade. Para isso, a pessoa responsável deve usar a aplicação e, através do GPS do smartphone criar um novo registo na base de dados 
+----------------------------------------------------
+HW
+----------------------------------------------------
+lâmpada controlável 12 V, CC
 
------------4/11/2021---------
-- Pôr mais tempo para o design
-- Sensor de estado da lampada (como fazer)
-- wireless communication to use:
-	- ESP32?
-	
+Sensor de Luz Ambiente TSL2581 - i2c - WS: https://www.botnroll.com/pt/luz-imagem/3516-sensor-de-luz-ambiente-tsl2581-i2c-ws.html
+
+Geolocation- A LoRaWAN network can determine the location of end devices using triangulation without the need for GPS. A LoRa end device can be located if at least three gateways pick up its signal.????????
 
 
