@@ -1,41 +1,55 @@
 \subsection{Events}
 To better understand the local system behavior, it is necessary to be aware of the events that may occur, defining how the system will respond to each one of them, as shown in table \ref{table:ls_events}. The asynchronous events are generally triggered from external sources. In contrast, the synchronous events are triggered periodically.
 
-\begin{table}[h]
+\begin{table}[ht]
 	\centering
-	\resizebox{\columnwidth}{!}{
-		\begin{tabular}{||c | c | c | c||} 
-			\hline
-			\textbf{Event} & \textbf{System Response} & \textbf{Source} & \textbf{Type}\\
-			\hline\hline
-			Luminosity detector OFF & Power the lamp & Environment & Asynchronous\\\hline
-			LED failure detector ON & Notify remote system & Base station & Asynchronous\\\hline
-			Motion detected & Turn on the lamp & User & Asynchronous\\\hline
-			Requested to turn on the lamp & Turn on the lamp & Local system & Asynchronous\\\hline
-			Camera sample & Image processing & Timer & Synchronous\\\hline
-			Sensors data acquisition & Sample sensor values & Timer & Synchronous\\\hline
-			Update system information & Send data to remote system & Local system & Asynchronous\\
-			\hline
-		\end{tabular}
+	\resizebox{\columnwidth}{!}
+	{
+%	\begin{tabular}{||c | c | c | c||} 
+
+	\begin{tabular}{|m{3cm}|m{5cm}|m{2.4cm}|m{2.4cm}|}
+		\hline
+		\textbf{Event} & \textbf{System Response} & \textbf{Source} & \textbf{Type}\\
+		\hline\hline
+		Low luminosity detected & Put lamp at a predefined minimum bright level & Environment & Asynchronous\\
+		\hline
+		
+		Motion detected & Put lamp at maximum bright level & User & Asynchronous\\
+		\hline
+		
+		LED failure detected & Notify remote system & Local system & Asynchronous\\
+		\hline
+		
+		Requested to turn on the lamp & Put lamp at maximum bright level & Gateway & Asynchronous\\
+		\hline
+		
+		Camera sample period & Acquire camera frame and do image processing & Timer & Synchronous\\
+		\hline
+		
+%		Sensors data acquisition & Sample sensor values & Timer & Synchronous\\
+%		\hline
+		
+		Update system information & Send data to remote system & Local system & Asynchronous\\
+		\hline
+	\end{tabular}
 	}		
-	
 	\caption{Local system events.}
 	\label{table:ls_events}
 \end{table}
 
 \subsection{Use Cases}
-The base station use cases are presented in figure \ref{fig:bs_use_cases}. A street passerby, a car or a pedestrian, can interact with the base station by moving in the vicinity of the lamppost, triggering it's motion detector, or by clearing a parking space.
-
-When movement is detected, the base station lights up the lamp and requests to the neighbor lampposts to turn on their lamps. The opposite can also happen, when a neighbor local system, with the lamp already on, requests the base station to turn on its lamp. At the same time, in both situations, the information that the lamppost was activated is sent to the remote server. Since the base station is the “primary” station of the network, a third scenario can be put, when there is a local system requesting the base station to turn on the lamp of the local system's neighbor lampposts.
-
-Moreover, the base station is frequently doing image processing through the capture of camera frames. So when the street passerby clears a parking space, the system will detect that, sending that information to the remote system.
+The base station use cases are presented in figure \ref{fig:bs_use_cases}. A street passerby, a car or a pedestrian, can interact with each local system by moving in the vicinity of the lamppost, triggering it's motion detector, or by clearing a parking space.
 
 \begin{figure}[ht] 
 	\centering
 	\includegraphics[width=1\textwidth]{/05base_station/BS_UseCase}
-	\caption{Base station use cases.}
+	\caption{Local system use cases.}
 	\label{fig:bs_use_cases}
 \end{figure}
+
+When movement is detected, the lamp is put at maximum bright level. The system then informs this occurrence to the remote system, though the gateway, in order to turn on the neighbor lampposts. The opposite can also happen, when a neighbor local system, with the lamp already on, requests this local system to turn on its lamp. 
+
+Moreover, the local system is periodically doing image processing after the capture of camera frames. So when the street passerby clears a parking space, the system will detect that, and will send that notification to the remote system.
 
 \subsection{State Chart}
 In figure \ref{fig:bs_state_chart} its represented the state chart of the base station. It initiates with the system configuration, initializing all subsystems inside the base station, as the Wi-Fi communications management, sensors data acquisition, image processing. After that, the system enters an idle state.
