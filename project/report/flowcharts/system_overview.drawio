@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-06T17:11:13.631Z" agent="5.0 (X11)" etag="hYt9RWWPLYUs97th_aaJ" version="15.9.1" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2021-12-06T17:31:14.422Z" agent="5.0 (X11)" etag="fvfPkYNQiV4XbXG4kfLL" version="15.9.1" type="github" pages="8">
   <diagram name="review_sys_overview" id="FKUYxz_ZdpuzisjiMlFq">
     <mxGraphModel dx="1422" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -215,7 +215,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Copy of review_sys_overview" id="WfoBJ51yk45WpP75W7S5">
-    <mxGraphModel dx="1422" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1662" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="827rqfJJVWb09k9bonzJ-0" />
         <mxCell id="827rqfJJVWb09k9bonzJ-1" parent="827rqfJJVWb09k9bonzJ-0" />
@@ -969,11 +969,21 @@
             <Array as="points" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="-uEMSF9NUkh8UG9rPR73-0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="mFuTaCtOZCncO_Q4BWWo-1" source="mFuTaCtOZCncO_Q4BWWo-23" target="2gXWhtHGTkCs2fx3SHUD-0">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="291" y="320" />
+              <mxPoint x="291" y="474" />
+            </Array>
+            <mxPoint x="274.0000000000002" y="327.1850000000002" as="sourcePoint" />
+            <mxPoint x="556" y="423" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="VjE3OkfchiHzPY5zCAz_" name="gateway_hw_arch">
-    <mxGraphModel dx="1385" dy="661" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="707" dy="337" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="nxn5JaJCIBL9VAFoG-B1-0" />
         <mxCell id="nxn5JaJCIBL9VAFoG-B1-1" parent="nxn5JaJCIBL9VAFoG-B1-0" />
@@ -1040,6 +1050,16 @@
             <mxPoint x="553.37" y="216.86" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="xJkFXr7ki4LQd4uN9oCr-0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#A8201A;" edge="1" parent="nxn5JaJCIBL9VAFoG-B1-1" source="OdvQzrdyj1UNzLZ67pJK-0" target="iBRImi9bAzXkSUNV-lgh-0">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="315.0000000000001" y="226.99500000000012" as="sourcePoint" />
+            <mxPoint x="369.94871999999987" y="226.79999999999995" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="333" y="217" />
+              <mxPoint x="333" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
@@ -1087,14 +1107,14 @@
         <mxCell id="rTfBJTmCusdj6inRNWWQ-13" value="Data Aquisition" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#000000;strokeWidth=0.6;fillColor=#fff2cc;align=center;verticalAlign=middle;fontColor=default;opacity=80;shadow=1;" parent="rTfBJTmCusdj6inRNWWQ-1" vertex="1">
           <mxGeometry x="480" y="170" width="75" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="rTfBJTmCusdj6inRNWWQ-16" value="LED Faillure&amp;nbsp; Drivers" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" parent="rTfBJTmCusdj6inRNWWQ-1" vertex="1">
-          <mxGeometry x="460" y="290" width="105" height="40" as="geometry" />
+        <mxCell id="rTfBJTmCusdj6inRNWWQ-16" value="LED Failure&amp;nbsp; Driver" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" parent="rTfBJTmCusdj6inRNWWQ-1" vertex="1">
+          <mxGeometry x="480" y="290" width="85" height="40" as="geometry" />
         </mxCell>
         <mxCell id="rTfBJTmCusdj6inRNWWQ-19" value="Camera Driver" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" parent="rTfBJTmCusdj6inRNWWQ-1" vertex="1">
-          <mxGeometry x="350" y="290" width="105" height="40" as="geometry" />
+          <mxGeometry x="410" y="290" width="65" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="rTfBJTmCusdj6inRNWWQ-20" value="PWM Drivers" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" parent="rTfBJTmCusdj6inRNWWQ-1" vertex="1">
-          <mxGeometry x="240" y="290" width="105" height="40" as="geometry" />
+        <mxCell id="rTfBJTmCusdj6inRNWWQ-20" value="Motion Detector Driver" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" parent="rTfBJTmCusdj6inRNWWQ-1" vertex="1">
+          <mxGeometry x="299" y="290" width="105" height="40" as="geometry" />
         </mxCell>
         <mxCell id="CkrygHN5k43zn_iCaklq-0" value="Image Processing" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;strokeColor=#000000;strokeWidth=0.6;fillColor=#fff2cc;align=center;verticalAlign=middle;fontColor=default;opacity=80;shadow=1;" parent="rTfBJTmCusdj6inRNWWQ-1" vertex="1">
           <mxGeometry x="400" y="170" width="75" height="40" as="geometry" />
@@ -1135,11 +1155,14 @@
             <mxPoint x="120.12000000000012" y="279.9999999999999" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="3B1czU0evvW9AH-nIB8w-0" value="Luminosity Sensor Driver" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;labelBorderColor=none;fontSize=13;fontColor=default;strokeColor=default;strokeWidth=0.6;fillColor=#F19C99;align=center;verticalAlign=middle;shadow=1;" vertex="1" parent="rTfBJTmCusdj6inRNWWQ-1">
+          <mxGeometry x="210" y="290" width="85" height="40" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram name="gateway_sw_arch" id="tgn_oF9Zx0ag74VxLGx6">
-    <mxGraphModel dx="981" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1146" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="ortqdx7BMK1g8GDAklnV-0" />
         <mxCell id="ortqdx7BMK1g8GDAklnV-1" parent="ortqdx7BMK1g8GDAklnV-0" />
@@ -1224,7 +1247,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="remote_sw_arch" id="zkl_AhVrkQId0UgMf_1x">
-    <mxGraphModel dx="813" dy="453" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="950" dy="453" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="rKDpD6mXBBvhDezHHSJh-0" />
         <mxCell id="rKDpD6mXBBvhDezHHSJh-1" parent="rKDpD6mXBBvhDezHHSJh-0" />
