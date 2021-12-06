@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-12-06T22:43:50.230Z" agent="5.0 (X11)" etag="975LssYojf0UbDBsWH6O" version="15.9.1" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2021-12-06T22:48:22.966Z" agent="5.0 (X11)" etag="xaac5eSudHQojuUvOmmW" version="15.9.1" type="github" pages="6">
   <diagram id="smE5fnJAyVyCLhYMQo8Z" name="AppSystem_UseCases">
-    <mxGraphModel dx="1662" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="931" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -101,14 +101,14 @@
         <mxCell id="Z5xYq3RRcm3EjHd7aSkA-50" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;labelBackgroundColor=#DAD2D8;strokeColor=#A8201A;fontColor=#143642;" parent="1" source="Z5xYq3RRcm3EjHd7aSkA-10" target="Z5xYq3RRcm3EjHd7aSkA-34" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Z5xYq3RRcm3EjHd7aSkA-10" value="&lt;div&gt;Database&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
+        <mxCell id="Z5xYq3RRcm3EjHd7aSkA-10" value="Remote Server" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
           <mxGeometry x="680" y="260" width="30" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram name="AppSystem_StateChart" id="UImUrKe5_uOli_mzNX-e">
-    <mxGraphModel dx="1662" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1350" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="Se8_HQP-JT-l-ZY7dEQb-0" />
         <mxCell id="Se8_HQP-JT-l-ZY7dEQb-1" parent="Se8_HQP-JT-l-ZY7dEQb-0" />
@@ -270,7 +270,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="cPRygELZNogxZ97G4dhh" name="AppSystem_SeqDiagram">
-    <mxGraphModel dx="702" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1350" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="BRzkZ_ajTPaAjKOZRPbq-0" />
         <mxCell id="BRzkZ_ajTPaAjKOZRPbq-1" parent="BRzkZ_ajTPaAjKOZRPbq-0" />
@@ -502,7 +502,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="WebSiteSys_UseCases" id="4FfJd1EmiULP9ebMevSI">
-    <mxGraphModel dx="1662" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1125" dy="637" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="5bZJ5uvaay_0yBccqVm7-0" />
         <mxCell id="5bZJ5uvaay_0yBccqVm7-1" parent="5bZJ5uvaay_0yBccqVm7-0" />
@@ -554,7 +554,7 @@
         <mxCell id="5bZJ5uvaay_0yBccqVm7-30" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;labelBackgroundColor=#DAD2D8;strokeColor=#A8201A;fontColor=#143642;" parent="5bZJ5uvaay_0yBccqVm7-1" source="5bZJ5uvaay_0yBccqVm7-31" target="5bZJ5uvaay_0yBccqVm7-20" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="5bZJ5uvaay_0yBccqVm7-31" value="Database" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="5bZJ5uvaay_0yBccqVm7-1" vertex="1">
+        <mxCell id="5bZJ5uvaay_0yBccqVm7-31" value="Remote Server" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="5bZJ5uvaay_0yBccqVm7-1" vertex="1">
           <mxGeometry x="680" y="160" width="30" height="60" as="geometry" />
         </mxCell>
       </root>
