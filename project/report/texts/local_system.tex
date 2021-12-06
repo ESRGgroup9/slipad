@@ -64,13 +64,13 @@ In figure \ref{fig:ls_state_chart} its represented the state chart of the local 
 	\label{fig:ls_state_chart}
 \end{figure}
 
-It initiates with the system configuration, initializing all peripherals from this system, including the sensors, the camera, the LoRa communication module and the timer for sensors data acquisition. This is used sample sensor values periodically and to acquire image frames through the camera. After that, the system enters an idle state.
+It initiates with the system configuration, initializing all peripherals from this system, including the sensors, the camera, the LoRa communication module and the timer for sensors data acquisition. The timer is used to sample sensor values periodically and to acquire image frames through the camera. After that, the system enters an idle state.
 
-When motion is detected, the lamp is put at maximum bright level, for a predefined time window, and this information is sent to the remote server. When this time window passes, the lamp is put at a predefined minimum bright level, and again, informs the remote system of this event. Every time motion is detected, the time window for the lamp being on is restarted.
+When motion is detected and the luminosity sensor detects low luminosity conditions, for example, during the night, the lamp is put at its maximum bright level, for a predefined time window, and this information is sent to the remote server. When this time window passes, the lamp is put at a predefined minimum bright level, and again, informs the remote system of this event. Every time motion is detected, when the lamp is already on, the time window for the lamp being on is restarted.
 
-To do the sensors data acquisition, including the camera frame sampling, are used sample periods, that periodically triggers the sampling of the sensors. In "SampleSensors" state, the system checks the luminosity sensor levels and if the LED failure detector hasn't detected a failure on the lamp. To do the image processing, it is also used a sample period to get image frames through the camera. If there is an available parking space detected, that information is sent to the remote server.
+To do the sensors data acquisition, including the camera frame sampling, are used sample periods, that periodically triggers the sampling of the sensors. In "SampleSensors" state, the system checks the luminosity sensor levels and if the LED failure detector hasn't detected a failure on the lamp. If a LED failure is detected, that information is sent to the remote system. To do the image processing, it is also used a sample period to get image frames through the camera. If there is an available parking space detected, that information is sent to the remote server.
 
-When the local system detected that the remote system is sending a message, either to turn on the lamp of the local system, or other reason, the system goes to a dedicated state to receive that message.
+When the local system detects that the remote system is sending a message, either to turn on the lamp of the local system, or other reason, the system goes to a dedicated state to receive that message.
 
 \subsection{Sequence Diagram}
 In figure \ref{fig:ls_seq_diagram} it is shown the local system sequence diagram. When a street passerby triggers the motion detector, the local system turns on its lamp, and, at that moment, using the communication management of the system, that information is sent to the remote system. If, no more movement is detected, the lamp turns off after a predefined time (turn off time), and again, the lamp status is updated in the remote system.
@@ -79,9 +79,18 @@ An alternative of an interaction with the local system is when the remote system
 
 Note that, regarding the lamp control, one may use “turn on” to represent the lamp bright transition from minimum bright level to maximum bright level, and use “turn off” to represent the opposite, the transition from maximum bright level to minimum bright level. The lamp is only off when low luminosity conditions are not verified, i.e, during the day.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\textwidth]{/04local_system/LS_SeqDiagram}
 	\caption{Local system sequence diagram.}
 	\label{fig:ls_seq_diagram}
+\end{figure}
+
+In figure \ref{fig:ls_seq_diagram_timer} it is shown the local system data acquisition sequence diagram.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{/04local_system/LS_SeqDiagram_Timer}
+	\caption{Local system data acquisition sequence diagram.}
+	\label{fig:ls_seq_diagram_timer}
 \end{figure}
