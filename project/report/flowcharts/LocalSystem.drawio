@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-06T00:33:25.327Z" agent="5.0 (X11)" etag="tB7QARaQHA3sdAUw5mDC" version="15.9.1" type="github" pages="10">
+<mxfile host="app.diagrams.net" modified="2021-12-06T00:35:34.209Z" agent="5.0 (X11)" etag="wuXQRSWp1oj27LRnRqbq" version="15.9.1" type="github" pages="10">
   <diagram name="LS_UseCase" id="whAkqx9OYaTKpvScWRI8">
     <mxGraphModel dx="931" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -395,7 +395,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="XIE7kv5cmqRNuCJelmqf-26" value="Remote Server" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;size=40;labelBackgroundColor=default;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontSize=10;" vertex="1" parent="XIE7kv5cmqRNuCJelmqf-1">
+        <mxCell id="XIE7kv5cmqRNuCJelmqf-26" value="Remote System" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;size=40;labelBackgroundColor=default;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontSize=10;" vertex="1" parent="XIE7kv5cmqRNuCJelmqf-1">
           <mxGeometry x="590" y="230" width="20" height="530" as="geometry" />
         </mxCell>
         <mxCell id="XIE7kv5cmqRNuCJelmqf-27" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="XIE7kv5cmqRNuCJelmqf-26">
@@ -478,7 +478,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="XIE7kv5cmqRNuCJelmqf-25" value="Request to turn on" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=8;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=#143642;labelBorderColor=none;entryX=1.061;entryY=0.01;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="XIE7kv5cmqRNuCJelmqf-1" source="XIE7kv5cmqRNuCJelmqf-26" target="XIE7kv5cmqRNuCJelmqf-12">
+        <mxCell id="XIE7kv5cmqRNuCJelmqf-25" value="Request to turn on" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=8;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=#143642;labelBorderColor=none;entryX=1.061;entryY=0.01;entryDx=0;entryDy=0;entryPerimeter=0;exitX=-0.056;exitY=0.359;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="XIE7kv5cmqRNuCJelmqf-1" source="XIE7kv5cmqRNuCJelmqf-43" target="XIE7kv5cmqRNuCJelmqf-12">
           <mxGeometry x="0.0056" width="80" relative="1" as="geometry">
             <mxPoint x="595.2900000000002" y="560.76" as="sourcePoint" />
             <mxPoint x="380" y="580" as="targetPoint" />
