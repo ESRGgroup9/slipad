@@ -1,14 +1,19 @@
 ----------------------------------------------------
 ANALYSIS
 ----------------------------------------------------
+network arch
 - flexibility on choosing the pole to have the camera
-- camera detecting range
+- camera detecting range???
 
+local sys
+- samplesensors?? led failure detector?
+- Another sequence diagram?? timer/sensors
 state chart vs flowchart
 
 - sensor luminosidade não é GPIO (I2C??)
 - colocar req e constraints antes do sys overview
 - TCP/IP entre o gateway e o remote sys
+
 
 ----------------------------------------------------
 DESIGN
