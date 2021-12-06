@@ -66,8 +66,7 @@ As shown in figure \ref{fig:local_sw_arch}, the operating system layer is compos
 \end{figure}
 
 \subsubsection{Gateway}
-
-In figure \ref{fig:gateway_sw_arch} is shown the software architecture of gateway device. The operating system layer is composed by the LoRa communication driver. The middleware layer deals with LoRa services and with TCP/IP framework. The application layer manages all communications with the street lampposts network and the remote system.
+In figure \ref{fig:gateway_sw_arch} is shown the software architecture of gateway device. The operating system layer is composed by the communication drivers, responsible of providing resources to establish a TCP/IP connection, with the remote system, and establish a LoRa connection with the local systems. The middleware layer deals with LoRa services and with TCP/IP framework. The application layer manages all communications with the street lampposts network and the remote system.
 
 \begin{figure}[H]
 	\centering
@@ -77,20 +76,23 @@ In figure \ref{fig:gateway_sw_arch} is shown the software architecture of gatewa
 \end{figure}
 
 \subsubsection{Remote System}
-In figure \ref{remote_sw_arch} is shown the software architecture of the remote system. The operating system layer is composed by the communication drivers, more specifically, TCP/IP, that are needed to establish a connection with the gateway. In the middleware layer, there is 
-
-the system database, as well as the \ac{gui}, that is the mobile application and the web site, and also
+In figure \ref{remote_sw_arch} is shown the software architecture of the remote system. The operating system layer is composed by the communication drivers, more specifically, TCP/IP, that are needed to establish a connection with the gateway. In the middleware layer, there is the TCP/IP framework.
+In the application layer there is the \ac{gui}, that allows the interaction with the user, through a mobile application and a web site. There are also the communication and database management, responsible of editing the database when required and supplying all the information requested by the \ac{gui}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.75\textwidth]{03system_overview/remote_sw_arch}
+%	\includegraphics[width=.75\textwidth]{03system_overview/remote_sw_arch}
 	\caption{Remote System Software Architecture Diagram.}
 	\label{fig:remote_sw_arch}
 \end{figure}
 
 \clearpage
 \subsection{Database E-R Diagram}
-In the database will be stored all the information about each lamppost, its operators and parking spots. In the figure \ref{fig:Database} one can see the Entity Relationship Diagram (E-R Diagram) that displays the relationships between the entities, that is the things of interest in this specific domain of knowledge. This database has five entities: Lamppost, Location, Region, Operator and Parking Space. A lamppost have a unique identification, his location coordinates and the status of the lamp (light dimmed/ light fully ON/ OFF/ broken). The location is defined by the coordinates, the post code associated and the street name. A region has multiple locations associated, that are defined by the post code. This entity has also information about parish, county, district of the specified region and the operator responsible for the lampposts in that region. The entity operator has the operator identification and the operator name. A parking spot is defined by the entity Parking Space and has the attributes identification of the parking space, its location coordinates, the parking space type (normal park/ park for disabled people/ restrict park) and the park status (taken/ not taken).
+In the database will be stored all the information about each lamppost, its operators and parking spots. In the figure \ref{fig:Database} one can see the Entity Relationship Diagram (E-R Diagram).
+
+%that displays the relationships between the entities, that is the things of interest in this specific domain of knowledge.
+
+This database has five entities: "Lamppost", "Location", "Region", "Operator" and "Parking Space". A lamppost has a unique identification, his location coordinates and the status of the lamp (lamp at minimum bright level/ lamp at maximum bright level/ lamp OFF/ lamp broken). The location is defined by the coordinates, the post code associated and the street name. A region has multiple locations associated, that are defined by the post code. This entity has also information about parish, county, district of the specified region and the operator responsible for the lampposts in that region. The entity "operator" has the operator identification and the operator name. A parking spot is defined by the entity "Parking Space" and has the attributes identification of the parking space, its location coordinates, the parking space type (normal park/ park for disabled people/ restrict park) and the park status (available/ not available).
 
 %\subsubsection{Relational Model}
 %
