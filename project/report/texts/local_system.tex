@@ -86,11 +86,16 @@ Note that, regarding the lamp control, one may use “turn on” to represent th
 	\label{fig:ls_seq_diagram}
 \end{figure}
 
-In figure \ref{fig:ls_seq_diagram_timer} it is shown the local system data acquisition sequence diagram.
+\clearpage
+In figure \ref{fig:ls_seq_diagram_timer} it is shown the local system data acquisition sequence diagram. A timer is used to trigger two different samplings, one to sample sensor values, other to sample image frames from the camera. 
+
+When the sensors sample period occurs, the sampling is started, gathering values from the luminosity sensor and from the LED failure detector. If a LED failure is detected, that is sent to the remote system through the communication management system.
+
+When the camera sample period occurs, one gets an image frame from the camera and does image processing, in order to avail if there is an available parking spot. If that comes true, it's communicated to the remote system, like in the previous example.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\textwidth]{/04local_system/LS_SeqDiagram_Timer}
+	\includegraphics[width=1\textwidth]{/04local_system/LS_SeqDiagram_Timer}
 	\caption{Local system data acquisition sequence diagram.}
 	\label{fig:ls_seq_diagram_timer}
 \end{figure}
