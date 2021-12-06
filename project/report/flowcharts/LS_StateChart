@@ -1,0 +1,44 @@
+http://www.plantuml.com/plantuml/uml/TPBFRjim3CRlV0gU1-G5WYBe4225WMODaW8zh3kmCfq8qnz3Kj9kmzvzD3FPS8PTR8hyyVjaqlUvK2fdx-3hfs-uMApmy2CNzkiOEdi4a7BXMGv_0IgxmYROyh1hdc2CQlOnxWd6g6PtBrkeGSsj3mtKeEQUhUS4lm5clekXsZe669vwV2JVFtt19MvZiJ7WQsYvi2dSmhMar3OVdpz0d_yLsMn4PV35TnlQ-2vI9yhOKyuYLf59RMe_ICtnWKEEAOj8ZLv3rWhsd6niOSxLUqmw3rmQJqVU9F8iEcjv9Vf7PePfenvtAHhEsOPnPmRlximfMiEh5TmmscV0J1yaXfylP1sz3LQKlWibrdqiE8xKt4olTk-7xYQOw0TfBnPY9XVlKlIOsCV2c7MJeFGaCr_mKfTloTcVZEISVd9_uaGkg-4INqW0CUbYGWh85mu5nhzW2D1cf8AUFgm_Uxd5MxB7Kq4dhAkBdA64VUAMEnku5TxRe9spljdKboX7DDVzT4FcThvB_1lFAPsq_Y4jjbG8InJ3EY5E5quw8M7sRDXU-8hf86_1Ur4vU_S7
+
+@startuml
+[*] --> SystemConfig
+
+state SystemConfig {
+ [*] -> InitGPIO
+ InitGPIO -> InitLoRa
+ InitLoRa -> InitPWM
+ InitPWM -> InitCSI
+ InitCSI -> InitTimer
+}
+
+SystemConfig --> Idle
+
+Idle --> LampON : Motion \ndetected
+LampON --> MsgTx
+MsgTx --> Idle
+
+Idle --> LampOFF : Time window \nhas passed
+LampOFF --> MsgTx
+
+Idle --> SampleSensors : Sensors \nsample period
+SampleSensors --> Idle
+Idle --> GetImageFrame : Camera \nsample period
+GetImageFrame --> ImageProcessing
+
+state c <<choice>>
+ImageProcessing --> c
+c --> MsgTx : Available parking\nspot detected
+c --> Idle
+
+Idle --> MsgRx : Incoming message \nfrom remote system
+MsgRx --> Idle
+
+SystemConfig : Initialize all peripherals
+Idle: Waiting for an event
+LampON : Lamp is at maximum \nbright level
+LampOFF: Lamp is at a predefined \nminimum bright level
+GetImageFrame: Get camera frame
+ImageProcessing: Process camera frame
+MsgTx: Send data to \nremote server
+MsgRx: Receive data from \nremote server
+@enduml

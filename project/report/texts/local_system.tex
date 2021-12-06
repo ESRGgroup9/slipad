@@ -1,5 +1,6 @@
 \subsection{Events}
-To better understand the local system behavior, it is necessary to be aware of the events that may occur, defining how the system will respond to each one of them, as shown in table \ref{table:ls_events}. The asynchronous events are generally triggered from external sources. In contrast, the synchronous events are triggered periodically.
+To better understand the local system behavior, it is necessary to be aware of the events that may occur, defining how the system will respond to each one of them, as shown in table \ref{table:ls_events}. 
+%The asynchronous events are generally triggered from external sources. In contrast, the synchronous events are triggered periodically.
 
 \begin{table}[ht]
 	\centering
@@ -20,23 +21,24 @@ To better understand the local system behavior, it is necessary to be aware of t
 		LED failure detected & Notify remote system & Local system & Asynchronous\\
 		\hline
 		
-		Requested to turn on the lamp & Put lamp at maximum bright level & Gateway & Asynchronous\\
+		Requested to turn on the lamp & Put lamp at maximum bright level & Remote system & Asynchronous\\
 		\hline
 		
 		Camera sample period & Acquire camera frame and do image processing & Timer & Synchronous\\
 		\hline
 		
-%		Sensors data acquisition & Sample sensor values & Timer & Synchronous\\
-%		\hline
+		Sensors data acquisition & Sample sensor values & Timer & Synchronous\\
+		\hline
 		
 		Update system information & Send data to remote system & Local system & Asynchronous\\
 		\hline
 	\end{tabular}
-	}		
+	}
 	\caption{Local system events.}
 	\label{table:ls_events}
 \end{table}
 
+\clearpage
 \subsection{Use Cases}
 The base station use cases are presented in figure \ref{fig:ls_use_cases}. A street passerby, a car or a pedestrian, can interact with each local system by moving in the vicinity of the lamppost, triggering it's motion detector, or by clearing a parking space.
 
@@ -51,45 +53,34 @@ When movement is detected, the lamp is put at maximum bright level. The system t
 
 Moreover, the local system is periodically doing image processing after the capture of camera frames. So when the street passerby clears a parking space, the system will detect that, and will send that notification to the remote system.
 
+\clearpage
 \subsection{State Chart}
-In figure \ref{fig:ls_state_chart} its represented the state chart of the local system. It initiates with the system configuration, initializing all subsystems inside the base station, as the Wi-Fi communications management, sensors data acquisition, image processing. After that, the system enters an idle state.
+In figure \ref{fig:ls_state_chart} its represented the state chart of the local system. It initiates with the system configuration, initializing all peripherals from this system, as the LoRa communication, GPIO pins configuration, PWM activation, CSI initialization and timer initialization for sensors data acquisition, from the LED failure detector to acquire image frames through the camera. After that, the system enters an idle state.
 
-To do the sensors data acquisition, it is used a sample period, that periodically triggers the execution of the function “SampleSensors”, detailed in figure \ref{fig:sample_sensors}. When the base station is requested to turn on its lamp, the lamp is turned on and a timeout is started, named “turn off time” on the diagram. This timeout makes sure that the lamp stays on for a predefined period of time, after being triggered for being on. To do the image processing, it is also used a sample period to get image frames through the camera. If there is an available parking space detected, that information is sent to the remote server, as well as when the lamp is turned on or off, or when a LED failure is detected.
+When motion is detected, the lamp is put at maximum bright level, for a predefined time window, and this information is sent to the remote server. When this time window passes, the lamp is put at a predefined minimum bright level, and again, informs the remote system of this event.
+
+To do the sensors data acquisition, including the camera frame sampling, are used sample periods, that periodically triggers the sampling of the sensors. In SampleSensors state, the system checks the luminosity sensor levels and if the LED failure detector hasn't detected a failure on the lamp. To do the image processing, it is also used a sample period to get image frames through the camera. If there is an available parking space detected, that information is sent to the remote server.
+
+When the local system detected that the remote system is sending a message, either to turn on the lamp of the local system, or other reason, the system goes to a dedicated state to receive that message.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{/04local_system/LS_StateChart}
-	\caption{Base station state chart.}
+	\caption{Local system state chart.}
 	\label{fig:ls_state_chart}
 \end{figure}
 
 \clearpage
-%\subsubsection{Sample Sensors}
-%The sampling of the sensors is represented through the state chart detailed in figure \ref{fig:sample_sensors}.
-%
-%Firstly, the LED failure detector is checked. If it is on, means that is detecting that the lamp has a failure, if not, the other sensors can be checked.
-%
-%When low luminosity conditions are detected, through the luminosity sensor, the lamp is powered on, putting the lamp at a predefined minimum bright level. If motion is detected, the lamp is turned on to its maximum bright level, and a timeout is started, as explained before. Besides that, the base station requests the neighbor lampposts to turn their lamps on. When motion is not detected, it is checked if the turn off time has already ended. If that is true, the lamp is turned off.
-%
-%Note that, regarding the lamp control, one will use “turn on” to represent the lamp bright transition from minimum bright level to maximum bright level, and use “turn off” to represent the opposite, the transition from maximum bright level to minimum bright level. The lamp is only off when low luminosity conditions is not verified, i.e, during the day.
-%
-%\begin{figure}[ht]
-%	\centering
-%	\includegraphics[width=.90\textwidth]{/04local_system/SampleSensors}
-%	\caption{Sampling of the sensors state chart.}
-%	\label{fig:sample_sensors}
-%\end{figure}
-
-\clearpage
 \subsection{Sequence Diagram}
-In figure \ref{fig:bs_seq_diagram} it is shown the base station sequence diagram. When a street passerby triggers the motion detector, the base station turns on its lamp, and, at that moment, that information is updated in the remote server. After that, the communication management of the base station is free to communicate with the neighbor local systems to turn on their lamps. If, however, no more movement is detected, the lamp turns off after a predefined time (turn off time), and again, the lamp status is updated in the remote server.
+In figure \ref{fig:ls_seq_diagram} it is shown the local system sequence diagram. When a street passerby triggers the motion detector, the local system turns on its lamp, and, at that moment, using the communication management of the system, that information is sent to the remote system. If, no more movement is detected, the lamp turns off after a predefined time (turn off time), and again, the lamp status is updated in the remote system.
 
-An alternative of an interaction with the base station is when a local system requests the base station to turn on its lamp, this being processed in a similar way to the previous example.
+An alternative of an interaction with the local system is when the remote system requests the local system to turn on its lamp, this being processed in a similar way to the previous example, when the user triggers the motion detector.
 
-Finally, the base station can also be requested to turn on the neighbor local systems of the local system that is requesting that.
+Note that, regarding the lamp control, one may use “turn on” to represent the lamp bright transition from minimum bright level to maximum bright level, and use “turn off” to represent the opposite, the transition from maximum bright level to minimum bright level. The lamp is only off when low luminosity conditions are not verified, i.e, during the day.
+
 \begin{figure}[ht]
 	\centering
-%	\includegraphics[width=1\textwidth]{/04local_system/BS_SeqDiagram}
-	\caption{Base station sequence diagram.}
-	\label{fig:bs_seq_diagram}
+	\includegraphics[width=0.9\textwidth]{/04local_system/LS_SeqDiagram}
+	\caption{Local system sequence diagram.}
+	\label{fig:ls_seq_diagram}
 \end{figure}
