@@ -14,50 +14,6 @@ The remote system is composed by the remote server and the remote client. The re
 
 Knowing that the public lighting network is directly related to the electrical network, this will be used to power each local system.
 
-\section{System Requirements and Constraints}
-\label{subsection:requirements_constraints}
-In order for the system to have the desired performance, these requirements and constraints must be respected:
-\subsubsection{Functional Requirements}
-\begin{itemize}
-        \item Sensors data acquisition                          
-        \item Motion detection
-        \item Control of a street lamp
-		\item Control a network of street poles
-        \item Wireless communication between local systems and base station
-		\item Access system information through a mobile application
-        \item Empty parking spots detection
-        \item Manage system information through a mobile application
-        \item Add lamp post location through a mobile application
-        \item Access available parking spots location through a web site
-\end{itemize}
-
-\subsubsection{Non-Functional Requirements}
-\begin{itemize}
-        \item User friendly mobile application and web site
-        \item Ambient luminosity sensing
-        \item Lower power consumption than actual street lights
-        \item Soft Real-Time Embedded System
-\end{itemize}
-
-\subsubsection{Technical Constraints}
-\begin{itemize}
-        \item Buildroot
-        \item C and C++ 
-        \item Device Drivers
-        \item Linux
-        \item Raspberry Pi
-        \item \ac{cps}
-        \item Makefiles
-        \item Pthreads
-\end{itemize}
-
-\subsubsection{Non-Technical Constraints}
-\begin{itemize}
-        \item Two members team
-        \item Project deadline at the end of the semester
-        \item Low budget
-\end{itemize}
-
 \section{System Architecture}
 Using the system overview diagram information, one can describe the system in two different architectures. Hardware architecture, as how the hardware modules interfaces with itself, what are the physical components of the system, and software architecture, which details how the information is processed among different software layers. In this section, it will only be referenced the architectures of the base station, since the local system architecture is similar, as seen previously. 
 
