@@ -29,8 +29,9 @@ In order to better understand the remote server, it is necessary to identify the
 	\label{table:rs_events}
 \end{table}
 
+\clearpage
 \paragraph*{Use Cases}
-The remote server use cases are shown in figure \ref{fig:UseCases_Server}. The remote(s) client(s) can interact with the remote server in various ways, has previously seen. The database interacts with the remote server by providing, read, modify or add register functions.
+The remote server use cases are shown in figure \ref{fig:UseCases_Server}. The remote(s) client(s) can interact with the remote server in various ways, has previously seen. This system only executes the demanded commands, from the remote clients of from the local systems, by accessing database information. The database interacts with the remote server by providing, read, modify, remove or add register functions.
 
 \begin{figure}[H]
 	\centering
@@ -38,24 +39,23 @@ The remote server use cases are shown in figure \ref{fig:UseCases_Server}. The r
 	\caption{Use Cases: Remote Server.}
 	\label{fig:UseCases_Server}
 \end{figure}
-%
-%\paragraph*{State Chart}
-%In figure \ref{fig:StateChart_Server}, one can see the remote server state chart.
-%
-%\begin{figure}[H]
-%	\centering
-%%	\includegraphics[width=0.8\textwidth]{06remote_system/Server_StateChart}
-%	\caption{State Chart: Remote Server.}
-%	\label{fig:StateChart_Server}
-%\end{figure}
-%
-%
-%\paragraph*{Sequence Diagram}
-%The sequence diagram of the remote server is shown in the figure \ref{fig:SeqDiagram_Server}. 
-%
-%\begin{figure}[H]
-%	\centering
-%%	\includegraphics[width=1\textwidth]{06remote_system/Server_SeqDiagram}
-%	\caption{Sequence Diagram: Remote Server.}
-%	\label{fig:SeqDiagram_Server}
-%\end{figure}
+
+\paragraph*{State Chart}
+In figure \ref{fig:StateChart_Server}, one can see the remote server state chart. After power on, the remote server does the system configuration, by initializing communication and database management services, and after that, the system executes concurrently these services until power off of the system. These services give to the remote server the capability of processing received requests/commands, from the remote clients or from the local systems, and execute them, by accessing to database information.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{06remote_system/Server_StateChart}
+	\caption{State Chart: Remote Server.}
+	\label{fig:StateChart_Server}
+\end{figure}
+
+\paragraph*{Sequence Diagram}
+The sequence diagram of the remote server is shown in the figure \ref{fig:SeqDiagram_Server}. 
+
+\begin{figure}[H]
+	\centering
+%	\includegraphics[width=1\textwidth]{06remote_system/Server_SeqDiagram}
+	\caption{Sequence Diagram: Remote Server.}
+	\label{fig:SeqDiagram_Server}
+\end{figure}
