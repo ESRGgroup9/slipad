@@ -1,5 +1,5 @@
 \subsubsection*{Mobile Application}
-\subparagraph*{Events}
+\paragraph*{Events}
 In order to better understand the system, it is necessary to identify the events that may occur, how the system will respond to the event, what caused the event and what type of event it is. For the remote client mobile application, the events that may occur are presented in table \ref{table:rc_app_events}.
 
 \begin{table}[ht]
@@ -36,7 +36,7 @@ In order to better understand the system, it is necessary to identify the events
 	\label{table:rc_app_events}
 \end{table}
 
-\subparagraph*{Use Cases}
+\paragraph*{Use Cases}
 The mobile application use cases diagram are represented in figure \ref{fig:UseCases_application}, showing that the main actors in the system are the operator, the remote server and the mobile device. The operator can perform operations such as login, logout, register, modify information about a lamppost, remove a lamppost and register newly installed posts. For this, register a new installed post, the remote client acquires current device location from the mobile device and sends it to the remote server.
 
 \begin{figure}[H]
@@ -46,18 +46,17 @@ The mobile application use cases diagram are represented in figure \ref{fig:UseC
 	\label{fig:UseCases_application}
 \end{figure}
 
-\subparagraph*{State Chart}
+\paragraph*{State Chart}
 In the figure \ref{fig:StateChart_application} is represented the state chart of the mobile application. It initiates with the system configuration, showing a home screen that allows the operator, the application user, to log into the system or register himself, if he doesn’t have login credentials. After a successful login, the system will show information about the lampposts associated to the logged in operator and he can do operations like register lampposts, remove lampposts, modify lampposts information and logout of the system.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.94\textwidth]{06remote_system/AppSystem_StateChart}
+	\includegraphics[width=1\textwidth]{06remote_system/AppSystem_StateChart}
 	\caption{State Chart: Remote Client Mobile Application.}
 	\label{fig:StateChart_application}
 \end{figure}
 
-
-\subparagraph*{Sequence Diagram}
+\paragraph*{Sequence Diagram}
 In figure \ref{fig:SeqDiagram_WebSite} is represented the sequence diagram of the mobile application. Most of the actions are triggered by the operator, starting with the registration or login operations in the application. If the login is valid, information about the network of lampposts will be shown and, depending on the interaction with the operator, the application may have different execution flows: registration of a lamppost; changing information about a lamppost or removing a lamppost; verification of the existence of damaged posts, notifying the operator if so. If the login is invalid, the application returns an error to the operator.
 
 \begin{figure}[H]
