@@ -1,5 +1,5 @@
 \subsubsection*{Web Site}
-\subparagraph*{Events}
+\paragraph*{Events}
 In order to better understand the remote client web site, it is necessary to identify the events that may occur, which are presented in table \ref{table:rc_web_events}.
 
 \begin{table}[ht]
@@ -22,7 +22,7 @@ In order to better understand the remote client web site, it is necessary to ide
 	\label{table:rc_web_events}
 \end{table}
 
-\subparagraph*{Use Cases}
+\paragraph*{Use Cases}
 The web site use cases are shown in figure \ref{fig:UseCases_WebSite}. The main actors are the user, the remote server and a mobile device. In order to know if there are available parking spaces in a certain location, the user can enter a location (inserting the street name, for example) or, as in the mobile application, use his mobile device to obtain the location automatically. The remote server lets the user know where there are empty parking spaces.
 
 \begin{figure}[H]
@@ -33,7 +33,7 @@ The web site use cases are shown in figure \ref{fig:UseCases_WebSite}. The main 
 \end{figure}
 
 \clearpage
-\subparagraph*{State Chart}
+\paragraph*{State Chart}
 In figure \ref{fig:StateChart_WebSite}, one can see the web site state chart. The system initiates with the system configuration. Then the user can use his mobile phone's location (through the GPS tracking system) or type manually the location address. If the user enters a location manually (the street name, for example), it will be checked and, if valid, the available parking spaces will be displayed.
 
 \begin{figure}[H]
@@ -45,7 +45,7 @@ In figure \ref{fig:StateChart_WebSite}, one can see the web site state chart. Th
 
 \clearpage
 
-\subparagraph*{Sequence Diagram}
+\paragraph*{Sequence Diagram}
 The sequence diagram of the web site is shown in the figure \ref{fig:SeqDiagram_WebSite}. To know where there are empty parking spots, the user can insert manually a location or use his \ac{gps} location. In both cases the web site asks the remote server if there are available parking spots near the location and displays them to the user. However, in the case of using the \ac{gps} location, the web site has to get the \ac{gps} coordinates from the mobile device running the web site.
 
 \begin{figure}[H]
