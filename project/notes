@@ -5,12 +5,7 @@ network arch
 - flexibility on choosing the pole to have the camera
 - camera detecting range???
 
-local sys
-- Another sequence diagram?? timer/sensors
-state chart vs flowchart
-
 - sensor luminosidade não é GPIO (I2C??)
-- estimated budget como o pires???
 ----------------------------------------------------
 DESIGN
 ----------------------------------------------------
