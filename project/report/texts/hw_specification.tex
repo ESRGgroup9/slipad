@@ -168,7 +168,7 @@ It is important to know how the camera module will behave upon certain events. I
 %**********************************************************
 \clearpage
 \subsection{LoRa Module}
-To allow each local system to communicate to the gateway, it's used LoRa communication technology, requiring for that a LoRa Module, as the one presented in figure \ref{fig:lora_module}. This module, from Ai-Thinker company, uses SX1278 \ac{ic} from SEMTECH, and works on a 433~MHz frequency, with a range up to 10 km in line of sight. \cite{sx1278} \cite{lora_module}
+To allow each local system to communicate to the gateway, and vice-versa, it's used LoRa communication technology, requiring for that LoRa Modules, as the one presented in figure \ref{fig:lora_module}. This module, from Ai-Thinker company, uses SX1278 \ac{ic} from SEMTECH, and works on a 433~MHz frequency, with a range up to 10 km in line of sight. \cite{sx1278} \cite{lora_module}
 
 \begin{figure}[H]
 	\centering
@@ -230,7 +230,7 @@ In order to achieve longer range and better signal quality in LoRa communication
 \end{itemize}
 
 \myparagraph{Connection scheme}
-In figure \ref{fig:connect_lora} it is shown the connection scheme of the LoRa module and it's antenna to the Raspberry Pi.
+In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa module to the Raspberry Pi (remember figure \ref{fig:rasp_pinout}). Keep in mind that the RF antenna is directly connected to the LoRa module through an U.FL connector.
 
 \begin{table}[H]
 	\centering
@@ -262,39 +262,134 @@ In figure \ref{fig:connect_lora} it is shown the connection scheme of the LoRa m
 \end{table}
 
 \myparagraph{Test Cases}
+It is important to know how the LoRa module works, and how it will behave upon certain events. In table \ref{table:test_lora} are shown test cases to this module.
 
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Event} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			Establish connection & Stable connection & -
+			\\\hline
+			Send data & Data sent correctly & -
+			\\\hline
+			Receive data & Data received correctly & -
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: LoRa Module.}
+	\label{table:test_lora}
+\end{table}
 
 %**********************************************************
 \subsection{Driver}
 
+
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\myparagraph{Connection scheme}
+
+\myparagraph{Test Cases}
 %**********************************************************
 \subsection{Power Module}
 % step-down converter
 % industrial power supply
 
+In order to provide a lower voltage to power sensors and the Raspberry Pi, it is necessary to use a step down module, as the one shown in figure \ref{fig:step_down}
+ 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{07hw_specification/step_down}
+	\caption{Step Down 9-38~V to 5~V / 5~A.}
+	\label{fig:step_down}
+\end{figure}
 
-%\begin{figure}[H]
-%	\centering
-%%	\includegraphics[width=0.5\textwidth]{07hw_specification/}
-%	\caption{.}
-%	\label{fig:}
-%\end{figure}
-%
-%\begin{table}[H]
-%	\centering
-%	\begin{tabular}{|m{5cm}|m{6cm}|}
-%		\hline
-%		\textbf{} & \textbf{Raspberry Pi}
-%		\\\hline\hline
-%		
-%
-%		\\\hline
-%	\end{tabular}
-%	
-%	\caption{Connection scheme: LoRa Module.}
-%	\label{table:connect_lora}
-%\end{table}
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item Input voltage 9-38 V;
+	\item Output voltage 5 V / 5 A;
+	\item Load capacity: 5 A;
+	\item Maximum efficiency of 95 \%.
+\end{itemize}
 
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Step-Down Pinout} & \textbf{Description}
+		\\\hline\hline
+		
+		VCC & Input voltage 9-38 V
+		\\\hline
+		GND & Input Ground
+		\\\hline
+		USB & USB output 5 V / 5 A \tnote{*}
+		\\\hline
+		VOUT+ & Output 5 V / 5 A \tnote{*}
+		\\\hline
+		VOUT- & Output Ground
+		\\\hline
+	\end{tabular}
+	
+	\begin{tablenotes}
+		\small
+		\item[*] This module provides 5 A for the both output pins combined.
+	\end{tablenotes}
+	\end{threeparttable}
+	\caption{Step-Down Pinout Description.}
+	\label{table:step_down_pinout}
+\end{table}
+
+\myparagraph{Connection scheme}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Step Down} & \textbf{Raspberry Pi}
+		\\\hline\hline
+		
+		VCC & -
+		\\\hline
+		GND & -
+		\\\hline
+		USB & 
+		\\\hline
+		VOUT+ & -
+		\\\hline
+		VOUT- & -
+		\\\hline
+	\end{tabular}
+	
+	\caption{Connection scheme: Power Module.}
+	\label{table:connect_power}
+\end{table}
+
+\myparagraph{Test Cases}
+It is important to know how the step down works, and how it will behave upon certain events. In table \ref{table:test_step_down} are shown test cases to this module.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Event} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			Connect to power supply & Provide 5 V / 5 A & -
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: Step Down.}
+	\label{table:test_step_down}
+\end{table}
 %**********************************************************
 \subsection{Hardware review} %?????
 % show hardware architecture with all protocols defined in
