@@ -67,8 +67,7 @@ In the table \ref{table:light_sen} is shown the TSL2581 interface pins, being th
 
 \begin{table}[H]
 	\centering
-	\resizebox{0.5\columnwidth}{!}{
-	\begin{tabular}{||c | c ||} 
+	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
 		\textbf{TSL2581 Pin} & \textbf{Board Pin}\\\hline\hline
 		VCC & Pin 1 (3,3) V\\\hline
@@ -77,11 +76,29 @@ In the table \ref{table:light_sen} is shown the TSL2581 interface pins, being th
 		SCL & Pin 3 (SCL)\\\hline
 		INT & -\\
 		\hline
-	\end{tabular}
-	}		
+	\end{tabular}		
 	
 	\caption{Light Sensor TSL2581 Interface Pins.}
 	\label{table:light_sen}
+\end{table}
+
+\myparagraph{Test Cases}
+It is important to know how the light sensor works, and how it will behave upon certain events. In table \ref{table:test_light_sen} are shown test cases to this module.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			Read ambient luminosity & Return ambient luminosity  & -
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: TSL2581.}
+	\label{table:test_light_sen}
 \end{table}
 
 %**********************************************************
@@ -109,19 +126,40 @@ In the table \ref{table:pir} is shown the PIR HC-SR501 interface pins, being the
 
 \begin{table}[H]
 	\centering
-	\resizebox{0.5\columnwidth}{!}{
-	\begin{tabular}{||c | c ||} 
+	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
-		\textbf{PIR HC-SR501 Pin} & \textbf{Board Pin}\\\hline\hline
-		VCC & Pin 1(5 V)\\\hline
+		\textbf{PIR HC-SR501 Pin} & \textbf{Board Pin}
+		\\\hline\hline
+		
+		VCC & Pin 2(5 V)\\\hline
 		SIGNAL & Pin 27\\\hline
 		GND & Pin 6(GND)\\
 		\hline
 	\end{tabular}
-	}		
 	
-	\caption{PIR HC-SR501 Interface Pins.}
-	\label{table:pir}
+\caption{PIR HC-SR501 Interface Pins.}
+\label{table:pir}
+\end{table}
+
+\myparagraph{Test Cases}
+It is important to know how the motion detector module works, and how it will behave upon certain events. In table \ref{table:test_pir} are shown test cases to this module.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			Movement in front of the sensor & Pin SIGNAL high (5 V) & -
+			\\\hline
+			No movement in front of the sensor & Pin SIGNAL low (0,3 V) & -
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: PIR HC-SR501.}
+	\label{table:test_pir}
 \end{table}
 
 %**********************************************************
@@ -157,10 +195,31 @@ This device plugs directly into the \ac{csi} connector on the Raspberry Pi, as s
 	\caption{Camera Module connection to Raspberry Pi.}
 	\label{fig:connect_camera}
 \end{figure}
+
+\myparagraph{Test Cases}
+It is important to know how the camera module will behave upon certain events. In table \ref{table:test_camera} are shown test cases to this module.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+	\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+		\hline
+		\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+		\\\hline\hline
+		Take picture & Clear output image & -
+		\\\hline
+	\end{tabular}
+	}
+	\caption{Test Cases: Camera Module.}
+	\label{table:test_camera}
+\end{table}
+
+
 %**********************************************************
 \clearpage
 \subsection{LoRa Module}
-To allow each local system to communicate to the gateway, it's used LoRa communication technology, requiring for that a LoRa Module, as the one presented in figure \ref{fig:lora_module}. This module, from Ai-Thinker company, uses SX1278 \ac{ic} from SEMTECH, and works on a 433~MHz frequency, with a range up to 10 km in line of sight. \cite{sx1278} \cite{lora_module}
+To allow each local system to communicate to the gateway, and vice-versa, it's used LoRa communication technology, requiring for that LoRa Modules, as the one presented in figure \ref{fig:lora_module}. This module, from Ai-Thinker company, uses SX1278 \ac{ic} from SEMTECH, and works on a 433~MHz frequency, with a range up to 10 km in line of sight. \cite{sx1278} \cite{lora_module}
 
 \begin{figure}[H]
 	\centering
@@ -173,10 +232,10 @@ To allow each local system to communicate to the gateway, it's used LoRa communi
 \begin{itemize}
 	\item LoRa modulation technology (Supports also FSK, GFSK, MSK, GMSK and OOK modulation modes);
 	\item Effective Bitrate : 0,018 - 37,5 kbps;
+	\item Payload length: 64 bytes;
 	\item Half-duplex SPI communication;
 	\item Programmable bit rates up to 300kbps;
 	\item Packet engine with CRC up to 256 bytes;
-	\item Small footprint dual-row stamp-hole patch package;
 	\item Male U.FL connector to support using of external RF antenna - Diameter: 15,5mm.
 \end{itemize}
 
@@ -222,22 +281,234 @@ In order to achieve longer range and better signal quality in LoRa communication
 \end{itemize}
 
 \myparagraph{Connection scheme}
-In figure \ref{fig:connect_lora} it is shown the connection scheme of the LoRa module and it's antenna to the Raspberry Pi.
+In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa module to the Raspberry Pi (remember figure \ref{fig:rasp_pinout}). Keep in mind that the RF antenna is directly connected to the LoRa module through an U.FL connector.
 
-\begin{figure}[H]
+\begin{table}[H]
 	\centering
-%	\includegraphics[width=0.40\textwidth]{07hw_specification/}
-	\caption{Connection Scheme: LoRa Module.}
-	\label{fig:connect_lora}
-\end{figure}
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{SX1278 RA-02 Pin} & \textbf{Raspberry Pi Pin}
+		\\\hline\hline
+		
+		VCC & 3,3 V
+		\\\hline
+		GND & GND
+		\\\hline
+		RST & GPIO 4
+		\\\hline
+		SCK & CLK
+		\\\hline
+		NSS & SPI0 CE0
+		\\\hline
+		MISO & SPI0 MISO
+		\\\hline
+		MOSI & SPI0 MOSI
+		\\\hline
+		DIO0 & GPIO 17
+		\\\hline
+	\end{tabular}
+	
+	\caption{Connection scheme: LoRa Module.}
+	\label{table:connect_lora}
+\end{table}
+
+\myparagraph{Test Cases}
+It is important to know how the LoRa module works, and how it will behave upon certain events. In table \ref{table:test_lora} are shown test cases to this module.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			Establish connection & Stable connection established & -
+			\\\hline
+			Send data & Data sent correctly & -
+			\\\hline
+			Receive data & Data received correctly & -
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: LoRa Module.}
+	\label{table:test_lora}
+\end{table}
+
 %**********************************************************
 \subsection{Driver}
 
+
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\myparagraph{Connection scheme}
+
+\myparagraph{Test Cases}
 %**********************************************************
 \subsection{Power Module}
-% step-down converter
-% industrial power supply
+As specified before, it's needed a power module to power the system, using the power grid. For that, it's necessary the use of an \ac{ac}/\ac{dc} power supply, in order to use the power grid electricity, which in Portugal is 230 V \ac{ac}. The power supply must provide 12 V \ac{dc}, as it is needed to power the lamp, as previously seen. The power supply used is shown in figure \ref{fig:power_supply}. \cite{power_supply}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{07hw_specification/power_supply}
+	\caption{ORNO Industrial Power Supply 12 V / 5 A.}
+	\label{fig:power_supply}
+\end{figure}
+
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item Input voltage: 100-240 V \ac{ac}, 60 W;
+	\item Output voltage: 12 V \ac{dc};
+	\item Output current: 5 A;
+	\item Protected against overload, short circuit, over-voltage and over-heating.
+\end{itemize}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Power Supply Pinout} & \textbf{Description}
+		\\\hline\hline
+		 
+		L & Power grid phase 230 V \ac{ac}
+		\\\hline
+		N & Power grid neutral
+		\\\hline
+		GND & GND
+		\\\hline
+		-V & Output -12 V \ac{dc}
+		\\\hline
+		+V & Output +12 V \ac{dc}
+		\\\hline
+	\end{tabular}
+	\caption{Power Supply Pinout Description.}
+	\label{table:power_supply_pinout}
+\end{table}
+
+For educational purposes, in this project the power supply will be connected to a power plug, and not directly connected with eletrical grid wires, being for that necessary a plug to bare end wire, as the one shown in figure \ref{fig:eletrical_wire}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{07hw_specification/eletrical_wire}
+	\caption{Plug to bare end wire 5 A.}
+	\label{fig:eletrical_wire}
+\end{figure}
+
+The plug separates in three wires, which must be carefully connected to the power supply, as previously seen. These wires have a color pattern, as one shows in table \ref{table:color_pattern_wire}.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Color pattern} & \textbf{Description}
+		\\\hline\hline
+		
+		Brown wire & Power grid phase 230 V \ac{ac}
+		\\\hline
+		Blue wire & Power grid neutral
+		\\\hline
+		Green/Yellow wire & GND
+		\\\hline
+	\end{tabular}
+	\caption{Color pattern on eletrical wires.}
+	\label{table:color_pattern_wire}
+\end{table}
+
+In order to provide a lower voltage to power the Raspberry Pi and sensors, it is necessary to use a step down module, as the one shown in figure \ref{fig:step_down}, which can convert 12 V \ac{dc} to 5 V \ac{dc}. \cite{step_down}
+ 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{07hw_specification/step_down}
+	\caption{Step Down 9-38~V to 5~V / 5~A.}
+	\label{fig:step_down}
+\end{figure}
+
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item Input voltage 9-38 V;
+	\item Output voltage 5 V / 5 A;
+	\item Load capacity: 5 A;
+	\item Maximum efficiency of 95 \%.
+\end{itemize}
+
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Step Down Pinout} & \textbf{Description}
+		\\\hline\hline
+		
+		VCC & Input voltage 9-38 V
+		\\\hline
+		GND & Input GND
+		\\\hline
+		USB & USB output 5 V / 5 A \tnote{*}
+		\\\hline
+		VOUT+ & Output 5 V / 5 A \tnote{*}
+		\\\hline
+		VOUT- & Output GND
+		\\\hline
+	\end{tabular}
+	
+	\begin{tablenotes}
+		\small
+		\item[*] This module provides 5 A for both output pins combined (USB and VOUT+).
+	\end{tablenotes}
+	\end{threeparttable}
+	\caption{Step-Down Pinout Description.}
+	\label{table:step_down_pinout}
+\end{table}
+
+\myparagraph{Connection scheme}
+In table \ref{table:step_down_pinout} is shown the connection scheme for the step down. Keep in mind that the same power supply output 12 V \ac{dc} is connected directly to the lamp VCC and to the step down VCC.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Step Down Pin} & \textbf{Connected to}
+		\\\hline\hline
+		
+		VCC & Power supply Output +12 V \ac{dc}
+		\\\hline
+		GND & Power supply Output GND
+		\\\hline
+		USB & Raspberry Pi Micro-USB
+		\\\hline
+		VOUT+ & Sensors VCC
+		\\\hline
+		VOUT- & Sensors GND
+		\\\hline
+	\end{tabular}
+	
+	\caption{Connection scheme: Step Down.}
+	\label{table:connect_power}
+\end{table}
+
+\myparagraph{Test Cases}
+It is important to know how the step down works, and how it will behave upon certain events. In table \ref{table:test_step_down} are shown test cases to this module.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			Connect power supply to the power grid & Provide 12 V \ac{dc} & -
+			\\\hline
+			Connect step down to the power supply & Provide 5 V \ac{dc} & -
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: Step Down.}
+	\label{table:test_step_down}
+\end{table}
 %**********************************************************
 \subsection{Hardware review} %?????
 % show hardware architecture with all protocols defined in
