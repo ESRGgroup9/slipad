@@ -46,7 +46,7 @@ In order to light the streets efficiently, we must use a LED lamp.
 %**********************************************************
 \subsection{Luminosity Sensor}
 
-In order to know when is night time, that is, when the light conditions are low, one needs to determine the ambient light conditions. To do that, it is used a digital ambient light sensor, the TSL2581 \cite{light_sensor}, represented in \ref{fig:light_sen}. It was chosen this project because this sensor communicates with the Raspberry Pi using I2C communication protocol, so it gives a digital value of the lumminusity, according to the light conditions, so it isn't necessary to calibrate this sensor (with a potenciometer, for example) when installing a new local system.
+In order to know when is night time, that is, when the light conditions are low, one needs to determine the ambient light conditions. To do that, it is used a digital ambient light sensor, the TSL2581 \cite{light_sensor}, represented in \ref{fig:light_sen}. It was chosen this project because this sensor communicates with the Raspberry Pi using \ac{i2c} communication protocol, so it gives a digital value of the lumminusity, according to the light conditions, so it isn't necessary to calibrate this sensor (with a potenciometer, for example) when installing a new local system.
 
 \begin{figure}[ht]
 	\centering
@@ -55,62 +55,111 @@ In order to know when is night time, that is, when the light conditions are low,
 	\label{fig:light_sen}
 \end{figure}
 
-\paragraph*{Features}
+\paragraph*{Characteristics}
 \begin{itemize}
-	\item I2C interface directly outputs the ambient light intensity value;
+	\item \ac{i2c} interface directly outputs the ambient light intensity value;
 	\item High precision output, with an infrared photodiode;
 	\item Allows connection to 3,3 V or 5,5 V MCU systems;
 	\item 16-bit resolution.
 \end{itemize}
 
+In the table \ref{table:light_sen} is shown the TSL2581 interface pins, being the \textit{SDA} pin used for data transfer, the \textit{SCL} pin used for clock synchronisation and the \textit{INT} pin used for interrupt output. 
+
 \begin{table}[H]
 	\centering
-	\resizebox{0.5\columnwidth}{!}{
-	\begin{tabular}{||c | c ||} 
+	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
-		\textbf{Light Sensor Pin} & \textbf{Board Pin}\\\hline\hline
+		\textbf{TSL2581 Pin} & \textbf{Board Pin}\\\hline\hline
 		VCC & Pin 1 (3,3) V\\\hline
-		GND & GND\\\hline
+		GND & Pin 6 (GND)\\\hline
 		SDA & Pin 2 (SDA)\\\hline
 		SCL & Pin 3 (SCL)\\\hline
 		INT & -\\
 		\hline
-	\end{tabular}
-	}		
+	\end{tabular}		
 	
-	\caption{LDR Module Interface Pins.}
-	\label{table:ldr}
+	\caption{Light Sensor TSL2581 Interface Pins.}
+	\label{table:light_sen}
+\end{table}
+
+\myparagraph{Test Cases}
+It is important to know how the light sensor works, and how it will behave upon certain events. In table \ref{table:test_light_sen} are shown test cases to this module.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			Read ambient luminosity & Return ambient luminosity  & -
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: TSL2581.}
+	\label{table:test_light_sen}
 \end{table}
 
 %**********************************************************
 \clearpage
 \subsection{Motion Detector}
-To know when to turn on the light, it is necessary to detect movement in the streets. For this project it is used a motion detector, more specifically a \ac{pir} sensor. The chosen sensor for this purpose was the PIR HC-SR501 that has a supply voltage range of 4,5 - 20 V and a detection range of 7 meters with a 110 degrees angle.
-
-In the table \ref{table:pir} is shown the PIR HC-SR501 interface pins, being the output signal the pin SIGNAL. When no movement is detected, the sensor output is low (0~V), and when movement is detected, the sensor SIGNAL is high (5~V). The sensor has also two potenciometers to adjust the trigger sensitivity and the delay of the trigger signal, between 0,3 seconds and 5 minutes.
+To know when to turn on the light, it is necessary to detect movement in the streets. For this project it is used a motion detector, more specifically a \ac{pir} sensor. The chosen sensor for this purpose was the PIR HC-SR501 \cite{pir}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.70\textwidth]{07hw_specification/pir}
-	\caption{PIR Sensor Module.}
+	\caption{PIR HC-SR501.}
 	\label{fig:pir}
 \end{figure}
 
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item Supply voltage range of 4,5 - 20 V;
+	\item Static current: 50 uA;
+	\item Detection range of 7 meters;
+	\item Detection angle of 110 degrees;
+	\item Two potenciometers to adjust the trigger sensitivity and the delay of the trigger signal, between 0,3 seconds and 5 minutes;
+\end{itemize}
+
+In the table \ref{table:pir} is shown the PIR HC-SR501 interface pins, being the output signal the pin SIGNAL. When no movement is detected, the sensor output is low (0,3~V), and when movement is detected, the sensor SIGNAL is high (5~V). 
+
 \begin{table}[H]
 	\centering
-	\resizebox{0.5\columnwidth}{!}{
-	\begin{tabular}{||c | c ||} 
+	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
-		\textbf{LDR Module Pin} & \textbf{Board Pin}\\\hline\hline
-		VCC & 5 V\\\hline
+		\textbf{PIR HC-SR501 Pin} & \textbf{Board Pin}
+		\\\hline\hline
+		
+		VCC & Pin 2(5 V)\\\hline
 		SIGNAL & Pin 27\\\hline
-		GND & GND\\
+		GND & Pin 6(GND)\\
 		\hline
 	\end{tabular}
-	}		
 	
-	\caption{PIR Module Interface Pins.}
-	\label{table:pir}
+\caption{PIR HC-SR501 Interface Pins.}
+\label{table:pir}
+\end{table}
+
+\myparagraph{Test Cases}
+It is important to know how the motion detector module works, and how it will behave upon certain events. In table \ref{table:test_pir} are shown test cases to this module.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			Movement in front of the sensor & Pin SIGNAL high (5 V) & -
+			\\\hline
+			No movement in front of the sensor & Pin SIGNAL low (0,3 V) & -
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: PIR HC-SR501.}
+	\label{table:test_pir}
 \end{table}
 
 %**********************************************************
@@ -165,6 +214,8 @@ It is important to know how the camera module will behave upon certain events. I
 	\caption{Test Cases: Camera Module.}
 	\label{table:test_camera}
 \end{table}
+
+
 %**********************************************************
 \clearpage
 \subsection{LoRa Module}
