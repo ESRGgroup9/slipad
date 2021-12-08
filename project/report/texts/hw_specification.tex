@@ -108,7 +108,33 @@ In the table \ref{table:pir} is shown the PIR HC-SR501 interface pins, being the
 
 %**********************************************************
 \subsection{Camera}
+In order to the detection of available parking spots, it's used a camera, as shown in figure \ref{fig:camera}. This is the Raspberry Pi Camera Module V1, capable of delivering a clear 5 MP resolution image, or 1080p HD video recording at 30fps. \cite{camera}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{07hw_specification/camera}
+	\caption{Raspberry Pi Camera Module V1.}
+	\label{fig:camera}
+\end{figure}
+
+\paragraph*{Features}
+\begin{itemize}
+	\item 5MP OmniVision 5647 sensor;
+	\item Fixed focus lens onboard;
+	\item Still Picture Resolution: 2592 x 1944;
+	\item 15-pin ribbon cable, to the dedicated 15-pin MIPI \ac{csi};
+	\item Video recording: Supports 1080p @ 30fps, 720p @ 60fps.
+\end{itemize}
+
+\clearpage
+This device plugs directly into the \ac{csi} connector on the Raspberry Pi, as shown in figure \ref{fig:connect_camera}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.60\textwidth]{07hw_specification/connect_camera}
+	\caption{Camera Module connection to Raspberry Pi.}
+	\label{fig:connect_camera}
+\end{figure}
 %**********************************************************
 \subsection{LoRa Module}
 
