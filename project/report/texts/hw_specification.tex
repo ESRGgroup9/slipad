@@ -182,7 +182,25 @@ It is important to know how the motion detector module works, and how it will be
 \end{table}
 
 %**********************************************************
-\subsection{LED Failure Detector}
+\subsection{Lamp Failure Detector}
+In order to know when the lamp is broken, one needs to use a lamp failure detector, so it was designed a circuit represented in figure \ref{fig:failure_circuit}. 
+%When the lamp  
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{07hw_specification/failure_schem}
+	\caption{Lamp Failure Detector Circuit.}
+	\label{fig:failure_circuit}
+\end{figure}
+
+The optocoupler chosen was the 4N35 \cite{4n35}, represented in figure \ref{fig:failure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{07hw_specification/failure}
+	\caption{Optocoupler 4N35.}
+	\label{fig:failure}
+\end{figure}
 
 %**********************************************************
 \subsection{Camera}
