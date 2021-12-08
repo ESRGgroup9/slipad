@@ -15,11 +15,11 @@ The development board for this project is the Raspberry Pi 4 Model B, shown in f
 		\item Micro-SD card slot.
 \end{itemize}
 
-%\item Raspberry Pi standard 40 pin GPIO header (fully backwards compatible with previous boards)
+The Raspberry Pi 4 Model B is used as a development board for this project, as it would not be used in a final application because not all its features are used. So, in a final application, the development board would be chosen based on the features nedded or would be designed.
 
 % A raspberry é apenas uma board de desenvolvimento, não é o hw que usariamos numa aplicação final.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=.75\textwidth]{07hw_specification/raspberryPi}
 	\caption{Raspberry Pi 4 Model B.}
@@ -46,7 +46,7 @@ In order to light the streets efficiently, we must use a LED lamp.
 %**********************************************************
 \subsection{Luminosity Sensor}
 
-In order to know when is night time, that is, when the light conditions are low, one needs to determine the ambient light conditions. To do that, it is used a digital ambient light sensor, the TSL2581 [ref], represented in \ref{fig:light_sen}. It was chosen this project because this sensor communicates with the Raspberry Pi using I2C communication protocol, so it gives a digital value of the lumminusity, according to the light conditions, so it isn't necessary to calibrate this sensor (with a potenciometer, for example) when installing a new local system.
+In order to know when is night time, that is, when the light conditions are low, one needs to determine the ambient light conditions. To do that, it is used a digital ambient light sensor, the TSL2581 \cite{light_sensor}, represented in \ref{fig:light_sen}. It was chosen this project because this sensor communicates with the Raspberry Pi using I2C communication protocol, so it gives a digital value of the lumminusity, according to the light conditions, so it isn't necessary to calibrate this sensor (with a potenciometer, for example) when installing a new local system.
 
 \begin{figure}[ht]
 	\centering
