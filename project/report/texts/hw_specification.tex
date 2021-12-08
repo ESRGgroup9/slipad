@@ -285,27 +285,6 @@ It is important to know how the LoRa module works, and how it will behave upon c
 \end{table}
 
 %**********************************************************
-\subsection{Driver}
-In order to control the lamp brightness through a GPIO pin from the Raspberry Pi, it's needed a driver circuit, as shown in figure \ref{fig:driver}. This circuit takes as input a \ac{pwm} signal, provided by the raspberry Pi, and also the power for the lamp, \(V_{CL}\), which comes directly from the power supply 12 V \ac{dc} output of the power module. The output of this circuit, the lamp voltage \(V_{L}\), is directly related to it's brightness, which one wants to control.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{07hw_specification/driver}
-	\caption{Driver circuit to control lamp brightness.}
-	\label{fig:driver}
-\end{figure}
-
-The \ac{pwm} signal only takes two values, 0 or 3,3 V, but its average value over time is varied, changing at high frequency the time intervals in which the transistor \(T_{MOS}\) is conducting (applied voltage 3,3 V) and at cutoff (applied voltage 0 V). So, as the \ac{pwm} duty cycle increases, the transistor conducts for more time, leading to an increase of \(V_{L}\), and, therefore, to an increase of the lamp brightness. In any case, the power dissipation in the transistor is very low, because of the rapid change between each transistor state, conducting (at saturation) or at cutoff.
-
-\paragraph*{Characteristics}
-\begin{itemize}
-	\item Transistor MOSFET
-\end{itemize}
-
-\myparagraph{Connection scheme}
-
-\myparagraph{Test Cases}
-%**********************************************************
 \subsection{Power Module}
 As specified before, it's needed a power module to power the system, using the power grid. For that, it's necessary the use of an \ac{ac}/\ac{dc} power supply, in order to use the power grid electricity, which in Portugal is 230 V \ac{ac}. The power supply must provide 12 V \ac{dc}, as it is needed to power the lamp, as previously seen. The power supply used is shown in figure \ref{fig:power_supply}. \cite{power_supply}
 
@@ -428,7 +407,7 @@ In table \ref{table:step_down_pinout} is shown the connection scheme for the ste
 	\centering
 	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
-		\textbf{Step Down Pin} & \textbf{Connected to}
+		\textbf{Step Down Pin} & \textbf{Connects to}
 		\\\hline\hline
 		
 		VCC & Power supply Output +12 V \ac{dc}
@@ -467,6 +446,103 @@ It is important to know how the step down works, and how it will behave upon cer
 	\caption{Test Cases: Step Down.}
 	\label{table:test_step_down}
 \end{table}
+%**********************************************************
+\subsection{Driver}
+In order to control the lamp brightness through a GPIO pin from the Raspberry Pi, it's needed a driver circuit, as shown in figure \ref{fig:driver}. This circuit takes as input a \ac{pwm} signal, provided by the raspberry Pi, and also the power for the lamp, \(V_{CL}\), which comes directly from the power supply 12 V \ac{dc} output of the power module. The output of this circuit, the lamp voltage \(V_{L}\), is directly related to it's brightness, which one wants to control.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{07hw_specification/driver}
+	\caption{Driver circuit to control lamp brightness.}
+	\label{fig:driver}
+\end{figure}
+
+The \ac{pwm} signal only takes two values, 0 or 3,3 V, but its average value over time is varied, changing at high frequency the time intervals in which the transistor \(T_{MOS}\) is conducting (applied voltage 3,3 V) and at cutoff (applied voltage 0 V). So, as the \ac{pwm} duty cycle increases, the transistor conducts for more time, leading to an increase of \(V_{L}\), and, therefore, to an increase of the lamp brightness. In any case, the power dissipation in the transistor is very low, because of the rapid change between each transistor state, conducting (at saturation) or at cutoff.
+
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item Transistor MOSFET;
+	\item Resistor \(R_{G}\) limits the current in the gate of the transistor;
+	\item Resistor \(R_{GS}\) ensures that the gate is set to 0 potential when the circuit is turned off;
+	\item Diode D, known as free-wheeling, provides a way to discharge the energy stored in the magnetic field of the inductive load, when the transistor turns off. For that reason, this diode must be fast;
+\end{itemize}
+
+In order to specify the components to be used, the following must be taken into account.
+
+The temperature of the transistor (internal at the junction) must not exceed the maximum allowed by the manufacturer (typically 150 °C as in the case of STP60NF06, BUK453, BUZ90). In order for the transistor to be used without a heatsink, the internally dissipated power must not exceed 2~W (taking into account the typical thermal resistance of a TO-220 package, 60~°C/W and the ambient temperature of 30 °C). Considering that 50 \% of losses occur in conduction and 50  \% in switching (very vague approximation), the transistor can only dissipate 1 W in conduction and 1 W in switching. For an \(I_{DS}\) current of 2 A, the internal resistance (\(R_{DS}\) of MOSFET to \(V_{GS}\) voltage, \(I_{DS}\) current and operating temperature) will be a maximum of 250 m$\Omega$ (P = \(R_{DS}\).\(I_{DS2}\)).
+
+Diode D should be fast and the MR852 is recommended.\linebreak
+
+With this in mind, one can select the following components for the driver, as presented in table \ref{table:driver_components}.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{5cm}|m{6cm}|m{2.6cm}|}
+			\hline
+			\textbf{Driver Component} & \textbf{Product Name} & \textbf{Product Qty}
+			\\\hline\hline
+			
+			\(T_{MOS}\) & BUK453 & 1
+			\\\hline
+			Diode D & MR852 & 1
+			\\\hline
+			Resistor \(R_{G}\) & Common; +-5 \% tolerance & 1
+			\\\hline
+			Resistor \(R_{GS}\) & Common; +-5 \% tolerance & 1
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Driver components.}
+	\label{table:driver_components}
+\end{table}
+
+\myparagraph{Connection scheme}
+In table \ref{table:connect_driver} is shown the connection scheme for the driver circuit. (Remember figure \ref{fig:rasp_pinout} and table \ref{table:power_supply_pinout})
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Driver} & \textbf{Connects to}
+		\\\hline\hline
+		
+		PWM Signal & Raspberry Pi PWMxxx Pinyyy
+		\\\hline
+		\(V_{CL}\) & Power supply Output +12 V \ac{dc}
+		\\\hline
+		GND & Power supply Output GND
+		\\\hline
+	\end{tabular}
+	
+	\caption{Connection scheme: Driver.}
+	\label{table:connect_driver}
+\end{table}
+
+\myparagraph{Test Cases}
+It is important to know how the driver works, and how it will behave upon certain events. In table \ref{table:test_driver} are shown test cases to this circuit.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			Apply 3,3 V to the transistor & Lamp at maximum bright & -
+			\\\hline
+			Apply 0 V to the transistor & Lamp off & -
+			\\\hline
+			Change \ac{pwm} signal & Variable lamp brightness & -
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: Driver.}
+	\label{table:test_driver}
+\end{table}
+
 %**********************************************************
 \subsection{Hardware review} %?????
 % show hardware architecture with all protocols defined in
