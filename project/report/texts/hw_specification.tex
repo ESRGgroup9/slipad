@@ -136,6 +136,25 @@ This camera module plugs directly into the \ac{csi} connector on the Raspberry P
 	\caption{Connection scheme: Camera Module.}
 	\label{fig:connect_camera}
 \end{figure}
+
+\myparagraph{Test Cases}
+It is important to know how the camera module will behave upon certain events. In table \ref{table:test_camera} are shown test cases to this module.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+	\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+		\hline
+		\textbf{Event} & \textbf{Expected Output} & \textbf{Real Output}
+		\\\hline\hline
+		Take picture & Clear output image & -
+		\\\hline
+	\end{tabular}
+	}
+	\caption{Test Cases: Camera Module.}
+	\label{table:test_camera}
+\end{table}
 %**********************************************************
 \clearpage
 \subsection{LoRa Module}
@@ -152,10 +171,10 @@ To allow each local system to communicate to the gateway, it's used LoRa communi
 \begin{itemize}
 	\item LoRa modulation technology (Supports also FSK, GFSK, MSK, GMSK and OOK modulation modes);
 	\item Effective Bitrate : 0,018 - 37,5 kbps;
+	\item Payload length: 64 bytes;
 	\item Half-duplex SPI communication;
 	\item Programmable bit rates up to 300kbps;
 	\item Packet engine with CRC up to 256 bytes;
-	\item Small footprint dual-row stamp-hole patch package;
 	\item Male U.FL connector to support using of external RF antenna - Diameter: 15,5mm.
 \end{itemize}
 
@@ -231,6 +250,8 @@ In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa 
 	\label{table:connect_lora}
 \end{table}
 
+\myparagraph{Test Cases}
+
 %**********************************************************
 \subsection{Driver}
 
@@ -238,6 +259,29 @@ In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa 
 \subsection{Power Module}
 % step-down converter
 % industrial power supply
+
+
+%\begin{figure}[H]
+%	\centering
+%%	\includegraphics[width=0.5\textwidth]{07hw_specification/}
+%	\caption{.}
+%	\label{fig:}
+%\end{figure}
+%
+%\begin{table}[H]
+%	\centering
+%	\begin{tabular}{|m{5cm}|m{6cm}|}
+%		\hline
+%		\textbf{} & \textbf{Raspberry Pi}
+%		\\\hline\hline
+%		
+%
+%		\\\hline
+%	\end{tabular}
+%	
+%	\caption{Connection scheme: LoRa Module.}
+%	\label{table:connect_lora}
+%\end{table}
 
 %**********************************************************
 \subsection{Hardware review} %?????
