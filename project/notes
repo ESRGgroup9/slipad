@@ -2,7 +2,6 @@
 ANALYSIS
 ----------------------------------------------------
 network arch
-- flexibility on choosing the pole to have the camera
 - camera detecting range???
 
 - sensor luminosidade não é GPIO (I2C??)
@@ -22,8 +21,6 @@ definir tempo que a lampada fica ligada após uma deteção
 HW
 ----------------------------------------------------
 lâmpada controlável 12 V, CC
-
-Sensor de Luz Ambiente TSL2581 - i2c - WS: https://www.botnroll.com/pt/luz-imagem/3516-sensor-de-luz-ambiente-tsl2581-i2c-ws.html
 
 Geolocation- A LoRaWAN network can determine the location of end devices using triangulation without the need for GPS. A LoRa end device can be located if at least three gateways pick up its signal.????????
 
