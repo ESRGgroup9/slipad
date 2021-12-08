@@ -24,6 +24,8 @@
 
 %hiperlink to index, pictures, tables, etc
 \usepackage{hyperref}
+
+% --------------------  DEFINITIONS -------------------- 
 \hypersetup{
     colorlinks=false,
     linkcolor=black,
@@ -32,9 +34,12 @@
     pdftitle={group9},
 }
 
+% command to enter a newline after an unumbered paragraph
+\newcommand{\myparagraph}[1]{\paragraph*{#1}\mbox{}\\}
+
 \graphicspath{{./images/}}
 
-% ----- Capa -----
+% --------------------  COVER -------------------- 
 \newcommand{\subtitle}[1]{%
   \posttitle{%
     \par\end{center}
@@ -50,7 +55,7 @@
 
 \date{\today}
 
-%HEADER AND FOOTER CHAPTER PAGES
+% ---------- HEADER AND FOOTER CHAPTER PAGES ---------- 
 \fancypagestyle{plain}{%
 	\fancyhf{}			%clear header and footer
 	%footer
@@ -60,7 +65,7 @@
 	\renewcommand{\footrulewidth}{0.5pt}% Line at the footer visible
 }
 
-%HEADER AND FOOTER NORMAL PAGES
+% ---------- HEADER AND FOOTER NORMAL PAGES ---------- 
 \fancypagestyle{IHA-fancy-style}{%
 	%header
 	\renewcommand{\headrulewidth}{0.5pt}
@@ -79,6 +84,7 @@
 
 \input{./acronyms} % load all acronyms
 
+% -------------------- BEGIN DOC -------------------- 
 \begin{document}
 
 {\begin{figure}[t]

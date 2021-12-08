@@ -127,7 +127,7 @@ In order to the detection of available parking spots, it's used a camera, as sho
 	\label{fig:camera}
 \end{figure}
 
-\paragraph*{Features}
+\paragraph*{Characteristics}
 \begin{itemize}
 	\item 5MP OmniVision 5647 sensor;
 	\item Fixed focus lens onboard;
@@ -137,6 +137,7 @@ In order to the detection of available parking spots, it's used a camera, as sho
 \end{itemize}
 
 \clearpage
+\myparagraph{Connection scheme}
 This device plugs directly into the \ac{csi} connector on the Raspberry Pi, as shown in figure \ref{fig:connect_camera}, through the use of a 15-pin ribbon cable.
 
 \begin{figure}[ht]
@@ -146,8 +147,11 @@ This device plugs directly into the \ac{csi} connector on the Raspberry Pi, as s
 	\label{fig:connect_camera}
 \end{figure}
 %**********************************************************
+\clearpage
 \subsection{LoRa Module}
+To allow each local system to communicate to the gateway, it's used LoRa communication technology, requiring for that a LoRa Module, as the one presented in figure \ref{fig:lora_module}. This module, from Ai-Thinker company, uses SX1278 \ac{ic} from SEMTECH, and works on a 433~MHz frequency, with a range up to 10 km in line of sight. \cite{sx1278} \cite{lora_module}
 
+<<<<<<< HEAD
 %\begin{figure}[ht]
 %	\centering
 %	\includegraphics[width=0.60\textwidth]{07hw_specification/}
@@ -161,7 +165,76 @@ This device plugs directly into the \ac{csi} connector on the Raspberry Pi, as s
 %	\caption{.}
 %	\label{fig:}
 %\end{figure}
+=======
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{07hw_specification/lora_module}
+	\caption{LoRa Module SX1278 RA-02 433 MHz.}
+	\label{fig:lora_module}
+\end{figure}
 
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item LoRa modulation technology (Supports also FSK, GFSK, MSK, GMSK and OOK modulation modes);
+	\item Effective Bitrate : 0,018 - 37,5 kbps;
+	\item Half-duplex SPI communication;
+	\item Programmable bit rates up to 300kbps;
+	\item Packet engine with CRC up to 256 bytes;
+	\item Small footprint dual-row stamp-hole patch package;
+	\item Male U.FL connector to support using of external RF antenna - Diameter: 15,5mm.
+\end{itemize}
+
+\begin{table}[H]
+	\centering
+		\begin{tabular}{|m{5cm}|m{6cm}|}
+			\hline
+			\textbf{SX1278 RA-02 Pinout} & \textbf{Description}
+			\\\hline\hline
+		
+			VCC & Power in - 3,3 V\\\hline
+			GND & Ground\\\hline
+			RST & Reset \\\hline
+			SCK & SPI clock input\\\hline
+			NSS & SPI selected-IN\\\hline
+			MISO & SPI data output\\\hline
+			MOSI & SPI data input\\\hline
+			DIO0 & Digital Input/Output 0\\\hline
+			\hline
+		\end{tabular}
+	
+	\caption{LoRa Module SX1289 RA-02 Pinout Description.}
+	\label{table:lora_module_pinout}
+\end{table}
+
+In order to achieve longer range and better signal quality in LoRa communication, an antenna may be used, as the one shown in figure \ref{fig:lora_antena}. RF antennas play a critical role in diverting, directing or concentrating radio wave transmission in a particular direction. 
+
+%Antennas that have high gain will enable one to achieve longer range and better signal quality in LoRa communication, but must be aimed specifically in the direction of the receiving antenna. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.40\textwidth]{07hw_specification/lora_antena}
+	\caption{RF Antenna 433 MHz.}
+	\label{fig:lora_antena}
+\end{figure}
+>>>>>>> 6775d87d017ac9437452e71e05bfc73ac972d9b0
+
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item Frequency: 433,05 - 434,79 MHz;
+	\item Antenna gain: 2 dBi;
+	\item Connector I-PEX (U.FL) - Diameter: 15,5mm;
+	\item Impedance 50 $\Omega$.
+\end{itemize}
+
+\myparagraph{Connection scheme}
+In figure \ref{fig:connect_lora} it is shown the connection scheme of the LoRa module and it's antenna to the Raspberry Pi.
+
+\begin{figure}[H]
+	\centering
+%	\includegraphics[width=0.40\textwidth]{07hw_specification/}
+	\caption{Connection Scheme: LoRa Module.}
+	\label{fig:connect_lora}
+\end{figure}
 %**********************************************************
 \subsection{Driver}
 
