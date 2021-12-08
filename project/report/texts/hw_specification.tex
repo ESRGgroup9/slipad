@@ -286,11 +286,20 @@ It is important to know how the LoRa module works, and how it will behave upon c
 
 %**********************************************************
 \subsection{Driver}
+In order to control the lamp brightness through a GPIO pin from the Raspberry Pi, it's needed a driver circuit, as shown in figure \ref{fig:driver}. This circuit takes as input a \ac{pwm} signal, provided by the raspberry Pi, and also the power for the lamp, \(V_{CL}\), which comes directly from the power supply 12 V \ac{dc} output of the power module. The output of this circuit, the lamp voltage \(V_{L}\), is directly related to it's brightness, which one wants to control.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{07hw_specification/driver}
+	\caption{Driver circuit to control lamp brightness.}
+	\label{fig:driver}
+\end{figure}
+
+The \ac{pwm} signal only takes two values, 0 or 3,3 V, but its average value over time is varied, changing at high frequency the time intervals in which the transistor \(T_{MOS}\) is conducting (applied voltage 3,3 V) and at cutoff (applied voltage 0 V). So, as the \ac{pwm} duty cycle increases, the transistor conducts for more time, leading to an increase of \(V_{L}\), and, therefore, to an increase of the lamp brightness. In any case, the power dissipation in the transistor is very low, because of the rapid change between each transistor state, conducting (at saturation) or at cutoff.
 
 \paragraph*{Characteristics}
 \begin{itemize}
-	\item 
+	\item Transistor MOSFET
 \end{itemize}
 
 \myparagraph{Connection scheme}
@@ -426,7 +435,7 @@ In table \ref{table:step_down_pinout} is shown the connection scheme for the ste
 		\\\hline
 		GND & Power supply Output GND
 		\\\hline
-		USB & Raspberry Pi Micro-USB
+		USB & Raspberry Pi USB-C
 		\\\hline
 		VOUT+ & Sensors VCC
 		\\\hline
