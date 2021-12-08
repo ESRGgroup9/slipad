@@ -46,24 +46,34 @@ In order to light the streets efficiently, we must use a LED lamp.
 %**********************************************************
 \subsection{Luminosity Sensor}
 
-In order to know when is night time, that is, when the light conditions are low, one needs to determine the ambient light conditions, using a module composed by a \ac{ldr} sensor and a LM393 comparator, represented in figure \ref{fig:ldr}. The \ac{ldr} determines the environmental light conditions varying its resistivity. In the table \ref{table:ldr} is shown the LDR Module interface pins. When ambient light intensity does not reach the threshold value (defined by a potentiometer), the module's digital output (DO) is high, and when the ambient light level exceeds the threshold, the module's digital output terminal outputs low.
+In order to know when is night time, that is, when the light conditions are low, one needs to determine the ambient light conditions. To do that, it is used a digital ambient light sensor, the TSL2581 [ref], represented in \ref{fig:light_sen}. It was chosen this project because this sensor communicates with the Raspberry Pi using I2C communication protocol, so it gives a digital value of the lumminusity, according to the light conditions, so it isn't necessary to calibrate this sensor (with a potenciometer, for example) when installing a new local system.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.70\textwidth]{07hw_specification/ldr}
-	\caption{LDR Module.}
-	\label{fig:ldr}
+	\includegraphics[width=0.60\textwidth]{07hw_specification/light_sen}
+	\caption{TSL2581 Light Sensor.}
+	\label{fig:light_sen}
 \end{figure}
+
+\paragraph*{Features}
+\begin{itemize}
+	\item I2C interface directly outputs the ambient light intensity value;
+	\item High precision output, with an infrared photodiode;
+	\item Allows connection to 3,3 V or 5,5 V MCU systems;
+	\item 16-bit resolution.
+\end{itemize}
 
 \begin{table}[H]
 	\centering
 	\resizebox{0.5\columnwidth}{!}{
 	\begin{tabular}{||c | c ||} 
 		\hline
-		\textbf{LDR Module Pin} & \textbf{Board Pin}\\\hline\hline
-		VCC & 5 V\\\hline
-		DO & Pin 17\\\hline
-		GND & GND\\
+		\textbf{Light Sensor Pin} & \textbf{Board Pin}\\\hline\hline
+		VCC & Pin 1 (3,3) V\\\hline
+		GND & GND\\\hline
+		SDA & Pin 2 (SDA)\\\hline
+		SCL & Pin 3 (SCL)\\\hline
+		INT & -\\
 		\hline
 	\end{tabular}
 	}		
@@ -138,19 +148,19 @@ This device plugs directly into the \ac{csi} connector on the Raspberry Pi, as s
 %**********************************************************
 \subsection{LoRa Module}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.60\textwidth]{07hw_specification/}
-	\caption{.}
-	\label{fig:}
-\end{figure}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.60\textwidth]{07hw_specification/}
-	\caption{.}
-	\label{fig:}
-\end{figure}
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.60\textwidth]{07hw_specification/}
+%	\caption{.}
+%	\label{fig:}
+%\end{figure}
+%
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.60\textwidth]{07hw_specification/}
+%	\caption{.}
+%	\label{fig:}
+%\end{figure}
 
 %**********************************************************
 \subsection{Driver}
