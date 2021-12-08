@@ -156,7 +156,7 @@ It is important to know how the camera module will behave upon certain events. I
 	{
 	\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
 		\hline
-		\textbf{Event} & \textbf{Expected Output} & \textbf{Real Output}
+		\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 		\\\hline\hline
 		Take picture & Clear output image & -
 		\\\hline
@@ -236,7 +236,7 @@ In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa 
 	\centering
 	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
-		\textbf{SX1278 RA-02} & \textbf{Raspberry Pi}
+		\textbf{SX1278 RA-02 Pin} & \textbf{Raspberry Pi Pin}
 		\\\hline\hline
 		
 		VCC & 3,3 V
@@ -270,9 +270,9 @@ It is important to know how the LoRa module works, and how it will behave upon c
 	{
 		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
 			\hline
-			\textbf{Event} & \textbf{Expected Output} & \textbf{Real Output}
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 			\\\hline\hline
-			Establish connection & Stable connection & -
+			Establish connection & Stable connection established & -
 			\\\hline
 			Send data & Data sent correctly & -
 			\\\hline
@@ -298,10 +298,75 @@ It is important to know how the LoRa module works, and how it will behave upon c
 \myparagraph{Test Cases}
 %**********************************************************
 \subsection{Power Module}
-% step-down converter
-% industrial power supply
+As specified before, it's needed a power module to power the system, using the power grid. For that, it's necessary the use of an \ac{ac}/\ac{dc} power supply, in order to use the power grid electricity, which in Portugal is 230 V \ac{ac}. The power supply must provide 12 V \ac{dc}, as it is needed to power the lamp, as previously seen. The power supply used is shown in figure \ref{fig:power_supply}. \cite{power_supply}
 
-In order to provide a lower voltage to power sensors and the Raspberry Pi, it is necessary to use a step down module, as the one shown in figure \ref{fig:step_down}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{07hw_specification/power_supply}
+	\caption{ORNO Industrial Power Supply 12 V / 5 A.}
+	\label{fig:power_supply}
+\end{figure}
+
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item Input voltage: 100-240 V \ac{ac}, 60 W;
+	\item Output voltage: 12 V \ac{dc};
+	\item Output current: 5 A;
+	\item Protected against overload, short circuit, over-voltage and over-heating.
+\end{itemize}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Power Supply Pinout} & \textbf{Description}
+		\\\hline\hline
+		 
+		L & Power grid phase 230 V \ac{ac}
+		\\\hline
+		N & Power grid neutral
+		\\\hline
+		GND & GND
+		\\\hline
+		-V & Output -12 V \ac{dc}
+		\\\hline
+		+V & Output +12 V \ac{dc}
+		\\\hline
+	\end{tabular}
+	\caption{Power Supply Pinout Description.}
+	\label{table:power_supply_pinout}
+\end{table}
+
+For educational purposes, in this project the power supply will be connected to a power plug, and not directly connected with eletrical grid wires, being for that necessary a plug to bare end wire, as the one shown in figure \ref{fig:eletrical_wire}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{07hw_specification/eletrical_wire}
+	\caption{Plug to bare end wire 5 A.}
+	\label{fig:eletrical_wire}
+\end{figure}
+
+The plug separates in three wires, which must be carefully connected to the power supply, as previously seen. These wires have a color pattern, as one shows in table \ref{table:color_pattern_wire}.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Color pattern} & \textbf{Description}
+		\\\hline\hline
+		
+		Brown wire & Power grid phase 230 V \ac{ac}
+		\\\hline
+		Blue wire & Power grid neutral
+		\\\hline
+		Green/Yellow wire & GND
+		\\\hline
+	\end{tabular}
+	\caption{Color pattern on eletrical wires.}
+	\label{table:color_pattern_wire}
+\end{table}
+
+In order to provide a lower voltage to power the Raspberry Pi and sensors, it is necessary to use a step down module, as the one shown in figure \ref{fig:step_down}, which can convert 12 V \ac{dc} to 5 V \ac{dc}. \cite{step_down}
  
 \begin{figure}[H]
 	\centering
@@ -323,24 +388,24 @@ In order to provide a lower voltage to power sensors and the Raspberry Pi, it is
 	\begin{threeparttable}
 	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
-		\textbf{Step-Down Pinout} & \textbf{Description}
+		\textbf{Step Down Pinout} & \textbf{Description}
 		\\\hline\hline
 		
 		VCC & Input voltage 9-38 V
 		\\\hline
-		GND & Input Ground
+		GND & Input GND
 		\\\hline
 		USB & USB output 5 V / 5 A \tnote{*}
 		\\\hline
 		VOUT+ & Output 5 V / 5 A \tnote{*}
 		\\\hline
-		VOUT- & Output Ground
+		VOUT- & Output GND
 		\\\hline
 	\end{tabular}
 	
 	\begin{tablenotes}
 		\small
-		\item[*] This module provides 5 A for the both output pins combined.
+		\item[*] This module provides 5 A for both output pins combined (USB and VOUT+).
 	\end{tablenotes}
 	\end{threeparttable}
 	\caption{Step-Down Pinout Description.}
@@ -348,27 +413,28 @@ In order to provide a lower voltage to power sensors and the Raspberry Pi, it is
 \end{table}
 
 \myparagraph{Connection scheme}
+In table \ref{table:step_down_pinout} is shown the connection scheme for the step down. Keep in mind that the same power supply output 12 V \ac{dc} is connected directly to the lamp VCC and to the step down VCC.
 
 \begin{table}[H]
 	\centering
 	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
-		\textbf{Step Down} & \textbf{Raspberry Pi}
+		\textbf{Step Down Pin} & \textbf{Connected to}
 		\\\hline\hline
 		
-		VCC & -
+		VCC & Power supply Output +12 V \ac{dc}
 		\\\hline
-		GND & -
+		GND & Power supply Output GND
 		\\\hline
-		USB & 
+		USB & Raspberry Pi Micro-USB
 		\\\hline
-		VOUT+ & -
+		VOUT+ & Sensors VCC
 		\\\hline
-		VOUT- & -
+		VOUT- & Sensors GND
 		\\\hline
 	\end{tabular}
 	
-	\caption{Connection scheme: Power Module.}
+	\caption{Connection scheme: Step Down.}
 	\label{table:connect_power}
 \end{table}
 
@@ -381,9 +447,11 @@ It is important to know how the step down works, and how it will behave upon cer
 	{
 		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
 			\hline
-			\textbf{Event} & \textbf{Expected Output} & \textbf{Real Output}
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 			\\\hline\hline
-			Connect to power supply & Provide 5 V / 5 A & -
+			Connect power supply to the power grid & Provide 12 V \ac{dc} & -
+			\\\hline
+			Connect step down to the power supply & Provide 5 V \ac{dc} & -
 			\\\hline
 		\end{tabular}
 	}
