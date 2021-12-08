@@ -138,12 +138,12 @@ In order to the detection of available parking spots, it's used a camera, as sho
 
 \clearpage
 \myparagraph{Connection scheme}
-This camera module plugs directly into the \ac{csi} connector on the Raspberry Pi, as shown in figure \ref{fig:connect_camera}, through the use of a 15-pin ribbon cable.
+This device plugs directly into the \ac{csi} connector on the Raspberry Pi, as shown in figure \ref{fig:connect_camera}, through the use of a 15-pin ribbon cable.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.60\textwidth]{07hw_specification/connect_camera}
-	\caption{Connection scheme: Camera Module.}
+	\caption{Camera Module connection to Raspberry Pi.}
 	\label{fig:connect_camera}
 \end{figure}
 %**********************************************************
@@ -151,21 +151,6 @@ This camera module plugs directly into the \ac{csi} connector on the Raspberry P
 \subsection{LoRa Module}
 To allow each local system to communicate to the gateway, it's used LoRa communication technology, requiring for that a LoRa Module, as the one presented in figure \ref{fig:lora_module}. This module, from Ai-Thinker company, uses SX1278 \ac{ic} from SEMTECH, and works on a 433~MHz frequency, with a range up to 10 km in line of sight. \cite{sx1278} \cite{lora_module}
 
-<<<<<<< HEAD
-%\begin{figure}[ht]
-%	\centering
-%	\includegraphics[width=0.60\textwidth]{07hw_specification/}
-%	\caption{.}
-%	\label{fig:}
-%\end{figure}
-%
-%\begin{figure}[ht]
-%	\centering
-%	\includegraphics[width=0.60\textwidth]{07hw_specification/}
-%	\caption{.}
-%	\label{fig:}
-%\end{figure}
-=======
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{07hw_specification/lora_module}
@@ -199,6 +184,7 @@ To allow each local system to communicate to the gateway, it's used LoRa communi
 			MISO & SPI data output\\\hline
 			MOSI & SPI data input\\\hline
 			DIO0 & Digital Input/Output 0\\\hline
+			\hline
 		\end{tabular}
 	
 	\caption{LoRa Module SX1289 RA-02 Pinout Description.}
@@ -215,7 +201,6 @@ In order to achieve longer range and better signal quality in LoRa communication
 	\caption{RF Antenna 433 MHz.}
 	\label{fig:lora_antena}
 \end{figure}
->>>>>>> 6775d87d017ac9437452e71e05bfc73ac972d9b0
 
 \paragraph*{Characteristics}
 \begin{itemize}
@@ -226,37 +211,14 @@ In order to achieve longer range and better signal quality in LoRa communication
 \end{itemize}
 
 \myparagraph{Connection scheme}
-In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa module to the Raspberry Pi (remember figure \ref{fig:rasp_pinout}). Also keep in mind that the RF antenna is connected directly to the LoRa module, through an U.FL connector.
+In figure \ref{fig:connect_lora} it is shown the connection scheme of the LoRa module and it's antenna to the Raspberry Pi.
 
-\begin{table}[H]
+\begin{figure}[H]
 	\centering
-	\begin{tabular}{|m{5cm}|m{6cm}|}
-		\hline
-		\textbf{SX1278 RA-02} & \textbf{Raspberry Pi}
-		\\\hline\hline
-		
-		VCC & 3,3 V
-		\\\hline
-		GND & GND
-		\\\hline
-		RST & GPIO 4
-		\\\hline
-		SCK & CLK
-		\\\hline
-		NSS & SPI0 CE0
-		\\\hline
-		MISO & SPI0 MISO
-		\\\hline
-		MOSI & SPI0 MOSI
-		\\\hline
-		DIO0 & GPIO 17
-		\\\hline
-	\end{tabular}
-	
-	\caption{Connection scheme: LoRa Module.}
-	\label{table:connect_lora}
-\end{table}
-
+%	\includegraphics[width=0.40\textwidth]{07hw_specification/}
+	\caption{Connection Scheme: LoRa Module.}
+	\label{fig:connect_lora}
+\end{figure}
 %**********************************************************
 \subsection{Driver}
 
