@@ -1,12 +1,61 @@
+In this chapter the theoretical foundations for the development of this project are presented, creating a solid groundwork for the design and implementation process.
+
 \section{PThreads}
 \section{Signals}
 
 \input{./texts/comm_protocols}
 
+%********************************* DAEMONS *************************
+\clearpage
 \section{Daemons}
+A daemon is a process that runs in the backgroud and has no controlling terminal. The lack of a controlling terminal ensures that the kernel never automatically generates any job-control or terminal-related signals (such as SIGINT, SIGTSTP, and SIGHUP) for a daemon. \cite{linux_progr_interface}
 
+A daemon is often created at system startup and runs until the system is shut down, being used to carry out specific tasks. It is a convention (not universally observed) that daemons have names ending with the letter d (example: \textit{httpd}, \textit{sshd}). 
 
+Since a daemon has no controlling terminal, the  \textit{syslog}  facility  provides  a  convenient  way  for  daemons  (and  other  applications)  to  log  error  and  other  messages  to  a  central  location.  These  messages  are processed by the \textit{syslogd} daemon, which redistributes the messages according to the dictates  of  the  syslogd.conf  configuration  file. 
+
+Where appropriate, daemons should correctly handle the arrival of the SIGTERM and SIGHUP  signals. The  SIGTERM signal  should  result  in  an  orderly  shutdown  of  the daemon, while the SIGHUP signal provides a way to trigger the daemon to reinitialize itself by rereading its configuration file and reopening any log files it may be using.
+
+%********************************* DEVICE DRIVERS *************************
+\clearpage
 \section{Device Drivers}
+System memory in Linux can be divided into two distinct regions: kernel space and user space. Kernel space is where the kernel (the core of the operating system) executes and provides its services. User space is that set of memory locations in which user processes (everything other than the kernel) run. One of the roles of the kernel is to manage individual user processes within this space and to prevent them from interfering with each other. User processes can access kernel space only through the use of system calls, which are requests in a Unix-like operating system by an active process for a service performed by the kernel, such as input/output or process creation. \cite{kernel_space}
 
+A device driver is a set of functions and data, in the kernel, that make the interface with an external I/O device. They are distinct “black boxes” that make a particular piece of hardware respond to a well-defined internal programming interface, hiding completely the details of how the device works. Devices  are  represented  by  entries  in  the  /dev  directory, being considered regular files.  Each  device  has  a  corresponding device driver, which implements a standard set of operations, including those  corresponding  to  the  \textit{open()},  \textit{read()}, \textit{ write()},  and  \textit{close()}  system  calls. \cite{linux_dev_drivers}
 
+User activities are performed by means of a set of standardized calls that are independent of the specific driver. So the role of the device driver is to map those calls to device-specific operations that act on real hardware. Linux kernel offers a set of functions to the user space for the interaction with hardware, as one can see in the table \ref{table:device_driver}, in "User Functions". In the kernel space, Linux offers a set of functions that interact directly with the hardware and allows data transfer between kernel space and user space, as shown in "Kernel Functions".
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{4cm}|m{3.5cm}|m{5cm}|}
+			\hline
+			\textbf{Event} & \textbf{User Functions} & \textbf{Kernel Functions}
+			\\\hline\hline
+			Load module & insmod & module\_init()
+			\\\hline
+			Remove module & rmmod & module\_exit()
+			\\\hline
+			Open module & fopen() & file\_operations: open
+			\\\hline
+			Read from device & fread() & file\_operations: read
+			\\\hline
+			Write to device & fwrite() & file\_operations: write
+			\\\hline
+			Close module & fclose() & file\_operations: close
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Interface between an event, it's user function, and the kernel function called.}
+	\label{table:device_driver}
+\end{table}
+
+When the kernel recognizes that a certain action were requested to a device, it calls an appropriate function from the driver, and transfers the process control from the user to the driver function. After the driver function ends its execution, it gives the control back to the user space process.
+
+To associate the normal files to the kernel mode, the Linux system uses the major number and the minor number. Major number identifies the driver associated to the device and is normally used by Linux system to map I/O requests to driver code. Minor number is dedicated to internal use and it is used by kernel to determine exactly which device was reference. To do the association, it should be created a file or node in /dev directory, (calling \textit{mknod} as root user) that will be used to access the driver.
+
+Linux supports three types of hardware devices: character, block and network device, being the character and block devices the most important. Character devices communicate directly with the user space program, so no buffer is required, for example the system’s serial ports. Block devices are accessed by the user space program by a system buffer, and can only be written and read from in multiples of the block size, typically 512 bytes. \cite{linux_progr_interface}
+
+%********************************* IMAGE PROCESSING *************************
 \section{Image Processing}
