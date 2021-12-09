@@ -106,8 +106,20 @@ In this protocol both master and slave devices have an internal shift register, 
 SPI has advantages comparing to other communication protocols. It doesn't have start and stop bits, do the data can be streamed continuously without interruption. It is full-duplex, having separate lines for receiving and sending data. Has higher data transfer rate and has a simpler slave addressing system than I2C. However, this protocol uses four wires, in contrast to two used by I2C, has no acknowledgment that the data has been successfully received and only allows for a single master. \cite{spi_basics}
 
 %********************************* CSI *************************
+\clearpage
 \subsection{CSI}
-%by way of a 15 Pin Ribbon Cable, to the dedicated 15-pin MIPI Camera Serial Interface (CSI), which was designed especially for interfacing to cameras. The CSI bus is capable of extremely high data rates, and it exclusively carries pixel data to the BCM2835 processor. 
+The \ac{csi} is a specification of the \ac{mipi} Alliance. It is a widely adopted, simple, high-speed protocol primarily intended for point-to-point image and video transmission between a camera and a host processor. The latest active interface specifications are CSI-2 v3.0, CSI-3 v1.1 which were released in 2019 and 2014 respectively. \cite{csi_basics}
+
+The CSI-2 is the most widely used camera interface in mobile and other markets. CSI-2 consists of a unique physical bus that contains a differential clock and from one to four differential data lanes. This interface is called a D-PHY. This standard takes advantage of \ac{lvds} to send data through multiple lanes from the camera controller to the MIPI, as one can see in figure \ref{fig:csi_interface}. The LVDS standard is used to reduce electromagnetic interference and cross talk between lanes.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{08theory/csi_interface}
+	\caption{CPI-2 sensor interface.}
+	\label{fig:csi_interface}
+\end{figure}
+
+The clock is source synchronous and the number of data lanes for a CSI-2 interface can vary from one to four lanes. Each data lane transmits 8-bit serial data. The higher the image sensor resolution and frame rate, the more data lanes and higher speed for each will be required. The practical limit for a CSI-2 interface is less than 1 Gbits/s data rates, but often it is less than 700 Mbits/s. \cite{csi_interface}
 
 %********************************* TCP-IP *************************
 \subsection{TCP-IP}
