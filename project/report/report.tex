@@ -16,6 +16,10 @@
 \usepackage{array} % tables with fixed length
 \usepackage[flushleft]{threeparttable} % add notes to tables
 
+\usepackage{listings} % insert code
+\usepackage{xcolor}
+
+
 \setcounter{tocdepth}{5}
 \setcounter{secnumdepth}{5}
 
@@ -33,6 +37,28 @@
     filecolor=black,      
     urlcolor=black,
     pdftitle={group9},
+}
+
+\lstset { %
+	language=C++,
+	backgroundcolor=\color{black!5}, % set backgroundcolor
+	basicstyle=\footnotesize,% basic font setting
+	frame=Trbl,
+	numbers=left,
+	columns=flexible,
+	breakatwhitespace=true,         
+	breaklines=true, 
+	aboveskip=3mm,
+	belowskip=3mm,
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+	breaklines=true,
 }
 
 % command to enter a newline after an unumbered paragraph

@@ -1,6 +1,26 @@
 \section{Communication Protocols}
 % assim tudo misturado aqui dentro?
 \subsection{LoRaWAN}
+LoRa (Long Range) is a radio modulation technology for wireless LAN networks in the category of \ac{lpwa} network technologies. LoRa was developed by Cycleo and later acquired by Semtech, the founding member of LoRa Alliance. LoRaWAN is a network (protocol) using LoRa. \cite{lora_alliance}
+
+LoRa technology uses the unlicensed frequency band (\ac{ism}), like 433~MHz, 868~MHz (in Europe), 915~MHz (in Australia and North America) and 923~MHz (in Asia). LoRa is the physical layer or the wireless modulation utilized to create a long range communication link, which may cover more than 10 km in line of sight.
+
+Many legacy wireless systems use frequency shifting keying (FSK) modulation as the physical layer because it is a very efficient modulation for achieving low power. LoRa® is based on chirp spread spectrum modulation, which maintains the same low power characteristics as FSK modulation but significantly increases the communication range. Chirp spread spectrum has been used in military and space communication for decades due to the long 
+communication distances that can be achieved and robustness to interference, but LoRa® is the first low cost implementation for commercial usage. 
+
+
+
+
+
+% lora physical MAC
+The LoRaWAN specification is a \ac{lpwa} networking protocol that targets key \ac{iot} requirements such as bi-directional communication, end-to-end security, mobility and localization services. LoRaWAN network architecture is deployed in a star-of-stars topology in which gateways relay messages between end-devices and a central network server.
+
+Each gateway is connected to the network server via standard IP connections, acting as a bridge by converting \ac{rf} packets to IP packets, and vice versa. The gateway only performs the forwarding of the data packets without any security protection. The end device communicates with one or more gateways by a single-hop LoRa or \ac{fsk}.
+
+LoRa technology chooses the unlicensed frequency band (\ac{ism}) and the public protocol, which brings vulnerability to the network. The attacker can listen on the address of the legal terminal and generate forged packets to the gateway to cause congestion. The attacker can also use his own LoRa device to send the maximum length preamble to occupy the channel maliciously. LoRaWAN considers network security issues in its design. LoRaWAN’s security policy is to encrypt data from the end device node to the network server and the application server. The former ensures that the legal node can access the network, authenticate the data packet, and perform integrity verification, and the latter ensures the end-to-end security of the application through the encryption of application data.
+
+
+
 
 \subsection{SPI}
 \subsection{I2C}
@@ -9,5 +29,6 @@
 %by way of a 15 Pin Ribbon Cable, to the dedicated 15-pin MIPI Camera Serial Interface (CSI), which was designed especially for interfacing to cameras. The CSI bus is capable of extremely high data rates, and it exclusively carries pixel data to the BCM2835 processor. 
 
 \subsection{TCP-IP}
+
 \subsection{HTTP}
 \subsection{MQTT}
