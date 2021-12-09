@@ -8,9 +8,20 @@ In this chapter the theoretical foundations for the development of this project 
 %********************************* DAEMONS *************************
 \clearpage
 \section{Daemons}
-A daemon is a process that runs in the backgroud and has no controlling terminal. The lack of a controlling terminal ensures that the kernel never automatically generates any job-control or terminal-related signals (such as SIGINT, SIGTSTP, and SIGHUP) for a daemon. \cite{linux_progr_interface}
+A daemon is a process that runs in the background and has no controlling terminal. The lack of a controlling terminal ensures that the kernel never automatically generates any job-control or terminal-related signals (such as SIGINT, SIGTSTP, and SIGHUP) for a daemon. \cite{linux_progr_interface}
 
 A daemon is often created at system startup and runs until the system is shut down, being used to carry out specific tasks. It is a convention (not universally observed) that daemons have names ending with the letter d (example: \textit{httpd}, \textit{sshd}). 
+
+Each process belongs to a process group, and the process group can contain one or more processes. There is a process leader in the process group, the \ac{pid} of the leader is the \ac{pgid}. More than one process group constitutes a "session". The process that establishes the session is the lead process for the session, and the \ac{pid} of the leader is the \ac{sid} of the session. Each process group in a session is called a "job". The meaning of a session is that multiple jobs can be controlled through one terminal, one foreground operation and the other running in the background. \cite{daemons}\newline
+
+To become a daemon, a program performs the following steps:
+\begin{enumerate}
+	\item Perform a \textit{fork()}, after which the parent exits and the child continues.
+	\item The  child  process  calls  \textit{setsid()} to  start  a  new  session  and  free itself of any association with a controlling terminal.
+	\item Clear the process umask to ensure that, when the daemon creates files and directories, they have the requested permissions. (\textit{umask()})
+	\item Change the process’s current working directory, typically to the root directory (\textit{chdir('/')}). This is necessary because a daemon usually runs until system shutdown, and if the daemon’s current working directory is on a file system other than the one containing '/', then that file system can’t be unmounted.
+	\item Close  all  open file descriptors that the daemon has inherited  from its parent. (\textit{close()}) (A  daemon  may  need  to  keep  certain  inherited  file  descriptors  open,  so  this step  is  optional,  or  open  to  variation.)
+\end{enumerate}
 
 Since a daemon has no controlling terminal, the  \textit{syslog}  facility  provides  a  convenient  way  for  daemons  (and  other  applications)  to  log  error  and  other  messages  to  a  central  location.  These  messages  are processed by the \textit{syslogd} daemon, which redistributes the messages according to the dictates  of  the  syslogd.conf  configuration  file. 
 
