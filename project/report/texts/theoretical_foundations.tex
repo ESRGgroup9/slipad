@@ -70,3 +70,58 @@ Linux supports three types of hardware devices: character, block and network dev
 
 %********************************* IMAGE PROCESSING *************************
 \section{Image Processing}
+%Basically, an image is a two-dimensional array of pixels, so it can be represented in an cartesian coordinate system. 
+
+Image processing consists of several techniques and methods used for manipulate images on a computer. The image processing helps improving the stored digital information, automate working with images and optimize image manipulation leading to efficient storage and transmission. Nowadays, image processing has many applications, like filtering images in editing apps and social media, medical technology, computer vision (objects identification, for example), pattern recognition, video processing and more. In this project, the image processing application is the computer vision, to detect available parking spots in the streets, using a camera.
+
+In order to identify parking spots, one needs to find its outlines. The Canny Edge Detection algorithm is a popular edge detection algorithm, and can be used to detect the parking spots outlines, providing an edge image. The edge detection is a multi-stage algorithm that goes through the stages: Noise reduction, Sobel Filtering, Non-maximum Suppression
+
+\myparagraph{Noise reduction}
+The edge detection algorithm is sensible to noise in the image, so the first step is to remove the noise in the image using a 5x5 Gaussian filter. In figure \ref{fig:gaussian} one can see the results of the gaussian filter 5x5. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{08theory/gaussian}
+	\caption{Gaussian Filter Results.}
+	\label{fig:gaussian}
+\end{figure}
+
+\myparagraph{Sobel Filtering}
+Sobel filtering is an algorithm that finds intensity gradients on the image. This filter is applied in both horizontal and vertical direction, allowing to find the edge gradient and direction for each pixel. Figure \ref{fig:sobel}, shows the sobel filtering results.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{08theory/sobel}
+	\caption{Sobel Filter Results.}
+	\label{fig:sobel}
+\end{figure}
+
+\myparagraph{Non-maximum Suppression}
+The non-maximum supression algorithm does a full scan of the image in order to remove any unwanted pixels, that is, the pixels that don't constitute the edges of the image. In figure \ref{fig:nms}, one can see the Non-maximum Suppression algorithm. The point A is on the edge and the point B and C are in gradient directions. This algorithm supress (put their pixel to 0) the points B and C if they aren't a local maximum. If they are a local maximum, they are considered for the next stage as well as the point A.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{08theory/nms}
+	\caption{Non-maximum Suppression Algorithm.}
+	\label{fig:nms}
+\end{figure}
+
+\myparagraph{Hysteresis Thresholding}
+This stage decides which edges considered until this point are really edges. This algorithm defines two threshold values, minVal and maxVal, in figure \ref{fig:hys_thr}. The edges that have an intensity gradient higher than maxVal are considered edges and the edges that have lower intensity gradient than minValue, aren't considered edges. The points with intensity gradient between this values are considered edges when they are connected to other edges with intensity gradient higher than maxVal threshould value (the case of point C), and considered non-edges when they are not connected with other points with high intensity gradient value (the case of point B). 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{08theory/hys_thr}
+	\caption{Hysteresis Thresholding Algorithm.}
+	\label{fig:hys_thr}
+\end{figure}
+
+This algorithm, the Canny Edge Detection, allows the image processing algorithm to have only the strong edges of an image, being the final result represented in figure \ref{fig:canny}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\textwidth]{08theory/canny}
+	\caption{Canny Edge Detection Result.}
+	\label{fig:canny}
+\end{figure}
+

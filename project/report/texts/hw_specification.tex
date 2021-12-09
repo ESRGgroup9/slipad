@@ -43,7 +43,7 @@ The Raspberry Pi 4 Model B board comes with a standard 40 pin GPIO header, that 
 
 In order to light the streets efficiently, we use a LED lamp, that is the type of lamps with the better energy efficiency. It must be an adjustable lamp to control the lamp brightness, so the lamp selected was a G4 socket 12 V AC/DC LED lamp. The lamp is controlled using a driver, that is approached in subsection \ref{subsection:driver} the that takes a \ac{pwm} signal (Pin 18) from the Raspberry Pi as input. 
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{07hw_specification/lamp}
 	\caption{LED Lamp.}
@@ -67,7 +67,7 @@ In a real-scale project, it would be used a different lamp, with supply voltage 
 
 In order to know when is night time, that is, when the light conditions are low, one needs to determine the ambient light conditions. To do that, it is used a digital ambient light sensor, the TSL2581 \cite{light_sensor}, represented in \ref{fig:light_sen}. It was chosen this project because this sensor communicates with the Raspberry Pi using \ac{i2c} communication protocol, so it gives a digital value of the lumminusity, according to the light conditions, so it isn't necessary to calibrate this sensor (with a potenciometer, for example) when installing a new local system.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.60\textwidth]{07hw_specification/light_sen}
 	\caption{TSL2581 Light Sensor.}
