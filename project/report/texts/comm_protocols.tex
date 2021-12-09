@@ -1,7 +1,8 @@
-\section{Communication Protocols}
-% assim tudo misturado aqui dentro?
-%********************************* LORAWAN *************************
 \clearpage
+\section{Communication Protocols}
+In order to establish communication between the peripherals and between different systems, there is the need to use communication protocols, depending on what are supported by these devices and what are the best in the context of the application.
+
+%********************************* LORAWAN *************************
 \subsection{LoRaWAN}
 LoRa (Long Range) is a radio modulation technology for wireless LAN networks in the category of \ac{lpwa} network technologies. LoRa was developed by Cycleo and later acquired by Semtech, the founding member of LoRa Alliance, an open, non-profit association that supports the LoRaWAN protocol. LoRaWAN is a network (protocol) using LoRa. \cite{lora_alliance}
 
@@ -122,7 +123,19 @@ The CSI-2 is the most widely used camera interface in mobile and other markets. 
 The clock is source synchronous and the number of data lanes for a CSI-2 interface can vary from one to four lanes. Each data lane transmits 8-bit serial data. The higher the image sensor resolution and frame rate, the more data lanes and higher speed for each will be required. The practical limit for a CSI-2 interface is less than 1 Gbits/s data rates, but often it is less than 700 Mbits/s. \cite{csi_interface}
 
 %********************************* TCP-IP *************************
+\clearpage
 \subsection{TCP-IP}
+\ac{tcp}/\ac{ip} is one of the most commonly used protocols for internet communication. TCP is the component that collects and reassembles the packets of data, while IP is responsible for making sure the packets are sent to the right destination. These are part of the OSI model, as shown in figure \ref{fig:osi_model}.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\textwidth]{08theory/osi_model}
+	\caption{OSI model.}
+	\label{fig:osi_model}
+\end{figure}
+
+The TCP provides services to the transport layer, providing a reliable and sequenced delivery of data. One can compare TCP to while the \ac{udp} provides data transportation without guaranteed data delivery or acknowledgments, which may be faster, but unreliable on the other hand. The IP part of the TCP/IP protocol, provides services to the network layer, and is used to make origin and destination addresses available to route data across networks.
+
+%********************************* HTTP *************************
 \subsection{HTTP}
 \subsection{MQTT}
