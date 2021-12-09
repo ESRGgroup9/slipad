@@ -74,7 +74,7 @@ Linux supports three types of hardware devices: character, block and network dev
 
 Image processing consists of several techniques and methods used for manipulate images on a computer. The image processing helps improving the stored digital information, automate working with images and optimize image manipulation leading to efficient storage and transmission. Nowadays, image processing has many applications, like filtering images in editing apps and social media, medical technology, computer vision (objects identification, for example), pattern recognition, video processing and more. In this project, the image processing application is the computer vision, to detect available parking spots in the streets, using a camera.
 
-In order to identify parking spots, one needs to find its outlines. The Canny Edge Detection algorithm is a popular edge detection algorithm, and can be used to detect the parking spots outlines, providing an edge image. The edge detection is a multi-stage algorithm that goes through the stages: Noise reduction, Sobel Filtering, Non-maximum Suppression
+In order to identify parking spots, one needs to find its outlines. The Canny Edge Detection \cite{canny} algorithm is a popular edge detection algorithm, and can be used to detect the parking spots outlines, providing an edge image. The canny edge detection is a multi-stage algorithm that goes through the stages: Noise reduction, Sobel Filtering, Non-maximum Suppression and Hysteresis Thresholding.
 
 \myparagraph{Noise reduction}
 The edge detection algorithm is sensible to noise in the image, so the first step is to remove the noise in the image using a 5x5 Gaussian filter. In figure \ref{fig:gaussian} one can see the results of the gaussian filter 5x5. 
@@ -116,7 +116,7 @@ This stage decides which edges considered until this point are really edges. Thi
 	\label{fig:hys_thr}
 \end{figure}
 
-This algorithm, the Canny Edge Detection, allows the image processing algorithm to have only the strong edges of an image, being the final result represented in figure \ref{fig:canny}
+This algorithm, the Canny Edge Detection, allows the image processing algorithm to have only the strong edges of an image, being the final result represented in figure \ref{fig:canny}.
 
 \begin{figure}[H]
 	\centering
@@ -124,4 +124,13 @@ This algorithm, the Canny Edge Detection, allows the image processing algorithm 
 	\caption{Canny Edge Detection Result.}
 	\label{fig:canny}
 \end{figure}
+
+
+
+\myparagraph{Hough Line Transform}
+
+After detecting the edges of the image, one needs to take the processed image and use hough line transform. The hough line transform \cite{hough} is an algorithm used to detect straight lines. Knowing that a parking spot is delimited by straight line edges, this algorithm provides the extreme coordinates of the parking spot outline. With the parking spots coordinates, one can make a parking map and knows where there are parking spots to after identify if the spot is occupied or not.
+
+\myparagraph{Parking Spots Occupancy}
+
 
