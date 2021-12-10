@@ -25,3 +25,60 @@ lâmpada controlável 12 V, CC
 Geolocation- A LoRaWAN network can determine the location of end devices using triangulation without the need for GPS. A LoRa end device can be located if at least three gateways pick up its signal.????????
 
 
+---------------------------------------------------
+IMAGE PROCESSING
+---------------------------------------------------
+Canny edge detection:
+	- Multi-stage algorithm
+
+	Stages:
+		- Convert to grey image: Igray = 0.213(Ired )+0.715(Igreen)+0.072(Iblue);
+		- Noise reduction: Process Gaussian blur filter 5x5;
+		- Apply Hough Line Transform to detect lines in the image
+		- Isolate the horizontal lines
+		- Isolate the 
+		- Determine the coordinates
+		- Detect parking spots with empty
+		- Register coordinates of parking spots
+		- ....
+
+
+---------------------------------------------------
+Threads
+---------------------------------------------------
+Local system:
+********Camera*********
+		- adquirir
+		- processar
+
+tCamera
+
+
+*****Controlo da lampada*****
+Controla PWM lampada: 
+	Semophore definido  
+		- pwm
+
+	Comunicação(LoRa) (Deamon)
+		- receber
+		- intrepertar (parse)
+		- enviar
+
+	Leitura dos Sensores (Deamon)
+		- Pir
+		- LDR
+		- failure
+
+Gateway:
+	Comunicação(LoRa) 
+		- receber
+		- enviar
+	Comunicação(TCP)
+		- receber 
+		- enviar
+
+Remote System
+
+
+
+
