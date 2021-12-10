@@ -69,12 +69,13 @@ To associate the normal files to the kernel mode, the Linux system uses the majo
 Linux supports three types of hardware devices: character, block and network device, being the character and block devices the most important. Character devices communicate directly with the user space program, so no buffer is required, for example the system’s serial ports. Block devices are accessed by the user space program by a system buffer, and can only be written and read from in multiples of the block size, typically 512 bytes. \cite{linux_progr_interface}
 
 %********************************* IMAGE PROCESSING *************************
+\clearpage
 \section{Image Processing}
 %Basically, an image is a two-dimensional array of pixels, so it can be represented in an cartesian coordinate system. 
 
-Image processing consists of several techniques and methods used for manipulate images on a computer. The image processing helps improving the stored digital information, automate working with images and optimize image manipulation leading to efficient storage and transmission. Nowadays, image processing has many applications, like filtering images in editing apps and social media, medical technology, computer vision (objects identification, for example), pattern recognition, video processing and more. In this project, the image processing application is the computer vision, to detect available parking spots in the streets, using a camera.
+Image processing consists of several techniques and methods used to manipulate images on a computer. The image processing helps improving the stored digital information, automate working with images and optimize image manipulation leading to efficient storage and transmission. Nowadays, image processing has many applications, like filtering images in editing apps and social media, medical technology, computer vision (objects identification, for example), pattern recognition, video processing and more. In this project, the image processing application is the computer vision, to detect available parking spots in the streets, using a camera.
 
-In order to identify parking spots, one needs to find its outlines. The Canny Edge Detection \cite{canny} algorithm is a popular edge detection algorithm, and can be used to detect the parking spots outlines, providing an edge image. The canny edge detection is a multi-stage algorithm that goes through the stages: Noise reduction, Sobel Filtering, Non-maximum Suppression and Hysteresis Thresholding.
+In order to identify parking spots, one needs to find its outlines. The Canny Edge Detection \cite{canny} algorithm is a popular edge detection algorithm, and can be used to detect the parking spots outlines, providing an edge image. The canny edge detection is a multi-stage algorithm that goes through the stages: Noise reduction, Sobel Filtering, Non-maximum Suppression and Hysteresis Threshold.
 
 \myparagraph{Noise reduction}
 The edge detection algorithm is sensible to noise in the image, so the first step is to remove the noise in the image using a 5x5 Gaussian filter. In figure \ref{fig:gaussian} one can see the results of the gaussian filter 5x5. 
@@ -97,7 +98,7 @@ Sobel filtering is an algorithm that finds intensity gradients on the image. Thi
 \end{figure}
 
 \myparagraph{Non-maximum Suppression}
-The non-maximum supression algorithm does a full scan of the image in order to remove any unwanted pixels, that is, the pixels that don't constitute the edges of the image. In figure \ref{fig:nms}, one can see the Non-maximum Suppression algorithm. The point A is on the edge and the point B and C are in gradient directions. This algorithm supress (put their pixel to 0) the points B and C if they aren't a local maximum. If they are a local maximum, they are considered for the next stage as well as the point A.
+The non-maximum suppression algorithm does a full scan of the image in order to remove any unwanted pixels, that is, the pixels that don't constitute the edges of the image. In figure \ref{fig:nms}, one can see the non-maximum suppression algorithm. The point A is on the edge and the point B and C are in gradient directions. This algorithm suppresses the points B and C (put their pixel to 0) if they aren't a local maximum. If they are a local maximum, they are considered for the next stage as well as the point A.
 
 \begin{figure}[H]
 	\centering
@@ -107,7 +108,7 @@ The non-maximum supression algorithm does a full scan of the image in order to r
 \end{figure}
 
 \myparagraph{Hysteresis Thresholding}
-This stage decides which edges considered until this point are really edges. This algorithm defines two threshold values, minVal and maxVal, in figure \ref{fig:hys_thr}. The edges that have an intensity gradient higher than maxVal are considered edges and the edges that have lower intensity gradient than minValue, aren't considered edges. The points with intensity gradient between this values are considered edges when they are connected to other edges with intensity gradient higher than maxVal threshould value (the case of point C), and considered non-edges when they are not connected with other points with high intensity gradient value (the case of point B). 
+This stage decides which edges considered until this point are really edges. This algorithm defines two threshold values, \textit{minVal} and \textit{maxVal}, in figure \ref{fig:hys_thr}. The edges that have an intensity gradient higher than \textit{maxVal} are considered edges and the edges that have lower intensity gradient than \textit{minValue}, aren't considered edges. The points with intensity gradient between this values are considered edges when they are connected to other edges with intensity gradient higher than \textit{maxVal} threshold value (the case of point C), and considered non-edges when they are not connected with other points with high intensity gradient value (the case of point B). 
 
 \begin{figure}[H]
 	\centering
@@ -125,11 +126,12 @@ This algorithm, the Canny Edge Detection, allows the image processing algorithm 
 	\label{fig:canny}
 \end{figure}
 
-
-
+\clearpage
 \myparagraph{Hough Line Transform}
 
-After detecting the edges of the image, one needs to take the processed image and use hough line transform. The hough line transform \cite{hough} is an algorithm used to detect straight lines. Knowing that a parking spot is delimited by straight line edges, this algorithm provides the extreme coordinates of the parking spot outline. With the parking spots coordinates, one can make a parking map and knows where there are parking spots to after identify if the spot is occupied or not.
+After detecting the edges of the image, one needs to take the processed image and use Hough Line Transform, which is an algorithm used to detect straight lines in an image. \cite{hough} 
+
+Knowing that a parking spot is delimited by straight line edges, this algorithm provides the extreme coordinates of the parking spot outline. With the parking spots coordinates, one can make a parking map and knows where there are parking spots to after identify if the spot is occupied or not.
 
 \myparagraph{Parking Spots Occupancy}
 
