@@ -129,8 +129,29 @@ This algorithm, the Canny Edge Detection, allows the image processing algorithm 
 
 \myparagraph{Hough Line Transform}
 
-After detecting the edges of the image, one needs to take the processed image and use hough line transform. The hough line transform \cite{hough} is an algorithm used to detect straight lines. Knowing that a parking spot is delimited by straight line edges, this algorithm provides the extreme coordinates of the parking spot outline. With the parking spots coordinates, one can make a parking map and knows where there are parking spots to after identify if the spot is occupied or not.
+After detecting the edges of the image, one needs to take the processed image and use hough line transform. The hough line transform \cite{hough} is an algorithm used to detect straight lines. Knowing that a parking spot is delimited by straight line edges, this algorithm provides the extreme coordinates of the parking spot outline. With the parking spots coordinates, one can make a parking map and knows where there are parking spots, to after identify if the spot is occupied or vacant.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{08theory/hough}
+	\caption{Hough Line Transform Result.}
+	\label{fig:hough}
+\end{figure}
 
 \myparagraph{Parking Spots Occupancy}
 
+With the parking spots maping, it is possible to identify the parking spots status. One can do that in three different ways:
 
+\begin{itemize}
+	\item Check if the pixel colour of the spot aligns with the colour of an empty parking spot;
+	\item Detect all cars and check if the car's location match with the parking spot coordinates;
+	\item Take two pictures of the parking spots: one available and other occupied. The occupied and empty spots look very different, making it easy to identify the parking spot status.
+\end{itemize}
+
+\myparagraph{Pixel Colour Change}
+
+To detect if a car is in the parking spot, one can see the change in the pixel colour of the spot. It can be done by calculating the spot pixel colours average and comparing it to the empty spot pixel colour average. If the average calculated is higher or lower than a pre-defined value, then the parking spot is occupied.
+
+\myparagraph{Cascade Classifier Training}
+
+The second way to identify the parking spot status is using a Cascade Classifier Training \cite{cascade}. This is divided into two major stages: training and detection. For training it is needed a set of samples, negatives and positives. The negative samples correspond to non-object images and the positive samples correspond to images with detected objects. Then it is required to create a positive vector using an OpenCV utility that gathers all the positives. The last step is to train the cascade, creating a \ac{xml} file that can be used to detect objects of a frame.
