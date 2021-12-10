@@ -1,6 +1,6 @@
 \subsection{Development Board}
 
-The development board for this project is the Raspberry Pi 4 Model B, shown in figure \ref{fig:rasp}, considering it is one of the constraints identified in the analysis phase (\ref{subsection:requirements_constraints}). This board includes a 64-bit quad-core ARM processor, the BCM2711, multimedia and connection features, ressembling to a computer-like board that serves multiple applications. The following list shows the Raspberry Pi 4 Model B main features:
+The development board for this project is the Raspberry Pi 4 Model B, shown in figure \ref{fig:rasp}, considering it is one of the constraints identified in the analysis phase (\ref{subsection:requirements_constraints}). This board includes a 64-bit quad-core ARM processor, the BCM2711, multimedia and connection features, resembling to a computer-like board that serves multiple applications. The following list shows the Raspberry Pi 4 Model B main features:
 
 \begin{itemize}
         \item 2GB LPDDR4-3200 SDRAM;
@@ -15,7 +15,7 @@ The development board for this project is the Raspberry Pi 4 Model B, shown in f
 		\item Micro-SD card slot.
 \end{itemize}
 
-The Raspberry Pi 4 Model B is used as a development board for this project, as it would not be used in a final application because not all its features are used. So, in a final application, the development board would be chosen based on the features nedded or would be designed.
+The Raspberry Pi 4 Model B is used as a development board for this project, as it would not be used in a final application because not all its features are used. So, in a final application, the development board would be chosen, or designed, based on the features needed.
 
 % A raspberry é apenas uma board de desenvolvimento, não é o hw que usariamos numa aplicação final.
 
@@ -29,7 +29,7 @@ The Raspberry Pi 4 Model B is used as a development board for this project, as i
 %**********************************************************
 \myparagraph{\ac{gpio}}
 
-The Raspberry Pi 4 Model B board comes with a standard 40 pin GPIO header, that allows to interface with external peripherals. This GPIO also provides some interface technologys, like UART, I2C or SPI. The GPIO pinout of this board is shown in figure \ref{fig:rasp_pinout} \cite{pinout}.
+The Raspberry Pi 4 Model B board comes with a standard 40 pin GPIO header, that allows to interface with external peripherals. This GPIO also provides some interface technologies, like UART, I2C or SPI. The GPIO pinout of this board is shown in figure \ref{fig:rasp_pinout} \cite{pinout}.
 
 \begin{figure}[ht]
 	\centering
@@ -39,38 +39,14 @@ The Raspberry Pi 4 Model B board comes with a standard 40 pin GPIO header, that 
 \end{figure}
 
 %**********************************************************
-\subsection{Lamp}
-
-In order to light the streets efficiently, we use a LED lamp, that is the type of lamps with the better energy efficiency. It must be an adjustable lamp to control the lamp brightness, so the lamp selected was a G4 socket 12 V AC/DC LED lamp. The lamp is controlled using a driver, that is approached in subsection \ref{subsection:driver} the that takes a \ac{pwm} signal (Pin 18) from the Raspberry Pi as input. 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\textwidth]{07hw_specification/lamp}
-	\caption{LED Lamp.}
-	\label{fig:lamp}
-\end{figure}
-
-\myparagraph{Characteristics}
-
-\begin{itemize}
-	\item Power supply: DC 12 V;
-	\item Eletric power: 2 W;
-	\item Adjustable;
-	\item Socket: G4;   
-	\item Chip controller: SMD3014.
-\end{itemize}
-
-In a real-scale project, it would be used a different lamp, with supply voltage of 230 V AC and other specific characteristics  like  rate, in  from water and dust (\ac{ipprotect}65 \ref{ip65}). It would be also used a LED lamp with higher electric power. 
-
-%**********************************************************
 \subsection{Luminosity Sensor}
 
-In order to know when is night time, that is, when the light conditions are low, one needs to determine the ambient light conditions. To do that, it is used a digital ambient light sensor, the TSL2581 \cite{light_sensor}, represented in \ref{fig:light_sen}. It was chosen this project because this sensor communicates with the Raspberry Pi using \ac{i2c} communication protocol, so it gives a digital value of the lumminusity, according to the light conditions, so it isn't necessary to calibrate this sensor (with a potenciometer, for example) when installing a new local system.
+In order to know when is night time, that is, when the light conditions are low, one needs to determine the ambient light conditions. To do that, it is used a digital ambient light sensor, the TSL2581 \cite{light_sensor}, represented in \ref{fig:light_sen}. It was chosen this project because this sensor communicates with the Raspberry Pi using \ac{i2c} communication protocol, so it gives a digital value of the luminosity, according to the light conditions, so it isn't necessary to calibrate this sensor (with a potenciometer, for example) when installing a new local system.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.60\textwidth]{07hw_specification/light_sen}
-	\caption{TSL2581 Light Sensor.}
+	\includegraphics[width=0.40\textwidth]{07hw_specification/light_sen}
+	\caption{TSL2581 Luminosity Sensor.}
 	\label{fig:light_sen}
 \end{figure}
 
@@ -82,7 +58,7 @@ In order to know when is night time, that is, when the light conditions are low,
 	\item 16-bit resolution.
 \end{itemize}
 
-In the table \ref{table:light_sen} is shown the TSL2581 interface pins, being the \textit{SDA} pin used for data transfer, the \textit{SCL} pin used for clock synchronisation and the \textit{INT} pin used for interrupt output. 
+In the table \ref{table:light_sen} is shown the TSL2581 interface pins, being the \textit{SDA} pin used for data transfer, the \textit{SCL} pin used for clock synchronization and the \textit{INT} pin used for interrupt output. 
 
 \begin{table}[H]
 	\centering
@@ -97,7 +73,7 @@ In the table \ref{table:light_sen} is shown the TSL2581 interface pins, being th
 		\hline
 	\end{tabular}		
 	
-	\caption{Light Sensor TSL2581 Interface Pins.}
+	\caption{Luminosity Sensor TSL2581 Interface Pins.}
 	\label{table:light_sen}
 \end{table}
 
@@ -116,18 +92,18 @@ It is important to know how the light sensor works, and how it will behave upon 
 			\\\hline
 		\end{tabular}
 	}
-	\caption{Test Cases: TSL2581.}
+	\caption{Test Cases: Luminosity Sensor.}
 	\label{table:test_light_sen}
 \end{table}
 
 %**********************************************************
-\clearpage
+%\clearpage
 \subsection{Motion Detector}
-To know when to turn on the light, it is necessary to detect movement in the streets. For this project it is used a motion detector, more specifically a \ac{pir} sensor. The chosen sensor for this purpose was the PIR HC-SR501 \cite{pir}.
+To know when to turn on the lamp, it is necessary to detect movement in the streets. For this project it is used a motion detector, more specifically a \ac{pir} sensor. The chosen sensor for this purpose was the PIR HC-SR501, shown in figure \ref{fig:pir}.  \cite{pir}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.70\textwidth]{07hw_specification/pir}
+	\includegraphics[width=0.40\textwidth]{07hw_specification/pir}
 	\caption{PIR HC-SR501.}
 	\label{fig:pir}
 \end{figure}
@@ -177,32 +153,34 @@ It is important to know how the motion detector module works, and how it will be
 			\\\hline
 		\end{tabular}
 	}
-	\caption{Test Cases: PIR HC-SR501.}
+	\caption{Test Cases: Motion Detector.}
 	\label{table:test_pir}
 \end{table}
 
 %**********************************************************
+\clearpage
 \subsection{Lamp Failure Detector}
 In order to know when the lamp is broken, one needs to use a lamp failure detector, so it was designed a circuit represented in figure \ref{fig:failure_circuit}. 
 %When the lamp  
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\textwidth]{07hw_specification/failure_schem}
+	\includegraphics[width=0.7\textwidth]{07hw_specification/failure_schem}
 	\caption{Lamp Failure Detector Circuit.}
 	\label{fig:failure_circuit}
 \end{figure}
 
-The optocoupler chosen was the 4N35 \cite{4n35}, represented in figure \ref{fig:failure}
+The optocoupler chosen was the 4N35 \cite{4n35}, represented in figure \ref{fig:failure}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.4\textwidth]{07hw_specification/failure}
+	\includegraphics[width=0.2\textwidth]{07hw_specification/failure}
 	\caption{Optocoupler 4N35.}
 	\label{fig:failure}
 \end{figure}
 
 %**********************************************************
+\clearpage
 \subsection{Camera}
 In order to the detection of available parking spots, it's used a camera, as shown in figure \ref{fig:camera}. This is the Raspberry Pi Camera Module V1, capable of delivering a clear 5 MP resolution image, or 1080p HD video recording at 30fps. \cite{camera}
 
@@ -373,30 +351,6 @@ It is important to know how the LoRa module works, and how it will behave upon c
 \end{table}
 
 %**********************************************************
-
-\subsection{Driver}
-\label{subsection:driver}
-In order to control the lamp brightness through a GPIO pin from the Raspberry Pi, it's needed a driver circuit, as shown in figure \ref{fig:driver}. This circuit takes as input a \ac{pwm} signal, provided by the raspberry Pi, and also the power for the lamp, \(V_{CL}\), which comes directly from the power supply 12 V \ac{dc} output of the power module. The output of this circuit, the lamp voltage \(V_{L}\), is directly related to it's brightness, which one wants to control.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{07hw_specification/driver}
-	\caption{Driver circuit to control lamp brightness.}
-	\label{fig:driver}
-\end{figure}
-
-The \ac{pwm} signal only takes two values, 0 or 3,3 V, but its average value over time is varied, changing at high frequency the time intervals in which the transistor \(T_{MOS}\) is conducting (applied voltage 3,3 V) and at cutoff (applied voltage 0 V). So, as the \ac{pwm} duty cycle increases, the transistor conducts for more time, leading to an increase of \(V_{L}\), and, therefore, to an increase of the lamp brightness. In any case, the power dissipation in the transistor is very low, because of the rapid change between each transistor state, conducting (at saturation) or at cutoff.
-
-\paragraph*{Characteristics}
-\begin{itemize}
-	\item Transistor MOSFET
-\end{itemize}
-
-\myparagraph{Connection scheme}
-
-\myparagraph{Test Cases}
-%**********************************************************
-
 \subsection{Power Module}
 As specified before, it's needed a power module to power the system, using the power grid. For that, it's necessary the use of an \ac{ac}/\ac{dc} power supply, in order to use the power grid electricity, which in Portugal is 230 V \ac{ac}. The power supply must provide 12 V \ac{dc}, as it is needed to power the lamp, as previously seen. The power supply used is shown in figure \ref{fig:power_supply}. \cite{power_supply}
 
@@ -470,7 +424,7 @@ In order to provide a lower voltage to power the Raspberry Pi and sensors, it is
  
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{07hw_specification/step_down}
+	\includegraphics[width=0.45\textwidth]{07hw_specification/step_down}
 	\caption{Step Down 9-38~V to 5~V / 5~A.}
 	\label{fig:step_down}
 \end{figure}
@@ -560,6 +514,7 @@ It is important to know how the step down works, and how it will behave upon cer
 \end{table}
 %**********************************************************
 \subsection{Driver}
+\label{subsection:driver}
 In order to control the lamp brightness through a GPIO pin from the Raspberry Pi, it's needed a driver circuit, as shown in figure \ref{fig:driver}. This circuit takes as input a \ac{pwm} signal, provided by the raspberry Pi, and also the power for the lamp, \(V_{CL}\), which comes directly from the power supply 12 V \ac{dc} output of the power module. The output of this circuit, the lamp voltage \(V_{L}\), is directly related to it's brightness, which one wants to control.
 
 \begin{figure}[H]
@@ -589,23 +544,23 @@ With this in mind, one can select the following components for the driver, as pr
 
 \begin{table}[H]
 	\centering
-	\resizebox{\columnwidth}{!}
-	{
-		\begin{tabular}{|m{5cm}|m{6cm}|m{2.6cm}|}
+%	\resizebox{\columnwidth}{!}
+%	{
+		\begin{tabular}{|m{5cm}|m{6cm}|}
 			\hline
-			\textbf{Driver Component} & \textbf{Product Name} & \textbf{Product Qty}
+			\textbf{Driver Component} & \textbf{Product Name}
 			\\\hline\hline
 			
-			\(T_{MOS}\) & BUK453 & 1
+			\(T_{MOS}\) & BUK453
 			\\\hline
-			Diode D & MR852 & 1
+			Diode D & MR852
 			\\\hline
-			Resistor \(R_{G}\) & Common; +-5 \% tolerance & 1
+			Resistor \(R_{G}\) & Common; +-5 \% tolerance
 			\\\hline
-			Resistor \(R_{GS}\) & Common; +-5 \% tolerance & 1
+			Resistor \(R_{GS}\) & Common; +-5 \% tolerance
 			\\\hline
 		\end{tabular}
-	}
+%	}
 	\caption{Driver components.}
 	\label{table:driver_components}
 \end{table}
@@ -617,7 +572,7 @@ In table \ref{table:connect_driver} is shown the connection scheme for the drive
 	\centering
 	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
-		\textbf{Driver} & \textbf{Connects to}
+		\textbf{Driver Pin} & \textbf{Connects to}
 		\\\hline\hline
 		
 		PWM Signal & Raspberry Pi PWMxxx Pinyyy
@@ -654,6 +609,32 @@ It is important to know how the driver works, and how it will behave upon certai
 	\caption{Test Cases: Driver.}
 	\label{table:test_driver}
 \end{table}
+
+%**********************************************************
+\clearpage
+\subsection{Lamp}
+
+In order to light the streets efficiently, one will use a LED lamp, that nowadays is the type of lamps with the better energy efficiency. It must be an adjustable lamp to control the lamp brightness, so the lamp selected was a G4 socket 12 V \ac{ac}/\ac{dc} LED lamp.
+
+The lamp is controlled using a driver, that is approached in subsection \ref{subsection:driver} that takes a \ac{pwm} signal (Pin 18) from the Raspberry Pi as input. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{07hw_specification/lamp}
+	\caption{LED Lamp.}
+	\label{fig:lamp}
+\end{figure}
+
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item Power supply: DC 12 V;
+	\item Electric power: 2 W;
+	\item Dimmable;
+	\item Socket: G4;   
+	\item Chip controller: SMD3014.
+\end{itemize}
+
+In a real-scale project, it would be used a different lamp, with supply voltage of 230 V AC and other specific characteristics  like  rate, in from water and dust (\ac{ipprotect}65 \cite{ip65}). It would be also used a LED lamp with higher electric power. 
 
 %**********************************************************
 \subsection{Hardware review} %?????
