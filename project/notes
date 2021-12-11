@@ -88,7 +88,7 @@ Comunicação(TCP-client): pode depender na receção Lora
 	- enviar
 
 ---------------------------------------------------
-Threads Remote System
+Threads Remote Server
 ---------------------------------------------------
 Comunicação(TCP-server)
 	- receber 
@@ -98,4 +98,6 @@ Comunicação(TCP-server)
 Database Manager (Daemon)
 	- queries??
 
-
+---------------------------------------------------
+Threads Remote Client
+---------------------------------------------------
