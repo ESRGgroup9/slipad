@@ -59,19 +59,20 @@ Comunicação(LoRa) (Deamon)
 	- enviar
 
 Leitura dos Sensores (Deamon): usar semáforos para provocar a leitura de cada sensor. Os semaforos são ativados num sigHandler provocado por um timer?? Mutexes protegem a operação de leitura dos pinos
-	- Pir
-	- LDR
+	- Pir interrupção 
+	- LDR luminusidade 5 min
 	- failure
 
 ----------//-------------
 
 - tCamera: acquire camera frame and process it
 - tLampControl: changes PWM applied to the lamp
-	Depends on the semaphore: semChangeLamp
 
 - dLoraComms: deals with lora communications
 	- tSendLora: send a message
 	- tRecvLora: receive a message
+
+
 
 - dReadSensors: read all sensors
 	- 	
@@ -101,3 +102,132 @@ Database Manager (Daemon)
 ---------------------------------------------------
 Threads Remote Client
 ---------------------------------------------------
+
+
+
+
+---------------------------------------------------
+Thread Definition
+---------------------------------------------------
+
+**LAMP CONTROL
+	mutex 			mutChangePWM
+	condVariable 	condNewPWM
+
+
+	- PIR
+	    mutex_lock(mutChangePWM)
+	    pwm_val = 100%;
+	    pthread_cond_signal(condNewPWM);
+	    mutex_unlock(mutChangePWM);
+
+	- LDR
+		timer
+
+	 ------
+	 - tLampControl
+	    mutex_lock(mutChangePWM)
+	    pthread_cond_wait(mutChangePWM, condNewPWM)
+	    
+	    setPWM(pwm_val)
+
+	    pthread_mutex_unlock(&mutChangePWM);    
+
+	    if(pwm == MAX)
+	    	activateTimer()
+
+	------
+	signHandl
+		mutex_lock(mutChangePWM)
+	    pwm_val = MIN%;
+	    pthread_cond_signal(condNewPWM);
+	    mutex_unlock(mutChangePWM);
+
+
+**CAMERA
+	mutCamera
+	condCameraAcquire
+
+
+tCamera
+	CameraInit();
+
+	ativaCamTimer
+	
+	while(1)
+		mutex_lock(mutCamera);
+		pthread_cond_wait(condCameraAcquire)
+		Activate timerMaxTime
+		Acquire frame
+		Process
+		[Notification]
+		Disable Timer
+		mutex_unlock(mutCamera)
+
+	
+
+	SignHandle
+		pthread_cond_signal(condCameraAcquire)
+		restart(timer)
+
+
+	TIMEOUT timerMaxTime
+		SignHandle
+			send error to syslog
+
+
+
+
+**COMUNICAÇÃO LORA (LOCALSYS - GATEWAY)
+
+Comunicação(LoRa):
+	- receber
+		ligar lampada
+		ACK????
+		if !ACK
+		 	envia novamente
+		
+		verify services
+			check connection
+
+	- enviar (messages)
+		- turn on/off light notification
+		- light failure notification
+		- park found notification
+		- error messages 
+			.camera time error
+			.ACK
+
+
+	- tLoRaReceive
+		while(1)
+			pthread_lock(mutComms);
+
+			message = Receive()
+			pthread_unlock(mutComms);
+			if(message not empty)
+				Parse_command(message)
+
+	- tLoRaSend
+		while(1)
+			pthread_lock(mutSend);
+			pthread_cond_wait(condSend, mutSend);
+			
+			pthread_lock(mutComms);
+			send(message)
+			pthread_unlock(mutComms);
+
+			pthread_unlock(mutSend);
+
+
+COMMANDS
+	- ACK 
+
+
+
+
+
+
+
+
+
