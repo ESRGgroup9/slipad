@@ -1,0 +1,9 @@
+#include "./Frame/WaspFrame.h"
+
+#include <WConstants.h>
+#include "../WaspAES/WaspAES.h"
+
+#include "WaspFrameConstantsv12.h"
+#include "WaspFrameConstantsv15.h"
+#include "AgrXtrFrameConstants.h"
+#include "WtrXtrFrameConstants.h"
