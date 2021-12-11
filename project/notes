@@ -44,41 +44,58 @@ Canny edge detection:
 
 
 ---------------------------------------------------
-Threads
+Threads Local system
 ---------------------------------------------------
-Local system:
-********Camera*********
-		- adquirir
-		- processar
+Camera
+	- adquirir
+	- processar
 
-tCamera
+Controlo lampada: depende na receção LoRa, no PIR e no LDR
+	- controlo PWM
 
+Comunicação(LoRa) (Deamon)
+	- receber
+	- intrepertar (parse)
+	- enviar
 
-*****Controlo da lampada*****
-Controla PWM lampada: 
-	Semophore definido  
-		- pwm
+Leitura dos Sensores (Deamon): usar semáforos para provocar a leitura de cada sensor. Os semaforos são ativados num sigHandler provocado por um timer?? Mutexes protegem a operação de leitura dos pinos
+	- Pir
+	- LDR
+	- failure
 
-	Comunicação(LoRa) (Deamon)
-		- receber
-		- intrepertar (parse)
-		- enviar
+----------//-------------
 
-	Leitura dos Sensores (Deamon)
-		- Pir
-		- LDR
-		- failure
+- tCamera: acquire camera frame and process it
+- tLampControl: changes PWM applied to the lamp
+	Depends on the semaphore: semChangeLamp
 
-Gateway:
-	Comunicação(LoRa) 
-		- receber
-		- enviar
-	Comunicação(TCP)
-		- receber 
-		- enviar
+- dLoraComms: deals with lora communications
+	- tSendLora: send a message
+	- tRecvLora: receive a message
 
-Remote System
+- dReadSensors: read all sensors
+	- 	
 
+---------------------------------------------------
+Threads Gateway
+---------------------------------------------------
+Comunicação(LoRa): pode depender na receção TCP
+	- receber
+	- enviar
 
+Comunicação(TCP-client): pode depender na receção Lora
+	- receber 
+	- enviar
+
+---------------------------------------------------
+Threads Remote System
+---------------------------------------------------
+Comunicação(TCP-server)
+	- receber 
+	- interpretar (parse)
+	- enviar
+
+Database Manager (Daemon)
+	- queries??
 
 

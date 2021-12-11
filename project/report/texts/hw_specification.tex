@@ -17,8 +17,6 @@ The development board for this project is the Raspberry Pi 4 Model B, shown in f
 
 The Raspberry Pi 4 Model B is used as a development board for this project, as it would not be used in a final application because not all its features are used. So, in a final application, the development board would be chosen, or designed, based on the features needed.
 
-% A raspberry é apenas uma board de desenvolvimento, não é o hw que usariamos numa aplicação final.
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.75\textwidth]{07hw_specification/raspberryPi}
@@ -538,7 +536,8 @@ In order to specify the components to be used, the following must be taken into 
 
 The temperature of the transistor (internal at the junction) must not exceed the maximum allowed by the manufacturer (typically 150 °C as in the case of STP60NF06, BUK453, BUZ90). In order for the transistor to be used without a heatsink, the internally dissipated power must not exceed 2~W (taking into account the typical thermal resistance of a TO-220 package, 60~°C/W and the ambient temperature of 30 °C). Considering that 50 \% of losses occur in conduction and 50  \% in switching (very vague approximation), the transistor can only dissipate 1 W in conduction and 1 W in switching. For an \(I_{DS}\) current of 2 A, the internal resistance (\(R_{DS}\) of MOSFET to \(V_{GS}\) voltage, \(I_{DS}\) current and operating temperature) will be a maximum of 250 m$\Omega$ (P = \(R_{DS}\).\(I_{DS2}\)).
 
-Diode D should be fast and the MR852 is recommended.\linebreak
+Diode D should be fast and the MR852 is recommended.
+In order to fulfill the above requirements, one can define \(R_{G}\)= 100 $\Omega$, and \(R_{GS}\)= 12 k$\Omega$  \linebreak
 
 With this in mind, one can select the following components for the driver, as presented in table \ref{table:driver_components}.
 
@@ -555,9 +554,9 @@ With this in mind, one can select the following components for the driver, as pr
 			\\\hline
 			Diode D & MR852
 			\\\hline
-			Resistor \(R_{G}\) & Common; +-5 \% tolerance
+			Resistor \(R_{G}\) & 100 $\Omega$; +-5 \%
 			\\\hline
-			Resistor \(R_{GS}\) & Common; +-5 \% tolerance
+			Resistor \(R_{GS}\) & 12 k$\Omega$; +-5 \%
 			\\\hline
 		\end{tabular}
 %	}
@@ -637,6 +636,6 @@ The lamp is controlled using a driver, that is approached in subsection \ref{sub
 In a real-scale project, it would be used a different lamp, with supply voltage of 230 V AC and other specific characteristics  like  rate, in from water and dust (\ac{ipprotect}65 \cite{ip65}). It would be also used a LED lamp with higher electric power. 
 
 %**********************************************************
-\subsection{Hardware review} %?????
+\subsection{Connection Layout} %?????
 % show hardware architecture with all protocols defined in
 % each connection
