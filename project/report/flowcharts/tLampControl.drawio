@@ -1,14 +1,14 @@
-<mxfile host="app.diagrams.net" modified="2021-12-12T17:06:32.214Z" agent="5.0 (X11)" etag="W0IzLsWLjl2XfPUKSWrA" version="15.9.1" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2021-12-12T19:00:37.569Z" agent="5.0 (X11)" etag="42nHc74FEGKbZEmm0agv" version="15.9.1" type="github" pages="3">
   <diagram id="iwfOwzoyt1GXJqlSzmHL" name="tLampControl">
-    <mxGraphModel dx="1781" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1309" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="tLi0-nHP5tQ4LfW5cNPT-10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" edge="1" parent="1" source="tLi0-nHP5tQ4LfW5cNPT-1" target="tLi0-nHP5tQ4LfW5cNPT-2">
+        <mxCell id="K1jVrP_8pCXL1b7zVAdZ-2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" edge="1" parent="1" source="tLi0-nHP5tQ4LfW5cNPT-1" target="K1jVrP_8pCXL1b7zVAdZ-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="tLi0-nHP5tQ4LfW5cNPT-1" value="tLampControl" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="-488" y="70" width="125.5" height="50" as="geometry" />
+          <mxGeometry x="-488.25" y="10" width="125.5" height="50" as="geometry" />
         </mxCell>
         <mxCell id="tLi0-nHP5tQ4LfW5cNPT-11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" edge="1" parent="1" source="tLi0-nHP5tQ4LfW5cNPT-2" target="tLi0-nHP5tQ4LfW5cNPT-3">
           <mxGeometry relative="1" as="geometry" />
@@ -78,11 +78,17 @@
         <mxCell id="tLi0-nHP5tQ4LfW5cNPT-19" value="&lt;div&gt;&lt;b&gt;setTimer&lt;/b&gt;&lt;/div&gt;&lt;div&gt;(&lt;i&gt;LAMP_ON_TIMEOUT&lt;/i&gt;)&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" vertex="1" parent="1">
           <mxGeometry x="-620" y="550" width="170" height="40" as="geometry" />
         </mxCell>
+        <mxCell id="K1jVrP_8pCXL1b7zVAdZ-4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" edge="1" parent="1" source="K1jVrP_8pCXL1b7zVAdZ-1" target="tLi0-nHP5tQ4LfW5cNPT-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K1jVrP_8pCXL1b7zVAdZ-1" value="&lt;b&gt;Init &lt;/b&gt;PWM&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" vertex="1" parent="1">
+          <mxGeometry x="-500" y="90" width="150.25" height="40" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram name="tLoraSend" id="RGA5nEG9uMF0kkzzjcRO">
-    <mxGraphModel dx="1781" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1309" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="6ZPpjvBLr2ZM-foIgfbG-0" />
         <mxCell id="6ZPpjvBLr2ZM-foIgfbG-1" parent="6ZPpjvBLr2ZM-foIgfbG-0" />
@@ -148,7 +154,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="tLoraRecv" id="0WbtY79F4Cu1o5Ce8Okv">
-    <mxGraphModel dx="1781" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1309" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="Pw5umfQ0hP8HBKfbfsgT-0" />
         <mxCell id="Pw5umfQ0hP8HBKfbfsgT-1" parent="Pw5umfQ0hP8HBKfbfsgT-0" />
