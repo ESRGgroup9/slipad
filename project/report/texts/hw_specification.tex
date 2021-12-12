@@ -1,4 +1,4 @@
-\subsection{Development Board}
+\section{Development Board}
 
 The development board for this project is the Raspberry Pi 4 Model B, shown in figure \ref{fig:rasp}, considering it is one of the constraints identified in the analysis phase (\ref{subsection:requirements_constraints}). This board includes a 64-bit quad-core ARM processor, the BCM2711, multimedia and connection features, resembling to a computer-like board that serves multiple applications. The following list shows the Raspberry Pi 4 Model B main features:
 
@@ -29,7 +29,7 @@ The Raspberry Pi 4 Model B is used as a development board for this project, as i
 
 The Raspberry Pi 4 Model B board comes with a standard 40 pin GPIO header, that allows to interface with external peripherals. This GPIO also provides some interface technologies, like UART, I2C or SPI. The GPIO pinout of this board is shown in figure \ref{fig:rasp_pinout} \cite{pinout}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{07hw_specification/raspberryPi_pinout}
 	\caption{Raspberry Pi 4 Model B GPIO Pinout.}
@@ -37,7 +37,7 @@ The Raspberry Pi 4 Model B board comes with a standard 40 pin GPIO header, that 
 \end{figure}
 
 %**********************************************************
-\subsection{Luminosity Sensor}
+\section{Luminosity Sensor}
 
 In order to know when is night time, that is, when the light conditions are low, one needs to determine the ambient light conditions. To do that, it is used a digital ambient light sensor, the TSL2581 \cite{light_sensor}, represented in \ref{fig:light_sen}. It was chosen this project because this sensor communicates with the Raspberry Pi using \ac{i2c} communication protocol, so it gives a digital value of the luminosity, according to the light conditions, so it isn't necessary to calibrate this sensor (with a potenciometer, for example) when installing a new local system.
 
@@ -96,7 +96,7 @@ It is important to know how the light sensor works, and how it will behave upon 
 
 %**********************************************************
 %\clearpage
-\subsection{Motion Detector}
+\section{Motion Detector}
 To know when to turn on the lamp, it is necessary to detect movement in the streets. For this project it is used a motion detector, more specifically a \ac{pir} sensor. The chosen sensor for this purpose was the PIR HC-SR501, shown in figure \ref{fig:pir}.  \cite{pir}
 
 \begin{figure}[H]
@@ -157,7 +157,7 @@ It is important to know how the motion detector module works, and how it will be
 
 %**********************************************************
 \clearpage
-\subsection{Lamp Failure Detector}
+\section{Lamp Failure Detector}
 In order to know when the lamp is broken, one needs to use a lamp failure detector, so it was designed a circuit represented in figure \ref{fig:failure_circuit}. 
 %When the lamp  
 
@@ -179,7 +179,7 @@ The optocoupler chosen was the 4N35 \cite{4n35}, represented in figure \ref{fig:
 
 %**********************************************************
 \clearpage
-\subsection{Camera}
+\section{Camera}
 In order to the detection of available parking spots, it's used a camera, as shown in figure \ref{fig:camera}. This is the Raspberry Pi Camera Module V1, capable of delivering a clear 5 MP resolution image, or 1080p HD video recording at 30fps. \cite{camera}
 
 \begin{figure}[H]
@@ -231,7 +231,7 @@ It is important to know how the camera module will behave upon certain events. I
 
 %**********************************************************
 \clearpage
-\subsection{LoRa Module}
+\section{LoRa Module}
 To allow each local system to communicate to the gateway, and vice-versa, it's used LoRa communication technology, requiring for that LoRa Modules, as the one presented in figure \ref{fig:lora_module}. This module, from Ai-Thinker company, uses SX1278 \ac{ic} from SEMTECH, and works on a 433~MHz frequency, with a range up to 10 km in line of sight. \cite{sx1278} \cite{lora_module}
 
 \begin{figure}[H]
@@ -349,7 +349,7 @@ It is important to know how the LoRa module works, and how it will behave upon c
 \end{table}
 
 %**********************************************************
-\subsection{Power Module}
+\section{Power Module}
 As specified before, it's needed a power module to power the system, using the power grid. For that, it's necessary the use of an \ac{ac}/\ac{dc} power supply, in order to use the power grid electricity, which in Portugal is 230 V \ac{ac}. The power supply must provide 12 V \ac{dc}, as it is needed to power the lamp, as previously seen. The power supply used is shown in figure \ref{fig:power_supply}. \cite{power_supply}
 
 \begin{figure}[H]
@@ -511,7 +511,7 @@ It is important to know how the step down works, and how it will behave upon cer
 	\label{table:test_step_down}
 \end{table}
 %**********************************************************
-\subsection{Driver}
+\section{Driver}
 \label{subsection:driver}
 In order to control the lamp brightness through a GPIO pin from the Raspberry Pi, it's needed a driver circuit, as shown in figure \ref{fig:driver}. This circuit takes as input a \ac{pwm} signal, provided by the raspberry Pi, and also the power for the lamp, \(V_{CL}\), which comes directly from the power supply 12 V \ac{dc} output of the power module. The output of this circuit, the lamp voltage \(V_{L}\), is directly related to it's brightness, which one wants to control.
 
@@ -611,7 +611,7 @@ It is important to know how the driver works, and how it will behave upon certai
 
 %**********************************************************
 \clearpage
-\subsection{Lamp}
+\section{Lamp}
 
 In order to light the streets efficiently, one will use a LED lamp, that nowadays is the type of lamps with the better energy efficiency. It must be an adjustable lamp to control the lamp brightness, so the lamp selected was a G4 socket 12 V \ac{ac}/\ac{dc} LED lamp.
 
@@ -636,6 +636,6 @@ The lamp is controlled using a driver, that is approached in subsection \ref{sub
 In a real-scale project, it would be used a different lamp, with supply voltage of 230 V AC and other specific characteristics  like  rate, in from water and dust (\ac{ipprotect}65 \cite{ip65}). It would be also used a LED lamp with higher electric power. 
 
 %**********************************************************
-\subsection{Connection Layout} %?????
+\section{Connection Layout} %?????
 % show hardware architecture with all protocols defined in
 % each connection

@@ -1,69 +1,24 @@
-%**********************************************************
-\subsection{Task Overview}
+\section{Local System}
+\input{./texts/sw_local_system}
+
+\clearpage
+\section{Gateway}
+\input{./texts/sw_gateway}
+
+\clearpage
+\section{Remote System}
+\input{./texts/sw_remote_system}
 
 %**********************************************************
-\subsection{Task Priority}
-
-%**********************************************************
-\subsection{Task Synchronization}
-Real-time tasks share resources and services, and as such, should be prepared to await for the availability of these resources and services, like logical resources (buffers and data), physical resources, services like directory services, etc. In order to have coordinate access to shared resources and avoid race conditions, the kernel has resources that provice synchronization tools. 
-
-\myparagraph{Condition Variables}
-
-A condition variable is a task synchronization tool that can be used to block (wait) one or more threads, suspending its execution. The blocked threads are awakened when the condition variable is notified. The condition variables used are listed below.
-
-\begin{itemize}
-	\item \textbf{condCameraAcquire:} used to notify \textit{tCamera} that a camera sample period has elapsed;
-	
-	\item \textbf{condNewPWM:} used to notify \textit{tLampControl} that a new PWM value for the lamp was defined;
-	
-	\item \textbf{condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent;
-	
-	
-\end{itemize}
-
-\myparagraph{Mutexes}
-A mutex is a locking mechanism that provides mutual exclusion, supporting ownership and other protocols. A mutex is initially created in the unlocked state in which it can be acquired by a task. After being acquired, the mutex moves to the locked state. When the task releases the mutex, it returns to the unlocked state. The mutexes used are listed bellow.
-
-\begin{itemize}
-	\item \textbf{mutSend:} protects the message to be sent in \textit{tLoraSend}, which can be defined in multiple places;
-	
-	\item \textbf{mutComms:} protects LoRa communication, since it is half-duplex, so one can send or receive at a time; Used in \textit{tLoraSend} and \textit{tLoraRecv};
-	
-	\item \textbf{mutChangePWM:} protects the modification of \textit{pwm\_val} variable, when defining a new PWM value for the lamp;
-	
-	
-\end{itemize}
-
-\myparagraph{Semaphores}
-
-\subsection{Task Communication}
-\myparagraph{Message Queues}
-\myparagraph{Signals}
-
-%**********************************************************
-\subsection{Flowcharts}
-\subsubsection{Local System}
-\subsubsection{Gateway}
-\subsubsection{Remote System}
-
-%**********************************************************
-\subsection{Start-up Process}
-
-%**********************************************************
-\subsection{Shutdown Process}
-
-%**********************************************************
-%\subsection{Classes Diagrams}
-
-%**********************************************************
-\subsection{Database}
+\section{Database}
 \myparagraph{Entity-Relationship Diagram}
 
 \myparagraph{Logic Model}
 %**********************************************************
-\subsection{\ac{gui} Layouts}
+\section{\ac{gui} Layouts}
 \myparagraph{Mobile Application}
 \myparagraph{Web Site}
+
 %**********************************************************
+% TOOLS, COTS and THIRD PARTY LIBRARIES
 \input{./texts/tools_cots}
