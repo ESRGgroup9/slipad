@@ -4,7 +4,6 @@ ANALYSIS
 network arch
 - camera detecting range???
 
-- sensor luminosidade não é GPIO (I2C??)
 ----------------------------------------------------
 DESIGN
 ----------------------------------------------------
@@ -20,10 +19,8 @@ connection error -> light turn on automatically??=?=
 ----------------------------------------------------
 HW
 ----------------------------------------------------
-lâmpada controlável 12 V, CC
-
-Geolocation- A LoRaWAN network can determine the location of end devices using triangulation without the need for GPS. A LoRa end device can be located if at least three gateways pick up its signal.????????
-
+corrente dos sensores? é necessário o step down?
+quanta corrente o micro pode fornecer?
 
 ---------------------------------------------------
 IMAGE PROCESSING
