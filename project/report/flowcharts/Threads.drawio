@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-12T17:56:34.615Z" agent="5.0 (X11)" etag="c6PVCBCu8Kwo_8w_TlV2" version="15.9.4" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-12-12T18:45:28.144Z" agent="5.0 (X11)" etag="psyKnlNUBZnBCS4rFqoS" version="15.9.4" type="github" pages="2">
   <diagram id="v8qI4HhwjPFjlMWwufgW" name="tCamera">
     <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -154,7 +154,7 @@
         <mxCell id="RYqeFpZ6RtjykUbqgXeM-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Courier New;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" edge="1" parent="FwmZ1wWZXGTCBGaVfnWC-1" source="FwmZ1wWZXGTCBGaVfnWC-21" target="FwmZ1wWZXGTCBGaVfnWC-22">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="FwmZ1wWZXGTCBGaVfnWC-21" value="line_vect &amp;lt;- hough line transfor " style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;fontFamily=Courier New;" vertex="1" parent="FwmZ1wWZXGTCBGaVfnWC-1">
+        <mxCell id="FwmZ1wWZXGTCBGaVfnWC-21" value="line_vect &amp;lt;- hough line transfom " style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;fontFamily=Courier New;" vertex="1" parent="FwmZ1wWZXGTCBGaVfnWC-1">
           <mxGeometry x="290.31" y="280" width="138.75" height="40" as="geometry" />
         </mxCell>
         <mxCell id="RYqeFpZ6RtjykUbqgXeM-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Courier New;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" edge="1" parent="FwmZ1wWZXGTCBGaVfnWC-1" source="FwmZ1wWZXGTCBGaVfnWC-22" target="FwmZ1wWZXGTCBGaVfnWC-23">
