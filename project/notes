@@ -124,11 +124,11 @@ Thread Definition
 	 ------
 	 - tLampControl
 	    mutex_lock(mutChangePWM)
-	    pthread_cond_wait(mutChangePWM, condNewPWM)
+	    cond_wait(mutChangePWM, condNewPWM)
 	    
 	    setPWM(pwm_val)
 
-	    pthread_mutex_unlock(&mutChangePWM);    
+	    mutex_unlock(mutChangePWM);    
 
 	    if(pwm == MAX)
 	    	activateTimer()

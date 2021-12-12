@@ -4,9 +4,9 @@ One can define and describe briefly how the local system is implemented, making 
 
 \begin{itemize}
 	\item \textbf{tCamera:}
-	\item \textbf{tLampControl:}
-	\item \textbf{tLoraSend:}
-	\item \textbf{tLoraRecv:}
+	\item \textbf{tLampControl:} initializes PWM interface; controls the PWM applied to the lamp;
+	\item \textbf{tLoraSend:} sends a message to the gateway, using the LoRa module;
+	\item \textbf{tLoraRecv:} receives a message from the gateway, using the LoRa module;
 	\item \textbf{dReadSensors:} ???
 \end{itemize}
 
@@ -52,7 +52,19 @@ A mutex is a locking mechanism that provides mutual exclusion, supporting owners
 
 %**********************************************************
 \subsection{Flowcharts}
+\clearpage
+\myparagraph{tLampControl}
+% uses: mutChangePWM; condNewPWM
+% must define: MIN_BRIGHT_PWM; LAMP_ON_TIMEOUT
+This task is responsible for initializing and controlling the PWM peripheral used to control the lamp brightness. A mutex \textit{mutChangePWM} is used to protect the process of defining a new PWM value. 
 
+After initializing the PWM, this task goes to sleep, waiting for the condition variable \textit{condNewPWM} to notify this task. This happens when a new PWM value is defined into the variable \textit{pwm\_val}, in \textit{dReadSensors} or in a received command. Then, the lamp PWM is changed to the new value. 
+
+The lamp may have various levels of luminosity: for the lamp to be OFF, is applied PWM~=~0; for the lamp to be at a predefined minimum bright level, is applied PWM~=~\textit{MIN\_BRIGHT\_PWM}; for the lamp to be at maximum bright, this is, when the lamp must be ON, is applied PWM~=~100. So, since the lamp must stay ON a minimum amount of time out of a motion is detected or out of a request from the remote system to be ON, one needs to check if the new PWM is the maximum value. If so, that means that the lamp should continue with that PWM for a predefined time, defined by \textit{LAMP\_ON\_TIMEOUT}, in seconds.
+
+\myparagraph{tLoraSend}
+
+\myparagraph{tLoraRecv}
 
 %**********************************************************
 \subsection{Start-up Process}
