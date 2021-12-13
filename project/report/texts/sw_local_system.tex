@@ -54,7 +54,8 @@ A mutex is a locking mechanism that provides mutual exclusion, supporting owners
 \subsection{Flowcharts}
 \clearpage
 \myparagraph{tLampControl}
-% uses: mutChangePWM; condNewPWM
+% uses: mutChangePWM; condNewPWM; pwm_val
+% pwm_val is used in: PIR_sensor, CommandCb, LDR
 % must define: MIN_BRIGHT_PWM; LAMP_ON_TIMEOUT
 This task is responsible for initializing and controlling the PWM peripheral used to control the lamp brightness. A mutex \textit{mutChangePWM} is used to protect the process of defining a new PWM value. 
 
