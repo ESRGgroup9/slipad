@@ -3,7 +3,7 @@
 One can define and describe briefly how the local system is implemented, making use of threads and processes.
 
 \begin{itemize}
-	\item \textbf{tCamera:}
+	\item \textbf{tCamera:} acquire a camera frame; processes image and search for parking spots; verify the parking spot availability;
 	\item \textbf{tLampControl:} initializes PWM interface; controls the PWM applied to the lamp;
 	\item \textbf{tLoraSend:} sends a message to the gateway, using the LoRa module;
 	\item \textbf{tLoraRecv:} receives a message from the gateway, using the LoRa module;
@@ -35,6 +35,8 @@ A condition variable is a task synchronization tool that can be used to block (w
 A mutex is a locking mechanism that provides mutual exclusion, supporting ownership and other protocols. A mutex is initially created in the unlocked state in which it can be acquired by a task. After being acquired, the mutex moves to the locked state. When the task releases the mutex, it returns to the unlocked state. The mutexes used are listed bellow.
 
 \begin{itemize}
+	\item \textbf{mutCamera:} mutex associated with the condition variable \textit{condCameraAcquire} to acquire a camera frame;
+		
 	\item \textbf{mutSend:} protects the message to be sent in \textit{tLoraSend}, which can be defined in multiple places;
 	
 	\item \textbf{mutComms:} protects LoRa communication, since it is half-duplex, so one can send or receive at a time; Used in \textit{tLoraSend} and \textit{tLoraRecv};
@@ -53,6 +55,14 @@ A mutex is a locking mechanism that provides mutual exclusion, supporting owners
 %**********************************************************
 \subsection{Flowcharts}
 \clearpage
+\myparagraph{tCamera}
+
+The task tCamera is responsible for acquire a frame from the Raspberry Pi Camera and to process it. It must analyze the returned frame, in order to detect empty parking spots. This thread uses the mutex \textit{mutCamera} to protect the condition variable \textit{condCameraAcquire}, that synchronizes the camera frame acquisition with the timer that defines the camera frame acquisition period, \textit{timSampleCam}.
+
+Firstly, this thread initializes the camera device, sets the timer \textit{timSampleCam}, locks the mutex \textit{mutCamera} and goes to sleep mode, waiting for the conditon variable \textit{condCameraAcquire} to be signaled. This happens when a \textit{timSampleCam} period has elapsed and the thread wakes up. Now, one can read a camera frame in order to process it, unlocking the mutex \textit{mutCamera}. A timer, \textit{timCamMax}, is setted to report the error if the image is taking too much time to being processed.
+
+In the image processing part of the thread, if there aren't parking spots coordinates stored, then it is necessary to search for parking spots. After that, one can verify the existance of cars in the image using a function to detect objects
+
 \myparagraph{tLampControl}
 % uses: mutChangePWM; condNewPWM
 % must define: MIN_BRIGHT_PWM; LAMP_ON_TIMEOUT
