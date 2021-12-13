@@ -56,9 +56,9 @@ Comunicação(LoRa) (Deamon)
 	- enviar
 
 Leitura dos Sensores (Deamon): usar semáforos para provocar a leitura de cada sensor. Os semaforos são ativados num sigHandler provocado por um timer?? Mutexes protegem a operação de leitura dos pinos
-	- Pir interrupção 
-	- LDR luminusidade 5 min
-	- failure
+	- Pir interrupção - activate state of the pin 
+	- LDR luminusidade 5 min - lux
+	- failure - 
 
 ----------//-------------
 
@@ -219,13 +219,51 @@ Comunicação(LoRa):
 
 
 COMMANDS
-	- ACK 
+	- ....
 
 
 
+--------------------------------
+Classes
+--------------------------------
+Camera 			Diogo
+	+ Camera
+	+ open
+	+ close
+	+ isOpen
+	+ capture_frame
+	+ process_frame
+	- search_parking_spot (there aren't info about park coords) - filtering, ...
+	- detect_objects (xml - haar cascade pre-trained)
+	
+	- VideoCapture m_camera;
+	- image
+
+Communications		Tomas
+	+ tsend_message()
+	+ treceive_message()
+
+	- message
+
+Lamp 				Tomas
+	+ tLampControl
+	+ setBrightness
 
 
+PIR 				Diogo
 
 
+LDR 				Diogo
 
 
+LampFailureDetector Diogo
+
+
+-------------------------------
+Daemons
+-------------------------------
+dComms 				Tomas
+
+dSensors 			Diogo
+
+MainProcess
