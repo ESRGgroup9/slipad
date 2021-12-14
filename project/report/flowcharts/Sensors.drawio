@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-14T23:36:29.825Z" agent="5.0 (X11)" etag="42tMqOWqpPNE_vVS1mn0" version="15.9.6" type="github" pages="7">
+<mxfile host="app.diagrams.net" modified="2021-12-14T23:41:38.979Z" agent="5.0 (X11)" etag="UQ1OosKANGw1Dp6zmiLk" version="15.9.6" type="github" pages="7">
   <diagram id="6MVn9-K-f2hmlOFg9ZMS" name="PIR">
     <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -241,7 +241,7 @@
         <mxCell id="OVpL2row7CtXhjdpg7gb-0" />
         <mxCell id="OVpL2row7CtXhjdpg7gb-1" parent="OVpL2row7CtXhjdpg7gb-0" />
         <mxCell id="OVpL2row7CtXhjdpg7gb-2" value="LDR" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="OVpL2row7CtXhjdpg7gb-1">
-          <mxGeometry x="240" y="280" width="230" height="190" as="geometry" />
+          <mxGeometry x="240" y="280" width="230" height="210" as="geometry" />
         </mxCell>
         <mxCell id="OVpL2row7CtXhjdpg7gb-3" value="- oldLightCon : int&#xa;- timLDR : const int&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="OVpL2row7CtXhjdpg7gb-2">
           <mxGeometry y="26" width="230" height="44" as="geometry" />
@@ -249,8 +249,8 @@
         <mxCell id="OVpL2row7CtXhjdpg7gb-4" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="OVpL2row7CtXhjdpg7gb-2">
           <mxGeometry y="70" width="230" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="OVpL2row7CtXhjdpg7gb-5" value="+ LDR(void)&#xa;+ ~LDR(void)&#xa;+ open(void) bool&#xa;+ close(void) bool&#xa;+ setTimer (IN timer: int) void&#xa;- getLux(void) int&#xa;- LdrIsr(void) bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;spacing=2;fontStyle=0" vertex="1" parent="OVpL2row7CtXhjdpg7gb-2">
-          <mxGeometry y="78" width="230" height="112" as="geometry" />
+        <mxCell id="OVpL2row7CtXhjdpg7gb-5" value="+ LDR(void)&#xa;+ ~LDR(void)&#xa;+ open(void) bool&#xa;+ close(void) bool&#xa;+ setTimer (IN timer: int) void&#xa;+ disableTimer(IN timer : int) void&#xa;- getLux(void) int&#xa;- LdrIsr(void) bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;spacing=2;fontStyle=0" vertex="1" parent="OVpL2row7CtXhjdpg7gb-2">
+          <mxGeometry y="78" width="230" height="132" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
@@ -261,16 +261,16 @@
         <mxCell id="nXNNZ12Qzqeua8ju_y_X-0" />
         <mxCell id="nXNNZ12Qzqeua8ju_y_X-1" parent="nXNNZ12Qzqeua8ju_y_X-0" />
         <mxCell id="nXNNZ12Qzqeua8ju_y_X-2" value="FailureDetector" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="nXNNZ12Qzqeua8ju_y_X-1">
-          <mxGeometry x="240" y="280" width="230" height="160" as="geometry" />
+          <mxGeometry x="240" y="280" width="230" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="nXNNZ12Qzqeua8ju_y_X-3" value="- oldLightCon : int&#xa;- timLDR : const int&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="nXNNZ12Qzqeua8ju_y_X-2">
-          <mxGeometry y="26" width="230" height="44" as="geometry" />
+        <mxCell id="nXNNZ12Qzqeua8ju_y_X-3" value="&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="nXNNZ12Qzqeua8ju_y_X-2">
+          <mxGeometry y="26" width="230" height="24" as="geometry" />
         </mxCell>
         <mxCell id="nXNNZ12Qzqeua8ju_y_X-4" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="nXNNZ12Qzqeua8ju_y_X-2">
-          <mxGeometry y="70" width="230" height="8" as="geometry" />
+          <mxGeometry y="50" width="230" height="8" as="geometry" />
         </mxCell>
         <mxCell id="nXNNZ12Qzqeua8ju_y_X-5" value="+ FailureDetector(void)&#xa;+ ~FailureDetector(void)&#xa;+ open(void) bool&#xa;+ close(void) bool&#xa;- failureDetectIsr(void) bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;spacing=2;fontStyle=0" vertex="1" parent="nXNNZ12Qzqeua8ju_y_X-2">
-          <mxGeometry y="78" width="230" height="82" as="geometry" />
+          <mxGeometry y="58" width="230" height="82" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
