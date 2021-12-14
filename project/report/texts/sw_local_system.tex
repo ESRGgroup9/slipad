@@ -40,6 +40,7 @@ A condition variable is a task synchronization tool that can be used to block (w
 \end{itemize}
 
 \myparagraph{Mutexes}
+
 A mutex is a locking mechanism that provides mutual exclusion, supporting ownership and other protocols. A mutex is initially created in the unlocked state in which it can be acquired by a task. After being acquired, the mutex moves to the locked state. When the task releases the mutex, it returns to the unlocked state. The mutexes used are listed bellow.
 
 \begin{itemize}
@@ -58,6 +59,7 @@ A mutex is a locking mechanism that provides mutual exclusion, supporting owners
 
 \subsection{Task Communication}
 \myparagraph{Pipes}
+
 Pipe is an inter-process communication tool, that establishes a connection between two processes, such that the standard output from one process becomes the standard input of the other process. Pipe is one-way communication, i.e, we can use a pipe such that one process write to the pipe and the other process reads from the pipe. If a process tries to read before something is written to the pipe, the process is suspended until something is written.
 
 As previously stated, it's used a pipe to communicate between the \textit{dSensors} to the main process. In this way, the main process can know if something was detected by the sensors and provide a response to that.
@@ -69,6 +71,7 @@ As previously stated, it's used a pipe to communicate between the \textit{dSenso
 \myparagraph{Class Camera}
 
 \myparagraph{Class Lamp}
+
 In figure \ref{fig:classlamp} its shown the Lamp class diagram, which defines a Lamp object. After creating the object, using the constructor \textit{Lamp()}, one can interact with it by changing the brightness, through the method \textit{setBrightness(lux)}, where \textit{lux} is a value from 0, lamp OFF, to 100, lamp at maximum brightness. Internally, this class uses a mutex, \textit{mutChangePWM} to protect the PWM value when using \textit{setBrightness} method. 
 
 \begin{figure}[H]
@@ -79,6 +82,7 @@ In figure \ref{fig:classlamp} its shown the Lamp class diagram, which defines a 
 \end{figure}
 
 \myparagraph{Class Communications}
+
 In figure \ref{fig:classcomm} its shown the Communications class diagram. This class defines an object Communication capable of establishing a LoRa communication with the gateway, through the use of the constructor \textit{Communication()}, and send messages through the use of \textit{Send(msg)}. It's used a vector of messages \textit{queued\_msgs} to store the message that's in the waiting list to be sent, in order to avoid the loss of a communication. To exchange messages are used two threads, \textit{tLoraSend} to send, and \textit{tLoraRecv} to receive, which makes use of task synchronization tools to ensure that sending and receiving don't occur at the same time, since the LoRa module in use is Half-Duplex.
 
 \begin{figure}[H]
@@ -109,6 +113,7 @@ In the image processing part of the thread, if there aren't parking spots coordi
 %The lamp may have various levels of luminosity: for the lamp to be OFF, is applied PWM~=~0; for the lamp to be at a predefined minimum bright level, is applied PWM~=~\textit{MIN\_BRIGHT\_PWM}; for the lamp to be at maximum bright, this is, when the lamp must be ON, is applied PWM~=~100. So, since the lamp must stay ON a minimum amount of time out of a motion is detected or out of a request from the remote system to be ON, one needs to check if the new PWM is the maximum value. If so, that means that the lamp should continue with that PWM for a predefined time, defined by \textit{LAMP\_ON\_TIMEOUT}, in seconds.
 
 \myparagraph{tLoraSend}
+
 This task is responsible for sending queued messages to the gateway, using LoRa communication. A conditional variable is used to wake this thread when there is a new message available to be sent.
 
 When the vector \textit{queued\_msgs} is empty, then the task goes to sleep, waiting for the condition variable \textit{condSend} to notify this task. This happens when a new message is inserted into the messages vector, using \textit{Send(msg)} function, that will be later presented. After this, the mutex \textit{mutComms} is used to protect the communication, which due to the selected LoRa module is half-duplex, meaning that at a given moment, the device can be receiving or sending, not at the same time. Then, a message is popped from the messages vector, and sent to the gateway using the function \textit{LoraSend}. This continues to happen until the \textit{queued\_msgs} vector gets empty.
@@ -123,6 +128,7 @@ The flowchart for this task is presented in figure \ref{fig:flow_tlorasend}
 
 
 \myparagraph{tLoraRecv}
+
 This task is responsible for receiving messages from the gateway, using LoRa communication.
 
 When a message is received, using \textit{LoraReceive}, this is parsed and later, the respective command will be executed.
