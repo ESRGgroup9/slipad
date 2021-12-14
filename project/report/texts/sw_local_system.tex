@@ -1,13 +1,21 @@
 %**********************************************************
 \subsection{Task Overview}
-One can define and describe briefly how the local system is implemented, making use of threads and processes.
+One can define and describe briefly how the local system is implemented, making use of threads and processes. As one can see in figure \ref{fig:task_overview}, this system is composed by two processes: the main process and a daemon, used to read all the sensors, \textit{dSensors}. The communication between the daemon and the main process is done via pipe.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3\textwidth]{09sw_specification/task_overview}
+	\caption{Inter-process Communication between Main Process and Daemon.}
+	\label{fig:task_overview}
+\end{figure}
+
+One can list the tasks that compose the main process:
 \begin{itemize}
 	\item \textbf{tCamera:} acquire a camera frame; processes image and search for parking spots; verify the parking spot availability;
-	\item \textbf{tLampControl:} initializes PWM interface; controls the PWM applied to the lamp;
+%	\item \textbf{tLampControl:} initializes PWM interface; controls the PWM applied to the lamp;
 	\item \textbf{tLoraSend:} sends a message to the gateway, using the LoRa module;
 	\item \textbf{tLoraRecv:} receives a message from the gateway, using the LoRa module;
-	\item \textbf{dReadSensors:} ???
+	\item \textbf{tRecvSensor:} receives messages sent by the daemon, via pipe, regarding sensors information.
 \end{itemize}
 
 %**********************************************************
@@ -24,7 +32,7 @@ A condition variable is a task synchronization tool that can be used to block (w
 \begin{itemize}
 	\item \textbf{condCameraAcquire:} used to notify \textit{tCamera} that a camera sample period has elapsed;
 	
-	\item \textbf{condNewPWM:} used to notify \textit{tLampControl} that a new PWM value for the lamp was defined;
+%	\item \textbf{condNewPWM:} used to notify \textit{tLampControl} that a new PWM value for the lamp was defined;
 	
 	\item \textbf{condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent;
 	
@@ -41,16 +49,28 @@ A mutex is a locking mechanism that provides mutual exclusion, supporting owners
 	
 	\item \textbf{mutComms:} protects LoRa communication, since it is half-duplex, so one can send or receive at a time; Used in \textit{tLoraSend} and \textit{tLoraRecv};
 	
-	\item \textbf{mutChangePWM:} protects the modification of \textit{pwm\_val} variable, when defining a new PWM value for the lamp;
+	\item \textbf{mutChangePWM:} protects the modification of PWM when defining a new PWM value for the lamp;
 	
 	
 \end{itemize}
 
-\myparagraph{Semaphores}
+%\myparagraph{Semaphores}
 
 \subsection{Task Communication}
-\myparagraph{Message Queues}
-\myparagraph{Signals}
+\myparagraph{Pipes}
+Pipe is an inter-process communication tool, that establishes a connection between two processes, such that the standard output from one process becomes the standard input of the other process. Pipe is one-way communication, i.e, we can use a pipe such that one process write to the pipe and the other process reads from the pipe. If a process tries to read before something is written to the pipe, the process is suspended until something is written.
+
+As previously stated, it's used a pipe to communicate between the \textit{dSensors} to the main process. In this way, the main process can know if something was detected by the sensors and provide a response to that.
+
+%\myparagraph{Signals}
+
+%**********************************************************
+\subsection{Class Diagrams}
+\myparagraph{Class Camera}
+
+\myparagraph{Class Lamp}
+
+\myparagraph{Class Communications}
 
 %**********************************************************
 \subsection{Flowcharts}
