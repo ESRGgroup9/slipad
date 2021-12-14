@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-14T00:16:41.269Z" agent="5.0 (X11)" etag="RcP-GA1XclB9yc9EECx4" version="15.9.4" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-12-14T03:11:38.135Z" agent="5.0 (X11)" etag="pKhgo71Z_QyTh-LrQHdW" version="15.9.4" type="github" pages="2">
   <diagram id="v8qI4HhwjPFjlMWwufgW" name="tCamera">
     <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -158,7 +158,7 @@
         <mxCell id="VFJbaNTv9hFkWGfbKpp0-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#9C1E18;" edge="1" parent="1" source="VFJbaNTv9hFkWGfbKpp0-8" target="RTNJ3omcphne2tRmx8Gc-2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="VFJbaNTv9hFkWGfbKpp0-8" value="frame &amp;lt;- &lt;b&gt;read_camera&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;fontFamily=Courier New;" vertex="1" parent="1">
+        <mxCell id="VFJbaNTv9hFkWGfbKpp0-8" value="frame &amp;lt;- &lt;b&gt;read camera&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;fontFamily=Courier New;" vertex="1" parent="1">
           <mxGeometry x="150" y="520" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="VFJbaNTv9hFkWGfbKpp0-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#9C1E18;" edge="1" parent="1" source="VFJbaNTv9hFkWGfbKpp0-9" target="l6NHMGRRc7nrXVu-Jkn_-16">
@@ -213,7 +213,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="kNWcUIAmtcXSwYykUJl_-9" value="&lt;b&gt;sendMessage&lt;/b&gt;&lt;br&gt;(park[points_coords])" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;fontFamily=Courier New;" vertex="1" parent="1">
+        <mxCell id="kNWcUIAmtcXSwYykUJl_-9" value="&lt;b&gt;send message&lt;/b&gt;&lt;br&gt;(park[points_coords])" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;fontFamily=Courier New;" vertex="1" parent="1">
           <mxGeometry x="340" y="680" width="145" height="40" as="geometry" />
         </mxCell>
         <mxCell id="kNWcUIAmtcXSwYykUJl_-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#9C1E18;" edge="1" parent="1" source="kNWcUIAmtcXSwYykUJl_-11" target="RzPXeAHFYvMgDv231EIz-3">
