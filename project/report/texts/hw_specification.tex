@@ -209,24 +209,39 @@ It is important to know how the motion detector module works, and how it will be
 %**********************************************************
 \clearpage
 \section{Lamp Failure Detector}
-In order to know when the lamp is broken, one needs to use a lamp failure detector, so it was designed a circuit represented in figure \ref{fig:failure_circuit}. 
-%When the lamp  
+In order to know when the lamp is broken, one needs to use a lamp failure detector, so it was designed a circuit represented in figure \ref{fig:lampFailure}. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{07hw_specification/failure_schem}
+	\includegraphics[width=0.7\textwidth]{07hw_specification/lampFailure}
 	\caption{Lamp Failure Detector Circuit.}
-	\label{fig:failure_circuit}
+	\label{fig:lampFailure}
 \end{figure}
 
-The optocoupler chosen was the 4N35 \cite{4n35}, represented in figure \ref{fig:failure}.
+This circuit 
 
-\begin{figure}[H]
+\[V_{+} = V_{cc} . \dfrac{R_2}{R_1 + R_2} \]
+
+\begin{table}[H]
 	\centering
-	\includegraphics[width=0.2\textwidth]{07hw_specification/failure}
-	\caption{Optocoupler 4N35.}
-	\label{fig:failure}
-\end{figure}
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Lamp Failure Detector Component} & \textbf{Product Name}
+		\\\hline\hline
+		
+		AmpOp & LM358
+		\\\hline
+		Resistor \(R_{1}\) & xx $\Omega$; +-5 \%
+		\\\hline
+		Resistor \(R_{2}\) & yy $\Omega$; +-5 \%
+		\\\hline
+		Resistor \(R_{3}\) & zz $\Omega$; +-5 \%
+		\\\hline
+	\end{tabular}
+	\caption{Lamp Failure Detector components.}
+	\label{table:lampFailure_components}
+\end{table}
+%The optocoupler chosen was the 4N35 \cite{4n35}, represented in figure \ref{fig:failure}.
 
 %**********************************************************
 \clearpage
