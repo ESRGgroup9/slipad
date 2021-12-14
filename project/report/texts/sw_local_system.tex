@@ -115,8 +115,7 @@ When the pipe is not empty, this task reads a message from the pipe and parses i
 \end{itemize}
 
 \begin{figure}[H]
-	\centering	
-	%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_trecv_sensors}
+	\centering			\includegraphics[width=.4\textwidth]{09sw_specification/trecvsensors}
 	\caption{Main Process Flowchart: tRecvSensors.}
 	\label{fig:flow_trecv_sensors}
 \end{figure}
@@ -129,7 +128,7 @@ This functions, presented in figure \ref{fig:flow_lampconstruct}, are responsibl
 
 \begin{figure}[H]
 	\centering	
-	%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_lampconstruct}
+	\includegraphics[width=.7\textwidth]{09sw_specification/lampconstruct}
 	\caption{Class Lamp Flowchart: Constructor and Destroyer.}
 	\label{fig:flow_lampconstruct}
 \end{figure}
@@ -140,7 +139,7 @@ This function, presented in figure \ref{fig:flow_setbrightness}, is responsible 
 
 \begin{figure}[H]
 	\centering	
-%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_setbrightness}
+	\includegraphics[width=.6\textwidth]{09sw_specification/lampsetbrightness}
 	\caption{Class Lamp Flowchart: setBrightness.}
 	\label{fig:flow_setbrightness}
 \end{figure}
@@ -153,8 +152,7 @@ This function, presented in figure \ref{fig:flow_setbrightness}, is responsible 
 This functions, presented in figure \ref{fig:flow_commconstruct}, are responsible for initializing and destroying a Communication object. On the left side, the constructor, starts by initializing the LoRa communication, defining the frequency in which the device choosen previously operates, which is 433~MHz. Then the messages vector is cleared, the mutexes are initialized and the two threads responsible for the exchange of messages between the local system and the gateway are created. In the destroyer side, one has the opposite, where the LoRa communication is disabled and the threads are terminated.
 
 \begin{figure}[H]
-	\centering	
-	%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_commconstruct}
+	\centering			\includegraphics[width=.7\textwidth]{09sw_specification/commsconstruct}
 	\caption{Class Communication Flowchart: Constructor and Destroyer.}
 	\label{fig:flow_commconstruct}
 \end{figure}
@@ -168,7 +166,7 @@ When the vector \textit{queued\_msgs} is empty, then the task goes to sleep, wai
 The flowchart for this task is presented in figure \ref{fig:flow_tlorasend}
 
 \begin{figure}[H]
-	%	\centering		\includegraphics[width=.5\textwidth]{09sw_specification/flow_tlorasend}
+	\centering		\includegraphics[width=.85\textwidth]{09sw_specification/commstlorasend}
 	\caption{Class Communication Flowchart: tLoraSend.}
 	\label{fig:flow_tlorasend}
 \end{figure}
@@ -183,7 +181,7 @@ When a message is received, using \textit{LoraReceive}, this is parsed and later
 The flowchart for this task is presented in figure \ref{fig:flow_tlorarecv}
 
 \begin{figure}[H]
-	%	\centering		\includegraphics[width=.5\textwidth]{09sw_specification/flow_tlorarecv}
+	\centering		\includegraphics[width=.55\textwidth]{09sw_specification/commstlorarecv}
 	\caption{Class Communication Flowchart: tLoraRecv.}
 	\label{fig:flow_tlorarecv}
 \end{figure}
@@ -194,7 +192,7 @@ This function, presented in figure \ref{fig:flow_send}, is responsible for addin
 
 \begin{figure}[H]
 	\centering	
-	%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_send}
+	\includegraphics[width=.3\textwidth]{09sw_specification/commssend}
 	\caption{Class Communication Flowchart: Send.}
 	\label{fig:flow_send}
 \end{figure}
