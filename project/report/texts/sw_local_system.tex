@@ -1,6 +1,6 @@
 %**********************************************************
 \subsection{Task Overview}
-One can define and describe briefly how the local system is implemented, making use of threads and processes. As one can see in figure \ref{fig:task_overview}, this system is composed by two processes: the main process and a daemon, used to read all the sensors, \textit{dSensors}. The communication between the daemon and the main process is done via pipe.
+One can define and describe briefly how the local system is implemented, making use of threads and processes. As one can see in figure \ref{fig:task_overview}, this system is composed by two processes: the main process and a daemon, used to read the sensors \textit{LDR} and \textit{LampFailureDetector}, \textit{dSensors}. As the \textit{PIR} sensor can be read through the use of an ISR, this sensor stays in the main process. The communication between the daemon and the main process is done via message queue.
 
 \begin{figure}[H]
 	\centering
@@ -9,13 +9,14 @@ One can define and describe briefly how the local system is implemented, making 
 	\label{fig:task_overview}
 \end{figure}
 
+\clearpage
 One can list the tasks that compose the main process:
 \begin{itemize}
 	\item \textbf{tCamera:} acquire a camera frame; processes image and search for parking spots; verify the parking spot availability;
 %	\item \textbf{tLampControl:} initializes PWM interface; controls the PWM applied to the lamp;
 	\item \textbf{tLoraSend:} sends a message to the gateway, using the LoRa module;
 	\item \textbf{tLoraRecv:} receives a message from the gateway, using the LoRa module;
-	\item \textbf{tRecvSensor:} receives messages sent by the daemon, via pipe, regarding sensors information.
+	\item \textbf{tRecvSensor:} receives messages sent by the daemon, via message queue, regarding sensors information.
 \end{itemize}
 
 %**********************************************************
@@ -58,13 +59,15 @@ A mutex is a locking mechanism that provides mutual exclusion, supporting owners
 %\myparagraph{Semaphores}
 
 \subsection{Task Communication}
-\myparagraph{Pipes}
+%\myparagraph{Pipes}
+%
+%Pipe is an inter-process communication tool, that establishes a connection between two processes, such that the standard output from one process becomes the standard input of the other process. Pipe is one-way communication, i.e, we can use a pipe such that one process write to the pipe and the other process reads from the pipe. If a process tries to read before something is written to the pipe, the process is suspended until something is written.
+%
+%As previously stated, it's used a pipe to communicate between the \textit{dSensors} to the main process. In this way, the main process can know if something was detected by the sensors and provide a response to that.
 
-Pipe is an inter-process communication tool, that establishes a connection between two processes, such that the standard output from one process becomes the standard input of the other process. Pipe is one-way communication, i.e, we can use a pipe such that one process write to the pipe and the other process reads from the pipe. If a process tries to read before something is written to the pipe, the process is suspended until something is written.
+\myparagraph{Message Queue}
 
-As previously stated, it's used a pipe to communicate between the \textit{dSensors} to the main process. In this way, the main process can know if something was detected by the sensors and provide a response to that.
-
-%\myparagraph{Signals}
+A message queue is a linked list of messages stored within the kernel and identified by a message queue identifier. A message queue will be used to communicate between the main process and the \textit{dSensors}. In that way, the main process is agnostic to the cyclic reading necessary for the sensors \textit{LDR} and \textit{LampFailureDetector}, and is only informed when necessary, thorough the message queue.
 
 %**********************************************************
 \subsection{Class Diagrams}
@@ -97,7 +100,8 @@ In figure \ref{fig:classlamp} is shown the Lamp class diagram, which defines a L
 In figure \ref{fig:classcomm} is shown the Communications class diagram. This class defines an object Communication capable of establishing a LoRa communication with the gateway, through the use of the constructor \textit{Communication()}, and send messages through the use of \textit{Send(msg)}. It's used a vector of messages \textit{queued\_msgs} to store the message that's in the waiting list to be sent, in order to avoid the loss of a communication. To exchange messages are used two threads, \textit{tLoraSend} to send, and \textit{tLoraRecv} to receive, which makes use of task synchronization tools to ensure that sending and receiving don't occur at the same time, since the LoRa module in use is Half-Duplex.
 
 \begin{figure}[H]
-	\centering		\includegraphics[width=.5\textwidth]{09sw_specification/classcomms}
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/classcomms}
 	\caption{Class Diagram: Communications.}
 	\label{fig:classcomm}
 \end{figure}
@@ -115,11 +119,11 @@ In the image processing part of the thread, if there aren't parking spots coordi
 
 \myparagraph{tRecvSensors}
 
-This task, presented in figure \ref{fig:flow_trecv_sensors}, is responsible for receiving messages sent by the sensors daemon, through a pipe.
+This task, presented in figure \ref{fig:flow_trecv_sensors}, is responsible for receiving messages sent by the sensors daemon, through a message queue.
 
-When the pipe is not empty, this task reads a message from the pipe and parses it, in order to find out which sensor was triggered and what action this system should take. For that, a list of commands may be defined:
+When the message queue is not empty, this task reads a message from the message queue and parses it, in order to find out which sensor was triggered and what action this system should take. For that, a list of commands may be defined:
 \begin{itemize}
-	\item Lamp Max: the lamp brightness must be at its maximum (PWM=100);
+%	\item Lamp Max: the lamp brightness must be at its maximum (PWM=100);
 	\item Lamp Min: the lamp must be at minimum bright level (PWM = \textit{MIN\_BRIGHT\_PWM});
 	\item Lamp OFF: the lamp must be OFF (PWM=0);
 	\item Lamp Fail: the lamp must be OFF, since there was a failure detected on the lamp.
