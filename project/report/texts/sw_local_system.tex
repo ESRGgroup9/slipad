@@ -102,6 +102,24 @@ Firstly, this thread initializes the camera device, sets the timer \textit{timSa
 
 In the image processing part of the thread, if there aren't parking spots coordinates stored, then it is necessary to search for parking spots. After that, one can detect cars using the pre-trained model and the function \textit{detectMultiScale} that detects objects in the image. If the coordinates of a detected car matches the coordinates of the parking spot, then one can assume that the parking spot is occupied. If the parking spot status has changed, then it is necessary to send this to the remote system, using the LoRa communication module.
 
+\myparagraph{tRecvSensors}
+
+This task, presented in figure \ref{fig:flow_trecv_sensors}, is responsible for receiving messages sent by the sensors daemon, through a pipe.
+
+When the pipe is not empty, this task reads a message from the pipe and parses it, in order to find out which sensor was triggered and what action this system should take. For that, a list of commands may be defined:
+\begin{itemize}
+	\item Lamp Max: the lamp brightness must be at its maximum (PWM=100);
+	\item Lamp Min: the lamp must be at minimum bright level (PWM = \textit{MIN\_BRIGHT\_PWM});
+	\item Lamp OFF: the lamp must be OFF (PWM=0);
+	\item Lamp Fail: the lamp must be OFF, since there was a failure detected on the lamp.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering	
+	%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_trecv_sensors}
+	\caption{Main Process Flowchart: tRecvSensors.}
+	\label{fig:flow_trecv_sensors}
+\end{figure}
 
 %**********************************************************
 \clearpage
@@ -132,7 +150,7 @@ This function, presented in figure \ref{fig:flow_setbrightness}, is responsible 
 \clearpage
 \myparagraph{Class Communication Constructor and Destroyer}
 
-This functions, presented in figure \ref{fig:flow_commconstruct}, are responsible for initializing and destroying a Communication object. On the left side, the constructor, starts by initializing the LoRa communication, defining the frequency in which the device choosed previously operates, which is 433~MHz. Then the messages vector is cleared, the mutexes are initialized and the two threads responsible for the exchange of messages between the local system and the gateway are created. In the destroyer side, one has the opposite, where the LoRa communication is disabled and the threads are terminated.
+This functions, presented in figure \ref{fig:flow_commconstruct}, are responsible for initializing and destroying a Communication object. On the left side, the constructor, starts by initializing the LoRa communication, defining the frequency in which the device choosen previously operates, which is 433~MHz. Then the messages vector is cleared, the mutexes are initialized and the two threads responsible for the exchange of messages between the local system and the gateway are created. In the destroyer side, one has the opposite, where the LoRa communication is disabled and the threads are terminated.
 
 \begin{figure}[H]
 	\centering	
