@@ -97,6 +97,38 @@ The lamp may have various levels of luminosity: for the lamp to be OFF, is appli
 
 \myparagraph{tLoraRecv}
 
+% FLOWCHARTS SENSORS
+
+\myparagraph{PirIsr}
+The PIR sensor uses the GPIO of the Raspberry Pi in order to inform the system if there's movement in the surrounding area. In the afirmative case, it puts the high digital value on its output, and this can be used to generate an interrupt service routine, triggered on the rising edge of the output signal of the sensor. When this routine is executed, it locks the mutex \textit{mutChangePWM} and assign the \textit{PWM\_val} its maximum value, 100 \%. This operation is signaled to the process that controls the lamp brightness through a pipe, and the mutex is unlocked. In the figure \ref{fig:pir_isr}, is represented the flowchart of the PirIsr function.
+
+\begin{figure}[H]
+	\centering
+	%\includegraphics[width=.5\textwidth]{09sw_specification/pir_isr}
+	\caption{PirIsr flowchart.}
+	\label{fig:pir_isr}
+\end{figure}
+
+\myparagraph{LdrIsr}
+The ambient light sensor, LDR, is used to determine when is time to turn on the lights, that is, when is night time and interfaces with the Raspberry Pi through I2C protocol communication. As the sun set or the sun rise is a relatively long time process, there's no need to keep checking the sensor output value all the time, so one can define a period to get the sensor value, \textit{LDR\_TIM}, that can be 10 minutes. In figure \ref{fig:ldr_isr} is shown the LDR sensor interrupt service routine, triggered by the timer overflow. When the timer period elapses, one can get the illuminance value calculated by the sensor. If this value is lower than the threshold value defined as good luminosity illuminance, GOOD\_LIGHT\_LUX, then the auxiliary variable, \textit{lowLightCon} is setted to high. In the next step, if the \textit{lightCon} variable (stores the last ambient light condition) is not equal to the auxiliary variable, then it is needed to change the \textit{lightCon} variable and send de pipe message to the process that controls the lamp PWM. 
+
+\begin{figure}[H]
+	\centering
+	%\includegraphics[width=.5\textwidth]{09sw_specification/ldr_isr}
+	\caption{LdrIsr flowchart.}
+	\label{fig:ldr_isr}
+\end{figure}
+
+\myparagraph{FailureDetectIsr}
+In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Similarly to the PIR sensor, this routine is triggered on the rising edge of the output signal of the sensor. When the Failure detector detects that the lamp is broken, it puts the high digital value in its output, triggering this function. In this routine, the PWM is setted to 0 \% and are sent two messages through pipes: one to inform the process, that controls the lamp, to change the PWM value in the channel; and the other to notify the remote system that the lamp is broken, in order to update this status on the database.
+
+\begin{figure}[H]
+	\centering
+	%\includegraphics[width=.5\textwidth]{09sw_specification/fail_isr}
+	\caption{FailureDetectIsr flowchart.}
+	\label{fig:fail_isr}
+\end{figure}
+
 %**********************************************************
 \subsection{Start-up Process}
 
