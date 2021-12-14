@@ -40,6 +40,7 @@ A condition variable is a task synchronization tool that can be used to block (w
 \end{itemize}
 
 \myparagraph{Mutexes}
+
 A mutex is a locking mechanism that provides mutual exclusion, supporting ownership and other protocols. A mutex is initially created in the unlocked state in which it can be acquired by a task. After being acquired, the mutex moves to the locked state. When the task releases the mutex, it returns to the unlocked state. The mutexes used are listed bellow.
 
 \begin{itemize}
@@ -58,6 +59,7 @@ A mutex is a locking mechanism that provides mutual exclusion, supporting owners
 
 \subsection{Task Communication}
 \myparagraph{Pipes}
+
 Pipe is an inter-process communication tool, that establishes a connection between two processes, such that the standard output from one process becomes the standard input of the other process. Pipe is one-way communication, i.e, we can use a pipe such that one process write to the pipe and the other process reads from the pipe. If a process tries to read before something is written to the pipe, the process is suspended until something is written.
 
 As previously stated, it's used a pipe to communicate between the \textit{dSensors} to the main process. In this way, the main process can know if something was detected by the sensors and provide a response to that.
@@ -70,11 +72,28 @@ As previously stated, it's used a pipe to communicate between the \textit{dSenso
 
 \myparagraph{Class Lamp}
 
+In figure \ref{fig:classlamp} its shown the Lamp class diagram, which defines a Lamp object. After creating the object, using the constructor \textit{Lamp()}, one can interact with it by changing the brightness, through the method \textit{setBrightness(lux)}, where \textit{lux} is a value from 0, lamp OFF, to 100, lamp at maximum brightness. Internally, this class uses a mutex, \textit{mutChangePWM} to protect the PWM value when using \textit{setBrightness} method. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/classlamp}
+	\caption{Class Diagram: Lamp.}
+	\label{fig:classlamp}
+\end{figure}
+
 \myparagraph{Class Communications}
+
+In figure \ref{fig:classcomm} its shown the Communications class diagram. This class defines an object Communication capable of establishing a LoRa communication with the gateway, through the use of the constructor \textit{Communication()}, and send messages through the use of \textit{Send(msg)}. It's used a vector of messages \textit{queued\_msgs} to store the message that's in the waiting list to be sent, in order to avoid the loss of a communication. To exchange messages are used two threads, \textit{tLoraSend} to send, and \textit{tLoraRecv} to receive, which makes use of task synchronization tools to ensure that sending and receiving don't occur at the same time, since the LoRa module in use is Half-Duplex.
+
+\begin{figure}[H]
+	\centering		\includegraphics[width=.5\textwidth]{09sw_specification/classcomms}
+	\caption{Class Diagram: Communications.}
+	\label{fig:classcomm}
+\end{figure}
 
 %**********************************************************
 \subsection{Flowcharts}
-\clearpage
+%\clearpage
 \myparagraph{tCamera}
 
 The task tCamera is responsible for acquire a frame from the Raspberry Pi Camera and to process it. It must analyze the returned frame, in order to detect empty parking spots. This thread uses the mutex \textit{mutCamera} to protect the condition variable \textit{condCameraAcquire}, that synchronizes the camera frame acquisition with the timer that defines the camera frame acquisition period, \textit{timSampleCam}.
@@ -83,19 +102,85 @@ Firstly, this thread initializes the camera device, sets the timer \textit{timSa
 
 In the image processing part of the thread, if there aren't parking spots coordinates stored, then it is necessary to search for parking spots. After that, one can detect cars using the pre-trained model and the function \textit{detectMultiScale} that detects objects in the image. If the coordinates of a detected car matches the coordinates of the parking spot, then one can assume that the parking spot is occupied. If the parking spot status has changed, then it is necessary to send this to the remote system, using the LoRa communication module.
 
-\myparagraph{tLampControl}
-% uses: mutChangePWM; condNewPWM; pwm_val
-% pwm_val is used in: PIR_sensor, CommandCb, LDR
-% must define: MIN_BRIGHT_PWM; LAMP_ON_TIMEOUT
-This task is responsible for initializing and controlling the PWM peripheral used to control the lamp brightness. A mutex \textit{mutChangePWM} is used to protect the process of defining a new PWM value. 
 
-After initializing the PWM, this task goes to sleep, waiting for the condition variable \textit{condNewPWM} to notify this task. This happens when a new PWM value is defined into the variable \textit{pwm\_val}, in \textit{dReadSensors} or in a received command. Then, the lamp PWM is changed to the new value. 
+%**********************************************************
+\clearpage
+\myparagraph{Class Lamp Constructor and Destroyer}
 
-The lamp may have various levels of luminosity: for the lamp to be OFF, is applied PWM~=~0; for the lamp to be at a predefined minimum bright level, is applied PWM~=~\textit{MIN\_BRIGHT\_PWM}; for the lamp to be at maximum bright, this is, when the lamp must be ON, is applied PWM~=~100. So, since the lamp must stay ON a minimum amount of time out of a motion is detected or out of a request from the remote system to be ON, one needs to check if the new PWM is the maximum value. If so, that means that the lamp should continue with that PWM for a predefined time, defined by \textit{LAMP\_ON\_TIMEOUT}, in seconds.
+This functions, presented in figure \ref{fig:flow_lampconstruct}, are responsible for initializing and destroying a Lamp object. First, in the constructor, which is the left side function, the PWM peripheral is initialized, then the mutex that is used to protect the change of PWM is also initialized. On the destroyer side, the opposite is done, by the terminating the PWM generation.
+
+\begin{figure}[H]
+	\centering	
+	%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_lampconstruct}
+	\caption{Class Lamp Flowchart: Constructor and Destroyer.}
+	\label{fig:flow_lampconstruct}
+\end{figure}
+
+\myparagraph{setBrightness}
+
+This function, presented in figure \ref{fig:flow_setbrightness}, is responsible for changing the PWM associated with the lamp, which is directly related to its brightness. Through \textit{setPWM(lux)} one can change the current lamp PWM to \textit{lux} value, being this an integer between 0 to 100. When the PWM is maximum, a timer is started that defines how much time the lamp is ON, \textit{LAMP\_ON\_TIMEOUT} in seconds, if there isn't another call of this function.
+
+\begin{figure}[H]
+	\centering	
+%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_setbrightness}
+	\caption{Class Lamp Flowchart: setBrightness.}
+	\label{fig:flow_setbrightness}
+\end{figure}
+
+
+%**********************************************************
+\clearpage
+\myparagraph{Class Communication Constructor and Destroyer}
+
+This functions, presented in figure \ref{fig:flow_commconstruct}, are responsible for initializing and destroying a Communication object. On the left side, the constructor, starts by initializing the LoRa communication, defining the frequency in which the device choosed previously operates, which is 433~MHz. Then the messages vector is cleared, the mutexes are initialized and the two threads responsible for the exchange of messages between the local system and the gateway are created. In the destroyer side, one has the opposite, where the LoRa communication is disabled and the threads are terminated.
+
+\begin{figure}[H]
+	\centering	
+	%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_commconstruct}
+	\caption{Class Communication Flowchart: Constructor and Destroyer.}
+	\label{fig:flow_commconstruct}
+\end{figure}
 
 \myparagraph{tLoraSend}
 
+This task is responsible for sending queued messages to the gateway, using LoRa communication. A conditional variable is used to wake this thread when there is a new message available to be sent.
+
+When the vector \textit{queued\_msgs} is empty, then the task goes to sleep, waiting for the condition variable \textit{condSend} to notify this task. This happens when a new message is inserted into the messages vector, using \textit{Send(msg)} function, that will be later presented. After this, the mutex \textit{mutComms} is used to protect the communication, which due to the selected LoRa module is half-duplex, meaning that at a given moment, the device can be receiving or sending, not at the same time. Then, a message is popped from the messages vector, and sent to the gateway using the function \textit{LoraSend}. This continues to happen until the \textit{queued\_msgs} vector gets empty.
+
+The flowchart for this task is presented in figure \ref{fig:flow_tlorasend}
+
+\begin{figure}[H]
+	%	\centering		\includegraphics[width=.5\textwidth]{09sw_specification/flow_tlorasend}
+	\caption{Class Communication Flowchart: tLoraSend.}
+	\label{fig:flow_tlorasend}
+\end{figure}
+
+
 \myparagraph{tLoraRecv}
+
+This task is responsible for receiving messages from the gateway, using LoRa communication.
+
+When a message is received, using \textit{LoraReceive}, this is parsed and later, the respective command will be executed.
+
+The flowchart for this task is presented in figure \ref{fig:flow_tlorarecv}
+
+\begin{figure}[H]
+	%	\centering		\includegraphics[width=.5\textwidth]{09sw_specification/flow_tlorarecv}
+	\caption{Class Communication Flowchart: tLoraRecv.}
+	\label{fig:flow_tlorarecv}
+\end{figure}
+
+\myparagraph{Send}
+
+This function, presented in figure \ref{fig:flow_send}, is responsible for adding a new message, \textit{msg}, to the \textit{queued\_msgs} vector, and signal the condition variable \textit{condSend}, for the task \textit{tLoraSend} to send the message.
+
+\begin{figure}[H]
+	\centering	
+	%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_send}
+	\caption{Class Communication Flowchart: Send.}
+	\label{fig:flow_send}
+\end{figure}
+
 
 % FLOWCHARTS SENSORS
 
@@ -104,7 +189,7 @@ The PIR sensor uses the GPIO of the Raspberry Pi in order to inform the system i
 
 \begin{figure}[H]
 	\centering
-	%\includegraphics[width=.5\textwidth]{09sw_specification/pir_isr}
+	\includegraphics[width=.2\textwidth]{09sw_specification/pir_isr}
 	\caption{PirIsr flowchart.}
 	\label{fig:pir_isr}
 \end{figure}
@@ -114,7 +199,7 @@ The ambient light sensor, LDR, is used to determine when is time to turn on the 
 
 \begin{figure}[H]
 	\centering
-	%\includegraphics[width=.5\textwidth]{09sw_specification/ldr_isr}
+	\includegraphics[width=.4\textwidth]{09sw_specification/ldr_isr}
 	\caption{LdrIsr flowchart.}
 	\label{fig:ldr_isr}
 \end{figure}
@@ -124,7 +209,7 @@ In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Simi
 
 \begin{figure}[H]
 	\centering
-	%\includegraphics[width=.5\textwidth]{09sw_specification/fail_isr}
+	\includegraphics[width=.3\textwidth]{09sw_specification/fail_isr}
 	\caption{FailureDetectIsr flowchart.}
 	\label{fig:fail_isr}
 \end{figure}
@@ -135,3 +220,12 @@ In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Simi
 %**********************************************************
 \subsection{Shutdown Process}
 
+%\myparagraph{tLampControl}
+% uses: mutChangePWM; condNewPWM; pwm_val
+% pwm_val is used in: PIR_sensor, CommandCb, LDR
+% must define: MIN_BRIGHT_PWM; LAMP_ON_TIMEOUT
+%This task is responsible for initializing and controlling the PWM peripheral used to control the lamp brightness. A mutex \textit{mutChangePWM} is used to protect the process of defining a new PWM value. 
+%
+%After initializing the PWM, this task goes to sleep, waiting for the condition variable \textit{condNewPWM} to notify this task. This happens when a new PWM value is defined into the variable \textit{pwm\_val}, in \textit{dReadSensors} or in a received command. Then, the lamp PWM is changed to the new value. 
+%
+%The lamp may have various levels of luminosity: for the lamp to be OFF, is applied PWM~=~0; for the lamp to be at a predefined minimum bright level, is applied PWM~=~\textit{MIN\_BRIGHT\_PWM}; for the lamp to be at maximum bright, this is, when the lamp must be ON, is applied PWM~=~100. So, since the lamp must stay ON a minimum amount of time out of a motion is detected or out of a request from the remote system to be ON, one needs to check if the new PWM is the maximum value. If so, that means that the lamp should continue with that PWM for a predefined time, defined by \textit{LAMP\_ON\_TIMEOUT}, in seconds.
