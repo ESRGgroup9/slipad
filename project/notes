@@ -226,18 +226,20 @@ COMMANDS
 --------------------------------
 Classes
 --------------------------------
-Camera 			Diogo
+Camera 				Diogo
 	+ Camera
 	+ open
 	+ close
 	+ isOpen
-	+ capture_frame
-	+ process_frame
+	+ tCamera
+	- captureFrame
+	- processFrame
 	- search_parking_spot (there aren't info about park coords) - filtering, ...
 	- detect_objects (xml - haar cascade pre-trained)
 	
 	- VideoCapture m_camera;
 	- image
+	- park[PARK_NUM]
 
 Communications		Tomas
 	+ tsend_message()
@@ -251,9 +253,17 @@ Lamp 				Tomas
 
 
 PIR 				Diogo
+	+ open
+	+ close
+	+ PirI
 
 
 LDR 				Diogo
+	+ open
+	+ close
+	+ LdrI
+
+	- lightCon
 
 
 LampFailureDetector Diogo
