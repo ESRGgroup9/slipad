@@ -44,7 +44,7 @@ In order to know when is night time, that is, when the light conditions are low,
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.40\textwidth]{07hw_specification/light_sen}
-	\caption{TSL2581 Luminosity Sensor.}
+	\caption{TSL2581 Light Sensor.}
 	\label{fig:light_sen}
 \end{figure}
 
@@ -56,23 +56,51 @@ In order to know when is night time, that is, when the light conditions are low,
 	\item 16-bit resolution.
 \end{itemize}
 
-In the table \ref{table:light_sen} is shown the TSL2581 interface pins, being the \textit{SDA} pin used for data transfer, the \textit{SCL} pin used for clock synchronization and the \textit{INT} pin used for interrupt output. 
-
 \begin{table}[H]
 	\centering
 	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
-		\textbf{TSL2581 Pin} & \textbf{Board Pin}\\\hline\hline
-		VCC & Pin 1 (3,3) V\\\hline
-		GND & Pin 6 (GND)\\\hline
-		SDA & Pin 2 (SDA)\\\hline
-		SCL & Pin 3 (SCL)\\\hline
-		INT & -\\
-		\hline
-	\end{tabular}		
+		\textbf{TSL2581 Pinout} & \textbf{Description}
+		\\\hline\hline
+		VCC & Power in
+		\\\hline
+		GND & GND
+		\\\hline
+		SDA & I2C data signal
+		\\\hline
+		SCL & I2C clock signal
+		\\\hline
+		INT & Interrupt output pin
+		\\\hline
+	\end{tabular}
 	
-	\caption{Luminosity Sensor TSL2581 Interface Pins.}
-	\label{table:light_sen}
+	\caption{TSL2581 Light Sensor Pinout Description.}
+	\label{table:desc_lightsensor}
+\end{table}
+
+\myparagraph{Connection scheme}
+In table \ref{table:connect_lightsensor} it is shown the connection scheme of the Luminosity Sensor to the Raspberry Pi (remember figure \ref{fig:rasp_pinout}).
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{4cm}|m{3cm}|}
+		\hline
+		\textbf{TSL2581 Pin} & \textbf{Raspberry Pi Pin} & \textbf{Notes} 
+		\\\hline\hline
+		VCC & Pin 1 & 3,3 V
+		\\\hline
+		GND & Pin 6 & GND
+		\\\hline
+		SDA & Pin 2 & I2C1-SDA
+		\\\hline
+		SCL & Pin 3 & I2C1-SCL
+		\\\hline
+		INT & - & -
+		\\\hline
+	\end{tabular}
+	
+	\caption{Connection scheme: Luminosity Sensor.}
+	\label{table:connect_lightsensor}
 \end{table}
 
 \myparagraph{Test Cases}
@@ -115,24 +143,47 @@ To know when to turn on the lamp, it is necessary to detect movement in the stre
 	\item Two potenciometers to adjust the trigger sensitivity and the delay of the trigger signal, between 0,3 seconds and 5 minutes;
 \end{itemize}
 
-In the table \ref{table:pir} is shown the PIR HC-SR501 interface pins, being the output signal the pin SIGNAL. When no movement is detected, the sensor output is low (0,3~V), and when movement is detected, the sensor SIGNAL is high (5~V). 
-
 \begin{table}[H]
 	\centering
 	\begin{tabular}{|m{5cm}|m{6cm}|}
 		\hline
-		\textbf{PIR HC-SR501 Pin} & \textbf{Board Pin}
+		\textbf{PIR HC-SR501 Pinout} & \textbf{Description}
 		\\\hline\hline
-		
-		VCC & Pin 2(5 V)\\\hline
-		SIGNAL & Pin 27\\\hline
-		GND & Pin 6(GND)\\
-		\hline
+		VCC & Power in
+		\\\hline
+		GND & GND
+		\\\hline
+		SIGNAL & Output signal
+		\\\hline
 	\end{tabular}
 	
-\caption{PIR HC-SR501 Interface Pins.}
-\label{table:pir}
+	\caption{PIR HC-SR501 Pinout Description.}
+	\label{table:desc_pir}
 \end{table}
+
+In the table \ref{table:desc_pir} is shown the PIR HC-SR501 interface pins, being the output signal the pin SIGNAL. When no movement is detected, the sensor output is low (0,3~V), and when movement is detected, the sensor SIGNAL is high (5~V). 
+
+\myparagraph{Connection scheme}
+In table \ref{table:connect_pir} it is shown the connection scheme of the PIR sensor to the Raspberry Pi (remember figure \ref{fig:rasp_pinout}).
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{4cm}|m{3cm}|}
+		\hline
+		\textbf{PIR HC-SR501 Pin} & \textbf{Raspberry Pi Pin} & \textbf{Notes} 
+		\\\hline\hline
+		VCC & Pin 2 & 5 V
+		\\\hline
+		GND & Pin 6 & GND
+		\\\hline
+		SIGNAL & Pin 27 & GPIO
+		\\\hline
+	\end{tabular}
+	
+	\caption{Connection scheme: Motion detector.}
+	\label{table:connect_pir}
+\end{table}
+
 
 \myparagraph{Test Cases}
 It is important to know how the motion detector module works, and how it will behave upon certain events. In table \ref{table:test_pir} are shown test cases to this module.
@@ -243,6 +294,9 @@ To allow each local system to communicate to the gateway, and vice-versa, it's u
 
 \paragraph*{Characteristics}
 \begin{itemize}
+	\item Works on 433 MHz;
+	\item Low RX current of 9,9 mA;
+	\item Supply voltage: 1,8 V - 3,7 V;
 	\item LoRa modulation technology (Supports also FSK, GFSK, MSK, GMSK and OOK modulation modes);
 	\item Effective Bitrate : 0,018 - 37,5 kbps;
 	\item Payload length: 64 bytes;
@@ -259,7 +313,7 @@ To allow each local system to communicate to the gateway, and vice-versa, it's u
 			\textbf{SX1278 RA-02 Pinout} & \textbf{Description}
 			\\\hline\hline
 		
-			VCC & Power in - 3,3 V\\\hline
+			VCC & Power in\\\hline
 			GND & Ground\\\hline
 			RST & Reset \\\hline
 			SCK & SPI clock input\\\hline
@@ -298,26 +352,26 @@ In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa 
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{|m{5cm}|m{6cm}|}
+	\begin{tabular}{|m{5cm}|m{4cm}|m{3cm}|}
 		\hline
-		\textbf{SX1278 RA-02 Pin} & \textbf{Raspberry Pi Pin}
+		\textbf{SX1278 RA-02 Pin} & \textbf{Raspberry Pi Pin} & \textbf{Notes} 
 		\\\hline\hline
 		
-		VCC & 3,3 V
+		VCC & Pin 1 & 3,3 V
 		\\\hline
-		GND & GND
+		GND & Pin 6 & GND
 		\\\hline
-		RST & GPIO 4
+		RST & Pin 4 & GPIO
 		\\\hline
-		SCK & CLK
+		SCK & Pin 11 & SPI0 SCLK
 		\\\hline
-		NSS & SPI0 CE0
+		NSS & Pin 8 & SPI0 CE0
 		\\\hline
-		MISO & SPI0 MISO
+		MISO & Pin 9 & SPI0 MISO
 		\\\hline
-		MOSI & SPI0 MOSI
+		MOSI & Pin 10 & SPI0 MOSI
 		\\\hline
-		DIO0 & GPIO 17
+		DIO0 & Pin 17 & GPIO
 		\\\hline
 	\end{tabular}
 	
@@ -574,7 +628,7 @@ In table \ref{table:connect_driver} is shown the connection scheme for the drive
 		\textbf{Driver Pin} & \textbf{Connects to}
 		\\\hline\hline
 		
-		PWM Signal & Raspberry Pi PWMxxx Pinyyy
+		PWM Signal & Raspberry Pi Pin 12 - PWM0
 		\\\hline
 		\(V_{CL}\) & Power supply Output +12 V \ac{dc}
 		\\\hline
@@ -610,12 +664,12 @@ It is important to know how the driver works, and how it will behave upon certai
 \end{table}
 
 %**********************************************************
-\clearpage
+%\clearpage
 \section{Lamp}
 
 In order to light the streets efficiently, one will use a LED lamp, that nowadays is the type of lamps with the better energy efficiency. It must be an adjustable lamp to control the lamp brightness, so the lamp selected was a G4 socket 12 V \ac{ac}/\ac{dc} LED lamp.
 
-The lamp is controlled using a driver, that is approached in subsection \ref{subsection:driver} that takes a \ac{pwm} signal (Pin 18) from the Raspberry Pi as input. 
+The lamp is controlled using a driver, that is approached in subsection \ref{subsection:driver} that takes a \ac{pwm} signal (Pin 12) from the Raspberry Pi as input. 
 
 \begin{figure}[H]
 	\centering
