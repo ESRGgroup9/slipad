@@ -122,7 +122,7 @@ The flowchart for this task is presented in figure \ref{fig:flow_tlorasend}
 
 \begin{figure}[H]
 %	\centering		\includegraphics[width=.5\textwidth]{09sw_specification/flow_tlorasend}
-	\caption{Flowcharts: tLoraSend.}
+	\caption{Class Communication Flowchart: tLoraSend.}
 	\label{fig:flow_tlorasend}
 \end{figure}
 
@@ -137,10 +137,31 @@ The flowchart for this task is presented in figure \ref{fig:flow_tlorarecv}
 
 \begin{figure}[H]
 	%	\centering		\includegraphics[width=.5\textwidth]{09sw_specification/flow_tlorarecv}
-	\caption{Flowcharts: tLoraRecv.}
+	\caption{Class Communication Flowchart: tLoraRecv.}
 	\label{fig:flow_tlorarecv}
 \end{figure}
 
+\myparagraph{Send}
+
+This function, presented in figure \ref{fig:flow_send}, is responsible for adding a new message, \textit{msg}, to the \textit{queued\_msgs} vector, and signal the condition variable \textit{condSend}, for the task \textit{tLoraSend} to send the message.
+
+\begin{figure}[H]
+	\centering	
+%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_send}
+	\caption{Class Lamp Flowchart: Send.}
+	\label{fig:flow_send}
+\end{figure}
+
+\myparagraph{setBrightness}
+
+This function, presented in figure \ref{fig:flow_setbrightness}, is responsible for changing the PWM associated with the lamp, which is directly related to its brightness. Through \textit{setPWM(lux)} one can change the current lamp PWM to \textit{lux} value, being this an integer between 0 to 100. When the PWM is maximum, a timer is started that defines how much time the lamp is ON, \textit{LAMP\_ON\_TIMEOUT} in seconds, if there isn't another call of this function.
+
+\begin{figure}[H]
+	\centering	
+%	\includegraphics[width=.5\textwidth]{09sw_specification/flow_setbrightness}
+	\caption{Class Lamp Flowchart: setBrightness.}
+	\label{fig:flow_setbrightness}
+\end{figure}
 %**********************************************************
 \subsection{Start-up Process}
 
