@@ -97,7 +97,7 @@ In figure \ref{fig:classDiag} is represented the class diagram of the local syst
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.9\textwidth]{09sw_specification/classDiagram}
-	\caption{Classes Diagram.}
+	\caption{Local System Classes Diagram.}
 	\label{fig:classDiag}
 \end{figure}
 
@@ -125,9 +125,9 @@ In figure \ref{fig:classlamp} is shown the Lamp class diagram, which defines a L
 	\label{fig:classlamp}
 \end{figure}
 
-\myparagraph{Class CCommunications}
+\myparagraph{Class CLoraComm}
 
-In figure \ref{fig:LoraCommClass} is shown the Communications class diagram. This class defines an object \textit{LoraComm} capable of establishing a LoRa communication with the gateway and send messages. It's used a vector of messages \textit{tx\_msgs} to store the message that's in the waiting list to be sent, in order to avoid the loss of a communication.
+In figure \ref{fig:LoraCommClass} is shown the LoraComm class diagram. This class defines an object \textit{LoraComm} capable of establishing a LoRa communication with the gateway and send messages. It's used a vector of strings \textit{tx\_msgs} to store messages, providing a waiting list of messages to be sent, in order to avoid the loss of a communication.
 
 \begin{figure}[H]
 	\centering
@@ -166,7 +166,7 @@ To send a message, this class has a built-in thread, \textit{tSend} that can be 
 	\label{fig:LoraCommRun}
 \end{figure}
 
-This thread, \textit{tSend} is responsible for sending queued messages to the gateway, using LoRa communication. A conditional variable is used to wake this thread when there is a new message available to be sent.
+This thread, \textit{tSend}, is responsible for sending queued messages to the gateway, using LoRa communication. A conditional variable is used to wake this thread when there is a new message available to be sent.
 
 When the vector \textit{tx\_msgs} is empty, then the task goes to sleep, waiting for the condition variable \textit{condSend} to notify this task. After this, the mutex \textit{mutComms} is used to protect the communication, which due to the selected LoRa module is half-duplex, meaning that at a given moment, the device can be receiving or sending, not at the same time. Then, a message is popped from the messages vector, and sent to the gateway using the function \textit{LoraSend}. This continues to happen until the \textit{tx\_msgs} vector gets empty.
 
@@ -344,7 +344,7 @@ In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Simi
 
 %**********************************************************
 \subsection{Start-up Process}
-In figure \ref{fig:bootLS} is shown the start-up process for the local system. When booting up, the local system creates all necessary objects, as presented previously, and initializes them.
+In figure \ref{fig:bootLS} is shown the start-up process for the local system. When booting up, the local system creates all necessary objects, as presented previously, and initializes them, as well as threads \textit{tLoraRecv} and \textit{tRecvSensors}.
 
 \begin{figure}[H]
 	\centering

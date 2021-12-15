@@ -1,5 +1,5 @@
-<mxfile host="app.diagrams.net" modified="2021-12-15T16:53:39.467Z" agent="5.0 (X11)" etag="DC3NwK6JtjRN77iaQv7x" version="15.9.6" type="github" pages="7">
-  <diagram id="Ac4sCk150_BV1gHI0cV0" name="ClassDiagram">
+<mxfile host="app.diagrams.net" modified="2021-12-15T18:12:17.500Z" agent="5.0 (X11)" etag="qehvyvk1EhrE90oXklP3" version="15.9.6" type="github" pages="8">
+  <diagram id="Ac4sCk150_BV1gHI0cV0" name="LSClassDiagram">
     <mxGraphModel dx="1043" dy="-36" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -154,6 +154,76 @@
             <mxPoint x="-225" y="560.02" as="targetPoint" />
             <Array as="points" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="GwClassDiagram" id="BjVlhZLV2-BGKlg4ipxp">
+    <mxGraphModel dx="1043" dy="-36" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="tAX70fo77MUbvWwIOB48-0" />
+        <mxCell id="tAX70fo77MUbvWwIOB48-1" parent="tAX70fo77MUbvWwIOB48-0" />
+        <mxCell id="tAX70fo77MUbvWwIOB48-2" value="CGateway" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="tAX70fo77MUbvWwIOB48-1">
+          <mxGeometry x="-130" y="490" width="160" height="124" as="geometry">
+            <mxRectangle x="-80" y="480" width="80" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-3" value="- LoraComm : CLoraComm&#xa;- TCPclient: CTCPclient&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="tAX70fo77MUbvWwIOB48-2">
+          <mxGeometry y="26" width="160" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-4" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="tAX70fo77MUbvWwIOB48-2">
+          <mxGeometry y="80" width="160" height="2" as="geometry" />
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-5" value="+ CGateway(void)&#xa;+ ~CGateway(void)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="tAX70fo77MUbvWwIOB48-2">
+          <mxGeometry y="82" width="160" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-18" value="CLoraComm" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" collapsed="1" parent="tAX70fo77MUbvWwIOB48-1">
+          <mxGeometry x="-320" y="520" width="130" height="26" as="geometry">
+            <mxRectangle x="-360" y="320" width="190" height="210" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-19" value="- mutComms : mutex&#xa;- mutSend : mutex&#xa;- condSend: cond_variable &#xa;- queued_msgs : vector&lt;string&gt;&#xa;&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="tAX70fo77MUbvWwIOB48-18">
+          <mxGeometry y="26" width="130" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-20" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="tAX70fo77MUbvWwIOB48-18">
+          <mxGeometry y="100" width="130" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-21" value="+ Communication(void)&#xa;+ ~Communication(void)&#xa;+ Send(IN msg : string) void&#xa;&#xa;- tLoraSend(void*) void&#xa;- tLoraRecv(void*) void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="tAX70fo77MUbvWwIOB48-18">
+          <mxGeometry y="108" width="130" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-26" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=1;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="tAX70fo77MUbvWwIOB48-1" source="tAX70fo77MUbvWwIOB48-2" target="tAX70fo77MUbvWwIOB48-18">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-270" y="560" as="sourcePoint" />
+            <mxPoint x="-110" y="560" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-160" y="533" />
+              <mxPoint x="-160" y="533" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-35" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=1;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="tAX70fo77MUbvWwIOB48-1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-130" y="590" as="sourcePoint" />
+            <mxPoint x="-190" y="590" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-150" y="590" />
+              <mxPoint x="-150" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-36" value="CTCPclient" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" collapsed="1" parent="tAX70fo77MUbvWwIOB48-1">
+          <mxGeometry x="-320" y="580" width="130" height="26" as="geometry">
+            <mxRectangle x="320" y="190" width="200" height="220" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-37" value="-  mutComms : mutex&#xa;-  mutSend : mutex&#xa;- condSend : condition variable&#xa;- tx_msgs : vector&lt;string&gt;&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="tAX70fo77MUbvWwIOB48-36">
+          <mxGeometry y="26" width="130" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-38" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="tAX70fo77MUbvWwIOB48-36">
+          <mxGeometry y="110" width="130" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tAX70fo77MUbvWwIOB48-39" value="+ TCPclient(void)&#xa;+ ~TCPclient(void)&#xa;&#xa;+ push(IN msg : string) void&#xa;+ recv(void) void&#xa;- tSend(void*) void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="tAX70fo77MUbvWwIOB48-36">
+          <mxGeometry y="118" width="130" height="102" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
