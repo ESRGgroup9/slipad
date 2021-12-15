@@ -39,9 +39,31 @@ The mutexes used in this system are listed bellow.
 
 %**********************************************************
 \subsection{Flowcharts}
+Each local system has a predefined ID, which may be presented in a physical label for an operator to use this information. When a local system is being installed, it will use it's predefined ID in all communications with the remote server until the operator registers the local system that's being installed, in the remote server. By doing this, the remote server assigns a new ID to the local system, which is then sent to the local system, for this to be used in further communications.
+
 \myparagraph{tLoraRecv}
+This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication. This task makes use of a mutex \textit{mutLoraComm}, to protect LoRa send and receive functions, which must not occur at the same time.
+
+When a message is received it is pushed into a vector of messages, to be sent to the remote system, named \textit{msgs\_to\_rs}. This way, we can receive continually messages from local systems, while there is another task sending this messages.
+
+\begin{figure}[H]
+	\centering
+%	\includegraphics[width=.65\textwidth]{09sw_specification/gwtLoraRecv}
+	\caption{Flowchart: Gateway tLoraRecv.}
+	\label{fig:gwtLoraRecv}
+\end{figure}
 
 \myparagraph{tLoraSend}
+This task, presented in figure \ref{fig:gwtLoraSend}, is responsible for sending all the packets sent by the remote system to the local systems. In addiction to the mutex \textit{mutLoraComm}, this task makes use of another mutex \textit{mutLoraSend}, which comes along with the condition variable \textit{condLoraSend}, in order to protect the insertion and removal of messages from the vector \textit{msgs\_to\_ls}.
+
+When there are no messages to send to the local systems, i.e, the messages vector \textit{msgs\_to\_ls} is empty, then the task enters a sleep state, waiting for \textit{condLoraSend} to be notified. When this happens, the mutex that protects LoRa communication is locked and a message is popped from the queue of messages to being sent to the local systems. If the vector \textit{msgs\_to\_ls} is not empty after sending a message, this task continues to do so until there are no more to send, before entering into sleep state again.
+
+\begin{figure}[H]
+	\centering
+	%	\includegraphics[width=.65\textwidth]{09sw_specification/gwtLoraSend}
+	\caption{Flowchart: Gateway tLoraSend.}
+	\label{fig:gwtLoraSend}
+\end{figure}
 
 \myparagraph{tTCPSend}
 
