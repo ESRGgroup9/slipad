@@ -106,6 +106,39 @@ In figure \ref{fig:classcomm} is shown the Communications class diagram. This cl
 	\label{fig:classcomm}
 \end{figure}
 
+\myparagraph{Class PIR}
+
+In figure \ref{fig:classpir} is shown the PIR class, that defines the functions to interact with the PIR sensor. When movement is detected in the surrounding area of the lamppost, the sensor puts the high digital value in its output, triggering the interrupt service routine \textit{PirIsr}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/classpir}
+	\caption{Class Diagram: PIR.}
+	\label{fig:classpir}
+\end{figure}
+
+\myparagraph{Class LDR}
+
+In figure \ref{fig:classldr} is shown the LDR class, that defines the functions to interact with the LDR sensor, using its device driver. As the ambient light is read each 10 minutes in the function \textit{LdrIsr}, one needs to define a timer to trigger this function. The last read luminance is stored in the variable \textit{oldLightCon} and is obtained using the function \textit{getLux}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/classldr}
+	\caption{Class Diagram: LDR.}
+	\label{fig:classldr}
+\end{figure}
+
+\myparagraph{Class FailureDetector}
+
+In figure \ref{fig:classfail} is shown the Failure Detector class. After creating an instance of this class, using the contructor \textit{FailureDetector}, the function \textit{failureDetectIsr} will be triggered each time the failure detector senses the lamp failure. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/classfail}
+	\caption{Class Diagram: FailureDetector.}
+	\label{fig:classfail}
+\end{figure}
+
 %**********************************************************
 \subsection{Flowcharts}
 %\clearpage
