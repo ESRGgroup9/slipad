@@ -1,9 +1,11 @@
-# embedded_sys
-Embedded Systems 2021/2022
+# SLiPaD - Smart Lighting and Parking Detection
+### Description
+aaaaa
 
-Engenharia Eletrónica Industrial e Computadores
-@ Universidade do Minho
 
-# Members
-José Tomás Lima de Abreu
-Diogo Miguel Cunha Fernandes
+
+## Done by
+- José Tomás Lima de Abreu
+- Diogo Miguel Cunha Fernandes
+
+Master in Embedded Systems @ Universidade do Minho, 2021/2022
