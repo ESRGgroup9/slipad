@@ -44,8 +44,6 @@ The mutexes used in this system are listed bellow.
 
 %**********************************************************
 \subsection{Flowcharts}
-Each local system has a predefined ID, which may be presented in a physical label for an operator to use this information. When a local system is being installed, it will use it's predefined ID in all communications with the remote server until the operator registers the local system that's being installed, in the remote server. By doing this, the remote server assigns a new ID to the local system, which is then sent to the local system, for this to be used in further communications.
-
 \myparagraph{tLoraRecv}
 This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication. This task makes use of a mutex \textit{mutLoraComm}, to protect LoRa send and receive functions, which must not occur at the same time.
 
@@ -71,8 +69,27 @@ When there are no messages to send to the local systems, i.e, the messages vecto
 \end{figure}
 
 \myparagraph{tTCPSend}
+This task, presented in figure \ref{fig:gwtTCPSend}, is responsible for sending all the messages sent by the local systems to the remote system, being received by in the task \textit{tLoraRecv}. It uses two mutexes: \textit{mutTCPSend} associated with the condition variable \textit{condTCPSend}, that synchronizes the insertion and removal of the messages from the vector \textit{msgs\_to\_rs}; and \textit{mutTCPComm}, to protect the communications send and receive.
+
+When there are no messages to send to the remote system, i.e, the messages vector \textit{msgs\_to\_rs} is empty, the task enters a sleep state, waiting for \textit{condTCPSend} to be notified by the task receiving messages from the local systems. When messages are received, the vector \textit{msgs\_to\_rs} is not empty, and one can lock the mutex \textit{mutTCPSend} in order to pop a message from the vector. After that, one can send the message via TCP/IP communication protocol, protecting the communication with the mutex \textit{mutTCPComm}.
+
+\begin{figure}[H]
+	\centering
+	%	\includegraphics[width=.65\textwidth]{09sw_specification/gwtTCPSend}
+	\caption{Flowchart: Gateway tTCPSend.}
+	\label{fig:gwtTCPSend}
+\end{figure}
 
 \myparagraph{tTCPRecv}
+This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receiving the messages sent by the remote system to the local systems. Unlike the send tasks, this thread never enters the sleep state because we can receive a message at any moment, so first, one have to lock the mutex \textit{mutTCPComm} and try to receive a message. If it was received a message, i.e, the \textit{msg} variable is not empty, then one can push the message to the messages vector \textit{msgs\_to\_ls} and notify the condition variable \textit{condLoraSend}, after locking its mutex \textit{mutLoraSend}, to inform that a new message has been received.
+
+\begin{figure}[H]
+	\centering
+	%	\includegraphics[width=.65\textwidth]{09sw_specification/gwtTCPRecv}
+	\caption{Flowchart: Gateway tTCPRecv.}
+	\label{fig:gwtTCPRecv}
+\end{figure}
+
 %**********************************************************
 \subsection{Start-up Process}
 
