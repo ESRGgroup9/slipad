@@ -67,12 +67,65 @@ In figure \ref{fig:GwclassDiag} is represented the class diagram of gateway. The
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.9\textwidth]{09sw_specification/GwclassDiag}
+	\includegraphics[width=.8\textwidth]{09sw_specification/GwClassDiagram}
 	\caption{Gateway Class Diagram.}
 	\label{fig:GwclassDiag}
 \end{figure}
 
-\myparagraph{Class CCamera}
+\myparagraph{Class CTCPclient}
+In figure \ref{fig:TCPclient} is shown the TCPclient class. This class defines a TCPclient capable of establishing a connection to a given remote server and to exchange messages to it, via TCP-IP. Like in the LoraComm class, which is very similar to this, its used a vector of strings, \textit{tx\_msgs} to store messages, providing a waiting list of messages to be sent.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/TCPclientClass}
+	\caption{Class Diagram: TCPclient.}
+	\label{fig:TCPclientClass}
+\end{figure}
+
+A TCPclient can be created through the use of the constructor, shown in figure \ref{fig:TCPclient}. This connects to a given server, via TCP-IP and initializes all the private members.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{09sw_specification/TCPclient}
+	\caption{Class Diagram: TCPclient construtor.}
+	\label{fig:TCPclient}
+\end{figure}
+
+A message can be put in the waiting list to be sent through the use of \textit{TCPclient.push(msg)}, as shown in figure \ref{fig:TCPclientPush}. As in the LoraComm class, this function is responsible for adding a message to the \textit{tx\_msgs} vector and signal the condition variable \textit{condSend} for the task \textit{tSend} to send the message.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3\textwidth]{09sw_specification/TCPclientPush}
+	\caption{Class Diagram: TCPclient Push method.}
+	\label{fig:TCPclientPush}
+\end{figure}
+
+In order to send a message, this class has a built-in thread, \textit{tSend} that is created through the use of \textit{TCPclient.run()}, as shown in figure \ref{fig:TCPclientRun}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3\textwidth]{09sw_specification/TCPclientRun}
+	\caption{Class Diagram: TCPclient Run method.}
+	\label{fig:TCPclientRun}
+\end{figure}
+
+To send a message to the server, the thread \textit{tSend}, works similarly to \textit{LoraComm::tSend}, apart from the function used to send the message to the destination, that in this case is the \textit{send()} function, for TCP-IP. The flowchart for this method is presented in figure \ref{fig:TCPclientSend}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.8\textwidth]{09sw_specification/TCPclientSend}
+	\caption{Class Diagram: TCPclient tSend thread.}
+	\label{fig:TCPclientSend}
+\end{figure}
+
+To receive a message from the server, in a non blocking mode, there is the method \textit{recv()}, presented in figure \ref{fig:TCPclientRecv}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3\textwidth]{09sw_specification/TCPclientRecv}
+	\caption{Class Diagram: TCPclient Recv method.}
+	\label{fig:TCPclientRecv}
+\end{figure}
 
 %**********************************************************
 \subsection{Flowcharts}
@@ -134,7 +187,7 @@ In figure \ref{fig:bootGateway} is shown the start-up process for the gateway. W
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.65\textwidth]{09sw_specification/bootGw}
+	\includegraphics[width=.3\textwidth]{09sw_specification/bootGw}
 	\caption{Start-Up Process: Gateway.}
 	\label{fig:bootGateway}
 \end{figure}
