@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-12-15T17:26:38.659Z" agent="5.0 (X11)" etag="lrjXOY15FFQRDuwytPrn" version="15.9.6" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2021-12-15T18:12:43.081Z" agent="5.0 (X11)" etag="Kaax-fKYFq2UWP6tl1Ej" version="15.9.6" type="github" pages="5">
   <diagram id="9ntWhLIJTqmjofceUZnP" name="overview">
-    <mxGraphModel dx="1971" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2013" dy="452" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="-muiKmTSsOOiPFFWHkRS-0" />
         <mxCell id="-muiKmTSsOOiPFFWHkRS-1" parent="-muiKmTSsOOiPFFWHkRS-0" />
@@ -81,7 +81,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="FCesdf0NzKQSupr1E8r9" name="boot">
-    <mxGraphModel dx="1621" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1390" dy="306" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="qHQD8GnIdfNHwth93l09-0" />
         <mxCell id="qHQD8GnIdfNHwth93l09-1" parent="qHQD8GnIdfNHwth93l09-0" />
@@ -108,7 +108,7 @@
         <mxCell id="qHQD8GnIdfNHwth93l09-6" value="end" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1" parent="qHQD8GnIdfNHwth93l09-1" vertex="1">
           <mxGeometry x="-438.88" y="240" width="48" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="qHQD8GnIdfNHwth93l09-7" value="&lt;b&gt;Create&lt;/b&gt; Communication" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" parent="qHQD8GnIdfNHwth93l09-1" vertex="1">
+        <mxCell id="qHQD8GnIdfNHwth93l09-7" value="&lt;b&gt;Create&lt;/b&gt; LoraComm" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" parent="qHQD8GnIdfNHwth93l09-1" vertex="1">
           <mxGeometry x="-489.63" y="190" width="150.25" height="30" as="geometry" />
         </mxCell>
         <mxCell id="qHQD8GnIdfNHwth93l09-8" value="&lt;b&gt;Create&lt;/b&gt; TCPclient" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" parent="qHQD8GnIdfNHwth93l09-1" vertex="1">
@@ -118,7 +118,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="VpyczXFERTWluZVo6KSv" name="threadsPriority">
-    <mxGraphModel dx="450" dy="255" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="474" dy="264" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="q1A7MC8YR2lrEWZPYVUL-0" />
         <mxCell id="q1A7MC8YR2lrEWZPYVUL-1" parent="q1A7MC8YR2lrEWZPYVUL-0" />
@@ -152,7 +152,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="FD5P43LTUvK0FRBp2iYE" name="tTCPRecv">
-    <mxGraphModel dx="931" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="643" dy="364" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -204,12 +204,12 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_cXp0AqPvOAXAXRdWO8v-8" style="edgeStyle=orthogonalEdgeStyle;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;rounded=1;" parent="1" source="_cXp0AqPvOAXAXRdWO8v-10" edge="1">
+        <mxCell id="_cXp0AqPvOAXAXRdWO8v-8" style="edgeStyle=orthogonalEdgeStyle;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;rounded=1;" parent="1" source="_cXp0AqPvOAXAXRdWO8v-10" edge="1" target="_cXp0AqPvOAXAXRdWO8v-13">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="324.23" y="295" />
-              <mxPoint x="324.23" y="360" />
-              <mxPoint x="419.23" y="360" />
+              <mxPoint x="324" y="295" />
+              <mxPoint x="324" y="360" />
+              <mxPoint x="414" y="360" />
             </Array>
             <mxPoint x="418.98" y="380" as="targetPoint" />
           </mxGeometry>
@@ -229,7 +229,7 @@
           <mxGeometry x="340" y="170" width="150" height="40" as="geometry" />
         </mxCell>
         <mxCell id="_cXp0AqPvOAXAXRdWO8v-13" value="&lt;div&gt;&lt;b&gt;LoraComm.push&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;(&lt;/b&gt;&lt;i&gt;message)&lt;/i&gt;&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" parent="1" vertex="1">
-          <mxGeometry x="339.75" y="380" width="150" height="40" as="geometry" />
+          <mxGeometry x="339" y="380" width="150" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
