@@ -71,6 +71,40 @@ Comunicação(TCP-server)
 	- interpretar (parse)
 	- enviar
 
+	tTCPRecv - recebe do gateway ou remote clients
+		recebe
+			update database
+			request data from database (remote clients)
+
+
+
+	tTCPSend - envia para o local system ou remote clients
+		dados em vetor de strings: 2 vetores: um para  
+
+
+
+There's a list of 3 types of clients:
+	Gateway Client
+	Remote Client APP
+	Remote Client Web
+
+When a new client connects to de remote server, it send him a message of his ID and 
+the client sends back his client type and his name.  
+
+
+TCPServer
+	Implementa thread de send
+
+	Sempre que um cliente se conecta, o server cria uma thread associada a ele. (client)
+
+	List of 3 types of clients
+
+
+	send
+	receive
+
+
+
 Database Manager (Daemon)
 	- queries??
 
