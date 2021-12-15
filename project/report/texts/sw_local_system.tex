@@ -159,6 +159,16 @@ In the image processing part of the thread, if there aren't parking spots coordi
 
 \myparagraph{searchParkingSpots}
 
+This function, represented in figure \ref{fig:search}, is used to process the image captured by the camera and detect parking spots. This is done using the algorithm defined previously in the section \ref{section:imageProc}, and starts by converting the frame to a grey scale image, apply the canny edge filter to highlight the edges of the image captured. After having the edges, one can select only the vertical and horizontal straight lines and intersect them, storing the intersection points, that are the parking spot coordinates.
+
+\begin{figure}[H]
+	\centering			
+	\includegraphics[width=.35\textwidth]{09sw_specification/searchParkingSpots}
+	\caption{Function to process image and detect parking spots.}
+	\label{fig:search}
+\end{figure}
+
+
 \myparagraph{tRecvSensors}
 
 This task, presented in figure \ref{fig:flow_trecv_sensors}, is responsible for receiving messages sent by the sensors daemon, through a message queue.
@@ -238,8 +248,7 @@ When a message is received, using \textit{LoraReceive}, this is parsed and later
 The flowchart for this task is presented in figure \ref{fig:flow_tlorarecv}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.55\textwidth]{09sw_specification/commstlorarecv}
+	\centering		\includegraphics[width=.55\textwidth]{09sw_specification/commstlorarecv}
 	\caption{Class Communication Flowchart: tLoraRecv.}
 	\label{fig:flow_tlorarecv}
 \end{figure}
@@ -263,7 +272,7 @@ The PIR sensor uses the GPIO of the Raspberry Pi in order to inform the system i
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/pir_isr}
+	\includegraphics[width=.2\textwidth]{09sw_specification/pir_isr}
 	\caption{PirIsr flowchart.}
 	\label{fig:pir_isr}
 \end{figure}
@@ -273,7 +282,7 @@ The ambient light sensor, LDR, is used to determine when is time to turn on the 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.7\textwidth]{09sw_specification/ldr_isr}
+	\includegraphics[width=.4\textwidth]{09sw_specification/ldr_isr}
 	\caption{LdrIsr flowchart.}
 	\label{fig:ldr_isr}
 \end{figure}
@@ -283,16 +292,15 @@ In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Simi
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.4\textwidth]{09sw_specification/fail_isr}
+	\includegraphics[width=.3\textwidth]{09sw_specification/fail_isr}
 	\caption{FailureDetectIsr flowchart.}
 	\label{fig:fail_isr}
 \end{figure}
 
-%%**********************************************************
-%\subsection{Start-up Process}
-%
-%%**********************************************************
-%\subsection{Shutdown Process}
+%**********************************************************
+\subsection{Start-up Process}
+%**********************************************************
+\subsection{Shutdown Process}
 
 %\myparagraph{tLampControl}
 % uses: mutChangePWM; condNewPWM; pwm_val
