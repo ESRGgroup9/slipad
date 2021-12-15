@@ -28,29 +28,23 @@ One can define the relationship between the tasks as follows, in figure \ref{fig
 The condition variables used in this system are listed below.
 
 \begin{itemize}
-	\item \textbf{condLoraSend:}
-	
+	\item \textbf{condLoraSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent;
 	\item \textbf{condTCPSend:} used to notify \textit{tTCPSend} that a new message is ready to be sent;
-		
 \end{itemize}
 
 \myparagraph{Mutexes}
 The mutexes used in this system are listed bellow.
 
 \begin{itemize}
-	\item \textbf{mutLoraComm:}
-	\item \textbf{mutLoraSend:}	
+	\item \textbf{mutLoraComm:} used to protect the LoRa communications (send and receive);
+	\item \textbf{mutLoraSend:}	used to protect the handling of the vector \textit{msgs\_to\_ls}
 	
-	\item \textbf{mutTCPComm:} mutex used to protect the TCP/IP communications (send and receive);
-	\item \textbf{mutTCPSend:} mutex associated with the condition variable \textit{condTCPSend} to send a message via TCP/IP protocol communication;
+	\item \textbf{mutTCPComm:} used to protect the TCP/IP communications (send and receive);
+	\item \textbf{mutTCPSend:} used to protect the handling of the vector \textit{msgs\_to\_rs}.
 \end{itemize}
-
-%\myparagraph{Semaphores}
 
 \subsection{Task Communication}
 In order to communicate all messages between the LoRa related tasks and the TCP related tasks are used two vectors of strings, \textit{msgs\_to\_rs} and \textit{msgs\_to\_ls}. This belongs to the container library \textit{std::vector} from C++ libraries, which implements a dynamic contiguous array. The storage of the vector is handled automatically being expanded and contracted as needed. This provides functions like \textit{push\_back()}, \textit{insert()} or \textit{pop\_back()} which allows to insert or remove new elements as needed.
-%\myparagraph{Message Queues}
-%\myparagraph{Signals}
 
 %**********************************************************
 \subsection{Flowcharts}
