@@ -208,41 +208,6 @@ It is important to know how the motion detector module works, and how it will be
 
 %**********************************************************
 \clearpage
-\section{Lamp Failure Detector}
-In order to know when the lamp is broken, one needs to use a lamp failure detector, so it was designed a circuit represented in figure \ref{fig:lampFailure}. 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\textwidth]{07hw_specification/lampFailure}
-	\caption{Lamp Failure Detector Circuit.}
-	\label{fig:lampFailure}
-\end{figure}
-
-This circuit \[V_{+} = V_{cc} . \dfrac{R_2}{R_1 + R_2} \]
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|m{5cm}|m{6cm}|}
-		\hline
-		\textbf{Lamp Failure Detector Component} & \textbf{Product Name}
-		\\\hline\hline
-		
-		AmpOp & LM358
-		\\\hline
-		Resistor \(R_{1}\) & xx $\Omega$; +-5 \%
-		\\\hline
-		Resistor \(R_{2}\) & yy $\Omega$; +-5 \%
-		\\\hline
-		Resistor \(R_{3}\) & zz $\Omega$; +-5 \%
-		\\\hline
-	\end{tabular}
-	\caption{Lamp Failure Detector components.}
-	\label{table:lampFailure_components}
-\end{table}
-%The optocoupler chosen was the 4N35 \cite{4n35}, represented in figure \ref{fig:failure}.
-
-%**********************************************************
-\clearpage
 \section{Camera}
 In order to the detection of available parking spots, it's used a camera, as shown in figure \ref{fig:camera}. This is the Raspberry Pi Camera Module V1, capable of delivering a clear 5 MP resolution image, or 1080p HD video recording at 30fps. \cite{camera}
 
@@ -673,6 +638,99 @@ It is important to know how the driver works, and how it will behave upon certai
 	}
 	\caption{Test Cases: Driver.}
 	\label{table:test_driver}
+\end{table}
+
+%**********************************************************
+\section{Lamp Failure Detector}
+In order to know when the lamp is broken, one needs to use a lamp failure detector, so it was designed a circuit represented in figure \ref{fig:lampFailure}. The box \textit{Driver} is used to encapsulate the driver used in this circuit, responsible for applying a PWM signal to the Lamp, as presented previously.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{07hw_specification/lampFailure}
+	\caption{Lamp Failure Detector Circuit.}
+	\label{fig:lampFailure}
+\end{figure}
+
+This circuit allows a voltage reading, using an inverter \ac{op-amp} comparator, outputting a digital value. This way, one can determine if the lamp is broken by analyzing at a given moment the lamp state and the PWM state. If the lamp is off and the PWM is in the ON cycle, then, the lamp must be broken.
+
+So, in order to determine the lamp current state, a voltage is sensed at the lamp terminal, using the comparator. If it is bellow an established reference voltage, $V_{+}$, then the output, \textit{GPIO} is maximum, that in the case of an ideal Op-Amp, is the saturation voltage, equal to the one that powers the Op-Amp, that is, $V_{CC}$.
+
+For the resistors sizing, it's used the equation: \[V_{+} = V_{cc} . \dfrac{R_2}{R_1 + R_2} \]
+
+Since \textit{GPIO} is a signal that will be connected to the Raspberry Pi, then its maximum value (high digital value) must be 3,3 V. For that, one must define $V_{cc} = 3,3 V$. If one defines the reference voltage as 1 V, then through the equation presented above, one gets $R_1 = 2,3.R_2$.
+
+With this in mind, one can define the components used in this circuit as presented in table \ref{table:connect_lampfail}.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Lamp Failure Detector Component} & \textbf{Product Name}
+		\\\hline\hline
+		
+		Op-Amp & LM358
+		\\\hline
+		Resistor \(R_{1}\) & 2 k$\Omega$; +-5 \%
+		\\\hline
+		Resistor \(R_{2}\) & 4,7 k$\Omega$; +-5 \%
+		\\\hline
+		Resistor \(R_{3}\) & zz $\Omega$; +-5 \%
+		\\\hline
+	\end{tabular}
+	\caption{Lamp Failure Detector components.}
+	\label{table:lampFailure_components}
+\end{table}
+
+\myparagraph{Connection scheme}
+In table \ref{table:connect_lampfail} is shown the connection scheme for the lamp failure detector circuit. (Remember figure \ref{fig:rasp_pinout} and table \ref{table:power_supply_pinout})
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Lamp Failure Detector Pin} & \textbf{Connects to}
+		\\\hline\hline
+		
+		\(V_{CL}\) & Power supply Output +12 V \ac{dc}
+		\\\hline
+		
+		\(V_{CC}\) & Raspberry Pi Pin 1 (+3,3 V)
+		\\\hline
+		
+		\textit{GPIO} & Raspberry Pi Pin 22 (GPIO)
+		\\\hline
+		
+		GND & Raspberry Pi GND
+		\\\hline
+	\end{tabular}
+	
+	\caption{Connection scheme: Lamp Failure Detector.}
+	\label{table:connect_lampfail}
+\end{table}
+
+\myparagraph{Test Cases}
+It is important to know how the lamp failure detector works, and how it will behave upon certain events. In table \ref{table:test_lampfail} are shown test cases to this circuit.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			Apply +5 V DC to the detector & Digital output Low (0V) & - 
+			\\\hline
+			
+			Apply 0 V to the detector & Digital output High (3,3 V) & - 
+			\\\hline
+				
+			Decrease the applied voltage from 5V to 0 & Digital output from low to high & - 
+			\\\hline			
+		\end{tabular}
+	}
+	\caption{Test Cases: Lamp Failure Detector.}
+	\label{table:test_lampfail}
 \end{table}
 
 %**********************************************************
