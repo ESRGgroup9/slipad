@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-15T17:25:27.006Z" agent="5.0 (X11)" etag="L9TYTArHUDeHJES19cJd" version="15.9.6" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2021-12-15T17:26:38.659Z" agent="5.0 (X11)" etag="lrjXOY15FFQRDuwytPrn" version="15.9.6" type="github" pages="5">
   <diagram id="9ntWhLIJTqmjofceUZnP" name="overview">
     <mxGraphModel dx="1971" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -118,18 +118,18 @@
     </mxGraphModel>
   </diagram>
   <diagram id="VpyczXFERTWluZVo6KSv" name="threadsPriority">
-    <mxGraphModel dx="771" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="450" dy="255" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="q1A7MC8YR2lrEWZPYVUL-0" />
         <mxCell id="q1A7MC8YR2lrEWZPYVUL-1" parent="q1A7MC8YR2lrEWZPYVUL-0" />
         <mxCell id="q1A7MC8YR2lrEWZPYVUL-2" value="tLoraRecv" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="q1A7MC8YR2lrEWZPYVUL-1" vertex="1">
-          <mxGeometry x="384" y="220" width="80" height="30" as="geometry" />
+          <mxGeometry x="370" y="220" width="100" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q1A7MC8YR2lrEWZPYVUL-3" value="tLoraSend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="q1A7MC8YR2lrEWZPYVUL-1" vertex="1">
-          <mxGeometry x="384" y="260" width="80" height="30" as="geometry" />
+        <mxCell id="q1A7MC8YR2lrEWZPYVUL-3" value="TCPclient::tSend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="q1A7MC8YR2lrEWZPYVUL-1" vertex="1">
+          <mxGeometry x="370" y="260" width="100" height="30" as="geometry" />
         </mxCell>
         <mxCell id="q1A7MC8YR2lrEWZPYVUL-4" value="tIdle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="q1A7MC8YR2lrEWZPYVUL-1" vertex="1">
-          <mxGeometry x="304" y="300" width="160" height="30" as="geometry" />
+          <mxGeometry x="260" y="300" width="210" height="30" as="geometry" />
         </mxCell>
         <mxCell id="q1A7MC8YR2lrEWZPYVUL-5" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" parent="q1A7MC8YR2lrEWZPYVUL-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -143,10 +143,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="q1A7MC8YR2lrEWZPYVUL-7" value="tTCPRecv" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="q1A7MC8YR2lrEWZPYVUL-1" vertex="1">
-          <mxGeometry x="304" y="220" width="80" height="30" as="geometry" />
+          <mxGeometry x="260" y="220" width="110" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q1A7MC8YR2lrEWZPYVUL-8" value="tTCPSend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="q1A7MC8YR2lrEWZPYVUL-1" vertex="1">
-          <mxGeometry x="304" y="260" width="80" height="30" as="geometry" />
+        <mxCell id="q1A7MC8YR2lrEWZPYVUL-8" value="LoraComm::tSend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="q1A7MC8YR2lrEWZPYVUL-1" vertex="1">
+          <mxGeometry x="260" y="260" width="110" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
