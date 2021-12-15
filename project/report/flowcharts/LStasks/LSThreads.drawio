@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-15T17:19:10.694Z" agent="5.0 (X11)" etag="e_BmeDlM3jZJGr7Vjz1C" version="15.9.6" type="github" pages="7">
+<mxfile host="app.diagrams.net" modified="2021-12-15T17:23:33.939Z" agent="5.0 (X11)" etag="5J8LukVAiq2xQvhPofCC" version="15.9.6" type="github" pages="7">
   <diagram name="Overview" id="X1xkp8taMzy9Tt-fy2y1">
     <mxGraphModel dx="2200" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -17,7 +17,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="HcdjmoZaPBOQuIixv0jm" name="ThreadsPriority">
-    <mxGraphModel dx="540" dy="306" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="375" dy="212" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="skMfZww8q4JZ88V34bja-0" />
         <mxCell id="skMfZww8q4JZ88V34bja-1" parent="skMfZww8q4JZ88V34bja-0" />
@@ -33,7 +33,7 @@
         <mxCell id="rdfeNp6-GMCc2yEgZiX8-5" value="tCamera" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="skMfZww8q4JZ88V34bja-1" vertex="1">
           <mxGeometry x="160" y="280" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="rdfeNp6-GMCc2yEgZiX8-6" value="tLoraSend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="skMfZww8q4JZ88V34bja-1" vertex="1">
+        <mxCell id="rdfeNp6-GMCc2yEgZiX8-6" value="tSend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="skMfZww8q4JZ88V34bja-1" vertex="1">
           <mxGeometry x="240" y="240" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="rdfeNp6-GMCc2yEgZiX8-7" value="tIdle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="skMfZww8q4JZ88V34bja-1" vertex="1">
