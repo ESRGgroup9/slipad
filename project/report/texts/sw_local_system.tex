@@ -308,7 +308,7 @@ In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Simi
 \subsection{Device Driver}
 In this project it will be implemented a device driver for a GPIO pin, used to read from the sensors PIR and LampFailureDetector.
 
-First, one has to see what are registers that the board uses, relating to GPIO pins. In the Raspberry Pi 4B documentation, one finds the registers easily for the GPIO pins that needs to be used for implementing the interface. The BCM2711 chip has 58 GPIO lines, split into three banks. Bank 0 is the one mapped on the header pins, from GPIO 0 to GPIO 27. Also, the GPIO registers base address is the 0x7E200000 and the address used is 32-bits.
+First, one has to see what are registers that the board uses, relating to GPIO pins. In the Raspberry Pi 4B documentation, \cite{rpi_datasheet}, one finds the registers easily for the GPIO pins that needs to be used for implementing the interface. The BCM2711 chip has 58 GPIO lines, split into three banks. Bank 0 is the one mapped on the header pins, from GPIO 0 to GPIO 27. Also, the GPIO registers base address is the 0x7E200000 and the address used is 32-bits.
 
 To configure a pin as output or input, or to set or reset its value, the registers presented in table \ref{table:gpio_reg} are used.
 
