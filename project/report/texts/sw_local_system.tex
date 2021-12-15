@@ -85,7 +85,34 @@ A message queue is a linked list of messages stored within the kernel and identi
 %In order to define periodic events, through a timer, it is used the signal SIGALRM. Since there are different periods to set in timers, one can list the signals used 
 %**********************************************************
 \subsection{Class Diagrams}
+<<<<<<< HEAD
 \myparagraph{Class CCamera}
+=======
+In figure \ref{fig:classDiag} is represented the class diagram of the local systems of the SLiPaD. The class \textit{CSlipad} is the main class of the system that initilializes the objects of each class listed below.
+
+\begin{itemize}
+	\item \textbf{CCamera:} manages the camera device;
+	
+	\item \textbf{CPir:} manages the movement detection sensor, PIR;
+	
+	\item \textbf{CLdr:} manages the ambient light sensor, LDR;
+	
+	\item \textbf{CCommunication:} manages the LoRa communications, interfacing with the LoRa module;
+	
+	\item \textbf{CFailureDetector:} manages the failure detetor sensor;
+	
+	\item \textbf{CLamp:} manages the lamp, using a PWM channel.	
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.9\textwidth]{09sw_specification/classDiagram}
+	\caption{Classes Diagram.}
+	\label{fig:classDiag}
+\end{figure}
+
+\myparagraph{Class Camera}
+>>>>>>> aea98275a087e4b719cd102515080b51f1822a30
 
 In figure \ref{fig:classcamera} is shown the Camera class diagram, that defines a camera object.  For this project the camera is used to detect available parking spots in the lamppost vicinity, so this class defines the functions used to capture (\textit{captureFrame()}) and process (\textit{processFrame}) a camera frame. After the creation of the object, using the constructor \textit{Camera()}, the thread \textit{tCamera()} is executed every time the condition variable \textit{condCameraAcquire} is signaled, that happens every 2 minutes.
 
