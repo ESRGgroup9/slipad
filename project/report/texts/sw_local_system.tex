@@ -73,9 +73,20 @@ A message queue is a linked list of messages stored within the kernel and identi
 \subsection{Class Diagrams}
 \myparagraph{Class Camera}
 
+In figure \ref{fig:classcamera} is shown the Camera class diagram, that defines a camera object.  For this project the camera is used to detect available parking spots in the lamppost vicinity, so this class defines the functions used to capture (\textit{captureFrame()}) and process (\textit{processFrame}) a camera frame. After the creation of the object, using the constructor \textit{Camera()}, the thread \textit{tCamera()} is executed every time the condition variable \textit{condCameraAcquire} is signaled, that happens every 2 minutes.
+
+%This class defines all the functions that implicate the use of the camera device.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/classcamera}
+	\caption{Class Diagram: Camera.}
+	\label{fig:classcamera}
+\end{figure}
+
 \myparagraph{Class Lamp}
 
-In figure \ref{fig:classlamp} its shown the Lamp class diagram, which defines a Lamp object. After creating the object, using the constructor \textit{Lamp()}, one can interact with it by changing the brightness, through the method \textit{setBrightness(lux)}, where \textit{lux} is a value from 0, lamp OFF, to 100, lamp at maximum brightness. Internally, this class uses a mutex, \textit{mutChangePWM} to protect the PWM value when using \textit{setBrightness} method. 
+In figure \ref{fig:classlamp} is shown the Lamp class diagram, which defines a Lamp object. After creating the object, using the constructor \textit{Lamp()}, one can interact with it by changing the brightness, through the method \textit{setBrightness(lux)}, where \textit{lux} is a value from 0, lamp OFF, to 100, lamp at maximum brightness. Internally, this class uses a mutex, \textit{mutChangePWM} to protect the PWM value when using \textit{setBrightness} method. 
 
 \begin{figure}[H]
 	\centering
@@ -86,13 +97,46 @@ In figure \ref{fig:classlamp} its shown the Lamp class diagram, which defines a 
 
 \myparagraph{Class Communications}
 
-In figure \ref{fig:classcomm} its shown the Communications class diagram. This class defines an object Communication capable of establishing a LoRa communication with the gateway, through the use of the constructor \textit{Communication()}, and send messages through the use of \textit{Send(msg)}. It's used a vector of messages \textit{queued\_msgs} to store the message that's in the waiting list to be sent, in order to avoid the loss of a communication. To exchange messages are used two threads, \textit{tLoraSend} to send, and \textit{tLoraRecv} to receive, which makes use of task synchronization tools to ensure that sending and receiving don't occur at the same time, since the LoRa module in use is Half-Duplex.
+In figure \ref{fig:classcomm} is shown the Communications class diagram. This class defines an object Communication capable of establishing a LoRa communication with the gateway, through the use of the constructor \textit{Communication()}, and send messages through the use of \textit{Send(msg)}. It's used a vector of messages \textit{queued\_msgs} to store the message that's in the waiting list to be sent, in order to avoid the loss of a communication. To exchange messages are used two threads, \textit{tLoraSend} to send, and \textit{tLoraRecv} to receive, which makes use of task synchronization tools to ensure that sending and receiving don't occur at the same time, since the LoRa module in use is Half-Duplex.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.5\textwidth]{09sw_specification/classcomms}
 	\caption{Class Diagram: Communications.}
 	\label{fig:classcomm}
+\end{figure}
+
+\myparagraph{Class PIR}
+
+In figure \ref{fig:classpir} is shown the PIR class, that defines the functions to interact with the PIR sensor. When movement is detected in the surrounding area of the lamppost, the sensor puts the high digital value in its output, triggering the interrupt service routine \textit{PirIsr}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/classpir}
+	\caption{Class Diagram: PIR.}
+	\label{fig:classpir}
+\end{figure}
+
+\myparagraph{Class LDR}
+
+In figure \ref{fig:classldr} is shown the LDR class, that defines the functions to interact with the LDR sensor, using its device driver. As the ambient light is read each 10 minutes in the function \textit{LdrIsr}, one needs to define a timer to trigger this function. The last read luminance is stored in the variable \textit{oldLightCon} and is obtained using the function \textit{getLux}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/classldr}
+	\caption{Class Diagram: LDR.}
+	\label{fig:classldr}
+\end{figure}
+
+\myparagraph{Class FailureDetector}
+
+In figure \ref{fig:classfail} is shown the Failure Detector class. After creating an instance of this class, using the contructor \textit{FailureDetector}, the function \textit{failureDetectIsr} will be triggered each time the failure detector senses the lamp failure. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/classfail}
+	\caption{Class Diagram: FailureDetector.}
+	\label{fig:classfail}
 \end{figure}
 
 %**********************************************************
@@ -102,9 +146,9 @@ In figure \ref{fig:classcomm} its shown the Communications class diagram. This c
 
 The task tCamera is responsible for acquire a frame from the Raspberry Pi Camera and to process it. It must analyze the returned frame, in order to detect empty parking spots. This thread uses the mutex \textit{mutCamera} to protect the condition variable \textit{condCameraAcquire}, that synchronizes the camera frame acquisition with the timer that defines the camera frame acquisition period, \textit{timSampleCam}.
 
-Firstly, this thread initializes the camera device, sets the timer \textit{timSampleCam}, locks the mutex \textit{mutCamera} and goes to sleep mode, waiting for the conditon variable \textit{condCameraAcquire} to be signaled. This happens when a \textit{timSampleCam} period has elapsed and the thread wakes up. Now, one can read a camera frame in order to process it, unlocking the mutex \textit{mutCamera}. A timer, \textit{timCamMax}, is setted to report the error if the image is taking too much time to being processed.
+Firstly, this thread initializes the camera device, sets the timer \textit{timSampleCam}, locks the mutex \textit{mutCamera} and goes to sleep mode, waiting for the conditon variable \textit{condCameraAcquire} to be signaled. This happens when a \textit{timSampleCam} period has elapsed and the thread wakes up. Now, one can capture a camera frame in order to process it, unlocking the mutex \textit{mutCamera}. A timer, \textit{timCamMax}, is setted to report the error if the image is taking too much time to being processed.
 
-In the image processing part of the thread, if there aren't parking spots coordinates stored, then it is necessary to search for parking spots. After that, one can detect cars using the pre-trained model and the function \textit{detectMultiScale} that detects objects in the image. If the coordinates of a detected car matches the coordinates of the parking spot, then one can assume that the parking spot is occupied. If the parking spot status has changed, then it is necessary to send this to the remote system, using the LoRa communication module.
+In the image processing part of the thread, if there aren't parking spots coordinates stored, then it is necessary to search for parking spots. After that, one can detect cars using the pre-trained model and the function \textit{detectCars} that detects cars in the image. If the coordinates of a detected car matches the coordinates of the parking spot, then one can assume that the parking spot is occupied. If the parking spot status has changed, then it is necessary to send this to the remote system, using the LoRa communication module.
 
 \myparagraph{tRecvSensors}
 
@@ -205,7 +249,7 @@ This function, presented in figure \ref{fig:flow_send}, is responsible for addin
 % FLOWCHARTS SENSORS
 
 \myparagraph{PirIsr}
-The PIR sensor uses the GPIO of the Raspberry Pi in order to inform the system if there's movement in the surrounding area. In the afirmative case, it puts the high digital value on its output, and this can be used to generate an interrupt service routine, triggered on the rising edge of the output signal of the sensor. When this routine is executed, it locks the mutex \textit{mutChangePWM} and assign the \textit{PWM\_val} its maximum value, 100 \%. This operation is signaled to the process that controls the lamp brightness through a pipe, and the mutex is unlocked. In the figure \ref{fig:pir_isr}, is represented the flowchart of the PirIsr function.
+The PIR sensor uses the GPIO of the Raspberry Pi in order to inform the system if there's movement in the surrounding area. In the afirmative case, it puts the high digital value on its output, and this can be used to generate an interrupt service routine, triggered on the rising edge of the output signal of the sensor. When this routine is executed, it locks the mutex \textit{mutChangePWM} and assign the \textit{PWM\_val} its maximum value, 100 \%, unlocking the mutex. Now, one needs to send the PWM value to the remote system through the LoRa communications, in order to be updated in the remote system. In the figure \ref{fig:pir_isr}, is represented the flowchart of the PirIsr function.
 
 \begin{figure}[H]
 	\centering
@@ -215,7 +259,7 @@ The PIR sensor uses the GPIO of the Raspberry Pi in order to inform the system i
 \end{figure}
 
 \myparagraph{LdrIsr}
-The ambient light sensor, LDR, is used to determine when is time to turn on the lights, that is, when is night time and interfaces with the Raspberry Pi through I2C protocol communication. As the sun set or the sun rise is a relatively long time process, there's no need to keep checking the sensor output value all the time, so one can define a period to get the sensor value, \textit{LDR\_TIM}, that can be 10 minutes. In figure \ref{fig:ldr_isr} is shown the LDR sensor interrupt service routine, triggered by the timer overflow. When the timer period elapses, one can get the illuminance value calculated by the sensor. If this value is lower than the threshold value defined as good luminosity illuminance, GOOD\_LIGHT\_LUX, then the auxiliary variable, \textit{lowLightCon} is setted to high. In the next step, if the \textit{lightCon} variable (stores the last ambient light condition) is not equal to the auxiliary variable, then it is needed to change the \textit{lightCon} variable and send de pipe message to the process that controls the lamp PWM. 
+The ambient light sensor, LDR, is used to determine when is time to turn on the lights, that is, when is night time and interfaces with the Raspberry Pi through I2C protocol communication. As the sun set or the sun rise is a relatively long time process, there's no need to keep checking the sensor output value all the time, so one can define a period to get the sensor value, \textit{LDR\_TIM}, that can be 10 minutes. In figure \ref{fig:ldr_isr} is shown the LDR sensor interrupt service routine, triggered by the timer overflow. When the timer period elapses, the illuminance value is calculated by the sensor. If this value is lower than the threshold value defined as good luminosity illuminance, GOOD\_LIGHT\_LUX, then the auxiliary variable, \textit{lightCon} is setted to high. In the next step, if the \textit{oldLightCon} variable (stores the last ambient light condition) is not equal to the auxiliary variable, then it is needed to change the \textit{oldLightCon} variable and send message to the process that controls the lamp PWM, through message queue. 
 
 \begin{figure}[H]
 	\centering
@@ -225,7 +269,7 @@ The ambient light sensor, LDR, is used to determine when is time to turn on the 
 \end{figure}
 
 \myparagraph{FailureDetectIsr}
-In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Similarly to the PIR sensor, this routine is triggered on the rising edge of the output signal of the sensor. When the Failure detector detects that the lamp is broken, it puts the high digital value in its output, triggering this function. In this routine, the PWM is setted to 0 \% and are sent two messages through pipes: one to inform the process, that controls the lamp, to change the PWM value in the channel; and the other to notify the remote system that the lamp is broken, in order to update this status on the database.
+In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Similarly to the PIR sensor, this routine is triggered on the rising edge of the output signal of the sensor. When the Failure detector detects that the lamp is broken, it puts the high digital value in its output, triggering this function. In this routine, the PWM is setted to 0 \% and are sent two messages through message queue: one to inform the process, that controls the lamp, to change the PWM value in the channel; and the other to notify the remote system that the lamp is broken, in order to update this status on the database.
 
 \begin{figure}[H]
 	\centering
