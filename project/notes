@@ -58,6 +58,11 @@ Comunicação(TCP-client): pode depender na receção Lora
 	- receber 
 	- enviar
 
+tLoraRecv
+tLoraSend
+tTCPRecv
+tTCPSend
+
 ---------------------------------------------------
 Remote Server
 ---------------------------------------------------
@@ -68,6 +73,23 @@ Comunicação(TCP-server)
 
 Database Manager (Daemon)
 	- queries??
+
+-----
+update
+add
+rm
+
+tTCPRecv
+- sockfd
+
+- LS: update db: table, regist
+- RC: add, rm, update
+
+- Park n -> cb -> upd lamppost:numPark(n)
+- Add lamppost:coords:...
+
+
+tTCPSend
 
 ---------------------------------------------------
 Remote Client
