@@ -28,19 +28,21 @@ One can define the relationship between the tasks as follows, in figure \ref{fig
 The condition variables used in this system are listed below.
 
 \begin{itemize}
-	\item \textbf{condLoraSend: }
-	\item \textbf{condTCPSend: }
+	\item \textbf{condLoraSend:}
+	
+	\item \textbf{condTCPSend:} used to notify \textit{tTCPSend} that a new message is ready to be sent;
+		
 \end{itemize}
 
 \myparagraph{Mutexes}
 The mutexes used in this system are listed bellow.
 
 \begin{itemize}
-	\item \textbf{mutLoraComm: }
-	\item \textbf{mutLoraSend: }
-	\item \textbf{mutTCPComm: }
-	\item \textbf{mutTCPSend: }
-		
+	\item \textbf{mutLoraComm:}
+	\item \textbf{mutLoraSend:}	
+	
+	\item \textbf{mutTCPComm:} mutex used to protect the TCP/IP communications (send and receive);
+	\item \textbf{mutTCPSend:} mutex associated with the condition variable \textit{condTCPSend} to send a message via TCP/IP protocol communication;
 \end{itemize}
 
 %\myparagraph{Semaphores}
