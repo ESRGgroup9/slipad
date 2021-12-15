@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-15T18:12:43.081Z" agent="5.0 (X11)" etag="Kaax-fKYFq2UWP6tl1Ej" version="15.9.6" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2021-12-15T18:16:45.282Z" agent="5.0 (X11)" etag="pGSdLn-g9sISglrGzpOI" version="15.9.6" type="github" pages="5">
   <diagram id="9ntWhLIJTqmjofceUZnP" name="overview">
     <mxGraphModel dx="2013" dy="452" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -81,7 +81,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="FCesdf0NzKQSupr1E8r9" name="boot">
-    <mxGraphModel dx="1390" dy="306" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1542" dy="392" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="qHQD8GnIdfNHwth93l09-0" />
         <mxCell id="qHQD8GnIdfNHwth93l09-1" parent="qHQD8GnIdfNHwth93l09-0" />
@@ -99,14 +99,11 @@
             <mxPoint x="-414.88" y="190" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="qHQD8GnIdfNHwth93l09-5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=11;strokeColor=#A8201A;" parent="qHQD8GnIdfNHwth93l09-1" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-414.88" y="220" as="sourcePoint" />
-            <mxPoint x="-414.88" y="240" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="qHQD8GnIdfNHwth93l09-6" value="end" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1" parent="qHQD8GnIdfNHwth93l09-1" vertex="1">
-          <mxGeometry x="-438.88" y="240" width="48" height="30" as="geometry" />
+          <mxGeometry x="-438.88" y="360" width="48" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rP5C1Dct6dWHY5Q2OBZk-2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;strokeColor=#A8201A;" edge="1" parent="qHQD8GnIdfNHwth93l09-1" source="qHQD8GnIdfNHwth93l09-7" target="rP5C1Dct6dWHY5Q2OBZk-0">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="qHQD8GnIdfNHwth93l09-7" value="&lt;b&gt;Create&lt;/b&gt; LoraComm" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" parent="qHQD8GnIdfNHwth93l09-1" vertex="1">
           <mxGeometry x="-489.63" y="190" width="150.25" height="30" as="geometry" />
@@ -114,11 +111,23 @@
         <mxCell id="qHQD8GnIdfNHwth93l09-8" value="&lt;b&gt;Create&lt;/b&gt; TCPclient" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" parent="qHQD8GnIdfNHwth93l09-1" vertex="1">
           <mxGeometry x="-490" y="140" width="150.25" height="30" as="geometry" />
         </mxCell>
+        <mxCell id="rP5C1Dct6dWHY5Q2OBZk-5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;strokeColor=#A8201A;" edge="1" parent="qHQD8GnIdfNHwth93l09-1" source="rP5C1Dct6dWHY5Q2OBZk-0" target="rP5C1Dct6dWHY5Q2OBZk-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rP5C1Dct6dWHY5Q2OBZk-0" value="&lt;b&gt;TCPclient.run&lt;/b&gt;()" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" vertex="1" parent="qHQD8GnIdfNHwth93l09-1">
+          <mxGeometry x="-489.38" y="240" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rP5C1Dct6dWHY5Q2OBZk-6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;strokeColor=#A8201A;" edge="1" parent="qHQD8GnIdfNHwth93l09-1" source="rP5C1Dct6dWHY5Q2OBZk-1" target="qHQD8GnIdfNHwth93l09-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rP5C1Dct6dWHY5Q2OBZk-1" value="&lt;b&gt;LoraComms.run&lt;/b&gt;()" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" vertex="1" parent="qHQD8GnIdfNHwth93l09-1">
+          <mxGeometry x="-489.38" y="300" width="150" height="40" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="VpyczXFERTWluZVo6KSv" name="threadsPriority">
-    <mxGraphModel dx="474" dy="264" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="450" dy="255" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="q1A7MC8YR2lrEWZPYVUL-0" />
         <mxCell id="q1A7MC8YR2lrEWZPYVUL-1" parent="q1A7MC8YR2lrEWZPYVUL-0" />
