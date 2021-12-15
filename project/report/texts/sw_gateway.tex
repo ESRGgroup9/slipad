@@ -3,10 +3,10 @@
 One can define and describe briefly how the gateway is implemented, making use of threads and processes.
 
 \begin{itemize}
-	\item \textbf{tLoraRecv: }
-	\item \textbf{tLoraSend: }
-	\item \textbf{tTCPSend: }
-	\item \textbf{tTCPRecv: }
+	\item \textbf{tLoraRecv:}
+	\item \textbf{tLoraSend:}
+	\item \textbf{tTCPSend:} sends a message to the remote server, via TCP/IP communication protocol;
+	\item \textbf{tTCPRecv:} receives a message from the remote server, via TCP/IP communication protocol.
 \end{itemize}
 
 %**********************************************************
@@ -19,7 +19,9 @@ One can define and describe briefly how the gateway is implemented, making use o
 The condition variables used in this system are listed below.
 
 \begin{itemize}
-	\item \textbf{condLoraSend: }
+	\item \textbf{condLoraSend:}
+	
+	\item \textbf{condTCPSend:} used to notify \textit{tTCPSend} that a new message is ready to be sent;
 		
 \end{itemize}
 
@@ -27,8 +29,11 @@ The condition variables used in this system are listed below.
 The mutexes used in this system are listed bellow.
 
 \begin{itemize}
-	\item \textbf{mutLoraComm: }
-	\item \textbf{mutLoraSend: }	
+	\item \textbf{mutLoraComm:}
+	\item \textbf{mutLoraSend:}	
+	
+	\item \textbf{mutTCPComm:} mutex used to protect the TCP/IP communications (send and receive);
+	\item \textbf{mutTCPSend:} mutex associated with the condition variable \textit{condTCPSend} to send a message via TCP/IP protocol communication;
 \end{itemize}
 
 %\myparagraph{Semaphores}
