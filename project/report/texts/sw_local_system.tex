@@ -85,7 +85,7 @@ A message queue is a linked list of messages stored within the kernel and identi
 %In order to define periodic events, through a timer, it is used the signal SIGALRM. Since there are different periods to set in timers, one can list the signals used 
 %**********************************************************
 \subsection{Class Diagrams}
-\myparagraph{Class Camera}
+\myparagraph{Class CCamera}
 
 In figure \ref{fig:classcamera} is shown the Camera class diagram, that defines a camera object.  For this project the camera is used to detect available parking spots in the lamppost vicinity, so this class defines the functions used to capture (\textit{captureFrame()}) and process (\textit{processFrame}) a camera frame. After the creation of the object, using the constructor \textit{Camera()}, the thread \textit{tCamera()} is executed every time the condition variable \textit{condCameraAcquire} is signaled, that happens every 2 minutes.
 
@@ -98,7 +98,7 @@ In figure \ref{fig:classcamera} is shown the Camera class diagram, that defines 
 	\label{fig:classcamera}
 \end{figure}
 
-\myparagraph{Class Lamp}
+\myparagraph{Class CLamp}
 
 In figure \ref{fig:classlamp} is shown the Lamp class diagram, which defines a Lamp object. After creating the object, using the constructor \textit{Lamp()}, one can interact with it by changing the brightness, through the method \textit{setBrightness(lux)}, where \textit{lux} is a value from 0, lamp OFF, to 100, lamp at maximum brightness. Internally, this class uses a mutex, \textit{mutChangePWM} to protect the PWM value when using \textit{setBrightness} method. 
 
@@ -109,7 +109,7 @@ In figure \ref{fig:classlamp} is shown the Lamp class diagram, which defines a L
 	\label{fig:classlamp}
 \end{figure}
 
-\myparagraph{Class Communications}
+\myparagraph{Class CCommunications}
 
 In figure \ref{fig:classcomm} is shown the Communications class diagram. This class defines an object Communication capable of establishing a LoRa communication with the gateway, through the use of the constructor \textit{Communication()}, and send messages through the use of \textit{Send(msg)}. It's used a vector of messages \textit{queued\_msgs} to store the message that's in the waiting list to be sent, in order to avoid the loss of a communication. To exchange messages are used two threads, \textit{tLoraSend} to send, and \textit{tLoraRecv} to receive, which makes use of task synchronization tools to ensure that sending and receiving don't occur at the same time, since the LoRa module in use is Half-Duplex.
 
@@ -120,7 +120,7 @@ In figure \ref{fig:classcomm} is shown the Communications class diagram. This cl
 	\label{fig:classcomm}
 \end{figure}
 
-\myparagraph{Class PIR}
+\myparagraph{Class CPIR}
 
 In figure \ref{fig:classpir} is shown the PIR class, that defines the functions to interact with the PIR sensor. When movement is detected in the surrounding area of the lamppost, the sensor puts the high digital value in its output, triggering the interrupt service routine \textit{PirIsr}.
 
@@ -131,7 +131,7 @@ In figure \ref{fig:classpir} is shown the PIR class, that defines the functions 
 	\label{fig:classpir}
 \end{figure}
 
-\myparagraph{Class LDR}
+\myparagraph{Class CLDR}
 
 In figure \ref{fig:classldr} is shown the LDR class, that defines the functions to interact with the LDR sensor, using its device driver. As the ambient light is read each 10 minutes in the function \textit{LdrIsr}, one needs to define a timer to trigger this function. The last read luminance is stored in the variable \textit{oldLightCon} and is obtained using the function \textit{getLux}.
 
@@ -142,7 +142,7 @@ In figure \ref{fig:classldr} is shown the LDR class, that defines the functions 
 	\label{fig:classldr}
 \end{figure}
 
-\myparagraph{Class FailureDetector}
+\myparagraph{Class CFailureDetector}
 
 In figure \ref{fig:classfail} is shown the Failure Detector class. After creating an instance of this class, using the contructor \textit{FailureDetector}, the function \textit{failureDetectIsr} will be triggered each time the failure detector senses the lamp failure. 
 
@@ -204,16 +204,16 @@ When the message queue is not empty, this task reads a message from the message 
 
 %**********************************************************
 \clearpage
-\myparagraph{Class Lamp Constructor and Destroyer}
-
-This functions, presented in figure \ref{fig:flow_lampconstruct}, are responsible for initializing and destroying a Lamp object. First, in the constructor, which is the left side function, the PWM peripheral is initialized, then the mutex that is used to protect the change of PWM is also initialized. On the destroyer side, the opposite is done, by the terminating the PWM generation.
-
-\begin{figure}[H]
-	\centering	
-	\includegraphics[width=.7\textwidth]{09sw_specification/lampconstruct}
-	\caption{Class Lamp Flowchart: Constructor and Destroyer.}
-	\label{fig:flow_lampconstruct}
-\end{figure}
+%\myparagraph{Class Lamp Constructor and Destroyer}
+%
+%This functions, presented in figure \ref{fig:flow_lampconstruct}, are responsible for initializing and destroying a Lamp object. First, in the constructor, which is the left side function, the PWM peripheral is initialized, then the mutex that is used to protect the change of PWM is also initialized. On the destroyer side, the opposite is done, by the terminating the PWM generation.
+%
+%\begin{figure}[H]
+%	\centering	
+%	\includegraphics[width=.7\textwidth]{09sw_specification/lampconstruct}
+%	\caption{Class Lamp Flowchart: Constructor and Destroyer.}
+%	\label{fig:flow_lampconstruct}
+%\end{figure}
 
 \myparagraph{setBrightness}
 
@@ -229,15 +229,15 @@ This function, presented in figure \ref{fig:flow_setbrightness}, is responsible 
 
 %**********************************************************
 \clearpage
-\myparagraph{Class Communication Constructor and Destroyer}
-
-This functions, presented in figure \ref{fig:flow_commconstruct}, are responsible for initializing and destroying a Communication object. On the left side, the constructor, starts by initializing the LoRa communication, defining the frequency in which the device choosen previously operates, which is 433~MHz. Then the messages vector is cleared, the mutexes are initialized and the two threads responsible for the exchange of messages between the local system and the gateway are created. In the destroyer side, one has the opposite, where the LoRa communication is disabled and the threads are terminated.
-
-\begin{figure}[H]
-	\centering			\includegraphics[width=.7\textwidth]{09sw_specification/commsconstruct}
-	\caption{Class Communication Flowchart: Constructor and Destroyer.}
-	\label{fig:flow_commconstruct}
-\end{figure}
+%\myparagraph{Class Communication Constructor and Destroyer}
+%
+%This functions, presented in figure \ref{fig:flow_commconstruct}, are responsible for initializing and destroying a Communication object. On the left side, the constructor, starts by initializing the LoRa communication, defining the frequency in which the device choosen previously operates, which is 433~MHz. Then the messages vector is cleared, the mutexes are initialized and the two threads responsible for the exchange of messages between the local system and the gateway are created. In the destroyer side, one has the opposite, where the LoRa communication is disabled and the threads are terminated.
+%
+%\begin{figure}[H]
+%	\centering			\includegraphics[width=.7\textwidth]{09sw_specification/commsconstruct}
+%	\caption{Class Communication Flowchart: Constructor and Destroyer.}
+%	\label{fig:flow_commconstruct}
+%\end{figure}
 
 \myparagraph{tLoraSend}
 
@@ -312,8 +312,19 @@ In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Simi
 	\label{fig:fail_isr}
 \end{figure}
 
-%%**********************************************************
-%\subsection{Start-up Process}
+%**********************************************************
+\subsection{Start-up Process}
+In figure \ref{fig:bootLS} is shown the start-up process for the local system. When booting up, the local system creates all necessary objects, as presented previously, and initializes them.
+
+In the figure, one can see the two primary constructors of the system, responsible for creating a Lamp object and a Communication. In the Lamp constructor the PWM module is initialized as the mutexes used. In the Communication constructor the LoRa module is initialized, at 433 MHz, beginning LoRa communication, initializing all mutexes and variables and creating all necessary threads. Besides this modules 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{09sw_specification/bootLS}
+	\caption{Start-Up Process: Local System.}
+	\label{fig:bootLS}
+\end{figure}
+
 %%**********************************************************
 %\subsection{Shutdown Process}
 
