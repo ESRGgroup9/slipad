@@ -57,7 +57,7 @@ The mutexes used in this system are listed bellow, which are all private members
 
 %**********************************************************
 \subsection{Class Diagrams}
-In figure \ref{fig:GwclassDiag} is represented the class diagram of gateway. The class \textit{CGat} is the main class of the system that initializes the objects of each class listed below.
+In figure \ref{fig:GwclassDiag} is represented the class diagram of gateway. The class \textit{CGateway} is the main class of the system that initializes the objects of each class listed below.
 
 \begin{itemize}
 	\item \textbf{CLoraComm:} manages the LoRa communications, interfacing with the LoRa module;
@@ -73,6 +73,7 @@ In figure \ref{fig:GwclassDiag} is represented the class diagram of gateway. The
 \end{figure}
 
 \myparagraph{Class CTCPclient}
+
 In figure \ref{fig:TCPclient} is shown the TCPclient class. This class defines a TCPclient capable of establishing a connection to a given remote server and to exchange messages to it, via TCP-IP. Like in the LoraComm class, which is very similar to this, its used a vector of strings, \textit{tx\_msgs} to store messages, providing a waiting list of messages to be sent.
 
 \begin{figure}[H]
@@ -82,7 +83,7 @@ In figure \ref{fig:TCPclient} is shown the TCPclient class. This class defines a
 	\label{fig:TCPclientClass}
 \end{figure}
 
-A TCPclient can be created through the use of the constructor, shown in figure \ref{fig:TCPclient}. This connects to a given server, via TCP-IP and initializes all the private members.
+A TCPclient can be created through the use of the constructor, shown in figure \ref{fig:TCPclient}. This connects to a given server, defined by the string \textit{host}, and to the port \textit{port}, via TCP-IP and initializes all the private members.
 
 \begin{figure}[H]
 	\centering
@@ -133,9 +134,9 @@ Each local system has a predefined ID, which may be presented in a physical labe
 
 \myparagraph{tLoraRecv}
 
-This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication. This task makes use of a mutex \textit{mutLoraComm}, to protect LoRa send and receive functions, which must not occur at the same time. Besides that, it uses a mutex \textit{mutTCPSend} to protect the vector of messages \textit{msgs\_to\_rs} which can be changed in \textit{tTCPRecv}.
+This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication, using \textit{LoraComm.recv()} function, that was already detailed.
 
-When a message is received it is pushed into the vector of messages \textit{msgs\_to\_rs}, to be sent to the remote system. This way, we can receive continually messages from local systems, while there is another task sending this messages. This operation is protected by \textit{mutTCPSend}. After the message is added to the vector of messages, this task signals the task \textit{tTPCSend} through the condition variable \textit{condTCPSend}, in order for this to send the newly added message to the remote system.
+When a message is received it is pushed into the TCP client list of queue messages, waiting to be sent to the remote server.
 
 \begin{figure}[H]
 	\centering
@@ -157,7 +158,7 @@ When a message is received it is pushed into the vector of messages \textit{msgs
 %	\label{fig:gwtLoraSend}
 %\end{figure}
 
-\clearpage
+%\clearpage
 %\myparagraph{tTCPSend}
 %
 %This task, presented in figure \ref{fig:gwtTCPSend}, is responsible for sending all the messages sent by the local systems to the remote system, being received by in the task \textit{tLoraRecv}. It uses two mutexes: \textit{mutTCPSend} associated with the condition variable \textit{condTCPSend}, that synchronizes the insertion and removal of the messages from the vector \textit{msgs\_to\_rs}; and \textit{mutTCPComm}, to protect the communications send and receive.
@@ -172,18 +173,19 @@ When a message is received it is pushed into the vector of messages \textit{msgs
 %\end{figure}
 
 \myparagraph{tTCPRecv}
-This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receiving the messages sent by the remote system to the local systems. Unlike the send tasks, this thread never enters the sleep state because we can receive a message at any moment, so first, one have to lock the mutex \textit{mutTCPComm} and try to receive a message. If it was received a message, i.e, the \textit{msg} variable is not empty, then one can push the message to the messages vector \textit{msgs\_to\_ls} and notify the condition variable \textit{condLoraSend}, after locking its mutex \textit{mutLoraSend}, to inform that a new message has been received.
+This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receiving the messages sent by the remote system to the local systems. Unlike the \textit{tsend} tasks, this thread never enters the sleep state because we can receive a message at any moment. If it is received a message, then one can push the message to the messages vector in LoraComm, signaling its thread to send the message, via LoRa communication
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.42\textwidth]{09sw_specification/GwtTCPRecv}
+	\includegraphics[width=.5\textwidth]{09sw_specification/GwtTCPRecv}
 	\caption{Flowchart: Gateway tTCPRecv.}
 	\label{fig:gwtTCPRecv}
 \end{figure}
 
 %%**********************************************************
+\clearpage
 \subsection{Start-up Process}
-In figure \ref{fig:bootGateway} is shown the start-up process for the gateway. When booting up, the gateway initializes TCP-IP communication with the remote server, and initializes the LoRa communication module, that allows communicating with the local systems. After this modules are initialize, then one can create all the necessary tasks and initialize them. (Remember figure \ref{fig:bootLS}, where \textit{InitLora} is shown)
+In figure \ref{fig:bootGateway} is shown the start-up process for the gateway. When booting up, the gateway creates the TCPclient and the LoraComm objects, initializing the peripherals needed for the gateway to communicate with the local systems and the remote server. After this the threads are created and both objects begin running their threads for receiving messages.
 
 \begin{figure}[H]
 	\centering
