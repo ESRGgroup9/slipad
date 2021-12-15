@@ -13,8 +13,7 @@ One can define and describe briefly how the local system is implemented, making 
 One can list the tasks that compose the main process:
 \begin{itemize}
 	\item \textbf{tCamera:} acquire a camera frame; processes image and search for parking spots; verify the parking spot availability;
-%	\item \textbf{tLampControl:} initializes PWM interface; controls the PWM applied to the lamp;
-	\item \textbf{tLoraSend:} sends a message to the gateway, using the LoRa module;
+ 	\item \textbf{tSend:} sends a message to the gateway, using the LoRa module; Private method of LoraComm Class, as will be later presented;
 	\item \textbf{tLoraRecv:} receives a message from the gateway, using the LoRa module;
 	\item \textbf{tRecvSensor:} receives messages sent by the daemon, via message queue, regarding sensors information.
 \end{itemize}
@@ -28,7 +27,7 @@ With that in mind, the priority assignment diagram for the local system is repre
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.65\textwidth]{09sw_specification/lst_priority}
+	\includegraphics[width=.65\textwidth]{09sw_specification/LSpriority}
 	\caption{Local System Priority Assignment Schematic.}
 	\label{fig:lst_priority}
 \end{figure}
@@ -43,12 +42,7 @@ A condition variable is a task synchronization tool that can be used to block (w
 
 \begin{itemize}
 	\item \textbf{condCameraAcquire:} used to notify \textit{tCamera} that a camera sample period has elapsed;
-	
-%	\item \textbf{condNewPWM:} used to notify \textit{tLampControl} that a new PWM value for the lamp was defined;
-	
-	\item \textbf{condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent;
-	
-	
+	\item \textbf{condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent; private member of LoraComm class.
 \end{itemize}
 
 \myparagraph{Mutexes}
@@ -58,12 +52,11 @@ A mutex is a locking mechanism that provides mutual exclusion, supporting owners
 \begin{itemize}
 	\item \textbf{mutCamera:} mutex associated with the condition variable \textit{condCameraAcquire} to acquire a camera frame;
 		
-	\item \textbf{mutSend:} protects the message to be sent in \textit{tLoraSend}, which can be defined in multiple places;
+	\item \textbf{mutSend:} protects the message to be sent in \textit{tSend}, which can be defined in multiple places; private member of LoraComm class;
 	
-	\item \textbf{mutComms:} protects LoRa communication, since it is half-duplex, so one can send or receive at a time; Used in \textit{tLoraSend} and \textit{tLoraRecv};
+	\item \textbf{mutComms:} protects LoRa communication, since it is half-duplex, so one can send or receive at a time; private member of LoraComm class;
 	
-	\item \textbf{mutChangePWM:} protects the modification of PWM when defining a new PWM value for the lamp;
-	
+	\item \textbf{mutChangePWM:} protects the modification of PWM when defining a new PWM value for the lamp; private member of Lamp class.
 	
 \end{itemize}
 
@@ -85,9 +78,6 @@ A message queue is a linked list of messages stored within the kernel and identi
 %In order to define periodic events, through a timer, it is used the signal SIGALRM. Since there are different periods to set in timers, one can list the signals used 
 %**********************************************************
 \subsection{Class Diagrams}
-<<<<<<< HEAD
-\myparagraph{Class CCamera}
-=======
 In figure \ref{fig:classDiag} is represented the class diagram of the local systems of the SLiPaD. The class \textit{CSlipad} is the main class of the system that initilializes the objects of each class listed below.
 
 \begin{itemize}
@@ -97,7 +87,7 @@ In figure \ref{fig:classDiag} is represented the class diagram of the local syst
 	
 	\item \textbf{CLdr:} manages the ambient light sensor, LDR;
 	
-	\item \textbf{CCommunication:} manages the LoRa communications, interfacing with the LoRa module;
+	\item \textbf{CLoraComm:} manages the LoRa communications, interfacing with the LoRa module;
 	
 	\item \textbf{CFailureDetector:} manages the failure detetor sensor;
 	
@@ -111,8 +101,7 @@ In figure \ref{fig:classDiag} is represented the class diagram of the local syst
 	\label{fig:classDiag}
 \end{figure}
 
-\myparagraph{Class Camera}
->>>>>>> aea98275a087e4b719cd102515080b51f1822a30
+\myparagraph{Class CCamera}
 
 In figure \ref{fig:classcamera} is shown the Camera class diagram, that defines a camera object.  For this project the camera is used to detect available parking spots in the lamppost vicinity, so this class defines the functions used to capture (\textit{captureFrame()}) and process (\textit{processFrame}) a camera frame. After the creation of the object, using the constructor \textit{Camera()}, the thread \textit{tCamera()} is executed every time the condition variable \textit{condCameraAcquire} is signaled, that happens every 2 minutes.
 
@@ -138,13 +127,63 @@ In figure \ref{fig:classlamp} is shown the Lamp class diagram, which defines a L
 
 \myparagraph{Class CCommunications}
 
-In figure \ref{fig:classcomm} is shown the Communications class diagram. This class defines an object Communication capable of establishing a LoRa communication with the gateway, through the use of the constructor \textit{Communication()}, and send messages through the use of \textit{Send(msg)}. It's used a vector of messages \textit{queued\_msgs} to store the message that's in the waiting list to be sent, in order to avoid the loss of a communication. To exchange messages are used two threads, \textit{tLoraSend} to send, and \textit{tLoraRecv} to receive, which makes use of task synchronization tools to ensure that sending and receiving don't occur at the same time, since the LoRa module in use is Half-Duplex.
+In figure \ref{fig:LoraCommClass} is shown the Communications class diagram. This class defines an object \textit{LoraComm} capable of establishing a LoRa communication with the gateway and send messages. It's used a vector of messages \textit{tx\_msgs} to store the message that's in the waiting list to be sent, in order to avoid the loss of a communication.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/classcomms}
-	\caption{Class Diagram: Communications.}
-	\label{fig:classcomm}
+	\includegraphics[width=.5\textwidth]{09sw_specification/LoraCommClass}
+	\caption{Class Diagram: LoraComm.}
+	\label{fig:LoraCommClass}
+\end{figure}
+
+An object can be created through the use of the constructor, as shown in figure \ref{fig:LoraComm}.
+This starts by initializing the LoRa communication, defining the pins connected to the module and the frequency in which the device choosen previously operates, which is 433~MHz. At the end, all private members are also initialized.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{09sw_specification/LoraComm}
+	\caption{Class Diagram: LoraComm constructor.}
+	\label{fig:LoraComm}
+\end{figure}
+
+A message can be put in the waiting list to be sent through the use of \textit{LoraComm.push(msg)}, as shown in figure \ref{fig:LoraCommPush}.
+
+This function is responsible for adding a new message, \textit{msg}, to the \textit{tx\_msgs} vector, and signal the condition variable \textit{condSend}, for the task \textit{tSend} to send the message.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3\textwidth]{09sw_specification/LoraCommPush}
+	\caption{Class Diagram: LoraComm Push method.}
+	\label{fig:LoraCommPush}
+\end{figure}
+
+To send a message, this class has a built-in thread, \textit{tSend} that can be put to run using \textit{LoraComm.run()}, as shown in figures \ref{fig:LoraCommRun} and \ref{fig:LoraCommSend}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.25\textwidth]{09sw_specification/LoraCommRun}
+	\caption{Class Diagram: LoraComm Run method.}
+	\label{fig:LoraCommRun}
+\end{figure}
+
+This thread, \textit{tSend} is responsible for sending queued messages to the gateway, using LoRa communication. A conditional variable is used to wake this thread when there is a new message available to be sent.
+
+When the vector \textit{tx\_msgs} is empty, then the task goes to sleep, waiting for the condition variable \textit{condSend} to notify this task. After this, the mutex \textit{mutComms} is used to protect the communication, which due to the selected LoRa module is half-duplex, meaning that at a given moment, the device can be receiving or sending, not at the same time. Then, a message is popped from the messages vector, and sent to the gateway using the function \textit{LoraSend}. This continues to happen until the \textit{tx\_msgs} vector gets empty.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.65\textwidth]{09sw_specification/LoraCommSend}
+	\caption{Class Diagram: LoraComm tSend thread.}
+	\label{fig:LoraCommSend}
+\end{figure}
+
+There is also another method, \textit{LoraComm.recv()}, that receives a string, in a non blocking mode, making use of task synchronization tools to ensure that sending and receiving don't occur at the same time, since the LoRa module in use is Half-Duplex. This function should be used continuously if one doesn't want to miss any communication. This method is presented in figure \ref{fig:LoraCommRecv}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3\textwidth]{09sw_specification/LoraCommRecv}
+	\caption{Class Diagram: LoraComm Recv method.}
+	\label{fig:LoraCommRecv}
 \end{figure}
 
 \myparagraph{Class CPIR}
@@ -169,6 +208,7 @@ In figure \ref{fig:classldr} is shown the LDR class, that defines the functions 
 	\label{fig:classldr}
 \end{figure}
 
+\clearpage
 \myparagraph{Class CFailureDetector}
 
 In figure \ref{fig:classfail} is shown the Failure Detector class. After creating an instance of this class, using the contructor \textit{FailureDetector}, the function \textit{failureDetectIsr} will be triggered each time the failure detector senses the lamp failure. 
@@ -256,56 +296,19 @@ This function, presented in figure \ref{fig:flow_setbrightness}, is responsible 
 
 %**********************************************************
 \clearpage
-%\myparagraph{Class Communication Constructor and Destroyer}
-%
-%This functions, presented in figure \ref{fig:flow_commconstruct}, are responsible for initializing and destroying a Communication object. On the left side, the constructor, starts by initializing the LoRa communication, defining the frequency in which the device choosen previously operates, which is 433~MHz. Then the messages vector is cleared, the mutexes are initialized and the two threads responsible for the exchange of messages between the local system and the gateway are created. In the destroyer side, one has the opposite, where the LoRa communication is disabled and the threads are terminated.
-%
-%\begin{figure}[H]
-%	\centering			\includegraphics[width=.7\textwidth]{09sw_specification/commsconstruct}
-%	\caption{Class Communication Flowchart: Constructor and Destroyer.}
-%	\label{fig:flow_commconstruct}
-%\end{figure}
-
-\myparagraph{tLoraSend}
-
-This task is responsible for sending queued messages to the gateway, using LoRa communication. A conditional variable is used to wake this thread when there is a new message available to be sent.
-
-When the vector \textit{queued\_msgs} is empty, then the task goes to sleep, waiting for the condition variable \textit{condSend} to notify this task. This happens when a new message is inserted into the messages vector, using \textit{Send(msg)} function, that will be later presented. After this, the mutex \textit{mutComms} is used to protect the communication, which due to the selected LoRa module is half-duplex, meaning that at a given moment, the device can be receiving or sending, not at the same time. Then, a message is popped from the messages vector, and sent to the gateway using the function \textit{LoraSend}. This continues to happen until the \textit{queued\_msgs} vector gets empty.
-
-The flowchart for this task is presented in figure \ref{fig:flow_tlorasend}
-
-\begin{figure}[H]
-	\centering		\includegraphics[width=.85\textwidth]{09sw_specification/commstlorasend}
-	\caption{Class Communication Flowchart: tLoraSend.}
-	\label{fig:flow_tlorasend}
-\end{figure}
-
-
 \myparagraph{tLoraRecv}
 
 This task is responsible for receiving messages from the gateway, using LoRa communication.
 
-When a message is received, using \textit{LoraReceive}, this is parsed and later, the respective command will be executed.
+When a message is received, using \textit{LoraComm.recv()}, this is parsed and later, the respective command will be executed.
 
-The flowchart for this task is presented in figure \ref{fig:flow_tlorarecv}
+The flowchart for this task is presented in figure \ref{fig:LStLoraRecv}
 
 \begin{figure}[H]
-	\centering		\includegraphics[width=.55\textwidth]{09sw_specification/commstlorarecv}
+	\centering		\includegraphics[width=.55\textwidth]{09sw_specification/LStLoraRecv}
 	\caption{Class Communication Flowchart: tLoraRecv.}
-	\label{fig:flow_tlorarecv}
+	\label{fig:LStLoraRecv}
 \end{figure}
-
-\myparagraph{Send}
-
-This function, presented in figure \ref{fig:flow_send}, is responsible for adding a new message, \textit{msg}, to the \textit{queued\_msgs} vector, and signal the condition variable \textit{condSend}, for the task \textit{tLoraSend} to send the message.
-
-\begin{figure}[H]
-	\centering	
-	\includegraphics[width=.3\textwidth]{09sw_specification/commssend}
-	\caption{Class Communication Flowchart: Send.}
-	\label{fig:flow_send}
-\end{figure}
-
 
 % FLOWCHARTS SENSORS
 
@@ -343,11 +346,9 @@ In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Simi
 \subsection{Start-up Process}
 In figure \ref{fig:bootLS} is shown the start-up process for the local system. When booting up, the local system creates all necessary objects, as presented previously, and initializes them.
 
-In the figure, one can see the two primary constructors of the system, responsible for creating a Lamp object and a Communication. In the Lamp constructor the PWM module is initialized as the mutexes used. In the Communication constructor the LoRa module is initialized, at 433 MHz, beginning LoRa communication, initializing all mutexes and variables and creating all necessary threads. Besides this modules 
-
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{09sw_specification/bootLS}
+	\includegraphics[width=0.30\textwidth]{09sw_specification/bootLS}
 	\caption{Start-Up Process: Local System.}
 	\label{fig:bootLS}
 \end{figure}

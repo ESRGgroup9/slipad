@@ -5,17 +5,17 @@ One can define and describe briefly how the gateway is implemented, making use o
 \begin{itemize}
 	\item \textbf{tLoraRecv: } receives all messages from local systems, using LoRa communication;
 	\item \textbf{tTCPRecv: } receives all messages from the remote server, using TCP-IP communication;	
-	\item \textbf{tLoraSend: } sends all received messages from the remote server, in textit{tTCPRecv}, to the local systems, using LoRa communication;
-	\item \textbf{tTCPSend: } sends all received messages from local systems, in \textit{tLoraRecv}, to the remote server, using TCP-IP communication;
+	\item \textbf{LoraComm::tSend: } sends all received messages from the remote server, in textit{tTCPRecv}, to the local systems, using LoRa communication; private method of the LoraComm class;
+	\item \textbf{TCPclient::tSend: } sends all received messages from local systems, in \textit{tLoraRecv}, to the remote server, using TCP-IP communication; private method of the TCPclient class.
 \end{itemize}
 
-One can define the relationship between the tasks as follows, in figure \ref{fig:gwOverview}. To communicate the local system received messages and the remote server sender service its used a vector of messages, named \textit{msgs\_to\_rs}. In the communication between the remote server received messages and the local system sender service its also used a vector of messages, named \textit{msgs\_to\_ls}.
+One can define the relationship between the tasks as follows, in figure \ref{fig:GwOverview}. To communicate the local system received messages and the remote server sender service its used a vector of messages, named \textit{msgs\_to\_rs}. In the communication between the remote server received messages and the local system sender service its also used a vector of messages, named \textit{msgs\_to\_ls}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{09sw_specification/gwOverview}
+	\includegraphics[width=1\textwidth]{09sw_specification/GwOverview}
 	\caption{Gateway Overview.}
-	\label{fig:gwOverview}
+	\label{fig:GwOverview}
 \end{figure}
 
 %**********************************************************
@@ -25,7 +25,7 @@ The priority assignment diagram for the gateway is represented in figure \ref{fi
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{09sw_specification/gwt_priority}
+	\includegraphics[width=0.5\textwidth]{09sw_specification/GwPriority}
 	\caption{Gateway Priority Assignment Schematic.}
 	\label{fig:gwt_priority}
 \end{figure}
@@ -37,23 +37,42 @@ The priority assignment diagram for the gateway is represented in figure \ref{fi
 The condition variables used in this system are listed below.
 
 \begin{itemize}
-	\item \textbf{condLoraSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent;
-	\item \textbf{condTCPSend:} used to notify \textit{tTCPSend} that a new message is ready to be sent;
+	\item \textbf{LoraComm::condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent; private member of class LoraComm;
+	\item \textbf{TCPclient::condSend:} used to notify \textit{tTCPSend} that a new message is ready to be sent; private member of class TCPclient.
 \end{itemize}
 
 \myparagraph{Mutexes}
-The mutexes used in this system are listed bellow.
+The mutexes used in this system are listed bellow, which are all private members of LoraComm and TCPclient classes.
 
 \begin{itemize}
-	\item \textbf{mutLoraComm:} used to protect the LoRa communications (send and receive);
-	\item \textbf{mutLoraSend:}	used to protect the handling of the vector \textit{msgs\_to\_ls};
+	\item \textbf{LoraComm::mutComm:} used to protect the LoRa communications (send and receive);
+	\item \textbf{LoraComm::mutSend:}	used to protect the handling of the vector \textit{msgs\_to\_ls};
 	
-	\item \textbf{mutTCPComm:} used to protect the TCP/IP communications (send and receive);
-	\item \textbf{mutTCPSend:} used to protect the handling of the vector \textit{msgs\_to\_rs}.
+	\item \textbf{TCPclient::mutComm:} used to protect the TCP/IP communications (send and receive);
+	\item \textbf{TCPclient::mutSend:} used to protect the handling of the vector \textit{msgs\_to\_rs}.
 \end{itemize}
 
-\subsection{Task Communication}
-In order to communicate all messages between the LoRa related tasks and the TCP related tasks are used two vectors of strings, \textit{msgs\_to\_rs} and \textit{msgs\_to\_ls}. This belongs to the container library \textit{std::vector} from C++ libraries, which implements a dynamic contiguous array. The storage of the vector is handled automatically being expanded and contracted as needed. This provides functions like \textit{push\_back()}, \textit{insert()} or \textit{pop\_back()} which allows to insert or remove new elements as needed.
+%\subsection{Task Communication}
+%In order to communicate all messages between the LoRa related tasks and the TCP related tasks are used two vectors of strings, \textit{msgs\_to\_rs} and \textit{msgs\_to\_ls}. This belongs to the container library \textit{std::vector} from C++ libraries, which implements a dynamic contiguous array. The storage of the vector is handled automatically being expanded and contracted as needed. This provides functions like \textit{push\_back()}, \textit{insert()} or \textit{pop\_back()} which allows to insert or remove new elements as needed.
+
+%**********************************************************
+\subsection{Class Diagrams}
+In figure \ref{fig:GwclassDiag} is represented the class diagram of gateway. The class \textit{CGat} is the main class of the system that initializes the objects of each class listed below.
+
+\begin{itemize}
+	\item \textbf{CLoraComm:} manages the LoRa communications, interfacing with the LoRa module;
+	
+	\item \textbf{CTCPclient:} manages the TCP-IP communication with the remote server;
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.9\textwidth]{09sw_specification/GwclassDiag}
+	\caption{Gateway Class Diagram.}
+	\label{fig:GwclassDiag}
+\end{figure}
+
+\myparagraph{Class CCamera}
 
 %**********************************************************
 \subsection{Flowcharts}
@@ -72,39 +91,39 @@ When a message is received it is pushed into the vector of messages \textit{msgs
 	\label{fig:gwtLoraRecv}
 \end{figure}
 
-\myparagraph{tLoraSend}
+%\myparagraph{tLoraSend}
+%
+%This task, presented in figure \ref{fig:gwtLoraSend}, is responsible for sending all the packets sent by the remote system to the local systems. In addiction to the mutex \textit{mutLoraComm}, this task makes use of another mutex \textit{mutLoraSend}, which comes along with the condition variable \textit{condLoraSend}, in order to protect the insertion and removal of messages from the vector \textit{msgs\_to\_ls}.
+%
+%When there are no messages to send to the local systems, i.e, the messages vector \textit{msgs\_to\_ls} is empty, then the task enters a sleep state, waiting for \textit{condLoraSend} to be notified. When this happens, the mutex that protects LoRa communication is locked and a message is popped from the queue of messages to being sent to the local systems. If the vector \textit{msgs\_to\_ls} is not empty after sending a message, this task continues to do so until there are no more to send, before entering into sleep state again.
 
-This task, presented in figure \ref{fig:gwtLoraSend}, is responsible for sending all the packets sent by the remote system to the local systems. In addiction to the mutex \textit{mutLoraComm}, this task makes use of another mutex \textit{mutLoraSend}, which comes along with the condition variable \textit{condLoraSend}, in order to protect the insertion and removal of messages from the vector \textit{msgs\_to\_ls}.
-
-When there are no messages to send to the local systems, i.e, the messages vector \textit{msgs\_to\_ls} is empty, then the task enters a sleep state, waiting for \textit{condLoraSend} to be notified. When this happens, the mutex that protects LoRa communication is locked and a message is popped from the queue of messages to being sent to the local systems. If the vector \textit{msgs\_to\_ls} is not empty after sending a message, this task continues to do so until there are no more to send, before entering into sleep state again.
-
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=.8\textwidth]{09sw_specification/gwtLoraSend}
-	\caption{Flowchart: Gateway tLoraSend.}
-	\label{fig:gwtLoraSend}
-\end{figure}
+%\begin{figure}[H]
+%	\centering
+%		\includegraphics[width=.8\textwidth]{09sw_specification/gwtLoraSend}
+%	\caption{Flowchart: Gateway tLoraSend.}
+%	\label{fig:gwtLoraSend}
+%\end{figure}
 
 \clearpage
-\myparagraph{tTCPSend}
-
-This task, presented in figure \ref{fig:gwtTCPSend}, is responsible for sending all the messages sent by the local systems to the remote system, being received by in the task \textit{tLoraRecv}. It uses two mutexes: \textit{mutTCPSend} associated with the condition variable \textit{condTCPSend}, that synchronizes the insertion and removal of the messages from the vector \textit{msgs\_to\_rs}; and \textit{mutTCPComm}, to protect the communications send and receive.
-
-When there are no messages to send to the remote system, i.e, the messages vector \textit{msgs\_to\_rs} is empty, the task enters a sleep state, waiting for \textit{condTCPSend} to be notified by the task receiving messages from the local systems. When messages are received, the vector \textit{msgs\_to\_rs} is not empty, and one can lock the mutex \textit{mutTCPSend} in order to pop a message from the vector. After that, one can send the message via TCP/IP communication protocol, protecting the communication with the mutex \textit{mutTCPComm}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.52\textwidth]{09sw_specification/gwtTCPSend}
-	\caption{Flowchart: Gateway tTCPSend.}
-	\label{fig:gwtTCPSend}
-\end{figure}
+%\myparagraph{tTCPSend}
+%
+%This task, presented in figure \ref{fig:gwtTCPSend}, is responsible for sending all the messages sent by the local systems to the remote system, being received by in the task \textit{tLoraRecv}. It uses two mutexes: \textit{mutTCPSend} associated with the condition variable \textit{condTCPSend}, that synchronizes the insertion and removal of the messages from the vector \textit{msgs\_to\_rs}; and \textit{mutTCPComm}, to protect the communications send and receive.
+%
+%When there are no messages to send to the remote system, i.e, the messages vector \textit{msgs\_to\_rs} is empty, the task enters a sleep state, waiting for \textit{condTCPSend} to be notified by the task receiving messages from the local systems. When messages are received, the vector \textit{msgs\_to\_rs} is not empty, and one can lock the mutex \textit{mutTCPSend} in order to pop a message from the vector. After that, one can send the message via TCP/IP communication protocol, protecting the communication with the mutex \textit{mutTCPComm}.
+%
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=.52\textwidth]{09sw_specification/gwtTCPSend}
+%	\caption{Flowchart: Gateway tTCPSend.}
+%	\label{fig:gwtTCPSend}
+%\end{figure}
 
 \myparagraph{tTCPRecv}
 This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receiving the messages sent by the remote system to the local systems. Unlike the send tasks, this thread never enters the sleep state because we can receive a message at any moment, so first, one have to lock the mutex \textit{mutTCPComm} and try to receive a message. If it was received a message, i.e, the \textit{msg} variable is not empty, then one can push the message to the messages vector \textit{msgs\_to\_ls} and notify the condition variable \textit{condLoraSend}, after locking its mutex \textit{mutLoraSend}, to inform that a new message has been received.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.42\textwidth]{09sw_specification/gwtTCPRecv}
+	\includegraphics[width=.42\textwidth]{09sw_specification/GwtTCPRecv}
 	\caption{Flowchart: Gateway tTCPRecv.}
 	\label{fig:gwtTCPRecv}
 \end{figure}
@@ -115,7 +134,7 @@ In figure \ref{fig:bootGateway} is shown the start-up process for the gateway. W
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.65\textwidth]{09sw_specification/bootGateway}
+	\includegraphics[width=.65\textwidth]{09sw_specification/bootGw}
 	\caption{Start-Up Process: Gateway.}
 	\label{fig:bootGateway}
 \end{figure}
