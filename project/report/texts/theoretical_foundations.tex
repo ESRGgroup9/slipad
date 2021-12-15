@@ -75,7 +75,7 @@ Linux supports three types of hardware devices: character, block and network dev
 \clearpage
 \section{Image Processing}
 %Basically, an image is a two-dimensional array of pixels, so it can be represented in an cartesian coordinate system. 
-
+\label{section:imageProc}
 Image processing consists of several techniques and methods used to manipulate images on a computer. The image processing helps improving the stored digital information, automate working with images and optimize image manipulation leading to efficient storage and transmission. Nowadays, image processing has many applications, like filtering images in editing apps and social media, medical technology, computer vision (objects identification, for example), pattern recognition, video processing and more. In this project, the image processing application is the computer vision, to detect available parking spots in the streets, using a camera.
 
 In order to identify parking spots, one needs to find its outlines. The Canny Edge Detection \cite{canny} algorithm is a popular edge detection algorithm, and can be used to detect the parking spots outlines, providing an edge image. The canny edge detection is a multi-stage algorithm that goes through the stages: Noise reduction, Sobel Filtering, Non-maximum Suppression and Hysteresis Thresholding.
