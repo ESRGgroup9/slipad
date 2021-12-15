@@ -3,20 +3,11 @@
 One can define and describe briefly how the gateway is implemented, making use of threads and processes.
 
 \begin{itemize}
-	\item \textbf{tLoraRecv: } receives all messages from local systems, using LoRa communication;
-	\item \textbf{tTCPRecv: } receives all messages from the remote server, using TCP-IP communication.	
-	\item \textbf{tLoraSend: } sends all received messages from the remote server, in textit{tTCPRecv}, to the local systems, using LoRa communication;
-	\item \textbf{tTCPSend: } sends all received messages from local systems, in \textit{tLoraRecv}, to the remote server, using TCP-IP communication;
+	\item \textbf{tLoraRecv:}
+	\item \textbf{tLoraSend:}
+	\item \textbf{tTCPSend:} sends a message to the remote server, via TCP/IP communication protocol;
+	\item \textbf{tTCPRecv:} receives a message from the remote server, via TCP/IP communication protocol.
 \end{itemize}
-
-One can define the relationship between the tasks as follows, in figure \ref{fig:gwOverview}. To communicate the local system received messages and the remote server sender service its used a vector of messages, named \textit{msgs\_to\_rs}. In the communication between the remote server received messages and the local system sender service its also used a vector of messages, named \textit{msgs\_to\_ls}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\textwidth]{09sw_specification/gwOverview}
-	\caption{Gateway Overview.}
-	\label{fig:gwOverview}
-\end{figure}
 
 %**********************************************************
 \subsection{Task Priority}
@@ -47,21 +38,20 @@ The mutexes used in this system are listed bellow.
 
 %\myparagraph{Semaphores}
 
-\subsection{Task Communication}
-In order to communicate all messages between the LoRa related tasks and the TCP related tasks are used two vectors of strings, \textit{msgs\_to\_rs} and \textit{msgs\_to\_ls}. This belongs to the container library \textit{std::vector} from C++ libraries, which implements a dynamic contiguous array. The storage of the vector is handled automatically being expanded and contracted as needed. This provides functions like \textit{push\_back()}, \textit{insert()} or \textit{pop\_back()} which allows to insert or remove new elements as needed.
+%\subsection{Task Communication}
 %\myparagraph{Message Queues}
 %\myparagraph{Signals}
 
 %**********************************************************
 \subsection{Flowcharts}
 \myparagraph{tLoraRecv}
-This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication. This task makes use of a mutex \textit{mutLoraComm}, to protect LoRa send and receive functions, which must not occur at the same time. Besides that, it uses a mutex \textit{mutTCPSend} to protect the vector of messages \textit{msgs\_to\_rs} which can be changed in \textit{tTCPRecv}.
+This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication. This task makes use of a mutex \textit{mutLoraComm}, to protect LoRa send and receive functions, which must not occur at the same time.
 
-When a message is received it is pushed into the vector of messages \textit{msgs\_to\_rs}, to be sent to the remote system. This way, we can receive continually messages from local systems, while there is another task sending this messages. This operation is protected by \textit{mutTCPSend}. After the message is added to the vector of messages, this task signals the task \textit{tTPCSend} through the condition variable \textit{condTCPSend}, in order for this to send the newly added message to the remote system.
+When a message is received it is pushed into a vector of messages, to be sent to the remote system, named \textit{msgs\_to\_rs}. This way, we can receive continually messages from local systems, while there is another task sending this messages.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/gwtLoraRecv}
+%	\includegraphics[width=.65\textwidth]{09sw_specification/gwtLoraRecv}
 	\caption{Flowchart: Gateway tLoraRecv.}
 	\label{fig:gwtLoraRecv}
 \end{figure}
@@ -73,7 +63,7 @@ When there are no messages to send to the local systems, i.e, the messages vecto
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.8\textwidth]{09sw_specification/gwtLoraSend}
+	%	\includegraphics[width=.65\textwidth]{09sw_specification/gwtLoraSend}
 	\caption{Flowchart: Gateway tLoraSend.}
 	\label{fig:gwtLoraSend}
 \end{figure}
@@ -85,7 +75,7 @@ When there are no messages to send to the remote system, i.e, the messages vecto
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.65\textwidth]{09sw_specification/gwtTCPSend}
+	\includegraphics[width=.4\textwidth]{09sw_specification/gwtTCPSend}
 	\caption{Flowchart: Gateway tTCPSend.}
 	\label{fig:gwtTCPSend}
 \end{figure}
@@ -95,7 +85,7 @@ This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receivin
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.65\textwidth]{09sw_specification/gwtTCPRecv}
+	\includegraphics[width=.4\textwidth]{09sw_specification/gwtTCPRecv}
 	\caption{Flowchart: Gateway tTCPRecv.}
 	\label{fig:gwtTCPRecv}
 \end{figure}
