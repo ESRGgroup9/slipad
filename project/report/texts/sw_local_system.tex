@@ -152,7 +152,7 @@ In the image processing part of the thread, if there aren't parking spots coordi
 
 \begin{figure}[H]
 	\centering			
-	\includegraphics[width=.7\textwidth]{09sw_specification/tCamera}
+	\includegraphics[width=1\textwidth]{09sw_specification/tCamera}
 	\caption{Main Process Flowchart: tCamera.}
 	\label{fig:flow_tcamera}
 \end{figure}
@@ -182,7 +182,8 @@ When the message queue is not empty, this task reads a message from the message 
 \end{itemize}
 
 \begin{figure}[H]
-	\centering			\includegraphics[width=.4\textwidth]{09sw_specification/trecvsensors}
+	\centering
+	\includegraphics[width=.4\textwidth]{09sw_specification/trecvsensors}
 	\caption{Main Process Flowchart: tRecvSensors.}
 	\label{fig:flow_trecv_sensors}
 \end{figure}
@@ -302,12 +303,64 @@ In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Simi
 %**********************************************************
 \subsection{Shutdown Process}
 
-%\myparagraph{tLampControl}
-% uses: mutChangePWM; condNewPWM; pwm_val
-% pwm_val is used in: PIR_sensor, CommandCb, LDR
-% must define: MIN_BRIGHT_PWM; LAMP_ON_TIMEOUT
-%This task is responsible for initializing and controlling the PWM peripheral used to control the lamp brightness. A mutex \textit{mutChangePWM} is used to protect the process of defining a new PWM value. 
-%
-%After initializing the PWM, this task goes to sleep, waiting for the condition variable \textit{condNewPWM} to notify this task. This happens when a new PWM value is defined into the variable \textit{pwm\_val}, in \textit{dReadSensors} or in a received command. Then, the lamp PWM is changed to the new value. 
-%
-%The lamp may have various levels of luminosity: for the lamp to be OFF, is applied PWM~=~0; for the lamp to be at a predefined minimum bright level, is applied PWM~=~\textit{MIN\_BRIGHT\_PWM}; for the lamp to be at maximum bright, this is, when the lamp must be ON, is applied PWM~=~100. So, since the lamp must stay ON a minimum amount of time out of a motion is detected or out of a request from the remote system to be ON, one needs to check if the new PWM is the maximum value. If so, that means that the lamp should continue with that PWM for a predefined time, defined by \textit{LAMP\_ON\_TIMEOUT}, in seconds.
+%**********************************************************
+\clearpage
+\subsection{Device Driver}
+In this project it will be implemented a device driver for a GPIO pin, used to read from the sensors PIR and LampFailureDetector.
+
+First, one has to see what are registers that the board uses, relating to GPIO pins. In the Raspberry Pi 4B documentation, one finds the registers easily for the GPIO pins that needs to be used for implementing the interface. The BCM2711 chip has 58 GPIO lines, split into three banks. Bank 0 is the one mapped on the header pins, from GPIO 0 to GPIO 27. Also, the GPIO registers base address is the 0x7E200000 and the address used is 32-bits.
+
+To configure a pin as output or input, or to set or reset its value, the registers presented in table \ref{table:gpio_reg} are used.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{2,5cm}|m{2,7cm}|m{6,8cm}|m{1,6cm}|}
+			\hline
+			\textbf{Address} & \textbf{Field Name} & \textbf{Description} & \textbf{R/W}
+			\\\hline\hline
+			0x7E200000 & GPFSEL0 & GPIO Function Select 0 (GPIO 0-9) &  R/W
+			\\\hline
+			
+			0x7E200004 & GPFSEL1 & GPIO Function Select 1 (GPIO 10-19) & R/W
+			\\\hline
+			
+			0x7E200008 & GPFSEL2 & GPIO Function Select 2 (GPIO 20-29) & R/W
+			\\\hline
+			
+			0x7E20000C & GPFSEL3 & GPIO Function Select 3 (GPIO 30-39) & R/W
+			\\\hline
+			
+			0x7E200010 & GPFSEL4 & GPIO Function Select 4 (GPIO 40-49) & R/W
+			\\\hline
+			
+			0x7E200014 & GPFSEL5 & GPIO Function Select 5 (GPIO 50-53) & R/W
+			\\\hline
+			
+			0x7E200018 & - & Reserved - & -
+			\\\hline
+			
+			0x7E20001C & GPSET0 & GPIO Pin Output Set 0 (0-31) & W
+			\\\hline
+			
+			0x7E200020 & GPSET1 & GPIO Pin Output Set 1 (32-53) & W
+			\\\hline
+			
+			0x7E200024 & - & Reserved - & -
+			\\\hline
+			
+			0x7E200028 & GPCLR0 & GPIO Pin Output Clear 0 (0-31) & W
+			\\\hline
+			
+			0x7E20002C & GPCLR1 & GPIO Pin Output Clear 1 (32-53) & W
+			\\\hline			
+		\end{tabular}
+	}
+	\caption{Raspberry Pi Registers used for GPIO configuration.}
+	\label{table:gpio_reg}
+\end{table}
+
+The \textit{GPFSELx} register is used to define the operation of the GPIO pins, input or output. The \textit{GPFSETx} / \textit{GPFCLRx} are registers used to set or clear pins, respectively. Each register \textit{GPFSELx} contains 10 GPIOs.
+
+As defined in the Hardware Specification section, PIR sensor will have its output connected to the pin 27 of the Raspberry Pi, as the Lamp Failure Detector will have its output connected to the pin 22. Therefore, the register to define both pins as input is \textit{GPFSEL2}.
