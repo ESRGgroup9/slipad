@@ -22,6 +22,18 @@ One can list the tasks that compose the main process:
 %**********************************************************
 \subsection{Task Priority}
 
+One needs to assign each thread a static priority level to indicate their relative urgency. Moreover, the
+scheduler will always pick the thread that is ready to execute with the highest priority level. Priorities must be assigned in order to ensure efficiency and execute real-time tasks.
+
+With that in mind, the priority assignment diagram for the local system is represented in figure \ref{fig:t_priority}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.65\textwidth]{09sw_specification/t_priority}
+	\caption{Priority Assignment Schematic.}
+	\label{fig:t_priority}
+\end{figure}
+
 %**********************************************************
 \subsection{Task Synchronization}
 Real-time tasks share resources and services, and as such, should be prepared to await for the availability of these resources and services, like logical resources (buffers and data), physical resources, services like directory services, etc. In order to have coordinate access to shared resources and avoid race conditions, the kernel has resources that provide synchronization tools. 
@@ -67,8 +79,11 @@ A mutex is a locking mechanism that provides mutual exclusion, supporting owners
 
 \myparagraph{Message Queue}
 
-A message queue is a linked list of messages stored within the kernel and identified by a message queue identifier. A message queue will be used to communicate between the main process and the \textit{dSensors}. In that way, the main process is agnostic to the cyclic reading necessary for the sensors \textit{LDR} and \textit{LampFailureDetector}, and is only informed when necessary, thorough the message queue.
+A message queue is a linked list of messages stored within the kernel and identified by a message queue identifier. A message queue will be used to communicate between the main process and the \textit{dSensors}. In that way, the main process is agnostic to the cyclic reading necessary for the sensors \textit{LDR} and \textit{LampFailureDetector}, and is only informed when necessary, through the message queue.
 
+%\myparagraph{Signals}
+%
+%In order to define periodic events, through a timer, it is used the signal SIGALRM. Since there are different periods to set in timers, one can list the signals used 
 %**********************************************************
 \subsection{Class Diagrams}
 \myparagraph{Class Camera}
