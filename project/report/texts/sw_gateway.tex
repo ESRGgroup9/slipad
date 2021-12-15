@@ -3,7 +3,10 @@
 One can define and describe briefly how the gateway is implemented, making use of threads and processes.
 
 \begin{itemize}
-	\item 
+	\item \textbf{tLoraRecv: }
+	\item \textbf{tLoraSend: }
+	\item \textbf{tTCPSend: }
+	\item \textbf{tTCPRecv: }
 \end{itemize}
 
 %**********************************************************
@@ -16,7 +19,7 @@ One can define and describe briefly how the gateway is implemented, making use o
 The condition variables used in this system are listed below.
 
 \begin{itemize}
-	\item
+	\item \textbf{condLoraSend: }
 		
 \end{itemize}
 
@@ -24,20 +27,25 @@ The condition variables used in this system are listed below.
 The mutexes used in this system are listed bellow.
 
 \begin{itemize}
-	\item 
-	
+	\item \textbf{mutLoraComm: }
+	\item \textbf{mutLoraSend: }	
 \end{itemize}
 
-\myparagraph{Semaphores}
+%\myparagraph{Semaphores}
 
-\subsection{Task Communication}
-\myparagraph{Message Queues}
-\myparagraph{Signals}
+%\subsection{Task Communication}
+%\myparagraph{Message Queues}
+%\myparagraph{Signals}
 
 %**********************************************************
 \subsection{Flowcharts}
+\myparagraph{tLoraRecv}
 
+\myparagraph{tLoraSend}
 
+\myparagraph{tTCPSend}
+
+\myparagraph{tTCPRecv}
 %**********************************************************
 \subsection{Start-up Process}
 
