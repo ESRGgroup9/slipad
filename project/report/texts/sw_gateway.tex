@@ -20,6 +20,14 @@ One can define the relationship between the tasks as follows, in figure \ref{fig
 
 %**********************************************************
 \subsection{Task Priority}
+The priority assignment diagram for the gateway is represented in figure \ref{fig:gwt_priority}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{09sw_specification/gwt_priority}
+	\caption{Gateway Priority Assignment Schematic.}
+	\label{fig:gwt_priority}
+\end{figure}
 
 %**********************************************************
 \subsection{Task Synchronization}
@@ -37,7 +45,7 @@ The mutexes used in this system are listed bellow.
 
 \begin{itemize}
 	\item \textbf{mutLoraComm:} used to protect the LoRa communications (send and receive);
-	\item \textbf{mutLoraSend:}	used to protect the handling of the vector \textit{msgs\_to\_ls}
+	\item \textbf{mutLoraSend:}	used to protect the handling of the vector \textit{msgs\_to\_ls};
 	
 	\item \textbf{mutTCPComm:} used to protect the TCP/IP communications (send and receive);
 	\item \textbf{mutTCPSend:} used to protect the handling of the vector \textit{msgs\_to\_rs}.
