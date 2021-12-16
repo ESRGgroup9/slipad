@@ -28,7 +28,6 @@ This project follows Waterfall model:
 
 Since this project serves educational purposes, the last two phases of the Waterfall model, *Deployment* and *Maintenance*, won't be approached.
 
----
 
 ### <!--Dependencies-->
 
@@ -36,7 +35,6 @@ Since this project serves educational purposes, the last two phases of the Water
 
 ### <!--Usage-->
 
----
 
 ## Done by
 
