@@ -9,7 +9,7 @@ This project aims the implementation of applications for a Smart City, regarding
 
 The network architecture to be developed in this project is presented in the following image: 
 
-![alt text] (https://github.com/TomasLAbreu/slipad/blob/main/report/images/03system_overview/network_arch.png?raw=true)
+![alt text](https://github.com/TomasLAbreu/slipad/blob/main/report/images/03system_overview/network_arch.png?raw=true)
 
 
 
