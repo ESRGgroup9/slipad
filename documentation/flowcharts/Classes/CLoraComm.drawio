@@ -1,23 +1,23 @@
-<mxfile host="app.diagrams.net" modified="2021-12-17T22:39:45.284Z" agent="5.0 (X11)" etag="HYKfWxU-ykG0WnyFqvVh" version="16.0.0" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-12-17T22:43:12.339Z" agent="5.0 (X11)" etag="_5RYXoLwj6VOpfeSTSOh" version="16.0.0" type="github" pages="4">
   <diagram id="fWEu4t-EW_wei3MwVTip" name="Class">
     <mxGraphModel dx="771" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="c93XpwLS8CslaClu3LFZ-1" value="CLoraComm" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
-          <mxGeometry x="310" y="160" width="240" height="320" as="geometry" />
+          <mxGeometry x="310" y="160" width="210" height="320" as="geometry" />
         </mxCell>
         <mxCell id="c93XpwLS8CslaClu3LFZ-2" value="- freqMHz : int&#xa;- dest_addr : int&#xa;- local_addr : int&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="c93XpwLS8CslaClu3LFZ-1" vertex="1">
-          <mxGeometry y="26" width="240" height="64" as="geometry" />
+          <mxGeometry y="26" width="210" height="64" as="geometry" />
         </mxCell>
         <mxCell id="c93XpwLS8CslaClu3LFZ-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" parent="c93XpwLS8CslaClu3LFZ-1" vertex="1">
-          <mxGeometry y="90" width="240" height="8" as="geometry" />
+          <mxGeometry y="90" width="210" height="8" as="geometry" />
         </mxCell>
         <mxCell id="c93XpwLS8CslaClu3LFZ-4" value="+ CLoraComm(IN freqMHz : int,&#xa;                             dest_addr : int,&#xa;                             local_addr : int)&#xa;+ ~CLoraComm(void)&#xa;&#xa;# recvFunc(void) string&#xa;# sendFunc(IN msg : string) int &#xa;&#xa;&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="c93XpwLS8CslaClu3LFZ-1" vertex="1">
-          <mxGeometry y="98" width="240" height="222" as="geometry" />
+          <mxGeometry y="98" width="210" height="222" as="geometry" />
         </mxCell>
         <mxCell id="QjQafICjfFNIdCcySg0X-1" value="CCommunication" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="310" y="80" width="240" height="30" as="geometry" />
+          <mxGeometry x="310" y="80" width="210" height="30" as="geometry" />
         </mxCell>
         <mxCell id="QjQafICjfFNIdCcySg0X-2" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="c93XpwLS8CslaClu3LFZ-1" target="QjQafICjfFNIdCcySg0X-1" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
