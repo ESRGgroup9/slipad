@@ -1,22 +1,22 @@
-<mxfile host="app.diagrams.net" modified="2021-12-17T00:49:37.238Z" agent="5.0 (X11)" etag="bCv01NBKGq3Z6DHLAzmI" version="15.9.6" type="github">
+<mxfile host="app.diagrams.net" modified="2021-12-17T00:54:08.475Z" agent="5.0 (X11)" etag="OUC_mY75XR1ExH-HhXkq" version="15.9.6" type="github">
   <diagram id="i9N1n5cvbWL6aRPILHIY" name="Page-1">
-    <mxGraphModel dx="643" dy="343" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="540" dy="306" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="m2NCjfQ8HdCbidcjX5XP-1" value="CCommunication" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
-          <mxGeometry x="320" y="190" width="260" height="270" as="geometry">
+        <mxCell id="m2NCjfQ8HdCbidcjX5XP-1" value="CCommunication" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
+          <mxGeometry x="320" y="190" width="220" height="270" as="geometry">
             <mxRectangle x="320" y="190" width="60" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="m2NCjfQ8HdCbidcjX5XP-2" value="-  mutComm : mutex&#xa;-  mutSend : mutex&#xa;- condSend : condition variable&#xa;- tx_msgs : vector&lt;string&gt;&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="m2NCjfQ8HdCbidcjX5XP-1">
-          <mxGeometry y="26" width="260" height="84" as="geometry" />
+        <mxCell id="m2NCjfQ8HdCbidcjX5XP-2" value="-  mutComm : mutex&#xa;-  mutSend : mutex&#xa;- condSend : condition variable&#xa;- tx_msgs : vector&lt;string&gt;&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="m2NCjfQ8HdCbidcjX5XP-1" vertex="1">
+          <mxGeometry y="26" width="220" height="74" as="geometry" />
         </mxCell>
-        <mxCell id="m2NCjfQ8HdCbidcjX5XP-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="m2NCjfQ8HdCbidcjX5XP-1">
-          <mxGeometry y="110" width="260" height="10" as="geometry" />
+        <mxCell id="m2NCjfQ8HdCbidcjX5XP-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" parent="m2NCjfQ8HdCbidcjX5XP-1" vertex="1">
+          <mxGeometry y="100" width="220" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="m2NCjfQ8HdCbidcjX5XP-4" value="+ CCommunication()&#xa;+ ~CCommunication()&#xa;&#xa;+ push(IN msg : string) void&#xa;+ send(IN msg : string) int&#xa;+ recv(void) string&#xa;&#xa;- tSend(void*) void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="m2NCjfQ8HdCbidcjX5XP-1">
-          <mxGeometry y="120" width="260" height="150" as="geometry" />
+        <mxCell id="m2NCjfQ8HdCbidcjX5XP-4" value="+ CCommunication()&#xa;+ ~CCommunication()&#xa;&#xa;- tSend(void*) &#xa;{virtual} # recvFunc(void) string&#xa;{virtual} # sendFunc(IN msg : string) int&#xa;&#xa;+ push(IN msg : string) int&#xa;+ send(IN msg : string) int&#xa;+ recv(void) string&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="m2NCjfQ8HdCbidcjX5XP-1" vertex="1">
+          <mxGeometry y="110" width="220" height="160" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
