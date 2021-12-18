@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-18T12:33:49.306Z" agent="5.0 (X11)" etag="lhhKI_kag7b117iLD0Mt" version="16.0.0" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2021-12-18T19:28:11.912Z" agent="5.0 (X11)" etag="PAZo7tETklS_QQDOfSJr" version="16.0.0" type="github" pages="8">
   <diagram id="i9N1n5cvbWL6aRPILHIY" name="CComunication">
     <mxGraphModel dx="771" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -77,7 +77,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="init" id="ljJTT_h6XMw_U4pUelpG">
-    <mxGraphModel dx="1350" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="771" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="Bzek1EnJcziygKtFhNm2-0" />
         <mxCell id="Bzek1EnJcziygKtFhNm2-1" parent="Bzek1EnJcziygKtFhNm2-0" />
@@ -222,7 +222,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="TXBRDlFrY5LMVjivzKH4" name="tSend">
-    <mxGraphModel dx="1350" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="931" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="z6fOiJTu7DcIiEjyc6xN-0" />
         <mxCell id="z6fOiJTu7DcIiEjyc6xN-1" parent="z6fOiJTu7DcIiEjyc6xN-0" />
@@ -279,7 +279,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="z6fOiJTu7DcIiEjyc6xN-16" value="Is &lt;i&gt;TxMsgs&lt;/i&gt; empty?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" parent="z6fOiJTu7DcIiEjyc6xN-1" vertex="1">
+        <mxCell id="z6fOiJTu7DcIiEjyc6xN-16" value="&lt;div&gt;Is &lt;i&gt;TxMsgs&lt;/i&gt; &lt;br&gt;&lt;/div&gt;&lt;div&gt;empty?&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;" parent="z6fOiJTu7DcIiEjyc6xN-1" vertex="1">
           <mxGeometry x="415.01" y="230" width="100" height="80" as="geometry" />
         </mxCell>
         <mxCell id="z6fOiJTu7DcIiEjyc6xN-17" style="edgeStyle=orthogonalEdgeStyle;curved=0;rounded=1;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" parent="z6fOiJTu7DcIiEjyc6xN-1" source="z6fOiJTu7DcIiEjyc6xN-18" edge="1">
