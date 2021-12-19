@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-19T00:09:40.845Z" agent="5.0 (X11)" etag="3zQ1un9fAaK6ZANrANXj" version="16.0.0" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2021-12-19T00:11:11.180Z" agent="5.0 (X11)" etag="UNV-piCHxCap9eNzy3Oq" version="16.0.0" type="github" pages="3">
   <diagram id="BIISHURFNEhh7urVzrqM" name="Class">
     <mxGraphModel dx="450" dy="240" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -13,7 +13,7 @@
         <mxCell id="fzbW83kZ4KSZjWXqwc1y-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="fzbW83kZ4KSZjWXqwc1y-1">
           <mxGeometry y="60" width="200" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="fzbW83kZ4KSZjWXqwc1y-4" value="+ Camera(IN cameraDev : string)&#xa;+ ~Camera(void)&#xa;&#xa;+ open(void) bool&#xa;+ close(void) bool&#xa;+ isOpen(void) bool&#xa;&#xa;- capture(void) bool&#xa;&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;spacing=2;fontStyle=0" vertex="1" parent="fzbW83kZ4KSZjWXqwc1y-1">
+        <mxCell id="fzbW83kZ4KSZjWXqwc1y-4" value="+ Camera(IN cameraDev : string)&#xa;+ ~Camera(void)&#xa;&#xa;+ open(void) bool&#xa;+ close(void) bool&#xa;+ isOpen(void) bool&#xa;&#xa;+ capture(void) bool&#xa;&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;spacing=2;fontStyle=0" vertex="1" parent="fzbW83kZ4KSZjWXqwc1y-1">
           <mxGeometry y="68" width="200" height="122" as="geometry" />
         </mxCell>
       </root>
