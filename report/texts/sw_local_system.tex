@@ -204,53 +204,60 @@ Real-time tasks share resources and services, and as such, should be prepared to
 
 \myparagraph{Condition Variables}
 
-A condition variable is a task synchronization tool that can be used to block (wait) one or more threads, suspending its execution. The blocked threads are awakened when the condition variable is notified. The condition variables used are listed below.
+A condition variable is a task synchronization tool that can be used to block (wait) one or more threads, suspending its execution. The blocked threads are awakened when the condition variable is notified. 
+
+The condition variables used in the main process are listed below.
 
 \begin{itemize}
-\item \textbf{CLocalSystem::condRecvSensors:}
-\item \textbf{CLocalSystem::condCamFrame:}
-\item \textbf{CSensors::condReadLdr:}
-\item \textbf{CSensors::condReadLampf:}
-\item \textbf{CCommunication::condtSend:}
+	\item \textbf{CLocalSystem::condRecvSensors:} notifies \textit{tRecvSensors} that a new message is available on the message queue, \textit{msgqSensors};
+
+	\item \textbf{CLocalSystem::condCamFrame:} notifies \textit{tParkDetection} to acquire a new camera frame and process it;
+
+	\item \textbf{CCommunication::condtSend:} used to notify \textit{CCommunication::Send} that a new message is ready to be sent.
 \end{itemize}
 
-%\begin{itemize}
-%	\item \textbf{condCamFrame:} notifies \textit{tParkDetection} to acquire a new camera frame and process it;
-%	\item \textbf{condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent; private member of CLoraComm class.
-%\end{itemize}
+The condition variables used in the daemon are listed below.
+
+\begin{itemize}
+	\item \textbf{CSensors::condReadLdr:} notifies \textit{tReadLdr} to acquire values from LDR sensor and process them;
+
+	\item \textbf{CSensors::condReadLampf:} notifies \textit{tReadLampf} to acquire values from Lamp Failure Detector and process them;
+\end{itemize}
 
 \myparagraph{Mutexes}
 
-A mutex is a locking mechanism that provides mutual exclusion, supporting ownership and other protocols. A mutex is initially created in the unlocked state in which it can be acquired by a task. After being acquired, the mutex moves to the locked state. When the task releases the mutex, it returns to the unlocked state. The mutexes used are listed bellow.
+A mutex is a locking mechanism that provides mutual exclusion, supporting ownership and other protocols. A mutex is initially created in the unlocked state in which it can be acquired by a task. After being acquired, the mutex moves to the locked state. When the task releases the mutex, it returns to the unlocked state.
 
-%\begin{itemize}
-%	\item \textbf{mutCamFrame:} mutex associated with the condition variable \textit{condCamFrame} to acquire a camera frame;
-%		
-%	\item \textbf{mutSend:} protects the message to be sent in \textit{tSend}, which can be defined in multiple places; private member of CLoraComm class;
-%	
-%	\item \textbf{mutComms:} protects LoRa communication; private member of CLoraComm class;
-%	
-%	\item \textbf{mutChangePWM:} protects the modification of PWM when defining a new PWM value for the lamp; private member of CLamp class.
-%	
-%\end{itemize}
+\clearpage
+The mutexes used in the main process are listed bellow.
 
 \begin{itemize}
-	\item \textbf{CLocalSystem::mutRecvSensors:}
-	\item \textbf{CLocalSystem::mutCamFrame:}
-	\item \textbf{CSensors::mutReadLdr:}
-	\item \textbf{CSensors::mutReadLampf:}
-	\item \textbf{CCommunication::mutComms:}
-	\item \textbf{CCommunication::mutTxMsgs:}
-	\item \textbf{CLamp::mutChangePWM:}
+	\item \textbf{CLocalSystem::mutRecvSensors:} mutex associated with the condition variable \textit{condRecvSensors} to read a new message from the sensors message queue;
+
+	\item \textbf{CLocalSystem::mutCamFrame:} mutex associated with the condition variable \textit{condCamFrame} to acquire a camera frame;
+
+	\item \textbf{CCommunication::mutComms:} indirectly used by \textit{CLoraComms}, to protect communication usage of send and receive functions;
+
+	\item \textbf{CCommunication::mutTxMsgs:} indirectly used by \textit{CLoraComms}; used to protect the insertion and removal of messages into \textit{TxMsgs};
+
+	\item \textbf{CLamp::mutChangePWM:} protects the modification of PWM when defining a new PWM value for the lamp.
+\end{itemize}
+
+The mutexes used in the daemon are listed bellow.
+
+\begin{itemize}
+	\item \textbf{CSensors::mutReadLdr:} protects reading of LDR sensor;
+	\item \textbf{CSensors::mutReadLampf:} protects reading of Lamp Failure Detector.
 \end{itemize}
 
 \myparagraph{Signals}
 
-A signal is a software generated interrupt that is sent to a process by the OS. There are fix set of signals that can be sent to a process, which are identified by integers. Signal number have symbolic names.
+A signal is a notification to a process that an event has occurred. Signals are sometimes described as software interrupts, being analogous to hardware interrupts in that they interrupt the normal flow of execution of a program. One process can send a signal to another process, being in that way, employed as a synchronization technique.
 
+The signals used between the main process and the daemon are listed bellow.
 
 \begin{itemize}
-	\item \textbf{SIGUSR1:}	
+	\item \textbf{SIGUSR1:}	signal sent by \textit{dSensors} to the main process, whenever a new message is inserted in the message queue, \textit{msgqSensors}. This is received in the main process in a signal handler, that will wake up the task \textit{tRecvSensors}, through the condition variable \textit{condRecvSensors}.
 \end{itemize}
 
 %**********************************************************
@@ -264,211 +271,31 @@ A message queue is a linked list of messages stored within the kernel and identi
 
 \myparagraph{Main Process}
 
+The start-up for the main process is shown in figure \ref{fig:mainprocess}. Firstly, a \textit{CLocalSystem} object is created, initializing all objects, that will be detailed later. After that, \textit{run()} method from \textit{CLocalSystem} is used, which will wait for the termination of all tasks.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3\textwidth]{09sw_specification/LS/mainprocess}
+	\caption{Start-Up Process: Main Process.}
+	\label{fig:mainprocess}
+\end{figure}
+
+\clearpage
 \myparagraph{dSensors}
+
+The start-up for the daemon is shown in figure \ref{fig:dsensors}. Firstly, the process becomes a daemon, being that represented by \textit{daemonize()}. After that, a message queue is opened in order to communicate with the main process. Then, it will wait until it receives a message in the message queue, that will be the main process PID. After this setups, a \textit{CSensors} object is created, and the \textit{run()} method is used, working similarly to the one presented in the main process start-up process.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.55\textwidth]{09sw_specification/LS/dsensors}
+	\caption{Start-Up Process: dSensors.}
+	\label{fig:dsensors}
+\end{figure}
+
 %**********************************************************
+\clearpage
 \subsection{Flowcharts}
-%\clearpage
-\myparagraph{CCommunication Methods}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/LS/ccommunication/constructor}
-	\caption{Class Diagram: CCommunication constructor.}
-	\label{fig:CCommunicationConstructor}
-\end{figure}
-
-A message can be put in the waiting list to be sent through the use of \textit{push(msg)}, as shown in figure \ref{fig:CCommunicationPush}.
-
-This function is responsible for adding a new message, \textit{msg}, to the \textit{tx\_msgs} vector, and signal the condition variable \textit{condSend}, for the thread \textit{tSend} to send the message.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/LS/ccommunication/push}
-	\caption{Class Diagram: CCommunication Push method.}
-	\label{fig:CCommunicationPush}
-\end{figure}
-
-To send a message, this class has a built-in thread, \textit{tSend} that can be created using \textit{run(tprio)}, which expects a priority for the thread, \textit{tprio}, as shown in figure \ref{fig:CCommunicationinit}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.25\textwidth]{09sw_specification/LS/ccommunication/init}
-	\caption{Class Diagram: CCommunication Init method.}
-	\label{fig:CCommunicationinit}
-\end{figure}
-
-This thread, \textit{tSend} presented in figure \ref{fig:CCommunicationtsend}, is responsible for sending queued messages to the gateway, using LoRa communication. A conditional variable is used to wake this thread when there is a new message available to be sent.
-
-When the queue \textit{tx\_msgs} is empty, then the task goes to sleep, waiting for the condition variable \textit{condSend} to notify this task. After this, the mutex \textit{mutComms} is used to protect the communication. Then, a message is popped from the messages queue, and sent to the gateway using the method \textit{Send}, shown in figure \ref{fig:CCommunicationsend}. This continues to happen until the \textit{tx\_msgs} queue gets empty.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.65\textwidth]{09sw_specification/LS/ccommunication/tsend}
-	\caption{Class Diagram: CCommunication tSend thread.}
-	\label{fig:CCommunicationtsend}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.55\textwidth]{09sw_specification/LS/ccommunication/send}
-	\caption{Class Diagram: CCommunication Send method.}
-	\label{fig:CCommunicationsend}
-\end{figure}
-
-There is also another method, \textit{recv()}, that receives a string, in a non blocking mode, making use of task synchronization tools to ensure that sending and receiving don't occur at the same time. This function should be used continuously if one doesn't want to miss any communication. This method is presented in figure \ref{fig:CCommunicationrecv}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/LS/ccommunication/recv}
-	\caption{Class Diagram: CCommunication Recv method.}
-	\label{fig:CCommunicationrecv}
-\end{figure}
-
-%******************************
-\myparagraph{CLoraComm Methods}
-
-An object can be created through the use of the constructor, as shown in figure \ref{fig:LoraComm}.
-This starts by initializing the LoRa communication, defining the pins connected to the module and the frequency in which the device choosen previously operates, which is 433~MHz. At the end, all private members are also initialized.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.6\textwidth]{09sw_specification/LS/cloracomm/constructor}
-	\caption{Class Diagram: CLoraComm constructor.}
-	\label{fig:LoraComm}
-\end{figure}
-
-\myparagraph{tCamera}
-
-The task tCamera is responsible for acquire a frame from the Raspberry Pi Camera and to process it. It must analyze the returned frame, in order to detect empty parking spots. This thread uses the mutex \textit{mutCamera} to protect the condition variable \textit{condCameraAcquire}, that synchronizes the camera frame acquisition with the timer that defines the camera frame acquisition period, \textit{timSampleCam}.
-
-Firstly, this thread initializes the camera device, sets the timer \textit{timSampleCam}, locks the mutex \textit{mutCamera} and goes to sleep mode, waiting for the conditon variable \textit{condCameraAcquire} to be signaled. This happens when a \textit{timSampleCam} period has elapsed and the thread wakes up. Now, one can capture a camera frame in order to process it, unlocking the mutex \textit{mutCamera}. A timer, \textit{timCamMax}, is setted to report the error if the image is taking too much time to being processed.
-
-In the image processing part of the thread, if there aren't parking spots coordinates stored, then it is necessary to search for parking spots. After that, one can detect cars using the pre-trained model and the function \textit{detectCars} that detects cars in the image. If the coordinates of a detected car matches the coordinates of the parking spot, then one can assume that the parking spot is occupied. If the parking spot status has changed, then it is necessary to send this to the remote system, using the LoRa communication module. In figure \ref{fig:flow_tcamera}, is shown the thread \textit{tCamera} flowchart.
-
-\begin{figure}[H]
-	\centering			
-%	\includegraphics[width=1\textwidth]{09sw_specification/clocalsystem/tparkdetection}
-	\caption{Main Process Flowchart: tCamera.}
-	\label{fig:flow_tcamera}
-\end{figure}
-
-\myparagraph{searchParkingSpots}
-
-This function, represented in figure \ref{fig:search}, is used to process the image captured by the camera and detect parking spots. This is done using the algorithm defined previously in the section \ref{section:imageProc}, and starts by converting the frame to a grey scale image, apply the canny edge filter to highlight the edges of the image captured. After having the edges, one can select only the vertical and horizontal straight lines and intersect them, storing the intersection points, that are the parking spot coordinates.
-
-\begin{figure}[H]
-	\centering			
-%	\includegraphics[width=.5\textwidth]{09sw_specification/cparkdetection/getoutline}
-	\caption{Function to process image and detect parking spots.}
-	\label{fig:search}
-\end{figure}
-
-
-\myparagraph{tRecvSensors}
-
-This task, presented in figure \ref{fig:flow_trecv_sensors}, is responsible for receiving messages sent by the sensors daemon, through a message queue.
-
-When the message queue is not empty, this task reads a message from the message queue and parses it, in order to find out which sensor was triggered and what action this system should take. For that, a list of commands may be defined:
-\begin{itemize}
-%	\item Lamp Max: the lamp brightness must be at its maximum (PWM=100);
-	\item Lamp Min: the lamp must be at minimum bright level (PWM = \textit{MIN\_BRIGHT\_PWM});
-	\item Lamp OFF: the lamp must be OFF (PWM=0);
-	\item Lamp Fail: the lamp must be OFF, since there was a failure detected on the lamp.
-\end{itemize}
-
-\begin{figure}[H]
-	\centering
-%	\includegraphics[width=.4\textwidth]{09sw_specification/clocalsystem/trecvsensors}
-	\caption{Main Process Flowchart: tRecvSensors.}
-	\label{fig:flow_trecv_sensors}
-\end{figure}
-
-%**********************************************************
-\clearpage
-%\myparagraph{Class Lamp Constructor and Destroyer}
-%
-%This functions, presented in figure \ref{fig:flow_lampconstruct}, are responsible for initializing and destroying a Lamp object. First, in the constructor, which is the left side function, the PWM peripheral is initialized, then the mutex that is used to protect the change of PWM is also initialized. On the destroyer side, the opposite is done, by the terminating the PWM generation.
-%
-%\begin{figure}[H]
-%	\centering	
-%	\includegraphics[width=.7\textwidth]{09sw_specification/lampconstruct}
-%	\caption{Class Lamp Flowchart: Constructor and Destroyer.}
-%	\label{fig:flow_lampconstruct}
-%\end{figure}
-
-\myparagraph{setBrightness}
-
-This function, presented in figure \ref{fig:flow_setbrightness}, is responsible for changing the PWM associated with the lamp, which is directly related to its brightness. Through \textit{setPWM(lux)} one can change the current lamp PWM to \textit{lux} value, being this an integer between 0 to 100. When the PWM is maximum, a timer is started that defines how much time the lamp is ON, \textit{LAMP\_ON\_TIMEOUT} in seconds, if there isn't another call of this function.
-
-\begin{figure}[H]
-	\centering	
-%	\includegraphics[width=.6\textwidth]{09sw_specification/clamp/setbrightness}
-	\caption{Class Lamp Flowchart: setBrightness.}
-	\label{fig:flow_setbrightness}
-\end{figure}
-
-
-%**********************************************************
-\clearpage
-\myparagraph{tLoraRecv}
-
-This task is responsible for receiving messages from the gateway, using LoRa communication.
-
-When a message is received, using \textit{LoraComm.recv()}, this is parsed and later, the respective command will be executed.
-
-The flowchart for this task is presented in figure \ref{fig:LStLoraRecv}
-
-\begin{figure}[H]
-%	\centering		\includegraphics[width=.55\textwidth]{09sw_specification/clocalsystem/tlorarecv}
-	\caption{Class Communication Flowchart: tLoraRecv.}
-	\label{fig:LStLoraRecv}
-\end{figure}
-
-% FLOWCHARTS SENSORS
-
-\myparagraph{PirIsr}
-The PIR sensor uses the GPIO of the Raspberry Pi in order to inform the system if there's movement in the surrounding area. In the afirmative case, it puts the high digital value on its output, and this can be used to generate an interrupt service routine, triggered on the rising edge of the output signal of the sensor. When this routine is executed, it locks the mutex \textit{mutChangePWM} and assign the \textit{PWM\_val} its maximum value, 100 \%, unlocking the mutex. Now, one needs to send the PWM value to the remote system through the LoRa communications, in order to be updated in the remote system. In the figure \ref{fig:pir_isr}, is represented the flowchart of the PirIsr function.
-
-\begin{figure}[H]
-	\centering
-%	\includegraphics[width=.4\textwidth]{09sw_specification/clocalsystem/pirisr}
-	\caption{PirIsr flowchart.}
-	\label{fig:pir_isr}
-\end{figure}
-
-\myparagraph{LdrIsr}
-The ambient light sensor, LDR, is used to determine when is time to turn on the lights, that is, when is night time and interfaces with the Raspberry Pi through I2C protocol communication. As the sun set or the sun rise is a relatively long time process, there's no need to keep checking the sensor output value all the time, so one can define a period to get the sensor value, \textit{LDR\_TIM}, that can be 10 minutes. In figure \ref{fig:ldr_isr} is shown the LDR sensor interrupt service routine, triggered by the timer overflow. When the timer period elapses, the illuminance value is calculated by the sensor. If this value is lower than the threshold value defined as good luminosity illuminance, GOOD\_LIGHT\_LUX, then the auxiliary variable, \textit{lightCon} is setted to high. In the next step, if the \textit{oldLightCon} variable (stores the last ambient light condition) is not equal to the auxiliary variable, then it is needed to change the \textit{oldLightCon} variable and send message to the process that controls the lamp PWM, through message queue. 
-
-\begin{figure}[H]
-	\centering
-%	\includegraphics[width=.7\textwidth]{09sw_specification/ldr_isr}
-	\caption{LdrIsr flowchart.}
-	\label{fig:ldr_isr}
-\end{figure}
-
-\myparagraph{FailureDetectIsr}
-In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Similarly to the PIR sensor, this routine is triggered on the rising edge of the output signal of the sensor. When the Failure detector detects that the lamp is broken, it puts the high digital value in its output, triggering this function. In this routine, the PWM is setted to 0 \% and are sent two messages through message queue: one to inform the process, that controls the lamp, to change the PWM value in the channel; and the other to notify the remote system that the lamp is broken, in order to update this status on the database.
-
-\begin{figure}[H]
-	\centering
-%	\includegraphics[width=.5\textwidth]{09sw_specification/fail_isr}
-	\caption{FailureDetectIsr flowchart.}
-	\label{fig:fail_isr}
-\end{figure}
-
-%**********************************************************
-\subsection{Start-up Process}
-In figure \ref{fig:bootLS} is shown the start-up process for the local system. When booting up, the local system creates all necessary objects, as presented previously, and initializes them, as well as threads \textit{tLoraRecv} and \textit{tRecvSensors}.
-
-\begin{figure}[H]
-	\centering
-%	\includegraphics[width=0.30\textwidth]{09sw_specification/bootLS}
-	\caption{Start-Up Process: Local System.}
-	\label{fig:bootLS}
-\end{figure}
-
-%%**********************************************************
-%\subsection{Shutdown Process}
+\input{./texts/sw_local_system_flowcharts}
 
 %**********************************************************
 \clearpage
