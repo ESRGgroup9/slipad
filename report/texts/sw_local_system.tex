@@ -1,24 +1,21 @@
 %**********************************************************
 %\subsection{Task Overview}
-One can define and describe briefly how the local system is implemented, making use of threads and processes. As one can see in figure \ref{fig:task_overview}, this system is composed by two processes: the main process and a daemon, \textit{dSensors}, used to read synchronously the sensors \textit{LDR} and \textit{LampFailureDetector}. As the \textit{PIR} sensor can be read through the use of an ISR, asynchronously, this sensor stays in the main process. The communication between the daemon and the main process is done via message queue.
+One can define and describe briefly how the local system is implemented, making use of threads and processes. As one can see in figure \ref{fig:task_overview}, this system is composed by two processes: the main process and a daemon, \textit{dSensors}, used to read the sensors \textit{LDR}, \textit{PIR} and \textit{LampFailureDetector}. The communication between the daemon and the main process is done via message queue and through the use of the signal \textit{SIGUSR1}, which the daemon can use to notify the main process of when there is a new message to read in the message queue.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/LS/overview}
+	\includegraphics[width=.4\textwidth]{09sw_specification/LS/overview}
 	\caption{Inter-process Communication between Main Process and Daemon.}
 	\label{fig:task_overview}
 \end{figure}
 
 %**********************************************************
 \subsection{Class Diagram}
-In figure \ref{fig:classDiag} is represented the class diagram of the local system. The class \textit{CLocalSystem} is the main class of the system, that initializes the objects of each class listed below.
+In figure \ref{fig:classDiag} is represented the class diagram of the local system. The class \textit{CLocalSystem} is the main class of the system, i.e, the main process, which initializes the objects of each class listed below.
 
 \begin{itemize}
 	\item \textbf{CLoraComm:} manages the LoRa communications, interfacing with the LoRa module;
 	\item \textbf{CLamp:} manages the lamp brightness, using a PWM channel;	
-	\item \textbf{CPir:} manages the motion detection sensor, PIR;
-%	\item \textbf{CLdr:} manages the ambient light sensor, LDR;
-%	\item \textbf{CFailureDetector:} manages the failure detetor sensor;
 	\item \textbf{CCamera:} manages the camera device;
 	\item \textbf{CParkDetection:} responsible of image processing for detecting parking spots.
 \end{itemize}
@@ -30,6 +27,11 @@ In figure \ref{fig:classDiag} is represented the class diagram of the local syst
 	\label{fig:classDiag}
 \end{figure}
 
+\begin{itemize}
+	\item \textbf{CPir:} manages the motion detectior, PIR;
+	\item \textbf{CLdr:} manages the ambient light sensor, LDR;
+	\item \textbf{CFailureDet:} manages the lamp failure detector;
+\end{itemize}
 %*****************************
 \clearpage
 \myparagraph{Class CLoraComm}
@@ -55,7 +57,7 @@ This class has two pure virtual functions: \textit{recvFunc} and \textit{sendFun
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.64\textwidth]{09sw_specification/LS/ccommunication/class}
+	\includegraphics[width=.68\textwidth]{09sw_specification/LS/ccommunication/class}
 	\caption{Class Diagram: CCommunication.}
 	\label{fig:CCommunicationClass}
 \end{figure}
