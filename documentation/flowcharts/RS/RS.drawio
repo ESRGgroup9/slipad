@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-20T10:22:23.162Z" agent="5.0 (X11)" etag="JFmSYQGCxvotrYoanoaY" version="16.0.0" type="github" pages="12">
+<mxfile host="app.diagrams.net" modified="2021-12-20T11:06:35.748Z" agent="5.0 (X11)" etag="YqXeTnfA5GNdCJqnBZPG" version="16.0.0" type="github" pages="12">
   <diagram id="ezEMw321LLgsuSdETW1Y" name="overview">
     <mxGraphModel dx="2249" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -39,34 +39,34 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="VT_Aw-DX98Dw9pmr3WUd-1" value="CTCPServer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
-          <mxGeometry x="120" y="200" width="270" height="320" as="geometry">
+          <mxGeometry x="120" y="200" width="270" height="310" as="geometry">
             <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="VT_Aw-DX98Dw9pmr3WUd-2" value="-  mutComms : mutex&#xa;- condSend : condition variable&#xa;- gatewayList: vector&lt;CClient*&gt;&#xa;- webSList: vector&lt;CClient*&gt;&#xa;- appList: vector&lt;CClient*&gt;&#xa;- db : CDataBase&#xa;- addr* : &lt;sockaddr_in&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="VT_Aw-DX98Dw9pmr3WUd-1" vertex="1">
-          <mxGeometry y="26" width="270" height="114" as="geometry" />
+        <mxCell id="VT_Aw-DX98Dw9pmr3WUd-2" value="-  mutComms : mutex&#xa;- gatewayList: vector&lt;CClient*&gt;&#xa;- webSList: vector&lt;CClient*&gt;&#xa;- appList: vector&lt;CClient*&gt;&#xa;- db : CDataBase&#xa;- addr* : &lt;sockaddr_in&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="VT_Aw-DX98Dw9pmr3WUd-1" vertex="1">
+          <mxGeometry y="26" width="270" height="104" as="geometry" />
         </mxCell>
         <mxCell id="VT_Aw-DX98Dw9pmr3WUd-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" parent="VT_Aw-DX98Dw9pmr3WUd-1" vertex="1">
-          <mxGeometry y="140" width="270" height="8" as="geometry" />
+          <mxGeometry y="130" width="270" height="8" as="geometry" />
         </mxCell>
         <mxCell id="VT_Aw-DX98Dw9pmr3WUd-4" value="+ TCPServer(IN port : int)&#xa;+ ~TCPServer(void)&#xa;&#xa;+ init(IN  tprio: int) void&#xa;+ run(void) void&#xa;&#xa;- createServer(IN maxClients int) int &#xa;- send(IN msg: string) void&#xa;# tSend(void*) void&#xa;&#xa;{virtual} # sendFunc(IN msg : string) int " style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="VT_Aw-DX98Dw9pmr3WUd-1" vertex="1">
-          <mxGeometry y="148" width="270" height="172" as="geometry" />
+          <mxGeometry y="138" width="270" height="172" as="geometry" />
         </mxCell>
         <mxCell id="X1x6oeMcWAnw7KR55U_l-1" value="CClient" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
-          <mxGeometry x="480" y="200" width="300" height="260" as="geometry">
+          <mxGeometry x="480" y="200" width="300" height="240" as="geometry">
             <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="X1x6oeMcWAnw7KR55U_l-2" value="- cmdList: vector&lt;cliCmd&gt;&#xa;- clientSock : &lt;client_socket_info_t&gt;&#xa;- tx_msgs : vector&lt;string&gt;&#xa;- mutComms : mutex&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="X1x6oeMcWAnw7KR55U_l-1" vertex="1">
-          <mxGeometry y="26" width="300" height="74" as="geometry" />
+        <mxCell id="X1x6oeMcWAnw7KR55U_l-2" value="- cmdList: vector&lt;cliCmd&gt;&#xa;- clientSock : &lt;client_socket_info_t&gt;&#xa;- mutComms : mutex&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="X1x6oeMcWAnw7KR55U_l-1" vertex="1">
+          <mxGeometry y="26" width="300" height="54" as="geometry" />
         </mxCell>
         <mxCell id="X1x6oeMcWAnw7KR55U_l-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" parent="X1x6oeMcWAnw7KR55U_l-1" vertex="1">
-          <mxGeometry y="100" width="300" height="8" as="geometry" />
+          <mxGeometry y="80" width="300" height="8" as="geometry" />
         </mxCell>
         <mxCell id="X1x6oeMcWAnw7KR55U_l-4" value="+ Client(IN client_sock : &lt;client_socket_info_t&gt;)&#xa;+ ~Client(void)&#xa;&#xa;+ init(IN tprio: int) void&#xa;+ run(void) void&#xa;- msgQueueSend(void) string&#xa;- recv(void) string&#xa;# tRecv(void*) void&#xa;&#xa;{virtual} # recvFunc(void) string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="X1x6oeMcWAnw7KR55U_l-1" vertex="1">
-          <mxGeometry y="108" width="300" height="152" as="geometry" />
+          <mxGeometry y="88" width="300" height="152" as="geometry" />
         </mxCell>
-        <mxCell id="X1x6oeMcWAnw7KR55U_l-5" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;enumeration:&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;cliType&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;GATWAY&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;WEBSITE&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;APPLICATION&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
+        <mxCell id="X1x6oeMcWAnw7KR55U_l-5" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;enumeration:&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;cliType&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;GATEWAY&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;WEBSITE&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;APPLICATION&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
           <mxGeometry x="390" y="620" width="100" height="100" as="geometry" />
         </mxCell>
         <mxCell id="p8gw9Uzr9oLo1h1CHHn8-1" value="CDataBase" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
@@ -99,13 +99,13 @@
             <mxPoint x="235" y="570" as="sourcePoint" />
             <mxPoint x="235" y="500" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="460" y="293" />
-              <mxPoint x="460" y="293" />
+              <mxPoint x="460" y="278" />
+              <mxPoint x="460" y="278" />
             </Array>
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="GkkFyO0xJ2VpSAUNr4p0-2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;struct:&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;client_socket_info_t&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;state: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;span class=&quot;pl-c1&quot;&gt;index&lt;/span&gt;: int&lt;/p&gt;&lt;div&gt;&amp;nbsp; client_name: string&lt;/div&gt;&lt;div&gt;&amp;nbsp; sockfd:int&lt;/div&gt;&lt;div&gt;&amp;nbsp; type : enum &amp;lt;cliType&amp;gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
+        <mxCell id="GkkFyO0xJ2VpSAUNr4p0-2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;struct:&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;client_socket_info_t&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;state: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;span class=&quot;pl-c1&quot;&gt;index&lt;/span&gt;: int&lt;/p&gt;&lt;div&gt;&amp;nbsp; clientName: string&lt;/div&gt;&lt;div&gt;&amp;nbsp; sockFd:int&lt;/div&gt;&lt;div&gt;&amp;nbsp; type : enum &amp;lt;cliType&amp;gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
           <mxGeometry x="560" y="600" width="130" height="130" as="geometry" />
         </mxCell>
         <mxCell id="GkkFyO0xJ2VpSAUNr4p0-3" value="" style="endArrow=open;startArrow=circlePlus;endFill=0;startFill=0;endSize=8;html=1;rounded=1;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="X1x6oeMcWAnw7KR55U_l-4" target="GkkFyO0xJ2VpSAUNr4p0-2" edge="1">
@@ -455,11 +455,11 @@
     </mxGraphModel>
   </diagram>
   <diagram id="CsAOHbTbmxfL8R-NAH2l" name="run_Client">
-    <mxGraphModel dx="981" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0YeBfchRnldT-niAD2FL-0" />
         <mxCell id="0YeBfchRnldT-niAD2FL-1" parent="0YeBfchRnldT-niAD2FL-0" />
-        <mxCell id="dD4U3Wy9Xlym2zhmtOz1-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#9C1E18;" edge="1" parent="0YeBfchRnldT-niAD2FL-1" source="HOkaksK2Cnnnm919ek6h-1" target="HOkaksK2Cnnnm919ek6h-6">
+        <mxCell id="dD4U3Wy9Xlym2zhmtOz1-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#9C1E18;" parent="0YeBfchRnldT-niAD2FL-1" source="HOkaksK2Cnnnm919ek6h-1" target="HOkaksK2Cnnnm919ek6h-6" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="HOkaksK2Cnnnm919ek6h-1" value="&lt;div&gt;Run&lt;span style=&quot;font-weight: normal&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1" parent="0YeBfchRnldT-niAD2FL-1" vertex="1">
@@ -482,23 +482,23 @@
       <root>
         <mxCell id="zIt3v8iHm4vl6QLlicty-0" />
         <mxCell id="zIt3v8iHm4vl6QLlicty-1" parent="zIt3v8iHm4vl6QLlicty-0" />
-        <mxCell id="zIt3v8iHm4vl6QLlicty-2" style="edgeStyle=orthogonalEdgeStyle;curved=0;rounded=1;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" edge="1" parent="zIt3v8iHm4vl6QLlicty-1" source="zIt3v8iHm4vl6QLlicty-3">
+        <mxCell id="zIt3v8iHm4vl6QLlicty-2" style="edgeStyle=orthogonalEdgeStyle;curved=0;rounded=1;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" parent="zIt3v8iHm4vl6QLlicty-1" source="zIt3v8iHm4vl6QLlicty-3" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="445.26" y="129.9999999999999" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="zIt3v8iHm4vl6QLlicty-3" value="&lt;div&gt;Init&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;IN: &lt;i&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;tprio&lt;/span&gt;&lt;/i&gt;&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1" vertex="1" parent="zIt3v8iHm4vl6QLlicty-1">
+        <mxCell id="zIt3v8iHm4vl6QLlicty-3" value="&lt;div&gt;Init&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;IN: &lt;i&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;tprio&lt;/span&gt;&lt;/i&gt;&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1" parent="zIt3v8iHm4vl6QLlicty-1" vertex="1">
           <mxGeometry x="382.26" y="40" width="125.5" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="zIt3v8iHm4vl6QLlicty-4" style="edgeStyle=orthogonalEdgeStyle;curved=0;rounded=1;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" edge="1" parent="zIt3v8iHm4vl6QLlicty-1" source="zIt3v8iHm4vl6QLlicty-5">
+        <mxCell id="zIt3v8iHm4vl6QLlicty-4" style="edgeStyle=orthogonalEdgeStyle;curved=0;rounded=1;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;" parent="zIt3v8iHm4vl6QLlicty-1" source="zIt3v8iHm4vl6QLlicty-5" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="445.13499999999976" y="190" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="zIt3v8iHm4vl6QLlicty-5" value="&lt;div&gt;&lt;b&gt;Create&lt;/b&gt; tRecv with &lt;b&gt;priority&lt;/b&gt; &lt;i&gt;tprio&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;align=center;" vertex="1" parent="zIt3v8iHm4vl6QLlicty-1">
+        <mxCell id="zIt3v8iHm4vl6QLlicty-5" value="&lt;div&gt;&lt;b&gt;Create&lt;/b&gt; tRecv with &lt;b&gt;priority&lt;/b&gt; &lt;i&gt;tprio&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;align=center;" parent="zIt3v8iHm4vl6QLlicty-1" vertex="1">
           <mxGeometry x="370.26" y="120" width="150" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="zIt3v8iHm4vl6QLlicty-6" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1" vertex="1" parent="zIt3v8iHm4vl6QLlicty-1">
+        <mxCell id="zIt3v8iHm4vl6QLlicty-6" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1" parent="zIt3v8iHm4vl6QLlicty-1" vertex="1">
           <mxGeometry x="416.13" y="190" width="58.25" height="40" as="geometry" />
         </mxCell>
       </root>
