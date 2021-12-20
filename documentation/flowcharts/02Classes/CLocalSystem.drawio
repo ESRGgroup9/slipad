@@ -1,22 +1,22 @@
-<mxfile host="app.diagrams.net" modified="2021-12-19T22:45:05.628Z" agent="5.0 (X11)" etag="nX1ulYfn2hVdJVmkJgbk" version="16.0.0" type="github" pages="7">
+<mxfile host="app.diagrams.net" modified="2021-12-19T23:52:14.981Z" agent="5.0 (X11)" etag="PACiVmdZHUpRCd_41aUU" version="16.0.0" type="github" pages="7">
   <diagram id="xRPbzMYtvzO_JJK2Yxg7" name="Class">
     <mxGraphModel dx="771" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="exN9-fndayGN609k0AWI-1" value="CLocalSystem" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
-          <mxGeometry x="320" y="10" width="210" height="320" as="geometry">
+          <mxGeometry x="320" y="10" width="220" height="320" as="geometry">
             <mxRectangle x="-80" y="480" width="80" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="exN9-fndayGN609k0AWI-2" value="- lamp: CLamp&#xa;- lora: CLoraComm&#xa;- camera: CCamera&#xa;- park: CParkDetection&#xa;&#xa;- msgqSensors: msg queue&#xa;- mutRecvSensors : mutex&#xa;- condRecvSensors : condition variable&#xa;&#xa;- mutCamFrame: mutex&#xa;- condCamFrame: condition variable&#xa;- timCamFrame: int&#xa;&#xa;&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="exN9-fndayGN609k0AWI-1">
-          <mxGeometry y="26" width="210" height="180" as="geometry" />
+          <mxGeometry y="26" width="220" height="180" as="geometry" />
         </mxCell>
         <mxCell id="exN9-fndayGN609k0AWI-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="exN9-fndayGN609k0AWI-1">
-          <mxGeometry y="206" width="210" height="2" as="geometry" />
+          <mxGeometry y="206" width="220" height="2" as="geometry" />
         </mxCell>
         <mxCell id="exN9-fndayGN609k0AWI-4" value="+ CLocalSystem(void)&#xa;+ ~CLocalSystem(void)&#xa;&#xa;+ run(void) void&#xa;- tLoraRecv(void*) void&#xa;- tRecvSensors(void*) void&#xa;- tParkDetection(void*) void&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="exN9-fndayGN609k0AWI-1">
-          <mxGeometry y="208" width="210" height="112" as="geometry" />
+          <mxGeometry y="208" width="220" height="112" as="geometry" />
         </mxCell>
         <mxCell id="exN9-fndayGN609k0AWI-5" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="exN9-fndayGN609k0AWI-11">
           <mxGeometry width="160" relative="1" as="geometry">
@@ -24,7 +24,7 @@
             <mxPoint x="320" y="264.9999999999999" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="exN9-fndayGN609k0AWI-6" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.012;entryY=0.439;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="exN9-fndayGN609k0AWI-2">
+        <mxCell id="exN9-fndayGN609k0AWI-6" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.005;entryY=0.442;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="exN9-fndayGN609k0AWI-2">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="600" y="115" as="sourcePoint" />
             <mxPoint x="580" y="80" as="targetPoint" />
@@ -33,7 +33,7 @@
         <mxCell id="exN9-fndayGN609k0AWI-7" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="exN9-fndayGN609k0AWI-9">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="540" y="148" as="sourcePoint" />
-            <mxPoint x="530" y="195" as="targetPoint" />
+            <mxPoint x="540" y="195" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="exN9-fndayGN609k0AWI-8" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="exN9-fndayGN609k0AWI-10">
