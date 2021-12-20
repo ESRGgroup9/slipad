@@ -64,36 +64,43 @@ This class diagram is shown in figure \ref{fig:CDataBase}, and is responsible fo
 One can define and describe briefly how the remote system is implemented, making use of threads and processes. 
 
 \begin{itemize}
-	\item \textbf{t}
+	\item \textbf{tSend:} sends a message to a client;
+	\item \textbf{tRecv:} receives a message from the clients.
 \end{itemize}
 
 %**********************************************************
 \subsection{Task Priority}
+As the two threads \textit{tRecv} and \textit{tSend} run in two different processes, daemon process and main process, respectively, one needs to define the threads priority assignment for the two processes. The priority assignment diagram for the remote system main process is represented in figure \ref{fig:rsMainPrio} and for the daemon process is shown in the figure \ref{fig:rsDaemonPrio}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.4\textwidth]{09sw_specification/RS/MainPrio}
+	\caption{Remote System Main Process Priority Assignment.}
+	\label{fig:rsMainPrio}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.4\textwidth]{09sw_specification/RS/DaemonPrio}
+	\caption{Remote System Daemon Process Priority Assignment.}
+	\label{fig:rsDaemonPrio}
+\end{figure}
 
 %**********************************************************
 \subsection{Task Synchronization}
-
-\myparagraph{Condition Variables}
-The condition variables used in this system are listed below.
-
-\begin{itemize}
-	\item
-		
-\end{itemize}
+As seen before, to have coordinate access to shared ressouces and services and avoid race conditions, the kernel has resources that provide synchronization between the tasks. 
 
 \myparagraph{Mutexes}
-The mutexes used in this system are listed bellow.
+The mutexes used for the remote system are listed bellow.
 
 \begin{itemize}
-	\item 
-	
+	\item \textbf{CTCPServer::mutComms:} mutex used to protect the messages sending;
+	\item \textbf{CClient::mutComms:} mutex used to protect the messages receiving.
 \end{itemize}
-
-\myparagraph{Semaphores}
 
 \subsection{Task Communication}
 \myparagraph{Message Queues}
-\myparagraph{Signals}
+In order to the main process communicate with the daemon process and send messages to the clients, one can use a message queue, named \textit{msgqComms}, that send the messages from the main process to the daemon process, containing the messages to be sent from the server to the clients.
 
 %**********************************************************
 \subsection{Flowcharts}
