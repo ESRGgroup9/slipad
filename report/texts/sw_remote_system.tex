@@ -37,14 +37,26 @@ This class is responsible for creating the server, using \textit{createServer} f
 	\label{fig:CTCPServer}
 \end{figure}
 
+%****************************
 \myparagraph{Class CClient}
-The class \textit{CClient}, represented in figure \ref{}
+The class \textit{CClient}, represented in figure \ref{fig:CClient}, is responsible for storing information about a client connected to the server, like the \textit{cmdList}, a vector that stores all the client commands list and \textit{clientSock}, and also for receiving messages from the clients in the thread \textit{tRecv}. The \textit{clientSock} has information about the client connected such as its \textit{state}, its client identification (\textit{index}), its name in \textit{clientName}, its file descriptor \textit{sockFd} and its type of client \textit{type}, that can be: \textit{GATEWAY}; \textit{WEBSITE}; or \textit{APPLICATION}.
 
 \begin{figure}[H]
 	\centering
 	%	\includegraphics[width=.6\textwidth]{09sw_specification/RS/CClient}
 	\caption{Class Diagram: CClient.}
-	\label{fig:CTCPServer}
+	\label{fig:CClient}
+\end{figure}
+
+%****************************
+\myparagraph{Class CDataBase}
+This class diagram is shown in figure \ref{fig:CDataBase}, and is responsible for implement the interface between the server and the database, having for that a pointer to a database of type \textit{MYSQL}. To interact with the database, the server must first prepare a query, using the function \textit{prepareQuery}, and can update or get data from the database, using the prepared query and the functions \textit{updateData} and \textit{getData}, respectively.
+
+\begin{figure}[H]
+	\centering
+	%	\includegraphics[width=.6\textwidth]{09sw_specification/RS/CDataBase}
+	\caption{Class Diagram: CDataBase.}
+	\label{fig:CDataBase}
 \end{figure}
 
 %**********************************************************
