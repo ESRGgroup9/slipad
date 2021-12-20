@@ -3,14 +3,14 @@ The remote system is responsible for the communication between the local systems
 
 \begin{figure}[H]
 	\centering
-%	\includegraphics[width=.3\textwidth]{09sw_specification/RS/overview}
+	\includegraphics[width=.6\textwidth]{09sw_specification/RS/overview}
 	\caption{Inter-process Communication between Main Process and Daemon.}
 	\label{fig:rs_overview}
 \end{figure}
 
 %**********************************************************
 \subsection{Class Diagram}
-In figure \ref{fig:rs_classDiag} is represented the class diagram of the remote system. The class \textit{CTCPServer} is the main class of the system, that initializes the objects of each class. 
+In figure \ref{fig:rs_classDiag} is represented the class diagram of the remote system. The class \textit{CTCPServer} is the main class of the system, that initializes the objects of each class, listed below. 
 
 \begin{itemize}
 	\item \textbf{CTCPServer:} main class, responsible for creating the server, the client objects, each time a client connects to the server and for sending the messages to the clients;
@@ -21,40 +21,43 @@ In figure \ref{fig:rs_classDiag} is represented the class diagram of the remote 
 
 \begin{figure}[H]
 	\centering
-%	\includegraphics[width=.6\textwidth]{09sw_specification/RS/class}
-	\caption{Inter-process Communication between Main Process and Daemon.}
+	\includegraphics[width=.9\textwidth]{09sw_specification/RS/ClassDiagram}
+	\caption{Remote System Class Diagram.}
 	\label{fig:rs_classDiag}
 \end{figure}
 
 %****************************
 \myparagraph{Class CTCPServer}
+
 This class is responsible for creating the server, using \textit{createServer} function, allowing multiple clients to connect and send them messages, with the thread \textit{tSend}. When a client connects to the server, this class creates a new instance of the class \textit{CClient}. Each client can be of a different type of device like website, mobile application or gateway. The clients are assigned to their respective list of clients that are \textit{webSList}, \textit{appList} and \textit{gatewayList}, respectively. To do the interface with the database, this class also has an instance of the class database. In figure \ref{fig:CTCPServer}, one can see the class \textit{CTCPServer} diagram.
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.6\textwidth]{09sw_specification/RS/CTCPServer}
+	\includegraphics[width=.6\textwidth]{09sw_specification/RS/CTCPServer/CTCPServer}
 	\caption{Class Diagram: CTCPServer.}
 	\label{fig:CTCPServer}
 \end{figure}
 
 %****************************
 \myparagraph{Class CClient}
+
 The class \textit{CClient}, represented in figure \ref{fig:CClient}, is responsible for storing information about a client connected to the server, like the \textit{cmdList}, a vector that stores all the client commands list and \textit{clientSock}, and also for receiving messages from the clients in the thread \textit{tRecv}. The \textit{clientSock} has information about the client connected such as its \textit{state}, its client identification (\textit{index}), its name in \textit{clientName}, its file descriptor \textit{sockFd} and its type of client \textit{type}, that can be: \textit{GATEWAY}; \textit{WEBSITE}; or \textit{APPLICATION}.
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.6\textwidth]{09sw_specification/RS/CClient}
+	\includegraphics[width=.6\textwidth]{09sw_specification/RS/CClient/CClient}
 	\caption{Class Diagram: CClient.}
 	\label{fig:CClient}
 \end{figure}
 
 %****************************
 \myparagraph{Class CDataBase}
+
 This class diagram is shown in figure \ref{fig:CDataBase}, and is responsible for implement the interface between the server and the database, having for that a pointer to a database of type \textit{MYSQL}. To interact with the database, the server must first prepare a query, using the function \textit{prepareQuery}, and can update or get data from the database, using the prepared query and the functions \textit{updateData} and \textit{getData}, respectively.
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.6\textwidth]{09sw_specification/RS/CDataBase}
+	\includegraphics[width=.5\textwidth]{09sw_specification/RS/CDataBase}
 	\caption{Class Diagram: CDataBase.}
 	\label{fig:CDataBase}
 \end{figure}
@@ -74,14 +77,14 @@ As the two threads \textit{tRecv} and \textit{tSend} run in two different proces
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.4\textwidth]{09sw_specification/RS/MainPrio}
+	\includegraphics[width=.5\textwidth]{09sw_specification/RS/MainPrio}
 	\caption{Remote System Main Process Priority Assignment.}
 	\label{fig:rsMainPrio}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.4\textwidth]{09sw_specification/RS/DaemonPrio}
+	\includegraphics[width=.5\textwidth]{09sw_specification/RS/DaemonPrio}
 	\caption{Remote System Daemon Process Priority Assignment.}
 	\label{fig:rsDaemonPrio}
 \end{figure}
@@ -91,6 +94,7 @@ As the two threads \textit{tRecv} and \textit{tSend} run in two different proces
 As seen before, to have coordinate access to shared ressouces and services and avoid race conditions, the kernel has resources that provide synchronization between the tasks. 
 
 \myparagraph{Mutexes}
+
 The mutexes used for the remote system are listed bellow.
 
 \begin{itemize}
@@ -100,11 +104,57 @@ The mutexes used for the remote system are listed bellow.
 
 \subsection{Task Communication}
 \myparagraph{Message Queues}
+
 In order to the main process communicate with the daemon process and send messages to the clients, one can use a message queue, named \textit{msgqComms}, that send the messages from the main process to the daemon process, containing the messages to be sent from the server to the clients.
 
 %**********************************************************
 \subsection{Flowcharts}
+\myparagraph{CTCPServer}
 
+In figure \ref{fig:ServerConst} is represented the constructor of the \textit{CTPCServer} class, that is responsible for creating the class variables, initializing the mutex and for creating the thread \textit{tSend} and the server socket in the port passed by argument.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.26\textwidth]{09sw_specification/RS/CTCPServer/ServerConst}
+	\caption{Flowchart: CTCPServer Constructor.}
+	\label{fig:ServerConst}
+\end{figure}
+
+The function that creates a server socket for a maximum number of clients, \textit{maxClient}, is represented in figure \ref{fig:RSCreateServer}. This function initiates a server socket with the IPv4 protocol connection.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3\textwidth]{09sw_specification/RS/CTCPServer/CreateServer}
+	\caption{Flowchart: CTCPServer createServer.}
+	\label{fig:RSCreateServer}
+\end{figure}
+
+In figure \ref{fig:RSInit}, is shown the method that creates the thread \textit{tSend} with the priority \textit{tprio} passed by argument.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.26\textwidth]{09sw_specification/RS/CTCPServer/Init}
+	\caption{Flowchart: CTCPServer Init.}
+	\label{fig:RSInit}
+\end{figure}
+
+The function \textit{run} is responsible for waiting for the termination of the thread \textit{tSend}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.26\textwidth]{09sw_specification/RS/CTCPServer/run}
+	\caption{Flowchart: CTCPServer run.}
+	\label{fig:RSrun}
+\end{figure}
+
+In figure \ref{fig:RSsend} is represented the thread \textit{tSend}, which is responsible for sending a message to a client. It reads the messages to be sent in a message queue and send them to the recipient client.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth]{09sw_specification/RS/CTCPServer/send}
+	\caption{Flowchart: CTCPServer tSend.}
+	\label{fig:RSsend}
+\end{figure}
 
 %**********************************************************
 \subsection{Start-up Process}
