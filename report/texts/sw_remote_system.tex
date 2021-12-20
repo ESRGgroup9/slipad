@@ -198,6 +198,11 @@ In figure \ref{fig:parseExecute} is represented the flowchart of the \textit{par
 
 %**********************************************************
 \subsection{Start-up Process}
+The start-up process is shown in the figure \ref{fig:RSstart}. When the program initiates, the start-up process instantiate a object of the class \textit{CTCPServer}. After that, it waits for the thread to terminate, using the function \textit{run}.
 
-%**********************************************************
-\subsection{Shutdown Process}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth]{09sw_specification/RS/start}
+	\caption{Start-Up Process.}
+	\label{fig:RSstart}
+\end{figure}
