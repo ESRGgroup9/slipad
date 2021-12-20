@@ -11,7 +11,7 @@ One can define and describe briefly how the local system is implemented, making 
 
 %**********************************************************
 \subsection{Class Diagram}
-In figure \ref{fig:classDiag} is represented the class diagram of the local system. The class \textit{CLocalSystem} is the main class of the system, i.e, the main process, which initializes the objects of each class listed below.
+In figure \ref{fig:clocalsystem} is represented the class diagram of the local system's main process. The class \textit{CLocalSystem} is the main class of the main process, which initializes the objects of each class listed below.
 
 \begin{itemize}
 	\item \textbf{CLoraComm:} manages the LoRa communications, interfacing with the LoRa module;
@@ -23,20 +23,31 @@ In figure \ref{fig:classDiag} is represented the class diagram of the local syst
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{09sw_specification/LS/clocalsystem/class}
-	\caption{Local System Classes Diagram.}
-	\label{fig:classDiag}
+	\caption{Local System Main Process Class Diagram.}
+	\label{fig:clocalsystem}
 \end{figure}
 
+\clearpage
+In figure \ref{fig:csensors} is represented the class diagram of the local system's daemon. The class \textit{CSensors} is the main class of dSensors, which initializes all objects of each class listed bellow.
+
 \begin{itemize}
-	\item \textbf{CPir:} manages the motion detectior, PIR;
+	\item \textbf{CPir:} manages the motion detector, PIR;
 	\item \textbf{CLdr:} manages the ambient light sensor, LDR;
-	\item \textbf{CFailureDet:} manages the lamp failure detector;
+	\item \textbf{CFailureDetector:} manages the lamp failure detector;
 \end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{09sw_specification/LS/csensors/class}
+	\caption{Local System dSensors Class Diagram.}
+	\label{fig:csensors}
+\end{figure}
+
 %*****************************
 \clearpage
 \myparagraph{Class CLoraComm}
 
-In figure \ref{fig:LoraCommClass} is shown the \textit{CLoraComm} class diagram. This class defines an object \textit{LoraComm}, with the address \textit{local\_addr}, capable of establishing a LoRa communication at a defined frequency \textit{freqMHz}, with the gateway, with the address \textit{dest\_addr}. This class inherits several methods from the class \textit{CCommunication}, represented with a lighter font and identified with '\^{}' at the begin of the method.
+In figure \ref{fig:LoraCommClass} is shown the \textit{CLoraComm} class diagram. This class defines an object \textit{CLoraComm}, with the address \textit{local\_addr}, capable of establishing a LoRa communication at a defined frequency \textit{freqMHz}, with the gateway which has the address \textit{dest\_addr}. This class inherits several methods from the class \textit{CCommunication}, represented with a lighter font and identified with '\^{}' at the begin of the method, which will be specified later.
 
 \begin{figure}[H]
 	\centering
@@ -51,9 +62,9 @@ In figure \ref{fig:LoraCommClass} is shown the \textit{CLoraComm} class diagram.
 
 In figure \ref{fig:CCommunicationClass} is shown the \textit{CCommunication} class diagram. This class implements the structure for a communication class like \textit{CLoraComm} or \textit{CTCPclient}, which will be shown later. It implements a series of methods to send and receive messages. 
 
-Makes use of a thread, \textit{tSend}, to send messages in non-blocking mode. This thread is created with \textit{init(tprio)} method, which defines the thread priority. After creation, the thread goes to sleep, and is waken whenever the condition variable \textit{condtSend} is notified, which occurs when \textit{push(msg)} is used. This function adds the given message to a buffer, \textit{TxMsgs}, which is later sent in \textit{tSend}. \textit{send(msg)} method sends a message in blocking mode; \textit{recv()} receives a message in non-blocking mode. %It's used a vector of strings \textit{tx\_msgs} to store messages, providing a waiting list of messages to be sent, in order to avoid the loss of a communication.
+This class makes use of a thread, \textit{tSend}, to send messages in non-blocking mode. This thread is created with \textit{init(tprio)} method, which defines the thread priority. After creation, the thread goes to sleep, and is waken whenever the condition variable \textit{condtSend} is notified, which occurs when \textit{push(msg)} is used. This function adds the given message to a buffer, \textit{TxMsgs}, which is later sent in \textit{tSend}. This way, one has a waiting list of messages to be sent, in order to avoid the loss of a communication. The method \textit{send(msg)} sends a message in blocking mode; \textit{recv()} receives a message in non-blocking mode.
 
-This class has two pure virtual functions: \textit{recvFunc} and \textit{sendFunc}, which must be defined by the derived classes, since each communication protocol has its own functions to send and receive messages. Each communication has a state, \textit{status}, defined by the enumeration connection status, \textit{ConnStatus}.
+This class has two pure virtual functions: \textit{recvFunc} and \textit{sendFunc}, which must be implemented by the derived classes, since each communication protocol has its own functions to send and receive messages. Each communication has a state, \textit{status}, defined by the enumeration connection status, \textit{ConnStatus}.
 
 \begin{figure}[H]
 	\centering
@@ -66,12 +77,13 @@ This class has two pure virtual functions: \textit{recvFunc} and \textit{sendFun
 \clearpage
 \myparagraph{Class CLamp}
 
-In figure \ref{fig:classlamp} is shown the Lamp class diagram, which defines a Lamp object. After creating the object, using the constructor \textit{Lamp()}, one can interact with it by changing the brightness, through the method \textit{setBrightness(lux)}, where \textit{lux} is a value from 0, lamp OFF, to 100, lamp at maximum brightness. One can define how much time the lamp stays at maximum brightness, when creating the lamp object, passing this time to the constructor through parameter, \textit{timeoutSecs}, in seconds, being defined into \textit{LampOnTimeoutSecs}. Internally, this class uses a mutex, \textit{mutChangePWM} to protect the PWM value when using \textit{setBrightness} method. 
+In figure \ref{fig:classlamp} is shown the \textit{CLamp} class diagram, which defines a \textit{CLamp} object. When creating the object, using the constructor \textit{CLamp()}, one can define how much time the lamp stays at maximum brightness, passing this time to the constructor through parameter, \textit{timeoutSecs}, in seconds, being defined into \textit{LampOnTimeoutSecs}.
+One can interact with the object \textit{CLamp} by changing the brightness, through the method \textit{setBrightness(lux)}, where \textit{lux} is a value from 0, where the lamp is OFF, to 100, where the lamp is at maximum brightness.  Internally, this class uses a mutex, \textit{mutChangePWM} to protect the PWM value when using \textit{setBrightness} method. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/LS/clamp/class}
-	\caption{Class Diagram: Lamp.}
+	\includegraphics[width=.45\textwidth]{09sw_specification/LS/clamp/class}
+	\caption{Class Diagram: CLamp.}
 	\label{fig:classlamp}
 \end{figure}
 
@@ -79,51 +91,68 @@ In figure \ref{fig:classlamp} is shown the Lamp class diagram, which defines a L
 \clearpage
 \myparagraph{Class CPir}
 
-In figure \ref{fig:classpir} is shown the PIR class. When movement is detected in the surrounding area of the lamppost, the sensor puts the high digital value in its output, triggering an interrupt service routine. When creating a object CPir, one can define the ISR to be executed, passing to the constructor a function pointer, \textit{pirISR}.
+In figure \ref{fig:classpir} is shown the \textit{CPir} class. When movement is detected in the surrounding area of the lamppost, the sensor puts the high digital value in its output, triggering an interrupt service routine. When creating a object \textit{CPir}, one can define the ISR to be executed, passing to the constructor a function pointer, \textit{pirISR}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.5\textwidth]{09sw_specification/LS/cpir/class}
-	\caption{Class Diagram: PIR.}
+	\caption{Class Diagram: CPir.}
 	\label{fig:classpir}
 \end{figure}
 
 %*****************************
 \myparagraph{Class CCamera}
 
-In figure \ref{fig:classcamera} is shown the Camera class diagram, that defines a camera object.  This class implements the control of a camera device, with filename \textit{camFilename}, thorough the basic functions \textit{open()}, \textit{close()} and \textit{capture()}, used to get an image frame from the camera.
+In figure \ref{fig:classcamera} is shown the \textit{CCamera} class diagram, that defines a camera object.  This class implements the control of a camera device, with filename \textit{camFilename}, through the basic functions \textit{open()}, \textit{close()} and \textit{capture()}, the latter used to get an image frame from the camera.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.5\textwidth]{09sw_specification/LS/ccamera/class}
-	\caption{Class Diagram: Camera.}
+	\caption{Class Diagram: CCamera.}
 	\label{fig:classcamera}
 \end{figure}
 
-%%*****************************
-%\myparagraph{Class CLDR}
-%
-%In figure \ref{fig:classldr} is shown the LDR class, that defines the functions to interact with the LDR sensor, using its device driver. As the ambient light is read each 10 minutes in the function \textit{LdrIsr}, one needs to define a timer to trigger this function. The last read luminance is stored in the variable \textit{oldLightCon} and is obtained using the function \textit{getLux}.
-%
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=.5\textwidth]{09sw_specification/classldr}
-%	\caption{Class Diagram: LDR.}
-%	\label{fig:classldr}
-%\end{figure}
-%
-%%*****************************
-%\clearpage
-%\myparagraph{Class CFailureDetector}
-%
-%In figure \ref{fig:classfail} is shown the Failure Detector class. After creating an instance of this class, using the contructor \textit{FailureDetector}, the function \textit{failureDetectIsr} will be triggered each time the failure detector senses the lamp failure. 
-%
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=.5\textwidth]{09sw_specification/classfail}
-%	\caption{Class Diagram: FailureDetector.}
-%	\label{fig:classfail}
-%\end{figure}
+%*****************************
+\myparagraph{Class classparkdetection}
+
+In figure \ref{fig:classcamera} is shown the \textit{CParkDetection} class diagram, that implements the tools needed to do process camera frames in order to do parking detection. Before determining if there are parking spots available, one needs to extract the park outline from the camera frame, using \textit{getOutline(frame)}. This method fills the variable \textit{parkCoords} with the coordinates on the image frame relating to the park outline. After this, one can calculate the number of vacants inside that park outline, through \textit{calcVacants(frame)}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.4\textwidth]{09sw_specification/LS/cparkdetection/class}
+	\caption{Class Diagram: CParkDetection.}
+	\label{fig:classparkdetection}
+\end{figure}
+
+%*****************************
+\myparagraph{Class CLdr}
+
+In figure \ref{fig:classldr} is shown the \textit{CLdr} class, that defines the functions to interact with the LDR sensor. This contains an enumeration for the luminosity states, \textit{LuxState}, which can be \textit{DAY}, \textit{NIGHT} or \textit{UNDEF}, undefined, used for initialization. The luminosity state can be obtain by the use of \textit{getLuxState()}. This class also contains a structure \textit{LdrTxFrame}, which relates each \textit{LuxState} to a command, that will be sent to the main process, whenever \textit{LuxState} changes. Using \textit{getStateCmd()} one can get the command associated with the current \textit{luxState}. The command list, \textit{cmdList}, is defined in the constructor with the following commands:
+\begin{itemize}
+	\item "OFF" for when the LuxState is "DAY". When the LDR detects that is day time, the \textit{luxState} changes to \textit{DAY}, and at that moment is sent the command \textit{"OFF"} to the main process, in order to turn off the lamp;
+	\item "MIN" for when the LuxState is "NIGHT". When the LDR detects that is night time, the \textit{lusState} changes to \textit{NIGHT}, and at that moment is sent the command \textit{"MIN"}, in order to put the lamp at minimum brightness.
+\end{itemize}
+
+%that defines the functions to interact with the LDR sensor, using its device driver. As the ambient light is read each 10 minutes in the function \textit{LdrIsr}, one needs to define a timer to trigger this function. The last read luminance is stored in the variable \textit{oldLightCon} and is obtained using the function \textit{getLux}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{09sw_specification/LS/cldr/class}
+	\caption{Class Diagram: CLdr.}
+	\label{fig:classldr}
+\end{figure}
+
+%*****************************
+\clearpage
+\myparagraph{Class CFailureDetector}
+
+In figure \ref{fig:classfail} is shown the Failure Detector class. After creating an instance of this class, using the contructor \textit{FailureDetector}, the function \textit{failureDetectIsr} will be triggered each time the failure detector senses the lamp failure. 
+
+\begin{figure}[H]
+	\centering
+%	\includegraphics[width=.5\textwidth]{09sw_specification/LS/cfail}
+	\caption{Class Diagram: CFailureDetector.}
+	\label{fig:classfail}
+\end{figure}
 
 %**********************************************************
 \clearpage
@@ -131,10 +160,15 @@ In figure \ref{fig:classcamera} is shown the Camera class diagram, that defines 
 
 One can list the tasks that compose the main process:
 \begin{itemize}
-	\item \textbf{tParkDetection:} acquire a camera frame; processes image and search for parking spots; verify the parking spot availability;
+	\item \textbf{tParkDetection:} determines parking outline; acquire a camera frame, process it by verifying parking spots availability;
  	\item \textbf{tSend:} sends a message to the gateway, using the LoRa module; method of \textit{CLoraComm};
 	\item \textbf{tLoraRecv:} receives a message from the gateway, using the LoRa module;
-	\item \textbf{tRecvSensor:} receives messages sent by the daemon, via message queue, regarding sensors information.
+	\item \textbf{tRecvSensor:} receives messages sent by the daemon, via message queue, regarding sensors information. It's awaken by the use of signal \textit{SIGUSR1}, sent by the daemon when there is a message to read.
+\end{itemize}
+
+Above are listed the tasks that compose the daemon, \textit{dSensors}:
+\begin{itemize}
+	\item \textbf{tReadLdr:} 
 \end{itemize}
 
 %**********************************************************
@@ -142,13 +176,22 @@ One can list the tasks that compose the main process:
 
 One needs to assign each thread a static priority level to indicate their relative urgency. Moreover, the scheduler will always pick the thread that is ready to execute with the highest priority level. Priorities must be assigned in order to ensure efficiency and execute real-time tasks.
 
-With that in mind, the priority assignment diagram for the local system is represented in figure \ref{fig:lst_priority}.
+With that in mind, the priority assignment diagram for the local system's main process is represented in figure \ref{fig:lst_priority}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.6\textwidth]{09sw_specification/LS/mainprocess_priority}
-	\caption{Local System Priority Assignment Schematic.}
+	\caption{Local System Main Process Priority Assignment Schematic.}
 	\label{fig:lst_priority}
+\end{figure}
+
+With that in mind, the priority assignment diagram for the local system's main process is represented in figure \ref{fig:lsdaemont_priority}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{09sw_specification/LS/dsensors_priority}
+	\caption{Local System dSensors Priority Assignment Schematic.}
+	\label{fig:lsdaemont_priority}
 \end{figure}
 
 %**********************************************************
