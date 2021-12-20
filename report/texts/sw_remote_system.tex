@@ -10,12 +10,12 @@ The remote system is responsible for the communication between the local systems
 
 %**********************************************************
 \subsection{Class Diagram}
-In figure \ref{fig:rs_classDiag} is represented the class diagram of the remote system. The class \textit{CTCPServer} is the main class of the system, that initializes the objects of each class.
+In figure \ref{fig:rs_classDiag} is represented the class diagram of the remote system. The class \textit{CTCPServer} is the main class of the system, that initializes the objects of each class. 
 
 \begin{itemize}
 	\item \textbf{CTCPServer:} main class, responsible for creating the server, the client objects, each time a client connects to the server and for sending the messages to the clients;
 	\item \textbf{CClient:} client class, stores the clients information and receives their messages;
-	\item \textbf{CDataBase:} does the interface between the server and the database.
+	\item \textbf{CDataBase:} provides an interface between the server and the database.
 
 \end{itemize}
 
@@ -26,12 +26,24 @@ In figure \ref{fig:rs_classDiag} is represented the class diagram of the remote 
 	\label{fig:rs_classDiag}
 \end{figure}
 
+%****************************
+\myparagraph{Class CTCPServer}
+This class is responsible for creating the server, using \textit{createServer} function, allowing multiple clients to connect and send them messages, with the thread \textit{tSend}. When a client connects to the server, this class creates a new instance of the class \textit{CClient}. Each client can be of a different type of device like website, mobile application or gateway. The clients are assigned to their respective list of clients that are \textit{webSList}, \textit{appList} and \textit{gatewayList}, respectively. To do the interface with the database, this class also has an instance of the class database. In figure \ref{fig:CTCPServer}, one can see the class \textit{CTCPServer} diagram.
+
+\begin{figure}[H]
+	\centering
+	%	\includegraphics[width=.6\textwidth]{09sw_specification/RS/CTCPServer}
+	\caption{Class Diagram: CTCPServer.}
+	\label{fig:CTCPServer}
+\end{figure}
+
+
 %**********************************************************
 \subsection{Task Overview}
 One can define and describe briefly how the remote system is implemented, making use of threads and processes. 
 
 \begin{itemize}
-	\item 
+	\item \textbf{t}
 \end{itemize}
 
 %**********************************************************
