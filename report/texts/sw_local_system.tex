@@ -82,20 +82,20 @@ One can interact with the object \textit{CLamp} by changing the brightness, thro
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.45\textwidth]{09sw_specification/LS/clamp/class}
+	\includegraphics[width=.4\textwidth]{09sw_specification/LS/clamp/class}
 	\caption{Class Diagram: CLamp.}
 	\label{fig:classlamp}
 \end{figure}
 
 %*****************************
-\clearpage
+%\clearpage
 \myparagraph{Class CPir}
 
 In figure \ref{fig:classpir} is shown the \textit{CPir} class. When movement is detected in the surrounding area of the lamppost, the sensor puts the high digital value in its output, triggering an interrupt service routine. When creating a object \textit{CPir}, one can define the ISR to be executed, passing to the constructor a function pointer, \textit{pirISR}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/LS/cpir/class}
+	\includegraphics[width=.4\textwidth]{09sw_specification/LS/cpir/class}
 	\caption{Class Diagram: CPir.}
 	\label{fig:classpir}
 \end{figure}
@@ -107,27 +107,29 @@ In figure \ref{fig:classcamera} is shown the \textit{CCamera} class diagram, tha
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/LS/ccamera/class}
+	\includegraphics[width=.4\textwidth]{09sw_specification/LS/ccamera/class}
 	\caption{Class Diagram: CCamera.}
 	\label{fig:classcamera}
 \end{figure}
 
 %*****************************
-\myparagraph{Class classparkdetection}
+\clearpage
+\myparagraph{Class CParkDetection}
 
-In figure \ref{fig:classcamera} is shown the \textit{CParkDetection} class diagram, that implements the tools needed to do process camera frames in order to do parking detection. Before determining if there are parking spots available, one needs to extract the park outline from the camera frame, using \textit{getOutline(frame)}. This method fills the variable \textit{parkCoords} with the coordinates on the image frame relating to the park outline. After this, one can calculate the number of vacants inside that park outline, through \textit{calcVacants(frame)}.
+In figure \ref{fig:classcamera} is shown the \textit{CParkDetection} class diagram, that implements the tools needed to do process camera frames in order to do parking detection. Before determining if there are parking spots available, one needs to extract the park outline from the camera frame, using \textit{getOutline(frame)}. This method stores in the variable \textit{parkCoords} the coordinates on the image frame relating to the park outline. After this, one can calculate the number of vacants inside that park outline, through \textit{calcVacants(frame)}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.4\textwidth]{09sw_specification/LS/cparkdetection/class}
+	\includegraphics[width=.35\textwidth]{09sw_specification/LS/cparkdetection/class}
 	\caption{Class Diagram: CParkDetection.}
 	\label{fig:classparkdetection}
 \end{figure}
 
 %*****************************
+\clearpage
 \myparagraph{Class CLdr}
 
-In figure \ref{fig:classldr} is shown the \textit{CLdr} class, that defines the functions to interact with the LDR sensor. This contains an enumeration for the luminosity states, \textit{LuxState}, which can be \textit{DAY}, \textit{NIGHT} or \textit{UNDEF}, undefined, used for initialization. The luminosity state can be obtain by the use of \textit{getLuxState()}. This class also contains a structure \textit{LdrTxFrame}, which relates each \textit{LuxState} to a command, that will be sent to the main process, whenever \textit{LuxState} changes. Using \textit{getStateCmd()} one can get the command associated with the current \textit{luxState}. The command list, \textit{cmdList}, is defined in the constructor with the following commands:
+In figure \ref{fig:classldr} is shown the \textit{CLdr} class, that defines the functions to interact with the LDR sensor. This contains an enumeration for the luminosity states, \textit{LuxState}, which can be \textit{DAY}, \textit{NIGHT} or \textit{UNDEF} as undefined, used for initialization. The luminosity state can be obtain by the use of \textit{getLuxState()}. This class also contains a structure \textit{LdrTxFrame}, which relates each \textit{LuxState} to a command, that will be sent to the main process, whenever \textit{LuxState} changes. Using \textit{getStateCmd()} one can get the command associated with the current \textit{luxState}. The command list, \textit{cmdList}, is defined in the constructor with the following commands:
 \begin{itemize}
 	\item "OFF" for when the LuxState is "DAY". When the LDR detects that is day time, the \textit{luxState} changes to \textit{DAY}, and at that moment is sent the command \textit{"OFF"} to the main process, in order to turn off the lamp;
 	\item "MIN" for when the LuxState is "NIGHT". When the LDR detects that is night time, the \textit{lusState} changes to \textit{NIGHT}, and at that moment is sent the command \textit{"MIN"}, in order to put the lamp at minimum brightness.
@@ -166,17 +168,20 @@ One can list the tasks that compose the main process:
 	\item \textbf{tRecvSensor:} receives messages sent by the daemon, via message queue, regarding sensors information. It's awaken by the use of signal \textit{SIGUSR1}, sent by the daemon when there is a message to read.
 \end{itemize}
 
-Above are listed the tasks that compose the daemon, \textit{dSensors}:
+Bellow are listed the tasks that compose the daemon, \textit{dSensors}. As stated above, in \textit{tRecvSensor}, whenever one of the following tasks sends a command to the main process, it is done by message queue, and also, a signal is used, \textit{SIGUSR1}, to alert the main process that a new message was sent.
 \begin{itemize}
-	\item \textbf{tReadLdr:} 
+	\item \textbf{tReadLdr:} periodically reads the LDR sensor; if a change in luminosity state is detected (\textit{DAY} to \textit{NIGHT}, or vice-versa) a command is sent to the main process;
+	\item \textbf{tReadLampf:} periodically reads the Lamp Failure Detector; if a failure is detected a command is sent to the main process;
+	\item \textbf{PirISR:} ISR for the PIR sensor; when motion is detected this task is executed and a command is sent to the main process. 
 \end{itemize}
 
 %**********************************************************
+\clearpage
 \subsection{Task Priority}
 
 One needs to assign each thread a static priority level to indicate their relative urgency. Moreover, the scheduler will always pick the thread that is ready to execute with the highest priority level. Priorities must be assigned in order to ensure efficiency and execute real-time tasks.
 
-With that in mind, the priority assignment diagram for the local system's main process is represented in figure \ref{fig:lst_priority}.
+With that in mind, the priority assignment diagram for the local system's main process is represented in figure \ref{fig:lst_priority}, as well as for the daemon, in figure \ref{fig:lsdaemont_priority}.
 
 \begin{figure}[H]
 	\centering
@@ -184,8 +189,6 @@ With that in mind, the priority assignment diagram for the local system's main p
 	\caption{Local System Main Process Priority Assignment Schematic.}
 	\label{fig:lst_priority}
 \end{figure}
-
-With that in mind, the priority assignment diagram for the local system's main process is represented in figure \ref{fig:lsdaemont_priority}.
 
 \begin{figure}[H]
 	\centering
@@ -195,6 +198,7 @@ With that in mind, the priority assignment diagram for the local system's main p
 \end{figure}
 
 %**********************************************************
+\clearpage
 \subsection{Task Synchronization}
 Real-time tasks share resources and services, and as such, should be prepared to await for the availability of these resources and services, like logical resources (buffers and data), physical resources, services like directory services, etc. In order to have coordinate access to shared resources and avoid race conditions, the kernel has resources that provide synchronization tools. 
 
@@ -203,34 +207,64 @@ Real-time tasks share resources and services, and as such, should be prepared to
 A condition variable is a task synchronization tool that can be used to block (wait) one or more threads, suspending its execution. The blocked threads are awakened when the condition variable is notified. The condition variables used are listed below.
 
 \begin{itemize}
-	\item \textbf{condCamFrame:} notifies \textit{tParkDetection} to acquire a new camera frame and process it;
-	\item \textbf{condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent; private member of CLoraComm class.
+\item \textbf{CLocalSystem::condRecvSensors:}
+\item \textbf{CLocalSystem::condCamFrame:}
+\item \textbf{CSensors::condReadLdr:}
+\item \textbf{CSensors::condReadLampf:}
+\item \textbf{CCommunication::condtSend:}
 \end{itemize}
+
+%\begin{itemize}
+%	\item \textbf{condCamFrame:} notifies \textit{tParkDetection} to acquire a new camera frame and process it;
+%	\item \textbf{condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent; private member of CLoraComm class.
+%\end{itemize}
 
 \myparagraph{Mutexes}
 
 A mutex is a locking mechanism that provides mutual exclusion, supporting ownership and other protocols. A mutex is initially created in the unlocked state in which it can be acquired by a task. After being acquired, the mutex moves to the locked state. When the task releases the mutex, it returns to the unlocked state. The mutexes used are listed bellow.
 
+%\begin{itemize}
+%	\item \textbf{mutCamFrame:} mutex associated with the condition variable \textit{condCamFrame} to acquire a camera frame;
+%		
+%	\item \textbf{mutSend:} protects the message to be sent in \textit{tSend}, which can be defined in multiple places; private member of CLoraComm class;
+%	
+%	\item \textbf{mutComms:} protects LoRa communication; private member of CLoraComm class;
+%	
+%	\item \textbf{mutChangePWM:} protects the modification of PWM when defining a new PWM value for the lamp; private member of CLamp class.
+%	
+%\end{itemize}
+
 \begin{itemize}
-	\item \textbf{mutCamFrame:} mutex associated with the condition variable \textit{condCamFrame} to acquire a camera frame;
-		
-	\item \textbf{mutSend:} protects the message to be sent in \textit{tSend}, which can be defined in multiple places; private member of CLoraComm class;
-	
-	\item \textbf{mutComms:} protects LoRa communication; private member of CLoraComm class;
-	
-	\item \textbf{mutChangePWM:} protects the modification of PWM when defining a new PWM value for the lamp; private member of CLamp class.
-	
+	\item \textbf{CLocalSystem::mutRecvSensors:}
+	\item \textbf{CLocalSystem::mutCamFrame:}
+	\item \textbf{CSensors::mutReadLdr:}
+	\item \textbf{CSensors::mutReadLampf:}
+	\item \textbf{CCommunication::mutComms:}
+	\item \textbf{CCommunication::mutTxMsgs:}
+	\item \textbf{CLamp::mutChangePWM:}
 \end{itemize}
 
+\myparagraph{Signals}
+
+A signal is a software generated interrupt that is sent to a process by the OS. There are fix set of signals that can be sent to a process, which are identified by integers. Signal number have symbolic names.
+
+
+\begin{itemize}
+	\item \textbf{SIGUSR1:}	
+\end{itemize}
+
+%**********************************************************
 \subsection{Task Communication}
 \myparagraph{Message Queue}
 
-A message queue is a linked list of messages stored within the kernel and identified by a message queue identifier. A message queue will be used to communicate between the main process and the \textit{dSensors}. In that way, the main process is agnostic to the cyclic reading necessary for the sensors \textit{LDR} and \textit{LampFailureDetector}, and is only informed when necessary, through the message queue.
+A message queue is a linked list of messages stored within the kernel and identified by a message queue identifier. A message queue, named \textit{msgqSensors}, will be used to communicate between the main process and the \textit{dSensors}. In that way, the main process is agnostic to the cyclic reading necessary for the sensors \textit{LDR} and \textit{LampFailureDetector}, and is only informed when necessary, through the message queue.
 
-%\myparagraph{Signals}
-%
-%In order to define periodic events, through a timer, it is used the signal SIGALRM. Since there are different periods to set in timers, one can list the signals used 
+%**********************************************************
+\subsection{Start-Up Process}
 
+\myparagraph{Main Process}
+
+\myparagraph{dSensors}
 %**********************************************************
 \subsection{Flowcharts}
 %\clearpage
