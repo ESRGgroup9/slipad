@@ -1,1 +1,94 @@
-<mxfile host="app.diagrams.net" modified="2021-12-20T11:33:42.462Z" agent="5.0 (X11)" version="16.0.0" etag="AnlAS8PbzwmMlXeZ9L94" type="github"><diagram id="0Qj54k83hNj_kc8LzFBX">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-12-20T11:35:17.522Z" agent="5.0 (X11)" etag="CtLXbEuZHOcDFdO_xcCe" version="16.0.0" type="github" pages="3">
+  <diagram id="0Qj54k83hNj_kc8LzFBX" name="CTCPServer">
+    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JZW6z2uQKtled3wn76MC-1" value="CTCPServer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
+          <mxGeometry x="279" y="40" width="270" height="310" as="geometry">
+            <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JZW6z2uQKtled3wn76MC-2" value="-  mutComms : mutex&#xa;- gatewayList: vector&lt;CClient*&gt;&#xa;- webSList: vector&lt;CClient*&gt;&#xa;- appList: vector&lt;CClient*&gt;&#xa;- db : CDataBase&#xa;- addr* : &lt;sockaddr_in&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="JZW6z2uQKtled3wn76MC-1">
+          <mxGeometry y="26" width="270" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="JZW6z2uQKtled3wn76MC-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="JZW6z2uQKtled3wn76MC-1">
+          <mxGeometry y="130" width="270" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="JZW6z2uQKtled3wn76MC-4" value="+ TCPServer(IN port : int)&#xa;+ ~TCPServer(void)&#xa;&#xa;+ init(IN  tprio: int) void&#xa;+ run(void) void&#xa;&#xa;- createServer(IN maxClients int) int &#xa;- send(IN msg: string) void&#xa;# tSend(void*) void&#xa;&#xa;{virtual} # sendFunc(IN msg : string) int " style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="JZW6z2uQKtled3wn76MC-1">
+          <mxGeometry y="138" width="270" height="172" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="4DSGlReCEK_uSti7E2zH" name="CClient">
+    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-0" />
+        <mxCell id="yqz21InF7U_xKhAMBYtE-1" parent="yqz21InF7U_xKhAMBYtE-0" />
+        <mxCell id="yqz21InF7U_xKhAMBYtE-2" value="CClient" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="yqz21InF7U_xKhAMBYtE-1">
+          <mxGeometry x="264" y="80" width="300" height="240" as="geometry">
+            <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-3" value="- cmdList: vector&lt;cliCmd&gt;&#xa;- clientSock : &lt;client_socket_info_t&gt;&#xa;- mutComms : mutex&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="yqz21InF7U_xKhAMBYtE-2">
+          <mxGeometry y="26" width="300" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-4" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="yqz21InF7U_xKhAMBYtE-2">
+          <mxGeometry y="80" width="300" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-5" value="+ Client(IN client_sock : &lt;client_socket_info_t&gt;)&#xa;+ ~Client(void)&#xa;&#xa;+ init(IN tprio: int) void&#xa;+ run(void) void&#xa;- msgQueueSend(void) string&#xa;- recv(void) string&#xa;# tRecv(void*) void&#xa;&#xa;{virtual} # recvFunc(void) string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="yqz21InF7U_xKhAMBYtE-2">
+          <mxGeometry y="88" width="300" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-6" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;enumeration:&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;cliType&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;GATEWAY&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;WEBSITE&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;APPLICATION&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="yqz21InF7U_xKhAMBYtE-1">
+          <mxGeometry x="264" y="410" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-7" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;struct:&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;client_socket_info_t&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;state: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;span class=&quot;pl-c1&quot;&gt;index&lt;/span&gt;: int&lt;/p&gt;&lt;div&gt;&amp;nbsp; clientName: string&lt;/div&gt;&lt;div&gt;&amp;nbsp; sockFd:int&lt;/div&gt;&lt;div&gt;&amp;nbsp; type : enum &amp;lt;cliType&amp;gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="yqz21InF7U_xKhAMBYtE-1">
+          <mxGeometry x="434" y="390" width="130" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-8" value="" style="endArrow=open;startArrow=circlePlus;endFill=0;startFill=0;endSize=8;html=1;rounded=1;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="yqz21InF7U_xKhAMBYtE-1" source="yqz21InF7U_xKhAMBYtE-7" target="yqz21InF7U_xKhAMBYtE-6">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="509.0400000000002" y="250" as="sourcePoint" />
+            <mxPoint x="509" y="430" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="400" y="460" />
+              <mxPoint x="400" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-9" value="" style="endArrow=open;startArrow=circlePlus;endFill=0;startFill=0;endSize=8;html=1;rounded=1;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="yqz21InF7U_xKhAMBYtE-1" source="yqz21InF7U_xKhAMBYtE-5" target="yqz21InF7U_xKhAMBYtE-7">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="444" y="500" as="sourcePoint" />
+            <mxPoint x="374" y="500" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="499" y="360" />
+              <mxPoint x="499" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="HAcon3-RpeG4d-lodBSY" name="CDatabase">
+    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="hQ0141blqfC8cqL4AOc6-0" />
+        <mxCell id="hQ0141blqfC8cqL4AOc6-1" parent="hQ0141blqfC8cqL4AOc6-0" />
+        <mxCell id="hQ0141blqfC8cqL4AOc6-2" value="CDataBase" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="hQ0141blqfC8cqL4AOc6-1">
+          <mxGeometry x="304" y="80" width="220" height="190" as="geometry">
+            <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hQ0141blqfC8cqL4AOc6-3" value="db : MYSQL*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="hQ0141blqfC8cqL4AOc6-2">
+          <mxGeometry y="26" width="220" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="hQ0141blqfC8cqL4AOc6-4" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="hQ0141blqfC8cqL4AOc6-2">
+          <mxGeometry y="60" width="220" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="hQ0141blqfC8cqL4AOc6-5" value="+ DataBase(void)&#xa;+ ~DataBase(void)&#xa;&#xa;+ open(void) void&#xa;+ close(void) void&#xa;+ updateData(sqlQuery : string): bool&#xa;+ getData(sqlQuery : string): string&#xa;+ prepareQuery(message: string) string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="hQ0141blqfC8cqL4AOc6-2">
+          <mxGeometry y="68" width="220" height="122" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
