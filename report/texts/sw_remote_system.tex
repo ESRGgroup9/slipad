@@ -151,10 +151,46 @@ In figure \ref{fig:RSsend} is represented the thread \textit{tSend}, which is re
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\textwidth]{09sw_specification/RS/CTCPServer/send}
+	\includegraphics[width=.95\textwidth]{09sw_specification/RS/CTCPServer/send}
 	\caption{Flowchart: CTCPServer tSend.}
 	\label{fig:RSsend}
 \end{figure}
+
+%**********************************
+\myparagraph{CClient}
+
+In figure \ref{fig:ClientConst} is represented the constructor of the \textit{CClient} class. Every time a client connects to the server, it creates an instance of this class, passing by argument, the information about the client to initialize the \textit{clientSock} variable. The constructor also creates the command list that the type of client can execute, \textit{cmdList}, and the thread \textit{tRecv}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.20\textwidth]{09sw_specification/RS/CClient/ConsClient}
+	\caption{Flowchart: CClient Constructor.}
+	\label{fig:ClientConst}
+\end{figure}
+
+The command list, \textit{cmdList} varies with the type of client:
+
+\begin{itemize}
+	\item \textbf{Mobile Application:} 
+		\begin{itemize}
+			\item Get;
+			\item Update;
+			\item Delete.
+		\end{itemize}
+	
+	\item \textbf{Web Site:}
+		\begin{itemize}
+			\item Get.			
+		\end{itemize}
+	
+	\item \textbf{Gateway:}
+		\begin{itemize}
+			\item Get;
+			\item Update;
+		\end{itemize}
+
+\end{itemize}
+
 
 %**********************************************************
 \subsection{Start-up Process}
