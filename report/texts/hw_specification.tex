@@ -83,13 +83,13 @@ In table \ref{table:connect_lightsensor} it is shown the connection scheme of th
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{|m{5cm}|m{4cm}|m{3cm}|}
+	\begin{tabular}{|m{3cm}|m{5cm}|m{3cm}|}
 		\hline
 		\textbf{TSL2581 Pin} & \textbf{Raspberry Pi Pin} & \textbf{Notes} 
 		\\\hline\hline
-		VCC & Pin 1 & 3,3 V
+		VCC & Step-down VOUT+ & 5 V
 		\\\hline
-		GND & Pin 6 & GND
+		GND & Step-down VOUT- \& Pin 6 & GND
 		\\\hline
 		SDA & Pin 2 & I2C1-SDA
 		\\\hline
