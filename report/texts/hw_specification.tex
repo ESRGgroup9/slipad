@@ -168,13 +168,13 @@ In table \ref{table:connect_pir} it is shown the connection scheme of the PIR se
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{|m{5cm}|m{4cm}|m{3cm}|}
+	\begin{tabular}{|m{4cm}|m{5cm}|m{3cm}|}
 		\hline
-		\textbf{PIR HC-SR501 Pin} & \textbf{Raspberry Pi Pin} & \textbf{Notes} 
+		\textbf{PIR HC-SR501 Pin} & \textbf{RPi Pin/ Connector} & \textbf{Notes} 
 		\\\hline\hline
-		VCC & Pin 2 & 5 V
+		VCC & Step-down VOUT+ & 5 V
 		\\\hline
-		GND & Pin 6 & GND
+		GND & Step-down VOUT- \& Pin 6 & GND
 		\\\hline
 		SIGNAL & Pin 27 & GPIO
 		\\\hline
@@ -183,7 +183,6 @@ In table \ref{table:connect_pir} it is shown the connection scheme of the PIR se
 	\caption{Connection scheme: Motion detector.}
 	\label{table:connect_pir}
 \end{table}
-
 
 \myparagraph{Test Cases}
 It is important to know how the motion detector module works, and how it will behave upon certain events. In table \ref{table:test_pir} are shown test cases to this module.
@@ -355,6 +354,17 @@ In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa 
 	\caption{Connection scheme: LoRa Module.}
 	\label{table:connect_lora}
 \end{table}
+
+		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+		\hline
+		\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+		\\\hline\hline
+		Movement in front of the sensor & Pin SIGNAL high (5 V) & -
+		\\\hline
+		No movement in front of the sensor & Pin SIGNAL low (0,3 V) & -
+		\\\hline
+	\end{tabular}
+
 
 \myparagraph{Test Cases}
 It is important to know how the LoRa module works, and how it will behave upon certain events. In table \ref{table:test_lora} are shown test cases to this module.
