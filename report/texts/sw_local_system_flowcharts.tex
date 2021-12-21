@@ -52,7 +52,7 @@ In figure \ref{fig:CLocalSystemtRecvSensors} is presented the task responsible f
 
 %******************************
 \clearpage
-This task, figure \ref{fig:CLocalSystemtParkDetection}, is responsible for using the \textit{camera} object, from \textit{CCamera}, and the \textit{park} object, from \textit{CParkDetection}, in order to capture image frames and process them, calculating the number of available spaces in the parking detected. This task is periodically awaken by the use of a timer, signaling the condition variable \textit{condCamFrame}.
+This task, figure \ref{fig:CLocalSystemtParkDetection}, is responsible for using the \textit{camera} object, from \textit{CCamera}, and the \textit{park} object, from \textit{CParkDetection}, in order to capture image frames and process them, calculating the number of available spaces in the parking detected. This task is periodically awaken by the use of a timer, signaling the condition variable \textit{condCamFrame}. Besides that, a timer can be used, \textit{timCamProc}, to detect if the image processing does not exceed a maximum amount of time.
 
 \begin{figure}[H]
 	\centering
