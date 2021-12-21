@@ -186,14 +186,54 @@ The command list, \textit{cmdList} varies with the type of client:
 	\item \textbf{Gateway:}
 		\begin{itemize}
 			\item Get;
-			\item Update;
+			\item Update.
 		\end{itemize}
 
 \end{itemize}
 
+In the method \textit{init}, shown in figure \ref{fig:clientInit}, it is created the thread \textit{tRecv}, that receives messages from the clients, with priority \textit{tprio}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\textwidth]{09sw_specification/RS/CClient/init}
+	\caption{Flowchart: CClient Init.}
+	\label{fig:clientInit}
+\end{figure}
+
+The method \textit{run}, represented in figure \ref{fig:clientRun}, is responsible for waiting for the termination of the thread \textit{tRecv}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\textwidth]{09sw_specification/RS/CClient/run}
+	\caption{Flowchart: CClient Run.}
+	\label{fig:clientRun}
+\end{figure}
+
+The figure \ref{fig:RSRecv} shows the thread that receive messages from the clients, \textit{tRecv}. When a message is received, the function \textit{recvFunc} returns the message. If the message is not empty, then one can parse and execute a command extracted from the message sent, using the \textit{parseExecute} function. When the command is valid, this function returns a message to be sent back to the client. As the send thread belongs to a daemon, one can send the message to the daemon process using a message queue.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth]{09sw_specification/RS/CClient/recv}
+	\caption{Flowchart: CClient tRecv.}
+	\label{fig:RSRecv}
+\end{figure}
+
+In figure \ref{fig:parseExecute} is represented the flowchart of the \textit{parseExecute} function, that is responsible for parsing and execute the message sent by the client. It is needed to verify if the client that sent the command has rights to execute that command, so the message sent is searched in the \textit{cmdList} assigned to the respective client. If the message corresponds to a valid command for that client, then one can prepare a query and execute the command according to the type of command that was sent: \textit{delete} for a data deletion, \textit{update} for a data update and \textit{get} for a data request, returning the command output in a string message \textit{msg}. If the command doesn't exist in the command list of that client, then the \textit{msg} is assigned with an error message. The output of this function is the string message, \textit{msg}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth]{09sw_specification/RS/CClient/parseExecute}
+	\caption{Flowchart: CClient parseExecute.}
+	\label{fig:parseExecute}
+\end{figure}
 
 %**********************************************************
 \subsection{Start-up Process}
+The start-up process is shown in the figure \ref{fig:RSstart}. When the program initiates, the start-up process instantiate a object of the class \textit{CTCPServer}. After that, it waits for the thread to terminate, using the function \textit{run}.
 
-%**********************************************************
-\subsection{Shutdown Process}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\textwidth]{09sw_specification/RS/CClient/start}
+	\caption{Start-Up Process.}
+	\label{fig:RSstart}
+\end{figure}

@@ -10,7 +10,7 @@ One can define and describe briefly how the local system is implemented, making 
 \end{figure}
 
 %**********************************************************
-\subsection{Class Diagram}
+\subsection{Class Diagrams}
 In figure \ref{fig:clocalsystem} is represented the class diagram of the local system's main process. The class \textit{CLocalSystem} is the main class of the main process, which initializes the objects of each class listed below.
 
 \begin{itemize}
@@ -120,7 +120,7 @@ In figure \ref{fig:classcamera} is shown the \textit{CParkDetection} class diagr
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.35\textwidth]{09sw_specification/LS/cparkdetection/class}
+	\includegraphics[width=.34\textwidth]{09sw_specification/LS/cparkdetection/class}
 	\caption{Class Diagram: CParkDetection.}
 	\label{fig:classparkdetection}
 \end{figure}
@@ -138,7 +138,7 @@ In figure \ref{fig:classldr} is shown the \textit{CLdr} class, that defines the 
 %that defines the functions to interact with the LDR sensor, using its device driver. As the ambient light is read each 10 minutes in the function \textit{LdrIsr}, one needs to define a timer to trigger this function. The last read luminance is stored in the variable \textit{oldLightCon} and is obtained using the function \textit{getLux}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{09sw_specification/LS/cldr/class}
+	\includegraphics[width=0.74\textwidth]{09sw_specification/LS/cldr/class}
 	\caption{Class Diagram: CLdr.}
 	\label{fig:classldr}
 \end{figure}
@@ -296,6 +296,45 @@ The start-up for the daemon is shown in figure \ref{fig:dsensors}. Firstly, the 
 \clearpage
 \subsection{Flowcharts}
 \input{./texts/sw_local_system_flowcharts}
+
+%**********************************************************
+\clearpage
+\subsection{Commands and Constants}
+\myparagraph{Constants}
+
+The constants used in the local system are listed bellow.
+\begin{itemize}
+	\item \verb|LS_ADDR|: defines the local system address, relevant to the communications module, CLoraComm;
+	\item \verb|GATEWAY_ADDR|: defines the gateway address, relevant to CLoraComm;\\
+	
+	\item \verb|MSGQ_NAME|: defines the name of the message queue, \textit{msgqSensors}.
+	\item \verb|MIN_BRIGHT_PWM|: defines the minimum brightness of the lamp;\\
+	
+	\item \verb|TIM_LAMP_ON_SECS|: defines the time from which the lamp stays on, at full brightness, in seconds;	
+	\item \verb|TIM_READ_LDR|: defines the sampling period for the LDR sensor, in seconds;
+	\item \verb|TIM_READ_LAMPF|: defines the sampling period for the Lamp Failure Detector, in seconds;
+	\item \verb|TIM_CAM_FRAME|: defines the sampling period for the Camera frame capture, in seconds;
+
+\end{itemize}
+
+\myparagraph{Commands}
+
+The commands used for the communication between the daemon \textit{dSensors} and the main process are listed bellow.
+
+\begin{itemize}
+	\item \verb|ON|: Set the lamp brightness to its maximum (PWM=100);
+	\item \verb|MIN|: Set the lamp brightness to its minimum (PWM=\verb|MIN_BRIGHT_PWM|);
+	\item \verb|OFF|: Turn off the lamp (PWM=0);
+	\item \verb|FAIL|: Turn off the lamp (PWM=0);
+\end{itemize}
+
+The commands used for the communication between the local system and the remote system are listed bellow.
+\begin{itemize}
+	\item \verb|LAMP ON|: Lamp is at full brightness;
+	\item \verb|LAMP MIN|: Lamp is at minimum brightness;
+	\item \verb|LAMP OFF|: Lamp is off;
+	\item \verb|LAMP FAIL|: Lamp is broken (failure detected);
+\end{itemize}
 
 %**********************************************************
 \clearpage
