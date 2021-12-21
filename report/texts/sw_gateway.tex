@@ -25,7 +25,7 @@ In figure \ref{fig:GwclassDiag} is represented the class diagram of gateway, \te
 
 \myparagraph{Class CTCPclient}
 
-In figure \ref{fig:TCPclient} is shown the CTCPclient class. This class defines a TCPclient capable of establishing a connection to a given remote server and to exchange messages to it, via TCP-IP. Like in the CLoraComm class, this class inherits from the class CCommunication.
+In figure \ref{fig:TCPclientClass} is shown the CTCPclient class. This class defines a TCPclient capable of establishing a connection to a given remote server and to exchange messages to it, via TCP-IP. Like in the CLoraComm class, this class inherits from the class CCommunication.
 
 \begin{figure}[H]
 	\centering
@@ -52,7 +52,7 @@ The priority assignment diagram for the gateway is represented in figure \ref{fi
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{09sw_specification/Gateway/priority}
+	\includegraphics[width=0.6\textwidth]{09sw_specification/Gateway/priority}
 	\caption{Gateway Priority Assignment Schematic.}
 	\label{fig:gwt_priority}
 \end{figure}
@@ -65,19 +65,15 @@ The priority assignment diagram for the gateway is represented in figure \ref{fi
 The condition variables used in this system are listed below.
 
 \begin{itemize}
-	\item \textbf{CLoraComm::condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent; private member of class LoraComm;
-	\item \textbf{CTCPclient::condSend:} used to notify \textit{tTCPSend} that a new message is ready to be sent; private member of class TCPclient.
+	\item \textbf{CCommunication::condSend:} already detailed in the local system section; this condition variable is used indirectly by \textit{CTCPclient} and \textit{CLoraComm}.
 \end{itemize}
 
 \myparagraph{Mutexes}
 
-The mutexes used in this system are listed bellow, which are all private members of CLoraComm and CTCPclient classes.
+The mutexes used in this system are listed bellow.
 
 \begin{itemize}
-	\item \textbf{CLoraComm::mutComms} and \textbf{CLoraComm::mutTxMsgs:} already detailed in the local system section;
-	
-	\item \textbf{CTCPclient::mutComms:} used to protect the TCP-IP communications (send and receive);
-	\item \textbf{CTCPclient::mutTxMsgs:} indirectly used by \textit{CTCPclient}; used to protect the insertion and removal of messages into \textit{TxMsgs};
+	\item \textbf{CCommunication::mutComms} and \textbf{CCommunication::mutTxMsgs:} already detailed in the local system section; this mutexes are used indirectly by \textit{CTCPclient} and \textit{CLoraComm}.
 \end{itemize}
 
 %%**********************************************************
@@ -98,7 +94,7 @@ In figure \ref{fig:bootGateway} is shown the start-up process for the gateway. W
 %*****************************
 \myparagraph{CGateway Methods}
 
-In figure \ref{fig:gwtCGatewayconstructor} is shown the start-up process for the gateway. When booting up, the gateway creates a CTCPclient and a CLoraComm objects. After this the threads are created and both objects begin running their threads for receiving and sending messages.
+In figure \ref{fig:gwtCGatewayconstructor} is shown the \textit{CGateway} class constructor. With this, one can create a CTCPclient and a CLoraComm objects. After this the threads are created and both objects begin running their threads for receiving and sending messages.
 
 \begin{figure}[H]
 	\centering
@@ -107,20 +103,22 @@ In figure \ref{fig:gwtCGatewayconstructor} is shown the start-up process for the
 	\label{fig:gwtCGatewayconstructor}
 \end{figure}
 
+\clearpage
 This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication. When a message is received it is pushed into the TCP client list of queued messages, waiting to be sent to the remote server.
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.5\textwidth]{09sw_specification/Gateway/cgateway/tlorarecv}
+	\includegraphics[width=.5\textwidth]{09sw_specification/Gateway/cgateway/tlorarecv}
 	\caption{Flowchart: CGateway tLoraRecv method.}
 	\label{fig:gwtLoraRecv}
 \end{figure}
 
+\clearpage
 This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receiving the messages sent by the remote system to the local systems. Unlike the \textit{tsend} tasks, this thread never enters the sleep state because one can receive a message at any moment. If it is received a message, then one can push the message to the messages queue in CLoraComm, signaling its thread to send the message, via LoRa communication.
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.5\textwidth]{09sw_specification/Gateway/cgateway/ttcprecv}
+	\includegraphics[width=.5\textwidth]{09sw_specification/Gateway/cgateway/ttcprecv}
 	\caption{Flowchart: CGateway tTCPRecv method.}
 	\label{fig:gwtTCPRecv}
 \end{figure}
@@ -129,13 +127,13 @@ This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receivin
 \clearpage
 \myparagraph{CTCPclient Methods}
 
-A TCPclient can be created through the use of the constructor, shown in figure \ref{fig:TCPclient}. This connects to a given server, defined by the string \textit{host}, and to the port \textit{port}, via TCP-IP and initializes all the private members.
+A TCPclient can be created through the use of the constructor, shown in figure \ref{fig:TCPclientconstructor}. This connects to a given server, defined by the string \textit{host}, and to the port \textit{port}, via TCP-IP and initializes all the private members.
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.8\textwidth]{09sw_specification/Gateway/ctcpclient/constructor}
+	\includegraphics[width=.36\textwidth]{09sw_specification/Gateway/ctcpclient/constructor}
 	\caption{Class Diagram: CTCPclient constructor.}
-	\label{fig:TCPclient}
+	\label{fig:TCPclientconstructor}
 \end{figure}
 
 As in CLoraComm, this class must implement \textit{recvFunc} and \textit{sendFunc}, as they are pure virtual methods from CCommunication. 
@@ -144,14 +142,14 @@ In this class, one will use existent functions \textit{TCPReceive} and \textit{T
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.6\textwidth]{09sw_specification/Gateway/ctcpclient/recvfunc}
+	\includegraphics[width=.35\textwidth]{09sw_specification/Gateway/ctcpclient/recvfunc}
 	\caption{Flowchart: CTCPclient recvFunc method.}
 	\label{fig:TCPclientrecvfunc}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.6\textwidth]{09sw_specification/Gateway/ctcpclient/sendfunc}
+	\includegraphics[width=.35\textwidth]{09sw_specification/Gateway/ctcpclient/sendfunc}
 	\caption{Flowchart: CTCPclient sendFunc method.}
 	\label{fig:TCPclientsendfunc}
 \end{figure}
