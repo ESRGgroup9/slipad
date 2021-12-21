@@ -50,11 +50,6 @@ In figure \ref{fig:CLocalSystemtRecvSensors} is presented the task responsible f
 %******************************
 This task, figure \ref{fig:CLocalSystemtParkDetection}, is responsible for using the \textit{camera} object, from \textit{CCamera}, and the \textit{park} object, from \textit{CParkDetection}, in order to capture image frames and process them, calculating the number of available spaces in the parking detected. This task is periodically awaken by the use of a timer, signaling the condition variable \textit{condCamFrame}.
 
-%In the image processing part of the thread, if there aren't parking spots coordinates stored, then it is necessary to search for parking spots. After that, one can detect cars using the pre-trained model and the function \textit{detectCars} that detects cars in the image. 
-%
-%If the coordinates of a detected car matches the coordinates of the parking spot, then one can assume that the parking spot is occupied. If the parking spot status has changed, then it is necessary to send this to the remote system, using the LoRa communication module. In figure \ref{fig:}, is shown the thread \textit{tCamera} flowchart.
-
-
 \begin{figure}[H]
 	\centering
 	%	\includegraphics[width=.3\textwidth]{09sw_specification/LS/clocalsystem/tparkdetection}
@@ -173,8 +168,8 @@ There is also another method, \textit{recv()}, that receives a message from the 
 \clearpage
 \myparagraph{CLoraComm Methods}
 
-An object can be created through the use of the constructor, as shown in figure \ref{fig:LoraComm}.
-This starts by initializing the LoRa communication, defining the pins connected to the module and the frequency in which the device chosen previously operates, which is 433~MHz. At the end, all private members are also initialized.
+A CLoraComm object can be created through the use of the constructor, as shown in figure \ref{fig:LoraComm}.
+This starts by initializing the LoRa communication, using the given frequency, \textit{freq}, which will be 433~MHz, and defining the pins connected to the module. At the end, all private members are also initialized.
 
 \begin{figure}[H]
 	\centering
@@ -182,6 +177,8 @@ This starts by initializing the LoRa communication, defining the pins connected 
 	\caption{Flowchart: CLoraComm constructor.}
 	\label{fig:LoraComm}
 \end{figure}
+
+This class inherits from \textit{CCommunication} class, so this must implement \textit{recvFunc} and \textit{sendFunc}, as they are pure virtual methods. In this class, one will use existent functions \textit{LoraReceive} and \textit{LoraSend} to implement Lora communication, as shown in figures \ref{fig:CLoraCommrecvfunc} and \ref{fig:CLoraCommsendfunc}. This functions make use of the address of the local system, \textit{local\_addr}, defining the source ID, and the address of the gateway, \textit{dest\_addr}, defining the destination ID.
 
 \begin{figure}[H]
 	\centering
@@ -202,8 +199,19 @@ This starts by initializing the LoRa communication, defining the pins connected 
 \clearpage
 \myparagraph{CLamp Methods}
 
+A CLamp object can be created or destroyed through the class constructor or destroyer, presented in figure \ref{fig:CLampconstructor}. When creating an object, one must pass to the constructor the time from which the lamp will stay on after one sets the brightness to the maximum. This value must be in seconds and is stored in the variable \textit{LampOnTimeoutSecs}.
+
+\begin{figure}[H]
+	\centering	
+	%	\includegraphics[width=.6\textwidth]{09sw_specification/clamp/setbrightness}
+	\caption{Flowchart: CLamp constructor and destroyer.}
+	\label{fig:CLampconstructor}
+\end{figure}
+
 %******************************
-%This function, presented in figure \ref{fig:flow_setbrightness}, is responsible for changing the PWM associated with the lamp, which is directly related to its brightness. Through \textit{setPWM(lux)} one can change the current lamp PWM to \textit{lux} value, being this an integer between 0 to 100. When the PWM is maximum, a timer is started that defines how much time the lamp is ON, \textit{LAMP\_ON\_TIMEOUT} in seconds, if there isn't another call of this function.
+This function, presented in figure \ref{fig:CLampsetBrightness}, is responsible for changing the PWM associated with the lamp, which is directly related to its brightness.
+
+Through \textit{setPWM(lux)} one can change the applied lamp PWM to \textit{lux} value, being this an integer between 0 to 100. When the PWM is maximum, a timer is started that defines how much time the lamp is ON, \textit{LampOnTimeoutSecs} in seconds.
 
 \begin{figure}[H]
 	\centering	
@@ -216,9 +224,10 @@ This starts by initializing the LoRa communication, defining the pins connected 
 \clearpage
 \myparagraph{CParkDetection Methods}
 
+In the method \textit{calcVacantsNum()}, one receives an image frame and processes it in order to determine the number of available parking spots. This does the detection of cars using a pre-trained model. When analyzing the image, if the coordinates of a detected car matches the coordinates of the parking spot (i.e the parking outline, obtained by \textit{getOutline()}) then one can assume that the parking spot is occupied. \\
 
 %******************************
-This function, represented in figure \ref{fig:CParkDetectiongetoutline}, is used to process the image captured by the camera in order to detect the parking spots outline. This is done using the algorithm defined previously in the section \ref{section:imageProc}, and starts by converting the frame to a grey scale image, apply the canny edge filter to highlight the edges of the image captured. After having the edges, one can select only the vertical and horizontal straight lines and intersect them, storing the intersection points, that are the parking spot coordinates.
+This method, represented in figure \ref{fig:CParkDetectiongetoutline}, is used to process the image captured by the camera in order to detect the parking spots outline. This is done using the algorithm defined previously in the section \ref{section:imageProc}, and starts by converting the frame to a grey scale image, apply the canny edge filter to highlight the edges of the image captured. After having the edges, one can select only the vertical and horizontal straight lines and intersect them, storing the intersection points, that are the parking spot coordinates, into the private member \textit{parkCoords}.
 
 \begin{figure}[H]
 	\centering			
@@ -230,11 +239,18 @@ This function, represented in figure \ref{fig:CParkDetectiongetoutline}, is used
 %**********************************************************
 \clearpage
 \myparagraph{CLdr Methods}
-%getLuxState
-%getStateCmd
 
-%\myparagraph{getLuxState}
-%The ambient light sensor, LDR, is used to determine when is time to turn on the lights, that is, when is night time and interfaces with the Raspberry Pi through I2C protocol communication. As the sun set or the sun rise is a relatively long time process, there's no need to keep checking the sensor output value all the time, so one can define a period to get the sensor value, \textit{LDR\_TIM}, that can be 10 minutes. In figure \ref{fig:ldr_isr} is shown the LDR sensor interrupt service routine, triggered by the timer overflow. When the timer period elapses, the illuminance value is calculated by the sensor. If this value is lower than the threshold value defined as good luminosity illuminance, GOOD\_LIGHT\_LUX, then the auxiliary variable, \textit{lightCon} is setted to high. In the next step, if the \textit{oldLightCon} variable (stores the last ambient light condition) is not equal to the auxiliary variable, then it is needed to change the \textit{oldLightCon} variable and send message to the process that controls the lamp PWM, through message queue. 
+The constructor for the class \textit{CLdr} is presented in \ref{fig:CLdrconstructor}. This creates an \textit{CLdr} object, initializing the LDR sensor, defining the initial luminosity state, \textit{luxState} and defining the command list for this sensor.
+
+\begin{figure}[H]
+	\centering
+	%	\includegraphics[width=.7\textwidth]{09sw_specification/LS/cldr/constructor}
+	\caption{Flowchart: CLdr constructor.}
+	\label{fig:CLdrconstructor}
+\end{figure}
+
+%******************************
+In order to obtain the current luminosity state, \textit{DAY} or \textit{NIGHT}, there is a method called \textit{getLuxState}, presented in figure \ref{fig:CLdrgetLuxState}. This method, gets the sensed luminosity level from the LDR sensor, and determines the current luminosity state.
 
 \begin{figure}[H]
 	\centering
@@ -243,14 +259,27 @@ This function, represented in figure \ref{fig:CParkDetectiongetoutline}, is used
 	\label{fig:CLdrgetLuxState}
 \end{figure}
 
+%******************************
+Depending on the luminosity state, \textit{luxState}, the CLdr must send a different command, when required to do so. Using the class command list and the variable \textit{luxState} one can obtain the command related to the current luminosity state, as shown in figure \ref{fig:CLdrgetStateCmd}.
+
+\begin{figure}[H]
+	\centering
+	%	\includegraphics[width=.7\textwidth]{09sw_specification/LS/cldr/getstatecmd}
+	\caption{Flowchart: CLdr getStateCmd method.}
+	\label{fig:CLdrgetStateCmd}
+\end{figure}
 
 %**********************************************************
 \clearpage
+\myparagraph{CPir Methods}
 
-\begin{itemize}
-%	\item Lamp Max: the lamp brightness must be at its maximum (PWM=100);
-	\item Lamp Min: the lamp must be at minimum bright level (PWM = \textit{MIN\_BRIGHT\_PWM});
-	\item Lamp OFF: the lamp must be OFF (PWM=0);
-	\item Lamp Fail: the lamp must be OFF, since there was a failure detected on the lamp.
-\end{itemize}
+In figure \ref{fig:CPirconstructor} is shown the CPir class constructor. This creates a CPir object, by firstly inserting the respective device driver, which will be developed, as a constraint of this project. Then an ISR is assigned to the PIR sensor, being that defined by a function pointer passed by argument into the constructor. Whenever the PIR detects movement in the surroundings, the output pin will change its value, triggering an interrupt, handled by the defined ISR.
+
+\begin{figure}[H]
+	\centering
+	%	\includegraphics[width=.7\textwidth]{09sw_specification/LS/cpir/constructor}
+	\caption{Flowchart: CPir constructor.}
+	\label{fig:CPirconstructor}
+\end{figure}
+
 
