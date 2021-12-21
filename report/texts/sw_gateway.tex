@@ -40,8 +40,8 @@ In figure \ref{fig:TCPclientClass} is shown the CTCPclient class. This class def
 One can define and describe briefly how the gateway is implemented, making use of threads and processes.
 
 \begin{itemize}
-	\item \textbf{tLoraRecv:} receives all messages from local systems, using LoRa communication;
-	\item \textbf{tTCPRecv:} receives all messages from the remote server, using TCP-IP communication;	
+	\item \textbf{CGateway::tLoraRecv:} receives all messages from local systems, using LoRa communication;
+	\item \textbf{CGateway::tTCPRecv:} receives all messages from the remote server, using TCP-IP communication;	
 	\item \textbf{CLoraComm::tSend:} sends all received messages from the remote server, in \textit{tTCPRecv}, to the local systems, using LoRa communication; 
 	\item \textbf{CTCPclient::tSend:} sends all received messages from local systems, in \textit{tLoraRecv}, to the remote server, using TCP-IP communication;
 \end{itemize}
@@ -138,7 +138,7 @@ A TCPclient can be created through the use of the constructor, shown in figure \
 
 As in CLoraComm, this class must implement \textit{recvFunc} and \textit{sendFunc}, as they are pure virtual methods from CCommunication. 
 
-In this class, one will use existent functions \textit{TCPReceive} and \textit{TCPSend} to implement TCP-IP communication, as shown in figures \ref{fig:TCPclientrecvfunc} and \ref{fig:TCPclientsendfunc}. This functions make use of socket associated with the TCP-IP established connection.
+In this class, one will use existent functions \textit{TCPReceive} and \textit{TCPSend} to implement TCP-IP communication, as shown in figures \ref{fig:TCPclientrecvfunc} and \ref{fig:TCPclientsendfunc}. This functions make use of the socket created when the TCP-IP connection was established.
 
 \begin{figure}[H]
 	\centering

@@ -1,13 +1,13 @@
-<mxfile host="app.diagrams.net" modified="2021-12-18T21:56:28.129Z" agent="5.0 (X11)" etag="9spo_aiokXVRDFBbh8JX" version="16.0.0" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2021-12-21T11:34:11.797Z" agent="5.0 (X11)" etag="KB2SjZUvMskrU1_H9Mcj" version="16.0.0" type="github" pages="3">
   <diagram id="tfzxgMIFUyRC4YkPrTR2" name="Class">
-    <mxGraphModel dx="450" dy="255" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="540" dy="306" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="pnLnJ_2iHtYTDMWjVPW9-1" value="CLamp" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
           <mxGeometry x="340" y="170" width="220" height="180" as="geometry" />
         </mxCell>
-        <mxCell id="pnLnJ_2iHtYTDMWjVPW9-2" value="- mutChangePWM : mutex&lt;br&gt;- pwm_val : int&lt;br&gt;- LampOnTimeoutSecs : int const&lt;br&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;fontStyle=0;html=1;" parent="pnLnJ_2iHtYTDMWjVPW9-1" vertex="1">
+        <mxCell id="pnLnJ_2iHtYTDMWjVPW9-2" value="- mutChangePWM : mutex&lt;br&gt;- pwm_val : int&lt;br&gt;- timLampOnSecs : const int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;fontStyle=0;html=1;" parent="pnLnJ_2iHtYTDMWjVPW9-1" vertex="1">
           <mxGeometry y="26" width="220" height="64" as="geometry" />
         </mxCell>
         <mxCell id="pnLnJ_2iHtYTDMWjVPW9-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" parent="pnLnJ_2iHtYTDMWjVPW9-1" vertex="1">
