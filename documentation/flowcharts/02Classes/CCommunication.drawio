@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-22T15:35:50.744Z" agent="5.0 (X11)" etag="UMNgX7VHHolAsyt6X-wz" version="16.0.2" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2021-12-22T15:49:42.275Z" agent="5.0 (X11)" etag="69LvVwS9B1nf_9BLbq2X" version="16.0.2" type="github" pages="8">
   <diagram id="i9N1n5cvbWL6aRPILHIY" name="Class">
     <mxGraphModel dx="771" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -9,7 +9,7 @@
             <mxRectangle x="320" y="190" width="60" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="m2NCjfQ8HdCbidcjX5XP-2" value="- TxMsgs : pair* &amp;lt;string, int&amp;gt;&lt;br&gt;- &lt;u&gt;lastDestAddr : int&lt;/u&gt;&lt;br&gt;&lt;br&gt;-  mutComms : mutex&lt;br&gt;-  mutTxMsgs : mutex&lt;br&gt;- condtSend : condition variable&lt;br&gt;# status : ConnStatus&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;html=1;" parent="m2NCjfQ8HdCbidcjX5XP-1" vertex="1">
+        <mxCell id="m2NCjfQ8HdCbidcjX5XP-2" value="- TxMsgs : pair* &amp;lt;string, int&amp;gt;&lt;br&gt;# &lt;u&gt;lastDestAddr : int&lt;/u&gt;&lt;br&gt;&lt;br&gt;-  mutComms : mutex&lt;br&gt;-  mutTxMsgs : mutex&lt;br&gt;- condtSend : condition variable&lt;br&gt;# status : ConnStatus&lt;br&gt;&lt;br&gt;&lt;br&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;html=1;" parent="m2NCjfQ8HdCbidcjX5XP-1" vertex="1">
           <mxGeometry y="26" width="240" height="114" as="geometry" />
         </mxCell>
         <mxCell id="m2NCjfQ8HdCbidcjX5XP-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" parent="m2NCjfQ8HdCbidcjX5XP-1" vertex="1">
