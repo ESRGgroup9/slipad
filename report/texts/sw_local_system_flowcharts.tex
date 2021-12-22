@@ -67,26 +67,38 @@ This task, figure \ref{fig:CLocalSystemtParkDetection}, is responsible for using
 
 As in the previous class, the class constructor and the \textit{run()} method serves similar purposes, therefore, one has no need to specify them.\\
 
-In figure \ref{fig:CSensorstreadldr} is shown the task responsible for reading luminosity sensors from the LDR sensor. If there is a change in the luminosity state, a command is sent to the main process, using \textit{sendCmd(cmd)} method.
+In figure \ref{fig:CSensorstreadldr} is shown the task responsible for reading luminosity values using the LDR sensor. If there is a change in the luminosity state, to the state NIGHT, this task enables the lamp failure detector, \textit{lampf}, and the motion detector, \textit{pir}, and then, a command is sent to the main process, using \textit{sendCmd(cmd)} method, indicating that the lamp should be turned on at minimum bright. If the change in the luminosity state is to the state DAY, the opposite occurs, disabling the detectors, and sending a command to the main process, indicating that the lamp should be off.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.82\textwidth]{09sw_specification/LS/csensors/treadldr}
+	\includegraphics[width=1\textwidth]{09sw_specification/LS/csensors/treadldr}
 	\caption{Flowchart: CSensors tReadLdr method.}
 	\label{fig:CSensorstreadldr}
 \end{figure}
 
 %******************************
-aaaaaaaaaaaaaaa
+\clearpage
+The method \textit{PirISR}, is executed when there is motion detected, sending the \textit{"ON"} command to the main process, indicating that the lamp should be at maximum bright.
 
 \begin{figure}[H]
 	\centering
-	%	\includegraphics[width=.3\textwidth]{09sw_specification/LS/csensors/treadlampf}
-	\caption{Flowchart: CSensors tReadLampf method.}
+	\includegraphics[width=.3\textwidth]{09sw_specification/LS/csensors/pirisr}
+	\caption{Flowchart: CSensors PirISR method.}
+	\label{fig:CSensorspirisr}
+\end{figure}
+
+%******************************
+The method \textit{lampfISR} is very similar to the \textit{PirISR}, since it is executed when the lamp failure detector detects that the lamp is off, when it shouldn't. This sends a command to the main process, \textit{"FAIL"}, indicating that there was detected a failure in the lamp and that it should be turned off.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3\textwidth]{09sw_specification/LS/csensors/lampfISR}
+	\caption{Flowchart: CSensors lampfISR method.}
 	\label{fig:CSensorstreadlampf}
 \end{figure}
 
 %******************************
+\clearpage
 The method \textit{sendCmd}, shown in figure \ref{fig:CSensorssendcmd}, is responsible for sending a string, \textit{cmd}, to the message queue, \textit{msgqSensors}. After that, it sends a signal, \textit{SIGUSR1}, to the process \textit{mainPID}, which is the main process PID.
 
 \begin{figure}[H]
@@ -94,16 +106,6 @@ The method \textit{sendCmd}, shown in figure \ref{fig:CSensorssendcmd}, is respo
 	\includegraphics[width=.35\textwidth]{09sw_specification/LS/csensors/sendcmd}
 	\caption{Flowchart: CSensors sendCmd method.}
 	\label{fig:CSensorssendcmd}
-\end{figure}
-
-%******************************
-The method \textit{PirISR}, is executed when there is motion detected, sending the \textit{"ON"} command to the main process.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/LS/csensors/pirisr}
-	\caption{Flowchart: CSensors PirISR method.}
-	\label{fig:CSensorspirisr}
 \end{figure}
 
 %**********************************************************
@@ -202,18 +204,28 @@ This class inherits from \textit{CCommunication} class, so this must implement \
 \clearpage
 \myparagraph{CLamp Methods}
 
-A CLamp object can be created or destroyed through the class constructor or destroyer, presented in figure \ref{fig:CLampconstructor}. When creating an object, one must pass to the constructor the time from which the lamp will stay on after one sets the brightness to the maximum. This value must be in seconds and is stored in the variable \textit{LampOnTimeoutSecs}.
+A CLamp object can be created through the class constructor, presented in figure \ref{fig:CLampconstructor}. When creating an object, one must pass to the constructor the time from which the lamp will stay on after one sets the brightness to the maximum. This value must be in seconds and is stored in the variable \textit{timLampOnSecs}.
 
 \begin{figure}[H]
 	\centering	
-	\includegraphics[width=.9\textwidth]{09sw_specification/LS/clamp/constructor}
-	\caption{Flowchart: CLamp constructor and destroyer.}
+	\includegraphics[width=.35\textwidth]{09sw_specification/LS/clamp/constructor}
+	\caption{Flowchart: CLamp constructor.}
 	\label{fig:CLampconstructor}
 \end{figure}
 
 %******************************
+This functions, presented in figure \ref{fig:CLamponoff}, are responsible for enabling and disabling the PWM for the lamp, which is responsible for controlling the lamp brightness. When turning on the lamp PWM, one can define the lamp brightness level, through \textit{lux} argument.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.5\textwidth]{09sw_specification/LS/clamp/onoff}
+	\caption{Flowchart: CLamp On and Off methods.}
+	\label{fig:CLamponoff}
+\end{figure}
+
+%******************************
 \clearpage
-This function, presented in figure \ref{fig:CLampsetBrightness}, is responsible for changing the PWM associated with the lamp, which is directly related to its brightness. Through \textit{setPWM(lux)} one can change the applied lamp PWM to \textit{lux} value, being this an integer between 0 to 100. When the PWM is maximum, a timer is started that defines how much time the lamp is ON, \textit{LampOnTimeoutSecs} in seconds.
+This function, presented in figure \ref{fig:CLampsetBrightness}, is responsible for changing the PWM associated with the lamp, which is directly related to its brightness. Through \textit{setPWM(lux)} one can change the applied lamp PWM to \textit{lux} value, being this an integer between 0 to 100. When the PWM is maximum, a timer is started that defines how much time the lamp is ON, \textit{timLampOnSecs} in seconds.
 
 \begin{figure}[H]
 	\centering	
@@ -242,7 +254,7 @@ This method, represented in figure \ref{fig:CParkDetectiongetoutline}, is used t
 \clearpage
 \myparagraph{CLdr Methods}
 
-The constructor for the class \textit{CLdr} is presented in \ref{fig:CLdrconstructor}. This creates an \textit{CLdr} object, initializing the LDR sensor, defining the initial luminosity state, \textit{luxState} and defining the command list for this sensor.
+The constructor for the class \textit{CLdr} is presented in \ref{fig:CLdrconstructor}. This creates an \textit{CLdr} object, initializing the LDR sensor, defining the initial luminosity state, \textit{luxState}.
 
 \begin{figure}[H]
 	\centering
@@ -262,17 +274,6 @@ In order to obtain the current luminosity state, \textit{DAY} or \textit{NIGHT},
 	\label{fig:CLdrgetLuxState}
 \end{figure}
 
-%******************************
-\clearpage
-Depending on the luminosity state, \textit{luxState}, the CLdr must send a different command, when required to do so. Using the class command list and the variable \textit{luxState} one can obtain the command related to the current luminosity state, as shown in figure \ref{fig:CLdrgetStateCmd}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.7\textwidth]{09sw_specification/LS/cldr/getstatecmd}
-	\caption{Flowchart: CLdr getStateCmd method.}
-	\label{fig:CLdrgetStateCmd}
-\end{figure}
-
 %**********************************************************
 \clearpage
 \myparagraph{CPir Methods}
@@ -286,4 +287,19 @@ In figure \ref{fig:CPirconstructor} is shown the CPir class constructor. This cr
 	\label{fig:CPirconstructor}
 \end{figure}
 
+This class also implements two methods, \textit{enable()} and \textit{disable()}, which are responsible for enabling and disabling the CPir ISR, \textit{isr}.
 
+%**********************************************************
+\clearpage
+\myparagraph{CFailureDetector Methods}
+
+In figure \ref{fig:CFailureDetectorConstr} is shown the CFailureDetector class constructor, responsible of creating a CFailureDetector object, by assigning an ISR to this detector, which is passed by argument into the constructor.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{09sw_specification/LS/cfailuredetector/constructor}
+	\caption{Flowchart: CFailureDetector constructor.}
+	\label{fig:CFailureDetectorConstr}
+\end{figure}
+
+This class also implements two methods, \textit{enable()} and \textit{disable()}, very much like CPir methods, which are responsible for enabling and disabling the CFailureDetector ISR, \textit{isr}.

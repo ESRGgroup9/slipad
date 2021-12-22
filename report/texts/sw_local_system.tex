@@ -91,7 +91,7 @@ One can interact with the object \textit{CLamp} by changing the brightness, thro
 %\clearpage
 \myparagraph{Class CPir}
 
-In figure \ref{fig:classpir} is shown the \textit{CPir} class. When movement is detected in the surrounding area of the lamppost, the sensor puts the high digital value in its output, triggering an interrupt service routine. When creating a object \textit{CPir}, one can define the ISR to be executed, passing to the constructor a function pointer, \textit{pirISR}.
+In figure \ref{fig:classpir} is shown the \textit{CPir} class. When movement is detected in the surrounding area of the lamppost, the sensor puts the high digital value in its output, triggering an interrupt service routine. When creating a object \textit{CPir}, one can define the ISR to be executed, passing to the constructor a function pointer, \textit{pirISR}. This class also has methods to enable and disable the respective ISR.
 
 \begin{figure}[H]
 	\centering
@@ -129,13 +129,8 @@ In figure \ref{fig:classcamera} is shown the \textit{CParkDetection} class diagr
 \clearpage
 \myparagraph{Class CLdr}
 
-In figure \ref{fig:classldr} is shown the \textit{CLdr} class, that defines the functions to interact with the LDR sensor. This contains an enumeration for the luminosity states, \textit{LuxState}, which can be \textit{DAY}, \textit{NIGHT} or \textit{UNDEF} as undefined, used for initialization. The luminosity state can be obtain by the use of \textit{getLuxState()}. This class also contains a structure \textit{LdrTxFrame}, which relates each \textit{LuxState} to a command, that will be sent to the main process, whenever \textit{LuxState} changes. Using \textit{getStateCmd()} one can get the command associated with the current \textit{luxState}. The command list, \textit{cmdList}, is defined in the constructor with the following commands:
-\begin{itemize}
-	\item "OFF" for when the LuxState is "DAY". When the LDR detects that is day time, the \textit{luxState} changes to \textit{DAY}, and at that moment is sent the command \textit{"OFF"} to the main process, in order to turn off the lamp;
-	\item "MIN" for when the LuxState is "NIGHT". When the LDR detects that is night time, the \textit{lusState} changes to \textit{NIGHT}, and at that moment is sent the command \textit{"MIN"}, in order to put the lamp at minimum brightness.
-\end{itemize}
+In figure \ref{fig:classldr} is shown the \textit{CLdr} class, that defines the functions to interact with the LDR sensor. This contains an enumeration for the luminosity states, \textit{LuxState}, which can be \textit{DAY}, \textit{NIGHT} or \textit{UNDEF} as undefined, used for initialization. The luminosity state can be obtain by the use of \textit{getLuxState()}. 
 
-%that defines the functions to interact with the LDR sensor, using its device driver. As the ambient light is read each 10 minutes in the function \textit{LdrIsr}, one needs to define a timer to trigger this function. The last read luminance is stored in the variable \textit{oldLightCon} and is obtained using the function \textit{getLux}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.74\textwidth]{09sw_specification/LS/cldr/class}
@@ -144,14 +139,13 @@ In figure \ref{fig:classldr} is shown the \textit{CLdr} class, that defines the 
 \end{figure}
 
 %*****************************
-\clearpage
 \myparagraph{Class CFailureDetector}
 
-In figure \ref{fig:classfail} is shown the Failure Detector class. After creating an instance of this class, using the contructor \textit{FailureDetector}, the function \textit{failureDetectIsr} will be triggered each time the failure detector senses the lamp failure. 
+In figure \ref{fig:classfail} is shown the Failure Detector class, which is similar to the \textit{CPir}. When creating an instance of this class, using the constructor \textit{CFailureDetector}, one can pass to the constructor a pointer to the ISR that will be triggered each time the failure detector senses that the lamp is off. Since one can verify if the lamp is broken only at night, that is when the lamp is turned on at minimum or maximum bright, one should \textit{enable} this detector only when during the night.
 
 \begin{figure}[H]
 	\centering
-%	\includegraphics[width=.5\textwidth]{09sw_specification/LS/cfail}
+	\includegraphics[width=.47\textwidth]{09sw_specification/LS/cfailuredetector/class}
 	\caption{Class Diagram: CFailureDetector.}
 	\label{fig:classfail}
 \end{figure}
@@ -171,8 +165,8 @@ One can list the tasks that compose the main process:
 Bellow are listed the tasks that compose the daemon, \textit{dSensors}. As stated above, in \textit{tRecvSensor}, whenever one of the following tasks sends a command to the main process, it is done by message queue, and also, a signal is used, \textit{SIGUSR1}, to alert the main process that a new message was sent.
 \begin{itemize}
 	\item \textbf{CSensors::tReadLdr:} periodically reads the LDR sensor; if a change in luminosity state is detected (\textit{DAY} to \textit{NIGHT}, or vice-versa) a command is sent to the main process;
-	\item \textbf{CSensors::tReadLampf:} periodically reads the Lamp Failure Detector; if a failure is detected a command is sent to the main process;
-	\item \textbf{CSensors::PirISR:} ISR for the PIR sensor; when motion is detected this task is executed and a command is sent to the main process. 
+	\item \textbf{CSensors::lampfISR:} ISR for the lamp failure detector; this is enabled only during the night, and is executed when the failure detector detects that the lamp is off, sending a command to the main process;
+	\item \textbf{CSensors::PirISR:} ISR for the PIR sensor; this is enable only during the night and is executed when motion is detected, sending a command to the main process. 
 \end{itemize}
 
 %**********************************************************
@@ -220,8 +214,6 @@ The condition variables used in the daemon are listed below.
 
 \begin{itemize}
 	\item \textbf{CSensors::condReadLdr:} notifies \textit{tReadLdr} to acquire values from LDR sensor and process them;
-
-	\item \textbf{CSensors::condReadLampf:} notifies \textit{tReadLampf} to acquire values from Lamp Failure Detector and process them;
 \end{itemize}
 
 \myparagraph{Mutexes}
@@ -247,7 +239,6 @@ The mutexes used in the daemon are listed bellow.
 
 \begin{itemize}
 	\item \textbf{CSensors::mutReadLdr:} protects reading of LDR sensor;
-	\item \textbf{CSensors::mutReadLampf:} protects reading of Lamp Failure Detector.
 \end{itemize}
 
 \myparagraph{Signals}
@@ -264,7 +255,7 @@ The signals used between the main process and the daemon are listed bellow.
 \subsection{Task Communication}
 \myparagraph{Message Queue}
 
-A message queue is a linked list of messages stored within the kernel and identified by a message queue identifier. A message queue, \textit{msgqSensors}, will be used to communicate between the main process and the \textit{dSensors}. In that way, the main process is agnostic to the cyclic reading necessary for the sensors \textit{LDR} and \textit{LampFailureDetector}, and is only informed when necessary, through the message queue.
+A message queue is a linked list of messages stored within the kernel and identified by a message queue identifier. A message queue, \textit{msgqSensors}, will be used to communicate between the main process and the \textit{dSensors}. In that way, the main process is agnostic to the cyclic reading necessary for the sensor \textit{ldr} and for the interrupts generated by the \textit{pir} and \textit{lampf}, being only informed when necessary, through the message queue.
 
 %**********************************************************
 \subsection{Start-Up Process}
@@ -312,7 +303,6 @@ The constants used in the local system are listed bellow.
 	
 	\item \verb|TIM_LAMP_ON_SECS|: defines the time from which the lamp stays on, at full brightness, in seconds;	
 	\item \verb|TIM_READ_LDR_SECS|: defines the sampling period for the LDR sensor, in seconds;
-	\item \verb|TIM_READ_LAMPF_SECS|: defines the sampling period for the Lamp Failure Detector, in seconds;
 	\item \verb|TIM_CAM_FRAME_SECS|: defines the sampling period for the Camera frame capture, in seconds;
 	\item \verb|TIM_CAM_PROC_SECS|: defines the maximum time expected for the duration of image processing, in seconds;
 
