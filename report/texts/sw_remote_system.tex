@@ -55,7 +55,7 @@ The class \textit{CClient}, represented in figure \ref{fig:CClient}, is responsi
 %****************************
 \myparagraph{Class CDataBase}
 
-%This class diagram is shown in figure \ref{fig:CDataBase}, and is responsible for implement the interface between the server and the database, having for that a pointer to a database of type \textit{MYSQL}. To interact with the database, the server must first prepare a query, using the function \textit{prepareQuery}, and can update or get data from the database, using the prepared query and the functions \textit{updateData} and \textit{getData}, respectively.
+This class diagram is shown in figure \ref{fig:CDataBase}, and is responsible for implement the interface between the server and the database, having for that a pointer to a database of type \textit{MYSQL}. To interact with the database, the server must first prepare a query, using the function \textit{prepareQuery}, and can execute the prepared query in the database using the method \textit{execute}, that returns an error and assigns the command output to the string \textit{outMessage}.
 
 \begin{figure}[H]
 	\centering
@@ -69,13 +69,13 @@ The class \textit{CClient}, represented in figure \ref{fig:CClient}, is responsi
 One can define and describe briefly how the remote system is implemented, making use of threads and processes. 
 
 \begin{itemize}
-	\item \textbf{tSend:} sends a message to the client;
-	\item \textbf{tRecv:} receives a message from the client.
+	\item \textbf{CClient::tSend:} sends a message to the client;
+	\item \textbf{CClient::tRecv:} receives a message from the client.
 \end{itemize}
 
 %**********************************************************
 \subsection{Task Priority}
-The priority assignment for the remote system is shown in figure \ref{fig:rsPrio}. The thread \textit{tRecv} has a higher priority than the thread \textit{tSend} because one never knows when a client is going to send a message. 
+The priority assignment for the remote system is shown in figure \ref{fig:rsPrio}. 
 
 \begin{figure}[H]
 	\centering
@@ -147,7 +147,7 @@ In figure \ref{fig:rsRun} is shown the \textit{CRemoteSystem} run method. Is is 
 %********************************
 \myparagraph{CTCPServer}
 
-In figure \ref{fig:ServerConst} is represented the constructor of the \textit{CTPCServer} class, that is responsible for creating the server socket in the port passed by argument, using the function \textit{createServer}.
+In figure \ref{fig:ServerConst} is represented the constructor of the \textit{CTPCServer} class, that is responsible for creating the server socket in the port passed by argument for a maximum number of clients, \textit{maxClient}. This constructor creates a server socket with the IPv4 protocol connection, initialize the \textit{addr} with the port number passed by argument, binds the socket and listen to a maximum number of clients connections specified by \textit{maxClient} passed by argument.
 
 \begin{figure}[H]
 	\centering
@@ -156,21 +156,12 @@ In figure \ref{fig:ServerConst} is represented the constructor of the \textit{CT
 	\label{fig:ServerConst}
 \end{figure}
 
-The function that creates a server socket for a maximum number of clients, \textit{maxClient}, is represented in figure \ref{fig:RSCreateServer}. This function create a server socket with the IPv4 protocol connection, initialize the \textit{addr} with the port number passed by argument, binds the socket and listen to a maximum number of clients connections specified by \textit{maxClient} passed by argument.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.25\textwidth]{09sw_specification/RS/CTCPServer/CreateServer}
-	\caption{Flowchart: CTCPServer createServer.}
-	\label{fig:RSCreateServer}
-\end{figure}
-
 In figure \ref{fig:acceptConn} is represented the \textit{acceptConnection} method, that accepts a connection from a client in the socket referenced by the socket file descriptor \textit{listenSd}, returning the file descriptor of the new connection, \textit{sd}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.25\textwidth]{09sw_specification/RS/CTCPServer/acceptConnection}
-	\caption{Flowchart: CTCPServer acceptConnection.}
+	\includegraphics[width=.25\textwidth]{09sw_specification/RS/CTCPServer/accept}
+	\caption{Flowchart: CTCPServer accept.}
 	\label{fig:acceptConn}
 \end{figure}
 
@@ -237,8 +228,6 @@ The figure \ref{fig:RSRecv} shows the thread that receive messages from the clie
 	\caption{Flowchart: CClient tRecv.}
 	\label{fig:RSRecv}
 \end{figure}
-
-%In figure \ref{fig:parseExecute} is represented the flowchart of the \textit{parseExecute} function, that is responsible for parsing and execute the message sent by the client. It is needed to verify if the client that sent the command has rights to execute that command, so the message sent is searched in the \textit{cmdList} assigned to the respective client. If the message corresponds to a valid command for that client, then one can prepare a query and execute the command according to the type of command that was sent: \textit{delete} for a data deletion, \textit{update} for a data update and \textit{get} for a data request, returning the command output in a string message \textit{msg}. If the command doesn't exist in the command list of that client, then the \textit{msg} is assigned with an error message. The output of this function is the string message, \textit{msg}.
 
 In figure \ref{fig:parseExecute} is represented the flowchart of the \textit{parseExecute} function, that is responsible for parsing and execute the message sent by the client. It is needed to verify if the client that sent the command has rights to execute that command, so the command sent is searched in the \textit{cmdList} assigned to the respective client. If the message corresponds to a valid command for that client, then one can execute the command. If the command doesn't exist in the command list of that client, then the \textit{msg} is assigned with an error message. The output of this function is the string message to be sent back to the client, \textit{msg}.
 
