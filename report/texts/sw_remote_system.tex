@@ -255,3 +255,70 @@ In this class, one will use existent functions \textit{TCPReceive} and \textit{T
 	\caption{Flowchart: CClient sendFunc method.}
 	\label{fig:RSsendfunc}
 \end{figure}
+
+%**********************************************************
+\clearpage
+\subsection{Test Cases}
+It is important to know how the remote server works, and how it will behave upon certain events. In table \ref{table:test_rs} are shown test cases to this system.
+
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{4cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			\multicolumn{3}{c}{\textbf{Database Management}}\\\hline
+			Open DB & DB opened and ready to use & -
+			\\\hline
+			Get data from DB & Receive requested data & -
+			\\\hline
+			Insert/Update/Remove data into DB & Insert/Update/Remove successful & -
+			\\\hline
+			
+			\multicolumn{3}{c}{\textbf{TCP-IP Communications}}\\\hline
+			Establish connection with RC & Connection established & -
+			\\\hline
+			Identify the RC & RC type and ID obtained & -
+			\\\hline
+			Process commands & Execute command if valid & -
+			\\\hline
+			
+			\multicolumn{3}{c}{\textbf{Gateway Communications}}\\\hline
+			Receive message from a gateway & Identify the referent LS & -
+			\\\hline
+			Send message to a specific gateway & Only the defined gateway receives the message & - 
+			\\\hline
+			Send message to a group of gateways & All in the group receive the message & -
+			\\\hline
+			Send message to the gateway connected to a specific LS & Only the specified LS receives the message & -
+			\\\hline
+			Receive lamp ON command from a LS & Send same command to the neighbors LS & -
+			\\\hline
+			
+			\multicolumn{3}{c}{\textbf{WebSite Communications}}\\\hline
+			Get number of parking spots in a given location & DB returns number of parking spots in that location, if existent in the DB & -
+			\\\hline
+			
+			\multicolumn{3}{c}{\textbf{Mobile App. Communications}}\\\hline
+			Operator Login & Verify credentials & -
+			\\\hline
+			Add/remove/update lamppost info & Verify new info and insert into DB if valid & -
+			\\\hline
+		\end{tabular}
+	}
+	
+		\begin{tablenotes}
+			\small
+			\item[DB]Database
+			\item[LS]Local System
+			\item[RS]Remote Server
+			\item[RC]Remote Client
+		\end{tablenotes}
+	\end{threeparttable}
+
+	\caption{Test Cases: Remote server.}
+	\label{table:test_rs}
+\end{table}

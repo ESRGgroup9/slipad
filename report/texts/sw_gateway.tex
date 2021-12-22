@@ -153,3 +153,47 @@ In this class, one will use existent functions \textit{TCPReceive} and \textit{T
 	\caption{Flowchart: CTCPclient sendFunc method.}
 	\label{fig:TCPclientsendfunc}
 \end{figure}
+
+%**********************************************************
+\clearpage
+\subsection{Test Cases}
+It is important to know how the gateway works, and how it will behave upon certain events. In table \ref{table:test_gateway} are shown test cases to this system.
+
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{4cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			\multicolumn{3}{c}{\textbf{LoRa Communications}}\\\hline
+			Establish connection with LS & Connection established & -
+			\\\hline
+			Receive message from LS & Identify the referent LS & -
+			\\\hline
+			Send message to a specific LS & Only the defined LS receives the message & -
+			\\\hline
+			Send message to a group of LS & All in the group receive the message & - 
+			\\\hline
+			
+			\multicolumn{3}{c}{\textbf{TCP-IP Communications}}\\\hline
+			Establish connection with RS & Connection established & -
+			\\\hline
+			Receive message from RS & Identify destination ID & -
+			\\\hline
+			Send message to the RS & Message sent & -
+			\\\hline
+		\end{tabular}
+	}
+	\begin{tablenotes}
+		\small
+		\item[LS]Local System
+		\item[RS]Remote Server
+	\end{tablenotes}
+	
+\end{threeparttable}	
+	\caption{Test Cases: Gateway.}
+	\label{table:test_gateway}
+\end{table}

@@ -424,7 +424,30 @@ It is important to know how the local system works, and how it will behave upon 
 			\\\hline
 			
 			\multicolumn{3}{c}{\textbf{Sensors}}\\\hline
+			Motion detected & Lamp at maximum bright & -
+			\\\hline
+			Lamp at maximum bright & Lamp ON for a defined period of time & -
+			\\\hline
+			LDR detect nighttime & Lamp at minimum bright & -
+			\\\hline
+			LDR detect daytime & Lamp OFF & -
+			\\\hline
+			Motion/LDR detection & Send correct commands to remote system & -
+			\\\hline
+			Lamp Failure Detected & Sent correct command to remote system & -
+			\\\hline
 			
+			\multicolumn{3}{c}{\textbf{Camera}}\\\hline
+			Open camera device & Device opened correctly & -
+			\\\hline
+			Capture camera image & Variable containing image & -
+			\\\hline
+			Get parking outline & Obtain parking coordinates from the image & -
+			\\\hline
+			Car detection & Car detected inside parking outline & -
+			\\\hline
+			Parking detection & Get number of available parks & -
+			\\\hline
 		\end{tabular}
 	}
 	\caption{Test Cases: Local System.}
