@@ -408,11 +408,23 @@ It is important to know how the local system works, and how it will behave upon 
 			\multicolumn{3}{c}{\textbf{LoRa Communications}}\\\hline
 			Establish connection with the gateway & Connection established & - 
 			\\\hline
-			Send messages to the gateway & Message transmitted & -
+			Send a command to the gateway & Command sent & -
 			\\\hline
-			Receive messages from the gateway & Message received & -
+			Receive commands & Command received & -
 			\\\hline
+			Process commands & Execute command if valid & -
+			\\\hline
+			
 			\multicolumn{3}{c}{\textbf{Lamp PWM Control}}\\\hline
+			Set PWM=100 & Lamp at maximum bright & -
+			\\\hline
+			Set PWM=0 & Lamp off & -
+			\\\hline
+			Change PWM signal & Variable lamp brightness & -
+			\\\hline
+			
+			\multicolumn{3}{c}{\textbf{Sensors}}\\\hline
+			
 		\end{tabular}
 	}
 	\caption{Test Cases: Local System.}
