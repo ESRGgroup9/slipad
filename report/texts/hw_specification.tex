@@ -79,6 +79,7 @@ In order to know when is night time, that is, when the light conditions are low,
 \end{table}
 
 \myparagraph{Connection scheme}
+
 In table \ref{table:connect_lightsensor} it is shown the connection scheme of the Luminosity Sensor to the Raspberry Pi (remember figure \ref{fig:rasp_pinout}). The figure \ref{fig:LightLayout} shows the connections layout between the Raspberry Pi and the TSL2581 sensor.
 
 \begin{table}[H]
@@ -111,6 +112,7 @@ In table \ref{table:connect_lightsensor} it is shown the connection scheme of th
 \end{figure}
 
 \myparagraph{Test Cases}
+
 It is important to know how the light sensor works, and how it will behave upon certain events. In table \ref{table:test_light_sen} are shown test cases to this module.
 
 \begin{table}[H]
@@ -171,6 +173,7 @@ To know when to turn on the lamp, it is necessary to detect movement in the stre
 In the table \ref{table:desc_pir} is shown the PIR HC-SR501 interface pins, being the output signal the pin SIGNAL. When no movement is detected, the sensor output is low (0,3~V), and when movement is detected, the sensor SIGNAL is high (5~V). 
 
 \myparagraph{Connection scheme}
+
 In table \ref{table:connect_pir} it is shown the connection scheme of the PIR sensor to the Raspberry Pi (remember figure \ref{fig:rasp_pinout}). The figure \ref{fig:PirLayout} shows the connections layout between the Raspberry Pi and the PIR HC-SR501 sensor.
 
 \begin{table}[H]
@@ -200,6 +203,7 @@ In table \ref{table:connect_pir} it is shown the connection scheme of the PIR se
 
 
 \myparagraph{Test Cases}
+
 It is important to know how the motion detector module works, and how it will behave upon certain events. In table \ref{table:test_pir} are shown test cases to this module.
 
 \begin{table}[H]
@@ -243,6 +247,7 @@ In order to the detection of available parking spots, it's used a camera, as sho
 
 \clearpage
 \myparagraph{Connection scheme}
+
 This device plugs directly into the \ac{csi} connector on the Raspberry Pi, as shown in figure \ref{fig:connect_camera}, through the use of a 15-pin ribbon cable.
 
 \begin{figure}[ht]
@@ -253,6 +258,7 @@ This device plugs directly into the \ac{csi} connector on the Raspberry Pi, as s
 \end{figure}
 
 \myparagraph{Test Cases}
+
 It is important to know how the camera module will behave upon certain events. In table \ref{table:test_camera} are shown test cases to this module.
 
 \begin{table}[H]
@@ -339,6 +345,7 @@ In order to achieve longer range and better signal quality in LoRa communication
 \end{itemize}
 
 \myparagraph{Connection scheme}
+
 In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa module to the Raspberry Pi (remember figure \ref{fig:rasp_pinout}). Keep in mind that the RF antenna is directly connected to the LoRa module through an U.FL connector.
 
 \begin{table}[H]
@@ -371,6 +378,7 @@ In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa 
 \end{table}
 
 \myparagraph{Test Cases}
+
 It is important to know how the LoRa module works, and how it will behave upon certain events. In table \ref{table:test_lora} are shown test cases to this module.
 
 \begin{table}[H]
@@ -510,7 +518,8 @@ In order to provide a lower voltage to power the Raspberry Pi and sensors, it is
 \end{table}
 
 \myparagraph{Connection scheme}
-In table \ref{table:step_down_pinout} is shown the connection scheme for the step down. Keep in mind that the same power supply output 12 V \ac{dc} is connected directly to the lamp VCC and to the step down VCC.
+
+In table \ref{table:connect_power} is shown the connection scheme for the step down. Keep in mind that the same power supply output 12 V \ac{dc} is connected directly to the lamp VCC and to the step down VCC.
 
 \begin{table}[H]
 	\centering
@@ -535,14 +544,74 @@ In table \ref{table:step_down_pinout} is shown the connection scheme for the ste
 	\label{table:connect_power}
 \end{table}
 
+%Regulador de tensão 5Vdc para 3.3Vdc
+In order to power the sensors that need a power supply of 3,3 V, one needs to use a voltage regulator, as the one shown in figure \ref{fig:volReg}, that can convert 5 V DC to 3,3 V DC. \cite{stepDown5_3V3}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.45\textwidth]{07hw_specification/step_down5V_3V3}
+	\caption{Voltage Regulator 5~V - 3,3~V / 800~mA.}
+	\label{fig:volReg}
+\end{figure}
+
+\paragraph*{Characteristics}
+\begin{itemize}
+	\item Input voltage 4,5 V - 7 V DC;
+	\item Output voltage 3,3 V / 800 mA;
+	\item Load regulation: 0.2 \%.
+\end{itemize}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Voltage Regulator Pinout} & \textbf{Description}
+		\\\hline\hline
+		
+		VIN & Input voltage 4,5-7 V
+		\\\hline
+		GND & Input GND
+		\\\hline
+		OUT & Output voltage 3,3 V / 800 mA
+		\\\hline
+	\end{tabular}
+	
+	\caption{Voltage Regulator Pinout Description.}
+	\label{table:voltRegPinout}
+\end{table}
+
+\myparagraph{Connection scheme}
+
+In table \ref{table:volReg_connect} is shown the connection scheme for the voltage regulator.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{5cm}|m{6cm}|}
+		\hline
+		\textbf{Voltage Regulator Pin} & \textbf{Connects to}
+		\\\hline\hline
+		
+		VIN & Step-Down Output 5 V \ac{dc}
+		\\\hline
+		GND & Step-Down Output GND \& Sensor GND Pin
+		\\\hline
+		OUT & Sensor Input Pin
+		\\\hline
+	\end{tabular}
+	
+	\caption{Connection scheme: Voltage Regulator.}
+	\label{table:volReg_connect}
+\end{table}
+
 \myparagraph{Test Cases}
+
 It is important to know how the step down works, and how it will behave upon certain events. In table \ref{table:test_step_down} are shown test cases to this module.
 
 \begin{table}[H]
 	\centering
 	\resizebox{\columnwidth}{!}
 	{
-		\begin{tabular}{|m{3cm}|m{5cm}||m{5cm}|}
+		\begin{tabular}{|m{5cm}|m{4cm}||m{4cm}|}
 			\hline
 			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 			\\\hline\hline
@@ -550,11 +619,14 @@ It is important to know how the step down works, and how it will behave upon cer
 			\\\hline
 			Connect step down to the power supply & Provide 5 V \ac{dc} & -
 			\\\hline
+			Connect voltage regulator to the step-down & Provide 3,3 V \ac{dc} & -
+			\\\hline
 		\end{tabular}
 	}
-	\caption{Test Cases: Step Down.}
+	\caption{Test Cases: Power module.}
 	\label{table:test_step_down}
 \end{table}
+
 %**********************************************************
 \section{Driver}
 \label{subsection:driver}
@@ -610,6 +682,7 @@ With this in mind, one can select the following components for the driver, as pr
 \end{table}
 
 \myparagraph{Connection scheme}
+
 In table \ref{table:connect_driver} is shown the connection scheme for the driver circuit. (Remember figure \ref{fig:rasp_pinout} and table \ref{table:power_supply_pinout})
 
 \begin{table}[H]
@@ -632,6 +705,7 @@ In table \ref{table:connect_driver} is shown the connection scheme for the drive
 \end{table}
 
 \myparagraph{Test Cases}
+
 It is important to know how the driver works, and how it will behave upon certain events. In table \ref{table:test_driver} are shown test cases to this circuit.
 
 \begin{table}[H]
@@ -646,7 +720,7 @@ It is important to know how the driver works, and how it will behave upon certai
 			\\\hline
 			Apply 0 V to the transistor & Lamp off & -
 			\\\hline
-			Vary voltage applied to the transistor & Variable lamp brightness & -
+			Change \ac{pwm} signal & Variable lamp brightness & -
 			\\\hline
 		\end{tabular}
 	}
@@ -692,6 +766,7 @@ In order to know when the lamp is broken, one needs to use a lamp failure detect
 \end{table}
 
 \myparagraph{Connection scheme}
+
 In table \ref{table:connect_lampfail} is shown the connection scheme for the lamp failure detector. (Remember figure \ref{fig:rasp_pinout} and table \ref{table:power_supply_pinout})
 
 
@@ -715,6 +790,7 @@ In table \ref{table:connect_lampfail} is shown the connection scheme for the lam
 \end{table}
 
 \myparagraph{Test Cases}
+
 It is important to know how the lamp failure detector works, and how it will behave upon certain events. In table \ref{table:test_lampfail} are shown test cases to the lamp failure detector.
 
 \begin{table}[H]
