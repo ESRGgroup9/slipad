@@ -36,56 +36,92 @@ In this section it is presented the \ac{gui} layouts, where the users can intera
 
 The mobile application is used by the operator, in order to manage the network of lampposts that is assigned to him. 
 
-The first step is to login the system, so he has to insert is credentials \textit{ID Operator} and \textit{Password}, provided by the company. The login layout is shown in figure \ref{fig:login}.
+The first step is to login the system, so he has to insert is credentials \textit{ID Operator} and \textit{Password}, provided by the company. The login layout is shown in figure \ref{fig:login}. If the login was successful, then the operator can select one of this operations: \textit{Add New Lamppost}, \textit{Modify Lamppost} or \textit{Consult Lamppost Network}, as shown in figure \ref{fig:selectOperation}. The operator can also logout of his account.
+%\begin{figure}[H]
+%	\centering	
+%	\includegraphics[width=.3\textwidth]{10gui_layouts/App/login}
+%	\caption{Mobile Application Layout: Login.}
+%	\label{fig:login}
+%\end{figure}
+
+
+%\begin{figure}[H]
+%	\centering	
+%	\includegraphics[width=.3\textwidth]{10gui_layouts/App/selectOperation}
+%	\caption{Mobile Application Layout: Select Operation.}
+%	\label{fig:selectOperation}
+%\end{figure}
 
 \begin{figure}[H]
-	\centering	
-	\includegraphics[width=.3\textwidth]{10gui_layouts/App/login}
-	\caption{Mobile Application Layout: Login.}
-	\label{fig:login}
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{10gui_layouts/App/login}
+		\caption{Login.}
+		\label{fig:login}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{10gui_layouts/App/selectOperation}
+		\caption{Select Operation.}
+		\label{fig:selectOperation}
+	\end{subfigure}
+	\caption{Mobile Application Layout.}
+	\label{fig:App}
 \end{figure}
 
-If the login was successful, then the operator can select one of this operations: \textit{Add New Lamppost}, \textit{Modify Lamppost} or \textit{Consult Lamppost Network}, as shown in figure \ref{fig:selectOperation}. The operator can also logout of his account.
+If the operator clicks on the \textit{Add New Lamppost} option, then he is redirected to the layout represented in figure \ref{fig:addNewLamppost}, where he can add a new lamppost to the network, inserting all the information about the location of the post or use his mobile device actual location. 
 
 \begin{figure}[H]
 	\centering	
-	\includegraphics[width=.3\textwidth]{10gui_layouts/App/selectOperation}
-	\caption{Mobile Application Layout: Select Operation.}
-	\label{fig:selectOperation}
-\end{figure}
-
-If he clicks on the \textit{Add New Lamppost} option, then he is redirected to the layout represented in figure \ref{fig:addNewLamppost}, where he can add a new lamppost to the network, inserting all the information about the location of the post or use his mobile device actual location. 
-
-\begin{figure}[H]
-	\centering	
-	\includegraphics[width=.3\textwidth]{10gui_layouts/App/addNewLamppost}
+	\includegraphics[width=.5\textwidth]{10gui_layouts/App/addNewLamppost}
 	\caption{Mobile Application Layout: Add New Lamppost.}
 	\label{fig:addNewLamppost}
 \end{figure}
 
+\clearpage
 If the option chosen was the \textit{Modify Lamppost}, in order to change the lamppost status, he can insert the location of the post or use his mobile device actual location, as seen in figure \ref{fig:modifyLamppost}.
 
-\begin{figure}[H]
-	\centering	
-	\includegraphics[width=.3\textwidth]{10gui_layouts/App/modifyLamppost}
-	\caption{Mobile Application Layout: Modify Lamppost.}
-	\label{fig:modifyLamppost}
-\end{figure}
+%\begin{figure}[H]
+%	\centering	
+%	\includegraphics[width=.3\textwidth]{10gui_layouts/App/modifyLamppost}
+%	\caption{Mobile Application Layout: Modify Lamppost.}
+%	\label{fig:modifyLamppost}
+%\end{figure}
 
 If the lamppost selection was valid, then the layout represented in figure \ref{fig:acceptModify} appears, to the operator confirm that he wants to update the lamppost status.
 
+%\begin{figure}[H]
+%	\centering	
+%	\includegraphics[width=.3\textwidth]{10gui_layouts/App/acceptModify}
+%	\caption{Mobile Application Layout: Modify Lamppost Confirmation.}
+%	\label{fig:acceptModify}
+%\end{figure}
+
 \begin{figure}[H]
-	\centering	
-	\includegraphics[width=.3\textwidth]{10gui_layouts/App/acceptModify}
-	\caption{Mobile Application Layout: Modify Lamppost Confirmation.}
-	\label{fig:acceptModify}
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{10gui_layouts/App/modifyLamppost}
+		\caption{Modify Lamppost.}
+		\label{fig:modifyLamppost}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{10gui_layouts/App/acceptModify}
+		\caption{Modify Lamppost Confirmation.}
+		\label{fig:acceptModify}
+	\end{subfigure}
+	\caption{Mobile Application Layout.}
+	\label{fig:App2}
 \end{figure}
 
+\clearpage
 On the other hand, if the operator selects the option \textit{Consult Lamppost Network}, the network information will appear like shown in figure \ref{fig:consultNetwork}, where the red point are lampposts with a broken lamp and the green points are the lampposts with no lamp problems.
 
 \begin{figure}[H]
 	\centering	
-	\includegraphics[width=.3\textwidth]{10gui_layouts/App/consultNetwork}
+	\includegraphics[width=.5\textwidth]{10gui_layouts/App/consultNetwork}
 	\caption{Mobile Application Layout: Consult Lamppost Network.}
 	\label{fig:consultNetwork}
 \end{figure}
