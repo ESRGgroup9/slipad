@@ -47,7 +47,7 @@ The class \textit{CClient}, represented in figure \ref{fig:CClient}, is responsi
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.6\textwidth]{09sw_specification/RS/CClient/CClient}
+	\includegraphics[width=.9\textwidth]{09sw_specification/RS/CClient/CClient}
 	\caption{Class Diagram: CClient.}
 	\label{fig:CClient}
 \end{figure}
@@ -121,6 +121,7 @@ The start-up process is shown in the figure \ref{fig:RSstart}. When the program 
 \end{figure}
 
 %**********************************************************
+\clearpage
 \subsection{Flowcharts}
 %********************************
 \myparagraph{CRemoteSystem}
@@ -129,7 +130,7 @@ The figure \ref{fig:rsConst} represents the \textit{CRemoteSystem} class's const
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.26\textwidth]{09sw_specification/RS/CTCPServer/rsConst}
+	\includegraphics[width=.26\textwidth]{09sw_specification/RS/CRemoteSys/Const}
 	\caption{Flowchart: CRemoteSystem Constructor.}
 	\label{fig:rsConst}
 \end{figure}
@@ -138,7 +139,7 @@ In figure \ref{fig:rsRun} is shown the \textit{CRemoteSystem} run method. Is is 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.26\textwidth]{09sw_specification/RS/CTCPServer/rsRun}
+	\includegraphics[width=.6\textwidth]{09sw_specification/RS/CRemoteSys/Run}
 	\caption{Flowchart: CRemoteSystem run.}
 	\label{fig:rsRun}
 \end{figure}
@@ -150,7 +151,7 @@ In figure \ref{fig:ServerConst} is represented the constructor of the \textit{CT
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.26\textwidth]{09sw_specification/RS/CTCPServer/ServerConst}
+	\includegraphics[width=.26\textwidth]{09sw_specification/RS/CTCPServer/Const}
 	\caption{Flowchart: CTCPServer Constructor.}
 	\label{fig:ServerConst}
 \end{figure}
@@ -159,7 +160,7 @@ The function that creates a server socket for a maximum number of clients, \text
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/RS/CTCPServer/CreateServer}
+	\includegraphics[width=.25\textwidth]{09sw_specification/RS/CTCPServer/CreateServer}
 	\caption{Flowchart: CTCPServer createServer.}
 	\label{fig:RSCreateServer}
 \end{figure}
@@ -168,7 +169,7 @@ In figure \ref{fig:acceptConn} is represented the \textit{acceptConnection} meth
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/RS/CTCPServer/acceptConn}
+	\includegraphics[width=.25\textwidth]{09sw_specification/RS/CTCPServer/acceptConnection}
 	\caption{Flowchart: CTCPServer acceptConnection.}
 	\label{fig:acceptConn}
 \end{figure}
@@ -180,7 +181,7 @@ In figure \ref{fig:ClientConst} is represented the constructor of the \textit{CC
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.20\textwidth]{09sw_specification/RS/CClient/ConsClient}
+	\includegraphics[width=.20\textwidth]{09sw_specification/RS/CClient/Const}
 	\caption{Flowchart: CClient Constructor.}
 	\label{fig:ClientConst}
 \end{figure}
@@ -214,7 +215,7 @@ In the method \textit{initThFun}, shown in figure \ref{fig:clientInit}, it is cr
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\textwidth]{09sw_specification/RS/CClient/init}
+	\includegraphics[width=0.26\textwidth]{09sw_specification/RS/CClient/init}
 	\caption{Flowchart: CClient initThFun.}
 	\label{fig:clientInit}
 \end{figure}
@@ -223,7 +224,7 @@ The method \textit{runThFun}, represented in figure \ref{fig:clientRun}, is resp
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\textwidth]{09sw_specification/RS/CClient/run}
+	\includegraphics[width=0.26\textwidth]{09sw_specification/RS/CClient/run}
 	\caption{Flowchart: CClient runThFun.}
 	\label{fig:clientRun}
 \end{figure}
@@ -232,7 +233,7 @@ The figure \ref{fig:RSRecv} shows the thread that receive messages from the clie
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\textwidth]{09sw_specification/RS/CClient/recv}
+	\includegraphics[width=0.4\textwidth]{09sw_specification/RS/CClient/tRecv}
 	\caption{Flowchart: CClient tRecv.}
 	\label{fig:RSRecv}
 \end{figure}
@@ -243,7 +244,25 @@ In figure \ref{fig:parseExecute} is represented the flowchart of the \textit{par
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\textwidth]{09sw_specification/RS/CClient/parseExecute}
+	\includegraphics[width=0.6\textwidth]{09sw_specification/RS/CClient/parseExecute}
 	\caption{Flowchart: CClient parseExecute.}
 	\label{fig:parseExecute}
+\end{figure}
+
+As for the previous subsystems, this class must implement the \textit{recvFunc} and \textit{sendFunc} methods, as they are pure virtual methods from CCommunication. 
+
+In this class, one will use existent functions \textit{TCPReceive} and \textit{TCPSend} to implement TCP-IP communication, as shown in figures \ref{fig:RSrecvfunc} and \ref{fig:RSsendfunc}. This functions make use of the socket created when the TCP-IP connection was established.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.35\textwidth]{09sw_specification/RS/CClient/Recvfunc}
+	\caption{Flowchart: CClient recvFunc method.}
+	\label{fig:RSrecvfunc}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.35\textwidth]{09sw_specification/RS/CClient/Sendfunc}
+	\caption{Flowchart: CClient sendFunc method.}
+	\label{fig:RSsendfunc}
 \end{figure}
