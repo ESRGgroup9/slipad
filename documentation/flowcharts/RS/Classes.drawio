@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" modified="2021-12-22T16:11:38.285Z" agent="5.0 (X11)" etag="vZbBrPXmP1dX9sGWhObs" version="16.0.3" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-12-22T21:57:56.420Z" agent="5.0 (X11)" etag="h2_cXkZiyuYaPc5tsGa2" version="16.0.3" type="github" pages="4">
   <diagram id="0Qj54k83hNj_kc8LzFBX" name="CTCPServer">
     <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="zsRkqQEAMAGvTEn3FZOO-1" value="CTCPServer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
-          <mxGeometry x="279" y="40" width="270" height="190" as="geometry">
+          <mxGeometry x="279" y="40" width="270" height="160" as="geometry">
             <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -15,8 +15,8 @@
         <mxCell id="zsRkqQEAMAGvTEn3FZOO-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="zsRkqQEAMAGvTEn3FZOO-1">
           <mxGeometry y="80" width="270" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="zsRkqQEAMAGvTEn3FZOO-4" value="+ TCPServer(IN port : int)&#xa;+ ~TCPServer(void)&#xa;&#xa;+ acceptConnection(void) int&#xa;&#xa;- createServer(IN maxClients int) int " style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="zsRkqQEAMAGvTEn3FZOO-1">
-          <mxGeometry y="88" width="270" height="102" as="geometry" />
+        <mxCell id="zsRkqQEAMAGvTEn3FZOO-4" value="+ TCPServer(IN port : int)&#xa;+ ~TCPServer(void)&#xa;&#xa;+ accept(void) int " style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="zsRkqQEAMAGvTEn3FZOO-1">
+          <mxGeometry y="88" width="270" height="72" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
@@ -108,18 +108,18 @@
         <mxCell id="hQ0141blqfC8cqL4AOc6-0" />
         <mxCell id="hQ0141blqfC8cqL4AOc6-1" parent="hQ0141blqfC8cqL4AOc6-0" />
         <mxCell id="FBUPuvvFw0KPAoPgKz-4-0" value="CDataBase" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="hQ0141blqfC8cqL4AOc6-1" vertex="1">
-          <mxGeometry x="304" y="80" width="220" height="210" as="geometry">
+          <mxGeometry x="304" y="80" width="290" height="180" as="geometry">
             <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="FBUPuvvFw0KPAoPgKz-4-1" value="db : MYSQL*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="FBUPuvvFw0KPAoPgKz-4-0" vertex="1">
-          <mxGeometry y="26" width="220" height="34" as="geometry" />
+          <mxGeometry y="26" width="290" height="34" as="geometry" />
         </mxCell>
         <mxCell id="FBUPuvvFw0KPAoPgKz-4-2" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" parent="FBUPuvvFw0KPAoPgKz-4-0" vertex="1">
-          <mxGeometry y="60" width="220" height="8" as="geometry" />
+          <mxGeometry y="60" width="290" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="FBUPuvvFw0KPAoPgKz-4-3" value="+ DataBase(void)&#xa;+ ~DataBase(void)&#xa;&#xa;+ open(void) void&#xa;+ close(void) void&#xa;+ updateData(sqlQuery : string): bool&#xa;+ getData(sqlQuery : string): string&#xa;+ deleteData(sqlQuery : string): int&#xa;+ prepareQuery(message: string) string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="FBUPuvvFw0KPAoPgKz-4-0" vertex="1">
-          <mxGeometry y="68" width="220" height="142" as="geometry" />
+        <mxCell id="FBUPuvvFw0KPAoPgKz-4-3" value="+ DataBase(void)&#xa;+ ~DataBase(void)&#xa;&#xa;+ open(void) void&#xa;+ close(void) void&#xa;+ execute(IN: sqlQuery : string, message: string ): int&#xa;+ prepareQuery(message: string) string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="FBUPuvvFw0KPAoPgKz-4-0" vertex="1">
+          <mxGeometry y="68" width="290" height="112" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
