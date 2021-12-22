@@ -391,3 +391,30 @@ To configure a pin as output or input, or to set or reset its value, the registe
 The \textit{GPFSELx} register is used to define the operation of the GPIO pins, input or output. The \textit{GPFSETx} / \textit{GPFCLRx} are registers used to set or clear pins, respectively. Each register \textit{GPFSELx} contains 10 GPIOs.
 
 As defined in the Hardware Specification section, PIR sensor will have its output connected to the pin 27 of the Raspberry Pi, as the Lamp Failure Detector will have its output connected to the pin 22. Therefore, the register to define both pins as input is \textit{GPFSEL2}.
+
+%**********************************************************
+\clearpage
+\subsection{Test Cases}
+It is important to know how the local system works, and how it will behave upon certain events. In table \ref{table:test_localsystem} are shown test cases to this system.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{4cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			\multicolumn{3}{c}{\textbf{LoRa Communications}}\\\hline
+			Establish connection with the gateway & Connection established & - 
+			\\\hline
+			Send messages to the gateway & Message transmitted & -
+			\\\hline
+			Receive messages from the gateway & Message received & -
+			\\\hline
+			\multicolumn{3}{c}{\textbf{Lamp PWM Control}}\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: Local System.}
+	\label{table:test_localsystem}
+\end{table}
