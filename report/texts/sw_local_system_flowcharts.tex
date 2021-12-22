@@ -34,11 +34,13 @@ In figure \ref{fig:CLocalSystemtLoraRecv} is presented the task responsible for 
 
 %******************************
 \clearpage
-In figure \ref{fig:CLocalSystemtRecvSensors} is presented the task responsible for receiving messages from the sensors daemon, via message queue. When there are no messages to read from the message queue, the task goes to sleep and is awaken when \textit{condRecvSensors} is notified. This happens in the \textit{sigHandler}, presented in figure \ref{fig:CLocalSystemsigHandler}, which is the signal handler for the main process, being this in charge of signaling the condition variable \textit{condRecvSensors} when a \textit{SIGUSR1} signal is catched.
+In figure \ref{fig:CLocalSystemtRecvSensors} is presented the task responsible for receiving messages from the sensors daemon, via message queue. When there are no messages to read from the message queue, the task goes to sleep and is awaken when \textit{condRecvSensors} is notified. This happens in the \textit{sigHandler}, presented in figure \ref{fig:CLocalSystemsigHandler}, which is the signal handler for the main process, being this in charge of signaling the condition variable \textit{condRecvSensors} when a \textit{SIGUSR1} signal is catched. 
+
+After the condition variable is notified, the message is read from the message queue and a command is sent do the remote system, to inform of the occurrence. This command begins with \textit{"LAMP"}, indicating that the command is relative to the lamp state, and has an argument that is relative to the event that occurred in the sensors (\textit{ON}, \textit{MIN}, \textit{OFF}, \textit{FAIL}). After communicating to the remote system, one needs to set the appropriate PWM value, therefore, the lamp brightness, according to the received command from the sensors. For example, if the received command from the sensors was \textit{"OFF"}, then the PWM must be 0. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{09sw_specification/LS/clocalsystem/trecvsensors}
+	\includegraphics[width=0.9\textwidth]{09sw_specification/LS/clocalsystem/trecvsensors}
 	\caption{Flowchart: CLocalSystem tRecvSensors method.}
 	\label{fig:CLocalSystemtRecvSensors}
 \end{figure}
@@ -54,9 +56,11 @@ In figure \ref{fig:CLocalSystemtRecvSensors} is presented the task responsible f
 \clearpage
 This task, figure \ref{fig:CLocalSystemtParkDetection}, is responsible for using the \textit{camera} object, from \textit{CCamera}, and the \textit{park} object, from \textit{CParkDetection}, in order to capture image frames and process them, calculating the number of available spaces in the parking detected. This task is periodically awaken by the use of a timer, signaling the condition variable \textit{condCamFrame}. Besides that, a timer can be used, \textit{timCamProc}, to detect if the image processing does not exceed a maximum amount of time.
 
+When a different number of vacants is determined, that is communicated to the remote system using the command \textit{"PARK"}, following by the number of vacants number.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{09sw_specification/LS/clocalsystem/tparkdetection}
+	\includegraphics[width=0.93\textwidth]{09sw_specification/LS/clocalsystem/tparkdetection}
 	\caption{Flowchart: CLocalSystem tParkDetection method.}
 	\label{fig:CLocalSystemtParkDetection}
 \end{figure}
@@ -218,7 +222,7 @@ This functions, presented in figure \ref{fig:CLamponoff}, are responsible for en
 
 \begin{figure}[H]
 	\centering	
-	\includegraphics[width=.5\textwidth]{09sw_specification/LS/clamp/onoff}
+	\includegraphics[width=.54\textwidth]{09sw_specification/LS/clamp/onoff}
 	\caption{Flowchart: CLamp On and Off methods.}
 	\label{fig:CLamponoff}
 \end{figure}
