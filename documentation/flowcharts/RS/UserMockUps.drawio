@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-23T01:59:36.029Z" agent="5.0 (X11)" etag="SLyxIQWGmORcG-bscatm" version="16.0.3" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2021-12-23T02:06:13.402Z" agent="5.0 (X11)" etag="uy8M9X9i4OEQR63k14Iv" version="16.0.3" type="github" pages="8">
   <diagram id="obIjXn6QXyscrrzhJ_gM" name="APP_Login">
     <mxGraphModel dx="1422" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -91,7 +91,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="APP_AddLamppost" id="t5Ih4vH0JIXEK2AfbRvJ">
-    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1673" dy="933" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="YmQnXuA78G81Hr8xbnEb-0" />
         <mxCell id="YmQnXuA78G81Hr8xbnEb-1" parent="YmQnXuA78G81Hr8xbnEb-0" />
@@ -155,11 +155,17 @@
             <mxPoint x="304.24" y="200" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="y6_zjQspoQ25FA1Abh2B-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="YmQnXuA78G81Hr8xbnEb-1">
+          <mxGeometry x="487" y="667" width="40" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="y6_zjQspoQ25FA1Abh2B-2" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;OK&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=14;" vertex="1" parent="YmQnXuA78G81Hr8xbnEb-1">
+          <mxGeometry x="487" y="669" width="40" height="20" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram name="APP_RepairLamppost" id="4XU7Nukd6txvER99tSSq">
-    <mxGraphModel dx="1185" dy="661" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="395" dy="220" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WZ1SvZB75DznSRw1bW7X-0" />
         <mxCell id="WZ1SvZB75DznSRw1bW7X-1" parent="WZ1SvZB75DznSRw1bW7X-0" />
