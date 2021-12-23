@@ -1,15 +1,15 @@
-One can define the relationship between the tasks as follows, in figure \ref{fig:GwOverview}. The rule of the gateway is to receive LoRa messages and send the content in TCP-IP messages, or vice versa.
+One can define the relationship between the tasks as follows, in figure \ref{fig:GwOverview}. The rule of the gateway is to receive LoRa messages, from the Local Systems (LS), and send the content in TCP-IP messages, to the remote server (RS), or vice versa.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{09sw_specification/Gateway/overview}
+	\includegraphics[width=.9\textwidth]{09sw_specification/Gateway/overview}
 	\caption{Gateway Overview.}
 	\label{fig:GwOverview}
 \end{figure}
 
 %**********************************************************
 \subsection{Class Diagrams}
-In figure \ref{fig:GwclassDiag} is represented the class diagram of gateway, \textit{CGateway}, which is the main class of the system, responsible for initializing the objects of each class listed below.
+In figure \ref{fig:GwclassDiag} is represented the class \textit{CGateway}, which is the main class of the system, responsible for initializing the objects of each class listed below.
 
 \begin{itemize}
 	\item \textbf{CLoraComm:} manages the LoRa communications with the local systems, interfacing with the LoRa module; this class was already detailed previously;
@@ -18,7 +18,7 @@ In figure \ref{fig:GwclassDiag} is represented the class diagram of gateway, \te
 \end{itemize}
 
 \begin{figure}[H]
-	\centering	\includegraphics[width=.68\textwidth]{09sw_specification/Gateway/cgateway/class}
+	\centering	\includegraphics[width=.6\textwidth]{09sw_specification/Gateway/cgateway/class}
 	\caption{CGateway Class Diagram.}
 	\label{fig:GwclassDiag}
 \end{figure}
@@ -76,6 +76,14 @@ The mutexes used in this system are listed below.
 	\item \textbf{CCommunication::mutComms} and \textbf{CCommunication::mutTxMsgs:} already detailed in the local system section; this mutexes are used indirectly by \textit{CTCPclient} and \textit{CLoraComm}.
 \end{itemize}
 
+\myparagraph{Semaphores}
+
+A semaphore is another tool of task synchronization, implemented as a variable or abstract data type. A semaphore can be seen as a record of how many units of a particular resource are available. Semaphores which allow an arbitrary resource count are called counting semaphores, while semaphores which are restricted to the values 0 and 1 (or locked/unlocked) are called binary semaphores.
+
+The semaphores used in this system are listed below.
+\begin{itemize}
+	\item \textbf{semConnReq}: used to signalize the \textit{run} method to create a new CLoraComm object, providing a new LoRa connection with a local system.
+\end{itemize}
 %%**********************************************************
 \subsection{Start-up Process}
 In figure \ref{fig:bootGateway} is shown the start-up process for the gateway. When booting up, the gateway creates a CGateway object, initializing all needed members, and after that, runs until all the threads termination.
@@ -94,7 +102,7 @@ In figure \ref{fig:bootGateway} is shown the start-up process for the gateway. W
 %*****************************
 \myparagraph{CGateway Methods}
 
-In figure \ref{fig:gwtCGatewayconstructor} is shown the \textit{CGateway} class constructor. With this, one can create a CTCPclient and a CLoraComm objects. After this the threads are created and both objects begin running their threads for receiving and sending messages.
+In figure \ref{fig:gwtCGatewayconstructor} is shown the \textit{CGateway} class constructor. With this, one can create a CTCPclient and a CLoraComm objects, named \textit{gat}, which will be the one responsible for receiving all the packets from the local systems. After this the threads are created and both objects begin running their threads for receiving and sending messages.
 
 \begin{figure}[H]
 	\centering
@@ -104,7 +112,18 @@ In figure \ref{fig:gwtCGatewayconstructor} is shown the \textit{CGateway} class 
 \end{figure}
 
 \clearpage
-This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication. When a message is received it is pushed into the TCP client list of queued messages, waiting to be sent to the remote server.
+In figure \ref{fig:gwtrun} is presented the \textit{run} method from \textit{CGateway} class. This is responsible for creating a new CLoraComm object for each new LoRa connection with a local system, being that controlled by the semaphore \textit{semConnReq}. After that, the newly created object is added to the list of local systems already connected, \textit{localSysList}.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/Gateway/cgateway/run}
+	\caption{Flowchart: CGateway Run method.}
+	\label{fig:gwtrun}
+\end{figure}
+
+\clearpage
+This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication. When a message is received, the gateway determines if it is a new connection request from a local system. If so, the message is added to the \textit{connReqList} and the semaphore \textit{semConnReq} is signalized in order for the \textit{run} method to create a new object CLoraComm regarding the new connected local system. After this, the message is pushed into the TCP client list of queued messages, waiting to be sent to the remote server.
 
 \begin{figure}[H]
 	\centering
@@ -114,7 +133,7 @@ This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receivi
 \end{figure}
 
 \clearpage
-This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receiving the messages sent by the remote system to the local systems. Unlike the \textit{tsend} tasks, this thread never enters the sleep state because one can receive a message at any moment. If it is received a message, then one can push the message to the messages queue in CLoraComm, signaling its thread to send the message, via LoRa communication.
+This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receiving the messages sent by the remote system to the local systems. Unlike the \textit{tsend} tasks, this thread never enters the sleep state because one can receive a message at any moment. If it is received a message, then one can parse it, obtaining the correct destination local system object and the command to send, pushing it to the messages queue in CLoraComm, signaling its thread to send the message, via LoRa communication.
 
 \begin{figure}[H]
 	\centering
