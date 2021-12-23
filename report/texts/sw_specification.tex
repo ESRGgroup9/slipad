@@ -15,16 +15,9 @@
 %**********************************************************
 \clearpage
 \section{Database}
-The database's logic diagram is presented in figure \ref{fig:database_er}.
-
-\begin{figure}[H]
-	\centering	
-	\includegraphics[width=1\textwidth]{09sw_specification/DataBase}
-	\caption{Database Entity-Relationship Diagram.}
-	\label{fig:database_er}
-\end{figure}
 
 \myparagraph{Relational Model}
+The database's relational model is presented below.
 
 \textbf{lamppost} (\underline{pole\_id}, \dashuline{gps}, pole\_status);
 
@@ -35,6 +28,25 @@ The database's logic diagram is presented in figure \ref{fig:database_er}.
 \textbf{operator} (\underline{operator\_id}, operator\_name);
 
 \textbf{parking\_space} (\underline{park\_id}, \dashuline{gps}, park\_type, park\_status).
+
+\myparagraph{Logical Data Model}
+The database's logical data model is presented in figure \ref{fig:database_er}.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=1\textwidth]{09sw_specification/DataBase}
+	\caption{Database Logical Data Model.}
+	\label{fig:database_er}
+\end{figure}
+
+\myparagraph{Methods used}
+Through the remote server, each remote client can have different permissions of access to the database, using the methods shown below.
+
+\begin{itemize}
+	\item \textbf{Mobile Application:} Add, Get, Update, Delete;
+	\item \textbf{Web Site:} Get;
+	\item \textbf{Gateway:} Update.	
+\end{itemize}
 
 %**********************************************************
 \clearpage
