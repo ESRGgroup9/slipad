@@ -110,6 +110,52 @@ The condition variables used for the remote system are listed bellow.
 % Nothing to show here
 
 %**********************************************************
+%\clearpage
+\subsection{Commands and Constants}
+\myparagraph{Constants}
+
+The constants used in the remote system are listed bellow.
+\begin{itemize}
+	\item \verb|MAX_CLIENT_NUM|: defines the maximum number of clients supported by the TCP server;
+	\item \verb|SERVER_PORT|: defines the port in which the server will listen for client connections;
+\end{itemize}
+
+%*******************************
+\myparagraph{Remote Server Commands}
+
+The commands used for the communication between the remote server and the local systems, through the gateway, are listed bellow.
+\begin{itemize}
+	\item \verb|IDRQ|: ID request; Used to obtain a list of local systems connected to each gateway;
+	\item \verb|<lsID> ON|: Turn on the lamp at full brightness of the local system with ID \verb|<lsID>|;
+\end{itemize}
+
+The commands used for the communication between the remote server and the remote client WebSite, are listed bellow.
+\begin{itemize}
+	\item \verb|PARK <num> <GPScoord>|: Send \verb|<num>| of available parking spots in the GPS coordinates, \verb|<GPScoord>|.
+\end{itemize}
+
+\clearpage
+The commands used for the communication between the remote server and the remote client Mobile Application, are listed bellow.
+\begin{itemize}
+	\item \verb|OP <op_result>|: Presents to the mobile application the last operation result, \verb|<op_result>|.
+	
+	\item \verb|LS <lsID> <status> <GPScoord>|: Sends to the mobile application the information of a single local system, regarding the local system ID, current status and its GPS coordinates.
+\end{itemize}
+
+%*******************************
+\myparagraph{Remote Client Commands}
+The commands used for the communication between the remote client WebSite and the remote server, are listed bellow.
+\begin{itemize}
+	\item \verb|GET <streetName>|: request to obtain parking spots information in a street, \verb|<streetName>|.
+\end{itemize}
+
+The commands used for the communication between the remote server and the remote client Mobile Application, are listed bellow.
+\begin{itemize}
+	\item \verb|ADD <street> <postCode> <parish> <county> <district> <GPScoord>|: 
+	\item \verb|MOD <lsID> <street> <postCode>|:   
+\end{itemize}
+
+%**********************************************************
 \subsection{Start-up Process}
 The start-up process is shown in the figure \ref{fig:RSstart}. When the program initiates, the start-up process instantiate a object of the class \textit{CRemoteSystem}. After that, it uses the method \textit{run} that will be seen in the next subsection.
 

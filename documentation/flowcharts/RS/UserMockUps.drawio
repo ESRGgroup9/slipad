@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-22T18:43:56.501Z" agent="5.0 (X11)" etag="C6DjbmziNIY371a0m1I7" version="16.0.3" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2021-12-23T02:06:13.402Z" agent="5.0 (X11)" etag="uy8M9X9i4OEQR63k14Iv" version="16.0.3" type="github" pages="8">
   <diagram id="obIjXn6QXyscrrzhJ_gM" name="APP_Login">
     <mxGraphModel dx="1422" dy="793" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -25,10 +25,10 @@
         <mxCell id="9e9hO8jKdyodvr-7tQJk-9" value="Smart Lighting with Parking Detection" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="1" vertex="1">
           <mxGeometry x="318" y="295" width="220" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="tLDQWBjzHE5HJut9bqXE-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="tLDQWBjzHE5HJut9bqXE-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="439" y="578" width="58.03" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="tLDQWBjzHE5HJut9bqXE-3" value="Login" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=16;" vertex="1" parent="1">
+        <mxCell id="tLDQWBjzHE5HJut9bqXE-3" value="Login" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=16;" parent="1" vertex="1">
           <mxGeometry x="443.5165714285714" y="582.5" width="49" height="23" as="geometry" />
         </mxCell>
       </root>
@@ -63,8 +63,8 @@
         <mxCell id="cxD6NzrQungWxeZ0pKze-6" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="cxD6NzrQungWxeZ0pKze-10" vertex="1">
           <mxGeometry width="200.00000000000003" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="cxD6NzrQungWxeZ0pKze-7" value="Modify Lamppost" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=16;" parent="cxD6NzrQungWxeZ0pKze-10" vertex="1">
-          <mxGeometry x="22.222222222222225" y="5" width="140" height="20" as="geometry" />
+        <mxCell id="cxD6NzrQungWxeZ0pKze-7" value="Repair Lamppost" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=16;" parent="cxD6NzrQungWxeZ0pKze-10" vertex="1">
+          <mxGeometry x="26.222222222222225" y="4" width="132" height="23" as="geometry" />
         </mxCell>
         <mxCell id="cxD6NzrQungWxeZ0pKze-14" value="" style="group" parent="cxD6NzrQungWxeZ0pKze-1" vertex="1" connectable="0">
           <mxGeometry x="313.77692307692314" y="570" width="210" height="30" as="geometry" />
@@ -78,20 +78,20 @@
         <mxCell id="cxD6NzrQungWxeZ0pKze-15" value="&lt;font style=&quot;font-size: 25px&quot;&gt;Select Operation&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="cxD6NzrQungWxeZ0pKze-1" vertex="1">
           <mxGeometry x="320.24" y="380" width="200" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="oe0vgMpDG0ihg68NDtnT-0" value="" style="group" vertex="1" connectable="0" parent="cxD6NzrQungWxeZ0pKze-1">
+        <mxCell id="oe0vgMpDG0ihg68NDtnT-0" value="" style="group" parent="cxD6NzrQungWxeZ0pKze-1" vertex="1" connectable="0">
           <mxGeometry x="336.99692307692317" y="718" width="210" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="oe0vgMpDG0ihg68NDtnT-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="oe0vgMpDG0ihg68NDtnT-0">
+        <mxCell id="oe0vgMpDG0ihg68NDtnT-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="oe0vgMpDG0ihg68NDtnT-0" vertex="1">
           <mxGeometry x="139" width="69" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="oe0vgMpDG0ihg68NDtnT-2" value="Logout" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=16;" vertex="1" parent="oe0vgMpDG0ihg68NDtnT-0">
+        <mxCell id="oe0vgMpDG0ihg68NDtnT-2" value="Logout" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=16;" parent="oe0vgMpDG0ihg68NDtnT-0" vertex="1">
           <mxGeometry x="144" y="3.5" width="59" height="23" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram name="APP_AddLamppost" id="t5Ih4vH0JIXEK2AfbRvJ">
-    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1673" dy="933" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="YmQnXuA78G81Hr8xbnEb-0" />
         <mxCell id="YmQnXuA78G81Hr8xbnEb-1" parent="YmQnXuA78G81Hr8xbnEb-0" />
@@ -155,16 +155,25 @@
             <mxPoint x="304.24" y="200" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="y6_zjQspoQ25FA1Abh2B-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="YmQnXuA78G81Hr8xbnEb-1">
+          <mxGeometry x="487" y="667" width="40" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="y6_zjQspoQ25FA1Abh2B-2" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;OK&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=14;" vertex="1" parent="YmQnXuA78G81Hr8xbnEb-1">
+          <mxGeometry x="487" y="669" width="40" height="20" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="APP_ModifyLamppost" id="4XU7Nukd6txvER99tSSq">
-    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <diagram name="APP_RepairLamppost" id="4XU7Nukd6txvER99tSSq">
+    <mxGraphModel dx="395" dy="220" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WZ1SvZB75DznSRw1bW7X-0" />
         <mxCell id="WZ1SvZB75DznSRw1bW7X-1" parent="WZ1SvZB75DznSRw1bW7X-0" />
         <mxCell id="WZ1SvZB75DznSRw1bW7X-2" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://imagensemoldes.com.br/wp-content/uploads/2020/03/Mockup-IPhone-PNG-Gr%C3%A1tis-677x1024.png;" parent="WZ1SvZB75DznSRw1bW7X-1" vertex="1">
           <mxGeometry x="192" y="120" width="456.47" height="690" as="geometry" />
+        </mxCell>
+        <mxCell id="9T0E6YJUvBTAWWArEzHX-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WZ1SvZB75DznSRw1bW7X-1">
+          <mxGeometry x="486" y="662" width="40" height="21" as="geometry" />
         </mxCell>
         <mxCell id="WZ1SvZB75DznSRw1bW7X-3" value="&lt;font style=&quot;font-size: 50px&quot;&gt;SLiPaD&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="WZ1SvZB75DznSRw1bW7X-1" vertex="1">
           <mxGeometry x="334.24" y="250" width="180" height="30" as="geometry" />
@@ -172,7 +181,7 @@
         <mxCell id="WZ1SvZB75DznSRw1bW7X-4" value="Smart Lighting with Parking Detection" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="WZ1SvZB75DznSRw1bW7X-1" vertex="1">
           <mxGeometry x="314" y="290" width="220" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="WZ1SvZB75DznSRw1bW7X-7" value="&lt;font style=&quot;font-size: 18px&quot;&gt;Modify Lamppost&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="WZ1SvZB75DznSRw1bW7X-1" vertex="1">
+        <mxCell id="WZ1SvZB75DznSRw1bW7X-7" value="&lt;font style=&quot;font-size: 18px&quot;&gt;Repair Lamppost&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="WZ1SvZB75DznSRw1bW7X-1" vertex="1">
           <mxGeometry x="345.24" y="337" width="150" height="20" as="geometry" />
         </mxCell>
         <mxCell id="WZ1SvZB75DznSRw1bW7X-8" value="&lt;font style=&quot;font-size: 16px&quot;&gt;Street&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="WZ1SvZB75DznSRw1bW7X-1" vertex="1">
@@ -208,10 +217,13 @@
             <mxPoint x="304.24" y="200" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="9T0E6YJUvBTAWWArEzHX-0" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;OK&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=14;" vertex="1" parent="WZ1SvZB75DznSRw1bW7X-1">
+          <mxGeometry x="487" y="664" width="40" height="20" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="APP_ModifyLamppost_Accept" id="PXcjMHy7X11WcNhu3R3_">
+  <diagram name="APP_RepairLamppost_Accept" id="PXcjMHy7X11WcNhu3R3_">
     <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="y4ztB4Ml9xJWVfc--X3M-0" />
@@ -225,7 +237,7 @@
         <mxCell id="y4ztB4Ml9xJWVfc--X3M-4" value="Smart Lighting with Parking Detection" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="y4ztB4Ml9xJWVfc--X3M-1" vertex="1">
           <mxGeometry x="314" y="290" width="220" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="y4ztB4Ml9xJWVfc--X3M-5" value="&lt;font style=&quot;font-size: 18px&quot;&gt;Modify Lamppost&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="y4ztB4Ml9xJWVfc--X3M-1" vertex="1">
+        <mxCell id="y4ztB4Ml9xJWVfc--X3M-5" value="&lt;font style=&quot;font-size: 18px&quot;&gt;Repair Lamppost&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="y4ztB4Ml9xJWVfc--X3M-1" vertex="1">
           <mxGeometry x="345.24" y="337" width="150" height="20" as="geometry" />
         </mxCell>
         <mxCell id="y4ztB4Ml9xJWVfc--X3M-6" value="&lt;font style=&quot;font-size: 15px&quot;&gt;Update Lamppost Status?&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;" parent="y4ztB4Ml9xJWVfc--X3M-1" vertex="1">
