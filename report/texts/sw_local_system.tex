@@ -28,7 +28,7 @@ In figure \ref{fig:clocalsystem} is represented the class diagram of the local s
 \end{figure}
 
 \clearpage
-In figure \ref{fig:csensors} is represented the class diagram of the local system's daemon. The class \textit{CSensors} is the main class of dSensors, which initializes all objects of each class listed bellow.
+In figure \ref{fig:csensors} is represented the class diagram of the local system's daemon. The class \textit{CSensors} is the main class of dSensors, which initializes all objects of each class listed below.
 
 \begin{itemize}
 	\item \textbf{CPir:} manages the motion detector, PIR;
@@ -162,7 +162,7 @@ One can list the tasks that compose the main process:
 	\item \textbf{CLocalSystem::tRecvSensor:} receives messages sent by the daemon, via message queue, regarding sensors information. It's awaken by the use of signal \textit{SIGUSR1}, sent by the daemon when there is a message to read.
 \end{itemize}
 
-Bellow are listed the tasks that compose the daemon, \textit{dSensors}. As stated above, in \textit{tRecvSensor}, whenever one of the following tasks sends a command to the main process, it is done by message queue, and also, a signal is used, \textit{SIGUSR1}, to alert the main process that a new message was sent.
+Below are listed the tasks that compose the daemon, \textit{dSensors}. As stated above, in \textit{tRecvSensor}, whenever one of the following tasks sends a command to the main process, it is done by message queue, and also, a signal is used, \textit{SIGUSR1}, to alert the main process that a new message was sent.
 \begin{itemize}
 	\item \textbf{CSensors::tReadLdr:} periodically reads the LDR sensor; if a change in luminosity state is detected (\textit{DAY} to \textit{NIGHT}, or vice-versa) a command is sent to the main process;
 	\item \textbf{CSensors::lampfISR:} ISR for the lamp failure detector; this is enabled only during the night, and is executed when the failure detector detects that the lamp is off, sending a command to the main process;
@@ -221,7 +221,7 @@ The condition variables used in the daemon are listed below.
 A mutex is a locking mechanism that provides mutual exclusion, supporting ownership and other protocols. A mutex is initially created in the unlocked state in which it can be acquired by a task. After being acquired, the mutex moves to the locked state. When the task releases the mutex, it returns to the unlocked state.
 
 \clearpage
-The mutexes used in the main process are listed bellow.
+The mutexes used in the main process are listed below.
 
 \begin{itemize}
 	\item \textbf{CLocalSystem::mutRecvSensors:} mutex associated with the condition variable \textit{condRecvSensors} to read a new message from the sensors message queue;
@@ -235,7 +235,7 @@ The mutexes used in the main process are listed bellow.
 	\item \textbf{CLamp::mutChangePWM:} protects the modification of PWM when defining a new PWM value for the lamp.
 \end{itemize}
 
-The mutexes used in the daemon are listed bellow.
+The mutexes used in the daemon are listed below.
 
 \begin{itemize}
 	\item \textbf{CSensors::mutReadLdr:} protects reading of LDR sensor;
@@ -245,7 +245,7 @@ The mutexes used in the daemon are listed bellow.
 
 A signal is a notification to a process that an event has occurred. Signals are sometimes described as software interrupts, being analogous to hardware interrupts in that they interrupt the normal flow of execution of a program. One process can send a signal to another process, being in that way, employed as a synchronization technique.
 
-The signals used between the main process and the daemon are listed bellow.
+The signals used between the main process and the daemon are listed below.
 
 \begin{itemize}
 	\item \textbf{SIGUSR1:}	signal sent by \textit{dSensors} to the main process, whenever a new message is inserted in the message queue, \textit{msgqSensors}. This is received in the main process in a signal handler, that will wake up the task \textit{tRecvSensors}, through the condition variable \textit{condRecvSensors}.
@@ -262,7 +262,7 @@ A message queue is a linked list of messages stored within the kernel and identi
 \subsection{Commands and Constants}
 \myparagraph{Constants}
 
-The constants used in the local system are listed bellow.
+The constants used in the local system are listed below.
 \begin{itemize}
 	\item \verb|LS_ADDR|: defines the local system address, relevant to the communications module, CLoraComm;
 	\item \verb|GATEWAY_ADDR|: defines the gateway address, relevant to CLoraComm;\\
@@ -279,7 +279,7 @@ The constants used in the local system are listed bellow.
 
 \myparagraph{Commands}
 
-The commands used for the communication between the daemon \textit{dSensors} and the main process are listed bellow.
+The commands used for the communication between the daemon \textit{dSensors} and the main process are listed below.
 
 \begin{itemize}
 	\item \verb|ON|: Set the lamp brightness to its maximum (\verb|PWM=100|);
@@ -288,7 +288,7 @@ The commands used for the communication between the daemon \textit{dSensors} and
 	\item \verb|FAIL|: Turn off the lamp (\verb|PWM=0|);
 \end{itemize}
 
-The commands used for the communication between the local system and the remote system are listed bellow.
+The commands used for the communication between the local system and the remote system are listed below.
 \begin{itemize}
 	\item \verb|LAMP ON|: Lamp is at full brightness;
 	\item \verb|LAMP MIN|: Lamp is at minimum brightness;
