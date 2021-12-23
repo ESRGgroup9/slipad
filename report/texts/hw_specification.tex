@@ -90,7 +90,7 @@ In table \ref{table:connect_lightsensor} it is shown the connection scheme of th
 		\\\hline\hline
 		VCC & Step-down VOUT+ & 5 V
 		\\\hline
-		GND & Step-down VOUT- \& Pin 6 & GND
+		GND & Step-down VOUT- \& GND & GND
 		\\\hline
 		SDA & Pin 2 & I2C1-SDA
 		\\\hline
@@ -184,9 +184,9 @@ In table \ref{table:connect_pir} it is shown the connection scheme of the PIR se
 		\\\hline\hline
 		VCC & Step-down VOUT+ & 5 V
 		\\\hline
-		GND & Step-down VOUT- \& Pin 6 & GND
+		GND & Step-down VOUT- \& GND & GND
 		\\\hline
-		SIGNAL & Pin 27 & GPIO
+		SIGNAL & Pin 16 & GPIO
 		\\\hline
 	\end{tabular}
 	
@@ -200,7 +200,6 @@ In table \ref{table:connect_pir} it is shown the connection scheme of the PIR se
 	\caption{Connection Layout: PIR HC-501SR.}
 	\label{fig:PirLayout}
 \end{figure}
-
 
 \myparagraph{Test Cases}
 
@@ -346,7 +345,7 @@ In order to achieve longer range and better signal quality in LoRa communication
 
 \myparagraph{Connection scheme}
 
-In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa module to the Raspberry Pi (remember figure \ref{fig:rasp_pinout}). Keep in mind that the RF antenna is directly connected to the LoRa module through an U.FL connector.
+In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa module to the Raspberry Pi (remember figure \ref{fig:rasp_pinout}). Keep in mind that the RF antenna is directly connected to the LoRa module through an U.FL connector. The figure \ref{fig:loraLayout} shows the connections layout between the Raspberry Pi and the LoRa SX1278 RA-02 transceiver.
 
 \begin{table}[H]
 	\centering
@@ -355,15 +354,15 @@ In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa 
 		\textbf{SX1278 RA-02 Pin} & \textbf{RPi Pin/ Connector} & \textbf{Notes} 
 		\\\hline\hline
 		
-		VCC & xxx & 3,3 V
+		VCC & Voltage Regulator OUT & 3,3 V
 		\\\hline
-		GND & xxx Pin 6 & GND
+		GND & Voltage Regulator GND & GND
 		\\\hline
 		RST & Pin 4 & GPIO
 		\\\hline
 		SCK & Pin 11 & SPI0 SCLK
 		\\\hline
-		NSS & Pin 8 & SPI0 CE0
+		NSS & Pin 22 & SPI0 CE0
 		\\\hline
 		MISO & Pin 9 & SPI0 MISO
 		\\\hline
@@ -376,6 +375,13 @@ In table \ref{table:connect_lora} it is shown the connection scheme of the LoRa 
 	\caption{Connection scheme: LoRa Module.}
 	\label{table:connect_lora}
 \end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{07hw_specification/lora_layout}
+	\caption{Connection Layout: LoRa SX1278 RA-02.}
+	\label{fig:loraLayout}
+\end{figure}
 
 \myparagraph{Test Cases}
 
@@ -768,6 +774,7 @@ In order to know when the lamp is broken, one needs to use a lamp failure detect
 \myparagraph{Connection scheme}
 
 In table \ref{table:connect_lampfail} is shown the connection scheme for the lamp failure detector. (Remember figure \ref{fig:rasp_pinout} and table \ref{table:power_supply_pinout})
+The figure \ref{fig:failLayout} shows the connections layout between the Raspberry Pi and the LDR failure detector.
 
 
 \begin{table}[H]
@@ -777,17 +784,24 @@ In table \ref{table:connect_lampfail} is shown the connection scheme for the lam
 		\textbf{Lamp Failure Detector Pin} & \textbf{RPi Pin/ Connector} & \textbf{Notes} 
 		\\\hline\hline
 		
-		VCC & xxx & 3,3 V
+		VCC & Step-down VOUT+ & 5 V
 		\\\hline
-		GND & Step-down VOUT- \& Pin 6 & GND
+		GND & Step-down VOUT- \& GND & GND
 		\\\hline
-		DO TTL & Pin 16 & GPIO
+		DO TTL & Pin 26 & GPIO
 		\\\hline
 	\end{tabular}
 	
 	\caption{Connection scheme: Lamp Failure Detector.}
 	\label{table:connect_lampfail}
 \end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{07hw_specification/FailureDetector_layout}
+	\caption{Connection Layout: Failure Detector LDR.}
+	\label{fig:failLayout}
+\end{figure}
 
 \myparagraph{Test Cases}
 
@@ -839,6 +853,15 @@ The lamp is controlled using a driver, that is approached in subsection \ref{sub
 In a real-scale project, it would be used a different lamp, with supply voltage of 230 V AC and other specific characteristics  like \ac{ipprotect} rate, from water and dust (IP65 \cite{ip65}). It would be also used a LED lamp with higher electric power. 
 
 %**********************************************************
-%\section{Connection Layout} %?????
+\clearpage
+\section{Connection Layout} %?????
 % show hardware architecture with all protocols defined in
 % each connection
+In figure \ref{fig:connLayout} is shown all the sensors connections with the power modules and the Raspberry Pi.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{07hw_specification/final_layout}
+	\caption{Connections Layout.}
+	\label{fig:connLayout}
+\end{figure}
