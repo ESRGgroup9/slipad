@@ -5,7 +5,7 @@ CFLAGS= -g -I.
 
 DEPS=LoRa.h
 OBJS=LoRa.cpp test.cpp
-TARGET=loratest
+TARGET=loratest.elf
 
 all: $(TARGET)
 $(TARGET) : $(OBJS)
