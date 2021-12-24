@@ -20,7 +20,7 @@ This project follows Waterfall model:
 
 - [x] Requirements
 - [x] Analysis
-- [ ] Design
+- [x] Design
 - [ ] Implementation
 - [ ] Testing
 - [ ] Deployment
