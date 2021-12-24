@@ -1,0 +1,11 @@
+loraclass _spi
+begin _spi->begin()
+end _spi->end()
+set spi _spi
+setSPIFreq _spiSettings
+singleTransfer _spi->beginTransaction, transfer, endTransaction
+
+
+sleep/delay function in begin()
+flush function????
+
