@@ -1,360 +1,338 @@
 %**********************************************************
-\subsection{Task Overview}
-One can define and describe briefly how the local system is implemented, making use of threads and processes. As one can see in figure \ref{fig:task_overview}, this system is composed by two processes: the main process and a daemon, used to read the sensors \textit{LDR} and \textit{LampFailureDetector}, \textit{dSensors}. As the \textit{PIR} sensor can be read through the use of an ISR, this sensor stays in the main process. The communication between the daemon and the main process is done via message queue.
+%\subsection{Task Overview}
+One can define and describe briefly how the local system is implemented, making use of threads and processes. As one can see in figure \ref{fig:task_overview}, this system is composed by two processes: the main process and a daemon, \textit{dSensors}, used to read the sensors \textit{LDR}, \textit{PIR} and \textit{LampFailureDetector}. The communication between the daemon and the main process is done via message queue and through the use of the signal \textit{SIGUSR1}, which the daemon can use to notify the main process of when there is a new message to read in the message queue.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/task_overview}
+	\includegraphics[width=.4\textwidth]{09sw_specification/LS/overview}
 	\caption{Inter-process Communication between Main Process and Daemon.}
 	\label{fig:task_overview}
 \end{figure}
 
+%**********************************************************
+\subsection{Class Diagrams}
+In figure \ref{fig:clocalsystem} is represented the class diagram of the local system's main process. The class \textit{CLocalSystem} is the main class of the main process, which initializes the objects of each class listed below.
+
+\begin{itemize}
+	\item \textbf{CLoraComm:} manages the LoRa communications with the gateway, interfacing with the LoRa module;
+	\item \textbf{CLamp:} manages the lamp brightness, using a PWM signal;	
+	\item \textbf{CCamera:} manages the camera device;
+	\item \textbf{CParkDetection:} responsible of image processing for detecting parking spots.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{09sw_specification/LS/clocalsystem/class}
+	\caption{Local System Main Process Class Diagram.}
+	\label{fig:clocalsystem}
+\end{figure}
+
 \clearpage
+In figure \ref{fig:csensors} is represented the class diagram of the local system's daemon. The class \textit{CSensors} is the main class of dSensors, which initializes all objects of each class listed below.
+
+\begin{itemize}
+	\item \textbf{CPir:} manages the motion detector, PIR;
+	\item \textbf{CLdr:} manages the ambient light sensor, LDR;
+	\item \textbf{CFailureDetector:} manages the lamp failure detector;
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{09sw_specification/LS/csensors/class}
+	\caption{Local System dSensors Class Diagram.}
+	\label{fig:csensors}
+\end{figure}
+
+%*****************************
+\clearpage
+\myparagraph{Class CLoraComm}
+
+In figure \ref{fig:LoraCommClass} is shown the \textit{CLoraComm} class diagram. This class defines an object \textit{CLoraComm}, with the address \textit{local\_addr}, capable of establishing a LoRa communication at a defined frequency \textit{freqMHz}, with the gateway which has the address \textit{dest\_addr}. This class inherits several methods from the class \textit{CCommunication}, represented with a lighter font and identified with '\^{}' at the begin of the method, which will be specified later.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.4\textwidth]{09sw_specification/LS/cloracomm/class}
+	\caption{Class Diagram: CLoraComm.}
+	\label{fig:LoraCommClass}
+\end{figure}
+
+%*****************************
+\clearpage
+\myparagraph{Class CCommunication}
+
+In figure \ref{fig:CCommunicationClass} is shown the \textit{CCommunication} class diagram. This class implements the structure for a communication class like \textit{CLoraComm} or \textit{CTCPclient}, which will be shown later. It implements a series of methods to send and receive messages. 
+
+This class makes use of a thread, \textit{tSend}, to send messages in non-blocking mode. This thread is created with \textit{init(tprio)} method, which defines the thread priority and creates it. After creation, the thread goes to sleep, and is waken whenever the condition variable \textit{condtSend} is notified, which occurs when \textit{push(msg)} is used. This function adds the given message to a buffer, \textit{TxMsgs}, which is later sent in \textit{tSend}. This way, one has a waiting list of messages to be sent, in order to avoid the loss of a communication. The method \textit{send(msg)} sends a message in blocking mode; \textit{recv()} receives a message in non-blocking mode.
+
+This class has two pure virtual functions: \textit{recvFunc} and \textit{sendFunc}, which must be implemented by the derived classes, since each communication protocol has its own functions to send and receive messages. Each communication has a state, \textit{status}, defined by the enumeration connection status, \textit{ConnStatus}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.68\textwidth]{09sw_specification/LS/ccommunication/class}
+	\caption{Class Diagram: CCommunication.}
+	\label{fig:CCommunicationClass}
+\end{figure}
+
+%*****************************
+\clearpage
+\myparagraph{Class CLamp}
+
+In figure \ref{fig:classlamp} is shown the \textit{CLamp} class diagram, which defines a \textit{CLamp} object. When creating the object, using the constructor \textit{CLamp()}, one can define how much time the lamp stays at maximum brightness, passing this time to the constructor through parameter, \textit{timeoutSecs}, in seconds, being defined into \textit{LampOnTimeoutSecs}.
+One can interact with the object \textit{CLamp} by changing the brightness, through the method \textit{setBrightness(lux)}, where \textit{lux} is a value from 0, where the lamp is OFF, to 100, where the lamp is at maximum brightness.  Internally, this class uses a mutex, \textit{mutChangePWM} to protect the PWM value when using \textit{setBrightness} method. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.4\textwidth]{09sw_specification/LS/clamp/class}
+	\caption{Class Diagram: CLamp.}
+	\label{fig:classlamp}
+\end{figure}
+
+%*****************************
+%\clearpage
+\myparagraph{Class CPir}
+
+In figure \ref{fig:classpir} is shown the \textit{CPir} class. When movement is detected in the surrounding area of the lamppost, the sensor puts the high digital value in its output, triggering an interrupt service routine. When creating a object \textit{CPir}, one can define the ISR to be executed, passing to the constructor a function pointer, \textit{pirISR}. This class also has methods to enable and disable the respective ISR.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.4\textwidth]{09sw_specification/LS/cpir/class}
+	\caption{Class Diagram: CPir.}
+	\label{fig:classpir}
+\end{figure}
+
+%*****************************
+\myparagraph{Class CCamera}
+
+In figure \ref{fig:classcamera} is shown the \textit{CCamera} class diagram, that defines a camera object.  This class implements the control of a camera device, with filename \textit{camFilename}, through the basic functions \textit{open()}, \textit{close()} and \textit{capture()}, the latter used to get an image frame from the camera.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.4\textwidth]{09sw_specification/LS/ccamera/class}
+	\caption{Class Diagram: CCamera.}
+	\label{fig:classcamera}
+\end{figure}
+
+%*****************************
+\clearpage
+\myparagraph{Class CParkDetection}
+
+In figure \ref{fig:classcamera} is shown the \textit{CParkDetection} class diagram, that implements the tools needed to do process camera frames in order to do parking detection. Before determining if there are parking spots available, one needs to extract the park outline from the camera frame, using \textit{getOutline(frame)}. This method stores in the variable \textit{parkCoords} the coordinates on the image frame relating to the park outline. After this, one can calculate the number of vacants inside that park outline, through \textit{calcVacants(frame)}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.34\textwidth]{09sw_specification/LS/cparkdetection/class}
+	\caption{Class Diagram: CParkDetection.}
+	\label{fig:classparkdetection}
+\end{figure}
+
+%*****************************
+\clearpage
+\myparagraph{Class CLdr}
+
+In figure \ref{fig:classldr} is shown the \textit{CLdr} class, that defines the functions to interact with the LDR sensor. This contains an enumeration for the luminosity states, \textit{LuxState}, which can be \textit{DAY}, \textit{NIGHT} or \textit{UNDEF} as undefined, used for initialization. The luminosity state can be obtain by the use of \textit{getLuxState()}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.74\textwidth]{09sw_specification/LS/cldr/class}
+	\caption{Class Diagram: CLdr.}
+	\label{fig:classldr}
+\end{figure}
+
+%*****************************
+\myparagraph{Class CFailureDetector}
+
+In figure \ref{fig:classfail} is shown the Failure Detector class, which is similar to the \textit{CPir}. When creating an instance of this class, using the constructor \textit{CFailureDetector}, one can pass to the constructor a pointer to the ISR that will be triggered each time the failure detector senses that the lamp is off. Since one can verify if the lamp is broken only at night, that is when the lamp is turned on at minimum or maximum bright, one should \textit{enable} this detector only when during the night.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.47\textwidth]{09sw_specification/LS/cfailuredetector/class}
+	\caption{Class Diagram: CFailureDetector.}
+	\label{fig:classfail}
+\end{figure}
+
+%**********************************************************
+\clearpage
+\subsection{Task Overview}
+
 One can list the tasks that compose the main process:
 \begin{itemize}
-	\item \textbf{tCamera:} acquire a camera frame; processes image and search for parking spots; verify the parking spot availability;
- 	\item \textbf{tSend:} sends a message to the gateway, using the LoRa module; Private method of LoraComm Class, as will be later presented;
-	\item \textbf{tLoraRecv:} receives a message from the gateway, using the LoRa module;
-	\item \textbf{tRecvSensor:} receives messages sent by the daemon, via message queue, regarding sensors information.
+ 	\item \textbf{CLoraComm::tSend:} sends a message to the gateway, using the LoRa module;
+	\item \textbf{CLocalSystem::tParkDetection:} determines parking outline; acquire a camera frame, process it by verifying parking spots availability;
+	\item \textbf{CLocalSystem::tLoraRecv:} receives a message from the gateway, using the LoRa module;
+	\item \textbf{CLocalSystem::tRecvSensor:} receives messages sent by the daemon, via message queue, regarding sensors information. It's awaken by the use of signal \textit{SIGUSR1}, sent by the daemon when there is a message to read.
+\end{itemize}
+
+Below are listed the tasks that compose the daemon, \textit{dSensors}. As stated above, in \textit{tRecvSensor}, whenever one of the following tasks sends a command to the main process, it is done by message queue, and also, a signal is used, \textit{SIGUSR1}, to alert the main process that a new message was sent.
+\begin{itemize}
+	\item \textbf{CSensors::tReadLdr:} periodically reads the LDR sensor; if a change in luminosity state is detected (\textit{DAY} to \textit{NIGHT}, or vice-versa) a command is sent to the main process;
+	\item \textbf{CSensors::lampfISR:} ISR for the lamp failure detector; this is enabled only during the night, and is executed when the failure detector detects that the lamp is off, sending a command to the main process;
+	\item \textbf{CSensors::PirISR:} ISR for the PIR sensor; this is enable only during the night and is executed when motion is detected, sending a command to the main process. 
 \end{itemize}
 
 %**********************************************************
+\clearpage
 \subsection{Task Priority}
 
 One needs to assign each thread a static priority level to indicate their relative urgency. Moreover, the scheduler will always pick the thread that is ready to execute with the highest priority level. Priorities must be assigned in order to ensure efficiency and execute real-time tasks.
 
-With that in mind, the priority assignment diagram for the local system is represented in figure \ref{fig:lst_priority}.
+With that in mind, the priority assignment diagram for the local system's main process is represented in figure \ref{fig:lst_priority}, as well as for the daemon, in figure \ref{fig:lsdaemont_priority}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.65\textwidth]{09sw_specification/LSpriority}
-	\caption{Local System Priority Assignment Schematic.}
+	\includegraphics[width=.6\textwidth]{09sw_specification/LS/mainprocess_priority}
+	\caption{Local System Main Process Priority Assignment Schematic.}
 	\label{fig:lst_priority}
 \end{figure}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{09sw_specification/LS/dsensors_priority}
+	\caption{Local System dSensors Priority Assignment Schematic.}
+	\label{fig:lsdaemont_priority}
+\end{figure}
+
 %**********************************************************
+\clearpage
 \subsection{Task Synchronization}
 Real-time tasks share resources and services, and as such, should be prepared to await for the availability of these resources and services, like logical resources (buffers and data), physical resources, services like directory services, etc. In order to have coordinate access to shared resources and avoid race conditions, the kernel has resources that provide synchronization tools. 
 
 \myparagraph{Condition Variables}
 
-A condition variable is a task synchronization tool that can be used to block (wait) one or more threads, suspending its execution. The blocked threads are awakened when the condition variable is notified. The condition variables used are listed below.
+A condition variable is a task synchronization tool that can be used to block (wait) one or more threads, suspending its execution. The blocked threads are awakened when the condition variable is notified. 
+
+The condition variables used in the main process are listed below.
 
 \begin{itemize}
-	\item \textbf{condCameraAcquire:} used to notify \textit{tCamera} that a camera sample period has elapsed;
-	\item \textbf{condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent; private member of LoraComm class.
+	\item \textbf{CLocalSystem::condRecvSensors:} notifies \textit{tRecvSensors} that a new message is available on the message queue, \textit{msgqSensors};
+
+	\item \textbf{CLocalSystem::condCamFrame:} notifies \textit{tParkDetection} to acquire a new camera frame and process it;
+
+	\item \textbf{CCommunication::condtSend:} used to notify \textit{CCommunication::tSend} that a new message is ready to be sent.
+\end{itemize}
+
+The condition variables used in the daemon are listed below.
+
+\begin{itemize}
+	\item \textbf{CSensors::condReadLdr:} notifies \textit{tReadLdr} to acquire values from LDR sensor and process them;
 \end{itemize}
 
 \myparagraph{Mutexes}
 
-A mutex is a locking mechanism that provides mutual exclusion, supporting ownership and other protocols. A mutex is initially created in the unlocked state in which it can be acquired by a task. After being acquired, the mutex moves to the locked state. When the task releases the mutex, it returns to the unlocked state. The mutexes used are listed bellow.
+A mutex is a locking mechanism that provides mutual exclusion, supporting ownership and other protocols. A mutex is initially created in the unlocked state in which it can be acquired by a task. After being acquired, the mutex moves to the locked state. When the task releases the mutex, it returns to the unlocked state.
+
+\clearpage
+The mutexes used in the main process are listed below.
 
 \begin{itemize}
-	\item \textbf{mutCamera:} mutex associated with the condition variable \textit{condCameraAcquire} to acquire a camera frame;
-		
-	\item \textbf{mutSend:} protects the message to be sent in \textit{tSend}, which can be defined in multiple places; private member of LoraComm class;
-	
-	\item \textbf{mutComms:} protects LoRa communication, since it is half-duplex, so one can send or receive at a time; private member of LoraComm class;
-	
-	\item \textbf{mutChangePWM:} protects the modification of PWM when defining a new PWM value for the lamp; private member of Lamp class.
-	
+	\item \textbf{CLocalSystem::mutRecvSensors:} mutex associated with the condition variable \textit{condRecvSensors} to read a new message from the sensors message queue;
+
+	\item \textbf{CLocalSystem::mutCamFrame:} mutex associated with the condition variable \textit{condCamFrame} to acquire a camera frame;
+
+	\item \textbf{CCommunication::mutComms:} indirectly used by \textit{CLoraComms}, to protect communication usage of send and receive functions;
+
+	\item \textbf{CCommunication::mutTxMsgs:} indirectly used by \textit{CLoraComms}; used to protect the insertion and removal of messages into \textit{TxMsgs};
+
+	\item \textbf{CLamp::mutChangePWM:} protects the modification of PWM when defining a new PWM value for the lamp.
 \end{itemize}
 
-%\myparagraph{Semaphores}
+The mutexes used in the daemon are listed below.
 
+\begin{itemize}
+	\item \textbf{CSensors::mutReadLdr:} protects reading of LDR sensor;
+\end{itemize}
+
+\myparagraph{Signals}
+
+A signal is a notification to a process that an event has occurred. Signals are sometimes described as software interrupts, being analogous to hardware interrupts in that they interrupt the normal flow of execution of a program. One process can send a signal to another process, being in that way, employed as a synchronization technique.
+
+The signals used between the main process and the daemon are listed below.
+
+\begin{itemize}
+	\item \textbf{SIGUSR1:}	signal sent by \textit{dSensors} to the main process, whenever a new message is inserted in the message queue, \textit{msgqSensors}. This is received in the main process in a signal handler, that will wake up the task \textit{tRecvSensors}, through the condition variable \textit{condRecvSensors}.
+\end{itemize}
+
+%**********************************************************
 \subsection{Task Communication}
-%\myparagraph{Pipes}
-%
-%Pipe is an inter-process communication tool, that establishes a connection between two processes, such that the standard output from one process becomes the standard input of the other process. Pipe is one-way communication, i.e, we can use a pipe such that one process write to the pipe and the other process reads from the pipe. If a process tries to read before something is written to the pipe, the process is suspended until something is written.
-%
-%As previously stated, it's used a pipe to communicate between the \textit{dSensors} to the main process. In this way, the main process can know if something was detected by the sensors and provide a response to that.
-
 \myparagraph{Message Queue}
 
-A message queue is a linked list of messages stored within the kernel and identified by a message queue identifier. A message queue will be used to communicate between the main process and the \textit{dSensors}. In that way, the main process is agnostic to the cyclic reading necessary for the sensors \textit{LDR} and \textit{LampFailureDetector}, and is only informed when necessary, through the message queue.
-
-%\myparagraph{Signals}
-%
-%In order to define periodic events, through a timer, it is used the signal SIGALRM. Since there are different periods to set in timers, one can list the signals used 
-%**********************************************************
-\subsection{Class Diagrams}
-In figure \ref{fig:classDiag} is represented the class diagram of the local systems of the SLiPaD. The class \textit{CSlipad} is the main class of the system that initilializes the objects of each class listed below.
-
-\begin{itemize}
-	\item \textbf{CCamera:} manages the camera device;
-	
-	\item \textbf{CPir:} manages the movement detection sensor, PIR;
-	
-	\item \textbf{CLdr:} manages the ambient light sensor, LDR;
-	
-	\item \textbf{CLoraComm:} manages the LoRa communications, interfacing with the LoRa module;
-	
-	\item \textbf{CFailureDetector:} manages the failure detetor sensor;
-	
-	\item \textbf{CLamp:} manages the lamp, using a PWM channel.	
-\end{itemize}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.9\textwidth]{09sw_specification/classDiagram}
-	\caption{Local System Classes Diagram.}
-	\label{fig:classDiag}
-\end{figure}
-
-\myparagraph{Class CCamera}
-
-In figure \ref{fig:classcamera} is shown the Camera class diagram, that defines a camera object.  For this project the camera is used to detect available parking spots in the lamppost vicinity, so this class defines the functions used to capture (\textit{captureFrame()}) and process (\textit{processFrame}) a camera frame. After the creation of the object, using the constructor \textit{Camera()}, the thread \textit{tCamera()} is executed every time the condition variable \textit{condCameraAcquire} is signaled, that happens every 2 minutes.
-
-%This class defines all the functions that implicate the use of the camera device.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/classcamera}
-	\caption{Class Diagram: Camera.}
-	\label{fig:classcamera}
-\end{figure}
-
-\myparagraph{Class CLamp}
-
-In figure \ref{fig:classlamp} is shown the Lamp class diagram, which defines a Lamp object. After creating the object, using the constructor \textit{Lamp()}, one can interact with it by changing the brightness, through the method \textit{setBrightness(lux)}, where \textit{lux} is a value from 0, lamp OFF, to 100, lamp at maximum brightness. Internally, this class uses a mutex, \textit{mutChangePWM} to protect the PWM value when using \textit{setBrightness} method. 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/classlamp}
-	\caption{Class Diagram: Lamp.}
-	\label{fig:classlamp}
-\end{figure}
-
-\myparagraph{Class CLoraComm}
-
-In figure \ref{fig:LoraCommClass} is shown the LoraComm class diagram. This class defines an object \textit{LoraComm} capable of establishing a LoRa communication with the gateway and send messages. It's used a vector of strings \textit{tx\_msgs} to store messages, providing a waiting list of messages to be sent, in order to avoid the loss of a communication.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/LoraCommClass}
-	\caption{Class Diagram: LoraComm.}
-	\label{fig:LoraCommClass}
-\end{figure}
-
-An object can be created through the use of the constructor, as shown in figure \ref{fig:LoraComm}.
-This starts by initializing the LoRa communication, defining the pins connected to the module and the frequency in which the device choosen previously operates, which is 433~MHz. At the end, all private members are also initialized.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.6\textwidth]{09sw_specification/LoraComm}
-	\caption{Class Diagram: LoraComm constructor.}
-	\label{fig:LoraComm}
-\end{figure}
-
-A message can be put in the waiting list to be sent through the use of \textit{LoraComm.push(msg)}, as shown in figure \ref{fig:LoraCommPush}.
-
-This function is responsible for adding a new message, \textit{msg}, to the \textit{tx\_msgs} vector, and signal the condition variable \textit{condSend}, for the task \textit{tSend} to send the message.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/LoraCommPush}
-	\caption{Class Diagram: LoraComm Push method.}
-	\label{fig:LoraCommPush}
-\end{figure}
-
-To send a message, this class has a built-in thread, \textit{tSend} that can be put to run using \textit{LoraComm.run()}, as shown in figures \ref{fig:LoraCommRun} and \ref{fig:LoraCommSend}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.25\textwidth]{09sw_specification/LoraCommRun}
-	\caption{Class Diagram: LoraComm Run method.}
-	\label{fig:LoraCommRun}
-\end{figure}
-
-This thread, \textit{tSend}, is responsible for sending queued messages to the gateway, using LoRa communication. A conditional variable is used to wake this thread when there is a new message available to be sent.
-
-When the vector \textit{tx\_msgs} is empty, then the task goes to sleep, waiting for the condition variable \textit{condSend} to notify this task. After this, the mutex \textit{mutComms} is used to protect the communication, which due to the selected LoRa module is half-duplex, meaning that at a given moment, the device can be receiving or sending, not at the same time. Then, a message is popped from the messages vector, and sent to the gateway using the function \textit{LoraSend}. This continues to happen until the \textit{tx\_msgs} vector gets empty.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.65\textwidth]{09sw_specification/LoraCommSend}
-	\caption{Class Diagram: LoraComm tSend thread.}
-	\label{fig:LoraCommSend}
-\end{figure}
-
-There is also another method, \textit{LoraComm.recv()}, that receives a string, in a non blocking mode, making use of task synchronization tools to ensure that sending and receiving don't occur at the same time, since the LoRa module in use is Half-Duplex. This function should be used continuously if one doesn't want to miss any communication. This method is presented in figure \ref{fig:LoraCommRecv}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/LoraCommRecv}
-	\caption{Class Diagram: LoraComm Recv method.}
-	\label{fig:LoraCommRecv}
-\end{figure}
-
-\myparagraph{Class CPIR}
-
-In figure \ref{fig:classpir} is shown the PIR class, that defines the functions to interact with the PIR sensor. When movement is detected in the surrounding area of the lamppost, the sensor puts the high digital value in its output, triggering the interrupt service routine \textit{PirIsr}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/classpir}
-	\caption{Class Diagram: PIR.}
-	\label{fig:classpir}
-\end{figure}
-
-\myparagraph{Class CLDR}
-
-In figure \ref{fig:classldr} is shown the LDR class, that defines the functions to interact with the LDR sensor, using its device driver. As the ambient light is read each 10 minutes in the function \textit{LdrIsr}, one needs to define a timer to trigger this function. The last read luminance is stored in the variable \textit{oldLightCon} and is obtained using the function \textit{getLux}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/classldr}
-	\caption{Class Diagram: LDR.}
-	\label{fig:classldr}
-\end{figure}
-
-\clearpage
-\myparagraph{Class CFailureDetector}
-
-In figure \ref{fig:classfail} is shown the Failure Detector class. After creating an instance of this class, using the contructor \textit{FailureDetector}, the function \textit{failureDetectIsr} will be triggered each time the failure detector senses the lamp failure. 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/classfail}
-	\caption{Class Diagram: FailureDetector.}
-	\label{fig:classfail}
-\end{figure}
+A message queue is a linked list of messages stored within the kernel and identified by a message queue identifier. A message queue, \textit{msgqSensors}, will be used to communicate between the main process and the \textit{dSensors}. In that way, the main process is agnostic to the cyclic reading necessary for the sensor \textit{ldr} and for the interrupts generated by the \textit{pir} and \textit{lampf}, being only informed when necessary, through the message queue.
 
 %**********************************************************
-\subsection{Flowcharts}
 %\clearpage
-\myparagraph{tCamera}
+\subsection{Commands and Constants}
+\myparagraph{Constants}
 
-The task tCamera is responsible for acquire a frame from the Raspberry Pi Camera and to process it. It must analyze the returned frame, in order to detect empty parking spots. This thread uses the mutex \textit{mutCamera} to protect the condition variable \textit{condCameraAcquire}, that synchronizes the camera frame acquisition with the timer that defines the camera frame acquisition period, \textit{timSampleCam}.
-
-Firstly, this thread initializes the camera device, sets the timer \textit{timSampleCam}, locks the mutex \textit{mutCamera} and goes to sleep mode, waiting for the conditon variable \textit{condCameraAcquire} to be signaled. This happens when a \textit{timSampleCam} period has elapsed and the thread wakes up. Now, one can capture a camera frame in order to process it, unlocking the mutex \textit{mutCamera}. A timer, \textit{timCamMax}, is setted to report the error if the image is taking too much time to being processed.
-
-In the image processing part of the thread, if there aren't parking spots coordinates stored, then it is necessary to search for parking spots. After that, one can detect cars using the pre-trained model and the function \textit{detectCars} that detects cars in the image. If the coordinates of a detected car matches the coordinates of the parking spot, then one can assume that the parking spot is occupied. If the parking spot status has changed, then it is necessary to send this to the remote system, using the LoRa communication module. In figure \ref{fig:flow_tcamera}, is shown the thread \textit{tCamera} flowchart.
-
-\begin{figure}[H]
-	\centering			
-	\includegraphics[width=1\textwidth]{09sw_specification/tCamera}
-	\caption{Main Process Flowchart: tCamera.}
-	\label{fig:flow_tcamera}
-\end{figure}
-
-\myparagraph{searchParkingSpots}
-
-This function, represented in figure \ref{fig:search}, is used to process the image captured by the camera and detect parking spots. This is done using the algorithm defined previously in the section \ref{section:imageProc}, and starts by converting the frame to a grey scale image, apply the canny edge filter to highlight the edges of the image captured. After having the edges, one can select only the vertical and horizontal straight lines and intersect them, storing the intersection points, that are the parking spot coordinates.
-
-\begin{figure}[H]
-	\centering			
-	\includegraphics[width=.5\textwidth]{09sw_specification/searchParkingSpots}
-	\caption{Function to process image and detect parking spots.}
-	\label{fig:search}
-\end{figure}
-
-
-\myparagraph{tRecvSensors}
-
-This task, presented in figure \ref{fig:flow_trecv_sensors}, is responsible for receiving messages sent by the sensors daemon, through a message queue.
-
-When the message queue is not empty, this task reads a message from the message queue and parses it, in order to find out which sensor was triggered and what action this system should take. For that, a list of commands may be defined:
+The constants used in the local system are listed below.
 \begin{itemize}
-%	\item Lamp Max: the lamp brightness must be at its maximum (PWM=100);
-	\item Lamp Min: the lamp must be at minimum bright level (PWM = \textit{MIN\_BRIGHT\_PWM});
-	\item Lamp OFF: the lamp must be OFF (PWM=0);
-	\item Lamp Fail: the lamp must be OFF, since there was a failure detected on the lamp.
+	\item \verb|LS_ADDR|: defines the local system address, relevant to the communications module, CLoraComm;
+	\item \verb|GATEWAY_ADDR|: defines the gateway address, relevant to CLoraComm;\\
+	
+	\item \verb|MSGQ_NAME|: defines the name of the message queue, \textit{msgqSensors}.
+	\item \verb|MIN_BRIGHT_PWM|: defines the minimum brightness of the lamp;\\
+	
+	\item \verb|TIM_LAMP_ON_SECS|: defines the time from which the lamp stays on, at full brightness, in seconds;	
+	\item \verb|TIM_READ_LDR_SECS|: defines the sampling period for the LDR sensor, in seconds;
+	\item \verb|TIM_CAM_FRAME_SECS|: defines the sampling period for the Camera frame capture, in seconds;
+	\item \verb|TIM_CAM_PROC_SECS|: defines the maximum time expected for the duration of image processing, in seconds;
+	
 \end{itemize}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.4\textwidth]{09sw_specification/trecvsensors}
-	\caption{Main Process Flowchart: tRecvSensors.}
-	\label{fig:flow_trecv_sensors}
-\end{figure}
+\myparagraph{Commands}
 
-%**********************************************************
-\clearpage
-%\myparagraph{Class Lamp Constructor and Destroyer}
-%
-%This functions, presented in figure \ref{fig:flow_lampconstruct}, are responsible for initializing and destroying a Lamp object. First, in the constructor, which is the left side function, the PWM peripheral is initialized, then the mutex that is used to protect the change of PWM is also initialized. On the destroyer side, the opposite is done, by the terminating the PWM generation.
-%
-%\begin{figure}[H]
-%	\centering	
-%	\includegraphics[width=.7\textwidth]{09sw_specification/lampconstruct}
-%	\caption{Class Lamp Flowchart: Constructor and Destroyer.}
-%	\label{fig:flow_lampconstruct}
-%\end{figure}
+The commands used for the communication between the daemon \textit{dSensors} and the main process are listed below.
 
-\myparagraph{setBrightness}
+\begin{itemize}
+	\item \verb|ON|: Set the lamp brightness to its maximum (\verb|PWM=100|);
+	\item \verb|MIN|: Set the lamp brightness to its minimum (\verb|PWM=MIN_BRIGHT_PWM|);
+	\item \verb|OFF|: Turn off the lamp (\verb|PWM=0|);
+	\item \verb|FAIL|: Turn off the lamp (\verb|PWM=0|);
+\end{itemize}
 
-This function, presented in figure \ref{fig:flow_setbrightness}, is responsible for changing the PWM associated with the lamp, which is directly related to its brightness. Through \textit{setPWM(lux)} one can change the current lamp PWM to \textit{lux} value, being this an integer between 0 to 100. When the PWM is maximum, a timer is started that defines how much time the lamp is ON, \textit{LAMP\_ON\_TIMEOUT} in seconds, if there isn't another call of this function.
-
-\begin{figure}[H]
-	\centering	
-	\includegraphics[width=.6\textwidth]{09sw_specification/lampsetbrightness}
-	\caption{Class Lamp Flowchart: setBrightness.}
-	\label{fig:flow_setbrightness}
-\end{figure}
+The commands used for the communication between the local system and the remote system are listed below.
+\begin{itemize}
+	\item \verb|LAMP ON|: Lamp is at full brightness;
+	\item \verb|LAMP MIN|: Lamp is at minimum brightness;
+	\item \verb|LAMP OFF|: Lamp is off;
+	\item \verb|LAMP FAIL|: Lamp is broken (failure detected);
+	\item \verb|PARK <num>|: Parking has now \verb|<num>| available parking spots.
+	
+	\item \verb|ID <local_addr>|: Identify local system to the rest of the network, presenting its local address;
+	
+	\item \verb|CRQ <local_addr>|: Connection request to the gateway;	
+\end{itemize}
 
 
 %**********************************************************
 \clearpage
-\myparagraph{tLoraRecv}
+\subsection{Start-Up Process}
 
-This task is responsible for receiving messages from the gateway, using LoRa communication.
+\myparagraph{Main Process}
 
-When a message is received, using \textit{LoraComm.recv()}, this is parsed and later, the respective command will be executed.
-
-The flowchart for this task is presented in figure \ref{fig:LStLoraRecv}
-
-\begin{figure}[H]
-	\centering		\includegraphics[width=.55\textwidth]{09sw_specification/LStLoraRecv}
-	\caption{Class Communication Flowchart: tLoraRecv.}
-	\label{fig:LStLoraRecv}
-\end{figure}
-
-% FLOWCHARTS SENSORS
-
-\myparagraph{PirIsr}
-The PIR sensor uses the GPIO of the Raspberry Pi in order to inform the system if there's movement in the surrounding area. In the afirmative case, it puts the high digital value on its output, and this can be used to generate an interrupt service routine, triggered on the rising edge of the output signal of the sensor. When this routine is executed, it locks the mutex \textit{mutChangePWM} and assign the \textit{PWM\_val} its maximum value, 100 \%, unlocking the mutex. Now, one needs to send the PWM value to the remote system through the LoRa communications, in order to be updated in the remote system. In the figure \ref{fig:pir_isr}, is represented the flowchart of the PirIsr function.
+The start-up for the main process is shown in figure \ref{fig:mainprocess}. Firstly, a \textit{CLocalSystem} object is created, initializing all objects, that will be detailed later. After that, \textit{run()} method from \textit{CLocalSystem} is used, which will wait for the termination of all tasks.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.4\textwidth]{09sw_specification/pir_isr}
-	\caption{PirIsr flowchart.}
-	\label{fig:pir_isr}
+	\includegraphics[width=.3\textwidth]{09sw_specification/LS/mainprocess}
+	\caption{Start-Up Process: Main Process.}
+	\label{fig:mainprocess}
 \end{figure}
 
-\myparagraph{LdrIsr}
-The ambient light sensor, LDR, is used to determine when is time to turn on the lights, that is, when is night time and interfaces with the Raspberry Pi through I2C protocol communication. As the sun set or the sun rise is a relatively long time process, there's no need to keep checking the sensor output value all the time, so one can define a period to get the sensor value, \textit{LDR\_TIM}, that can be 10 minutes. In figure \ref{fig:ldr_isr} is shown the LDR sensor interrupt service routine, triggered by the timer overflow. When the timer period elapses, the illuminance value is calculated by the sensor. If this value is lower than the threshold value defined as good luminosity illuminance, GOOD\_LIGHT\_LUX, then the auxiliary variable, \textit{lightCon} is setted to high. In the next step, if the \textit{oldLightCon} variable (stores the last ambient light condition) is not equal to the auxiliary variable, then it is needed to change the \textit{oldLightCon} variable and send message to the process that controls the lamp PWM, through message queue. 
+\clearpage
+\myparagraph{dSensors}
+
+The start-up for the daemon is shown in figure \ref{fig:dsensors}. Firstly, the process becomes a daemon, being that represented by \textit{daemonize()}. After that, a message queue is opened in order to communicate with the main process. Then, it will wait until it receives a message in the message queue, that will be the main process PID. After this setups, a \textit{CSensors} object is created, and the \textit{run()} method is used, working similarly to the one presented in the main process start-up process.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.7\textwidth]{09sw_specification/ldr_isr}
-	\caption{LdrIsr flowchart.}
-	\label{fig:ldr_isr}
-\end{figure}
-
-\myparagraph{FailureDetectIsr}
-In figure \ref{fig:fail_isr} is represented the FailureDetectIsr flowchart. Similarly to the PIR sensor, this routine is triggered on the rising edge of the output signal of the sensor. When the Failure detector detects that the lamp is broken, it puts the high digital value in its output, triggering this function. In this routine, the PWM is setted to 0 \% and are sent two messages through message queue: one to inform the process, that controls the lamp, to change the PWM value in the channel; and the other to notify the remote system that the lamp is broken, in order to update this status on the database.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/fail_isr}
-	\caption{FailureDetectIsr flowchart.}
-	\label{fig:fail_isr}
+	\includegraphics[width=.55\textwidth]{09sw_specification/LS/dsensors}
+	\caption{Start-Up Process: dSensors.}
+	\label{fig:dsensors}
 \end{figure}
 
 %**********************************************************
-\subsection{Start-up Process}
-In figure \ref{fig:bootLS} is shown the start-up process for the local system. When booting up, the local system creates all necessary objects, as presented previously, and initializes them, as well as threads \textit{tLoraRecv} and \textit{tRecvSensors}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.30\textwidth]{09sw_specification/bootLS}
-	\caption{Start-Up Process: Local System.}
-	\label{fig:bootLS}
-\end{figure}
-
-%%**********************************************************
-%\subsection{Shutdown Process}
+\clearpage
+\subsection{Flowcharts}
+\input{./texts/sw_local_system_flowcharts}
 
 %**********************************************************
 \clearpage
@@ -417,3 +395,65 @@ To configure a pin as output or input, or to set or reset its value, the registe
 The \textit{GPFSELx} register is used to define the operation of the GPIO pins, input or output. The \textit{GPFSETx} / \textit{GPFCLRx} are registers used to set or clear pins, respectively. Each register \textit{GPFSELx} contains 10 GPIOs.
 
 As defined in the Hardware Specification section, PIR sensor will have its output connected to the pin 27 of the Raspberry Pi, as the Lamp Failure Detector will have its output connected to the pin 22. Therefore, the register to define both pins as input is \textit{GPFSEL2}.
+
+%**********************************************************
+\clearpage
+\subsection{Test Cases}
+It is important to know how the local system works, and how it will behave upon certain events. In table \ref{table:test_localsystem} are shown test cases to this system.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{4cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			\multicolumn{3}{c}{\textbf{LoRa Communications}}\\\hline
+			Establish connection with the gateway & Connection established & - 
+			\\\hline
+			Send a command to the gateway & Command sent & -
+			\\\hline
+			Receive commands & Command received & -
+			\\\hline
+			Process commands & Execute command if valid & -
+			\\\hline
+			
+			\multicolumn{3}{c}{\textbf{Lamp PWM Control}}\\\hline
+			Set PWM=100 & Lamp at maximum bright & -
+			\\\hline
+			Set PWM=0 & Lamp off & -
+			\\\hline
+			Change PWM signal & Variable lamp brightness & -
+			\\\hline
+			
+			\multicolumn{3}{c}{\textbf{Sensors}}\\\hline
+			Motion detected & Lamp at maximum bright & -
+			\\\hline
+			Lamp at maximum bright & Lamp ON for a defined period of time & -
+			\\\hline
+			LDR detect nighttime & Lamp at minimum bright & -
+			\\\hline
+			LDR detect daytime & Lamp OFF & -
+			\\\hline
+			Motion/LDR detection & Send correct commands to remote system & -
+			\\\hline
+			Lamp Failure Detected & Sent correct command to remote system & -
+			\\\hline
+			
+			\multicolumn{3}{c}{\textbf{Camera}}\\\hline
+			Open camera device & Device opened correctly & -
+			\\\hline
+			Capture camera image & Variable containing image & -
+			\\\hline
+			Get parking outline & Obtain parking coordinates from the image & -
+			\\\hline
+			Car detection & Car detected inside parking outline & -
+			\\\hline
+			Parking detection & Get number of available parks & -
+			\\\hline
+		\end{tabular}
+	}
+	\caption{Test Cases: Local System.}
+	\label{table:test_localsystem}
+\end{table}

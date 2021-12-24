@@ -1,0 +1,127 @@
+<mxfile host="app.diagrams.net" modified="2021-12-22T22:11:27.702Z" agent="5.0 (X11)" etag="CqZAx6te6zwnztgjT3ZZ" version="16.0.3" type="github" pages="4">
+  <diagram id="0Qj54k83hNj_kc8LzFBX" name="CTCPServer">
+    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zsRkqQEAMAGvTEn3FZOO-1" value="CTCPServer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
+          <mxGeometry x="279" y="40" width="270" height="160" as="geometry">
+            <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zsRkqQEAMAGvTEn3FZOO-2" value="- addr* : &lt;sockaddr_in&gt;&#xa;- listenSd : int&#xa;- maxClients : const int&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="zsRkqQEAMAGvTEn3FZOO-1">
+          <mxGeometry y="26" width="270" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="zsRkqQEAMAGvTEn3FZOO-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="zsRkqQEAMAGvTEn3FZOO-1">
+          <mxGeometry y="80" width="270" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="zsRkqQEAMAGvTEn3FZOO-4" value="+ TCPServer(IN port : int)&#xa;+ ~TCPServer(void)&#xa;&#xa;+ accept(void) int " style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="zsRkqQEAMAGvTEn3FZOO-1">
+          <mxGeometry y="88" width="270" height="72" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="CRemoteSystem" id="HgtfMDZLALwCtsqHW4B6">
+    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="Un9b4DqEUuefiUXl4rw1-0" />
+        <mxCell id="Un9b4DqEUuefiUXl4rw1-1" parent="Un9b4DqEUuefiUXl4rw1-0" />
+        <mxCell id="Un9b4DqEUuefiUXl4rw1-6" value="CRemoteSystem" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="Un9b4DqEUuefiUXl4rw1-1">
+          <mxGeometry x="290" y="40" width="270" height="170" as="geometry">
+            <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Un9b4DqEUuefiUXl4rw1-7" value="- clientList: vector&lt;CClient*&gt;&#xa;- server : CTCPServer&#xa;- db : CDataBase" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="Un9b4DqEUuefiUXl4rw1-6">
+          <mxGeometry y="26" width="270" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="Un9b4DqEUuefiUXl4rw1-8" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="Un9b4DqEUuefiUXl4rw1-6">
+          <mxGeometry y="80" width="270" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Un9b4DqEUuefiUXl4rw1-9" value="+ RemoteSystem(void)&#xa;+ ~RemoteSystem(void)&#xa;&#xa;+ run(void) void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="Un9b4DqEUuefiUXl4rw1-6">
+          <mxGeometry y="88" width="270" height="82" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="4DSGlReCEK_uSti7E2zH" name="CClient">
+    <mxGraphModel dx="1185" dy="1830" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-0" />
+        <mxCell id="yqz21InF7U_xKhAMBYtE-1" parent="yqz21InF7U_xKhAMBYtE-0" />
+        <mxCell id="yqz21InF7U_xKhAMBYtE-6" value="&lt;p style=&quot;margin: 4px 0px 0px ; text-align: center&quot;&gt;&lt;b&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px ; text-align: center&quot;&gt;&lt;b&gt;cliType&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;GATEWAY&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;WEBSITE&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;APPLICATION&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="yqz21InF7U_xKhAMBYtE-1" vertex="1">
+          <mxGeometry x="109.5" y="220" width="111" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-7" value="&lt;p style=&quot;margin: 4px 0px 0px ; text-align: center&quot;&gt;&lt;b&gt;&amp;lt;&amp;lt;struct&amp;gt;&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px ; text-align: center&quot;&gt;client_socket_info_t&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;state: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;span class=&quot;pl-c1&quot;&gt;index&lt;/span&gt;: int&lt;/p&gt;&lt;div&gt;&amp;nbsp; name: string&lt;/div&gt;&lt;div&gt;&amp;nbsp; sockFd:int&lt;/div&gt;&lt;div&gt;&amp;nbsp; type : enum &amp;lt;cliType&amp;gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="yqz21InF7U_xKhAMBYtE-1" vertex="1">
+          <mxGeometry x="100" y="40" width="130" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-8" value="" style="endArrow=open;startArrow=circlePlus;endFill=0;startFill=0;endSize=8;html=1;rounded=1;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;edgeStyle=orthogonalEdgeStyle;" parent="yqz21InF7U_xKhAMBYtE-1" source="yqz21InF7U_xKhAMBYtE-7" target="yqz21InF7U_xKhAMBYtE-6" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="175.0400000000002" y="-110" as="sourcePoint" />
+            <mxPoint x="175" y="70" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="159" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yqz21InF7U_xKhAMBYtE-9" value="" style="endArrow=open;startArrow=circlePlus;endFill=0;startFill=0;endSize=8;html=1;rounded=1;sketch=0;fontColor=#143642;strokeColor=#A8201A;fillColor=#FAE5C7;edgeStyle=orthogonalEdgeStyle;" parent="yqz21InF7U_xKhAMBYtE-1" source="zaDcuLvfL-LyApLCnj-s-3" target="yqz21InF7U_xKhAMBYtE-7" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="499" y="320" as="sourcePoint" />
+            <mxPoint x="374" y="500" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="320" y="110" />
+              <mxPoint x="320" y="110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zaDcuLvfL-LyApLCnj-s-0" value="CClient" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="yqz21InF7U_xKhAMBYtE-1">
+          <mxGeometry x="349" y="-40" width="300" height="360" as="geometry">
+            <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zaDcuLvfL-LyApLCnj-s-1" value="- cmdList: vector&lt;cliCmd*&gt;&#xa;- clientSock : &lt;client_socket_info_t&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="zaDcuLvfL-LyApLCnj-s-0">
+          <mxGeometry y="26" width="300" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="zaDcuLvfL-LyApLCnj-s-2" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="zaDcuLvfL-LyApLCnj-s-0">
+          <mxGeometry y="80" width="300" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="zaDcuLvfL-LyApLCnj-s-3" value="+ Client(IN client_sock : &lt;client_socket_info_t&gt;)&#xa;+ ~Client(void)&#xa;&#xa;+ initThFun(IN recvPrio: int, sendPrio: int) void&#xa;+ runThFun(void) void&#xa;# tRecv(void*) void&#xa; # recvFunc(void) string&#xa;# sendFunc(IN msg : string) int&#xa;&#xa;- executeCmd(IN: cmd : string) string&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" vertex="1" parent="zaDcuLvfL-LyApLCnj-s-0">
+          <mxGeometry y="88" width="300" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="zaDcuLvfL-LyApLCnj-s-4" value="&lt;div&gt;&lt;font color=&quot;#666666&quot;&gt;^+ getStatus(void) ConnStatus const&lt;br&gt;^+ init(IN int tprio) void&lt;br&gt;^+ run(void) void&lt;br&gt;^+ push(IN msg : string) int&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#666666&quot;&gt;^+ recv(void) string&lt;br&gt;^+ send(IN msg: string) void&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#666666&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div align=&quot;left&quot;&gt;&lt;font color=&quot;#666666&quot;&gt;^# tSend(void*) void&lt;/font&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;" vertex="1" parent="zaDcuLvfL-LyApLCnj-s-0">
+          <mxGeometry y="240" width="300" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="zaDcuLvfL-LyApLCnj-s-5" value="CCommunication" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;fontStyle=1" vertex="1" parent="yqz21InF7U_xKhAMBYtE-1">
+          <mxGeometry x="54" y="-40" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="zaDcuLvfL-LyApLCnj-s-6" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeColor=#9C1E18;" edge="1" parent="yqz21InF7U_xKhAMBYtE-1" target="zaDcuLvfL-LyApLCnj-s-5">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="350" y="-25" as="sourcePoint" />
+            <mxPoint x="349" y="55" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="HAcon3-RpeG4d-lodBSY" name="CDatabase">
+    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="hQ0141blqfC8cqL4AOc6-0" />
+        <mxCell id="hQ0141blqfC8cqL4AOc6-1" parent="hQ0141blqfC8cqL4AOc6-0" />
+        <mxCell id="FBUPuvvFw0KPAoPgKz-4-0" value="CDataBase" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="hQ0141blqfC8cqL4AOc6-1" vertex="1">
+          <mxGeometry x="304" y="80" width="310" height="180" as="geometry">
+            <mxRectangle x="240" y="280" width="60" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FBUPuvvFw0KPAoPgKz-4-1" value="db : MYSQL*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="FBUPuvvFw0KPAoPgKz-4-0" vertex="1">
+          <mxGeometry y="26" width="310" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="FBUPuvvFw0KPAoPgKz-4-2" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;labelBackgroundColor=#DAD2D8;strokeColor=#0F8B8D;fontColor=#143642;" parent="FBUPuvvFw0KPAoPgKz-4-0" vertex="1">
+          <mxGeometry y="60" width="310" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="FBUPuvvFw0KPAoPgKz-4-3" value="+ DataBase(void)&#xa;+ ~DataBase(void)&#xa;&#xa;+ open(void) void&#xa;+ close(void) void&#xa;+ execute(IN: sqlQuery : string, outMessage: string ): int&#xa;+ prepareQuery(message: string) string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#143642;" parent="FBUPuvvFw0KPAoPgKz-4-0" vertex="1">
+          <mxGeometry y="68" width="310" height="112" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

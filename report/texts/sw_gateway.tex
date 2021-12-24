@@ -1,31 +1,58 @@
-%**********************************************************
-\subsection{Task Overview}
-One can define and describe briefly how the gateway is implemented, making use of threads and processes.
-
-\begin{itemize}
-	\item \textbf{tLoraRecv: } receives all messages from local systems, using LoRa communication;
-	\item \textbf{tTCPRecv: } receives all messages from the remote server, using TCP-IP communication;	
-	\item \textbf{LoraComm::tSend: } sends all received messages from the remote server, in textit{tTCPRecv}, to the local systems, using LoRa communication; private method of the LoraComm class;
-	\item \textbf{TCPclient::tSend: } sends all received messages from local systems, in \textit{tLoraRecv}, to the remote server, using TCP-IP communication; private method of the TCPclient class.
-\end{itemize}
-
-One can define the relationship between the tasks as follows, in figure \ref{fig:GwOverview}. To communicate the local system received messages and the remote server sender service its used a vector of messages, named \textit{msgs\_to\_rs}. In the communication between the remote server received messages and the local system sender service its also used a vector of messages, named \textit{msgs\_to\_ls}.
+One can define the relationship between the tasks as follows, in figure \ref{fig:GwOverview}. The rule of the gateway is to receive LoRa messages, from the Local Systems (LS), and send the content in TCP-IP messages, to the remote server (RS), or vice versa.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{09sw_specification/GwOverview}
+	\includegraphics[width=.9\textwidth]{09sw_specification/Gateway/overview}
 	\caption{Gateway Overview.}
 	\label{fig:GwOverview}
 \end{figure}
 
 %**********************************************************
+\subsection{Class Diagrams}
+In figure \ref{fig:GwclassDiag} is represented the class \textit{CGateway}, which is the main class of the system, responsible for initializing the objects of each class listed below.
+
+\begin{itemize}
+	\item \textbf{CLoraComm:} manages the LoRa communications with the local systems, interfacing with the LoRa module; this class was already detailed previously;
+	
+	\item \textbf{CTCPclient:} manages the TCP-IP communication with the remote server;
+\end{itemize}
+
+\begin{figure}[H]
+	\centering	\includegraphics[width=.6\textwidth]{09sw_specification/Gateway/cgateway/class}
+	\caption{CGateway Class Diagram.}
+	\label{fig:GwclassDiag}
+\end{figure}
+
+\myparagraph{Class CTCPclient}
+
+In figure \ref{fig:TCPclientClass} is shown the CTCPclient class. This class defines a TCPclient capable of establishing a connection to a given remote server and to exchange messages to it, via TCP-IP. Like in the CLoraComm class, this class inherits from the class CCommunication.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.4\textwidth]{09sw_specification/Gateway/ctcpclient/class}
+	\caption{Class Diagram: TCPclient.}
+	\label{fig:TCPclientClass}
+\end{figure}
+
+%**********************************************************
 \clearpage
+\subsection{Task Overview}
+One can define and describe briefly how the gateway is implemented, making use of threads and processes.
+
+\begin{itemize}
+	\item \textbf{CGateway::tLoraRecv:} receives all messages from local systems, using LoRa communication;
+	\item \textbf{CGateway::tTCPRecv:} receives all messages from the remote server, using TCP-IP communication;	
+	\item \textbf{CLoraComm::tSend:} sends all received messages from the remote server, in \textit{tTCPRecv}, to the local systems, using LoRa communication; 
+	\item \textbf{CTCPclient::tSend:} sends all received messages from local systems, in \textit{tLoraRecv}, to the remote server, using TCP-IP communication;
+\end{itemize}
+
+%**********************************************************
 \subsection{Task Priority}
 The priority assignment diagram for the gateway is represented in figure \ref{fig:gwt_priority}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{09sw_specification/GwPriority}
+	\includegraphics[width=0.6\textwidth]{09sw_specification/Gateway/priority}
 	\caption{Gateway Priority Assignment Schematic.}
 	\label{fig:gwt_priority}
 \end{figure}
@@ -34,165 +61,158 @@ The priority assignment diagram for the gateway is represented in figure \ref{fi
 \subsection{Task Synchronization}
 
 \myparagraph{Condition Variables}
+
 The condition variables used in this system are listed below.
 
 \begin{itemize}
-	\item \textbf{LoraComm::condSend:} used to notify \textit{tLoraSend} that a new message is ready to be sent; private member of class LoraComm;
-	\item \textbf{TCPclient::condSend:} used to notify \textit{tTCPSend} that a new message is ready to be sent; private member of class TCPclient.
+	\item \textbf{CCommunication::condSend:} already detailed in the local system section; this condition variable is used indirectly by \textit{CTCPclient} and \textit{CLoraComm}.
 \end{itemize}
 
 \myparagraph{Mutexes}
-The mutexes used in this system are listed bellow, which are all private members of LoraComm and TCPclient classes.
+
+The mutexes used in this system are listed below.
 
 \begin{itemize}
-	\item \textbf{LoraComm::mutComm:} used to protect the LoRa communications (send and receive);
-	\item \textbf{LoraComm::mutSend:}	used to protect the handling of the vector \textit{msgs\_to\_ls};
-	
-	\item \textbf{TCPclient::mutComm:} used to protect the TCP/IP communications (send and receive);
-	\item \textbf{TCPclient::mutSend:} used to protect the handling of the vector \textit{msgs\_to\_rs}.
+	\item \textbf{CCommunication::mutComms} and \textbf{CCommunication::mutTxMsgs:} already detailed in the local system section; this mutexes are used indirectly by \textit{CTCPclient} and \textit{CLoraComm}.
 \end{itemize}
 
-%\subsection{Task Communication}
-%In order to communicate all messages between the LoRa related tasks and the TCP related tasks are used two vectors of strings, \textit{msgs\_to\_rs} and \textit{msgs\_to\_ls}. This belongs to the container library \textit{std::vector} from C++ libraries, which implements a dynamic contiguous array. The storage of the vector is handled automatically being expanded and contracted as needed. This provides functions like \textit{push\_back()}, \textit{insert()} or \textit{pop\_back()} which allows to insert or remove new elements as needed.
+\myparagraph{Semaphores}
 
-%**********************************************************
-\subsection{Class Diagrams}
-In figure \ref{fig:GwclassDiag} is represented the class diagram of gateway. The class \textit{CGateway} is the main class of the system that initializes the objects of each class listed below.
+A semaphore is another tool of task synchronization, implemented as a variable or abstract data type. A semaphore can be seen as a record of how many units of a particular resource are available. Semaphores which allow an arbitrary resource count are called counting semaphores, while semaphores which are restricted to the values 0 and 1 (or locked/unlocked) are called binary semaphores.
 
+The semaphores used in this system are listed below.
 \begin{itemize}
-	\item \textbf{CLoraComm:} manages the LoRa communications, interfacing with the LoRa module;
-	
-	\item \textbf{CTCPclient:} manages the TCP-IP communication with the remote server;
+	\item \textbf{semConnReq}: used to signalize the \textit{run} method to create a new CLoraComm object, providing a new LoRa connection with a local system.
 \end{itemize}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.8\textwidth]{09sw_specification/GwClassDiagram}
-	\caption{Gateway Class Diagram.}
-	\label{fig:GwclassDiag}
-\end{figure}
-
-\myparagraph{Class CTCPclient}
-
-In figure \ref{fig:TCPclient} is shown the TCPclient class. This class defines a TCPclient capable of establishing a connection to a given remote server and to exchange messages to it, via TCP-IP. Like in the LoraComm class, which is very similar to this, its used a vector of strings, \textit{tx\_msgs} to store messages, providing a waiting list of messages to be sent.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/TCPclientClass}
-	\caption{Class Diagram: TCPclient.}
-	\label{fig:TCPclientClass}
-\end{figure}
-
-A TCPclient can be created through the use of the constructor, shown in figure \ref{fig:TCPclient}. This connects to a given server, defined by the string \textit{host}, and to the port \textit{port}, via TCP-IP and initializes all the private members.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.8\textwidth]{09sw_specification/TCPclient}
-	\caption{Class Diagram: TCPclient construtor.}
-	\label{fig:TCPclient}
-\end{figure}
-
-A message can be put in the waiting list to be sent through the use of \textit{TCPclient.push(msg)}, as shown in figure \ref{fig:TCPclientPush}. As in the LoraComm class, this function is responsible for adding a message to the \textit{tx\_msgs} vector and signal the condition variable \textit{condSend} for the task \textit{tSend} to send the message.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/TCPclientPush}
-	\caption{Class Diagram: TCPclient Push method.}
-	\label{fig:TCPclientPush}
-\end{figure}
-
-In order to send a message, this class has a built-in thread, \textit{tSend} that is created through the use of \textit{TCPclient.run()}, as shown in figure \ref{fig:TCPclientRun}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/TCPclientRun}
-	\caption{Class Diagram: TCPclient Run method.}
-	\label{fig:TCPclientRun}
-\end{figure}
-
-To send a message to the server, the thread \textit{tSend}, works similarly to \textit{LoraComm::tSend}, apart from the function used to send the message to the destination, that in this case is the \textit{send()} function, for TCP-IP. The flowchart for this method is presented in figure \ref{fig:TCPclientSend}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.8\textwidth]{09sw_specification/TCPclientSend}
-	\caption{Class Diagram: TCPclient tSend thread.}
-	\label{fig:TCPclientSend}
-\end{figure}
-
-To receive a message from the server, in a non blocking mode, there is the method \textit{recv()}, presented in figure \ref{fig:TCPclientRecv}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/TCPclientRecv}
-	\caption{Class Diagram: TCPclient Recv method.}
-	\label{fig:TCPclientRecv}
-\end{figure}
-
-%**********************************************************
-\subsection{Flowcharts}
-Each local system has a predefined ID, which may be presented in a physical label for an operator to use this information. When a local system is being installed, it will use it's predefined ID in all communications with the remote server until the operator registers the local system that's being installed, in the remote server. By doing this, the remote server assigns a new ID to the local system, which is then sent to the local system, for this to be used in further communications.
-
-\myparagraph{tLoraRecv}
-
-This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication, using \textit{LoraComm.recv()} function, that was already detailed.
-
-When a message is received it is pushed into the TCP client list of queue messages, waiting to be sent to the remote server.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/gwtLoraRecv}
-	\caption{Flowchart: Gateway tLoraRecv.}
-	\label{fig:gwtLoraRecv}
-\end{figure}
-
-%\myparagraph{tLoraSend}
-%
-%This task, presented in figure \ref{fig:gwtLoraSend}, is responsible for sending all the packets sent by the remote system to the local systems. In addiction to the mutex \textit{mutLoraComm}, this task makes use of another mutex \textit{mutLoraSend}, which comes along with the condition variable \textit{condLoraSend}, in order to protect the insertion and removal of messages from the vector \textit{msgs\_to\_ls}.
-%
-%When there are no messages to send to the local systems, i.e, the messages vector \textit{msgs\_to\_ls} is empty, then the task enters a sleep state, waiting for \textit{condLoraSend} to be notified. When this happens, the mutex that protects LoRa communication is locked and a message is popped from the queue of messages to being sent to the local systems. If the vector \textit{msgs\_to\_ls} is not empty after sending a message, this task continues to do so until there are no more to send, before entering into sleep state again.
-
-%\begin{figure}[H]
-%	\centering
-%		\includegraphics[width=.8\textwidth]{09sw_specification/gwtLoraSend}
-%	\caption{Flowchart: Gateway tLoraSend.}
-%	\label{fig:gwtLoraSend}
-%\end{figure}
-
-%\clearpage
-%\myparagraph{tTCPSend}
-%
-%This task, presented in figure \ref{fig:gwtTCPSend}, is responsible for sending all the messages sent by the local systems to the remote system, being received by in the task \textit{tLoraRecv}. It uses two mutexes: \textit{mutTCPSend} associated with the condition variable \textit{condTCPSend}, that synchronizes the insertion and removal of the messages from the vector \textit{msgs\_to\_rs}; and \textit{mutTCPComm}, to protect the communications send and receive.
-%
-%When there are no messages to send to the remote system, i.e, the messages vector \textit{msgs\_to\_rs} is empty, the task enters a sleep state, waiting for \textit{condTCPSend} to be notified by the task receiving messages from the local systems. When messages are received, the vector \textit{msgs\_to\_rs} is not empty, and one can lock the mutex \textit{mutTCPSend} in order to pop a message from the vector. After that, one can send the message via TCP/IP communication protocol, protecting the communication with the mutex \textit{mutTCPComm}.
-%
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=.52\textwidth]{09sw_specification/gwtTCPSend}
-%	\caption{Flowchart: Gateway tTCPSend.}
-%	\label{fig:gwtTCPSend}
-%\end{figure}
-
-\myparagraph{tTCPRecv}
-This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receiving the messages sent by the remote system to the local systems. Unlike the \textit{tsend} tasks, this thread never enters the sleep state because we can receive a message at any moment. If it is received a message, then one can push the message to the messages vector in LoraComm, signaling its thread to send the message, via LoRa communication
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.5\textwidth]{09sw_specification/GwtTCPRecv}
-	\caption{Flowchart: Gateway tTCPRecv.}
-	\label{fig:gwtTCPRecv}
-\end{figure}
-
 %%**********************************************************
-\clearpage
 \subsection{Start-up Process}
-In figure \ref{fig:bootGateway} is shown the start-up process for the gateway. When booting up, the gateway creates the TCPclient and the LoraComm objects, initializing the peripherals needed for the gateway to communicate with the local systems and the remote server. After this the threads are created and both objects begin running their threads for receiving messages.
+In figure \ref{fig:bootGateway} is shown the start-up process for the gateway. When booting up, the gateway creates a CGateway object, initializing all needed members, and after that, runs until all the threads termination.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=.3\textwidth]{09sw_specification/bootGw}
+	\centering		\includegraphics[width=.3\textwidth]{09sw_specification/Gateway/mainprocess}
 	\caption{Start-Up Process: Gateway.}
 	\label{fig:bootGateway}
 \end{figure}
 
-%%**********************************************************
-%\subsection{Shutdown Process}
+%**********************************************************
+\clearpage
+\subsection{Flowcharts}
+%Each local system has a predefined ID, which may be presented in a physical label for an operator to use this information. When a local system is being installed, it will use it's predefined ID in all communications with the remote server until the operator registers the local system that's being installed, in the remote server. By doing this, the remote server assigns a new ID to the local system, which is then sent to the local system, for this to be used in further communications.
+
+%*****************************
+\myparagraph{CGateway Methods}
+
+In figure \ref{fig:gwtCGatewayconstructor} is shown the \textit{CGateway} class constructor. With this, one can create a CTCPclient and a CLoraComm objects, named \textit{gat}, which will be the one responsible for receiving all the packets from the local systems. After this the threads are created and both objects begin running their threads for receiving and sending messages.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.3\textwidth]{09sw_specification/Gateway/cgateway/constructor}
+	\caption{Flowchart: CGateway constructor.}
+	\label{fig:gwtCGatewayconstructor}
+\end{figure}
+
+\clearpage
+In figure \ref{fig:gwtrun} is presented the \textit{run} method from \textit{CGateway} class. This is responsible for creating a new CLoraComm object for each new LoRa connection with a local system, being that controlled by the semaphore \textit{semConnReq}. After that, the newly created object is added to the list of local systems already connected, \textit{localSysList}.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/Gateway/cgateway/run}
+	\caption{Flowchart: CGateway Run method.}
+	\label{fig:gwtrun}
+\end{figure}
+
+\clearpage
+This task, presented in figure \ref{fig:gwtLoraRecv}, is responsible for receiving all the packets sent by the local systems, through LoRa communication. When a message is received, the gateway determines if it is a new connection request from a local system. If so, the message is added to the \textit{connReqList} and the semaphore \textit{semConnReq} is signalized in order for the \textit{run} method to create a new object CLoraComm regarding the new connected local system. After this, the message is pushed into the TCP client list of queued messages, waiting to be sent to the remote server.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/Gateway/cgateway/tlorarecv}
+	\caption{Flowchart: CGateway tLoraRecv method.}
+	\label{fig:gwtLoraRecv}
+\end{figure}
+
+\clearpage
+This task, presented in figure \ref{fig:gwtTCPRecv}, is responsible for receiving the messages sent by the remote system to the local systems. Unlike the \textit{tsend} tasks, this thread never enters the sleep state because one can receive a message at any moment. If it is received a message, then one can parse it, obtaining the correct destination local system object and the command to send, pushing it to the messages queue in CLoraComm, signaling its thread to send the message, via LoRa communication.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.5\textwidth]{09sw_specification/Gateway/cgateway/ttcprecv}
+	\caption{Flowchart: CGateway tTCPRecv method.}
+	\label{fig:gwtTCPRecv}
+\end{figure}
+
+%*****************************
+\clearpage
+\myparagraph{CTCPclient Methods}
+
+A TCPclient can be created through the use of the constructor, shown in figure \ref{fig:TCPclientconstructor}. This connects to a given server, defined by the string \textit{host}, and to the port \textit{port}, via TCP-IP and initializes all the private members.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.36\textwidth]{09sw_specification/Gateway/ctcpclient/constructor}
+	\caption{Class Diagram: CTCPclient constructor.}
+	\label{fig:TCPclientconstructor}
+\end{figure}
+
+As in CLoraComm, this class must implement \textit{recvFunc} and \textit{sendFunc}, as they are pure virtual methods from CCommunication. 
+
+In this class, one will use existent functions \textit{TCPReceive} and \textit{TCPSend} to implement TCP-IP communication, as shown in figures \ref{fig:TCPclientrecvfunc} and \ref{fig:TCPclientsendfunc}. This functions make use of the socket created when the TCP-IP connection was established.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.35\textwidth]{09sw_specification/Gateway/ctcpclient/recvfunc}
+	\caption{Flowchart: CTCPclient recvFunc method.}
+	\label{fig:TCPclientrecvfunc}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.35\textwidth]{09sw_specification/Gateway/ctcpclient/sendfunc}
+	\caption{Flowchart: CTCPclient sendFunc method.}
+	\label{fig:TCPclientsendfunc}
+\end{figure}
+
+%**********************************************************
+\clearpage
+\subsection{Test Cases}
+It is important to know how the gateway works, and how it will behave upon certain events. In table \ref{table:test_gateway} are shown test cases to this system.
+
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}
+	\resizebox{\columnwidth}{!}
+	{
+		\begin{tabular}{|m{4cm}|m{5cm}||m{5cm}|}
+			\hline
+			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
+			\\\hline\hline
+			\multicolumn{3}{c}{\textbf{LoRa Communications}}\\\hline
+			Establish connection with LS & Connection established & -
+			\\\hline
+			Receive message from LS & Identify the referent LS & -
+			\\\hline
+			Send message to a specific LS & Only the defined LS receives the message & -
+			\\\hline
+			Send message to a group of LS & All in the group receive the message & - 
+			\\\hline
+			
+			\multicolumn{3}{c}{\textbf{TCP-IP Communications}}\\\hline
+			Establish connection with RS & Connection established & -
+			\\\hline
+			Receive message from RS & Identify destination ID & -
+			\\\hline
+			Send message to the RS & Message sent & -
+			\\\hline
+		\end{tabular}
+	}
+	\begin{tablenotes}
+		\small
+		\item[LS]Local System
+		\item[RS]Remote Server
+	\end{tablenotes}
+	
+\end{threeparttable}	
+	\caption{Test Cases: Gateway.}
+	\label{table:test_gateway}
+\end{table}
