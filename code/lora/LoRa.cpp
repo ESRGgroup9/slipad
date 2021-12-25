@@ -74,13 +74,64 @@
 /**********************************************************
  * GPIO Functions
  * *******************************************************/
+/**
+ * @brief Write a HIGH or a LOW value to a digital pin.
+ * @param pin: pin number.
+ * @param val: HIGH or LOW.
+ * @return none
+ */
 #define digitalWrite(_pin_, _val_)
-#define bitWrite(a,b,c)
+
+/**
+ * @brief Configures the specified pin to behave either as an input or an output.
+ * @param pin: pin number to set the mode of.
+ * @param mode: INPUT, OUTPUT, or INPUT_PULLUP.
+ * @return none
+ */
 #define pinMode(_pin_,_mode_)
 
-#define digitalPinToInterrupt(a,b,c)
-#define attachInterrupt(a,b,c)
-#define detachInterrupt(a)
+/**
+ * @brief Writes a bit of a numeric variable.
+ * @param var: the numeric variable to which to write.
+ * @param bit: which bit of the number to write, starting at 0 for the LSB.
+ * @param val: the value to write to the bit (0 or 1).
+ * @return none
+ */
+#define bitWrite(_var_,_bit_,_val_)
+
+/**
+ * @brief Digital Pins With Interrupts
+ * @param int: the number of the interrupt. Allowed data types: int.
+ * @param isr: the ISR to call when the interrupt occurs;
+ * @param mode: defines when the interrupt should be triggered.
+ *  LOW to trigger the interrupt whenever the pin is low,
+    CHANGE to trigger the interrupt whenever the pin changes value
+    RISING to trigger when the pin goes from low to high,
+    FALLING for when the pin goes from high to low.
+ * @return none
+ *
+ * Recommended usage: attachInterrupt(digitalPinToInterrupt(pin), ISR, mode)
+ * Where, pin: the pin number.
+ */
+#define attachInterrupt(_int_,_isr_,_mode_)
+
+/**
+ * @brief Turns off the given interrupt.
+ * @param int: the number of the interrupt to disable
+ * @return none
+ *
+ * Recommended usage: detachInterrupt(digitalPinToInterrupt(pin)). Where
+ * pin: the pin number of the interrupt to disable
+ */
+#define detachInterrupt(_int_)
+
+
+/**
+ * @brief Translate the actual digital pin to the specific interrupt number.
+ * @param pin: the pin number.
+ * @return the number of the interrupt.
+ */
+#define digitalPinToInterrupt(_pin_)
 
 /**********************************************************
  * Functions Implementation
@@ -109,7 +160,8 @@ int LoRaClass::begin(long frequency)
   // set SS high
   digitalWrite(_ss, HIGH);
 
-  if (_reset != -1) {
+  if (_reset != -1)
+  {
     pinMode(_reset, OUTPUT);
 
     // perform reset
@@ -405,16 +457,16 @@ void LoRaClass::onTxDone(void(*callback)(int))
 
 void LoRaClass::receive(int size)
 {
+  // DIO0 => RXDONE
+  writeRegister(REG_DIO_MAPPING_1, 0x00);
 
-  writeRegister(REG_DIO_MAPPING_1, 0x00); // DIO0 => RXDONE
-
-  if (size > 0) {
+  if (size > 0)
+  {
     implicitHeaderMode();
-
     writeRegister(REG_PAYLOAD_LENGTH, size & 0xff);
-  } else {
-    explicitHeaderMode();
   }
+  else
+    explicitHeaderMode();
 
   writeRegister(REG_OP_MODE, MODE_LONG_RANGE_MODE | MODE_RX_CONTINUOUS);
 }
@@ -431,21 +483,23 @@ void LoRaClass::sleep()
 
 void LoRaClass::setTxPower(int level, int outputPin)
 {
-  if (PA_OUTPUT_RFO_PIN == outputPin) {
+  if (PA_OUTPUT_RFO_PIN == outputPin)
+  {
     // RFO
-    if (level < 0) {
+    if (level < 0)
       level = 0;
-    } else if (level > 14) {
+    else if(level > 14)
       level = 14;
-    }
 
     writeRegister(REG_PA_CONFIG, 0x70 | level);
-  } else {
+  }
+  else 
+  {
     // PA BOOST
-    if (level > 17) {
-      if (level > 20) {
+    if (level > 17)
+    {
+      if (level > 20)
         level = 20;
-      }
 
       // subtract 3 from level, so 18 - 20 maps to 15 - 17
       level -= 3;
@@ -453,10 +507,12 @@ void LoRaClass::setTxPower(int level, int outputPin)
       // High Power +20 dBm Operation (Semtech SX1276/77/78/79 5.4.3.)
       writeRegister(REG_PA_DAC, 0x87);
       setOCP(140);
-    } else {
-      if (level < 2) {
+    }
+    else
+    {
+      if (level < 2) 
         level = 2;
-      }
+
       //Default value PA_HF/LF or +17dBm
       writeRegister(REG_PA_DAC, 0x84);
       setOCP(100);
@@ -484,21 +540,24 @@ int LoRaClass::getSpreadingFactor()
 
 void LoRaClass::setSpreadingFactor(int sf)
 {
-  if (sf < 6) {
+  if (sf < 6)
     sf = 6;
-  } else if (sf > 12) {
+  else if (sf > 12)
     sf = 12;
-  }
 
-  if (sf == 6) {
+  if (sf == 6)
+  {
     writeRegister(REG_DETECTION_OPTIMIZE, 0xc5);
     writeRegister(REG_DETECTION_THRESHOLD, 0x0c);
-  } else {
+  } 
+  else
+  {
     writeRegister(REG_DETECTION_OPTIMIZE, 0xc3);
     writeRegister(REG_DETECTION_THRESHOLD, 0x0a);
   }
 
-  writeRegister(REG_MODEM_CONFIG_2, (readRegister(REG_MODEM_CONFIG_2) & 0x0f) | ((sf << 4) & 0xf0));
+  writeRegister(REG_MODEM_CONFIG_2,
+              (readRegister(REG_MODEM_CONFIG_2) & 0x0f) | ((sf << 4) & 0xf0));
   setLdoFlag();
 }
 
@@ -506,7 +565,8 @@ long LoRaClass::getSignalBandwidth()
 {
   uint8_t bw = (readRegister(REG_MODEM_CONFIG_1) >> 4);
 
-  switch (bw) {
+  switch (bw)
+  {
     case 0: return 7.8E3;
     case 1: return 10.4E3;
     case 2: return 15.6E3;
@@ -635,10 +695,13 @@ void LoRaClass::setGain(uint8_t gain)
   idle();
   
   // set gain
-  if (gain == 0) {
+  if (gain == 0)
+  {
     // if gain = 0, enable AGC
     writeRegister(REG_MODEM_CONFIG_3, 0x04);
-  } else {
+  }
+  else 
+  {
     // disable AGC
     writeRegister(REG_MODEM_CONFIG_3, 0x00);
 	
@@ -703,14 +766,16 @@ void LoRaClass::handleDio0Rise()
   // clear IRQ's
   writeRegister(REG_IRQ_FLAGS, irqFlags);
 
-  if ((irqFlags & IRQ_PAYLOAD_CRC_ERROR_MASK) == 0) {
-
-    if ((irqFlags & IRQ_RX_DONE_MASK) != 0) {
+  if ((irqFlags & IRQ_PAYLOAD_CRC_ERROR_MASK) == 0)
+  {
+    if ((irqFlags & IRQ_RX_DONE_MASK) != 0)
+    {
       // received a packet
       _packetIndex = 0;
 
       // read packet length
-      int packetLength = _implicitHeaderMode ? readRegister(REG_PAYLOAD_LENGTH) : readRegister(REG_RX_NB_BYTES);
+      int packetLength = _implicitHeaderMode ?
+                readRegister(REG_PAYLOAD_LENGTH) : readRegister(REG_RX_NB_BYTES);
 
       // set FIFO address to current RX address
       writeRegister(REG_FIFO_ADDR_PTR, readRegister(REG_FIFO_RX_CURRENT_ADDR));
@@ -719,8 +784,10 @@ void LoRaClass::handleDio0Rise()
         _onReceive(packetLength);
       }
     }
-    else if ((irqFlags & IRQ_TX_DONE_MASK) != 0) {
-      if (_onTxDone) {
+    else if ((irqFlags & IRQ_TX_DONE_MASK) != 0)
+    {
+      if (_onTxDone)
+      {
         // _onTxDone();
         _onTxDone(0);
       }
