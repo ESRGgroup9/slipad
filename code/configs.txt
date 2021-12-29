@@ -1,0 +1,4 @@
+PWM - smart car keys
+SPI - eletronick lock
+target-packages -> HW handling -> spi-tools
+target-packages -> libraries -> HW handling -> bcm2835

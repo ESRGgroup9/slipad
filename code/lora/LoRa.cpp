@@ -5,6 +5,7 @@
 
 // #include <iostream>
 #include <thread> // yield
+#include <bcm2835.h>
 
 // registers
 #define REG_FIFO                 0x00
@@ -80,15 +81,19 @@
  * @param val: HIGH or LOW.
  * @return none
  */
-#define digitalWrite(_pin_, _val_)
+#define digitalWrite(_pin_, _val_) 
+// bcm2835_gpio_set(_pin_)
+// bcm2835_gpio_clr(_pin_)
 
 /**
  * @brief Configures the specified pin to behave either as an input or an output.
  * @param pin: pin number to set the mode of.
- * @param mode: INPUT, OUTPUT, or INPUT_PULLUP.
+ * @param mode: INPUT or OUTPUT
  * @return none
  */
-#define pinMode(_pin_,_mode_)
+#define INPUT   BCM2835_GPIO_FSEL_INPT
+#define OUTPUT  BCM2835_GPIO_FSEL_OUTP
+#define pinMode(_pin_,_mode_) bcm2835_gpio_fsel(_pin_, _mode_)
 
 /**
  * @brief Writes a bit of a numeric variable.
@@ -97,7 +102,10 @@
  * @param val: the value to write to the bit (0 or 1).
  * @return none
  */
-#define bitWrite(_var_,_bit_,_val_)
+#define bitRead(_var_, _bit_)   (((_var_) >> (_bit_)) & 0x01)
+#define bitSet(_var_, _bit_)    ((_var_) |= (1UL << (_bit_)))
+#define bitClear(_var_, _bit_)  ((_var_) &= ~(1UL << (_bit_)))
+#define bitWrite(_var_, _bit_, _val_) (_val_ ? bitSet(_var_, _bit_) : bitClear(_var_, _bit_))
 
 /**
  * @brief Digital Pins With Interrupts
@@ -139,10 +147,11 @@
 LoRaClass::LoRaClass() :
   // _spiSettings(LORA_DEFAULT_SPI_FREQUENCY, MSBFIRST, SPI_MODE0),
   // _spi(&LORA_DEFAULT_SPI),
+  
   _ss(LORA_DEFAULT_SS_PIN),
   _reset(LORA_DEFAULT_RESET_PIN),
   _dio0(LORA_DEFAULT_DIO0_PIN),
-
+  
   _frequency(0),
   _packetIndex(0),
   _implicitHeaderMode(0),
@@ -173,6 +182,7 @@ int LoRaClass::begin(long frequency)
 
   // start SPI
   // _spi->begin();
+  setSPI();
 
   // check version
   uint8_t version = readRegister(REG_VERSION);
@@ -421,8 +431,11 @@ void LoRaClass::flush()
 {
 }
 
-void onTxRxHandler(void (*callback)(int))
+
+void LoRaClass::onReceive(void(*callback)(int))
 {
+  _onReceive = callback;
+
   if(callback)
   {
     pinMode(_dio0, INPUT);
@@ -443,16 +456,28 @@ void onTxRxHandler(void (*callback)(int))
   }
 }
 
-void LoRaClass::onReceive(void(*callback)(int))
-{
-  _onReceive = callback;
-  onTxRxHandler(callback);
-}
-
-void LoRaClass::onTxDone(void(*callback)(int))
+void LoRaClass::onTxDone(void(*callback)())
 {
   _onTxDone = callback;
-  onTxRxHandler(callback);
+
+  if(callback)
+  {
+    pinMode(_dio0, INPUT);
+
+// #ifdef SPI_HAS_NOTUSINGINTERRUPT
+//     SPI.usingInterrupt(digitalPinToInterrupt(_dio0));
+// #endif
+
+    attachInterrupt(digitalPinToInterrupt(_dio0), LoRaClass::onDio0Rise, RISING);
+  }
+  else
+  {
+    detachInterrupt(digitalPinToInterrupt(_dio0));
+
+// #ifdef SPI_HAS_NOTUSINGINTERRUPT
+//     SPI.notUsingInterrupt(digitalPinToInterrupt(_dio0));
+// #endif
+  }
 }
 
 void LoRaClass::receive(int size)
@@ -618,7 +643,7 @@ void LoRaClass::setLdoFlag()
   long symbolDuration = 1000 / ( getSignalBandwidth() / (1L << getSpreadingFactor()) ) ;
 
   // Section 4.1.1.6
-  bool ldoOn = symbolDuration > 16;
+  bool ldoOn = symbolDuration > 16; 
 
   uint8_t config3 = readRegister(REG_MODEM_CONFIG_3);
   bitWrite(config3, 3, ldoOn);
@@ -718,17 +743,33 @@ uint8_t LoRaClass::random()
   return readRegister(REG_RSSI_WIDEBAND);
 }
 
-void LoRaClass::setPins(int ss, int reset, int dio0)
-{
-  _ss = ss;
-  _reset = reset;
-  _dio0 = dio0;
-}
+// void LoRaClass::setPins(int ss, int reset, int dio0)
+// {
+//   _ss = ss;
+//   _reset = reset;
+//   _dio0 = dio0;
+// }
 
 // void LoRaClass::setSPI(SPIClass& spi)
-// {
-//   _spi = &spi;
-// }
+void LoRaClass::setSPI(void)
+{
+  // _spi = &spi;
+
+  bcm2835_spi_begin();
+  // Initialize SPI interface with default values
+  bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);
+  bcm2835_spi_setDataMode(BCM2835_SPI_MODE0);
+
+  /*
+    BCM2835 runs at 250 MHz. The clock divider necessary to run SPI
+    at LORA_DEFAULT_SPI_FREQUENCY is:
+
+       250MHz / LORA_DEFAULT_SPI_FREQUENCY ~= 32
+  */
+  bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_32);
+  bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
+  bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);
+}
 
 // void LoRaClass::setSPIFrequency(uint32_t frequency)
 // {
@@ -788,8 +829,7 @@ void LoRaClass::handleDio0Rise()
     {
       if (_onTxDone)
       {
-        // _onTxDone();
-        _onTxDone(0);
+        _onTxDone();
       }
     }
   }
@@ -816,6 +856,10 @@ uint8_t LoRaClass::singleTransfer(uint8_t address, uint8_t value)
   // response = _spi->transfer(value);
   // _spi->endTransaction();
 
+  bcm2835_spi_transfer(address);
+  response = bcm2835_spi_transfer(value);
+
+  
   digitalWrite(_ss, HIGH);
 
   return response;

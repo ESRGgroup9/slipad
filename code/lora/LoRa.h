@@ -7,11 +7,24 @@
 #include <cstdint> // uint8_t
 #include <cstddef> // size_t
 
-#define LORA_DEFAULT_SPI           SPI
-#define LORA_DEFAULT_SPI_FREQUENCY 8E6 
+// #define LORA_DEFAULT_SPI           SPI
+
+// if you change this see LoraClass::setSPI
+#define LORA_DEFAULT_SPI_FREQUENCY 8E6
+
+// lora default pins
+// CLK when SPI0 in use   RPI_GPIO_P1_23
+// CE0 when SPI0 in use   RPI_GPIO_P1_24
+// CE1 when SPI0 in use   RPI_GPIO_P1_26
+
+// MOSI when SPI0 in use  RPI_GPIO_P1_19
 #define LORA_DEFAULT_SS_PIN        10
+
+// MISO when SPI0 in use  RPI_GPIO_P1_21
 #define LORA_DEFAULT_RESET_PIN     9
-#define LORA_DEFAULT_DIO0_PIN      2
+
+
+#define LORA_DEFAULT_DIO0_PIN      2  
 
 #define PA_OUTPUT_RFO_PIN          0
 #define PA_OUTPUT_PA_BOOST_PIN     1
@@ -70,13 +83,13 @@ public:
   void flush();
 
   void onReceive(void(*callback)(int));
-  // void onTxDone(void(*callback)());
-  void onTxDone(void(*callback)(int));
+  void onTxDone(void(*callback)());
 
   void receive(int size = 0);
 // ----------------------
-  void setPins(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
+  // void setPins(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
   // void setSPI(SPIClass& spi);
+  void setSPI(void);
   // void setSPIFrequency(uint32_t frequency);
 
   // void dumpRegisters(Stream& out);
@@ -111,8 +124,7 @@ private:
   int _implicitHeaderMode;
   
   void (*_onReceive)(int);
-  // void (*_onTxDone)();
-  void (*_onTxDone)(int);
+  void (*_onTxDone)();
 };
 
 extern LoRaClass LoRa;
