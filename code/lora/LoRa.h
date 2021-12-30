@@ -6,7 +6,8 @@
 
 #include <cstdint> // uint8_t
 #include <cstddef> // size_t
-#include <bcm2835.h>
+#include <string>  // string
+#include <bcm2835.h> // BCM2835_SPI_CS0
 
 // #define LORA_DEFAULT_SPI          SPI
 #define LORA_DEFAULT_SPI_CS        BCM2835_SPI_CS0
@@ -29,15 +30,46 @@
 #define PA_OUTPUT_RFO_PIN          0
 #define PA_OUTPUT_PA_BOOST_PIN     1
 
+typedef struct
+{
+  int recvAddr;     // receiver address
+  int sendAddr;     // sender address
+
+  int msgID;        // message ID
+  size_t msgLength; // message length
+  std::string msg;  // message
+} LoRaMessage;
+
+enum class ErrorLoraRecv
+{
+  MSGOK = 0,  // Message OK
+  ENOMSGR,    // No message received
+  ENOTME,     // Message received is not for this device
+  EBADLMSG    // Message received lengths does not match
+};
+
 class LoRaClass {
 public:
-  LoRaClass();
+  LoRaClass(int localAddress);
 
   int begin(long frequency);
   void end();
 
   int beginPacket(int implicitHeader = false);
   int endPacket(bool async = false);
+
+  void setup(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN,
+             int dio0 = LORA_DEFAULT_DIO0_PIN, int cs = LORA_DEFAULT_SPI_CS);
+  void setSPI(void);
+  
+  size_t write(uint8_t byte);
+  size_t write(const uint8_t *buffer, size_t size);
+
+  // user functions
+  void sendTo(std::string msg, int destination);
+  ErrorLoraRecv receive(LoRaMessage &loraMsg);
+
+  int getLocalAddress(void) const { return localAddress; }
 
   int parsePacket(int size = 0);
   int packetRssi();
@@ -72,14 +104,6 @@ public:
   void noCrc()  { disableCrc(); }
 
   uint8_t random();
-
-  // void setPins(int cs, int ss, int reset, int dio0);
-  void setup(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN,
-             int dio0 = LORA_DEFAULT_DIO0_PIN, int cs = LORA_DEFAULT_SPI_CS);
-// ------------------ ADD
-  size_t write(uint8_t byte);
-  size_t write(const uint8_t *buffer, size_t size);
-
   int available();
   int read();
   int peek();
@@ -88,39 +112,39 @@ public:
   void onReceive(void(*callback)(int));
   void onTxDone(void(*callback)());
 
-  void receive(int size = 0);
-// ----------------------
-
-  void setSPI(void);
+  void recv(int size = 0);
 
 private:
   void explicitHeaderMode();
   void implicitHeaderMode();
 
   void handleDio0Rise();
-  bool isTransmitting();
+  static void onDio0Rise();
 
+  bool isTransmitting();
   int getSpreadingFactor();
   long getSignalBandwidth();
-
   void setLdoFlag();
 
   uint8_t readRegister(uint8_t address);
   void writeRegister(uint8_t address, uint8_t value);
   uint8_t singleTransfer(uint8_t address, uint8_t value);
 
-  static void onDio0Rise();
-
 private:
+  // Lora Module Pins
   int _cs;
   int _ss;
   int _reset;
   int _dio0;
 
+  // Local address to be used in comunications with other modules
+  int localAddress;
+
   long _frequency;
   int _packetIndex;
   int _implicitHeaderMode;
   
+  // receive/transmitt done callbacks
   void (*_onReceive)(int);
   void (*_onTxDone)();
 };

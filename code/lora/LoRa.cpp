@@ -146,7 +146,7 @@ void digitalWrite(uint8_t pin, bool val)
 /**********************************************************
  * Functions Implementation
  * *******************************************************/
-LoRaClass::LoRaClass() :
+LoRaClass::LoRaClass(int localAddress) :
   _cs(LORA_DEFAULT_SPI_CS),
   _ss(LORA_DEFAULT_SS_PIN),
   _reset(LORA_DEFAULT_RESET_PIN),
@@ -158,6 +158,7 @@ LoRaClass::LoRaClass() :
   _onReceive(NULL),
   _onTxDone(NULL)
 {
+  this->localAddress = localAddress;
   // overide Stream timeout value
   // setTimeout(0);
   if(!bcm2835_init())
@@ -230,6 +231,132 @@ void LoRaClass::end()
   // _spi->end();
 }
 
+uint8_t LoRaClass::random()
+{
+  return readRegister(REG_RSSI_WIDEBAND);
+}
+
+void LoRaClass::setup(int ss, int reset, int dio0, int cs)
+{
+  _cs = cs;
+  _ss = ss;
+  _reset = reset;
+  _dio0 = dio0;
+}
+
+void LoRaClass::setSPI(void)
+{
+  bcm2835_spi_begin();
+
+  // Initialize SPI interface with default values
+  bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);
+  bcm2835_spi_setDataMode(BCM2835_SPI_MODE0);
+
+  // BCM2835 runs at 250 MHz. The clock divider necessary to run SPI
+  // at LORA_DEFAULT_SPI_FREQUENCY is:
+  //    250MHz / LORA_DEFAULT_SPI_FREQUENCY ~= 32
+  
+  // BCM2835_SPI_CS0
+  bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_32);
+  bcm2835_spi_chipSelect(_cs);
+  bcm2835_spi_setChipSelectPolarity(_cs, LOW);
+}
+
+void LoRaClass::sendTo(std::string msg, int destination)
+{
+  // create static message count as message identifier
+  static int msgCount = 0;
+
+  beginPacket();
+  
+  // add destination address  
+  write(destination);
+  // add sender address
+  write(localAddress);
+  // add message ID
+  write(msgCount);
+
+  // add message length
+  write(msg.length());
+  // add message; convert string to const uint8_t*
+  write(reinterpret_cast<const uint8_t*>(&msg[0]), msg.length());
+
+  endPacket();
+  msgCount++;
+}
+
+ErrorLoraRecv LoRaClass::receive(LoRaMessage &loraMsg) 
+{
+  if(parsePacket() == 0)
+    // no message received
+    return ErrorLoraRecv::ENOMSGR;
+ 
+  // parse packet
+  // read recipient address
+  int recipient = read();
+  
+  // check the message recipient
+  if ((recipient != localAddress) && (recipient != 0xFF))
+    // this message is not for me
+    return ErrorLoraRecv::ENOTME;
+  
+  // read sender address
+  uint8_t sender = read();
+  // read message ID
+  uint8_t incomingMsgId = read();
+  
+  // read message length
+  uint8_t incomingLength = read();
+  // read message
+  std::string msg = "";
+  while (available())
+    msg += static_cast<char>(read());
+ 
+  // check length for error
+  if(incomingLength != msg.length())
+    // error: message length does not match the supposed length
+    return ErrorLoraRecv::EBADLMSG;                        
+
+  // return received message using loraMsg
+  loraMsg.recvAddr = recipient;
+  loraMsg.sendAddr = sender;
+  loraMsg.msgID = incomingMsgId;
+  loraMsg.msgLength = incomingLength;
+  loraMsg.msg = msg;
+
+  // message received
+  return ErrorLoraRecv::MSGOK;
+}
+
+
+size_t LoRaClass::write(uint8_t byte)
+{
+  return write(&byte, sizeof(byte));
+}
+
+size_t LoRaClass::write(const uint8_t *buffer, size_t size)
+{
+  if(buffer == NULL)
+    return -1;
+
+  int currentLength = readRegister(REG_PAYLOAD_LENGTH);
+
+  // check size
+  if ((currentLength + size) > MAX_PKT_LENGTH)
+    size = MAX_PKT_LENGTH - currentLength;
+
+  // write data
+  for (size_t i = 0; i < size; i++)
+  {
+    writeRegister(REG_FIFO, buffer[i]);
+  }
+
+  // update length
+  writeRegister(REG_PAYLOAD_LENGTH, currentLength + size);
+  
+  return size;
+}
+
 int LoRaClass::beginPacket(int implicitHeader)
 {
   if (isTransmitting())
@@ -254,8 +381,10 @@ int LoRaClass::endPacket(bool async)
 {
   
   if ((async) && (_onTxDone))
+  {
     // DIO0 => TXDONE
     writeRegister(REG_DIO_MAPPING_1, 0x40);
+  }
 
   // put in TX mode
   writeRegister(REG_OP_MODE, MODE_LONG_RANGE_MODE | MODE_TX);
@@ -380,34 +509,6 @@ int LoRaClass::rssi()
           RSSI_OFFSET_LF_PORT : RSSI_OFFSET_HF_PORT));
 }
 
-size_t LoRaClass::write(uint8_t byte)
-{
-  return write(&byte, sizeof(byte));
-}
-
-size_t LoRaClass::write(const uint8_t *buffer, size_t size)
-{
-  int currentLength = readRegister(REG_PAYLOAD_LENGTH);
-
-  // check size
-  if ((currentLength + size) > MAX_PKT_LENGTH)
-    size = MAX_PKT_LENGTH - currentLength;
-
-  std::cout << "Sending MSG[" << buffer << "] SIZE[" << size << "]\n";
-  // write data
-  for (size_t i = 0; i < size; i++)
-  {
-    // std::cout << "MSG[" << buffer[i] << "] SENT\n";
-    writeRegister(REG_FIFO, buffer[i]);
-  }
-
-  // update length
-  writeRegister(REG_PAYLOAD_LENGTH, currentLength + size);
-  
-  std::cout << "MSG SENT\n";
-  return size;
-}
-
 int LoRaClass::available()
 {
   return (readRegister(REG_RX_NB_BYTES) - _packetIndex);
@@ -474,7 +575,7 @@ void LoRaClass::onTxDone(void(*callback)())
   }
 }
 
-void LoRaClass::receive(int size)
+void LoRaClass::recv(int size)
 {
   // DIO0 => RXDONE
   writeRegister(REG_DIO_MAPPING_1, 0x00);
@@ -732,39 +833,6 @@ void LoRaClass::setGain(uint8_t gain)
   }
 }
 
-uint8_t LoRaClass::random()
-{
-  return readRegister(REG_RSSI_WIDEBAND);
-}
-
-// void LoRaClass::setPins(int cs, int ss, int reset, int dio0)
-void LoRaClass::setup(int ss, int reset, int dio0, int cs)
-{
-  _cs = cs;
-  _ss = ss;
-  _reset = reset;
-  _dio0 = dio0;
-}
-
-void LoRaClass::setSPI(void)
-{
-  bcm2835_spi_begin();
-  // Initialize SPI interface with default values
-  bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);
-  bcm2835_spi_setDataMode(BCM2835_SPI_MODE0);
-
-  /*
-    BCM2835 runs at 250 MHz. The clock divider necessary to run SPI
-    at LORA_DEFAULT_SPI_FREQUENCY is:
-
-       250MHz / LORA_DEFAULT_SPI_FREQUENCY ~= 32
-  */
-  // BCM2835_SPI_CS0
-  bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_32);
-  bcm2835_spi_chipSelect(_cs);
-  bcm2835_spi_setChipSelectPolarity(_cs, LOW);
-}
-
 void LoRaClass::explicitHeaderMode()
 {
   _implicitHeaderMode = 0;
@@ -850,4 +918,4 @@ void LoRaClass::onDio0Rise()
   LoRa.handleDio0Rise();
 }
 
-LoRaClass LoRa;
+LoRaClass LoRa(0);

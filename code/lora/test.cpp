@@ -5,12 +5,9 @@
 #include <cstdint>
 using namespace std;
 
-LoRaClass lora;
-int destination = 0;
-int localAddress = 0;
-
 int main(int argc, char *argv[])
 {
+	LoRaClass lora(0xBB);	
 	
 	// set Lora pins
 	// using CS0 as default
@@ -21,23 +18,9 @@ int main(int argc, char *argv[])
 	cout << "Set frequency\n";
 	lora.begin(433E6);
 
+	string msg = "hello";
 	cout << "Transmitt '" << msg << "'\n";
-	send("hello");
+	lora.sendTo(msg, 0xFF);
 	
 	return 0;
-}
-
-void send(string msg)
-{
-	lora.beginPacket();
-	
-	lora.write(destination);
-	lora.write(localAddress);
-	// lora.write(msg);
-	
-	lora.write(msg.length());
-	// lora.print(outgoing);	
-	lora.write(reinterpret_cast<const uint8_t*>(msg[0]), msg.length());
-
-	lora.endPacket();
 }
