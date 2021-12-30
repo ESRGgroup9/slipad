@@ -81,11 +81,7 @@
  * @param val: HIGH or LOW.
  * @return none
  */
-void digitalWrite(uint8_t pin, bool val)
-{
-  if(val == 0)  bcm2835_gpio_clr(pin);
-  else          bcm2835_gpio_set(pin);
-}
+#define digitalWrite(_pin_, _val_) bcm2835_gpio_write(_pin_, _val_)
 
 /**
  * @brief Configures the specified pin to behave either as an input or an output.
@@ -190,8 +186,9 @@ int LoRaClass::begin(long frequency)
 
   // start SPI
   // _spi->begin();
+  bcm2835_spi_begin();
   setSPI();
-
+  
   // check version
   uint8_t version = readRegister(REG_VERSION);
   if (version != 0x12)
@@ -229,6 +226,7 @@ void LoRaClass::end()
 
   // stop SPI
   // _spi->end();
+  bcm2835_spi_end();
 }
 
 uint8_t LoRaClass::random()
@@ -246,7 +244,7 @@ void LoRaClass::setup(int ss, int reset, int dio0, int cs)
 
 void LoRaClass::setSPI(void)
 {
-  bcm2835_spi_begin();
+  // bcm2835_spi_begin();
 
   // Initialize SPI interface with default values
   bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);
@@ -268,7 +266,7 @@ void LoRaClass::sendTo(std::string msg, int destination)
   static int msgCount = 0;
 
   beginPacket();
-  
+
   // add destination address  
   write(destination);
   // add sender address
