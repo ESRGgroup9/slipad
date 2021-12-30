@@ -6,24 +6,24 @@
 
 #include <cstdint> // uint8_t
 #include <cstddef> // size_t
+#include <bcm2835.h>
 
-// #define LORA_DEFAULT_SPI           SPI
+// #define LORA_DEFAULT_SPI          SPI
+#define LORA_DEFAULT_SPI_CS        BCM2835_SPI_CS0
 
 // if you change this see LoraClass::setSPI
 #define LORA_DEFAULT_SPI_FREQUENCY 8E6
 
 // lora default pins
-// CLK when SPI0 in use   RPI_GPIO_P1_23
 // CE0 when SPI0 in use   RPI_GPIO_P1_24
 // CE1 when SPI0 in use   RPI_GPIO_P1_26
 
-// MOSI when SPI0 in use  RPI_GPIO_P1_19
-#define LORA_DEFAULT_SS_PIN        10
-
+// CLK when SPI0 in use   RPI_GPIO_P1_23
 // MISO when SPI0 in use  RPI_GPIO_P1_21
+// MOSI when SPI0 in use  RPI_GPIO_P1_19
+
+#define LORA_DEFAULT_SS_PIN        10
 #define LORA_DEFAULT_RESET_PIN     9
-
-
 #define LORA_DEFAULT_DIO0_PIN      2  
 
 #define PA_OUTPUT_RFO_PIN          0
@@ -73,6 +73,9 @@ public:
 
   uint8_t random();
 
+  // void setPins(int cs, int ss, int reset, int dio0);
+  void setup(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN,
+             int dio0 = LORA_DEFAULT_DIO0_PIN, int cs = LORA_DEFAULT_SPI_CS);
 // ------------------ ADD
   size_t write(uint8_t byte);
   size_t write(const uint8_t *buffer, size_t size);
@@ -87,12 +90,8 @@ public:
 
   void receive(int size = 0);
 // ----------------------
-  // void setPins(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
-  // void setSPI(SPIClass& spi);
-  void setSPI(void);
-  // void setSPIFrequency(uint32_t frequency);
 
-  // void dumpRegisters(Stream& out);
+  void setSPI(void);
 
 private:
   void explicitHeaderMode();
@@ -113,12 +112,11 @@ private:
   static void onDio0Rise();
 
 private:
-  // SPISettings _spiSettings;
-  // SPIClass* _spi;
-  
+  int _cs;
   int _ss;
   int _reset;
   int _dio0;
+
   long _frequency;
   int _packetIndex;
   int _implicitHeaderMode;

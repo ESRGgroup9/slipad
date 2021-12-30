@@ -1,4 +1,5 @@
 PWM - smart car keys
-SPI - eletronick lock
+SPI - eletronic lock
 target-packages -> HW handling -> spi-tools
 target-packages -> libraries -> HW handling -> bcm2835
+# TO TEST ONLY: add to config.txt: dtoverlay=spi1-3cs to enable SPI1
