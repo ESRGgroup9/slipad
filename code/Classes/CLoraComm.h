@@ -1,10 +1,15 @@
 #ifndef __CLORACOMM_H__
 #define __CLORACOMM_H__
 
-class CLoraComm
+class CLoraComm : public CCommunication
 {
+public:
 
+protected:
+	
+private:
 
-}; // end class CLoraComm definition
+};
+// End  CLoraComm class definition
 
 #endif // !__CLORACOMM_H__

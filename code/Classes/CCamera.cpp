@@ -1,0 +1,2 @@
+#include "CCamera.h"
+
