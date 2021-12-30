@@ -55,21 +55,26 @@ public:
   int begin(long frequency);
   void end();
 
-  int beginPacket(int implicitHeader = false);
-  int endPacket(bool async = false);
-
+  // setup lora pins
   void setup(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN,
              int dio0 = LORA_DEFAULT_DIO0_PIN, int cs = LORA_DEFAULT_SPI_CS);
+  // set SPI
   void setSPI(void);
   
-  size_t write(uint8_t byte);
-  size_t write(const uint8_t *buffer, size_t size);
-
-  // user functions
+  // user functions to send and recv Lora messages
   void sendTo(std::string msg, int destination);
   ErrorLoraRecv receive(LoRaMessage &loraMsg);
 
   int getLocalAddress(void) const { return localAddress; }
+
+  // packet creation functions
+  int beginPacket(int implicitHeader = false);
+  int endPacket(bool async = false);
+
+  // write functions
+  size_t write(uint8_t byte);
+  size_t write(const uint8_t *buffer, size_t size);
+
 
   int parsePacket(int size = 0);
   int packetRssi();
@@ -111,7 +116,6 @@ public:
 
   void onReceive(void(*callback)(int));
   void onTxDone(void(*callback)());
-
   void recv(int size = 0);
 
 private:
