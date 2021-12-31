@@ -8,11 +8,7 @@
 #include <cstddef> // size_t
 #include <string>  // string
 #include <ostream>  // ostream
-// #include <bcm2835.h> // BCM2835_SPI_CS0
 using namespace std;
-
-// #define LORA_DEFAULT_SPI          SPI
-// #define LORA_DEFAULT_SPI_CS        
 
 // if you change this see LoraClass::setSPI
 #define LORA_DEFAULT_SPI_FREQUENCY 8E6
@@ -41,7 +37,7 @@ public:
 
   int msgID;        // message ID
   size_t msgLength; // message length
-  string msg;  // message
+  string msg;       // message
 
 public:
   friend ostream& operator<<(ostream& os, const LoRaMsg& msg);
