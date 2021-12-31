@@ -7,12 +7,12 @@
 #include <cstdint> // uint8_t
 #include <cstddef> // size_t
 #include <string>  // string
-#include <iostream>
-#include <bcm2835.h> // BCM2835_SPI_CS0
+#include <ostream>  // ostream
+// #include <bcm2835.h> // BCM2835_SPI_CS0
 using namespace std;
 
 // #define LORA_DEFAULT_SPI          SPI
-#define LORA_DEFAULT_SPI_CS        BCM2835_SPI_CS0
+// #define LORA_DEFAULT_SPI_CS        
 
 // if you change this see LoraClass::setSPI
 #define LORA_DEFAULT_SPI_FREQUENCY 8E6
@@ -32,6 +32,7 @@ using namespace std;
 #define PA_OUTPUT_RFO_PIN          0
 #define PA_OUTPUT_PA_BOOST_PIN     1
 
+// defines a Lora message
 class LoRaMsg
 {
 public:
@@ -42,6 +43,7 @@ public:
   size_t msgLength; // message length
   string msg;  // message
 
+public:
   friend ostream& operator<<(ostream& os, const LoRaMsg& msg);
 };
 
@@ -61,8 +63,7 @@ public:
   void end();
 
   // setup lora pins
-  void setup(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN,
-             int dio0 = LORA_DEFAULT_DIO0_PIN, int cs = LORA_DEFAULT_SPI_CS);
+  void setPins(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
   // set SPI
   void setSPI(void);
   
@@ -71,7 +72,21 @@ public:
   LoRaError receive(LoRaMsg &loraMsg);
 
   int getLocalAddress(void) const { return localAddress; }
+  void setTxPower(int level, int outputPin = PA_OUTPUT_PA_BOOST_PIN);
+  void setFrequency(long frequency);
+  void setSpreadingFactor(int sf);
+  void setSignalBandwidth(long sbw);
+  void setCodingRate4(int denominator);
+  void setPreambleLength(long length);
+  void setSyncWord(int sw);
 
+  // Over Current Protection control
+  void setOCP(uint8_t mA);
+  // Set LNA gain
+  void setGain(uint8_t gain);
+
+private:
+  // ---- moved by me
   // packet creation functions
   int beginPacket(int implicitHeader = false);
   int endPacket(bool async = false);
@@ -79,7 +94,6 @@ public:
   // write functions
   size_t write(uint8_t byte);
   size_t write(const uint8_t *buffer, size_t size);
-
 
   int parsePacket(int size = 0);
   int packetRssi();
@@ -91,24 +105,11 @@ public:
   void idle();
   void sleep();
 
-  void setTxPower(int level, int outputPin = PA_OUTPUT_PA_BOOST_PIN);
-  void setFrequency(long frequency);
-  void setSpreadingFactor(int sf);
-  void setSignalBandwidth(long sbw);
-  void setCodingRate4(int denominator);
-  void setPreambleLength(long length);
-  void setSyncWord(int sw);
-
   void enableCrc();
   void disableCrc();
   void enableInvertIQ();
   void disableInvertIQ();
   
-  // Over Current Protection control
-  void setOCP(uint8_t mA);
-  // Set LNA gain
-  void setGain(uint8_t gain);
-
   // deprecated
   void crc()    { enableCrc(); }
   void noCrc()  { disableCrc(); }
@@ -122,8 +123,8 @@ public:
   void onReceive(void(*callback)(int));
   void onTxDone(void(*callback)());
   void recv(int size = 0);
+  // ----------------
 
-private:
   void explicitHeaderMode();
   void implicitHeaderMode();
 
@@ -141,7 +142,6 @@ private:
 
 private:
   // Lora Module Pins
-  int _cs;
   int _ss;
   int _reset;
   int _dio0;

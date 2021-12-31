@@ -156,7 +156,6 @@ ostream& operator<<(ostream& os, const LoRaMsg& msg)
  * Functions Implementation
  * *******************************************************/
 LoRaClass::LoRaClass(int localAddress) :
-  _cs(LORA_DEFAULT_SPI_CS),
   _ss(LORA_DEFAULT_SS_PIN),
   _reset(LORA_DEFAULT_RESET_PIN),
   _dio0(LORA_DEFAULT_DIO0_PIN),
@@ -242,14 +241,8 @@ void LoRaClass::end()
   bcm2835_spi_end();
 }
 
-uint8_t LoRaClass::random()
+void LoRaClass::setPins(int ss, int reset, int dio0)
 {
-  return readRegister(REG_RSSI_WIDEBAND);
-}
-
-void LoRaClass::setup(int ss, int reset, int dio0, int cs)
-{
-  _cs = cs;
   _ss = ss;
   _reset = reset;
   _dio0 = dio0;
@@ -266,11 +259,9 @@ void LoRaClass::setSPI(void)
   // BCM2835 runs at 250 MHz. The clock divider necessary to run SPI
   // at LORA_DEFAULT_SPI_FREQUENCY is:
   //    250MHz / LORA_DEFAULT_SPI_FREQUENCY ~= 32
-  
-  // BCM2835_SPI_CS0
   bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_32);
-  bcm2835_spi_chipSelect(_cs);
-  bcm2835_spi_setChipSelectPolarity(_cs, LOW);
+  bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
+  bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);
 }
 
 LoRaMsg LoRaClass::sendTo(std::string msg, int destination)
@@ -524,6 +515,11 @@ long LoRaClass::packetFrequencyError()
                         (getSignalBandwidth() / 500000.0f);
 
   return static_cast<long>(fError);
+}
+
+uint8_t LoRaClass::random()
+{
+  return readRegister(REG_RSSI_WIDEBAND);
 }
 
 int LoRaClass::rssi()

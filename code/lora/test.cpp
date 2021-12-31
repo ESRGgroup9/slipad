@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	
 	// set Lora pins
 	// NSS, RST, DIO0
-	lora.setup(22, 4, 17);
+	lora.setPins(22, 4, 17);
 	
 	// set frequency and run
 	lora.begin(433E6);
