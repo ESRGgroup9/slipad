@@ -1,0 +1,43 @@
+%**********************************************************
+\section{Tools Setup}
+
+\subsection{Buildroot}
+\begin{lstlisting}
+$ cd ~
+$ mkdir buildroot
+$ cd buildroot
+$ wget https://buildroot.org/downloads/buildroot-2021.02.5.tar.gz
+$ tar xzf buildroot-2021.02.5.tar.gz
+$ cd buildroot-2021.02.5
+\end{lstlisting}
+
+\begin{lstlisting}
+$ make raspberrypi4_defconfig
+$ make menuconfig
+$ make xconfig
+$ make 
+$ make clean
+\end{lstlisting}
+
+\subsection{Qt}
+
+\subsection{MySQL}
+
+\subsection{Git}
+\begin{lstlisting}
+$ sudo apt install git
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+$ git config --global core.editor subl
+$ git clone 
+\end{lstlisting}
+
+\section{System Configuration}
+
+%**********************************************************
+\clearpage
+\section{System Initialization}
+
+%**********************************************************
+\clearpage
+\section{Device Driver}
