@@ -140,6 +140,19 @@
 #define digitalPinToInterrupt(_pin_) ((_pin_) == 2 ? 0 : ((_pin_) == 3 ? 1 : -1))
 
 /**********************************************************
+ * LoRaMsg << operator overload
+ * *******************************************************/
+ostream& operator<<(ostream& os, const LoRaMsg& msg)
+{
+  cout << "recvAddr["   << msg.recvAddr   << "]" << endl;
+  cout << "sendAddr["   << msg.sendAddr   << "]" << endl;
+  cout << "msgID["      << msg.msgID      << "]" << endl;
+  cout << "msgLength["  << msg.msgLength  << "]" << endl;
+  cout << "msg["        << msg.msg        << "]" << endl;
+  return os;
+}
+
+/**********************************************************
  * Functions Implementation
  * *******************************************************/
 LoRaClass::LoRaClass(int localAddress) :
@@ -260,10 +273,11 @@ void LoRaClass::setSPI(void)
   bcm2835_spi_setChipSelectPolarity(_cs, LOW);
 }
 
-void LoRaClass::sendTo(std::string msg, int destination)
+LoRaMsg LoRaClass::sendTo(std::string msg, int destination)
 {
   // create static message count as message identifier
   static int msgCount = 0;
+  LoRaMsg loraMsg;
 
   beginPacket();
 
@@ -280,14 +294,25 @@ void LoRaClass::sendTo(std::string msg, int destination)
   write(reinterpret_cast<const uint8_t*>(&msg[0]), msg.length());
 
   endPacket();
+
+  // return received message
+  loraMsg.recvAddr = destination;
+  loraMsg.sendAddr = localAddress;
+  loraMsg.msgID = msgCount;
+  loraMsg.msgLength = msg.length();
+  loraMsg.msg = msg;
+
+  // update message counter
   msgCount++;
+
+  return loraMsg;
 }
 
-ErrorLoraRecv LoRaClass::receive(LoRaMessage &loraMsg) 
+LoRaError LoRaClass::receive(LoRaMsg &loraMsg) 
 {
   if(parsePacket() == 0)
     // no message received
-    return ErrorLoraRecv::ENOMSGR;
+    return LoRaError::ENOMSGR;
  
   // parse packet
   // read recipient address
@@ -296,7 +321,7 @@ ErrorLoraRecv LoRaClass::receive(LoRaMessage &loraMsg)
   // check the message recipient
   if ((recipient != localAddress) && (recipient != 0xFF))
     // this message is not for me
-    return ErrorLoraRecv::ENOTME;
+    return LoRaError::ENOTME;
   
   // read sender address
   uint8_t sender = read();
@@ -313,7 +338,7 @@ ErrorLoraRecv LoRaClass::receive(LoRaMessage &loraMsg)
   // check length for error
   if(incomingLength != msg.length())
     // error: message length does not match the supposed length
-    return ErrorLoraRecv::EBADLMSG;                        
+    return LoRaError::EBADLMSG;                        
 
   // return received message using loraMsg
   loraMsg.recvAddr = recipient;
@@ -323,7 +348,7 @@ ErrorLoraRecv LoRaClass::receive(LoRaMessage &loraMsg)
   loraMsg.msg = msg;
 
   // message received
-  return ErrorLoraRecv::MSGOK;
+  return LoRaError::MSGOK;
 }
 
 

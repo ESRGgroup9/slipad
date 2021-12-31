@@ -7,7 +7,9 @@
 #include <cstdint> // uint8_t
 #include <cstddef> // size_t
 #include <string>  // string
+#include <iostream>
 #include <bcm2835.h> // BCM2835_SPI_CS0
+using namespace std;
 
 // #define LORA_DEFAULT_SPI          SPI
 #define LORA_DEFAULT_SPI_CS        BCM2835_SPI_CS0
@@ -30,17 +32,20 @@
 #define PA_OUTPUT_RFO_PIN          0
 #define PA_OUTPUT_PA_BOOST_PIN     1
 
-typedef struct
+class LoRaMsg
 {
+public:
   int recvAddr;     // receiver address
   int sendAddr;     // sender address
 
   int msgID;        // message ID
   size_t msgLength; // message length
-  std::string msg;  // message
-} LoRaMessage;
+  string msg;  // message
 
-enum class ErrorLoraRecv
+  friend ostream& operator<<(ostream& os, const LoRaMsg& msg);
+};
+
+enum class LoRaError
 {
   MSGOK = 0,  // Message OK
   ENOMSGR,    // No message received
@@ -62,8 +67,8 @@ public:
   void setSPI(void);
   
   // user functions to send and recv Lora messages
-  void sendTo(std::string msg, int destination);
-  ErrorLoraRecv receive(LoRaMessage &loraMsg);
+  LoRaMsg sendTo(std::string msg, int destination);
+  LoRaError receive(LoRaMsg &loraMsg);
 
   int getLocalAddress(void) const { return localAddress; }
 
