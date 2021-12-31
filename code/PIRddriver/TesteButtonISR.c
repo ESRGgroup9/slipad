@@ -26,7 +26,7 @@ int main(int argc, char *argv)
 		printf("Device driver not found.\n");
 		return -1;
 	}
-	else printf("Device driver successfully initialized, waiting for button press:\n");
+	else printf("Device driver successfully initialized\n");
 	
 	pid = getpid();
 	if(ioctl(button, IOCTL_PID, &pid))
@@ -39,16 +39,29 @@ int main(int argc, char *argv)
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = sigHigh;
-	sigaction(SIGHIGH, &act, NULL);
+	// sigaction(SIGHIGH, &act, NULL);
+	sigaction(SIGUSR1, &act, NULL);
 
+	printf("Waiting for movement...\n");
 	while(1){}
 
 	close(button);
+	
+	printf("\nExiting\n");
 	return 0;
 }
 
 void sigHigh(int n, siginfo_t *info, void *unused)
 {
 	int pinValue = info->si_int;
-	printf("Button was pressed. Pin value %d.\n", pinValue);
+		
+	// printf("Button was pressed. Pin value %d.\n", pinValue);
+	// printf("Pin value %d\n", pinValue);
+
+	static int i = 1;
+	// if(pinValue == 1)
+	{
+		printf("[%3d] Motion detected\n", i++);
+		// exit(1);
+	}
 }
