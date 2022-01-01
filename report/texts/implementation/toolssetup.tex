@@ -1,0 +1,48 @@
+Before doing the system configuration it is necessary to first setup all of the used tools, as will be next presented.
+
+\subsection{Git}
+In order to make collaboration easier, allowing change by multiple people to all be merged into one source, Git will be used. Git is the most commonly used version control system. Before using it, it is necessary to do the correct setup as shown bellow.
+\begin{lstlisting}
+$ sudo apt install git
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+$ git config --global core.editor subl
+$ cd ~
+$ git clone git@github.com:ESRGgroup9/slipad.git
+\end{lstlisting}
+
+With this steps, Git is installed in a local machine, username and user email is defined alongside with the default core editor. After this, one can clone the repository for this project, created in GitHub.
+
+\subsection{Buildroot}
+Buildroot is a simple, efficient and easy-to-use tool used to generate this project's embedded Linux system, through cross-compilation. The steps in order to install Buildroot in a local machine is shown bellow.
+
+\begin{lstlisting}
+$ cd ~
+$ mkdir buildroot
+$ cd buildroot
+$ wget https://buildroot.org/downloads/buildroot-2021.02.5.tar.gz
+$ tar xzf buildroot-2021.02.5.tar.gz
+$ cd buildroot-2021.02.5
+\end{lstlisting}
+
+After the installation is done, one can do the base configurations, essential to the support the rest of the configurations.
+\begin{lstlisting}
+$ make raspberrypi4_defconfig
+$ make menuconfig
+$ make xconfig
+$ make 
+$ make clean
+\end{lstlisting}
+
+The first command is used to configure a kernel image for the Raspberry Pi 4, as it does the necessary configurations regarding hardware handling along with fetching some board specific packages. Then with the second and third commands, one can generate the graphic interface seen in figure \ref{fig:menuconfig}, presenting several sub-menus. 
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.74\textwidth]{11configs/menuconfig}
+	\caption{Buildroot menuconfig.}
+	\label{fig:menuconfig}
+\end{figure}
+
+\subsection{Qt}
+
+\subsection{MySQL}

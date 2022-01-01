@@ -1,0 +1,14 @@
+After all the necessary tools, packages and configurations are done, one needs to finally create the Linux custom image, that will run on the Raspberry Pi.
+
+\begin{lstlisting}
+$ cd ~/buildroot/buildroot-2021.02.5/
+$ make
+\end{lstlisting}
+
+After that one can copy the image into the SD card, that will go into the Raspberry Pi. For that one can use the linux \verb|dd| command. \cite{dd}
+
+\begin{lstlisting}
+$ sudo dd if=./output/images/sdcard.img of=/dev/sdb
+\end{lstlisting}
+
+With this command, one must define the input file, \verb|if|, which is the linux image, and the output file, \verb|of|, which is the SD card, being in this example named \verb|sdb|.

@@ -1,0 +1,27 @@
+In the Buildroot, using \verb|make menuconfig| one can use a graphic interface (as previously shown in figure \ref{fig:menuconfig}) to select packages and change configurations in order to create a custom linux image.\\
+
+Under \verb|Target-Packages| select:
+\begin{itemize}
+	\item \verb|Development tools|, select:
+	\begin{itemize}
+		\item \verb|git|
+	\end{itemize}
+
+	\item \verb|Networking applications|, select:
+	\begin{itemize}
+		\item \verb|arp-scan|
+		\item \verb|arptables-legacy|
+		\item \verb|dhcpcd|
+		\item \verb|dropbear|
+	\end{itemize}
+
+	\item \verb|Hardware Handling|
+	\begin{itemize}
+		\item \verb|spi-tools|: LoRa module communicates with the Raspberry Pi through SPI, therefore it is necessary to  enable the protocol and the tools required to use it.
+	\end{itemize}
+	
+	\item \verb|Libraries -> Hardware Handling|, select:
+	\begin{itemize}
+		\item \verb|bcm2835|
+	\end{itemize}	
+\end{itemize}
