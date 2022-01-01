@@ -1,0 +1,21 @@
+---------- tsl2583_read_raw
+mask:
+IIO_CHAN_INFO_RAW 		if (chan->type == IIO_LIGHT)
+IIO_CHAN_INFO_PROCESSED	if (chan->type == IIO_LIGHT)
+
+---------- static const struct iio_info tsl2583_info
+.read_raw = tsl2583_read_raw
+
+---------- tsl2583_probe
+indio_dev->info = &tsl2583_info;
+
+---------- static struct i2c_driver tsl2583_driver 
+.probe = tsl2583_probe
+
+-----------------------------------------------------
+/boot/config.txt enable dtsoverlay i2c1
+entrada na device tree &i2c1
+
+modprobe i2c-bcm2835
+modprobe industrialio
+insmod ldr.ko
