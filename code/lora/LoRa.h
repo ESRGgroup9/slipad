@@ -21,9 +21,10 @@ using namespace std;
 // MISO when SPI0 in use  RPI_GPIO_P1_21
 // MOSI when SPI0 in use  RPI_GPIO_P1_19
 
-#define LORA_DEFAULT_SS_PIN        10
-#define LORA_DEFAULT_RESET_PIN     9
-#define LORA_DEFAULT_DIO0_PIN      2  
+// #define LORA_DEFAULT_SS_PIN        10
+// #define LORA_DEFAULT_RESET_PIN     9
+// #define LORA_DEFAULT_DIO0_PIN      2  
+
 
 #define PA_OUTPUT_RFO_PIN          0
 #define PA_OUTPUT_PA_BOOST_PIN     1
@@ -59,12 +60,13 @@ public:
   void end();
 
   // setup lora pins
-  void setPins(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
+  // void setPins(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
+  void setPins(int ss, int reset, int dio0);
   // set SPI
   void setSPI(void);
   
   // user functions to send and recv Lora messages
-  LoRaMsg sendTo(std::string msg, int destination);
+  LoRaMsg sendTo(std::string msg, uint8_t destination);
   LoRaError receive(LoRaMsg &loraMsg);
 
   int getLocalAddress(void) const { return localAddress; }
@@ -143,7 +145,7 @@ private:
   int _dio0;
 
   // Local address to be used in comunications with other modules
-  int localAddress;
+  uint8_t localAddress;
 
   long _frequency;
   int _packetIndex;

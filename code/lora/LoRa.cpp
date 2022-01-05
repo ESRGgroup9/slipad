@@ -6,6 +6,7 @@
 #include <iostream>
 #include <thread> // yield
 #include <bcm2835.h>
+using namespace std;
 
 // registers
 #define REG_FIFO                 0x00
@@ -72,6 +73,28 @@
 #define B111  (0b0111)
 #define B1000 (0b1000)
 
+#define LORA_DEFAULT_SS_PIN        RPI_GPIO_P1_24
+#define LORA_DEFAULT_RESET_PIN     RPI_GPIO_P1_22
+#define LORA_DEFAULT_DIO0_PIN      RPI_GPIO_P1_18
+
+#define DEBUG
+
+
+
+
+#ifdef DEBUG
+  #include <iomanip>
+  #include <fstream>
+
+  ofstream logfile("log.txt");
+  // log.open("log.txt");
+  // log << str << endl;
+  // log.close();
+  #define DEBUG_MSG(str) (logfile << str << std::endl)
+#else
+  #define DEBUG_MSG(str) 
+#endif
+
 /**********************************************************
  * GPIO Functions
  * *******************************************************/
@@ -119,7 +142,7 @@
  * Recommended usage: attachInterrupt(digitalPinToInterrupt(pin), ISR, mode)
  * Where, pin: the pin number.
  */
-#define attachInterrupt(_int_,_isr_,_mode_)
+#define attachInterrupt(_int_,_isr_,_mode_) (cout << "attachInterrupt()" << endl)
 
 /**
  * @brief Turns off the given interrupt.
@@ -129,7 +152,7 @@
  * Recommended usage: detachInterrupt(digitalPinToInterrupt(pin)). Where
  * pin: the pin number of the interrupt to disable
  */
-#define detachInterrupt(_int_)
+#define detachInterrupt(_int_) (cout << "detachInterrupt()" << endl)
 
 
 /**
@@ -199,8 +222,10 @@ int LoRaClass::begin(long frequency)
   // start SPI
   // _spi->begin();
   bcm2835_spi_begin();
+  DEBUG_MSG("[SPI] begin");
   setSPI();
-  
+  DEBUG_MSG("[SPI] setup done");
+
   // check version
   uint8_t version = readRegister(REG_VERSION);
   if (version != 0x12)
@@ -264,27 +289,35 @@ void LoRaClass::setSPI(void)
   bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);
 }
 
-LoRaMsg LoRaClass::sendTo(std::string msg, int destination)
+LoRaMsg LoRaClass::sendTo(std::string msg, uint8_t destination)
 {
   // create static message count as message identifier
-  static int msgCount = 0;
+  static uint8_t msgCount = 0;
   LoRaMsg loraMsg;
 
   beginPacket();
 
+  DEBUG_MSG(endl << "[sendTo] send destination addr");
   // add destination address  
   write(destination);
+
+  DEBUG_MSG(endl << "[sendTo] send sender addr");
   // add sender address
   write(localAddress);
+
+  DEBUG_MSG(endl << "[sendTo] msg id");
   // add message ID
   write(msgCount);
 
+  DEBUG_MSG(endl << "[sendTo] msg length");
   // add message length
   write(msg.length());
+
+  DEBUG_MSG(endl << "[sendTo] msg");
   // add message; convert string to const uint8_t*
   write(reinterpret_cast<const uint8_t*>(&msg[0]), msg.length());
 
-  endPacket();
+  endPacket(true);
 
   // return received message
   loraMsg.recvAddr = destination;
@@ -350,6 +383,11 @@ size_t LoRaClass::write(uint8_t byte)
 
 size_t LoRaClass::write(const uint8_t *buffer, size_t size)
 {
+  if(size == 1)
+    DEBUG_MSG("[write] buffer[" << static_cast<int>(buffer[0]) << "] size[" << size << "]");
+  else
+    DEBUG_MSG("[write] buffer[" << buffer << "] size[" << size << "]");
+
   if(buffer == NULL)
     return -1;
 
@@ -362,6 +400,10 @@ size_t LoRaClass::write(const uint8_t *buffer, size_t size)
   // write data
   for (size_t i = 0; i < size; i++)
   {
+    DEBUG_MSG("[write] wr buff[" <<
+      setw(3) << i << "] [" << static_cast<int>(buffer[i]) << "][" <<
+      buffer[i] << "]");
+
     writeRegister(REG_FIFO, buffer[i]);
   }
 
@@ -373,6 +415,8 @@ size_t LoRaClass::write(const uint8_t *buffer, size_t size)
 
 int LoRaClass::beginPacket(int implicitHeader)
 {
+  DEBUG_MSG("[beginPacket] enter");
+
   if (isTransmitting())
     return 0;
 
@@ -393,19 +437,23 @@ int LoRaClass::beginPacket(int implicitHeader)
 
 int LoRaClass::endPacket(bool async)
 {
-  
+  DEBUG_MSG("[endPacket] enter");
+
   if ((async) && (_onTxDone))
   {
+    DEBUG_MSG("[endPacket] DIO0 => TXDONE");
     // DIO0 => TXDONE
     writeRegister(REG_DIO_MAPPING_1, 0x40);
   }
 
   // put in TX mode
+  DEBUG_MSG("[endPacket] put in TX mode");
   writeRegister(REG_OP_MODE, MODE_LONG_RANGE_MODE | MODE_TX);
 
   if (!async)
   {
     // wait for TX done
+    DEBUG_MSG("[endPacket] waiting for TX done...");
     while ((readRegister(REG_IRQ_FLAGS) & IRQ_TX_DONE_MASK) == 0)
     {
       std::this_thread::yield();
@@ -415,20 +463,26 @@ int LoRaClass::endPacket(bool async)
     writeRegister(REG_IRQ_FLAGS, IRQ_TX_DONE_MASK);
   }
 
+  DEBUG_MSG("[endPacket] packet end");
   return 1;
 }
 
 bool LoRaClass::isTransmitting()
 {
   if ((readRegister(REG_OP_MODE) & MODE_TX) == MODE_TX)
+  {
+    DEBUG_MSG("[isTransmitting] mode TX");
     return true;
+  }
 
   if (readRegister(REG_IRQ_FLAGS) & IRQ_TX_DONE_MASK)
   {
     // clear IRQ's
     writeRegister(REG_IRQ_FLAGS, IRQ_TX_DONE_MASK);
+    DEBUG_MSG("[isTransmitting] TX done");
   }
 
+  DEBUG_MSG("[isTransmitting] not transmitting");
   return false;
 }
 
@@ -921,11 +975,14 @@ uint8_t LoRaClass::singleTransfer(uint8_t address, uint8_t value)
   // _spi->transfer(address);
   // response = _spi->transfer(value);
   // _spi->endTransaction();
-
+  
   bcm2835_spi_transfer(address);
   response = bcm2835_spi_transfer(value);
 
-
+  DEBUG_MSG("[SPI] transfer(" << static_cast<int>(response) <<
+    ") addr[" << setw(3) << static_cast<int>(address) <<
+    "] val[" << setw(3) << static_cast<int>(value) << "]");
+  
   digitalWrite(_ss, HIGH);
 
   return response;
