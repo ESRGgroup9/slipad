@@ -45,7 +45,15 @@ int main(int argc, char *argv[])
 	else if(strcmp(argv[1], "recv") == 0)
 		op = RECV;
 	else if(strcmp(argv[1], "echo") == 0)
+	{
+		if(argc < 4)
+		{
+			cout << endl << "Bad echo usage" << endl;
+			print_usage(argv[0]);
+			return 1;
+		}
 		op = ECHO;
+	}
 	else
 	{
 		print_usage(argv[0]);
@@ -66,12 +74,13 @@ int main(int argc, char *argv[])
 	// do while op == ECHO
 	do
 	{
+		// SEND or ECHO operation
+		if(op != RECV)
+			send(argc, argv);
+
 		// RECV or ECHO operation
 		if(op != SEND)
 			recv();
-		// SEND or ECHO operation
-		else if(op != RECV)
-			send(argc, argv);
 	} while(op == ECHO);
 	
 	return 0;

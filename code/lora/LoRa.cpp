@@ -79,9 +79,6 @@ using namespace std;
 
 #define DEBUG
 
-
-
-
 #ifdef DEBUG
   #include <iomanip>
   #include <fstream>
@@ -317,7 +314,7 @@ LoRaMsg LoRaClass::sendTo(std::string msg, uint8_t destination)
   // add message; convert string to const uint8_t*
   write(reinterpret_cast<const uint8_t*>(&msg[0]), msg.length());
 
-  endPacket(true);
+  endPacket();
 
   // return received message
   loraMsg.recvAddr = destination;
@@ -454,6 +451,7 @@ int LoRaClass::endPacket(bool async)
   {
     // wait for TX done
     DEBUG_MSG("[endPacket] waiting for TX done...");
+
     while ((readRegister(REG_IRQ_FLAGS) & IRQ_TX_DONE_MASK) == 0)
     {
       std::this_thread::yield();
