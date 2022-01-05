@@ -9,12 +9,17 @@ using namespace std;
 #define RECV 2
 #define ECHO 3
 
-int localAddr = 0xBB;
+uint8_t localAddr = 0xBB;
 LoRaClass lora(localAddr);
 
 void print_usage(char *argv0);
 void recv(void);
 void send(int argc, char *argv[]);
+
+#include <bcm2835.h>
+#define LORA_SS_PIN        RPI_GPIO_P1_24
+#define LORA_RESET_PIN     RPI_GPIO_P1_22
+#define LORA_DIO0_PIN      RPI_GPIO_P1_18
 
 int main(int argc, char *argv[])
 {
@@ -48,11 +53,11 @@ int main(int argc, char *argv[])
 	}
 
 	//-----------------------------------
-	cout << "LoRa local address[" << localAddr << "]" << endl;	
+	cout << "LoRa local address[" << static_cast<int>(localAddr) << "]" << endl;	
 	
 	// set Lora pins
 	// NSS, RST, DIO0
-	lora.setPins(22, 4, 17);
+	lora.setPins(LORA_SS_PIN, LORA_RESET_PIN, LORA_DIO0_PIN);
 	
 	// set frequency and run
 	lora.begin(433E6);
@@ -91,8 +96,12 @@ void send(int argc, char *argv[])
 	for(int i = 3; i < argc; i++)
 		msg = msg + argv[i] + " ";
 
+	// remove last " "
+	msg.pop_back();
+
 	cout << "Transmitting [" << msg << "] to [" << destAddr << "]...\n";
 	loraMsg = lora.sendTo(msg, destAddr);
+	cout << "Transmitted:";
 	cout << endl << loraMsg << endl;
 }
 
