@@ -99,7 +99,7 @@ void send(int argc, char *argv[])
 	LoRaMsg loraMsg;
 
 	// get parameters from argv
-	int destAddr = atoi(argv[1]);
+	int destAddr = atoi(argv[2]);
 	string msg = "";
 
 	for(int i = 3; i < argc; i++)
