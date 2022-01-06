@@ -620,6 +620,7 @@ void LoRaClass::onReceive(void(*callback)(int))
 {
   _onReceive = callback;
 
+  DEBUG_MSG("[onReceive] enter");
   if(callback)
   {
     pinMode(_dio0, INPUT);
@@ -635,6 +636,7 @@ void LoRaClass::onTxDone(void(*callback)())
 {
   _onTxDone = callback;
 
+  DEBUG_MSG("[onTxDone] enter");
   if(callback)
   {
     pinMode(_dio0, INPUT);
