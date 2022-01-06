@@ -454,7 +454,7 @@ int LoRaClass::endPacket(bool async)
 
     while ((readRegister(REG_IRQ_FLAGS) & IRQ_TX_DONE_MASK) == 0)
     {
-      std::this_thread::yield();
+      // std::this_thread::yield();
     }
     
     // clear IRQ's

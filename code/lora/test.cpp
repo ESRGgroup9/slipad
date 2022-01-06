@@ -89,8 +89,8 @@ int main(int argc, char *argv[])
 void print_usage(char *argv0)
 {
 	cout << "Usage: " << endl;
-	cout << argv0 << "recv" << endl;
-	cout << argv0 << "(send | echo) <recvAddr> <msg>" << endl;
+	cout << argv0 << " recv" << endl;
+	cout << argv0 << " (send | echo) <recvAddr> <msg>" << endl;
 }
 
 void send(int argc, char *argv[])
