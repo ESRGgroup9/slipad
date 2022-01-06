@@ -25,6 +25,22 @@ int main(int argc, char *argv[])
 {
 	int op;
 
+// {
+// 	// set frequency and run
+// 	lora.begin(433E6);
+// 	// bcm2835_spi_begin();
+// 	cout << "SEND H..." << endl;
+// 	lora.testspi('H');
+
+// 	// cout << "SEND E..." << endl;
+// 	// lora.testspi('e');
+
+// 	// cout << "SEND L..." << endl;
+// 	// lora.testspi('l');
+
+// 	return 0;
+// }
+
 	if(argc < 2)
 	{
 		print_usage(argv[0]);
@@ -69,7 +85,7 @@ int main(int argc, char *argv[])
 	
 	// set frequency and run
 	lora.begin(433E6);
-
+	lora.printFIFORegs();
 	//-----------------------------------
 	// do while op == ECHO
 	do
@@ -83,6 +99,7 @@ int main(int argc, char *argv[])
 			recv();
 	} while(op == ECHO);
 	
+	lora.printFIFORegs();
 	return 0;
 }
 

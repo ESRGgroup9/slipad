@@ -11,18 +11,23 @@ using namespace std;
 // registers
 #define REG_FIFO                 0x00
 #define REG_OP_MODE              0x01
+
 #define REG_FRF_MSB              0x06
 #define REG_FRF_MID              0x07
 #define REG_FRF_LSB              0x08
+
 #define REG_PA_CONFIG            0x09
 #define REG_OCP                  0x0b
 #define REG_LNA                  0x0c
+
 #define REG_FIFO_ADDR_PTR        0x0d
 #define REG_FIFO_TX_BASE_ADDR    0x0e
 #define REG_FIFO_RX_BASE_ADDR    0x0f
 #define REG_FIFO_RX_CURRENT_ADDR 0x10
+
 #define REG_IRQ_FLAGS            0x12
 #define REG_RX_NB_BYTES          0x13
+
 #define REG_PKT_SNR_VALUE        0x19
 #define REG_PKT_RSSI_VALUE       0x1a
 #define REG_RSSI_VALUE           0x1b
@@ -298,21 +303,21 @@ LoRaMsg LoRaClass::sendTo(std::string msg, uint8_t destination)
   // add destination address  
   write(destination);
 
-  DEBUG_MSG(endl << "[sendTo] send sender addr");
-  // add sender address
-  write(localAddress);
+  // DEBUG_MSG(endl << "[sendTo] send sender addr");
+  // // add sender address
+  // write(localAddress);
 
-  DEBUG_MSG(endl << "[sendTo] msg id");
-  // add message ID
-  write(msgCount);
+  // DEBUG_MSG(endl << "[sendTo] msg id");
+  // // add message ID
+  // write(msgCount);
 
-  DEBUG_MSG(endl << "[sendTo] msg length");
-  // add message length
-  write(msg.length());
+  // DEBUG_MSG(endl << "[sendTo] msg length");
+  // // add message length
+  // write(msg.length());
 
-  DEBUG_MSG(endl << "[sendTo] msg");
-  // add message; convert string to const uint8_t*
-  write(reinterpret_cast<const uint8_t*>(&msg[0]), msg.length());
+  // DEBUG_MSG(endl << "[sendTo] msg");
+  // // add message; convert string to const uint8_t*
+  // write(reinterpret_cast<const uint8_t*>(&msg[0]), msg.length());
 
   endPacket();
 
@@ -380,10 +385,10 @@ size_t LoRaClass::write(uint8_t byte)
 
 size_t LoRaClass::write(const uint8_t *buffer, size_t size)
 {
-  if(size == 1)
-    DEBUG_MSG("[write] buffer[" << static_cast<int>(buffer[0]) << "] size[" << size << "]");
-  else
-    DEBUG_MSG("[write] buffer[" << buffer << "] size[" << size << "]");
+  // if(size == 1)
+  //   DEBUG_MSG("[write] buffer[" << static_cast<int>(buffer[0]) << "] size[" << size << "]");
+  // else
+  //   DEBUG_MSG("[write] buffer[" << buffer << "] size[" << size << "]");
 
   if(buffer == NULL)
     return -1;
@@ -397,10 +402,7 @@ size_t LoRaClass::write(const uint8_t *buffer, size_t size)
   // write data
   for (size_t i = 0; i < size; i++)
   {
-    DEBUG_MSG("[write] wr buff[" <<
-      setw(3) << i << "] [" << static_cast<int>(buffer[i]) << "][" <<
-      buffer[i] << "]");
-
+    DEBUG_MSG("[write] send(" << static_cast<int>(buffer[i]) << ") from buff[" << i << "]");
     writeRegister(REG_FIFO, buffer[i]);
   }
 
@@ -447,6 +449,7 @@ int LoRaClass::endPacket(bool async)
   DEBUG_MSG("[endPacket] put in TX mode");
   writeRegister(REG_OP_MODE, MODE_LONG_RANGE_MODE | MODE_TX);
 
+  // send FIFO msgs in polling mode
   if (!async)
   {
     // wait for TX done
@@ -503,6 +506,7 @@ int LoRaClass::parsePacket(int size)
   if ((irqFlags & IRQ_RX_DONE_MASK) &&
       (irqFlags & IRQ_PAYLOAD_CRC_ERROR_MASK) == 0)
   {
+    DEBUG_MSG("[parsePacket] received a packet");
     // received a packet
     _packetIndex = 0;
 
@@ -588,8 +592,12 @@ int LoRaClass::available()
 int LoRaClass::read()
 {
   if (!available())
+  {
+    DEBUG_MSG("[read] not available");
     return -1;
+  }
 
+  DEBUG_MSG("[read] reading");
   _packetIndex++;
   return readRegister(REG_FIFO);
 }
@@ -957,11 +965,14 @@ void LoRaClass::handleDio0Rise()
 
 uint8_t LoRaClass::readRegister(uint8_t address)
 {
-  return singleTransfer(address & 0x7f, 0x00);
+  uint8_t value = singleTransfer(address & 0x7f, 0x00);
+  // DEBUG_MSG("[readRegister] read(" << hex << static_cast<int>(value) << ") from[0x" << hex << static_cast<int>(address & 0x7f) << "]");
+  return value;
 }
 
 void LoRaClass::writeRegister(uint8_t address, uint8_t value)
 {
+  DEBUG_MSG("[writeRegister] write(" << hex << static_cast<int>(value) << ") at[0x" << hex << static_cast<int>(address | 0x80) << "]");
   singleTransfer(address | 0x80, value);
 }
 
@@ -970,20 +981,13 @@ uint8_t LoRaClass::singleTransfer(uint8_t address, uint8_t value)
   uint8_t response;
 
   digitalWrite(_ss, LOW);
-
-  // _spi->beginTransaction(_spiSettings);
-  // _spi->transfer(address);
-  // response = _spi->transfer(value);
-  // _spi->endTransaction();
-  
   bcm2835_spi_transfer(address);
   response = bcm2835_spi_transfer(value);
-
-  DEBUG_MSG("[SPI] transfer(" << static_cast<int>(response) <<
-    ") addr[" << setw(3) << static_cast<int>(address) <<
-    "] val[" << setw(3) << static_cast<int>(value) << "]");
-  
   digitalWrite(_ss, HIGH);
+
+  // DEBUG_MSG("[SPI] transfer(" << static_cast<int>(response) <<
+  //   ") addr[" << setw(3) << static_cast<int>(address) <<
+  //   "] val[" << setw(3) << static_cast<int>(value) << "]");
 
   return response;
 }
@@ -995,3 +999,48 @@ void LoRaClass::onDio0Rise()
 }
 
 LoRaClass LoRa(0);
+
+
+void LoRaClass::printFIFORegs(void)
+{
+  DEBUG_MSG("[testSPI] REG_FIFO                 (0x" << hex << static_cast<int>(readRegister(REG_FIFO)) << ")");
+  DEBUG_MSG("[testSPI] REG_FIFO_ADDR_PTR        (0x" << hex << static_cast<int>(readRegister(REG_FIFO_ADDR_PTR)) << ")");
+  DEBUG_MSG("[testSPI] REG_FIFO_TX_BASE_ADDR    (0x" << hex << static_cast<int>(readRegister(REG_FIFO_TX_BASE_ADDR)) << ")");
+  DEBUG_MSG("[testSPI] REG_FIFO_RX_BASE_ADDR    (0x" << hex << static_cast<int>(readRegister(REG_FIFO_RX_BASE_ADDR)) << ")");
+  DEBUG_MSG("[testSPI] REG_FIFO_RX_CURRENT_ADDR (0x" << hex << static_cast<int>(readRegister(REG_FIFO_RX_CURRENT_ADDR)) << ")");
+  DEBUG_MSG("[testSPI] REG_RX_NB_BYTES (0x" << hex << static_cast<int>(readRegister(REG_RX_NB_BYTES)) << ")" << endl);
+
+  uint8_t irqflags = readRegister(REG_IRQ_FLAGS);
+  DEBUG_MSG("[testSPI] RX_DONE  (0x" << hex << static_cast<int>(irqflags & 0x40) << ")");
+  DEBUG_MSG("[testSPI] TX_DONE  (0x" << hex << static_cast<int>(irqflags & 0x08) << ")");
+}
+
+void LoRaClass::testspi(uint8_t value)
+{
+  // uint8_t response;
+  // uint8_t size;
+
+  // check FIFO size
+  // size = readRegister(REG_FIFO_ADDR_PTR) - readRegister(REG_FIFO_TX_BASE_ADDR);
+  // DEBUG_MSG("[testSPI] FIFO tx bytes(" << static_cast<int>(size) << ")");
+  printFIFORegs();
+
+  // write
+  writeRegister(REG_FIFO, value);
+  DEBUG_MSG("[testSPI] write(" << static_cast<int>(value) << ")");
+  
+  DEBUG_MSG("[testSPI] delay...");
+  bcm2835_delay(1000);
+
+  printFIFORegs();
+  // check FIFO size
+  // size = readRegister(REG_FIFO_ADDR_PTR) - readRegister(REG_FIFO_TX_BASE_ADDR);
+  // DEBUG_MSG("[testSPI] FIFO tx bytes(" << static_cast<int>(size) << ") after write" << endl);
+
+  // read
+  // response = readRegister(REG_FIFO);
+  // DEBUG_MSG("[testSPI] read(" << static_cast<int>(response) << ")" << endl);
+
+
+  
+}
