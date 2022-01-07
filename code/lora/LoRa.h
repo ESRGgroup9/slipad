@@ -59,6 +59,13 @@ public:
   int begin(long frequency);
   void end();
 
+
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEBUG
+  void testspi(uint8_t value);
+  void printFIFORegs(void);
+
+
+
   // setup lora pins
   // void setPins(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
   void setPins(int ss, int reset, int dio0);
