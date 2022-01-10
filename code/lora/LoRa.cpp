@@ -192,11 +192,10 @@ LoRaClass::LoRaClass(int localAddress) :
   _onTxDone(NULL)
 {
   this->localAddress = localAddress;
-  // overide Stream timeout value
-  // setTimeout(0);
+
   if(!bcm2835_init())
   {
-    perror("Error BCM2835 init\n");
+    cout << "Error BCM2835 init" << endl;
     exit(1);
   }
 }
@@ -231,7 +230,11 @@ int LoRaClass::begin(long frequency)
   // check version
   uint8_t version = readRegister(REG_VERSION);
   if (version != 0x12)
+  {
+    // DEBUG_MSG("[begin] version: 0x" << hex << static_cast<int>(version));
+    cout << "[begin] version: 0x0" << hex << static_cast<int>(version) << endl;
     return 0;
+  }
 
   // put in sleep mode
   sleep();
@@ -299,25 +302,25 @@ LoRaMsg LoRaClass::sendTo(std::string msg, uint8_t destination)
 
   beginPacket();
 
-  DEBUG_MSG(endl << "[sendTo] send destination addr");
+  // DEBUG_MSG(endl << "[sendTo] send destination addr");
   // add destination address  
   write(destination);
 
   // DEBUG_MSG(endl << "[sendTo] send sender addr");
   // // add sender address
-  // write(localAddress);
+  write(localAddress);
 
   // DEBUG_MSG(endl << "[sendTo] msg id");
   // // add message ID
-  // write(msgCount);
+  write(msgCount);
 
   // DEBUG_MSG(endl << "[sendTo] msg length");
   // // add message length
-  // write(msg.length());
+  write(msg.length());
 
   // DEBUG_MSG(endl << "[sendTo] msg");
   // // add message; convert string to const uint8_t*
-  // write(reinterpret_cast<const uint8_t*>(&msg[0]), msg.length());
+  write(reinterpret_cast<const uint8_t*>(&msg[0]), msg.length());
 
   endPacket();
 
@@ -345,9 +348,9 @@ LoRaError LoRaClass::receive(LoRaMsg &loraMsg)
   int recipient = read();
   
   // check the message recipient
-  if ((recipient != localAddress) && (recipient != 0xFF))
+  // if ((recipient != localAddress) && (recipient != 0xFF))
     // this message is not for me
-    return LoRaError::ENOTME;
+    // return LoRaError::ENOTME;
   
   // read sender address
   uint8_t sender = read();
@@ -538,8 +541,8 @@ int LoRaClass::parsePacket(int size)
 int LoRaClass::packetRssi()
 {
   return (readRegister(REG_PKT_RSSI_VALUE) -
-          ((_frequency < RF_MID_BAND_THRESHOLD) ?
-                        RSSI_OFFSET_LF_PORT : RSSI_OFFSET_HF_PORT));
+          (_frequency < RF_MID_BAND_THRESHOLD) ?
+                        RSSI_OFFSET_LF_PORT : RSSI_OFFSET_HF_PORT);
 }
 
 float LoRaClass::packetSnr()
@@ -995,11 +998,9 @@ uint8_t LoRaClass::singleTransfer(uint8_t address, uint8_t value)
 // ISR_PREFIX void LoRaClass::onDio0Rise()
 void LoRaClass::onDio0Rise()
 {
+  LoRaClass LoRa(-1);
   LoRa.handleDio0Rise();
 }
-
-LoRaClass LoRa(0);
-
 
 void LoRaClass::printFIFORegs(void)
 {

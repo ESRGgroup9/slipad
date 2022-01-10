@@ -84,8 +84,13 @@ int main(int argc, char *argv[])
 	lora.setPins(LORA_SS_PIN, LORA_RESET_PIN, LORA_DIO0_PIN);
 	
 	// set frequency and run
-	lora.begin(433E6);
-	lora.printFIFORegs();
+	if(!lora.begin(433E6))
+	{
+		cout << "Lora begin() failed" << endl;
+		return 1;
+	}
+
+	// lora.printFIFORegs();
 	//-----------------------------------
 	// do while op == ECHO
 	do
@@ -99,7 +104,7 @@ int main(int argc, char *argv[])
 			recv();
 	} while(op == ECHO);
 	
-	lora.printFIFORegs();
+	// lora.printFIFORegs();
 	return 0;
 }
 
