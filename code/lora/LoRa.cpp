@@ -172,7 +172,7 @@ ostream& operator<<(ostream& os, const LoRaMsg& msg)
   cout << "from[0x"   << hex << msg.sendAddr   << "]" << endl;
   cout << "to[0x"   << hex << msg.recvAddr   << "]" << endl;
   cout << "msgID["      << msg.msgID      << "]" << endl;
-  cout << "msgLength["  << msg.msgLength  << "]" << endl;
+  cout << "msgLength["  << dec << msg.msgLength  << "]" << endl;
   cout << "msg["        << msg.msg        << "]" << endl;
   return os;
 }
