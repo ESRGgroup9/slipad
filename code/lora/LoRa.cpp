@@ -169,8 +169,8 @@ using namespace std;
  * *******************************************************/
 ostream& operator<<(ostream& os, const LoRaMsg& msg)
 {
-  cout << "recvAddr["   << msg.recvAddr   << "]" << endl;
-  cout << "sendAddr["   << msg.sendAddr   << "]" << endl;
+  cout << "from[0x"   << hex << msg.sendAddr   << "]" << endl;
+  cout << "to[0x"   << hex << msg.recvAddr   << "]" << endl;
   cout << "msgID["      << msg.msgID      << "]" << endl;
   cout << "msgLength["  << msg.msgLength  << "]" << endl;
   cout << "msg["        << msg.msg        << "]" << endl;

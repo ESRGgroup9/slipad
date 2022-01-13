@@ -107,7 +107,8 @@ void send(int argc, char *argv[])
 	LoRaMsg loraMsg;
 
 	// get parameters from argv
-	int destAddr = atoi(argv[2]);
+	// int destAddr = atoi(argv[2]);
+	uint8_t destAddr = strtol(argv[2], NULL, 16);
 	string msg = "";
 
 	for(int i = 3; i < argc; i++)
@@ -116,10 +117,10 @@ void send(int argc, char *argv[])
 	// remove last " "
 	msg.pop_back();
 
-	cout << "Transmitting [" << msg << "] to [" << destAddr << "]...\n";
+	cout << "Transmitting [" << msg << "] to [0x" << hex << static_cast<int>(destAddr) << "]...\n";
 	loraMsg = lora.sendTo(msg, destAddr);
-	cout << "Transmitted:";
-	cout << endl << loraMsg << endl;
+	cout << "Sucessfully sent:" << endl;
+	cout << loraMsg << endl;
 }
 
 void recv(void)
