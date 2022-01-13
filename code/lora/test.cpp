@@ -17,29 +17,15 @@ void recv(void);
 void send(int argc, char *argv[]);
 
 #include <bcm2835.h>
-#define LORA_SS_PIN        RPI_GPIO_P1_24
+// #define LORA_SS_PIN        RPI_GPIO_P1_24
+#define LORA_SS_PIN        RPI_V2_GPIO_P1_03
+
 #define LORA_RESET_PIN     RPI_GPIO_P1_22
 #define LORA_DIO0_PIN      RPI_GPIO_P1_18
 
 int main(int argc, char *argv[])
 {
 	int op;
-
-// {
-// 	// set frequency and run
-// 	lora.begin(433E6);
-// 	// bcm2835_spi_begin();
-// 	cout << "SEND H..." << endl;
-// 	lora.testspi('H');
-
-// 	// cout << "SEND E..." << endl;
-// 	// lora.testspi('e');
-
-// 	// cout << "SEND L..." << endl;
-// 	// lora.testspi('l');
-
-// 	return 0;
-// }
 
 	if(argc < 2)
 	{
@@ -77,7 +63,7 @@ int main(int argc, char *argv[])
 	}
 
 	//-----------------------------------
-	cout << "LoRa local address[" << static_cast<int>(localAddr) << "]" << endl;	
+	cout << "LoRa local address[0x" << hex << static_cast<int>(localAddr) << "]" << endl;	
 	
 	// set Lora pins
 	// NSS, RST, DIO0
@@ -149,6 +135,14 @@ void recv(void)
 	}
 	while(err == LoRaError::ENOMSGR);
 
-	cout << "Received message with error[" << static_cast<int>(err) << "]" << endl;
+	cout << "Received message with error[" << static_cast<int>(err) << "] - ";
+	switch(err)
+	{
+		case LoRaError::MSGOK: 	 cout << "Message OK"; break;
+		case LoRaError::ENOMSGR: cout << "No message received"; break;
+		case LoRaError::ENOTME:  cout << "Message received is not for this device"; break;
+		case LoRaError::EBADLMSG: cout << "Message received lengths does not match";
+	}
+
 	cout << endl <<  loraMsg << endl;
 }

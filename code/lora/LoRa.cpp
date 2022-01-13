@@ -204,6 +204,7 @@ int LoRaClass::begin(long frequency)
 {
   // setup pins
   pinMode(_ss, OUTPUT);
+
   // set SS high
   digitalWrite(_ss, HIGH);
 
@@ -221,18 +222,23 @@ int LoRaClass::begin(long frequency)
   }
 
   // start SPI
-  // _spi->begin();
-  bcm2835_spi_begin();
+  if (!bcm2835_spi_begin())
+  {
+    cout << "bcm2835_spi_begin failed. Are you running as root??\n";
+    exit(1);
+  }
+
   DEBUG_MSG("[SPI] begin");
   setSPI();
   DEBUG_MSG("[SPI] setup done");
 
   // check version
   uint8_t version = readRegister(REG_VERSION);
+
   if (version != 0x12)
   {
+    cout << "[begin] version: 0x" << hex << static_cast<int>(version) << endl;
     // DEBUG_MSG("[begin] version: 0x" << hex << static_cast<int>(version));
-    cout << "[begin] version: 0x0" << hex << static_cast<int>(version) << endl;
     return 0;
   }
 
@@ -289,9 +295,9 @@ void LoRaClass::setSPI(void)
   // BCM2835 runs at 250 MHz. The clock divider necessary to run SPI
   // at LORA_DEFAULT_SPI_FREQUENCY is:
   //    250MHz / LORA_DEFAULT_SPI_FREQUENCY ~= 32
-  bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_32);
-  bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
-  bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);
+  bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_64);
+  // bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
+  // bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);
 }
 
 LoRaMsg LoRaClass::sendTo(std::string msg, uint8_t destination)
@@ -600,7 +606,7 @@ int LoRaClass::read()
     return -1;
   }
 
-  DEBUG_MSG("[read] reading");
+  // DEBUG_MSG("[read] reading");
   _packetIndex++;
   return readRegister(REG_FIFO);
 }
@@ -982,12 +988,18 @@ void LoRaClass::writeRegister(uint8_t address, uint8_t value)
 uint8_t LoRaClass::singleTransfer(uint8_t address, uint8_t value)
 {
   uint8_t response;
-
+  
   digitalWrite(_ss, LOW);
+  // bcm2835_delayMicroseconds(1);
+
   bcm2835_spi_transfer(address);
   response = bcm2835_spi_transfer(value);
+  
+  // bcm2835_delayMicroseconds(1);
   digitalWrite(_ss, HIGH);
 
+
+  // bcm2835_delay(10);
   // DEBUG_MSG("[SPI] transfer(" << static_cast<int>(response) <<
   //   ") addr[" << setw(3) << static_cast<int>(address) <<
   //   "] val[" << setw(3) << static_cast<int>(value) << "]");
