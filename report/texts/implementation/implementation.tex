@@ -22,9 +22,8 @@
 \section{Device Drivers}
 \input{./texts/implementation/ddrivers}
 
-.config - Linux/arm 5.10.1 Kernel Configuration
-> Device Drivers > Industrial I/O support > Light sensors
+%**********************************************************
+\clearpage
+\section{LoRa communication}
+LoRa communication was implemented by deriving a third-party software from Arduino. \cite{sx1278_lib} Using \verb|bcm2835| C library one was able to control all the needed GPIO and SPI functions.
 
--> TAOS TSL2580, TSL2581 and TSL2583 light-to-digital converters
-
-cat /lib/modules/5.10.1-v7l/modules.dep | grep tsl

@@ -9,19 +9,19 @@ Under \verb|Target-Packages| select:
 
 	\item \verb|Networking applications|, select:
 	\begin{itemize}
-		\item \verb|arp-scan|
-		\item \verb|arptables-legacy|
-		\item \verb|dhcpcd|
-		\item \verb|dropbear|
+		\item \verb|arp-scan|: scan the network of a certain interface for alive hosts;
+		\item \verb|arptables-legacy|: set up and maintain the tables of ARP rules;
+		\item \verb|dhcpcd|: open source DHCP client;
+		\item \verb|dropbear|: small SSH server which will let us log in remotely;
 	\end{itemize}
 
 	\item \verb|Hardware Handling|
 	\begin{itemize}
-		\item \verb|spi-tools|: LoRa module communicates with the Raspberry Pi through SPI, therefore it is necessary to  enable the protocol and the tools required to use it.
+		\item \verb|spi-tools|: tools needed to use SPI. Used for LoRa module communication;
 	\end{itemize}
 	
 	\item \verb|Libraries -> Hardware Handling|, select:
 	\begin{itemize}
-		\item \verb|bcm2835|
-	\end{itemize}	
+		\item \verb|bcm2835|: C library for Raspberry Pi user programs;
+	\end{itemize}
 \end{itemize}
