@@ -44,9 +44,11 @@ As previously seen, the SPI interface works by sending two bytes in a row, depen
 
 When the NSS goes to low, a transfer is started, with the master generating SCK. For each byte are generated 8 pulses of clock, 1 pulse per bit sent. Due to overhead and delays introduced by the software, there is a gap between the two bytes sent, where the NSS signal is still low but the SCK is not being generated. When NSS goes high, the transfer is over.
 
-
+%**********************************************************
 \section{TSL2581}
 
+%**********************************************************
 \section{PWM control}
 
+%**********************************************************
 \section{Motion Detector}

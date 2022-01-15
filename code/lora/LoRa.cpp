@@ -989,20 +989,14 @@ uint8_t LoRaClass::singleTransfer(uint8_t address, uint8_t value)
 {
   uint8_t response;
   
+  // set NSS pin low. Begin transfer
   digitalWrite(_ss, LOW);
-  // bcm2835_delayMicroseconds(1);
 
   bcm2835_spi_transfer(address);
   response = bcm2835_spi_transfer(value);
   
-  // bcm2835_delayMicroseconds(1);
+  // set NSS pin high. Stop transfer
   digitalWrite(_ss, HIGH);
-
-
-  // bcm2835_delay(10);
-  // DEBUG_MSG("[SPI] transfer(" << static_cast<int>(response) <<
-  //   ") addr[" << setw(3) << static_cast<int>(address) <<
-  //   "] val[" << setw(3) << static_cast<int>(value) << "]");
 
   return response;
 }
