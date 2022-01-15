@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
 	if(argc < 2)
 	{
-		cout << "Usage" << endl;
+		cout << "Usage: " << argv[0] << " <duty_cycle>" << endl;
 		return 1;
 	}
 
