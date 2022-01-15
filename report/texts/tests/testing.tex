@@ -4,7 +4,7 @@ In order to test the LoRa SX1278 module, one wrote a small program to test send 
 \begin{figure}[H]
 	\centering	
 	\includegraphics[width=0.6\textwidth]{13tests/lora/loratest}
-	\caption{LoRa module test program.}
+	\caption{Test LoRa module.}
 	\label{fig:loratest}
 \end{figure}
 
@@ -49,6 +49,33 @@ When the NSS goes to low, a transfer is started, with the master generating SCK.
 
 %**********************************************************
 \section{PWM control}
+In order to test PWM control, one wrote a small program to test the generation of a PWM signal at 50 Hz with a variable duty cycle, with the usage shown in figure \ref{fig:loratest}. The duty cycle received is a value from 0 to 1.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.5\textwidth]{13tests/pwm/testpwm}
+	\caption{Test PWM control.}
+	\label{fig:testpwm}
+\end{figure}
+
+
+\begin{figure}[H]%
+	\centering
+	\subfloat[\centering Set duty cycle to 50\%. ]{{\includegraphics[width=6.25cm]{13tests/pwm/pwm_50}}}%
+	\qquad
+	\subfloat[\centering Generated PWM signal. ]{{\includegraphics[width=12cm]{13tests/pwm/Duty_50}}}%
+	\caption{Test PWM control: PWM at 50\% duty cycle.}%
+	\label{fig:pwm_50}%
+\end{figure}
+
+\begin{figure}[H]%
+	\centering
+	\subfloat[\centering Set duty cycle to 25\%. ]{{\includegraphics[width=6.25cm]{13tests/pwm/pwm_25}}}%
+	\qquad
+	\subfloat[\centering Generated PWM signal. ]{{\includegraphics[width=12cm]{13tests/pwm/Duty_25}}}%
+	\caption{Test PWM control: PWM at 25\% duty cycle.}%
+	\label{fig:pwm_25}%
+\end{figure}
 
 %**********************************************************
 \section{Motion Detector}
