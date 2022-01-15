@@ -1,5 +1,5 @@
 \section{LoRa module}
-In order to test the LoRa SX1278 module, one wrote a small program to test send and receive functions from LoRa module, with usage shown in figure \ref{fig:loratest}.
+In order to test the LoRa SX1278 module, one wrote a small program to test send and receive functions from LoRa module, with the usage shown in figure \ref{fig:loratest}.
 
 \begin{figure}[H]
 	\centering	
@@ -16,24 +16,33 @@ One tested the read and send functions of the module, firstly by waiting for a m
 \begin{figure}[H]
 	\centering	
 	\includegraphics[width=0.6\textwidth]{13tests/lora/BB_recv_wait}
-	\caption{Test LoRa module: receive.}
+	\caption{Test LoRa module: waiting for receive.}
 	\label{fig:loratest_recv}
 \end{figure}
 
-In figure, device \verb|0xcc| sends the message \verb|"Hello from 0xCC"| to the device \verb|0xbb|.
+In figure \ref{fig:loratest_send} (a) the device \verb|0xcc| sends the message \verb|"Hello from 0xCC"| to the device \verb|0xbb|, presenting all the attributes, from the source address, \verb|'from'| field, to the destination address, \verb|'to'| field, including also message attributes, as the \verb|msgID|, \verb|msgLength| and the \verb|msg| itself.
+
+In figure \ref{fig:loratest_send} (b) is shown the receiver side, receiving the message correctly, with error 0, and presenting all the attributes from the received message, matching all that were sent by the sender.
 
 \begin{figure}[H]%
 	\centering
-	\subfloat[\centering label	 1]{{\includegraphics[width=6.25cm]{13tests/lora/CC_send}}}%
+	\subfloat[\centering Sender side ]{{\includegraphics[width=6.25cm]{13tests/lora/CC_send}}}%
 	\qquad
-	\subfloat[\centering label 2]{{\includegraphics[width=6.25cm]{13tests/lora/BB_recv}}}%
-	\caption{2 Figures side by side}%
-	\label{fig:example}%
+	\subfloat[\centering Receiver side ]{{\includegraphics[width=6.25cm]{13tests/lora/BB_recv}}}%
+	\caption{Test LoRa module: send message from 0xcc to 0xbb.}%
+	\label{fig:loratest_send}%
 \end{figure}
 
+As previously seen, the SPI interface works by sending two bytes in a row, depending on what operation it is: read or write. In figure \ref{fig:loratest_sck_nss} is seen the clock signal (SCK, in red) and the slave select signal (NSS, in yellow).
 
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=1\textwidth]{13tests/lora/SCK_CS}
+	\caption{Test LoRa module: SCK (in red) and NSS (in yellow) signals.}
+	\label{fig:loratest_sck_nss}
+\end{figure}
 
-begun by analyzing the signals sent 
+When the NSS goes to low, a transfer is started, with the master generating SCK. For each byte are generated 8 pulses of clock, 1 pulse per bit sent. Due to overhead and delays introduced by the software, there is a gap between the two bytes sent, where the NSS signal is still low but the SCK is not being generated. When NSS goes high, the transfer is over.
 
 
 \section{TSL2581}
