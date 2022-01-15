@@ -44,7 +44,7 @@ A transfer is always started by the NSS pin going low. MISO is high impedance wh
 
 A LoRa message is defined by the class \verb|LoRaMsg| having the attributes shown in listing \ref{lst:loramsg}.
 
-\begin{lstlisting}[caption={LoRa message}, label={lst:loramsg}]
+\begin{lstlisting}[caption={LoRa message.}, label={lst:loramsg}]
 int recvAddr;     	// receiver address
 int sendAddr;     	// sender address
 
@@ -55,7 +55,7 @@ string msg;       	// message
 
 In listing \ref{lst:lorasend} is shown the main core of LoRa send function. This sends a series of attributes in each message, regarding destination address, sender address, message ID, message length and the message itself.
 
-\begin{lstlisting}[caption={LoRa send function}, label={lst:lorasend}]
+\begin{lstlisting}[caption={LoRa send function.}, label={lst:lorasend}]
 beginPacket();
 
 // add destination address  
@@ -76,7 +76,7 @@ The function which implements LoRa receive, receives all of the attributes sent 
 
 In order to define LoRa status before a send/receive operation, a class is defined, as presented in listing \ref{lst:loraerr}.
  
-\begin{lstlisting}[caption={LoRaError}, label={lst:loraerr}]
+\begin{lstlisting}[caption={LoRaError enum class.}, label={lst:loraerr}]
 enum class LoRaError
 {
 	MSGOK = 0,  	// Message OK
