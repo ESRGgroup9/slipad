@@ -53,4 +53,35 @@ size_t msgLength; 	// message length
 string msg;       	// message
 \end{lstlisting}
 
+In listing \ref{lst:lorasend} is shown the main core of LoRa send function. This sends a series of attributes in each message, regarding destination address, sender address, message ID, message length and the message itself.
 
+\begin{lstlisting}[caption={LoRa send function}, label={lst:lorasend}]
+beginPacket();
+
+// add destination address  
+write(destination);
+// add sender address
+write(localAddress);
+// add message ID
+write(msgCount);
+// add message length
+write(msg.length());
+// add message
+write(msg);
+
+endPacket();
+\end{lstlisting}
+
+The function which implements LoRa receive, receives all of the attributes sent in the function above. Also it does some additional verifications to ensure communication integrity. The destination address in the message is compared to the local address of the device receiving the message, in order to avoid messages being mistakenly read. Besides that, one checks if the received message length matches the supposed length, by comparing the received message length to the message field regarding the message length.
+
+In order to define LoRa status before a send/receive operation, a class is defined, as presented in listing \ref{lst:loraerr}.
+ 
+\begin{lstlisting}[caption={LoRaError}, label={lst:loraerr}]
+enum class LoRaError
+{
+	MSGOK = 0,  	// Message OK
+	ENOMSGR,    	// No message received
+	ENOTME,     	// Message received is not for this device
+	EBADLMSG    	// Message received lengths does not match
+};
+\end{lstlisting}
