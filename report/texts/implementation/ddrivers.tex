@@ -1,4 +1,10 @@
 \subsection{tsl2581}
+%.config - Linux/arm 5.10.1 Kernel Configuration
+%> Device Drivers > Industrial I/O support > Light sensors
+%
+%-> TAOS TSL2580, TSL2581 and TSL2583 light-to-digital converters
+%
+%cat /lib/modules/5.10.1-v7l/modules.dep | grep tsl
 In order to insert the \verb|tsl2581| device driver, available on the Linux kernel (\cite{code_tsl}) one needs to execute a series of steps.\\
 
 Firstly, one needs to add a new entry on the Raspberry Pi device tree, regarding the \verb|tsl2581|. For that, one needs to change the Device tree Source file (.dts) for the Raspberry Pi, named \verb|bcm2711-rpi-4-b.dts|. This will be later compiled into a device tree binary (.dtb), when creating an image using Buildroot, which will be later passed by the boot loader to the operating system kernel. \cite{dtb}

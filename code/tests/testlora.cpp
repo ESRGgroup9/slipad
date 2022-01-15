@@ -1,13 +1,19 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-#include "LoRa.h"
 #include <cstdint>
+
+#include "LoRa.h"
 using namespace std;
 
 #define SEND 1
 #define RECV 2
 #define ECHO 3
+
+#include <bcm2835.h>
+#define LORA_SS_PIN        RPI_V2_GPIO_P1_11
+#define LORA_RESET_PIN     RPI_GPIO_P1_22
+#define LORA_DIO0_PIN      RPI_GPIO_P1_18
 
 uint8_t localAddr = 0xBB;
 LoRaClass lora(localAddr);
@@ -15,13 +21,6 @@ LoRaClass lora(localAddr);
 void print_usage(char *argv0);
 void recv(void);
 void send(int argc, char *argv[]);
-
-#include <bcm2835.h>
-// #define LORA_SS_PIN        RPI_GPIO_P1_24
-#define LORA_SS_PIN        RPI_V2_GPIO_P1_11
-
-#define LORA_RESET_PIN     RPI_GPIO_P1_22
-#define LORA_DIO0_PIN      RPI_GPIO_P1_18
 
 int main(int argc, char *argv[])
 {
