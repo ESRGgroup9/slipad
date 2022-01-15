@@ -114,3 +114,26 @@ enum class LoRaError
 \section{PWM control}
 In order to control the lamp, a PWM signal is used. For that, one can use \verb|bcm2835| library to control a PWM channel, producing the desired PWM signal at the selected GPIO pin. \cite{bcmpwm}
 
+Considering that the clock which drives the PWM channels, \verb|clock|, is 54 MHz, and the lamp will operate at 50 Hz, \verb|freq|.
+
+\[ RANGE = \frac{clock}{clock_{div} * freq} \]
+
+Using a clock divider of 16, $clock_{div}$, one gets \verb|RANGE = 67500|. The variable \verb|RANGE| defines the maximum range of the PWM output, as shown in listing \ref{lst:pwmconfig}. One used \verb|PWM_CHANNEL 0|.
+
+\begin{lstlisting}[caption={PWM configuration.}, label={lst:pwmconfig}]
+// Set the output pin to Alt Fun 5, to allow PWM channel 0 to be output there
+bcm2835_gpio_fsel(PWM_PIN, BCM2835_GPIO_FSEL_ALT5);
+// set clock divider
+bcm2835_pwm_set_clock(BCM2835_PWM_CLOCK_DIVIDER_16);
+//CTL reg
+bcm2835_pwm_set_mode(PWM_CHANNEL, 1, 1);
+//RNG1/2 reg
+bcm2835_pwm_set_range(PWM_CHANNEL, RANGE);
+\end{lstlisting}
+
+One can set the PWM pulse ratio to emit to \verb|RANGE|, where the duty cycle, \verb|duty| a value from 0 to 1, controls the PWM output ratio as a fraction of the range as shown in listing \ref{lst:pwmset}.
+
+\begin{lstlisting}[caption={PWM set duty cycle.}, label={lst:pwmset}]
+bcm2835_pwm_set_data(PWM_CHANNEL, (duty*RANGE));
+\end{lstlisting}
+

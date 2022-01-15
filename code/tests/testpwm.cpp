@@ -20,9 +20,6 @@ int main(int argc, char *argv[])
     	return 1;
 	}
 
-    // Set the output pin to Alt Fun 5, to allow PWM channel 0 to be output there
-    bcm2835_gpio_fsel(PWM_PIN, BCM2835_GPIO_FSEL_ALT5);
-    
     // Oscillator 54 MHz. With a divider of 16 in MARKSPACE mode, and a
     // pulse repetition frequency of 50 Hz:
 
@@ -30,6 +27,9 @@ int main(int argc, char *argv[])
     // RANGE = 3,375MHz / 50 Hz
     // RANGE = 67500
 
+    // Set the output pin to Alt Fun 5, to allow PWM channel 0 to be output there
+    bcm2835_gpio_fsel(PWM_PIN, BCM2835_GPIO_FSEL_ALT5);
+    // set clock divider
     bcm2835_pwm_set_clock(BCM2835_PWM_CLOCK_DIVIDER_16);
     //CTL reg
     bcm2835_pwm_set_mode(PWM_CHANNEL, 1, 1);
