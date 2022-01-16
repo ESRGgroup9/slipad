@@ -1,0 +1,14 @@
+src	— Source files written by myself
+ext 	— Contains third-party libraries
+		libname-1.2.8
+	   	 include — Headers
+	   	 lib — Compiled lib files
+	  	 Donwload.txt — Contains link to download the version used
+ide	— I store project files in here
+bin 	— Compiled exe goes here
+build 	— The compiler's build files
+doc 	— Documentation of any kind
+README
+INSTALL
+COPYING
+
