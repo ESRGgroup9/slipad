@@ -1,6 +1,6 @@
 #include "CLoraComm.h"
 #include "utils.h"
-#include "../lora/LoRa.h"
+#include "LoRa.h"
 using namespace std;
 
 uint8_t localAddr = 0xBB;

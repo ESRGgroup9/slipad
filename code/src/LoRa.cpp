@@ -5,7 +5,6 @@
 #include "utils.h"
 
 #include <iostream>
-#include <thread> // yield
 #include <bcm2835.h>
 using namespace std;
 
