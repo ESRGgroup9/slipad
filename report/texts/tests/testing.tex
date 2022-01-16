@@ -46,6 +46,16 @@ When the NSS goes to low, a transfer is started, with the master generating SCK.
 
 %**********************************************************
 \section{TSL2581}
+After the I2C configuration, one can see that the TSL2581 was detected in the bus by the Raspberry Pi, by running the command \verb|i2cdetect -y 1|. The execution of this command detects all the devices connected to the I2C bus and, as seen in the figure \ref{fig:i2cDetect}, it detects the TSL2581 device with its default address, 0x39, as seen before \ref{section:lumSensor}. One can also see what type of operations are allowed to this device, by running the command \verb|i2cdetect -F 1|.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.6\textwidth]{13tests/ldr/i2c_detect}
+	\caption{Test TSL2581 module: device detection in I2C bus.}
+	\label{fig:i2cDetect}
+\end{figure}
+
+(CONTINUE)
 
 %**********************************************************
 \section{PWM control}

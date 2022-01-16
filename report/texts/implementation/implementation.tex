@@ -139,6 +139,7 @@ bcm2835_pwm_set_data(PWM_CHANNEL, (duty*RANGE));
 
 \clearpage
 \section{Luminosity Sensor}
+\label{section:lumSensor}
 As specified before, in order to know when to turn on/ off the lamp, it is used a luminosity sensor, the TSL2581. This module uses the I2C communication protocol to interface with the Raspberry Pi, being implemented based on a third-party software \cite{tsl2581_code}. As for the LoRa communication, one used the bcm2835 C library to communicate with the sensor module by I2C. \cite{bcmpiic}
 
 From the theoretical foundations, one knows that the TSL2581 module uses a data line, SDA, to send and receive data, and a clock signal line, SCL, to synchronize the communication with the master device.
