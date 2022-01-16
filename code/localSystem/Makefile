@@ -1,11 +1,11 @@
-CC=g++
-# CC=arm-buildroot-linux-gnueabihf-g++
+# CC=g++
+CC=arm-buildroot-linux-gnueabihf-g++
 
-LIBS=-lpthread #-lbcm2835
+LIBS=-lpthread -lbcm2835
 CFLAGS= -Wall -g -I. $(LIBS)
 
-DEPS=CCommunication.h CLoraComm.h utils.h
-OBJS=CCommunication.o main.o CLoraComm.o
+DEPS=CCommunication.h CLoraComm.h utils.h ../lora/LoRa.h
+OBJS=CCommunication.o main.o CLoraComm.o ../lora/LoRa.o
 TARGET=main.elf
 
 IP=10.42.0.254
