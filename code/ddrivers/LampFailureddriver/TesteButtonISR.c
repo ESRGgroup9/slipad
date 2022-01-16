@@ -26,7 +26,8 @@ int main(int argc, char *argv)
 		printf("Device driver not found.\n");
 		return -1;
 	}
-	else printf("Device driver successfully initialized\n");
+	else
+		printf("Lamp Failure Detector device driver successfully initialized\n");
 	
 	pid = getpid();
 	if(ioctl(button, IOCTL_PID, &pid))
@@ -48,7 +49,7 @@ int main(int argc, char *argv)
 	close(button);
 	
 	printf("\nExiting\n");
-	return 0;
+	// return 0;
 }
 
 void sigHigh(int n, siginfo_t *info, void *unused)

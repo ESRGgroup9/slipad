@@ -26,7 +26,8 @@ int main(int argc, char *argv)
 		printf("Device driver not found.\n");
 		return -1;
 	}
-	else printf("Device driver successfully initialized\n");
+	else
+		printf("PIR Device driver successfully initialized\n");
 	
 	pid = getpid();
 	if(ioctl(button, IOCTL_PID, &pid))
@@ -58,10 +59,11 @@ void sigHigh(int n, siginfo_t *info, void *unused)
 	// printf("Button was pressed. Pin value %d.\n", pinValue);
 	// printf("Pin value %d\n", pinValue);
 
-	static int i = 1;
+	// static int i = 1;
 	// if(pinValue == 1)
 	{
-		printf("[%3d] Motion detected\n", i++);
+		// printf("[%3d] Motion detected\n", i++);
 		// exit(1);
 	}
+	printf("Motion detected\n");
 }
