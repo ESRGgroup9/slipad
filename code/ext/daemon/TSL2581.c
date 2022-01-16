@@ -77,12 +77,12 @@ void SET_Interrupt_Threshold(uint16_t min,uint16_t max)
 void Read_Channel()
 {	
 	uint8_t DataLow,DataHigh;
-	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0LOW);
-	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0HIGH);
+	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0LOW); 	// read channel 0 low byte
+	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0HIGH);	// read channel 0 high byte
 	Channel_0 = 256 * DataHigh + DataLow ;
 		
-	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1LOW);
-	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1HIGH);
+	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1LOW); 	// read channel 1 low byte
+	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1HIGH);	// read channel 1 high byte
 	Channel_1 = 256 * DataHigh + DataLow ;
 	
 }
@@ -177,4 +177,3 @@ uint32_t calculateLux(uint16_t iGain)//, uint16_t tIntCycles)
 	lux_temp = temp >> LUX_SCALE;			// strip off fractional portion
 	return (lux_temp);		  							// Signal I2C had no errors
 }
-
