@@ -4,6 +4,13 @@
 #include <string>
 #include "CCommunication.h"
 
+#include <bcm2835.h>
+
+// default LoRa pins
+#define LORA_SS_PIN        RPI_V2_GPIO_P1_11
+#define LORA_RESET_PIN     RPI_GPIO_P1_22
+#define LORA_DIO0_PIN      RPI_GPIO_P1_18
+
 class CLoraComm : public CCommunication
 {
 public:

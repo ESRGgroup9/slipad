@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "LoRa.h"
+#include "utils.h"
 
 #include <iostream>
 #include <thread> // yield
@@ -81,21 +82,6 @@ using namespace std;
 #define LORA_DEFAULT_SS_PIN        RPI_GPIO_P1_24
 #define LORA_DEFAULT_RESET_PIN     RPI_GPIO_P1_22
 #define LORA_DEFAULT_DIO0_PIN      RPI_GPIO_P1_18
-
-#define DEBUG
-
-#ifdef DEBUG
-  #include <iomanip>
-  #include <fstream>
-
-  ofstream logfile("log.txt");
-  // log.open("log.txt");
-  // log << str << endl;
-  // log.close();
-  #define DEBUG_MSG(str) (logfile << str << std::endl)
-#else
-  #define DEBUG_MSG(str) 
-#endif
 
 /**********************************************************
  * GPIO Functions
@@ -237,8 +223,8 @@ int LoRaClass::begin(long frequency)
 
   if (version != 0x12)
   {
-    cout << "[begin] version: 0x" << hex << static_cast<int>(version) << endl;
-    // DEBUG_MSG("[begin] version: 0x" << hex << static_cast<int>(version));
+    cout << "LoRa device not plugged in" << endl;
+    DEBUG_MSG("[begin] version: 0x" << hex << static_cast<int>(version));
     return 0;
   }
 
@@ -1017,9 +1003,8 @@ void LoRaClass::printFIFORegs(void)
   DEBUG_MSG("[testSPI] REG_FIFO_RX_CURRENT_ADDR (0x" << hex << static_cast<int>(readRegister(REG_FIFO_RX_CURRENT_ADDR)) << ")");
   DEBUG_MSG("[testSPI] REG_RX_NB_BYTES (0x" << hex << static_cast<int>(readRegister(REG_RX_NB_BYTES)) << ")" << endl);
 
-  uint8_t irqflags = readRegister(REG_IRQ_FLAGS);
-  DEBUG_MSG("[testSPI] RX_DONE  (0x" << hex << static_cast<int>(irqflags & 0x40) << ")");
-  DEBUG_MSG("[testSPI] TX_DONE  (0x" << hex << static_cast<int>(irqflags & 0x08) << ")");
+  DEBUG_MSG("[testSPI] RX_DONE  (0x" << hex << static_cast<int>(readRegister(REG_IRQ_FLAGS) & 0x40) << ")");
+  DEBUG_MSG("[testSPI] TX_DONE  (0x" << hex << static_cast<int>(readRegister(REG_IRQ_FLAGS) & 0x08) << ")");
 }
 
 void LoRaClass::testspi(uint8_t value)

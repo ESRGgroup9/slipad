@@ -4,11 +4,6 @@
 #include <pthread.h>
 #include <string>
 #include <queue>
-#include <bcm2835.h>
-
-#define LORA_SS_PIN        RPI_V2_GPIO_P1_11
-#define LORA_RESET_PIN     RPI_GPIO_P1_22
-#define LORA_DIO0_PIN      RPI_GPIO_P1_18
 
 enum class ConnStatus
 {
@@ -22,7 +17,7 @@ class CCommunication
 {
 public:
 	CCommunication();
-	~CCommunication();
+	// ~CCommunication();
 
 	void init(int tprio);
 	void run(void);

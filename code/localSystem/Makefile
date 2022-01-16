@@ -4,7 +4,7 @@ CC=arm-buildroot-linux-gnueabihf-g++
 LIBS=-lpthread -lbcm2835
 CFLAGS= -Wall -g -I. $(LIBS)
 
-DEPS=CCommunication.h CLoraComm.h utils.h ../lora/LoRa.h
+DEPS=utils.h CCommunication.h CLoraComm.h ../lora/LoRa.h
 OBJS=CCommunication.o main.o CLoraComm.o ../lora/LoRa.o
 TARGET=main.elf
 

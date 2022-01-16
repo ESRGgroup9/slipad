@@ -16,11 +16,10 @@ CLoraComm::CLoraComm(int freqMhz, int dest, int src)
 	lora.setPins(LORA_SS_PIN, LORA_RESET_PIN, LORA_DIO0_PIN);
 	
 	// set frequency
-	if(!lora.begin(freqMhz*1E6))
-		panic("CLoraComm::CLoraComm(): lora begin()");
+	// if(!lora.begin(freqMhz*1E6))
+	// 	panic("CLoraComm::CLoraComm(): lora begin()");
 
 	status = ConnStatus::ONLINE;
-	// init(25);
 }
 
 CLoraComm::~CLoraComm()
@@ -36,10 +35,11 @@ int CLoraComm::getLocalAddr(void) const
 string CLoraComm::recvFunc(void)
 {
 	LoRaMsg loraMsg;
-	LoRaError err;
+	// LoRaError err;
 
-	err = lora.receive(loraMsg);
-	
+	// err = lora.receive(loraMsg);
+	lora.receive(loraMsg);
+
 	return loraMsg.msg;
 }
 
