@@ -58,6 +58,9 @@ In order to test PWM control, one wrote a small program to test the generation o
 	\label{fig:testpwm}
 \end{figure}
 
+In figure \ref{fig:pwm_50} one defined duty cycle as \verb|0,5| (\verb+50 %+). As seen in the Implementation phase, the \verb+RANGE = 67500+ , so considering the inserted duty cycle, the PWM pulse ratio should be \verb|RANGE*0,5 = 33750|, as shown in figure \ref{fig:pwm_50} (a), in the field \verb|PWM data|.
+
+In figure \ref{fig:pwm_50} (b) is shown the generated PWM signal, with time division of \verb+5 ms+ per division, adding up to \verb+20 ms+ per period, which is referent to a 50 Hz wave.
 
 \begin{figure}[H]%
 	\centering
@@ -67,6 +70,8 @@ In order to test PWM control, one wrote a small program to test the generation o
 	\caption{Test PWM control: PWM at 50\% duty cycle.}%
 	\label{fig:pwm_50}%
 \end{figure}
+
+In figure \ref{fig:pwm_25} is shown the a PWM generated signal with \verb+25 %+ duty cycle, with output on the GPIO 18. In figure \ref{fig:pwm_25} (a) one can check that the field \verb|PWM data| is equal to \verb+RANGE*0,25+.
 
 \begin{figure}[H]%
 	\centering
