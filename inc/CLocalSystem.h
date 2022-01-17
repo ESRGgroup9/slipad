@@ -9,8 +9,8 @@
 #include <pthread.h>
 #include <mqueue.h> // mqd_t
 
-#define GATEWAY_ADDR 	0
-#define LS_ADDR			0
+#define GATEWAY_ADDR 	(uint8_t)(0xcc)
+#define LS_ADDR			(uint8_t)(0xbb)
 
 #define TIM_CAM_FRAME_SECS	0
 #define TIM_CAM_PROC_SECS	0
