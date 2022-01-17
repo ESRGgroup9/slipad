@@ -9,7 +9,8 @@ CXX=arm-buildroot-linux-gnueabihf-g++
 LIBS=-lpthread -lbcm2835
 CXXFLAGS= -Wall -g -I$(INC_DIR) $(LIBS) #-D DEBUG
 
-SRC_OBJS=$(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.cpp))
+SRC_OBJS=$(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.c))
+SRC_OBJS+=$(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.cpp))
 
 all: localsys tests ## Compile all
 
@@ -42,7 +43,7 @@ $(BUILD_DIR)/%.o: $(TESTS_DIR)/%.cpp | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 # ---------------- Create object files from SRC_DIR ------------
-$(BUILD_DIR)/%.o : $(SRC_DIR)/%.cpp | build
+$(BUILD_DIR)/%.o : $(SRC_DIR)/%.c* | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 # ------------------ Transfer bins to $(IP):$(DIR) -----------------
@@ -62,11 +63,11 @@ build:
 bin:
 	@mkdir -p $(BIN_DIR)
 
+clean: ## Remove /build and /bin directories
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
+
 # help: display all ##comments that are in front of rules
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
-
-clean:
-	rm -rf $(BUILD_DIR) $(BIN_DIR)
 
 .PHONY: bin build clean localsys transfer tests help

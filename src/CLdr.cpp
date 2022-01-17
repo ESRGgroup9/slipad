@@ -1,9 +1,7 @@
 #include "CLdr.h"
 #include "TSL2581.h"
+#include "utils.h"
 #include <stdlib.h>
-
-void panic(char *msg);
-#define panic(m)	{perror(m); abort();}
 
 // defines when limit value for day and night lux
 #define DAY_NIGHT_LUX_LIMIT 	60
