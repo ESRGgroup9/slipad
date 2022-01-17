@@ -17,6 +17,7 @@
 #include "CLamp.h"
 
 #include "utils.h"
+#include <bcm2835.h>
 
 #define TIM_LAMP_ON_SECS 0
 
@@ -29,7 +30,7 @@
 #define PWM_MAX 	100
 #define PWM_OFF 	0
 
-CLamp::CLamp(uint8_t timoutSecs) : timLampOnSecs(timoutSecs)
+CLamp::CLamp(uint8_t timoutSecs) : timLapOnSecs(timoutSecs)
 {
 	if (!bcm2835_init())
 		panic("Error bcm2835 init");
@@ -50,7 +51,7 @@ CLamp::CLamp(uint8_t timoutSecs) : timLampOnSecs(timoutSecs)
         panic("CLamp::CLamp(): Mutex init");
 }
 
-CLamp::~Clamp()
+CLamp::~CLamp()
 {
 
 }
@@ -65,10 +66,13 @@ void CLamp::setBrightness(uint8_t lux)
 
 	pthread_mutex_lock(&mutChangePWM);
 	pwmVal = lux;
-	bcm2835_pwm_set_data(PWM_CHANNEL, (pwmVal*RANGE));
+	bcm2835_pwm_set_data(PWM_CHANNEL, (duty*RANGE));
 
 	if(pwmVal==PWM_MAX)
 		// SET TIMER
+    {
+
+    }
 
 }
 
