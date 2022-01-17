@@ -15,7 +15,7 @@ using namespace std;
 #define LORA_RESET_PIN     RPI_GPIO_P1_22
 #define LORA_DIO0_PIN      RPI_GPIO_P1_18
 
-uint8_t localAddr = 0xBB;
+uint8_t localAddr = 0xCC;
 LoRaClass lora(localAddr);
 
 void print_usage(char *argv0);
