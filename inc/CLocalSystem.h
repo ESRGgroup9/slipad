@@ -33,7 +33,7 @@ private:
 	static void *tParkDetection(void*);
 
 private:
-	CLamp lamp;
+	//CLamp lamp;
 	CLoraComm lora;
 	CCamera camera;
 	CParkDetection park;

@@ -7,21 +7,21 @@
 class CLamp
 {
 public:
-	// CLamp(uint8_t timoutSecs);
-	// ~CLamp();
+	CLamp(unsigned char timoutSecs);
+	~CLamp();
 
-	// void setBrightness(uint8_t lux);
-	// const uint8_t getBrightness(void);
+	void setBrightness(unsigned char lux);
+	const unsigned char getBrightness(void);
 
-	// void on(uint8_t lux);
-	// void off(void);
+	void on(unsigned char lux);
+	void off(void);
 
 protected:
 	
 private:
-	// pthread_mutex_t mutChangePWM;
-	// uint8_t pwmVal; // BE CAREFUL uint8_t
-	// const uint8_t timLapOnSecs;
+	pthread_mutex_t mutChangePWM;
+	unsigned char pwmVal; // BE CAREFUL uint8_t
+	const unsigned char timLapOnSecs;
 };
 // End CLamp class definition
 
