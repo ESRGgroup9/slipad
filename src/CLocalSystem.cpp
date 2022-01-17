@@ -52,7 +52,7 @@ void CLocalSystem::run()
 
 void *CLocalSystem::tLoraRecv(void *arg)
 {
-	DEBUG_MSG("[tLoraRecv] entering");
+	DEBUG_MSG("[tLoraRecv] entering thread");
 	// get CLocalSystem instance
 	CLocalSystem *clsys = reinterpret_cast<CLocalSystem*>(arg);
 	string msg;
@@ -85,7 +85,7 @@ void *CLocalSystem::tLoraRecv(void *arg)
 		}
 	}
 
-	DEBUG_MSG("[tLoraRecv] exiting");
+	DEBUG_MSG("[tLoraRecv] exiting thread");
 	return NULL;
 }
 
