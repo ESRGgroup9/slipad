@@ -3,6 +3,7 @@
 
 #include <string>
 #include "CCommunication.h"
+#include "LoRa.h" // LoRaError
 
 #include <bcm2835.h>
 
@@ -20,7 +21,7 @@ public:
 	int getLocalAddr(void) const;
 
 protected:
-	std::string recvFunc(void);
+	int recvFunc(std::string &msg);
 	int sendFunc(std::string msg);
 
 private:

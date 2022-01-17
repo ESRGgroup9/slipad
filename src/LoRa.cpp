@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "LoRa.h"
-#include "utils.h"
+#include "debug.h"
 
 #include <iostream>
 #include <bcm2835.h>
@@ -165,7 +165,7 @@ ostream& operator<<(ostream& os, const LoRaMsg& msg)
 /**********************************************************
  * Functions Implementation
  * *******************************************************/
-LoRaClass::LoRaClass(int localAddress) :
+LoRaClass::LoRaClass(uint8_t localAddress) :
   _ss(LORA_DEFAULT_SS_PIN),
   _reset(LORA_DEFAULT_RESET_PIN),
   _dio0(LORA_DEFAULT_DIO0_PIN),
@@ -176,7 +176,7 @@ LoRaClass::LoRaClass(int localAddress) :
   _onReceive(NULL),
   _onTxDone(NULL)
 {
-  this->localAddress = localAddress;
+  setLocalAddress(localAddress);
 
   if(!bcm2835_init())
   {
@@ -291,6 +291,14 @@ LoRaMsg LoRaClass::sendTo(std::string msg, uint8_t destination)
   static uint8_t msgCount = 0;
   LoRaMsg loraMsg;
 
+  if(this->localAddress == -1)
+  {
+    cout << "[sendTo] local address not defined" << endl;
+    // signal that message was not sent
+    loraMsg.msgID=-1;
+    return loraMsg;
+  }
+
   beginPacket();
 
   // DEBUG_MSG(endl << "[sendTo] send destination addr");
@@ -333,7 +341,13 @@ LoRaError LoRaClass::receive(LoRaMsg &loraMsg)
   if(parsePacket() == 0)
     // no message received
     return LoRaError::ENOMSGR;
- 
+  
+  if(this->localAddress == -1)
+  {
+    cout << "[receive] local address not defined" << endl;
+    return LoRaError::ENOADDR;
+  }
+
   // parse packet
   // read recipient address
   int recipient = read();
@@ -966,7 +980,7 @@ uint8_t LoRaClass::readRegister(uint8_t address)
 
 void LoRaClass::writeRegister(uint8_t address, uint8_t value)
 {
-  DEBUG_MSG("[writeRegister] write(" << hex << static_cast<int>(value) << ") at[0x" << hex << static_cast<int>(address | 0x80) << "]");
+  // DEBUG_MSG("[writeRegister] write(" << hex << static_cast<int>(value) << ") at[0x" << hex << static_cast<int>(address | 0x80) << "]");
   singleTransfer(address | 0x80, value);
 }
 
@@ -989,7 +1003,7 @@ uint8_t LoRaClass::singleTransfer(uint8_t address, uint8_t value)
 // ISR_PREFIX void LoRaClass::onDio0Rise()
 void LoRaClass::onDio0Rise()
 {
-  LoRaClass LoRa(-1);
+  LoRaClass LoRa;
   LoRa.handleDio0Rise();
 }
 

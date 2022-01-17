@@ -17,7 +17,7 @@ class CCommunication
 {
 public:
 	CCommunication();
-	// ~CCommunication();
+	~CCommunication();
 
 	void init(int tprio);
 	void run(void);
@@ -25,11 +25,11 @@ public:
 
 	void push(std::string msg);
 	int send(std::string msg);
-	std::string recv(void);
+	int recv(std::string &msg);
 
 protected:
 	static void *tSend(void*);
-	virtual std::string recvFunc(void) = 0;
+	virtual int recvFunc(std::string &msg) = 0;
 	virtual int sendFunc(std::string msg) = 0;
 	
 	ConnStatus status;

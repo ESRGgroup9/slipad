@@ -6,15 +6,15 @@ INC_DIR=./inc
 TESTS_DIR=./tests
 
 CXX=arm-buildroot-linux-gnueabihf-g++
-LIBS=-lpthread -lbcm2835
-CXXFLAGS= -Wall -g -I$(INC_DIR) $(LIBS) #-D DEBUG
+LIBS=-lpthread -lbcm2835 -lrt
+CXXFLAGS= -Wall -g -I$(INC_DIR) $(LIBS) -D DEBUG
 
 SRC_OBJS=$(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.c))
 SRC_OBJS+=$(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.cpp))
 
 # --------------------  Create localsys.elf --------------------
 localsys: $(SRC_OBJS) $(BUILD_DIR)/localsys.o | bin ## Compile local system main process
-	$(CXX) -o $(BIN_DIR)/localsys.elf $(BUILD_DIR)/localsys.o $(SRC_OBJS) $(CXXFLAGS) 
+	$(CXX) -o $(BIN_DIR)/localsys.elf $(BUILD_DIR)/localsys.o $(SRC_OBJS) $(CXXFLAGS)
 
 $(BUILD_DIR)/localsys.o: localsys.cpp | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)

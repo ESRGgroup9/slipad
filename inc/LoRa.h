@@ -47,6 +47,7 @@ public:
 enum class LoRaError
 {
   MSGOK = 0,  // Message OK
+  ENOADDR,    // Local address not defined
   ENOMSGR,    // No message received
   ENOTME,     // Message received is not for this device
   EBADLMSG    // Message received lengths does not match
@@ -54,7 +55,7 @@ enum class LoRaError
 
 class LoRaClass {
 public:
-  LoRaClass(int localAddress);
+  LoRaClass(uint8_t localAddress = -1);
 
   int begin(long frequency);
   void end();
@@ -76,7 +77,8 @@ public:
   LoRaMsg sendTo(std::string msg, uint8_t destination);
   LoRaError receive(LoRaMsg &loraMsg);
 
-  int getLocalAddress(void) const { return localAddress; }
+  void setLocalAddress(uint8_t localAddress) { this->localAddress = localAddress; }
+  uint8_t getLocalAddress(void) const { return localAddress; }
   void setTxPower(int level, int outputPin = PA_OUTPUT_PA_BOOST_PIN);
   void setFrequency(long frequency);
   void setSpreadingFactor(int sf);

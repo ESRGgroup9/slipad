@@ -1,24 +1,26 @@
 #include "CLoraComm.h"
 #include "utils.h"
-#include "LoRa.h"
 using namespace std;
 
-uint8_t localAddr = 0xBB;
-LoRaClass lora(localAddr);
+// Create LoRa object
+LoRaClass lora;
 
 CLoraComm::CLoraComm(int freqMhz, int dest, int src)
 {
 	this->freqMhz = freqMhz;
 	this->dest_addr = dest;
-	this->local_addr = src;//>>>>>>>>>>>>>>>>>>>>> set lora local Addr with this
+	this->local_addr = src;
 
-	// set Lora pins
+	// set LoRa local address
+	lora.setLocalAddress(src);
+
+	// set LoRa pins
 	lora.setPins(LORA_SS_PIN, LORA_RESET_PIN, LORA_DIO0_PIN);
 	
 	// set frequency
-	// if(!lora.begin(freqMhz*1E6))
-	// 	panic("CLoraComm::CLoraComm(): lora begin()");
-
+	if(!lora.begin(freqMhz*1E6))
+		panic("CLoraComm::CLoraComm(): lora begin()");
+ 
 	status = ConnStatus::ONLINE;
 }
 
@@ -32,15 +34,16 @@ int CLoraComm::getLocalAddr(void) const
 	return local_addr;
 }
 
-string CLoraComm::recvFunc(void)
+int CLoraComm::recvFunc(string &msg)
 {
 	LoRaMsg loraMsg;
-	// LoRaError err;
+	LoRaError err;
 
-	// err = lora.receive(loraMsg);
-	lora.receive(loraMsg);
+	err = lora.receive(loraMsg);
+	if(LoRaError::MSGOK == err)
+		msg = loraMsg.msg;
 
-	return loraMsg.msg;
+	return static_cast<int>(err);
 }
 
 int CLoraComm::sendFunc(std::string msg)
