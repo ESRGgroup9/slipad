@@ -1,2 +1,0 @@
-#include "CCommunication.h"
-

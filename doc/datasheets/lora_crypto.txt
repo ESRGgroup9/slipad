@@ -1,0 +1,14 @@
+ADDRESSING:
+	Each end-device is identified by a 64-bit globally unique identifier,
+DevEUI, that is assigned either by the manufacturer or the owner of the
+end-device. Allocation of DevEUI identifiers require the assignor to have
+an Organizationally Unique Identifier (OUI) from the IEEE Registration
+Authority.
+https://lora-alliance.org/wp-content/uploads/2020/11/la_faq_security_0220_v1.2_0.pdf
+https://www.thethingsnetwork.org/docs/lorawan/addressing/
+
+SECURITY:
+	Advanced Encryption Standard (AES) is a symmetric key encryption algorithm that supports key lengths of 128, 192, and 256 bits and encrypts a block of elements (set of bits) at the same time, unlike stream ciphers that encode each single item individually. 
+
+https://development.libelium.com/lora_networking_guide/security-and-data-encryptionunderstanding-lora
+https://lora-alliance.org/resource_hub/lorawan-is-secure-but-implementation-matters/

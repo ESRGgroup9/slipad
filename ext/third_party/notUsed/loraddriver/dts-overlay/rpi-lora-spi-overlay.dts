@@ -1,0 +1,34 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&spi>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			sx1278@0 {
+				compatible = "sx1278";
+				reg = <0>;
+				status = "okay";
+				spi-max-frequency = <0x3b60>;
+				center-carrier-frq = <434000000>;
+				clock-frequency = <32000000>;
+				minimal-RF-channel = /bits/ 8 <11>;
+				maximum-RF-channel = /bits/ 8 <11>;
+			};
+
+			sx1278@1 {
+				compatible = "sx1278";
+				reg = <1>;
+				status = "okay";
+				spi-max-frequency = <0x3b60>;
+				center-carrier-frq = <434000000>;
+				clock-frequency = <32000000>;
+				minimal-RF-channel = /bits/ 8 <11>;
+				maximum-RF-channel = /bits/ 8 <11>;
+			};
+		};
+	};
+};

@@ -1,0 +1,40 @@
+PWM - smart car keys
+SPI - eletronic lock
+target-packages -> HW handling -> spi-tools
+target-packages -> libraries -> HW handling -> bcm2835
+# TO TEST ONLY: add to config.txt: dtoverlay=spi1-3cs to enable SPI1
+
+*******
+OpenCv
+*******
+Target packages - Libraries - Graphics: OpenCv3 - v4l support
+
+Target packages - Audio and video applications: ffmpeg - --enable-asm --enable-inline-asm --enable-gpl --enable-libx264
+
+Target packages - Libraries - Multimedia: x264 - Cli
+
+--------------------------------------------
+System initialization
+--------------------------------------------
+
+*******
+I2C
+*******
+Config.txt:
+	dtparam=i2c_arm=on          
+
+modprobe i2c-dev
+modprobe i2c-bcm2835
+
+i2cdetect -y 1
+
+tsl2581 device: 
+	address: 0x39
+
+******
+Camera
+******
+Config.txt:
+	start_x=1             # essential
+	gpu_mem=128
+

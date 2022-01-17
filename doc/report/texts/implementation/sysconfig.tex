@@ -1,0 +1,27 @@
+In the Buildroot, using \verb|make menuconfig| one can use a graphic interface (as previously shown in figure \ref{fig:menuconfig}) to select packages and change configurations in order to create a custom linux image.\\
+
+Under \verb|Target-Packages| select:
+\begin{itemize}
+	\item \verb|Development tools|, select:
+	\begin{itemize}
+		\item \verb|git|
+	\end{itemize}
+
+	\item \verb|Networking applications|, select:
+	\begin{itemize}
+		\item \verb|arp-scan|: scan the network of a certain interface for alive hosts;
+		\item \verb|arptables-legacy|: set up and maintain the tables of ARP rules;
+		\item \verb|dhcpcd|: open source DHCP client;
+		\item \verb|dropbear|: small SSH server which will let us log in remotely;
+	\end{itemize}
+
+	\item \verb|Hardware Handling|
+	\begin{itemize}
+		\item \verb|spi-tools|: tools needed to use SPI. Used for LoRa module communication;
+	\end{itemize}
+	
+	\item \verb|Libraries -> Hardware Handling|, select:
+	\begin{itemize}
+		\item \verb|bcm2835|: C library for Raspberry Pi user programs;
+	\end{itemize}
+\end{itemize}
