@@ -32,7 +32,7 @@ void bcm2835_IIC_Write(uint8_t add_, uint8_t data_)
 {
 	char Buf[2] = {0, 0};
 	Buf[0] = add_;
-	Buf[1] = data_
+	Buf[1] = data_;
 	bcm2835_i2c_write(Buf, 2);
 }
 

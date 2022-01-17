@@ -5,7 +5,7 @@ DIR_BIN = ./bin
 OBJ_C = $(wildcard ${DIR_OBJ}/*.c)
 OBJ_O = $(patsubst %.c,${DIR_BIN}/%.o,$(notdir ${OBJ_C}))
 
-TARGET = main
+TARGET = tsl2581_test.elf
 #BIN_TARGET = ${DIR_BIN}/${TARGET}
 
 CC = arm-buildroot-linux-gnueabihf-gcc
