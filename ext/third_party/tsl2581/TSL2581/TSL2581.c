@@ -15,32 +15,22 @@ uint8_t Read_ID()
 * @brief    This field selects the integration time for each conversion.
 * @param    
 **********************************************************************************************/
-bool Init_TSL2581(void)
+void Init_TSL2581(void)
 { 
-	if(DEV_ModuleInit(ADDR_FLOAT)==1)
-		return false;
-
-	powerOnSensor();
-	
-	IIC_Write(COMMAND_CMD | TIMING, INTEGRATIONTIME_688MS);  	//688,5 ms
-	IIC_Write(COMMAND_CMD | CONTROL, ADC_EN | CONTROL_POWERON); //Every ADC cycle generates interrupt
-	IIC_Write(COMMAND_CMD | INTERRUPT, INTR_INTER_MODE);		//TEST MODE
-	IIC_Write(COMMAND_CMD | ANALOG, GAIN_16X);					//GAIN = 16
-
-	return true;
-}
-
-void powerOnSensor(void)
-{
 	/* write date from tsl2561 */
 	IIC_Write(COMMAND_CMD | CONTROL,CONTROL_POWERON);	//power on
+	
+	IIC_Write(COMMAND_CMD | TIMING, INTEGRATIONTIME_688MS);  //688,5 ms
+	IIC_Write(COMMAND_CMD | CONTROL, ADC_EN | CONTROL_POWERON); //Every ADC cycle generates interrupt
+	IIC_Write(COMMAND_CMD | INTERRUPT, INTR_INTER_MODE);	//TEST MODE
+	IIC_Write(COMMAND_CMD | ANALOG, GAIN_16X);				//GAIN = 16
 }
 
 /**********************************************************************************************
 * @brief  	Reload_register()
-* @brief   Interrupts need to be maintained for several cycles
-* @brief   When the interrupt bit is 0, reload the register
-* @brief   Configure the special registers, clear the interrupt bits, and then re-enable the ADC
+* @param   Interrupts need to be maintained for several cycles
+* @param   When the interrupt bit is 0, reload the register
+* @param   Configure the special registers, clear the interrupt bits, and then re-enable the ADC
 ***********************************************************************************************/
 void Reload_register(void)
 {
@@ -50,8 +40,8 @@ void Reload_register(void)
 
 /**********************************************************************************************
 * @brief  	SET_Interrupt_Threshold(uint32_t low,uint32_t high)
-* @brief   	low and high max 2^16 = 65536
-*   
+* @param   	low and high max 2^16 = 65536
+* @param   
 * @param    This field selects the integration time for each conversion.
 **********************************************************************************************/
 void SET_Interrupt_Threshold(uint16_t min,uint16_t max)
@@ -70,30 +60,30 @@ void SET_Interrupt_Threshold(uint16_t min,uint16_t max)
 
 /**********************************************************************************************
 * @brief  	Read_Channel()
-*     
-* @brief   	read two ADC data
-*      
+* @param    
+* @param   	read two ADC data
+* @param     
 **********************************************************************************************/
 void Read_Channel()
 {	
 	uint8_t DataLow,DataHigh;
-	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0LOW); 	// read channel 0 low byte
-	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0HIGH);	// read channel 0 high byte
+	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0LOW);
+	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0HIGH);
 	Channel_0 = 256 * DataHigh + DataLow ;
 		
-	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1LOW); 	// read channel 1 low byte
-	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1HIGH);	// read channel 1 high byte
+	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1LOW);
+	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1HIGH);
 	Channel_1 = 256 * DataHigh + DataLow ;
 	
 }
 
 /**********************************************************************************************
 * @brief  	calculateLux()
-* @brief    Channel_0 and Channel_1 is for TSL2561_Read_Channel();
-* @param   		iGain - gain, where 0:1X, 1:8X, 2:16X, 3:128X
-* @param   	// tIntCycles - INTEG_CYCLES defined in Timing Register
+* @param    Channel_0 and Channel_1 is for TSL2561_Read_Channel();
+* @param   	// Arguments: unsigned int iGain - gain, where 0:1X, 1:8X, 2:16X, 3:128X
+* @param   	// unsigned int tIntCycles - INTEG_CYCLES defined in Timing Register
 **********************************************************************************************/
-uint32_t calculateLux(uint16_t iGain)//, uint16_t tIntCycles)
+uint32_t calculateLux(uint16_t iGain, uint16_t tIntCycles)
 {
 	uint32_t chScale0;
 	uint32_t chScale1;
@@ -105,34 +95,32 @@ uint32_t calculateLux(uint16_t iGain)//, uint16_t tIntCycles)
 	uint32_t lux_temp;
 	uint16_t b, m;
 
-	// // No scaling if nominal integration (148 cycles or 400 ms) is used
-	// if (tIntCycles == NOM_INTEG_CYCLE)
-	// {
-	// //     chScale0 = 65536;
-	chScale0 = (1 << (CH_SCALE));
-	// }
-	// else
-	// chScale0 = (NOM_INTEG_CYCLE << CH_SCALE) / tIntCycles;
-
+	// No scaling if nominal integration (148 cycles or 400 ms) is used
+	if (tIntCycles == NOM_INTEG_CYCLE)
+	{
+	//     chScale0 = 65536;
+	  chScale0 = (1 << (CH_SCALE));
+	}
+	else
+	chScale0 = (NOM_INTEG_CYCLE << CH_SCALE) / tIntCycles;
 	switch (iGain)
 	{
-		case 0: // 1x gain
-		  chScale1 = chScale0; // No scale. Nominal setting
-		  break;
-		case 1: // 8x gain
-		  chScale0 = chScale0 >> 3; // Scale/multiply value by 1/8
-		  chScale1 = chScale0;
-		  break;
-		case 2: // 16x gain
-		  chScale0 = chScale0 >> 4; // Scale/multiply value by 1/16
-		  chScale1 = chScale0;
-		  break;
-		case 3: // 128x gain
-		  chScale1 = chScale0 / CH1GAIN128X;
-		  chScale0 = chScale0 / CH0GAIN128X;
-		  break;
+	case 0: // 1x gain
+	  chScale1 = chScale0; // No scale. Nominal setting
+	  break;
+	case 1: // 8x gain
+	  chScale0 = chScale0 >> 3; // Scale/multiply value by 1/8
+	  chScale1 = chScale0;
+	  break;
+	case 2: // 16x gain
+	  chScale0 = chScale0 >> 4; // Scale/multiply value by 1/16
+	  chScale1 = chScale0;
+	  break;
+	case 3: // 128x gain
+	  chScale1 = chScale0 / CH1GAIN128X;
+	  chScale0 = chScale0 / CH0GAIN128X;
+	  break;
 	}
-
 	// Read Channel for ADC
 	Read_Channel();
 	// scale the channel values
@@ -141,35 +129,19 @@ uint32_t calculateLux(uint16_t iGain)//, uint16_t tIntCycles)
 	//printf(" C10= %ld  C11 =%ld \n ",channel0,channel1);
 	// find the ratio of the channel values (Channel1/Channel0)
 	if (channel0 != 0)
-		ratio1 = (channel1 << (RATIO_SCALE + 1)) / channel0;
-	
+	ratio1 = (channel1 << (RATIO_SCALE + 1)) / channel0;
 	ratio = (ratio1 + 1) >> 1;	  									 // round the ratio value
 
 	if ((ratio >= 0X00) && (ratio <= K1C))
-	{    
-		b = B1C;    
-		m = M1C;  
-	}
+	{    b = B1C;    m = M1C;  }
 	else if (ratio <= K2C)
-	{    
-		b = B2C;    
-		m = M2C;  
-	}
+	{    b = B2C;    m = M2C;  }
 	else if (ratio <= K3C)
-	{    
-		b = B3C;    
-		m = M3C;  
-	}
+	{    b = B3C;    m = M3C;  }
 	else if (ratio <= K4C)//276
-	{    
-		b = B4C;    
-		m = M4C;  
-	}
+	{    b = B4C;    m = M4C;  }
 	else if (ratio > K5C)//276
-	{    
-		b = B5C;    
-		m = M5C;  
-	}
+	{    b = B5C;    m = M5C;  }
 
 	temp = ((channel0 * b) - (channel1 * m));
 	temp += (1 << (LUX_SCALE - 1));			// round lsb (2^(LUX_SCALE-1))
@@ -177,3 +149,4 @@ uint32_t calculateLux(uint16_t iGain)//, uint16_t tIntCycles)
 	lux_temp = temp >> LUX_SCALE;			// strip off fractional portion
 	return (lux_temp);		  							// Signal I2C had no errors
 }
+
