@@ -1,8 +1,8 @@
 #include "TSL2581.h"
 
+#define MAX_LUX (((4095*B2C)+(1<<(LUX_SCALE-1)))>>LUX_SCALE)
 
 uint16_t Channel_0, Channel_1;
-
 
 uint8_t Read_ID()
 {
@@ -25,7 +25,7 @@ bool Init_TSL2581(void)
 	IIC_Write(COMMAND_CMD | TIMING, INTEGRATIONTIME_688MS);  	//688,5 ms
 	IIC_Write(COMMAND_CMD | CONTROL, ADC_EN | CONTROL_POWERON); //Every ADC cycle generates interrupt
 	IIC_Write(COMMAND_CMD | INTERRUPT, INTR_INTER_MODE);		//TEST MODE
-	IIC_Write(COMMAND_CMD | ANALOG, GAIN_16X);					//GAIN = 16
+	IIC_Write(COMMAND_CMD | ANALOG, GAIN_1X);					//GAIN = 16
 
 	return true;
 }
@@ -77,7 +77,7 @@ void SET_Interrupt_Threshold(uint16_t min,uint16_t max)
 void Read_Channel()
 {	
 	uint8_t DataLow,DataHigh;
-	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0LOW); 	// read channel 0 low byte
+	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0LOW); 	// read channel 0 low byte	// command-> 1 10 10100
 	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0HIGH);	// read channel 0 high byte
 	Channel_0 = 256 * DataHigh + DataLow ;
 		
@@ -174,6 +174,10 @@ uint32_t calculateLux(uint16_t iGain)//, uint16_t tIntCycles)
 	temp = ((channel0 * b) - (channel1 * m));
 	temp += (1 << (LUX_SCALE - 1));			// round lsb (2^(LUX_SCALE-1))
 	//  temp = temp + 32768;
+
+	if(channel0 == channel1 && channel0 == 4095)
+        lux_temp=MAX_LUX;
+
 	lux_temp = temp >> LUX_SCALE;			// strip off fractional portion
 	return (lux_temp);		  							// Signal I2C had no errors
 }

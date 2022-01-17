@@ -36,12 +36,17 @@ TEST_SPI_OBJS=$(addprefix $(BUILD_DIR)/, testspi.o)
 test-spi: $(TEST_SPI_OBJS) | bin ## Compile SPI test
 	$(CXX) -o $(BIN_DIR)/testspi.elf $(TEST_SPI_OBJS) $(CXXFLAGS)
 
-TEST_TSL_OBJS=$(addprefix $(BUILD_DIR)/, testspi.o DEV_Config.o TSL2581.o)
-test-tsl: $(TEST_TSL_OBJS) | bin ## Compile SPI test
+TEST_TSL_OBJS=$(addprefix $(BUILD_DIR)/, testtsl.o DEV_Config.o TSL2581.o)
+test-tsl: $(TEST_TSL_OBJS) | bin ## Compile TSL test
 	$(CXX) -o $(BIN_DIR)/testtsl.elf $(TEST_TSL_OBJS) $(CXXFLAGS)
 
 # -----------------------  Create test objs ------------------------
+# ---- cpp objects -----
 $(BUILD_DIR)/%.o: $(TESTS_DIR)/%.cpp | build
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+# ---- cpp objects -----
+$(BUILD_DIR)/%.o: $(TESTS_DIR)/%.c | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 # ---------------- Create object files from SRC_DIR ------------
