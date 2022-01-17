@@ -12,8 +12,6 @@ CXXFLAGS= -Wall -g -I$(INC_DIR) $(LIBS) #-D DEBUG
 SRC_OBJS=$(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.c))
 SRC_OBJS+=$(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.cpp))
 
-all: localsys tests ## Compile all
-
 # --------------------  Create localsys.elf --------------------
 localsys: $(SRC_OBJS) $(BUILD_DIR)/localsys.o | bin ## Compile local system main process
 	$(CXX) -o $(BIN_DIR)/localsys.elf $(BUILD_DIR)/localsys.o $(SRC_OBJS) $(CXXFLAGS) 
@@ -38,6 +36,10 @@ TEST_SPI_OBJS=$(addprefix $(BUILD_DIR)/, testspi.o)
 test-spi: $(TEST_SPI_OBJS) | bin ## Compile SPI test
 	$(CXX) -o $(BIN_DIR)/testspi.elf $(TEST_SPI_OBJS) $(CXXFLAGS)
 
+TEST_TSL_OBJS=$(addprefix $(BUILD_DIR)/, testspi.o DEV_Config.o TSL2581.o)
+test-tsl: $(TEST_TSL_OBJS) | bin ## Compile SPI test
+	$(CXX) -o $(BIN_DIR)/testtsl.elf $(TEST_TSL_OBJS) $(CXXFLAGS)
+
 # -----------------------  Create test objs ------------------------
 $(BUILD_DIR)/%.o: $(TESTS_DIR)/%.cpp | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
@@ -55,6 +57,8 @@ transfer: ## Transfer TARGET=<file> to IP=<ip> into DIR=<dir> directory
 	scp $(BIN_DIR)/$(TARGET) root@$(IP):$(DIR)
 
 # ----------------------------- Others -----------------------------
+all: localsys test ## Compile all
+
 # make build dir if it doesnt exist
 build:
 	@mkdir -p $(BUILD_DIR)
