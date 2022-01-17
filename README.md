@@ -29,7 +29,8 @@ This project follows Waterfall model:
 Since this project serves educational purposes, the last two phases of the Waterfall model, *Deployment* and *Maintenance*, won't be approached.
 
 ### Project Tree
-- `src/` — Source files written
+- `src/` — Source files
+- `inc/` — Header files
 - `ext/` — Contains third-party libraries
 - `bin/` — Compiled executables goes here
 - `build/` — The compiler's build files
