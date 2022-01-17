@@ -4,6 +4,7 @@
 
 CLocalSystem::CLocalSystem() :
 	lora(433, GATEWAY_ADDR, LS_ADDR),
+	// lamp(TIM_LAMP_ON_SECS),
 
 	timCamFrameSecs(TIM_CAM_FRAME_SECS),
 	timCamProcSecs(TIM_CAM_PROC_SECS)
@@ -50,13 +51,16 @@ void CLocalSystem::run()
 	pthread_join(tParkDetection_id, NULL);
 }
 
+#include <bcm2835.h>
 void *CLocalSystem::tLoraRecv(void *arg)
 {
-	DEBUG_MSG("[tLoraRecv] entering thread");
 	// get CLocalSystem instance
 	CLocalSystem *clsys = reinterpret_cast<CLocalSystem*>(arg);
 	string msg;
 	LoRaError err;
+
+	DEBUG_MSG("[tLoraRecv] entering thread");
+	clsys->lora.push("hello");
 
 	while(clsys)
 	{
@@ -74,6 +78,7 @@ void *CLocalSystem::tLoraRecv(void *arg)
 				case LoRaError::EBADLMSG: cout << "Message received lengths does not match";
 				case LoRaError::ENOADDR:	cout << "No local address defined";
 			}
+			cout << endl;
 		}
 
 		if(err == LoRaError::MSGOK)

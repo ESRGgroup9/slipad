@@ -45,7 +45,7 @@ void CCommunication::push(string msg)
 {
 	pthread_mutex_lock(&mutTxMsgs);
 	TxMsgs.push(msg);
-	DEBUG_MSG("[push] Signal condtSend");
+	DEBUG_MSG("[CComms::push] Signal condtSend");
 	pthread_cond_signal(&condtSend);
 	pthread_mutex_unlock(&mutTxMsgs);
 }
@@ -56,6 +56,7 @@ int CCommunication::send(string msg)
 
 	pthread_mutex_lock(&mutComms);
 	ret = sendFunc(msg);
+	// DEBUG_MSG("[CComms::send] sent [" << msg << "] with error[" << ret << "]");
 	pthread_mutex_unlock(&mutComms);
 	
 	return ret;
@@ -78,6 +79,8 @@ void *CCommunication::tSend(void *arg)
 	CCommunication *ccomm = reinterpret_cast<CCommunication*>(arg);
 	string msg;
 
+	DEBUG_MSG("[CComms::tSend] entering thread");
+
 	while(ccomm)
 	{
 		pthread_mutex_lock(&ccomm->mutTxMsgs);
@@ -85,9 +88,10 @@ void *CCommunication::tSend(void *arg)
 		// is there any message queued to send?
 		if(ccomm->TxMsgs.empty())
 		{
-			DEBUG_MSG("[tSend] Waiting for condtSend...");
+			// no messages to send. wait for condtSend
+			DEBUG_MSG("[CComms::tSend] Waiting for condtSend...");
 			pthread_cond_wait(&ccomm->condtSend, &ccomm->mutTxMsgs);
-			DEBUG_MSG("[tSend] Im awake!");
+			DEBUG_MSG("[CComms::tSend] Im awake!");
 		}
 
 		// pop msg from queue
@@ -96,7 +100,7 @@ void *CCommunication::tSend(void *arg)
 		ccomm->TxMsgs.pop();
 		pthread_mutex_unlock(&ccomm->mutTxMsgs);
 		
-		DEBUG_MSG("[tSend] Popped(" << msg << ") [" << ccomm->TxMsgs.size() << "] msgs queued");
+		DEBUG_MSG("[CComms::tSend] Popped(" << msg << ") - [" << ccomm->TxMsgs.size() << "] msgs queued");
 		// send message
 		ccomm->send(msg);
 		msg.clear();

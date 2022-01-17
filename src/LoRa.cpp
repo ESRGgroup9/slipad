@@ -213,9 +213,9 @@ int LoRaClass::begin(long frequency)
     exit(1);
   }
 
-  DEBUG_MSG("[SPI] begin");
+  // DEBUG_MSG("[SPI] begin");
   setSPI();
-  DEBUG_MSG("[SPI] setup done");
+  // DEBUG_MSG("[SPI] setup done");
 
   // check version
   uint8_t version = readRegister(REG_VERSION);
@@ -223,7 +223,7 @@ int LoRaClass::begin(long frequency)
   if (version != 0x12)
   {
     cout << "LoRa device not plugged in" << endl;
-    DEBUG_MSG("[begin] version: 0x" << hex << static_cast<int>(version));
+    DEBUG_MSG("[LoRa::begin] version: 0x" << hex << static_cast<int>(version));
     return 0;
   }
 
@@ -291,9 +291,11 @@ LoRaMsg LoRaClass::sendTo(std::string msg, uint8_t destination)
   static uint8_t msgCount = 0;
   LoRaMsg loraMsg;
 
+  // DEBUG_MSG("[LoRa::sendTo] send[" << msg << "] from[0x" << hex << static_cast<int>(localAddress) << "] to[0x" << static_cast<int>(destination) << "]");
+
   if(this->localAddress == -1)
   {
-    cout << "[sendTo] local address not defined" << endl;
+    DEBUG_MSG("[LoRa::sendTo] local address not defined");
     // signal that message was not sent
     loraMsg.msgID=-1;
     return loraMsg;
@@ -342,9 +344,11 @@ LoRaError LoRaClass::receive(LoRaMsg &loraMsg)
     // no message received
     return LoRaError::ENOMSGR;
   
+  DEBUG_MSG("[LoRa::receive] receiving packet...");
+
   if(this->localAddress == -1)
   {
-    cout << "[receive] local address not defined" << endl;
+    DEBUG_MSG("[LoRa::receive] local address not defined");
     return LoRaError::ENOADDR;
   }
 
@@ -354,9 +358,12 @@ LoRaError LoRaClass::receive(LoRaMsg &loraMsg)
   
   // check the message recipient
   if ((recipient != localAddress) && (recipient != 0xFF))
+  {
     // this message is not for me
+    DEBUG_MSG("[LoRa::receive] this message is not for me");
     return LoRaError::ENOTME;
-  
+  }
+
   // read sender address
   uint8_t sender = read();
   // read message ID
@@ -371,8 +378,11 @@ LoRaError LoRaClass::receive(LoRaMsg &loraMsg)
  
   // check length for error
   if(incomingLength != msg.length())
+  {
     // error: message length does not match the supposed length
+    DEBUG_MSG("[LoRa::receive] message length does not match expected");
     return LoRaError::EBADLMSG;                        
+  }
 
   // return received message using loraMsg
   loraMsg.recvAddr = recipient;
@@ -381,6 +391,7 @@ LoRaError LoRaClass::receive(LoRaMsg &loraMsg)
   loraMsg.msgLength = incomingLength;
   loraMsg.msg = msg;
 
+  DEBUG_MSG("[LoRa::receive] message OK");
   // message received
   return LoRaError::MSGOK;
 }
@@ -393,11 +404,6 @@ size_t LoRaClass::write(uint8_t byte)
 
 size_t LoRaClass::write(const uint8_t *buffer, size_t size)
 {
-  // if(size == 1)
-  //   DEBUG_MSG("[write] buffer[" << static_cast<int>(buffer[0]) << "] size[" << size << "]");
-  // else
-  //   DEBUG_MSG("[write] buffer[" << buffer << "] size[" << size << "]");
-
   if(buffer == NULL)
     return -1;
 
@@ -410,7 +416,7 @@ size_t LoRaClass::write(const uint8_t *buffer, size_t size)
   // write data
   for (size_t i = 0; i < size; i++)
   {
-    DEBUG_MSG("[write] send(" << static_cast<int>(buffer[i]) << ") from buff[" << i << "]");
+    // DEBUG_MSG("[write] send(" << static_cast<int>(buffer[i]) << ") from buff[" << i << "]");
     writeRegister(REG_FIFO, buffer[i]);
   }
 
@@ -422,7 +428,7 @@ size_t LoRaClass::write(const uint8_t *buffer, size_t size)
 
 int LoRaClass::beginPacket(int implicitHeader)
 {
-  DEBUG_MSG("[beginPacket] enter");
+  DEBUG_MSG("[LoRa::beginPacket] enter");
 
   if (isTransmitting())
     return 0;
@@ -444,24 +450,24 @@ int LoRaClass::beginPacket(int implicitHeader)
 
 int LoRaClass::endPacket(bool async)
 {
-  DEBUG_MSG("[endPacket] enter");
+  // DEBUG_MSG("[endPacket] enter");
 
   if ((async) && (_onTxDone))
   {
-    DEBUG_MSG("[endPacket] DIO0 => TXDONE");
+    DEBUG_MSG("[LoRa::endPacket] DIO0 => TXDONE");
     // DIO0 => TXDONE
     writeRegister(REG_DIO_MAPPING_1, 0x40);
   }
 
   // put in TX mode
-  DEBUG_MSG("[endPacket] put in TX mode");
+  DEBUG_MSG("[LoRa::endPacket] put in TX mode");
   writeRegister(REG_OP_MODE, MODE_LONG_RANGE_MODE | MODE_TX);
 
   // send FIFO msgs in polling mode
   if (!async)
   {
     // wait for TX done
-    DEBUG_MSG("[endPacket] waiting for TX done...");
+    DEBUG_MSG("[LoRa::endPacket] waiting for TX done...");
 
     while ((readRegister(REG_IRQ_FLAGS) & IRQ_TX_DONE_MASK) == 0)
     {
@@ -472,7 +478,7 @@ int LoRaClass::endPacket(bool async)
     writeRegister(REG_IRQ_FLAGS, IRQ_TX_DONE_MASK);
   }
 
-  DEBUG_MSG("[endPacket] packet end");
+  DEBUG_MSG("[LoRa::endPacket] packet end");
   return 1;
 }
 
@@ -480,7 +486,7 @@ bool LoRaClass::isTransmitting()
 {
   if ((readRegister(REG_OP_MODE) & MODE_TX) == MODE_TX)
   {
-    DEBUG_MSG("[isTransmitting] mode TX");
+    DEBUG_MSG("[LoRa::isTx] mode TX");
     return true;
   }
 
@@ -488,10 +494,10 @@ bool LoRaClass::isTransmitting()
   {
     // clear IRQ's
     writeRegister(REG_IRQ_FLAGS, IRQ_TX_DONE_MASK);
-    DEBUG_MSG("[isTransmitting] TX done");
+    DEBUG_MSG("[LoRa::isTx] TX done");
   }
 
-  DEBUG_MSG("[isTransmitting] not transmitting");
+  DEBUG_MSG("[LoRa::isTx] not transmitting");
   return false;
 }
 
@@ -514,7 +520,7 @@ int LoRaClass::parsePacket(int size)
   if ((irqFlags & IRQ_RX_DONE_MASK) &&
       (irqFlags & IRQ_PAYLOAD_CRC_ERROR_MASK) == 0)
   {
-    DEBUG_MSG("[parsePacket] received a packet");
+    DEBUG_MSG("[LoRa::parsePacket] received a packet");
     // received a packet
     _packetIndex = 0;
 
@@ -601,7 +607,7 @@ int LoRaClass::read()
 {
   if (!available())
   {
-    DEBUG_MSG("[read] not available");
+    DEBUG_MSG("[LoRa::read] not available");
     return -1;
   }
 
@@ -636,7 +642,7 @@ void LoRaClass::onReceive(void(*callback)(int))
 {
   _onReceive = callback;
 
-  DEBUG_MSG("[onReceive] enter");
+  DEBUG_MSG("[LoRa::onReceive] enter");
   if(callback)
   {
     pinMode(_dio0, INPUT);
@@ -652,7 +658,7 @@ void LoRaClass::onTxDone(void(*callback)())
 {
   _onTxDone = callback;
 
-  DEBUG_MSG("[onTxDone] enter");
+  DEBUG_MSG("[LoRa::onTxDone] enter");
   if(callback)
   {
     pinMode(_dio0, INPUT);
@@ -1009,15 +1015,15 @@ void LoRaClass::onDio0Rise()
 
 void LoRaClass::printFIFORegs(void)
 {
-  DEBUG_MSG("[testSPI] REG_FIFO                 (0x" << hex << static_cast<int>(readRegister(REG_FIFO)) << ")");
-  DEBUG_MSG("[testSPI] REG_FIFO_ADDR_PTR        (0x" << hex << static_cast<int>(readRegister(REG_FIFO_ADDR_PTR)) << ")");
-  DEBUG_MSG("[testSPI] REG_FIFO_TX_BASE_ADDR    (0x" << hex << static_cast<int>(readRegister(REG_FIFO_TX_BASE_ADDR)) << ")");
-  DEBUG_MSG("[testSPI] REG_FIFO_RX_BASE_ADDR    (0x" << hex << static_cast<int>(readRegister(REG_FIFO_RX_BASE_ADDR)) << ")");
-  DEBUG_MSG("[testSPI] REG_FIFO_RX_CURRENT_ADDR (0x" << hex << static_cast<int>(readRegister(REG_FIFO_RX_CURRENT_ADDR)) << ")");
-  DEBUG_MSG("[testSPI] REG_RX_NB_BYTES (0x" << hex << static_cast<int>(readRegister(REG_RX_NB_BYTES)) << ")" << endl);
+  DEBUG_MSG("[LoRa::testSPI] REG_FIFO                 (0x" << hex << static_cast<int>(readRegister(REG_FIFO)) << ")");
+  DEBUG_MSG("[LoRa::testSPI] REG_FIFO_ADDR_PTR        (0x" << hex << static_cast<int>(readRegister(REG_FIFO_ADDR_PTR)) << ")");
+  DEBUG_MSG("[LoRa::testSPI] REG_FIFO_TX_BASE_ADDR    (0x" << hex << static_cast<int>(readRegister(REG_FIFO_TX_BASE_ADDR)) << ")");
+  DEBUG_MSG("[LoRa::testSPI] REG_FIFO_RX_BASE_ADDR    (0x" << hex << static_cast<int>(readRegister(REG_FIFO_RX_BASE_ADDR)) << ")");
+  DEBUG_MSG("[LoRa::testSPI] REG_FIFO_RX_CURRENT_ADDR (0x" << hex << static_cast<int>(readRegister(REG_FIFO_RX_CURRENT_ADDR)) << ")");
+  DEBUG_MSG("[LoRa::testSPI] REG_RX_NB_BYTES (0x" << hex << static_cast<int>(readRegister(REG_RX_NB_BYTES)) << ")" << endl);
 
-  DEBUG_MSG("[testSPI] RX_DONE  (0x" << hex << static_cast<int>(readRegister(REG_IRQ_FLAGS) & 0x40) << ")");
-  DEBUG_MSG("[testSPI] TX_DONE  (0x" << hex << static_cast<int>(readRegister(REG_IRQ_FLAGS) & 0x08) << ")");
+  DEBUG_MSG("[LoRa::testSPI] RX_DONE  (0x" << hex << static_cast<int>(readRegister(REG_IRQ_FLAGS) & 0x40) << ")");
+  DEBUG_MSG("[LoRa::testSPI] TX_DONE  (0x" << hex << static_cast<int>(readRegister(REG_IRQ_FLAGS) & 0x08) << ")");
 }
 
 void LoRaClass::testspi(uint8_t value)
@@ -1032,9 +1038,9 @@ void LoRaClass::testspi(uint8_t value)
 
   // write
   writeRegister(REG_FIFO, value);
-  DEBUG_MSG("[testSPI] write(" << static_cast<int>(value) << ")");
+  DEBUG_MSG("[LoRa::testSPI] write(" << static_cast<int>(value) << ")");
   
-  DEBUG_MSG("[testSPI] delay...");
+  DEBUG_MSG("[LoRa::testSPI] delay...");
   bcm2835_delay(1000);
 
   printFIFORegs();
@@ -1046,6 +1052,4 @@ void LoRaClass::testspi(uint8_t value)
   // response = readRegister(REG_FIFO);
   // DEBUG_MSG("[testSPI] read(" << static_cast<int>(response) << ")" << endl);
 
-
-  
 }

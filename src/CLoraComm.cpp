@@ -1,5 +1,7 @@
 #include "CLoraComm.h"
 #include "utils.h"
+#include "debug.h"
+
 using namespace std;
 
 // Create LoRa object
@@ -11,6 +13,7 @@ CLoraComm::CLoraComm(int freqMhz, int dest, int src)
 	this->dest_addr = dest;
 	this->local_addr = src;
 
+	DEBUG_MSG("[CLoraComm] gatAddr[0x" << hex << dest << "] localAddr[0x" << src << "]");
 	// set LoRa local address
 	lora.setLocalAddress(src);
 

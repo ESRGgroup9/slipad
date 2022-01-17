@@ -21,11 +21,6 @@ using namespace std;
 // MISO when SPI0 in use  RPI_GPIO_P1_21
 // MOSI when SPI0 in use  RPI_GPIO_P1_19
 
-// #define LORA_DEFAULT_SS_PIN        10
-// #define LORA_DEFAULT_RESET_PIN     9
-// #define LORA_DEFAULT_DIO0_PIN      2  
-
-
 #define PA_OUTPUT_RFO_PIN          0
 #define PA_OUTPUT_PA_BOOST_PIN     1
 
