@@ -1,28 +1,29 @@
-#DIR_FONTS = ./Fonts
-DIR_OBJ = ./TSL2581
-DIR_BIN = ./bin
+# CC=g++
+CC=arm-buildroot-linux-gnueabihf-g++
 
-OBJ_C = $(wildcard ${DIR_OBJ}/*.c)
-OBJ_O = $(patsubst %.c,${DIR_BIN}/%.o,$(notdir ${OBJ_C}))
+CFLAGS= -Wall -g -I. -lbcm2835
 
-TARGET = main
-#BIN_TARGET = ${DIR_BIN}/${TARGET}
+DEPS=CLdr.h DEV_Config.h TSL2581.h
+OBJS=CLdr.o DEV_Config.o TSL2581.o main.o
+TARGET=main.elf
 
-CC = arm-buildroot-linux-gnueabihf-gcc
+DIR_BIN=./bin
 
-DEBUG = -g -O0 -Wall
-CFLAGS += $(DEBUG) 
+IP=10.42.0.30
+DIR=/etc
 
-LIB = -lbcm2835
+all: $(TARGET)
 
-${TARGET}:${OBJ_O}
-	$(CC) $(CFLAGS) $(OBJ_O) -o $@  $(LIB)
+$(TARGET) : $(OBJS) 
+	$(CC) -o $(TARGET) $(OBJS) $(CFLAGS)
 
-${DIR_BIN}/%.o : $(DIR_OBJ)/%.c
-	$(CC) $(CFLAGS) -c  $< -o $@  $(LIB)
+#${DIR_BIN}/%.o: %.cpp $(DEPS)
+%.o: %.cpp $(DEPS)
+	$(CC) -c  $< -o $@ $(CFLAGS)
 
+transfer:
+	scp $(TARGET) root@$(IP):$(DIR)
 
-	
-clean :
-	rm $(DIR_BIN)/*.* 
-	rm $(TARGET) 
+.PHONY: clean transfer
+clean:
+	rm -rf $(TARGET) *.o *~
