@@ -137,3 +137,104 @@ One can set the PWM pulse ratio to emit to \verb|RANGE|, where the duty cycle, \
 bcm2835_pwm_set_data(PWM_CHANNEL, (duty*RANGE));
 \end{lstlisting}
 
+\clearpage
+\section{Luminosity Sensor}
+\label{section:lumSensor}
+As specified before, in order to know when to turn on/ off the lamp, it is used a luminosity sensor, the TSL2581. This module uses the I2C communication protocol to interface with the Raspberry Pi, being implemented based on a third-party software \cite{tsl2581_code}. As for the LoRa communication, one used the bcm2835 C library to communicate with the sensor module by I2C. \cite{bcmpiic}
+
+From the theoretical foundations, one knows that the TSL2581 module uses a data line, SDA, to send and receive data, and a clock signal line, SCL, to synchronize the communication with the master device.
+
+The sensor datasheet \cite{TSL2581_DS} shows that for the command code byte is used the \textit{Command Register} of the TSL2581, that is composed by:
+
+\begin{itemize}
+	\item \textit{CMD} bit: set to '1' when one wants to select the \textit{COMMAND} register;
+	\item \textit{TRANSACTION} two bits: selects type of transaction to follow in subsequent data transfers, read/ write (R/W) mode and the special function register. For '00', select the I2C writing mode. For '10', selects the I2C reading mode which supports the read block protocol. For 11, select the special function register. 
+	\item \textit{ADDRESS} five bits: when the \textit{TRANSACTION} field selects the R/W mode, then this field selects the bus address of the slave; when the \textit{TRANSACTION} field is set to '11', this field specifies a special command function.
+\end{itemize}	
+
+\myparagraph{I2C Address}
+
+This module has three 7-bit address, as shown in table \ref{table:tsl_address}, and one can select one of them. By default, the \textit{ADDR state} register is set to FLOAT, so this device address in the I2C bus is the 0x39.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|m{3cm}|m{3cm}|}
+		\hline
+		\textbf{ADDR State} & \textbf{Address}
+		\\\hline\hline
+		VCC & 0x49
+		\\\hline
+		FLOAT & 0x39
+		\\\hline
+		GND & 0x29
+		\\\hline
+	\end{tabular}
+	
+	\caption{TSL2581 I2C addresses.}
+	\label{table:tsl_address}
+\end{table}
+
+\myparagraph{TSL2581 Initialization}
+
+After connecting the device in the I2C bus, one should configure its registers before reading the value from its two ADC channels. In the listing \ref{lst:tslConfig} is shown the TSL2581 device initialization. First, one needs to configure the I2C bus, using the \verb|DEV_ModuleInit| function, passing, by argument, the device address of the light sensor, \verb|ADDR_FLOAT| (0x39, default). Using the \verb|CONTROL| register, one can power on the device, that puts all registers to their default value, enabling the R/W transactions. As the day-night transition is slow, one does not need to read the luminosity value much frequently, so one can define the maximum integration time (688,5 ms). It is also important to define the gain of the sensor. This sensor supports gains of 1, 8, 16 or 111. For indoor tests, it was used a gain of 16, but in a real outdoor model, it must be used a gain of 1.
+
+\begin{lstlisting}[caption={TSL2581 Initialization.}, label={lst:tslConfig}]
+if(DEV_ModuleInit(ADDR_FLOAT)==1)
+	return false;
+
+IIC_Write(COMMAND_CMD | CONTROL,CONTROL_POWERON);	// power on
+
+IIC_Write(COMMAND_CMD | TIMING, INTEGRATIONTIME_688MS);  	// 688,5 ms
+IIC_Write(COMMAND_CMD | CONTROL, ADC_EN | CONTROL_POWERON); // Every ADC cycle generates interrupt
+IIC_Write(COMMAND_CMD | INTERRUPT, INTR_INTER_MODE);		// TEST MODE
+IIC_Write(COMMAND_CMD | ANALOG, GAIN_16X);					// GAIN = 16
+\end{lstlisting}
+
+\myparagraph{Read Luminosity Values}
+
+When the device is configured, one can read the luminosity values of the module channels. The TSL2581 has two channels: 
+
+\begin{itemize}
+	\item Channel 0: Value of visible and infrared light;
+	\item Channel 1: Value of infrared light.
+\end{itemize}
+
+The listing \ref{lst:tslRead} presents the code that reads the channel 0 values, as for the channel 1 values, it is the same procedure. The lower byte is read out first using the \verb|DATA0LOW| register and next the higher byte, using the \verb|DATA0HIGH| register. Then, one combine them into a 16-bit variable as seen in the line 3.
+
+\begin{lstlisting}[caption={TSL2581 Channel 0 read.}, label={lst:tslRead}]
+DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0LOW); 	// read channel 0 low byte
+DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0HIGH);	// read channel 0 high byte
+Channel_0 = 256 * DataHigh + DataLow ;
+\end{lstlisting}
+
+This values should be now converted to the luminous intensity. First, one needs to scale the value using the formula presented in the listing \ref{lst:tslscale}.
+
+\begin{lstlisting}[caption={TSL2581 Channel 0 scaling.}, label={lst:tslscale}]
+// scale the channel values
+channel0 = (Channel_0 * chScale0) >>  CH_SCALE;
+\end{lstlisting}
+
+After scaling, it is calculated the ratio between channel 0 and channel 1 using the formula shown in listing \ref{lst:tslscale}.
+
+\begin{lstlisting}[caption={TSL2581 ratio calculation.}, label={lst:tslratio}]
+ratio1 = (channel1 << (RATIO_SCALE + 1)) / channel0;
+ratio = (ratio1 + 1) >> 1; // round the ratio value
+\end{lstlisting}
+
+After calculate the multiple of the relative channel using the formulas given in the datasheet, one can export the current luminous intensity through the code presented in listing \ref{lst:tslCalc}, where lux is the final luminosity value. 
+
+\begin{lstlisting}[caption={TSL2581 luminosity value calculation.}, label={lst:tslCalc}]
+temp = ((channel0 * b) - (channel1 * m));
+temp += (1 << (LUX_SCALE - 1));			// round lsb (2^(LUX_SCALE-1))
+//  temp = temp + 32768;
+lux_temp = temp >> LUX_SCALE;			// strip off fractional portion
+\end{lstlisting}
+
+
+%The communication is done through 3 types of signals:
+%
+%\begin{itemize}
+%	\item \textbf{Start signal:} indicates the begin of a transmission; when SCL is high and SDA jumps from high to low;
+%	\item \textbf{Stop signal:} indicates the end of a transmission; when SCL is high and SDA jumps from low to high;
+%	\item \textbf{ACK/ NACK signal:} indicates that the data have been received successfully; when the 8-bit data has been transmitted, the master generates another SCL pulse to receive the confirmation from the receiving device. If the receiving device puts the SDA line to low, then it is an ACK signal (communication was successful). If the receiving device doesn't put the SDA line to low, then it is a NACK signal (communication unsuccessful). 
+%\end{itemize}

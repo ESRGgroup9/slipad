@@ -22,10 +22,10 @@ bool Init_TSL2581(void)
 
 	powerOnSensor();
 	
-	IIC_Write(COMMAND_CMD | TIMING, INTEGRATIONTIME_688MS);  //688,5 ms
+	IIC_Write(COMMAND_CMD | TIMING, INTEGRATIONTIME_688MS);  	//688,5 ms
 	IIC_Write(COMMAND_CMD | CONTROL, ADC_EN | CONTROL_POWERON); //Every ADC cycle generates interrupt
-	IIC_Write(COMMAND_CMD | INTERRUPT, INTR_INTER_MODE);	//TEST MODE
-	IIC_Write(COMMAND_CMD | ANALOG, GAIN_16X);				//GAIN = 16
+	IIC_Write(COMMAND_CMD | INTERRUPT, INTR_INTER_MODE);		//TEST MODE
+	IIC_Write(COMMAND_CMD | ANALOG, GAIN_16X);					//GAIN = 16
 
 	return true;
 }
@@ -38,9 +38,9 @@ void powerOnSensor(void)
 
 /**********************************************************************************************
 * @brief  	Reload_register()
-* @param   Interrupts need to be maintained for several cycles
-* @param   When the interrupt bit is 0, reload the register
-* @param   Configure the special registers, clear the interrupt bits, and then re-enable the ADC
+* @brief   Interrupts need to be maintained for several cycles
+* @brief   When the interrupt bit is 0, reload the register
+* @brief   Configure the special registers, clear the interrupt bits, and then re-enable the ADC
 ***********************************************************************************************/
 void Reload_register(void)
 {
@@ -50,8 +50,8 @@ void Reload_register(void)
 
 /**********************************************************************************************
 * @brief  	SET_Interrupt_Threshold(uint32_t low,uint32_t high)
-* @param   	low and high max 2^16 = 65536
-* @param   
+* @brief   	low and high max 2^16 = 65536
+*   
 * @param    This field selects the integration time for each conversion.
 **********************************************************************************************/
 void SET_Interrupt_Threshold(uint16_t min,uint16_t max)
@@ -70,28 +70,28 @@ void SET_Interrupt_Threshold(uint16_t min,uint16_t max)
 
 /**********************************************************************************************
 * @brief  	Read_Channel()
-* @param    
-* @param   	read two ADC data
-* @param     
+*     
+* @brief   	read two ADC data
+*      
 **********************************************************************************************/
 void Read_Channel()
 {	
 	uint8_t DataLow,DataHigh;
-	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0LOW);
-	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0HIGH);
+	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0LOW); 	// read channel 0 low byte
+	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA0HIGH);	// read channel 0 high byte
 	Channel_0 = 256 * DataHigh + DataLow ;
 		
-	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1LOW);
-	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1HIGH);
+	DataLow = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1LOW); 	// read channel 1 low byte
+	DataHigh = IIC_Read(COMMAND_CMD | TRANSACTION | DATA1HIGH);	// read channel 1 high byte
 	Channel_1 = 256 * DataHigh + DataLow ;
 	
 }
 
 /**********************************************************************************************
 * @brief  	calculateLux()
-* @param    Channel_0 and Channel_1 is for TSL2561_Read_Channel();
-* @param   	// Arguments: unsigned int iGain - gain, where 0:1X, 1:8X, 2:16X, 3:128X
-* @param   	// unsigned int tIntCycles - INTEG_CYCLES defined in Timing Register
+* @brief    Channel_0 and Channel_1 is for TSL2561_Read_Channel();
+* @param   		iGain - gain, where 0:1X, 1:8X, 2:16X, 3:128X
+* @param   	// tIntCycles - INTEG_CYCLES defined in Timing Register
 **********************************************************************************************/
 uint32_t calculateLux(uint16_t iGain)//, uint16_t tIntCycles)
 {
@@ -177,4 +177,3 @@ uint32_t calculateLux(uint16_t iGain)//, uint16_t tIntCycles)
 	lux_temp = temp >> LUX_SCALE;			// strip off fractional portion
 	return (lux_temp);		  							// Signal I2C had no errors
 }
-
