@@ -12,7 +12,7 @@
 class CPir
 {
 public:
-	CPir(void* pirISR);
+	CPir(void* pirISR(void*));
 	~CPir(void);
 
 	void enable(void);

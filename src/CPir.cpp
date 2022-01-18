@@ -1,6 +1,6 @@
 #include "CPir.h"
 
-CPir::CPir(void* pirISR)
+CPir::CPir(void* pirISR(void*))
 {
  
 }

@@ -66,12 +66,30 @@ void CLocalSystem::run()
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>> set prio
 	lora.init(2);
+
+	// set signal handler for dSensors signal
+	signal(SIGUSR1, sigHandler);
+
 	// join lora threads
 	lora.run();
 
 	pthread_join(tLoraRecv_id, NULL);
 	pthread_join(tRecvSensors_id, NULL);
 	pthread_join(tParkDetection_id, NULL);
+}
+
+void CLocalSystem::sigHandler(int sig)
+{
+	switch(sig)
+	{
+		case SIGUSR1:
+			DEBUG_MSG("[sigHandler] caught SIGUSR1");
+			pthread_cond_signal(&condRecvSensors);
+			break;
+
+		default:
+			DEBUG_MSG("[sigHandler] caught unexpected signal");
+	}
 }
 
 void *CLocalSystem::tLoraRecv(void *arg)
@@ -103,6 +121,38 @@ void *CLocalSystem::tLoraRecv(void *arg)
 
 // max length of a message queue
 #define MAX_MSG_LEN_R     10000
+#include <cstring>
+
+struct cmdSensors_t
+{
+	char const *cmd;
+	uint8_t pwm;
+};
+
+static cmdSensors_t cmdSensorsList[] = 
+{
+	{"ON",100},
+	{"OFF",0},
+	{"MIN",MIN_BRIGHT_PWM},
+	{"FAIL", 0},
+	{0,0}
+};
+
+static uint8_t GetCmdPWM(char *str)
+{
+	cmdSensors_t *p = cmdSensorsList;
+
+	while((strcmp(str, p->cmd) != 0) && (p->cmd))
+		p++;
+
+	if((p->cmd) == 0)
+	{
+		DEBUG_MSG("Unexpected command from dSensors");
+		return -1;
+	}
+
+	return p->pwm;
+}
 
 void *CLocalSystem::tRecvSensors(void *arg)
 {
@@ -116,6 +166,11 @@ void *CLocalSystem::tRecvSensors(void *arg)
 	DEBUG_MSG("[CLS::tRecvSensors] Sending PID[" << pid_str << "]");
 	if(mq_send(c->msgqSensors, pid_str.c_str(), pid_str.length(), 1) != 0)
 		panic("In mq_send()");
+
+	// make sure that mq_receive does not happen before dSensors read the msg
+	// wait for signal by dSensors
+	// pthread_mutex_lock(&c->mutRecvSensors);
+	// pthread_cond_wait(&condRecvSensors, &c->mutRecvSensors);
 
 	while(c)
 	{
@@ -141,7 +196,10 @@ void *CLocalSystem::tRecvSensors(void *arg)
 			pthread_mutex_unlock(&c->mutRecvSensors);
 			DEBUG_MSG("[CLS::tRecvSensors] Sending" << "LAMP " + string(msg) << ")");
 			c->lora.push(string("LAMP ") + msg);
-			c->lamp.setBrightness(0);
+
+			int cmdPwm = GetCmdPWM(msg);
+			DEBUG_MSG("[CLS::tRecvSensors] Setting lamp PWM to[" << cmdPwm << "]");
+			c->lamp.setBrightness(cmdPwm);
 		}
 	}
 	return NULL;
