@@ -3,7 +3,6 @@
 
 #include <sys/signal.h>
 #include <ctime> // timer_t
-// using namespace std;
 
 class Timer
 {
@@ -15,14 +14,14 @@ public:
 	void stop();
 
 private:
-	void setPeriod(int period_secs);
+	void setPeriod(unsigned period_secs);
 
 private:
 	timer_t timer_id;
 	struct itimerspec ts;
   	struct sigevent se;
 
-  	int period_secs;
+  	unsigned period_secs;
 };
 
 #endif // !__TIMER_H__

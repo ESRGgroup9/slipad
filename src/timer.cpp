@@ -1,5 +1,6 @@
 #include "timer.h"
 #include "utils.h"
+#include "debug.h"
 
 #include <pthread.h>
 #include <stdio.h>
@@ -48,9 +49,8 @@ Timer::Timer(unsigned seconds, void (*handler)(union sigval arg))
 		panic("Create timer");
 
 	// set timer period in seconds
-	this->period_secs = period_secs;
-
-	printf("Timer created");
+	this->period_secs = seconds;
+	DEBUG_MSG("Timer["<< (int)timer_id << "] created set with timeout[" << period_secs << "]");
 }
 
 Timer::~Timer()
@@ -58,7 +58,7 @@ Timer::~Timer()
 
 }
 
-void Timer::setPeriod(int period_secs)
+void Timer::setPeriod(unsigned period_secs)
 {
 	// period between now and the first timer interrupt
   	ts.it_value.tv_sec = period_secs;
@@ -74,9 +74,11 @@ void Timer::setPeriod(int period_secs)
 void Timer::start()
 {
 	setPeriod(period_secs);
+	DEBUG_MSG("Timer["<< (int)timer_id << "] started with timeout[" << period_secs << "]");
 }
 
 void Timer::stop()
 {
 	setPeriod(0);
+	DEBUG_MSG("Timer[" << (int)timer_id << "] stopped");
 }

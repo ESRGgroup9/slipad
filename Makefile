@@ -40,7 +40,7 @@ TEST_TSL_OBJS=$(addprefix $(BUILD_DIR)/, testtsl.o DEV_Config.o TSL2581.o)
 test-tsl: $(TEST_TSL_OBJS) | bin ## Compile TSL test
 	$(CXX) -o $(BIN_DIR)/testtsl.elf $(TEST_TSL_OBJS) $(CXXFLAGS)
 
-TEST_TIM_OBJS=$(addprefix $(BUILD_DIR)/, testtimer.o utils.o)
+TEST_TIM_OBJS=$(addprefix $(BUILD_DIR)/, timer.o testtimer.o)
 test-timer: $(TEST_TIM_OBJS) | bin ## Compile timer test
 	$(CXX) -o $(BIN_DIR)/testtimer.elf $(TEST_TIM_OBJS) $(CXXFLAGS)
 
@@ -49,7 +49,7 @@ test-timer: $(TEST_TIM_OBJS) | bin ## Compile timer test
 $(BUILD_DIR)/%.o: $(TESTS_DIR)/%.cpp | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-# ---- cpp objects -----
+# ---- c objects -----
 $(BUILD_DIR)/%.o: $(TESTS_DIR)/%.c | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
