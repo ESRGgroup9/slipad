@@ -7,6 +7,7 @@
 using namespace std;
 
 static pthread_cond_t condCamFrame;
+static pthread_cond_t condRecvSensors;
 
 CLocalSystem::CLocalSystem() :
 	lamp(TIM_LAMP_ON_SECS),
@@ -60,13 +61,6 @@ void CLocalSystem::timCamProcHandler(union sigval arg)
 
 void CLocalSystem::run()
 {
-	// send PID to dSensors
-	string pid_str = to_string(getpid());
-	DEBUG_MSG("[CLS::run] Sending PID[" << pid_str << "]");
-
-	if(mq_send(msgqSensors, pid_str.c_str(), pid_str.length(), 1) != 0)
-		panic("In mq_send()");
-
 	// start camera frame timer
 	timCamFrame.start();
 
@@ -87,8 +81,8 @@ void *CLocalSystem::tLoraRecv(void *arg)
 	string msg;
 	LoRaError err;
 
-	DEBUG_MSG("[CLS::tLoraRecv] entering thread");
-	c->lora.push("hello");
+	// DEBUG_MSG("[CLS::tLoraRecv] entering thread");
+	// c->lora.push("hello");
 
 	while(c)
 	{
@@ -107,14 +101,49 @@ void *CLocalSystem::tLoraRecv(void *arg)
 	return NULL;
 }
 
+// max length of a message queue
+#define MAX_MSG_LEN_R     10000
+
 void *CLocalSystem::tRecvSensors(void *arg)
 {
 	// get CLocalSystem instance
 	CLocalSystem *c = reinterpret_cast<CLocalSystem*>(arg);
-	
-	while(c)
-		;
+	int err = 0;
+	char msg[MAX_MSG_LEN_R];
 
+	// send PID to dSensors
+	string pid_str = to_string(getpid());
+	DEBUG_MSG("[CLS::tRecvSensors] Sending PID[" << pid_str << "]");
+	if(mq_send(c->msgqSensors, pid_str.c_str(), pid_str.length(), 1) != 0)
+		panic("In mq_send()");
+
+	while(c)
+	{
+		pthread_mutex_lock(&c->mutRecvSensors);
+
+		if(mq_receive(c->msgqSensors, msg, MAX_MSG_LEN_R, NULL) == -1)
+		{
+			// get error from errno
+			err = errno;
+
+			// error not expected
+			if(err != EAGAIN)
+				panic("In mq_receive()");
+
+			// else, message queue is empty
+			DEBUG_MSG("[CLS::tRecvSensors] Waiting for condRecvSensors...");
+			pthread_cond_wait(&condRecvSensors, &c->mutRecvSensors);
+			DEBUG_MSG("[CLS::tRecvSensors] Im awake!");
+		}
+		else
+		{
+			// else, messages to read from dSensors
+			pthread_mutex_unlock(&c->mutRecvSensors);
+			DEBUG_MSG("[CLS::tRecvSensors] Sending" << "LAMP " + string(msg) << ")");
+			c->lora.push(string("LAMP ") + msg);
+			c->lamp.setBrightness(0);
+		}
+	}
 	return NULL;
 }
 

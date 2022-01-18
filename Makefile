@@ -17,7 +17,7 @@ localsys: $(SRC_OBJS) $(BUILD_DIR)/localsys.o | bin ## Compile local system main
 	$(CXX) -o $(BIN_DIR)/localsys.elf $(BUILD_DIR)/localsys.o $(SRC_OBJS) $(CXXFLAGS)
 
 # --------------------  Create dSensors.elf --------------------
-dsensors: $(SRC_OBJS) $(BUILD_DIR)/dSensors.o | bin ## Compile local system main process
+dsensors: $(SRC_OBJS) $(BUILD_DIR)/dSensors.o | bin ## Compile local system daemon
 	$(CXX) -o $(BIN_DIR)/dSensors.elf $(BUILD_DIR)/dSensors.o $(SRC_OBJS) $(CXXFLAGS)
 
 # -----------------------  Create tests ------------------------
@@ -68,7 +68,9 @@ DIR=/etc
 
 # target can be: localsys.elf
 transfer: ## Transfer TARGET=<file> to IP=<ip> into DIR=<dir> directory
-	scp $(BIN_DIR)/$(TARGET) root@$(IP):$(DIR)
+	@echo "Transfering to $(IP) into $(DIR):"
+	@echo $(shell ls $(BIN_DIR)/$(TARGET))
+	@scp $(BIN_DIR)/$(TARGET) root@$(IP):$(DIR)
 
 # ----------------------------- Others -----------------------------
 all: localsys dsensors## Compile all

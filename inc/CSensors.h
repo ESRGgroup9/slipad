@@ -38,7 +38,7 @@ private:
 	// CFailureDetector lampf;
 
 	pthread_mutex_t mutReadLdr;
-	pthread_cond_t condReadLdr;
+	// pthread_cond_t condReadLdr;
 
 	pthread_t tReadLdr_id;
 	mqd_t msgqSensors;

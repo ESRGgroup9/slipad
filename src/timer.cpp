@@ -49,11 +49,11 @@ Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_period
 	DEBUG_MSG("Timer["<< (int)timer_id << "] created with timeout[" << period_secs << "]");
 	if(is_periodic == true)
 	{
-		DEBUG_MSG("|-> continuous expire");
+		DEBUG_MSG("- Continuous expire");
 	}
 	else
 	{
-		DEBUG_MSG("|-> single expire");
+		DEBUG_MSG("- Single expire");
 	}
 #endif // !DEBUG
 

@@ -4,9 +4,12 @@
 
 using namespace std;
 
+static pthread_cond_t condReadLdr;
+
 CSensors::CSensors() :
 	pir(NULL),
 	ldr(),
+
 	timReadLdr(TIM_READ_LDR_SECS, timReadLdrHandler)
 {
 	if(pthread_cond_init(&condReadLdr, NULL) != 0)
@@ -24,7 +27,6 @@ CSensors::CSensors() :
 
 	// init...
 	// CFailureDetector lampf;
-	// pid_t mainPID;
 }
 
 CSensors::~CSensors()
@@ -35,7 +37,7 @@ CSensors::~CSensors()
 void CSensors::timReadLdrHandler(union sigval arg)
 {
 	DEBUG_MSG("[CSensors::timReadLdrHandler] Signal condReadLdr");
-	// pthread_cond_signal(&condReadLdr);
+	pthread_cond_signal(&condReadLdr);
 }
 
 // max length of a message queue
@@ -82,7 +84,7 @@ void *CSensors::tReadLdr(void *arg)
 		pthread_mutex_lock(&c->mutReadLdr);
 		
 		DEBUG_MSG("[CSensors::tReadLdr] Waiting for condReadLdr...");
-		pthread_cond_wait(&c->condReadLdr, &c->mutReadLdr);
+		pthread_cond_wait(&condReadLdr, &c->mutReadLdr);
 		DEBUG_MSG("[CSensors::tReadLdr] Im awake!");
 
 		luxState = c->ldr.getLuxState();
