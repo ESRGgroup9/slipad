@@ -9,20 +9,24 @@
 #ifndef __CPIR_H__
 #define __CPIR_H__
 
+#include <signal.h>
+
+typedef void (*isr)(int, siginfo_t*, void*);
+
 class CPir
 {
 public:
-	CPir(void* pirISR);
+	CPir(isr pirISR);
 	~CPir(void);
 
 	void enable(void);
 	void disable(void);
-protected:
 
 private:
-	void sigHigh(int n, siginfo_t *info, void *unused);
+	struct sigaction act;
+	isr pirHand;
 	int pirDev;
-}; 
+};
 
 #endif //!__CPIR_H__
 

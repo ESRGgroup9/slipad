@@ -3,13 +3,14 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h> 
-#include <signal.h>
 #include <sys/ioctl.h>
 #include "utils.h"
 
-CPir::CPir(void* pirISR)
+#define SIGHIGH 10
+#define IOCTL_PID 1
+
+CPir::CPir(isr pirISR)
 {
-	struct sigaction act;
 	pid_t pid;
 	
 	pirDev = open("/dev/pir", O_RDWR);
@@ -24,11 +25,8 @@ CPir::CPir(void* pirISR)
 	}
 	
 	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_SIGINFO;
-	//act.sa_sigaction = sigHigh;
-	act.sa_sigaction = pirISR;
-	
-	sigaction(SIGUSR1, &act, NULL);
+
+	pirHand = pirISR;
 }
 
 CPir::~CPir(void)
@@ -39,27 +37,16 @@ CPir::~CPir(void)
 }
 
 void CPir::enable(void)
-{
-
+{	
+	act.sa_flags = SA_SIGINFO;
+	//act.sa_sigaction = sigHigh;
+	act.sa_sigaction = pirHand;
+	sigaction(SIGUSR1, &act, NULL);
 }
 
 void CPir::disable(void)
 {
+	act.sa_handler = SIG_IGN;
 
-}
-
-void CPir::sigHigh(int n, siginfo_t *info, void *unused)
-{
-	int pinValue = info->si_int;
-		
-	// printf("Button was pressed. Pin value %d.\n", pinValue);
-	// printf("Pin value %d\n", pinValue);
-
-	// static int i = 1;
-	// if(pinValue == 1)
-	{
-		// printf("[%3d] Motion detected\n", i++);
-		// exit(1);
-	}
-	printf("Motion detected\n");
+	sigaction(SIGUSR1, &act, NULL);
 }

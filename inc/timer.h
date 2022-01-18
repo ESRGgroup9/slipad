@@ -3,26 +3,26 @@
 
 #include <sys/signal.h>
 #include <ctime> // timer_t
-// using namespace std;
 
 class Timer
 {
 public:
-	Timer(unsigned seconds, void (*handler)(union sigval));
+	Timer(unsigned seconds, void (*handler)(union sigval), bool is_periodic = true);
 	~Timer();
 
 	void start();
 	void stop();
 
 private:
-	void setPeriod(int period_secs);
+	void setPeriod(unsigned period_secs);
 
 private:
 	timer_t timer_id;
 	struct itimerspec ts;
   	struct sigevent se;
 
-  	int period_secs;
+  	unsigned period_secs;
+  	bool is_periodic;
 };
 
 #endif // !__TIMER_H__

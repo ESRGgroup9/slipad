@@ -56,7 +56,6 @@ int CCommunication::send(string msg)
 
 	pthread_mutex_lock(&mutComms);
 	ret = sendFunc(msg);
-	// DEBUG_MSG("[CComms::send] sent [" << msg << "] with error[" << ret << "]");
 	pthread_mutex_unlock(&mutComms);
 	
 	return ret;
@@ -103,6 +102,7 @@ void *CCommunication::tSend(void *arg)
 		DEBUG_MSG("[CComms::tSend] Popped(" << msg << ") - [" << ccomm->TxMsgs.size() << "] msgs queued");
 		// send message
 		ccomm->send(msg);
+		cout << "[CComms::tSend] Sent(" << msg << ")" << endl;
 		msg.clear();
 	}
 

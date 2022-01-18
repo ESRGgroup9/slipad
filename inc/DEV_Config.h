@@ -1,8 +1,8 @@
 #ifndef __DEV_CONFIG_H__
 #define __DEV_CONFIG_H__
 
-#include <termio.h>
-#include <stdio.h>
+// #include <termio.h>
+// #include <stdio.h>
 #include <bcm2835.h>
 
 /**

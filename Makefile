@@ -16,8 +16,9 @@ SRC_OBJS+=$(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.c
 localsys: $(SRC_OBJS) $(BUILD_DIR)/localsys.o | bin ## Compile local system main process
 	$(CXX) -o $(BIN_DIR)/localsys.elf $(BUILD_DIR)/localsys.o $(SRC_OBJS) $(CXXFLAGS)
 
-$(BUILD_DIR)/localsys.o: localsys.cpp | build
-	$(CXX) -c $< -o $@ $(CXXFLAGS)
+# --------------------  Create dSensors.elf --------------------
+dsensors: $(SRC_OBJS) $(BUILD_DIR)/dSensors.o | bin ## Compile local system daemon
+	$(CXX) -o $(BIN_DIR)/dSensors.elf $(BUILD_DIR)/dSensors.o $(SRC_OBJS) $(CXXFLAGS)
 
 # -----------------------  Create tests ------------------------
 test: test-lora test-pwm test-spi test-timer## Compile all tests
@@ -40,21 +41,29 @@ TEST_TSL_OBJS=$(addprefix $(BUILD_DIR)/, testtsl.o DEV_Config.o TSL2581.o)
 test-tsl: $(TEST_TSL_OBJS) | bin ## Compile TSL test
 	$(CXX) -o $(BIN_DIR)/testtsl.elf $(TEST_TSL_OBJS) $(CXXFLAGS)
 
-TEST_TIM_OBJS=$(addprefix $(BUILD_DIR)/, testtimer.o utils.o)
+TEST_TIM_OBJS=$(addprefix $(BUILD_DIR)/, timer.o testtimer.o)
 test-timer: $(TEST_TIM_OBJS) | bin ## Compile timer test
 	$(CXX) -o $(BIN_DIR)/testtimer.elf $(TEST_TIM_OBJS) $(CXXFLAGS)
+
+TEST_PIR_OBJS=$(addprefix $(BUILD_DIR)/, testpir.o CPir.o)
+test-pir: $(TEST_PIR_OBJS) | bin ## Compile pir test
+	$(CXX) -o $(BIN_DIR)/testpir.elf $(TEST_PIR_OBJS) $(CXXFLAGS)
 
 # -----------------------  Create test objs ------------------------
 # ---- cpp objects -----
 $(BUILD_DIR)/%.o: $(TESTS_DIR)/%.cpp | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-# ---- cpp objects -----
+# ---- c objects -----
 $(BUILD_DIR)/%.o: $(TESTS_DIR)/%.c | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 # ---------------- Create object files from SRC_DIR ------------
 $(BUILD_DIR)/%.o : $(SRC_DIR)/%.c* | build
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+# -------------------- Create main object files  ------------
+$(BUILD_DIR)/%.o: %.cpp | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 # ------------------ Transfer bins to $(IP):$(DIR) -----------------
@@ -63,10 +72,12 @@ DIR=/etc
 
 # target can be: localsys.elf
 transfer: ## Transfer TARGET=<file> to IP=<ip> into DIR=<dir> directory
-	scp $(BIN_DIR)/$(TARGET) root@$(IP):$(DIR)
+	@echo "Transfering to $(IP) into $(DIR):"
+	@echo $(shell ls $(BIN_DIR)/$(TARGET))
+	@scp $(BIN_DIR)/$(TARGET) root@$(IP):$(DIR)
 
 # ----------------------------- Others -----------------------------
-all: localsys test ## Compile all
+all: localsys dsensors## Compile all
 
 # make build dir if it doesnt exist
 build:

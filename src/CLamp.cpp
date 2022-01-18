@@ -19,18 +19,18 @@
 #include "utils.h"
 #include <bcm2835.h>
 
-#define TIM_LAMP_ON_SECS 0
-
 /**
  * PWM Defines
  */
 #define PWM_PIN		(RPI_GPIO_P1_12)
-#define PWM_CHANNEL 0
+#define PWM_CHANNEL (0)
 #define RANGE 		(67500)
-#define PWM_MAX 	100
-#define PWM_OFF 	0
+#define PWM_MAX 	(100)
+#define PWM_OFF 	(0)
 
-CLamp::CLamp(uint8_t timoutSecs) : timLapOnSecs(timoutSecs)
+CLamp::CLamp(int timoutSecs) :
+    // create timer in as non periodic - single expire
+    timLampOnSecs(timoutSecs, NULL, false)
 {
 	if (!bcm2835_init())
 		panic("Error bcm2835 init");
@@ -67,16 +67,13 @@ void CLamp::setBrightness(uint8_t lux)
 	pthread_mutex_lock(&mutChangePWM);
 	pwmVal = lux;
 	bcm2835_pwm_set_data(PWM_CHANNEL, (duty*RANGE));
+    pthread_mutex_unlock(&mutChangePWM);
 
-	if(pwmVal==PWM_MAX)
-		// SET TIMER
-    {
-
-    }
-
+	if(pwmVal == PWM_MAX)
+        timLampOnSecs.start();
 }
 
-const uint8_t CLamp::getBrightness(void)
+uint8_t CLamp::getBrightness(void) const
 {
     return pwmVal;
 }

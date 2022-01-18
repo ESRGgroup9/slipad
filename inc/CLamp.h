@@ -1,27 +1,27 @@
 #ifndef __CLAMP_H__
 #define __CLAMP_H__
 
+#include "timer.h"
+
 #include <pthread.h>
 #include <cstdint>
 
 class CLamp
 {
 public:
-	CLamp(unsigned char timoutSecs);
+	CLamp(int timoutSecs);
 	~CLamp();
 
-	void setBrightness(unsigned char lux);
-	const unsigned char getBrightness(void);
+	void setBrightness(uint8_t lux);
+	uint8_t getBrightness(void) const;
 
-	void on(unsigned char lux);
+	void on(uint8_t lux);
 	void off(void);
 
-protected:
-	
 private:
 	pthread_mutex_t mutChangePWM;
-	unsigned char pwmVal; // BE CAREFUL uint8_t
-	const unsigned char timLapOnSecs;
+	uint8_t pwmVal; // BE CAREFUL uint8_t
+	Timer timLampOnSecs;
 };
 // End CLamp class definition
 
