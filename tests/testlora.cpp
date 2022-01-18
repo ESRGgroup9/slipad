@@ -87,6 +87,10 @@ int main(int argc, char *argv[])
 		// RECV or ECHO operation
 		if(op != SEND)
 			recv();
+
+		if(op == ECHO)
+			bcm2835_delay(3000);
+
 	} while(op == ECHO);
 	
 	// lora.printFIFORegs();
@@ -139,6 +143,7 @@ void recv(void)
 	switch(err)
 	{
 		case LoRaError::MSGOK: 	 cout << "Message OK"; break;
+		case LoRaError::ENOADDR: cout << "Local address not defined"; break;
 		case LoRaError::ENOMSGR: cout << "No message received"; break;
 		case LoRaError::ENOTME:  cout << "Message received is not for this device"; break;
 		case LoRaError::EBADLMSG: cout << "Message received lengths does not match";
