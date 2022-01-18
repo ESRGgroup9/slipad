@@ -1,6 +1,7 @@
 #include "CLocalSystem.h"
 #include "utils.h" // panic
 #include "debug.h"
+#include <unistd.h>
 
 #include <iostream>
 using namespace std;
@@ -26,7 +27,7 @@ CLocalSystem::CLocalSystem() :
 	if(pthread_cond_init(&condCamFrame, NULL) != 0)
 		panic("CLS::CLocalSystem(): Condition variable init");	
 
-	msgqSensors = mq_open(MSGQ_NAME, O_RDONLY | O_CREAT | O_NONBLOCK, NULL);
+	msgqSensors = mq_open(MSGQ_NAME, O_RDWR | O_CREAT | O_NONBLOCK, NULL);
 	if(msgqSensors == (mqd_t)-1)
 		panic("CLS::CLocalSystem(): Creating message queue");
 
@@ -59,6 +60,13 @@ void CLocalSystem::timCamProcHandler(union sigval arg)
 
 void CLocalSystem::run()
 {
+	// send PID to dSensors
+	string pid_str = to_string(getpid());
+	DEBUG_MSG("[CLS::run] Sending PID[" << pid_str << "]");
+
+	if(mq_send(msgqSensors, pid_str.c_str(), pid_str.length(), 1) != 0)
+		panic("In mq_send()");
+
 	// start camera frame timer
 	timCamFrame.start();
 

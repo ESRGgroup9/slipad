@@ -1,4 +1,5 @@
 #include "DEV_Config.h"
+#include "utils.h"
 
 /**********************************************************************************************
 * @brief  	DEV_ModuleInit
@@ -7,13 +8,9 @@
 **********************************************************************************************/
 uint8_t DEV_ModuleInit(uint8_t devAddr)
 {
-	if (!bcm2835_init()){
-		printf("bcm2835 init failed! \r\n");
-		return 1;
-	}
-	else
-        printf("bcm2835 init success! \r\n");
-	
+	if (!bcm2835_init())
+		panic("bcm2835_init()");
+
 	//I2C Config
     bcm2835_i2c_begin();
 	bcm2835_i2c_setSlaveAddress(devAddr);  //i2c address

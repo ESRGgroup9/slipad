@@ -16,8 +16,9 @@ SRC_OBJS+=$(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.c
 localsys: $(SRC_OBJS) $(BUILD_DIR)/localsys.o | bin ## Compile local system main process
 	$(CXX) -o $(BIN_DIR)/localsys.elf $(BUILD_DIR)/localsys.o $(SRC_OBJS) $(CXXFLAGS)
 
-$(BUILD_DIR)/localsys.o: localsys.cpp | build
-	$(CXX) -c $< -o $@ $(CXXFLAGS)
+# --------------------  Create dSensors.elf --------------------
+dsensors: $(SRC_OBJS) $(BUILD_DIR)/dSensors.o | bin ## Compile local system main process
+	$(CXX) -o $(BIN_DIR)/dSensors.elf $(BUILD_DIR)/dSensors.o $(SRC_OBJS) $(CXXFLAGS)
 
 # -----------------------  Create tests ------------------------
 test: test-lora test-pwm test-spi test-timer## Compile all tests
@@ -57,6 +58,10 @@ $(BUILD_DIR)/%.o: $(TESTS_DIR)/%.c | build
 $(BUILD_DIR)/%.o : $(SRC_DIR)/%.c* | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
+# -------------------- Create main object files  ------------
+$(BUILD_DIR)/%.o: %.cpp | build
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
+
 # ------------------ Transfer bins to $(IP):$(DIR) -----------------
 IP=10.42.0.254
 DIR=/etc
@@ -66,7 +71,7 @@ transfer: ## Transfer TARGET=<file> to IP=<ip> into DIR=<dir> directory
 	scp $(BIN_DIR)/$(TARGET) root@$(IP):$(DIR)
 
 # ----------------------------- Others -----------------------------
-all: localsys test ## Compile all
+all: localsys dsensors## Compile all
 
 # make build dir if it doesnt exist
 build:

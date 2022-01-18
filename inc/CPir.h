@@ -17,7 +17,6 @@ public:
 
 	void enable(void);
 	void disable(void);
-protected:
 
 private:
 	void* isr;

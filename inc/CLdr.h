@@ -1,7 +1,8 @@
 #ifndef __CLDR_H__
 #define __CLDR_H__
 
-enum luxState_enum{
+enum class LuxState
+{
 	DAY = 0,
 	NIGHT,
 	UNDEF
@@ -14,12 +15,10 @@ public:
 	CLdr(void);
 	~CLdr(void);
 
-	luxState_enum getLuxState(void);
-
-protected:
+	LuxState getLuxState(void);
 
 private:
-	luxState_enum luxstate;
+	LuxState luxstate;
 };
 // end CLdr Class definition
 
