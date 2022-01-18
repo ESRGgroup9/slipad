@@ -2,11 +2,15 @@
 #include "utils.h" // panic
 #include "debug.h"
 
+#include <iostream>
+using namespace std;
+
 static pthread_cond_t condCamFrame;
 
 CLocalSystem::CLocalSystem() :
+	lamp(TIM_LAMP_ON_SECS),
 	lora(433, GATEWAY_ADDR, LS_ADDR),
-	// lamp(TIM_LAMP_ON_SECS),
+	
 	timCamFrame(TIM_CAM_FRAME_SECS, timCamFrameHandler),
 	timCamProc(TIM_CAM_PROC_SECS, timCamProcHandler)
 {
@@ -86,8 +90,8 @@ void *CLocalSystem::tLoraRecv(void *arg)
 		if(err == LoRaError::MSGOK)
 		{
 			// parse(msg);
-			DEBUG_MSG("[CLS::tLoraRecv] received[" << msg << "]");
-			c->lora.push(msg);
+			cout << "[CLS::tLoraRecv] received[" << msg << "]" << endl;
+			// c->lora.push(msg); // test echoing
 		}
 	}
 

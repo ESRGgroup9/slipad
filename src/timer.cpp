@@ -26,10 +26,8 @@
  * i can create multiple timers and trigger then in a more 
  * handy way for my project.
  */ 
-Timer::Timer(unsigned seconds, void (*handler)(union sigval arg))
+Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_periodic)
 {
-	int status;
-
 	/*
 	* Set the sigevent structure to cause the signal to be
 	* delivered by creating a new thread.
@@ -40,13 +38,25 @@ Timer::Timer(unsigned seconds, void (*handler)(union sigval arg))
 	se.sigev_notify_function = handler;
 	se.sigev_notify_attributes = NULL;
 
-	status = timer_create(CLOCK_REALTIME, &se, &timer_id);
-	if (status == -1)
+	if (timer_create(CLOCK_REALTIME, &se, &timer_id) == -1)
 		panic("Create timer");
 
+	this->is_periodic = is_periodic;
 	// set timer period in seconds
 	this->period_secs = seconds;
+	
+#ifdef DEBUG
 	DEBUG_MSG("Timer["<< (int)timer_id << "] created with timeout[" << period_secs << "]");
+	if(is_periodic == true)
+	{
+		DEBUG_MSG("|-> continuous expire");
+	}
+	else
+	{
+		DEBUG_MSG("|-> single expire");
+	}
+#endif // !DEBUG
+
 }
 
 Timer::~Timer()
@@ -54,13 +64,26 @@ Timer::~Timer()
 
 }
 
+/**
+ * @brief Sets timer period
+ * @param unsigned period_secs
+ * @return none
+ *
+ * Sets timer to expire at the end of 'period_secs'.
+ * 
+ * If 'is_periodic' is false then one wants the timer to expire at first
+ * timeout. Therefore, 'interval' must be 0.
+ * 
+ * If 'is_periodic' is true then one wants the timer to reload 'interval'
+ * each time the timer expires. Therefore 'interval' must be nonzero
+ */
 void Timer::setPeriod(unsigned period_secs)
 {
 	// period between now and the first timer interrupt
   	ts.it_value.tv_sec = period_secs;
   	ts.it_value.tv_nsec = 0;
   	// period between successive timer interrupts
-  	ts.it_interval.tv_sec = period_secs;
+  	ts.it_interval.tv_sec = period_secs * (is_periodic);
  	ts.it_interval.tv_nsec = 0;
 
 	if (timer_settime(timer_id, 0, &ts, 0) == -1)

@@ -39,7 +39,7 @@ private:
 	static void timCamProcHandler(union sigval arg);
 
 private:
-	//CLamp lamp;
+	CLamp lamp;
 	CLoraComm lora;
 	CCamera camera;
 	CParkDetection park;

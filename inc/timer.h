@@ -7,7 +7,7 @@
 class Timer
 {
 public:
-	Timer(unsigned seconds, void (*handler)(union sigval));
+	Timer(unsigned seconds, void (*handler)(union sigval), bool is_periodic = true);
 	~Timer();
 
 	void start();
@@ -22,6 +22,7 @@ private:
   	struct sigevent se;
 
   	unsigned period_secs;
+  	bool is_periodic;
 };
 
 #endif // !__TIMER_H__

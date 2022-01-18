@@ -20,10 +20,10 @@ void timer2(union sigval arg)
 
 int main(int argc, char *argv[])
 {
-	Timer tim1(2, timer1);
+	Timer tim1(2, timer1, false);
 	Timer tim2(4, timer2);
 
-	printf("Wait for 3 tim1() interrupts...\n\n");
+	printf("\nWait for 3 tim1() interrupts...\n\n");
 	tim1.start();
 	tim2.start();
 
