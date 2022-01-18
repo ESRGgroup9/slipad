@@ -1,4 +1,4 @@
-The Buildroot generates the boot configuration, in the \verb|/boot/config.txt| file that contains system configuration parameters that are read when the system boots from the microSD card, and that would traditionally be edited and stored using a BIOS. The listing \ref{lst:configtxt} shows the boot configuration file. For this project, one added the parameter in line 24, in order to enable the I2C device, the parameters in lines 26 and 27, to activate the camera.
+The Buildroot generates the boot configuration, in the \verb|/boot/config.txt| file that contains system configuration parameters that are read when the system boots from the microSD card, and that would traditionally be edited and stored using a BIOS. \cite{configtxt} The listing \ref{lst:configtxt} shows the boot configuration file. For this project, one added the parameter in line 24, in order to enable the I2C device, the parameters in lines 26 and 27, to activate the camera.
 
 \begin{lstlisting}[caption={/boot/config.txt file.}, label={lst:configtxt}]
 # We always use the same names, the real used variant is selected by
