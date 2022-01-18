@@ -1,7 +1,4 @@
-// #include "CLoraComm.h"
 #include "CLocalSystem.h"
-#include "debug.h"
-
 #include <iostream>
 using namespace std;
 
@@ -17,6 +14,6 @@ int main(int argc, char *argv[])
 	// lora.run();
 	localsys.run();
 
-	cout << endl << "Exit success!" << endl;
+	cout << endl << "Exited main() local system" << endl;
 	return 0;
 }
