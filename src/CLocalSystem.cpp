@@ -43,15 +43,15 @@ CLocalSystem::~CLocalSystem()
 void CLocalSystem::run()
 {
 	// setTimer(timCamFrame) >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	lora.init(2);
+	lora.init(2);// >>>>>>>>>>>>>>>>>>>>>>>>>>>>> set prio
 	// join lora threads
 	lora.run();
+
 	pthread_join(tLoraRecv_id, NULL);
 	pthread_join(tRecvSensors_id, NULL);
 	pthread_join(tParkDetection_id, NULL);
 }
 
-#include <bcm2835.h>
 void *CLocalSystem::tLoraRecv(void *arg)
 {
 	// get CLocalSystem instance
@@ -66,20 +66,6 @@ void *CLocalSystem::tLoraRecv(void *arg)
 	{
 		// message was received?
 		err = static_cast<LoRaError>(clsys->lora.recv(msg));
-
-		if(err != LoRaError::ENOMSGR)
-		{
-			cout << "Received message with error[" << static_cast<int>(err) << "] - ";
-			switch(err)
-			{
-				case LoRaError::MSGOK: 	 cout << "Message OK"; break;
-				case LoRaError::ENOMSGR: cout << "No message received"; break;
-				case LoRaError::ENOTME:  cout << "Message received is not for this device"; break;
-				case LoRaError::EBADLMSG: cout << "Message received lengths does not match";
-				case LoRaError::ENOADDR:	cout << "No local address defined";
-			}
-			cout << endl;
-		}
 
 		if(err == LoRaError::MSGOK)
 		{

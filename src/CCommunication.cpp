@@ -45,7 +45,7 @@ void CCommunication::push(string msg)
 {
 	pthread_mutex_lock(&mutTxMsgs);
 	TxMsgs.push(msg);
-	DEBUG_MSG("[CComms::push] Signal condtSend");
+	DEBUG_MSG("[CComms::push] Pushed(" << msg << ") - Signal condtSend");
 	pthread_cond_signal(&condtSend);
 	pthread_mutex_unlock(&mutTxMsgs);
 }

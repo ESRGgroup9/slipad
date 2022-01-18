@@ -354,7 +354,7 @@ LoRaError LoRaClass::receive(LoRaMsg &loraMsg)
 
   // parse packet
   // read recipient address
-  int recipient = read();
+  uint8_t recipient = read();
   
   // check the message recipient
   if ((recipient != localAddress) && (recipient != 0xFF))
