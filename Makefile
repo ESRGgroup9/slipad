@@ -20,7 +20,7 @@ $(BUILD_DIR)/localsys.o: localsys.cpp | build
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 # -----------------------  Create tests ------------------------
-test: test-lora test-pwm test-spi ## Compile all tests
+test: test-lora test-pwm test-spi test-timer## Compile all tests
 # TESTS_OBJS=$(patsubst $(TESTS_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(wildcard $(TESTS_DIR)/*.cpp))
 # TESTS_TARGETS=$(patsubst $(TESTS_DIR)/%.cpp,$(TESTS_DIR)/%.elf,$(wildcard $(TESTS_DIR)/*.cpp))
 
@@ -39,6 +39,10 @@ test-spi: $(TEST_SPI_OBJS) | bin ## Compile SPI test
 TEST_TSL_OBJS=$(addprefix $(BUILD_DIR)/, testtsl.o DEV_Config.o TSL2581.o)
 test-tsl: $(TEST_TSL_OBJS) | bin ## Compile TSL test
 	$(CXX) -o $(BIN_DIR)/testtsl.elf $(TEST_TSL_OBJS) $(CXXFLAGS)
+
+TEST_TIM_OBJS=$(addprefix $(BUILD_DIR)/, testtimer.o utils.o)
+test-timer: $(TEST_TIM_OBJS) | bin ## Compile timer test
+	$(CXX) -o $(BIN_DIR)/testtimer.elf $(TEST_TIM_OBJS) $(CXXFLAGS)
 
 # -----------------------  Create test objs ------------------------
 # ---- cpp objects -----

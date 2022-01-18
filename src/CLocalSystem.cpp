@@ -71,8 +71,7 @@ void *CLocalSystem::tLoraRecv(void *arg)
 		{
 			// parse(msg);
 			DEBUG_MSG("[tLoraRecv] received[" << msg << "]");
-			string s = "Echo [" + msg + "] from localSys\n"; 
-			clsys->lora.push(s);
+			clsys->lora.push(msg);
 		}
 	}
 
