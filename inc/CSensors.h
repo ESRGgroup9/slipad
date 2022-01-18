@@ -13,7 +13,7 @@
 
 #define TIM_READ_LDR_SECS	(0)
 
-#define SIG_CMD_SENT (SIGUSR1)
+#define SIG_NOTIFY_MAIN (SIGUSR1)
 #define MSGQ_NAME "/dsensors"
 
 class CSensors 
@@ -26,10 +26,11 @@ public:
 
 private:
 	static void *tReadLdr(void*);
+
 	static void pirISR(int n, siginfo_t *info, void *unused);
 	static void lampfISR(void);
+
 	static void timReadLdrHandler(union sigval arg);
-	
 	void sendCmd(std::string cmd);
 
 private:

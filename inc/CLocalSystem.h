@@ -18,7 +18,7 @@
 #define TIM_CAM_PROC_SECS	(0)
 #define TIM_LAMP_ON_SECS	(0)
 
-#define MIN_BRIGHT_PWM		(0)
+#define MIN_BRIGHT_PWM		(50)
 
 #define MSGQ_NAME "/dsensors"
 
@@ -31,6 +31,8 @@ public:
 	void run();
 
 private:
+	static void sigHandler(int sig);
+
 	static void *tLoraRecv(void*);
 	static void *tRecvSensors(void*);
 	static void *tParkDetection(void*);

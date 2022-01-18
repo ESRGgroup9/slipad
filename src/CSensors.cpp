@@ -53,7 +53,8 @@ void CSensors::run()
 	do
 	{
 		// read message from msgqueue
-		if(mq_receive(msgqSensors, msg, MAX_MSG_LEN_R, NULL) == -1)
+		err = mq_receive(msgqSensors, msg, MAX_MSG_LEN_R, NULL);
+		if(err == -1)
 		{
 			// get error from errno
 			err = errno;
@@ -69,8 +70,14 @@ void CSensors::run()
 	mainPID = static_cast<int>(atoi(msg));
 	DEBUG_MSG("[CSensors::run] Received main PID[" << mainPID << "]");
 
+	// notify main process that its PID has been received
+	// kill(mainPID, SIG_NOTIFY_MAIN);
+
 	// start sampling sensors
 	timReadLdr.start();
+
+	// wait for thread termination
+	pthread_join(tReadLdr_id, NULL);
 }
 
 void *CSensors::tReadLdr(void *arg)
@@ -120,16 +127,18 @@ void CSensors::sendCmd(string cmd)
 		panic("In mq_send()");
 
 	DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
-	kill(mainPID, SIG_CMD_SENT);
+	kill(mainPID, SIG_NOTIFY_MAIN);
 	DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
 }
 
 void CSensors::pirISR(int n, siginfo_t *info, void *unused)
 {
-	// sendCmd("ON");
+	CSensors *c = reinterpret_cast<CSensors*>(arg);
+	c->sendCmd("ON");
 }
 
-void CSensors::lampfISR(void)
+void CSensors::lampfISR(void *arg)
 {
-	// sendCmd("FAIL");
+	CSensors *c = reinterpret_cast<CSensors*>(arg);
+	c->sendCmd("FAIL");
 }
