@@ -1,12 +1,12 @@
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h> 
 #include <signal.h>
-#include <sys/time.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+//#include <sys/time.h>
+//#include <string.h>
+//#include <sys/types.h>
+//#include <sys/stat.h>
 #include <sys/ioctl.h>
 
 #define SIGHIGH 10
@@ -16,12 +16,12 @@ void sigHigh(int n, siginfo_t *info, void *unused);
 
 int main(int argc, char *argv)
 {
-	int button;
+	int pir;
 	struct sigaction act;
 	pid_t pid;
 	
-	button = open("/dev/button", O_RDWR);
-	if(button < 0)
+	pir = open("/dev/pir", O_RDWR);
+	if(pir < 0)
 	{
 		printf("Device driver not found.\n");
 		return -1;
@@ -30,10 +30,10 @@ int main(int argc, char *argv)
 		printf("PIR Device driver successfully initialized\n");
 	
 	pid = getpid();
-	if(ioctl(button, IOCTL_PID, &pid))
+	if(ioctl(pir, IOCTL_PID, &pid))
 	{
 		printf("Failed system call. Closing device driver.\n");
-		close(button);
+		close(pir);
 		return -1;
 	}
 	
@@ -46,7 +46,7 @@ int main(int argc, char *argv)
 	printf("Waiting for movement...\n");
 	while(1){}
 
-	close(button);
+	close(pir);
 	
 	printf("\nExiting\n");
 	return 0;

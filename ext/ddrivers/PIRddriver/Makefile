@@ -1,5 +1,5 @@
-obj-m := button.o
-button-objs:=buttondriver.o utils.o
+obj-m := pir.o
+pir-objs:=pirdriver.o utils.o
 KDIR:=$(HOME)/buildroot/buildroot-2021.02.5/output/build/linux-custom/
 ARCH ?=arm
 

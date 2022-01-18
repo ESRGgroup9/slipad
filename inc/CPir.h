@@ -20,8 +20,9 @@ public:
 protected:
 
 private:
-	void* isr;
-}
+	void sigHigh(int n, siginfo_t *info, void *unused);
+	int pirDev;
+}; 
 
 #endif //!__CPIR_H__
 
