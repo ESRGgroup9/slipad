@@ -2,10 +2,6 @@
 #include "utils.h"
 #include "debug.h"
 
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 /*
  * ORIGINAL HEADER 
  *
@@ -50,7 +46,7 @@ Timer::Timer(unsigned seconds, void (*handler)(union sigval arg))
 
 	// set timer period in seconds
 	this->period_secs = seconds;
-	DEBUG_MSG("Timer["<< (int)timer_id << "] created set with timeout[" << period_secs << "]");
+	DEBUG_MSG("Timer["<< (int)timer_id << "] created with timeout[" << period_secs << "]");
 }
 
 Timer::~Timer()

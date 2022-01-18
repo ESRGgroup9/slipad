@@ -21,7 +21,7 @@ protected:
 
 private:
 	void* isr;
-}
+};
 
 #endif //!__CPIR_H__
 
