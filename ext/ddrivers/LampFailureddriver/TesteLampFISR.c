@@ -16,23 +16,23 @@ void sigHigh(int n, siginfo_t *info, void *unused);
 
 int main(int argc, char *argv)
 {
-	int button;
+	int lampf;
 	struct sigaction act;
 	pid_t pid;
 	
-	button = open("/dev/button", O_RDWR);
+	button = open("/dev/lampf", O_RDWR);
 	if(button < 0)
 	{
-		printf("Device driver not found.\n");
+		printf("[LampF] Device driver not found.\n");
 		return -1;
 	}
 	else
-		printf("Lamp Failure Detector device driver successfully initialized\n");
+		printf("[LampF] Device driver successfully initialized\n");
 	
 	pid = getpid();
 	if(ioctl(button, IOCTL_PID, &pid))
 	{
-		printf("Failed system call. Closing device driver.\n");
+		printf("[LampF] Failed system call. Closing device driver.\n");
 		close(button);
 		return -1;
 	}

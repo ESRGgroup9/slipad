@@ -1,4 +1,4 @@
-#include "CPir.h"
+#include "CFailureDetector.h"
 
 #include <stdio.h>
 #include <fcntl.h>
@@ -9,7 +9,7 @@
 #define SIGHIGH 10
 #define IOCTL_PID 1
 
-CPir::CPir(isr pirISR)
+CFailureDetector::CFailureDetector(isr lampfISR)
 {
 	pid_t pid;
 	
@@ -26,17 +26,17 @@ CPir::CPir(isr pirISR)
 	
 	sigemptyset(&act.sa_mask);
 
-	handler = pirISR;
+	handler = lampfISR;
 }
 
-CPir::~CPir(void)
+CFailureDetector::~CFailureDetector(void)
 {
 	close(dev);
 	
 	panic("[PIR] Exiting\n");
 }
 
-void CPir::enable(void)
+void CFailureDetector::enable(void)
 {	
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = handler;
@@ -44,7 +44,7 @@ void CPir::enable(void)
 	sigaction(SIGUSR1, &act, NULL);
 }
 
-void CPir::disable(void)
+void CFailureDetector::disable(void)
 {
 	act.sa_handler = SIG_IGN;
 

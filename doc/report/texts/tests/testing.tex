@@ -73,6 +73,15 @@ As previously seen, the I2C communication protocol uses a clock line and a data 
 	\label{fig:i2c_SCL_SDA}
 \end{figure}
 
+The figure \ref{fig:tsl} shows the montage of the TSL2581 with the Raspberry Pi, with the interrupt pin not being used.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.9\textwidth]{13tests/ldr/ldr}
+	\caption{Test TSL2581 module: Montage.}
+	\label{fig:tsl}
+\end{figure}
+
 %**********************************************************
 \section{PWM control}
 In order to test PWM control, one wrote a small program to test the generation of a PWM signal at 50 Hz with a variable duty cycle, with the usage shown in figure \ref{fig:loratest}. The duty cycle received is a value from 0 to 1.
@@ -110,3 +119,21 @@ In figure \ref{fig:pwm_25} is shown the a PWM generated signal with \verb+25 %+ 
 
 %**********************************************************
 \section{Motion Detector}
+
+As mentioned before, for the motion detector, the PIR HC-SR501, it was implemented a device driver. After insert its module in the kernel using the \verb|insmod| command, one can test if the sensor detects movement, using a small test code. In figure \ref{fig:testpir}, one can see the execution of the program that shows that the sensor detected movement.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.5\textwidth]{13tests/pir/testpir}
+	\caption{Test PIR HC-SR501 module: Detection of movement.}
+	\label{fig:testpir}
+\end{figure}
+
+In figure \ref{fig:pirMount}, it is shown the the movement sensor connected to the Raspberry Pi. During the tests, it was noticed that the sensor must be stable to not detect false positives. Furthermore, there is a insignificant delay in the detection of the movement, despite the attempts to adjust, using the potentiometers in the module.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.4\textwidth]{13tests/pir/pir}
+	\caption{Test PIR HC-SR501 module: Montage.}
+	\label{fig:pirMount}
+\end{figure}

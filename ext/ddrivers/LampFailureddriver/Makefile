@@ -1,5 +1,5 @@
 obj-m := lampf.o
-lampf-objs:=buttondriver.o utils.o
+lampf-objs:=lampfdriver.o utils.o
 KDIR:=$(HOME)/buildroot/buildroot-2021.02.5/output/build/linux-custom/
 ARCH ?=arm
 

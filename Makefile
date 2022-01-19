@@ -49,6 +49,10 @@ TEST_PIR_OBJS=$(addprefix $(BUILD_DIR)/, testpir.o CPir.o)
 test-pir: $(TEST_PIR_OBJS) | bin ## Compile pir test
 	$(CXX) -o $(BIN_DIR)/testpir.elf $(TEST_PIR_OBJS) $(CXXFLAGS)
 
+TEST_LAMPF_OBJS=$(addprefix $(BUILD_DIR)/, testlampf.o CFailureDetector.o)
+test-lampf: $(TEST_LAMPF_OBJS) | bin ## Compile failure detector test
+	$(CXX) -o $(BIN_DIR)/testlampf.elf $(TEST_LAMPF_OBJS) $(CXXFLAGS)
+
 # -----------------------  Create test objs ------------------------
 # ---- cpp objects -----
 $(BUILD_DIR)/%.o: $(TESTS_DIR)/%.cpp | build

@@ -15,8 +15,8 @@
 #include <linux/interrupt.h>
 #include "utils.h"
 
-#define DEVICE_NAME "button"
-#define CLASS_NAME "buttonClass"
+#define DEVICE_NAME "lampf"
+#define CLASS_NAME "lampfClass"
 #define REG_CURRENT_TASK _IOW('a','a',int32_t*)
 #define SIGH 10 	// SIGUSR1
 #define IOCTL_PID 1
@@ -34,17 +34,17 @@ static struct cdev c_dev;  // Character device structure
 
 struct GpioRegisters *s_pGpioRegisters;
 
-static unsigned int pinNum = 21;
+static unsigned int pinNum = 26;
 
 static unsigned int irqNumber;
 
-static int __init button_driver_init(void);
-static void __exit button_driver_exit(void);
-static int button_open(struct inode *inode, struct file *file);
-static int button_close(struct inode *inode, struct file *file);
-static ssize_t button_read(struct file *filp, char __user *buf, size_t len, loff_t *off);
-static ssize_t button_write(struct file *filp, const char *buf, size_t len, loff_t *off);
-static long button_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
+static int __init lampf_driver_init(void);
+static void __exit lampf_driver_exit(void);
+static int lampf_open(struct inode *inode, struct file *file);
+static int lampf_close(struct inode *inode, struct file *file);
+static ssize_t lampf_read(struct file *filp, char __user *buf, size_t len, loff_t *off);
+static ssize_t lampf_write(struct file *filp, const char *buf, size_t len, loff_t *off);
+static long lampf_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
 
 static irqreturn_t irq_handler(int irq, void *dev_id)
 {  	
@@ -61,25 +61,25 @@ static irqreturn_t irq_handler(int irq, void *dev_id)
 	return IRQ_HANDLED;
 }
 
-static int button_open(struct inode* inode, struct file *file)
+static int lampf_open(struct inode* inode, struct file *file)
 {
 	printk(KERN_INFO "Device File Opened\n");
 	return 0;
 }
 
-static int button_close(struct inode *inode, struct file * file)
+static int lampf_close(struct inode *inode, struct file * file)
 {
 	printk(KERN_INFO "Device File Closed\n");
 	return 0;
 }
 
-static ssize_t button_write(struct file *filp, const char __user *buf, size_t len, loff_t *off) 
+static ssize_t lampf_write(struct file *filp, const char __user *buf, size_t len, loff_t *off) 
 {	
    	printk(KERN_INFO "Write function\n");
    	return 0;
 }
 
-static ssize_t button_read(struct file *filp, char __user *buf, size_t len, loff_t *off)
+static ssize_t lampf_read(struct file *filp, char __user *buf, size_t len, loff_t *off)
 {
 	char buffer[2];
 	int i = gpio_get_value(pinNum);
@@ -90,7 +90,7 @@ static ssize_t button_read(struct file *filp, char __user *buf, size_t len, loff
 	return 0;
 }
 
-static long button_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+static long lampf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {	
 	if(cmd == IOCTL_PID)
 	{
@@ -111,14 +111,14 @@ static long button_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 static struct file_operations fops = 
 {
 	.owner = THIS_MODULE,
-	.write = button_write,
-	.read = button_read,
-	.release = button_close,
-	.open = button_open,
-	.unlocked_ioctl = button_ioctl,
+	.write = lampf_write,
+	.read = lampf_read,
+	.release = lampf_close,
+	.open = lampf_open,
+	.unlocked_ioctl = lampf_ioctl,
 };
 
-static int __init button_driver_init(void) 
+static int __init lampf_driver_init(void) 
 {
 	if ((alloc_chrdev_region(&dev, 0, 1, DEVICE_NAME)) < 0) 
 	{
@@ -168,7 +168,7 @@ static int __init button_driver_init(void)
 	return 0;
 }
 
-static void __exit button_driver_exit(void) 
+static void __exit lampf_driver_exit(void) 
 {
 	SetGPIOFunction(s_pGpioRegisters, pinNum, GPIO_INPUT);
 	iounmap(s_pGpioRegisters);
@@ -181,5 +181,5 @@ static void __exit button_driver_exit(void)
 	printk(KERN_INFO "Device Driver Remove\n");
 }
 
-module_init(button_driver_init);
-module_exit(button_driver_exit);
+module_init(lampf_driver_init);
+module_exit(lampf_driver_exit);

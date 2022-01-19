@@ -24,8 +24,8 @@ public:
 
 private:
 	struct sigaction act;
-	isr pirHand;
-	int pirDev;
+	isr handler;
+	int dev;
 };
 
 #endif //!__CPIR_H__
