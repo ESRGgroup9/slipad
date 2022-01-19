@@ -1,15 +1,16 @@
 #include "CLocalSystem.h"
 #include "utils.h" // panic
 #include "debug.h"
-#include <unistd.h>
 
+#include <unistd.h>
+#include <cstring>
 #include <iostream>
 using namespace std;
 
 static pthread_cond_t condCamFrame;
 static pthread_cond_t condRecvSensors;
 
-Command_t loraCmdList[] =
+static Command_t loraCmdList[] =
 {
 	{0,0}
 };
@@ -113,7 +114,7 @@ void *CLocalSystem::tLoraRecv(void *arg)
 
 		if(err == LoRaError::MSGOK)
 		{
-			// parse(msg);
+			c->loraParser.parse(msg.c_str());
 			cout << "[CLS::tLoraRecv] received[" << msg << "]" << endl;
 			// c->lora.push(msg); // test echoing
 		}
@@ -122,10 +123,6 @@ void *CLocalSystem::tLoraRecv(void *arg)
 	DEBUG_MSG("[CLS::tLoraRecv] exiting thread");
 	return NULL;
 }
-
-// max length of a message queue
-#define MAX_MSG_LEN_R     10000
-#include <cstring>
 
 struct cmdSensors_t
 {
@@ -162,6 +159,9 @@ static uint8_t parseSensorsCmd(char *str)
 	// DEBUG_MSG("[parseSensorsCmd] cmd(" << p->cmd << ") has pwm(" << p->pwm << ")");
 	return p->pwm;
 }
+
+// max length of a message queue
+#define MAX_MSG_LEN_R     10000
 
 void *CLocalSystem::tRecvSensors(void *arg)
 {
