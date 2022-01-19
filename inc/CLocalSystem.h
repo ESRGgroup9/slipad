@@ -6,6 +6,7 @@
 #include "CCamera.h"
 #include "CParkDetection.h"
 #include "timer.h"
+#include "parser.h"
 
 #include <pthread.h>
 #include <mqueue.h> // mqd_t
@@ -52,15 +53,14 @@ private:
 
 	mqd_t msgqSensors;
 	pthread_mutex_t mutRecvSensors;
-	// pthread_cond_t condRecvSensors;
-
 	pthread_mutex_t mutCamFrame;
+	// pthread_cond_t condRecvSensors;
 	// pthread_cond_t condCamFrame; 
 
 	Timer timCamFrame;
 	Timer timCamProc;
-	// const int timCamFrameSecs;
-	// const int timCamProcSecs;
+
+	Parser loraParser;
 };
 // End CLocalSystem class definition
 

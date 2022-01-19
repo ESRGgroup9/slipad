@@ -12,7 +12,6 @@
 #include <string>
 
 #define TIM_READ_LDR_SECS	(0)
-
 #define SIG_NOTIFY_MAIN (SIGUSR1)
 #define MSGQ_NAME "/dsensors"
 

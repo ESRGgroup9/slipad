@@ -12,8 +12,8 @@ CSensors* CSensors::isr_handler = NULL;
 
 CSensors::CSensors() :
 	pir(pirISR),
+	// lampf(lampfISR),
 	ldr(),
-
 	timReadLdr(TIM_READ_LDR_SECS, timReadLdrHandler)
 {
 	if(pthread_cond_init(&condReadLdr, NULL) != 0)
@@ -29,12 +29,9 @@ CSensors::CSensors() :
 	if(pthread_create(&tReadLdr_id, NULL, tReadLdr, this) != 0)
 		panic("CSensors::CSensors(): pthread_create");
 
+	// init ISR handler pointer
 	isr_handler = this;
-	
-	// init...
-	// CFailureDetector lampf;
 }
-
 
 CSensors::~CSensors()
 {
@@ -168,15 +165,3 @@ void CSensors::sendCmd(string cmd)
 	kill(mainPID, SIG_NOTIFY_MAIN);
 	DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
 }
-
-// void CSensors::pirISR(int n, siginfo_t *info, void *unused)
-// {
-// 	// CSensors *c = reinterpret_cast<CSensors*>(arg);
-// 	// c->sendCmd("ON");
-// }
-
-// void CSensors::lampfISR(void *arg)
-// {
-// 	CSensors *c = reinterpret_cast<CSensors*>(arg);
-// 	c->sendCmd("FAIL");
-// }

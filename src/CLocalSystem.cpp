@@ -9,12 +9,19 @@ using namespace std;
 static pthread_cond_t condCamFrame;
 static pthread_cond_t condRecvSensors;
 
+Command_t loraCmdList[] =
+{
+	{0,0}
+};
+
 CLocalSystem::CLocalSystem() :
 	lamp(TIM_LAMP_ON_SECS),
 	lora(433, GATEWAY_ADDR, LS_ADDR),
 	
 	timCamFrame(TIM_CAM_FRAME_SECS, timCamFrameHandler),
-	timCamProc(TIM_CAM_PROC_SECS, timCamProcHandler)
+	timCamProc(TIM_CAM_PROC_SECS, timCamProcHandler),
+
+	loraParser(loraCmdList, " ")
 {
 	if(pthread_mutex_init(&mutRecvSensors, NULL) != 0)
 		panic("CLS::CLocalSystem(): Mutex init");
@@ -99,9 +106,6 @@ void *CLocalSystem::tLoraRecv(void *arg)
 	string msg;
 	LoRaError err;
 
-	// DEBUG_MSG("[CLS::tLoraRecv] entering thread");
-	// c->lora.push("hello");
-
 	while(c)
 	{
 		// message was received?
@@ -138,19 +142,24 @@ static cmdSensors_t cmdSensorsList[] =
 	{0,0}
 };
 
-static uint8_t GetCmdPWM(char *str)
+static uint8_t parseSensorsCmd(char *str)
 {
 	cmdSensors_t *p = cmdSensorsList;
 
-	while((strcmp(str, p->cmd) != 0) && (p->cmd))
+	while(p->cmd)
+	{
+		if(strcmp(str, p->cmd) == 0)
+			break;
 		p++;
+	}
 
 	if((p->cmd) == 0)
 	{
-		DEBUG_MSG("Unexpected command from dSensors");
+		DEBUG_MSG("[parseSensorsCmd] Unexpected command from dSensors");
 		return -1;
 	}
 
+	// DEBUG_MSG("[parseSensorsCmd] cmd(" << p->cmd << ") has pwm(" << p->pwm << ")");
 	return p->pwm;
 }
 
@@ -194,10 +203,10 @@ void *CLocalSystem::tRecvSensors(void *arg)
 		{
 			// else, messages to read from dSensors
 			pthread_mutex_unlock(&c->mutRecvSensors);
-			DEBUG_MSG("[CLS::tRecvSensors] Sending" << "LAMP " + string(msg) << ")");
+			DEBUG_MSG("[CLS::tRecvSensors] Sending (" << "LAMP " + string(msg) << ")");
 			c->lora.push(string("LAMP ") + msg);
 
-			int cmdPwm = GetCmdPWM(msg);
+			int cmdPwm = parseSensorsCmd(msg);
 			DEBUG_MSG("[CLS::tRecvSensors] Setting lamp PWM to[" << cmdPwm << "]");
 			c->lamp.setBrightness(cmdPwm);
 		}
