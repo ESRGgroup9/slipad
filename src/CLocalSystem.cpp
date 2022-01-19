@@ -168,10 +168,10 @@ void *CLocalSystem::tRecvSensors(void *arg)
 		panic("In mq_send()");
 
 	// make sure that mq_receive does not happen before dSensors read the msg
-	// wait for signal by dSensors
-	// pthread_mutex_lock(&c->mutRecvSensors);
-	// pthread_cond_wait(&condRecvSensors, &c->mutRecvSensors);
-
+	// possible fix...
+	// wait while there are messages in msgq
+	// ..........
+	
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutRecvSensors);

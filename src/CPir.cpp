@@ -12,7 +12,7 @@
 CPir::CPir(isr pirISR)
 {
 	pid_t pid;
-	
+	 
 	dev = open("/dev/pir", O_RDWR);
 	if(dev < 0)
 		panic("[PIR] Device driver not found.\n");

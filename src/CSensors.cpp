@@ -133,8 +133,8 @@ void CSensors::sendCmd(string cmd)
 
 void CSensors::pirISR(int n, siginfo_t *info, void *unused)
 {
-	CSensors *c = reinterpret_cast<CSensors*>(arg);
-	c->sendCmd("ON");
+	// CSensors *c = reinterpret_cast<CSensors*>(arg);
+	// c->sendCmd("ON");
 }
 
 void CSensors::lampfISR(void *arg)

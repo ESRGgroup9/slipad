@@ -9,6 +9,7 @@ CXX=arm-buildroot-linux-gnueabihf-g++
 LIBS=-lpthread -lbcm2835 -lrt
 CXXFLAGS= -Wall -g -I$(INC_DIR) $(LIBS) -D DEBUG
 
+HDRS=$(wildcard $(INC_DIR)/*.h)
 SRC_OBJS=$(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.c))
 SRC_OBJS+=$(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(wildcard $(SRC_DIR)/*.cpp))
 

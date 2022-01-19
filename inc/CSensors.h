@@ -28,7 +28,7 @@ private:
 	static void *tReadLdr(void*);
 
 	static void pirISR(int n, siginfo_t *info, void *unused);
-	static void lampfISR(void);
+	static void lampfISR(void*);
 
 	static void timReadLdrHandler(union sigval arg);
 	void sendCmd(std::string cmd);
