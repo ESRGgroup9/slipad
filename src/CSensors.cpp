@@ -4,7 +4,11 @@
 
 using namespace std;
 
+#define PIR_ISR 	(1)
+#define LAMPF_ISR	(2)
+
 static pthread_cond_t condReadLdr;
+CSensors* CSensors::isr_handler = NULL;
 
 CSensors::CSensors() :
 	pir(pirISR),
@@ -25,13 +29,47 @@ CSensors::CSensors() :
 	if(pthread_create(&tReadLdr_id, NULL, tReadLdr, this) != 0)
 		panic("CSensors::CSensors(): pthread_create");
 
+	isr_handler = this;
+	
 	// init...
 	// CFailureDetector lampf;
 }
 
+
 CSensors::~CSensors()
 {
 
+}
+
+void CSensors::pirISR(int n, siginfo_t *info, void *unused)
+{
+	if (isr_handler)
+		isr_handler->handler_isr(PIR_ISR);
+}
+
+void CSensors::lampfISR(int n, siginfo_t *info, void *unused)
+{
+	if (isr_handler)
+		isr_handler->handler_isr(LAMPF_ISR);
+}
+
+void CSensors::handler_isr(int isr_num)
+{
+	switch(isr_num)
+	{
+		case PIR_ISR:
+			DEBUG_MSG("[handler_isr] handling PIR ISR");
+			sendCmd("ON");
+			break;
+
+		case LAMPF_ISR:
+			DEBUG_MSG("[handler_isr] handling LampF ISR");
+			sendCmd("FAIL");
+			break;
+
+		default:
+			panic("handle_isr(): unexpected ISR num");
+	}
 }
 
 void CSensors::timReadLdrHandler(union sigval arg)
@@ -131,14 +169,14 @@ void CSensors::sendCmd(string cmd)
 	DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
 }
 
-void CSensors::pirISR(int n, siginfo_t *info, void *unused)
-{
-	// CSensors *c = reinterpret_cast<CSensors*>(arg);
-	// c->sendCmd("ON");
-}
+// void CSensors::pirISR(int n, siginfo_t *info, void *unused)
+// {
+// 	// CSensors *c = reinterpret_cast<CSensors*>(arg);
+// 	// c->sendCmd("ON");
+// }
 
-void CSensors::lampfISR(void *arg)
-{
-	CSensors *c = reinterpret_cast<CSensors*>(arg);
-	c->sendCmd("FAIL");
-}
+// void CSensors::lampfISR(void *arg)
+// {
+// 	CSensors *c = reinterpret_cast<CSensors*>(arg);
+// 	c->sendCmd("FAIL");
+// }

@@ -9,7 +9,7 @@
 #define SIGHIGH 10
 #define IOCTL_PID 1
 
-CPir::CPir(isr pirISR)
+CPir::CPir(ISR isr)
 {
 	pid_t pid;
 	 
@@ -25,14 +25,12 @@ CPir::CPir(isr pirISR)
 	}
 	
 	sigemptyset(&act.sa_mask);
-
-	handler = pirISR;
+	handler = isr; 
 }
 
-CPir::~CPir(void)
+CPir::~CPir()
 {
 	close(dev);
-	
 	panic("[PIR] Exiting\n");
 }
 

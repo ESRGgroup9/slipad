@@ -26,13 +26,15 @@ public:
 
 private:
 	static void *tReadLdr(void*);
-
-	static void pirISR(int n, siginfo_t *info, void *unused);
-	static void lampfISR(void*);
-
 	static void timReadLdrHandler(union sigval arg);
 	void sendCmd(std::string cmd);
 
+private:
+	static CSensors *isr_handler;
+	static void pirISR(int, siginfo_t*, void*);
+	static void lampfISR(int, siginfo_t*, void*);
+
+	void handler_isr(int isr_num);
 private:
 	CPir pir;
 	CLdr ldr;
