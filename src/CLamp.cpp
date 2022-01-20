@@ -28,9 +28,7 @@
 #define PWM_MAX 	(100)
 #define PWM_OFF 	(0)
 
-CLamp::CLamp(int timoutSecs) :
-    // create timer in as non periodic - single expire
-    timLampOnSecs(timoutSecs, NULL, false)
+CLamp::CLamp() :
 {
 	if (!bcm2835_init())
 		panic("Error bcm2835 init");
@@ -68,9 +66,6 @@ void CLamp::setBrightness(uint8_t lux)
 	pwmVal = lux;
 	bcm2835_pwm_set_data(PWM_CHANNEL, (duty*RANGE));
     pthread_mutex_unlock(&mutChangePWM);
-
-	if(pwmVal == PWM_MAX)
-        timLampOnSecs.start();
 }
 
 uint8_t CLamp::getBrightness(void) const

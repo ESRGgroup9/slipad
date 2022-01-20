@@ -40,13 +40,13 @@ CSensors::~CSensors()
 
 void CSensors::pirISR(int n, siginfo_t *info, void *unused)
 {
-	if (isr_handler)
+	if(isr_handler)
 		isr_handler->handler_isr(PIR_ISR);
 }
 
 void CSensors::lampfISR(int n, siginfo_t *info, void *unused)
 {
-	if (isr_handler)
+	if(isr_handler)
 		isr_handler->handler_isr(LAMPF_ISR);
 }
 

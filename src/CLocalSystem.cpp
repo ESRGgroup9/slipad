@@ -16,11 +16,12 @@ static Command_t loraCmdList[] =
 };
 
 CLocalSystem::CLocalSystem() :
-	lamp(TIM_LAMP_ON_SECS),
+	lamp(),
 	lora(433, GATEWAY_ADDR, LS_ADDR),
 	
 	timCamFrame(TIM_CAM_FRAME_SECS, timCamFrameHandler),
 	timCamProc(TIM_CAM_PROC_SECS, timCamProcHandler),
+	timLampOnSecs(TIM_LAMP_ON_SECS, timLampOnHandler, false), // timer not periodic
 
 	loraParser(loraCmdList, " ")
 {
@@ -53,6 +54,13 @@ CLocalSystem::CLocalSystem() :
 CLocalSystem::~CLocalSystem()
 {
 
+}
+
+void CLocalSystem::timLampOnHandler(union sigval arg)
+{
+	DEBUG_MSG("[CLS::timLampOnHandler] Turn off lamp");
+	// turn off lamp
+	lamp.setBrightness(MIN_BRIGHT_PWM);
 }
 
 void CLocalSystem::timCamFrameHandler(union sigval arg)

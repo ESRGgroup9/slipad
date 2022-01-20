@@ -9,7 +9,7 @@
 #define SIGHIGH 10
 #define IOCTL_PID 1
 
-CFailureDetector::CFailureDetector(isr lampfISR)
+CFailureDetector::CFailureDetector(ISR lampfISR)
 {
 	pid_t pid;
 	

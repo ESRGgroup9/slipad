@@ -20,8 +20,8 @@ CLoraComm::CLoraComm(int freqMhz, int dest, int src)
 	lora.setPins(LORA_SS_PIN, LORA_RESET_PIN, LORA_DIO0_PIN);
 	
 	// set frequency
-	if(!lora.begin(freqMhz*1E6))
-		panic("CLoraComm::CLoraComm(): lora begin()");
+	// if(!lora.begin(freqMhz*1E6))
+		// panic("CLoraComm::CLoraComm(): lora begin()");
  
 	status = ConnStatus::ONLINE;
 }

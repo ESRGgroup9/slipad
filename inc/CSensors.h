@@ -45,6 +45,7 @@ private:
 	pthread_t tReadLdr_id;
 	mqd_t msgqSensors;
 	pid_t mainPID;
+	
 	Timer timReadLdr;
 };
 // End CSensors class definition

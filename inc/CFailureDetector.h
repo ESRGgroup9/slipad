@@ -10,8 +10,7 @@
 #define __CFAILUREDETECTOR_H__
 
 #include <signal.h>
-
-typedef void (*isr)(int, siginfo_t*, void*);
+#include "interrupt.h"
 
 class CFailureDetector
 {
@@ -26,7 +25,7 @@ protected:
 
 private:
 	struct sigaction act;
-	isr handler;
+	ISR handler;
 	int dev;
 };
 

@@ -9,7 +9,7 @@
 class CLamp
 {
 public:
-	CLamp(int timoutSecs);
+	CLamp();
 	~CLamp();
 
 	void setBrightness(uint8_t lux);
@@ -21,7 +21,6 @@ public:
 private:
 	pthread_mutex_t mutChangePWM;
 	uint8_t pwmVal; // BE CAREFUL uint8_t
-	Timer timLampOnSecs;
 };
 // End CLamp class definition
 

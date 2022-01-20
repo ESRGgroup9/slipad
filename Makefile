@@ -16,9 +16,9 @@ TST_DIR=./tests
 CXX 	=arm-buildroot-linux-gnueabihf-g++
 LIBS	=-lpthread -lbcm2835 -lrt
 
-DEBUG	=-g #-D DEBUG
+DEBUG	=-D DEBUG #-g
 INCLDS	=-I $(INC_DIR)
-CXXFLAGS=$(INCLDS) -Wall $(LIBS)
+CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
 
 #------------------------------------------------------------------------------
 SRC= $(wildcard $(SRC_DIR)/*.c*)
@@ -29,9 +29,7 @@ OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
 DEPS= $(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
 #------------------------------------------------------------------------------
 PROGS=$(addprefix $(BIN_DIR)/, localsys.elf dSensors.elf)
-TESTS=$(patsubst $(BIN_DIR)/%.elf,$(TST_DIR)/%.c,$(OBJS))
 #==============================================================================
-
 vpath %.c $(SRC_DIR) ./
 vpath %.cpp $(SRC_DIR) ./
 

@@ -38,8 +38,12 @@ private:
 	static void *tRecvSensors(void*);
 	static void *tParkDetection(void*);
 
+
+private:
+	static CLocalSystem* isr_handler;
 	static void timCamFrameHandler(union sigval arg);
 	static void timCamProcHandler(union sigval arg);
+	static void timLampOnHandler(union sigval arg);
 
 private:
 	CLamp lamp;
@@ -59,7 +63,8 @@ private:
 
 	Timer timCamFrame;
 	Timer timCamProc;
-
+	Timer timLampOnSecs;
+	
 	Parser loraParser;
 };
 // End CLocalSystem class definition
