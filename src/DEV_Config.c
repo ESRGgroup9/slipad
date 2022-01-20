@@ -1,6 +1,8 @@
 #include "DEV_Config.h"
 #include "utils.h"
 
+#include <bcm2835.h>
+
 /**********************************************************************************************
 * @brief  	DEV_ModuleInit
 * @brief 	Module configuration, I2C protocol 

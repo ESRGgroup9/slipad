@@ -1,11 +1,11 @@
 #include "CLoraComm.h"
 #include "utils.h"
 #include "debug.h"
-
+ 
 using namespace std;
 
 // Create LoRa object
-LoRaClass lora;
+static LoRaClass lora;
 
 CLoraComm::CLoraComm(int freqMhz, int dest, int src)
 {

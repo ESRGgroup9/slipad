@@ -1,9 +1,8 @@
 #ifndef __DEV_CONFIG_H__
 #define __DEV_CONFIG_H__
 
-// #include <termio.h>
-// #include <stdio.h>
-#include <bcm2835.h>
+#include <bcm2835.h> // bcm2835_delay
+#include <stdint.h>  // uint8_t
 
 /**
 * IIC 
@@ -23,4 +22,4 @@ uint8_t bcm2835_IIC_Read(uint8_t add_);
 uint8_t DEV_ModuleInit(uint8_t devAddr);
 void DEV_ModuleExit();
 
-#endif
+#endif // !__DEV_CONFIG_H__

@@ -10,7 +10,7 @@
 
 #include <pthread.h>
 #include <mqueue.h> // mqd_t
-
+ 
 #define GATEWAY_ADDR 	(uint8_t)(0xcc)	// destination address
 #define LS_ADDR			(uint8_t)(0xbb) // local address
 

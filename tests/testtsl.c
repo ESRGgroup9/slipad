@@ -2,6 +2,7 @@
 #include <stdlib.h>     //exit()
 #include <signal.h>
 
+#include "DEV_Config.h"
 #include "TSL2581.h"
 
 void  Handler(int signo)
