@@ -1,7 +1,7 @@
 #==============================================================================
-BLUE=`tput setaf 4`
-GREEN=`tput setaf 2`
-CYAN=`tput setaf 6`
+BLUE 	=\033[0;34m
+GREEN	=\033[0;32m
+CYAN	=\033[0;36m
 
 PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ... "
 PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ... "
