@@ -7,8 +7,11 @@
 #include <iostream>
 using namespace std;
 
-static pthread_cond_t condCamFrame;
-static pthread_cond_t condRecvSensors;
+#define TIM_CAM_PROC 1
+#define TIM_CAM_FRAME 2
+#define TIM_LAMP_ON 3
+
+CLocalSystem* CLocalSystem::thisPtr = NULL;
 
 static Command_t loraCmdList[] =
 {
@@ -49,6 +52,8 @@ CLocalSystem::CLocalSystem() :
 
 	if(pthread_create(&tParkDetection_id, NULL, tParkDetection, this) != 0)
 		panic("CLS::CLocalSystem(): pthread_create");
+
+	thisPtr = this;
 }
 
 CLocalSystem::~CLocalSystem()
@@ -56,23 +61,50 @@ CLocalSystem::~CLocalSystem()
 
 }
 
+
 void CLocalSystem::timLampOnHandler(union sigval arg)
 {
-	DEBUG_MSG("[CLS::timLampOnHandler] Turn off lamp");
-	// turn off lamp
-	lamp.setBrightness(MIN_BRIGHT_PWM);
+	if(thisPtr)
+		thisPtr->timer_handler(arg.sival_int);
 }
 
 void CLocalSystem::timCamFrameHandler(union sigval arg)
 {
-	DEBUG_MSG("[CLS::timCamFrameHandler] Signal tParkDetection");
-	pthread_cond_signal(&condCamFrame);
+	if(thisPtr)
+		thisPtr->timer_handler(arg.sival_int);
 }
 
 void CLocalSystem::timCamProcHandler(union sigval arg)
 {
-	DEBUG_MSG("[CLS::timCamProcHandler] Signal xxx");
-	// pthread_cond_signal(&condCamFrame);
+	if(thisPtr)
+		thisPtr->timer_handler(arg.sival_int);
+}
+
+void CLocalSystem::timer_handler(int tim_num)
+{
+	DEBUG_MSG("[CLS::timer_handler] handling timer[" << tim_num << "] timeout");
+
+	switch(tim_num)
+	{
+		case TIM_CAM_FRAME:
+			DEBUG_MSG("[CLS::timer_handler] Signal tParkDetection");
+			pthread_cond_signal(&condCamFrame);
+			break;
+
+		case TIM_LAMP_ON:
+			DEBUG_MSG("[CLS::timer_handler] Turn off lamp");
+			// turn off lamp
+			lamp.setBrightness(MIN_BRIGHT_PWM);
+			break;
+
+		case TIM_CAM_PROC:
+			DEBUG_MSG("[CLS::timer_handler] Signal xxx");
+			// pthread_cond_signal(&condCamFrame);
+			break;
+
+		default:
+			ERROR_MSG("[CLS::timer_handler] unexpected timer event");
+	}
 }
 
 void CLocalSystem::run()
@@ -99,12 +131,12 @@ void CLocalSystem::sigHandler(int sig)
 	switch(sig)
 	{
 		case SIGUSR1:
-			DEBUG_MSG("[sigHandler] caught SIGUSR1");
-			pthread_cond_signal(&condRecvSensors);
+			DEBUG_MSG("[CLS::sigHandler] caught SIGUSR1");
+			// pthread_cond_signal(&c->condRecvSensors);
 			break;
 
 		default:
-			DEBUG_MSG("[sigHandler] caught unexpected signal");
+			ERROR_MSG("[CLS::sigHandler] caught unexpected signal");
 	}
 }
 
@@ -160,7 +192,7 @@ static uint8_t parseSensorsCmd(char *str)
 
 	if((p->cmd) == 0)
 	{
-		DEBUG_MSG("[parseSensorsCmd] Unexpected command from dSensors");
+		ERROR_MSG("[parseSensorsCmd] Unexpected command from dSensors");
 		return -1;
 	}
 
@@ -204,7 +236,7 @@ void *CLocalSystem::tRecvSensors(void *arg)
 
 			// else, message queue is empty
 			DEBUG_MSG("[CLS::tRecvSensors] Waiting for condRecvSensors...");
-			pthread_cond_wait(&condRecvSensors, &c->mutRecvSensors);
+			pthread_cond_wait(&c->condRecvSensors, &c->mutRecvSensors);
 			DEBUG_MSG("[CLS::tRecvSensors] Im awake!");
 		}
 		else
@@ -241,7 +273,7 @@ void *CLocalSystem::tParkDetection(void *arg)
 	{
 		pthread_mutex_lock(&c->mutCamFrame);
 		DEBUG_MSG("[CLS::tParkDetection] Waiting for condCamFrame...");
-		pthread_cond_wait(&condCamFrame, &c->mutCamFrame);
+		pthread_cond_wait(&c->condCamFrame, &c->mutCamFrame);
 		DEBUG_MSG("[CLS::tParkDetection] Im awake!");
 		
 		// camera.capture();

@@ -1,8 +1,6 @@
 #ifndef __CLAMP_H__
 #define __CLAMP_H__
 
-#include "timer.h"
-
 #include <pthread.h>
 #include <cstdint>
 

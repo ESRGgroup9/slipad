@@ -18,7 +18,7 @@
 class CFailureDetector : public CCharacterDevice
 {
 public:
-	CFailureDetector(isr lampfISR);
+	CFailureDetector(ISR lampfISR);
 	~CFailureDetector(void);
 
 	void enable(void);

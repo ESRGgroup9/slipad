@@ -4,7 +4,7 @@
 #include "timer.h"
 #include "CPir.h"
 #include "CLdr.h"
-// #include "CFailureDetector.h"
+#include "CFailureDetector.h"
 
 #include <signal.h>
 #include <pthread.h>
@@ -29,7 +29,7 @@ private:
 	void sendCmd(std::string cmd);
 
 private:
-	static CSensors *isr_handler;
+	static CSensors *thisPtr;
 	static void pirISR(int, siginfo_t*, void*);
 	static void lampfISR(int, siginfo_t*, void*);
 
@@ -37,7 +37,7 @@ private:
 private:
 	CPir pir;
 	CLdr ldr;
-	// CFailureDetector lampf;
+	CFailureDetector lampf;
 
 	pthread_mutex_t mutReadLdr;
 	// pthread_cond_t condReadLdr;
