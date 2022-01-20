@@ -2,7 +2,8 @@
 #include "utils.h"
 #include "debug.h"
 
-int Timer::ID = 0; 
+int Timer::ID = 0;
+const int Timer::id = ID;
 /*
  * ORIGINAL HEADER 
  *
@@ -27,13 +28,12 @@ int Timer::ID = 0;
  * i can create multiple timers and trigger then in a more 
  * handy way for my project.
  */ 
-Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_periodic)
-{
+Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_periodic) {
 	this->is_periodic = is_periodic;
 	// set timer period in seconds
 	this->period_secs = seconds;
 	// assign id
-	this->id = ID++;
+	ID++;
 
 	/*
 	* Set the sigevent structure to cause the signal to be

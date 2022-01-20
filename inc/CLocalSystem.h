@@ -15,7 +15,7 @@
 #define LS_ADDR			(uint8_t)(0xbb) // local address
 
 // timer periods
-#define TIM_CAM_FRAME_SECS	(0)
+#define TIM_CAM_FRAME_SECS	(5)
 #define TIM_CAM_PROC_SECS	(0)
 #define TIM_LAMP_ON_SECS	(0)
 

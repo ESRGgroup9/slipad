@@ -86,6 +86,7 @@ void CLocalSystem::timer_handler(int tim_num)
 
 	switch(tim_num)
 	{
+		// case (timCamFrame.id):
 		case TIM_CAM_FRAME:
 			DEBUG_MSG("[CLS::timer_handler] Signal tParkDetection");
 			pthread_cond_signal(&condCamFrame);
@@ -226,7 +227,7 @@ void *CLocalSystem::tRecvSensors(void *arg)
 		pthread_mutex_lock(&c->mutRecvSensors);
 
 		if(mq_receive(c->msgqSensors, msg, MAX_MSG_LEN_R, NULL) == -1)
-		{
+		{ 
 			// get error from errno
 			err = errno;
 
