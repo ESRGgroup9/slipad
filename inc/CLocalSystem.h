@@ -38,13 +38,13 @@ private:
 	static void *tRecvSensors(void*);
 	static void *tParkDetection(void*);
 
-
 private:
-	static CLocalSystem* isr_handler;
+	static CLocalSystem* thisPtr;
 	static void timCamFrameHandler(union sigval arg);
 	static void timCamProcHandler(union sigval arg);
 	static void timLampOnHandler(union sigval arg);
 
+	void timer_handler(int tim_num);
 private:
 	CLamp lamp;
 	CLoraComm lora;
@@ -58,8 +58,8 @@ private:
 	mqd_t msgqSensors;
 	pthread_mutex_t mutRecvSensors;
 	pthread_mutex_t mutCamFrame;
-	// pthread_cond_t condRecvSensors;
-	// pthread_cond_t condCamFrame; 
+	pthread_cond_t condRecvSensors;
+	pthread_cond_t condCamFrame; 
 
 	Timer timCamFrame;
 	Timer timCamProc;

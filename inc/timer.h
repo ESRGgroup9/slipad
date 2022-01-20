@@ -12,12 +12,16 @@ public:
 
 	void start();
 	void stop();
+	int getID() const {return id;}
 
 private:
 	void setPeriod(unsigned period_secs);
+	static int ID;
 
 private:
 	timer_t timer_id;
+	int id;
+
 	struct itimerspec ts;
   	struct sigevent se;
 

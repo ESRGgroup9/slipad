@@ -8,12 +8,12 @@ using namespace std;
 #define LAMPF_ISR	(2)
 
 static pthread_cond_t condReadLdr;
-CSensors* CSensors::isr_handler = NULL;
+CSensors* CSensors::thisPtr = NULL;
 
 CSensors::CSensors() :
 	pir(pirISR),
-	// lampf(lampfISR),
 	ldr(),
+	lampf(lampfISR),
 	timReadLdr(TIM_READ_LDR_SECS, timReadLdrHandler)
 {
 	if(pthread_cond_init(&condReadLdr, NULL) != 0)
@@ -30,7 +30,7 @@ CSensors::CSensors() :
 		panic("CSensors::CSensors(): pthread_create");
 
 	// init ISR handler pointer
-	isr_handler = this;
+	thisPtr = this;
 }
 
 CSensors::~CSensors()
@@ -40,14 +40,14 @@ CSensors::~CSensors()
 
 void CSensors::pirISR(int n, siginfo_t *info, void *unused)
 {
-	if(isr_handler)
-		isr_handler->handler_isr(PIR_ISR);
+	if(thisPtr)
+		thisPtr->handler_isr(PIR_ISR);
 }
 
 void CSensors::lampfISR(int n, siginfo_t *info, void *unused)
 {
-	if(isr_handler)
-		isr_handler->handler_isr(LAMPF_ISR);
+	if(thisPtr)
+		thisPtr->handler_isr(LAMPF_ISR);
 }
 
 void CSensors::handler_isr(int isr_num)

@@ -28,7 +28,7 @@
 #define PWM_MAX 	(100)
 #define PWM_OFF 	(0)
 
-CLamp::CLamp() :
+CLamp::CLamp()
 {
 	if (!bcm2835_init())
 		panic("Error bcm2835 init");

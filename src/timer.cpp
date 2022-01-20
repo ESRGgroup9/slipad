@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "debug.h"
 
+int Timer::ID = 0; 
 /*
  * ORIGINAL HEADER 
  *
@@ -28,12 +29,21 @@
  */ 
 Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_periodic)
 {
+	this->is_periodic = is_periodic;
+	// set timer period in seconds
+	this->period_secs = seconds;
+	// assign id
+	this->id = ID++;
+
 	/*
 	* Set the sigevent structure to cause the signal to be
 	* delivered by creating a new thread.
 	*/
 	se.sigev_notify = SIGEV_THREAD;
+
 	se.sigev_value.sival_ptr = &timer_id;
+	se.sigev_value.sival_int = this->id;
+	
 	// set handler function
 	se.sigev_notify_function = handler;
 	se.sigev_notify_attributes = NULL;
@@ -41,12 +51,8 @@ Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_period
 	if (timer_create(CLOCK_REALTIME, &se, &timer_id) == -1)
 		panic("Create timer");
 
-	this->is_periodic = is_periodic;
-	// set timer period in seconds
-	this->period_secs = seconds;
-	
 #ifdef DEBUG
-	DEBUG_MSG("Timer["<< (int)timer_id << "] created with timeout[" << period_secs << "]");
+	DEBUG_MSG("Timer["<< id << "] created with timeout[" << period_secs << "]");
 	if(is_periodic == true)
 	{
 		DEBUG_MSG("- Continuous expire");
@@ -93,11 +99,11 @@ void Timer::setPeriod(unsigned period_secs)
 void Timer::start()
 {
 	setPeriod(period_secs);
-	DEBUG_MSG("Timer["<< (int)timer_id << "] started with timeout[" << period_secs << "]");
+	DEBUG_MSG("Timer["<< (int)id << "] started with timeout[" << period_secs << "]");
 }
 
 void Timer::stop()
 {
 	setPeriod(0);
-	DEBUG_MSG("Timer[" << (int)timer_id << "] stopped");
+	DEBUG_MSG("Timer[" << (int)id << "] stopped");
 }

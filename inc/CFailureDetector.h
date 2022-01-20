@@ -1,6 +1,6 @@
 /**
  * @file 	CFailureDetector.cpp, CFailureDetector.h
- * @author 	Diogo Fernandes, Tomás Abreu
+ * @author 	Diogo Fernandes, Tomas Abreu
  * @date 	18/01/2022
  *
  * @brief	Class that deals with the Lamp Failure sensor  
@@ -15,7 +15,7 @@
 class CFailureDetector
 {
 public:
-	CFailureDetector(isr lampfISR);
+	CFailureDetector(ISR lampfISR);
 	~CFailureDetector(void);
 
 	void enable(void);
