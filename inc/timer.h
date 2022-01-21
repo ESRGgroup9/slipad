@@ -12,7 +12,7 @@ public:
 
 	void start();
 	void stop();
-	static const int id;
+	int id;
 	
 private:
 	void setPeriod(unsigned period_secs);

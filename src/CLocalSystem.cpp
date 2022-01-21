@@ -7,6 +7,18 @@
 #include <iostream>
 using namespace std;
 
+#define GATEWAY_ADDR 	(uint8_t)(0xcc)	// destination address
+#define LS_ADDR			(uint8_t)(0xbb) // local address
+
+// timer periods
+#define TIM_CAM_FRAME_SECS	(5)
+#define TIM_CAM_PROC_SECS	(0)
+#define TIM_LAMP_ON_SECS	(0)
+
+#define MIN_BRIGHT_PWM		(50)
+
+#define MSGQ_NAME "/dsensors"
+
 #define TIM_CAM_PROC 1
 #define TIM_CAM_FRAME 2
 #define TIM_LAMP_ON 3
@@ -22,9 +34,9 @@ CLocalSystem::CLocalSystem() :
 	lamp(),
 	lora(433, GATEWAY_ADDR, LS_ADDR),
 	
-	timCamFrame(TIM_CAM_FRAME_SECS, timCamFrameHandler),
-	timCamProc(TIM_CAM_PROC_SECS, timCamProcHandler),
-	timLampOnSecs(TIM_LAMP_ON_SECS, timLampOnHandler, false), // timer not periodic
+	timCamFrame(TIM_CAM_FRAME_SECS, timer_handler),
+	timCamProc(TIM_CAM_PROC_SECS, timer_handler),
+	timLampOnSecs(TIM_LAMP_ON_SECS, timer_handler, false), // timer not periodic
 
 	loraParser(loraCmdList, " ")
 {
@@ -61,46 +73,44 @@ CLocalSystem::~CLocalSystem()
 
 }
 
-
-void CLocalSystem::timLampOnHandler(union sigval arg)
+void CLocalSystem::timLampOnHandler()
 {
-	if(thisPtr)
-		thisPtr->timer_handler(arg.sival_int);
+	DEBUG_MSG("[CLS::timer_handler] Turn off lamp");
+	// turn off lamp
+	lamp.setBrightness(MIN_BRIGHT_PWM);
 }
 
-void CLocalSystem::timCamFrameHandler(union sigval arg)
+void CLocalSystem::timCamFrameHandler()
 {
-	if(thisPtr)
-		thisPtr->timer_handler(arg.sival_int);
+	DEBUG_MSG("[CLS::timer_handler] Signal tParkDetection");
+	pthread_cond_signal(&condCamFrame);
 }
 
-void CLocalSystem::timCamProcHandler(union sigval arg)
+void CLocalSystem::timCamProcHandler()
 {
-	if(thisPtr)
-		thisPtr->timer_handler(arg.sival_int);
+	DEBUG_MSG("[CLS::timer_handler] Signal xxx");
+	// pthread_cond_signal(&condCamFrame);
 }
 
-void CLocalSystem::timer_handler(int tim_num)
+void CLocalSystem::timer_handler(union sigval arg)
 {
-	DEBUG_MSG("[CLS::timer_handler] handling timer[" << tim_num << "] timeout");
+	if(!thisPtr)
+		panic("timer_handler(): thisPtr not defined");
 
-	switch(tim_num)
+	DEBUG_MSG("[CLS::timer_handler] handling timer[" << arg.sival_int << "] timeout");
+	switch(arg.sival_int)
 	{
 		// case (timCamFrame.id):
 		case TIM_CAM_FRAME:
-			DEBUG_MSG("[CLS::timer_handler] Signal tParkDetection");
-			pthread_cond_signal(&condCamFrame);
+			thisPtr->timCamFrameHandler();
 			break;
 
 		case TIM_LAMP_ON:
-			DEBUG_MSG("[CLS::timer_handler] Turn off lamp");
-			// turn off lamp
-			lamp.setBrightness(MIN_BRIGHT_PWM);
+			thisPtr->timLampOnHandler();
 			break;
 
 		case TIM_CAM_PROC:
-			DEBUG_MSG("[CLS::timer_handler] Signal xxx");
-			// pthread_cond_signal(&condCamFrame);
+			thisPtr->timCamProcHandler();
 			break;
 
 		default:

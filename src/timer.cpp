@@ -3,7 +3,7 @@
 #include "debug.h"
 
 int Timer::ID = 0;
-const int Timer::id = ID;
+
 /*
  * ORIGINAL HEADER 
  *
@@ -33,7 +33,7 @@ Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_period
 	// set timer period in seconds
 	this->period_secs = seconds;
 	// assign id
-	ID++;
+	this->id = ID++;
 
 	/*
 	* Set the sigevent structure to cause the signal to be
