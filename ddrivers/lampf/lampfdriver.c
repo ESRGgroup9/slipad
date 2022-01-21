@@ -18,7 +18,8 @@
 #define DEVICE_NAME "lampf"
 #define CLASS_NAME "lampfClass"
 #define REG_CURRENT_TASK _IOW('a','a',int32_t*)
-#define SIGH 10 	// SIGUSR1
+// #define SIGH 10 	// SIGUSR1
+#define SIGH SIGUSR2
 #define IOCTL_PID 1
 #define GPIO_INPUT 0
 

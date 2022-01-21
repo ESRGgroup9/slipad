@@ -134,8 +134,12 @@ void CSensors::run()
 	mainPID = static_cast<int>(atoi(msg));
 	DEBUG_MSG("[CSensors::run] Received main PID[" << mainPID << "]");
 
+	DEBUG_MSG("Waiting for lampf...");
 	lampf.enable();
-	
+
+	// while(1)
+	// 	;
+
 	// start sampling LDR sensor
 	timReadLdr.start();
 
@@ -191,5 +195,5 @@ void CSensors::sendCmd(string cmd)
 
 	DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
 	kill(mainPID, SIG_NOTIFY_MAIN);
-	DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
+	// DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
 }

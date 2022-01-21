@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <sys/ioctl.h>
 
-#define SIGHIGH 10
+#define SIGHIGH SIGUSR2
 #define IOCTL_PID 1
 
 void sigHigh(int n, siginfo_t *info, void *unused);
@@ -40,8 +40,7 @@ int main(int argc, char *argv[])
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = sigHigh;
-	// sigaction(SIGHIGH, &act, NULL);
-	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGHIGH, &act, NULL);
 
 	printf("Waiting for lamp failure...\n");
 	while(1){}
