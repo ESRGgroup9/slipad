@@ -80,18 +80,19 @@ IP=10.42.0.254
 DIR=/etc
 TARGET=$(BIN_DIR)/*
 
-transfer-ddrivers: ## Transfer device drivers
-	@$(MAKE) transfer -C $(DDR_DIR)
-
-transfer-tests: ## Transfer tests
-	@$(MAKE) transfer -C $(TST_DIR)
-
 transfer: ## Transfer TARGET=<file> to IP=<ip> into DIR=<dir> directory
 	@echo "Transfering:"
 	@echo "${GREEN}"$(shell ls $(TARGET))
 	@echo "$(RESET)To $(IP) into $(DIR)..."
 	@scp $(TARGET) root@$(IP):$(DIR)
 
+transfer-ddrivers: ## Transfer device drivers
+	@$(MAKE) transfer -C $(DDR_DIR)
+
+transfer-tests: ## Transfer tests
+	@$(MAKE) transfer -C $(TST_DIR)
+
+#------------------------------------------------------------------------------
 setup:
 	@mkdir -p $(BLD_DIR)
 	@mkdir -p $(BIN_DIR)
@@ -103,5 +104,5 @@ clean: ## Delete built artifacts
 help: ## Generate list of targets with descriptions
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: build clean transfer help tests
+.PHONY: build clean transfer help
 .PRECIOUS: $(BLD_DIR)/%.o $(BLD_DIR)/%.d

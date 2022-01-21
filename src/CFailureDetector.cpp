@@ -26,7 +26,6 @@ CFailureDetector::CFailureDetector(ISR lampfISR)
 	}
 	
 	sigemptyset(&act.sa_mask);
-
 	handler = lampfISR;
 }
 

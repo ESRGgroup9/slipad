@@ -134,6 +134,8 @@ void CSensors::run()
 	mainPID = static_cast<int>(atoi(msg));
 	DEBUG_MSG("[CSensors::run] Received main PID[" << mainPID << "]");
 
+	lampf.enable();
+	
 	// start sampling LDR sensor
 	timReadLdr.start();
 

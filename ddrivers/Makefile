@@ -8,8 +8,6 @@ PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
 PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
 PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
 #------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------
 PROGS=./pir ./lampf
 #==============================================================================
 
@@ -18,7 +16,7 @@ build: $(PROGS) ## Compile the binary program
 .PHONY: all $(PROGS)
 
 $(PROGS):
-	@echo $(PRINT_COMPILING) 
+	@echo $(PRINT_BUILDING) 
 	@$(MAKE) -C $@
 
 #------------------------------------------------------------------------------
