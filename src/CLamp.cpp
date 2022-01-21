@@ -25,8 +25,6 @@
 #define PWM_PIN		(RPI_GPIO_P1_12)
 #define PWM_CHANNEL (0)
 #define RANGE 		(67500)
-#define PWM_MAX 	(100)
-#define PWM_OFF 	(0)
 
 CLamp::CLamp()
 {

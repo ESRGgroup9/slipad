@@ -10,25 +10,6 @@
 
 #include <pthread.h>
 #include <mqueue.h> // mqd_t
- 
-#define GATEWAY_ADDR 	(uint8_t)(0xcc)	// destination address
-#define LS_ADDR			(uint8_t)(0xbb) // local address
-
-// timer periods
-#define TIM_CAM_FRAME_SECS	(5)
-#define TIM_CAM_PROC_SECS	(0)
-#define TIM_LAMP_ON_SECS	(0)
-
-#define MIN_BRIGHT_PWM		(50)
-
-#define MSGQ_NAME "/dsensors"
-
-struct TimISR
-{
-	void (*handler)(union sigval);
-	const int tim_num;
-};
-
 
 class CLocalSystem 
 {
@@ -47,13 +28,13 @@ private:
 
 private:
 	static CLocalSystem* thisPtr;
-	static void timCamFrameHandler(union sigval arg);
-	static void timCamProcHandler(union sigval arg);
-	static void timLampOnHandler(union sigval arg);
+	static void timer_handler(union sigval arg);
 
-	void timer_handler(int tim_num);
+	void timCamFrameISR();
+	void timCamProcISR();
+	void timLampOnISR();
+
 private:
-	TimISR *timISRVector;
 	CLamp lamp;
 	CLoraComm lora;
 	CCamera camera;
@@ -71,7 +52,7 @@ private:
 
 	Timer timCamFrame;
 	Timer timCamProc;
-	Timer timLampOnSecs;
+	Timer timLampOn;
 	
 	Parser loraParser;
 };

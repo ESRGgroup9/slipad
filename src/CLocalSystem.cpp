@@ -2,14 +2,22 @@
 #include "utils.h" // panic
 #include "debug.h"
 
-#include <unistd.h>
+#include <unistd.h> // getpid
 #include <cstring>
 #include <iostream>
 using namespace std;
 
-#define TIM_CAM_PROC 1
-#define TIM_CAM_FRAME 2
-#define TIM_LAMP_ON 3
+#define GATEWAY_ADDR 	(uint8_t)(0xcc)	// destination address
+#define LS_ADDR			(uint8_t)(0xbb) // local address
+#define MSGQ_NAME "/dsensors"
+
+// timer periods
+#define TIM_CAM_FRAME_SECS	(5)
+#define TIM_CAM_PROC_SECS	(0)
+#define TIM_LAMP_ON_SECS	(0)
+
+// minimum lamp bright - pwm value(0 - 100)
+#define MIN_BRIGHT_PWM		(50)
 
 CLocalSystem* CLocalSystem::thisPtr = NULL;
 
@@ -22,18 +30,12 @@ CLocalSystem::CLocalSystem() :
 	lamp(),
 	lora(433, GATEWAY_ADDR, LS_ADDR),
 	
-	timCamFrame(TIM_CAM_FRAME_SECS, timCamFrameHandler),
-	timCamProc(TIM_CAM_PROC_SECS, timCamProcHandler),
-	timLampOnSecs(TIM_LAMP_ON_SECS, timLampOnHandler, false), // timer not periodic
+	timCamFrame(TIM_CAM_FRAME_SECS, timer_handler),
+	timCamProc(TIM_CAM_PROC_SECS, timer_handler),
+	timLampOn(TIM_LAMP_ON_SECS, timer_handler, false), // set non-periodic timer
 
 	loraParser(loraCmdList, " ")
 {
-	timISRVector = new TimISR[5]
-	{
-		{timLampOnHandler, timCamFrame.id},
-		{timLampOnHandler, timCamFrame.id}
-	};
-
 	if(pthread_mutex_init(&mutRecvSensors, NULL) != 0)
 		panic("CLS::CLocalSystem(): Mutex init");
 
@@ -59,6 +61,7 @@ CLocalSystem::CLocalSystem() :
 	if(pthread_create(&tParkDetection_id, NULL, tParkDetection, this) != 0)
 		panic("CLS::CLocalSystem(): pthread_create");
 
+	// this pointer for static member functions use -> timer handler
 	thisPtr = this;
 }
 
@@ -67,51 +70,49 @@ CLocalSystem::~CLocalSystem()
 
 }
 
-
-void CLocalSystem::timLampOnHandler(union sigval arg)
+void CLocalSystem::timLampOnISR()
 {
-	if(thisPtr)
-		thisPtr->timer_handler(arg.sival_int);
+	DEBUG_MSG("[CLS::timLampOnISR] Turn off lamp");
+	// turn off lamp
+	lamp.setBrightness(MIN_BRIGHT_PWM);
 }
 
-void CLocalSystem::timCamFrameHandler(union sigval arg)
+void CLocalSystem::timCamFrameISR()
 {
-	if(thisPtr)
-		thisPtr->timer_handler(arg.sival_int);
+	DEBUG_MSG("[CLS::timCamFrameISR] Signal tParkDetection");
+	pthread_cond_signal(&condCamFrame);
 }
 
-void CLocalSystem::timCamProcHandler(union sigval arg)
+void CLocalSystem::timCamProcISR()
 {
-	if(thisPtr)
-		thisPtr->timer_handler(arg.sival_int);
+	DEBUG_MSG("[CLS::timCamProcISR] Signal xxx");
+	// pthread_cond_signal(&condCamFrame);
 }
 
-void CLocalSystem::timer_handler(int tim_num)
+void CLocalSystem::timer_handler(union sigval arg)
 {
-	DEBUG_MSG("[CLS::timer_handler] handling timer[" << tim_num << "] timeout");
+	if(!thisPtr)
+		panic("timer_handler(): thisPtr not defined");
 
-	switch(tim_num)
+	int id = arg.sival_int;
+	DEBUG_MSG("[CLS::timer_handler] handling timer[" << id << "] timeout...");
+
+	// cannot do switch statement since tim*.id is not a compile time constant
+	if(id == thisPtr->timCamFrame.id)
 	{
-		// case (timCamFrame.id):
-		// case timISRVector[2].tim_num:
-		case 0:
-			DEBUG_MSG("[CLS::timer_handler] Signal tParkDetection");
-			pthread_cond_signal(&condCamFrame);
-			break;
-
-		case TIM_LAMP_ON:
-			DEBUG_MSG("[CLS::timer_handler] Turn off lamp");
-			// turn off lamp
-			lamp.setBrightness(MIN_BRIGHT_PWM);
-			break;
-
-		case TIM_CAM_PROC:
-			DEBUG_MSG("[CLS::timer_handler] Signal xxx");
-			// pthread_cond_signal(&condCamFrame);
-			break;
-
-		default:
-			ERROR_MSG("[CLS::timer_handler] unexpected timer event");
+		thisPtr->timCamFrameISR();
+	}
+	else if(id == thisPtr->timCamProc.id)
+	{
+		thisPtr->timCamProcISR();
+	}
+	else if(id == thisPtr->timLampOn.id)
+	{
+		thisPtr->timLampOnISR();
+	}
+	else
+	{
+		ERROR_MSG("[CLS::timer_handler] unexpected timer event");
 	}
 }
 
@@ -159,12 +160,10 @@ void *CLocalSystem::tLoraRecv(void *arg)
 	{
 		// message was received?
 		err = static_cast<LoRaError>(c->lora.recv(msg));
-
 		if(err == LoRaError::MSGOK)
 		{
 			c->loraParser.parse(msg.c_str());
-			cout << "[CLS::tLoraRecv] received[" << msg << "]" << endl;
-			// c->lora.push(msg); // test echoing
+			cout << "Received[" << msg << "]" << endl;
 		}
 	}
 
@@ -180,10 +179,10 @@ struct cmdSensors_t
 
 static cmdSensors_t cmdSensorsList[] = 
 {
-	{"ON",100},
-	{"OFF",0},
-	{"MIN",MIN_BRIGHT_PWM},
-	{"FAIL", 0},
+	{"ON"	,PWM_MAX},
+	{"OFF"	,PWM_OFF},
+	{"MIN"	,MIN_BRIGHT_PWM},
+	{"FAIL"	,PWM_OFF},
 	{0,0}
 };
 
@@ -204,7 +203,6 @@ static uint8_t parseSensorsCmd(char *str)
 		return -1;
 	}
 
-	// DEBUG_MSG("[parseSensorsCmd] cmd(" << p->cmd << ") has pwm(" << p->pwm << ")");
 	return p->pwm;
 }
 
@@ -257,6 +255,11 @@ void *CLocalSystem::tRecvSensors(void *arg)
 			int cmdPwm = parseSensorsCmd(msg);
 			DEBUG_MSG("[CLS::tRecvSensors] Setting lamp PWM to[" << cmdPwm << "]");
 			c->lamp.setBrightness(cmdPwm);
+
+			if(cmdPwm == PWM_MAX)
+				// Start lamp On timeout. When this ends, the lamp PWM is set
+				// to MIN_BRIGHT_PWM
+				c->timLampOn.start();
 		}
 	}
 	return NULL;
