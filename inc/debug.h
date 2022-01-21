@@ -10,7 +10,7 @@ void ERROR_MSG(char *msg);
 #include <iostream>
 
 #define DEBUG_MSG(str) (std::cout << str << std::endl)
-#define ERROR_MSG(str)	{DEBUG_MSG(str); abort();}
+#define ERROR_MSG(str)	{DEBUG_MSG("ERROR> " << str); abort();}
 
 // **********************************************
 #else // DEBUG not defined

@@ -4,6 +4,9 @@
 #include <pthread.h>
 #include <cstdint>
 
+#define PWM_MAX 	(100)
+#define PWM_OFF 	(0)
+
 class CLamp
 {
 public:

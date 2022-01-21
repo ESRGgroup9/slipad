@@ -1,3 +1,5 @@
+#undef DEBUG
+
 #include "CCommunication.h"
 #include "utils.h"
 #include "debug.h"

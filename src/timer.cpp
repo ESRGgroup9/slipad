@@ -1,8 +1,3 @@
-#include "timer.h"
-#include "utils.h"
-#include "debug.h"
-
-int Timer::ID = 0; 
 /*
  * ORIGINAL HEADER 
  *
@@ -21,14 +16,19 @@ int Timer::ID = 0;
  * http://ptgmedia.pearsoncmg.com/images/0201633922/sourcecode/sigev_thread.c 
  */
 
+#include "timer.h"
+#include "utils.h"
+#include "debug.h"
+
+int Timer::ID = 0;
+
 /**
  * CIRO's Header
  * This is a slightly modified version of the original one so that 
  * i can create multiple timers and trigger then in a more 
  * handy way for my project.
  */ 
-Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_periodic)
-{
+Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_periodic) {
 	this->is_periodic = is_periodic;
 	// set timer period in seconds
 	this->period_secs = seconds;
