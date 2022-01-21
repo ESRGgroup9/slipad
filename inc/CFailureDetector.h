@@ -15,18 +15,17 @@
 class CFailureDetector
 {
 public:
-	CFailureDetector(ISR lampfISR);
+	CFailureDetector(ISR isr);
 	~CFailureDetector(void);
 
 	void enable(void);
 	void disable(void);
 
-protected:
-
 private:
 	struct sigaction act;
-	ISR handler;
 	int dev;
+
+	ISR handler;
 };
 
 #endif //!__CFAILUREDETECTOR_H__

@@ -18,8 +18,10 @@
 #define DEVICE_NAME "lampf"
 #define CLASS_NAME "lampfClass"
 #define REG_CURRENT_TASK _IOW('a','a',int32_t*)
+
 // #define SIGH 10 	// SIGUSR1
 #define SIGH SIGUSR2
+
 #define IOCTL_PID 1
 #define GPIO_INPUT 0
 
@@ -49,7 +51,7 @@ static long lampf_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
 
 static irqreturn_t irq_handler(int irq, void *dev_id)
 {  	
-	printk(KERN_INFO "Interruption handler: PIN -> %d.\n", gpio_get_value(pinNum));
+	printk(KERN_INFO "[LampF] Interruption handler: PIN -> %d.\n", gpio_get_value(pinNum));
 	info.si_signo = SIGH;
 	info.si_code = SI_QUEUE;
 	info.si_int = gpio_get_value(pinNum);
@@ -64,19 +66,19 @@ static irqreturn_t irq_handler(int irq, void *dev_id)
 
 static int lampf_open(struct inode* inode, struct file *file)
 {
-	printk(KERN_INFO "Device File Opened\n");
+	printk(KERN_INFO "[LampF] Device File Opened\n");
 	return 0;
 }
 
 static int lampf_close(struct inode *inode, struct file * file)
 {
-	printk(KERN_INFO "Device File Closed\n");
+	printk(KERN_INFO "[LampF] Device File Closed\n");
 	return 0;
 }
 
 static ssize_t lampf_write(struct file *filp, const char __user *buf, size_t len, loff_t *off) 
 {	
-   	printk(KERN_INFO "Write function\n");
+   	printk(KERN_INFO "[LampF] Write function\n");
    	return 0;
 }
 
@@ -89,7 +91,7 @@ static ssize_t lampf_read(struct file *filp, char __user *buf, size_t len, loff_
 	sprintf(buffer, "%d", i);
 
 	ret = copy_to_user(buf, buffer, 1);
-	printk(KERN_INFO "PIN -> %d\n", i);
+	printk(KERN_INFO "[LampF] PIN -> %d\n", i);
 
 	return ret;
 }
@@ -100,14 +102,15 @@ static long lampf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 	{
 		if(copy_from_user(&pid, (pid_t*)arg, sizeof(pid_t))) 
 		{
-			printk(KERN_INFO "copy_from_user failed\n"); 
+			printk(KERN_INFO "[LampF] copy_from_user failed\n"); 
 			return -1;
 		}
-		printk(KERN_INFO "PID-> %d\n", pid);       
+		// printk(KERN_INFO "[LampF] PID-> %d\n", pid);
+		printk(KERN_INFO "[LampF] Requested by PID %d\n", pid);
 	}
 	else
 	{
-		printk(KERN_INFO "ioctl failed\n");	
+		printk(KERN_INFO "[LampF] ioctl failed\n");	
 	}
 	return 0;
 }
@@ -126,7 +129,7 @@ static int __init lampf_driver_init(void)
 {
 	if ((alloc_chrdev_region(&dev, 0, 1, DEVICE_NAME)) < 0) 
 	{
-		printk(KERN_INFO "Cannot allocate major number\n");
+		printk(KERN_INFO "[LampF] Cannot allocate major number\n");
 	    return -1;
 	}
 
@@ -136,21 +139,21 @@ static int __init lampf_driver_init(void)
 	/*Adding character device to the system*/
 	if((cdev_add(&c_dev,dev,1)) < 0)
 	{
-		printk(KERN_INFO "Cannot add the device to the system\n");
+		printk(KERN_INFO "[LampF] Cannot add the device to the system\n");
 		unregister_chrdev_region(dev,1);
 	}	
 
 	/*Creating struct class*/
 	if((dev_class = class_create(THIS_MODULE, CLASS_NAME)) == NULL)
 	{
-		printk(KERN_INFO "Cannot create the struct class\n");
+		printk(KERN_INFO "[LampF] Cannot create the struct class\n");
 		unregister_chrdev_region(dev,1);
 	}
 
 	/*Creating device*/
 	if((device_create(dev_class, NULL, dev, NULL, DEVICE_NAME)) == NULL)
 	{
-		printk(KERN_INFO "Cannot create the Device\n");
+		printk(KERN_INFO "[LampF] Cannot create the Device\n");
 		class_destroy(dev_class);
 		unregister_chrdev_region(dev,1);
 	}
@@ -159,7 +162,7 @@ static int __init lampf_driver_init(void)
 
 	if (request_irq(irqNumber, irq_handler, IRQF_TRIGGER_RISING, DEVICE_NAME, (void *)(irq_handler)))
 	{
-		printk(KERN_INFO "Cannot register IRQ\n");
+		printk(KERN_INFO "[LampF] Cannot register IRQ\n");
 		free_irq(irqNumber,(void *)(irq_handler));
 		class_destroy(dev_class);
 		unregister_chrdev_region(dev,1);
@@ -182,7 +185,7 @@ static void __exit lampf_driver_exit(void)
 	class_destroy(dev_class);
 	cdev_del(&c_dev);
 	unregister_chrdev_region(dev, 1);
-	printk(KERN_INFO "Device Driver Remove\n");
+	printk(KERN_INFO "[LampF] Device Driver Remove\n");
 }
 
 module_init(lampf_driver_init);

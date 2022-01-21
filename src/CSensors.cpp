@@ -7,10 +7,10 @@ using namespace std;
 #define SIG_NOTIFY_MAIN (SIGUSR1)
 #define MSGQ_NAME "/dsensors"
 
-#define PIR_ISR 	(1)
-#define LAMPF_ISR	(2)
+// must see ddriver definition and classes definitions
+#define PIR_SIG_NUM 	(SIGUSR1)
+#define LAMPF_SIG_NUM	(SIGUSR2)
 
-// static pthread_cond_t condReadLdr;
 CSensors* CSensors::thisPtr = NULL;
 
 CSensors::CSensors() :
@@ -62,11 +62,11 @@ void CSensors::isrHandler(int n, siginfo_t *info, void *unused)
 
 	switch(n)
 	{
-		case SIGUSR1:
+		case PIR_SIG_NUM:
 			thisPtr->pirISR();
 			break;
 
-		case SIGUSR2:
+		case LAMPF_SIG_NUM:
 			thisPtr->lampfISR();
 			break;
 
@@ -136,9 +136,6 @@ void CSensors::run()
 
 	DEBUG_MSG("Waiting for lampf...");
 	lampf.enable();
-
-	// while(1)
-	// 	;
 
 	// start sampling LDR sensor
 	timReadLdr.start();

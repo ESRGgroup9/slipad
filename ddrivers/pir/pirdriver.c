@@ -18,7 +18,10 @@
 #define DEVICE_NAME "pir"
 #define CLASS_NAME "pirClass"
 #define REG_CURRENT_TASK _IOW('a','a',int32_t*)
-#define SIGH 10 	// SIGUSR1
+
+// #define SIGH 10 	// SIGUSR1
+#define SIGH SIGUSR1
+
 #define IOCTL_PID 1
 #define GPIO_INPUT 0
 
@@ -86,7 +89,6 @@ static ssize_t pir_read(struct file *filp, char __user *buf, size_t len, loff_t 
 	int ret = 0;
 
 	sprintf(buffer, "%d", i);
-
 	ret = copy_to_user(buf, buffer, 1);
 	printk(KERN_INFO "[PIR] PIN -> %d\n", i);
 	
@@ -102,7 +104,8 @@ static long pir_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 			printk(KERN_INFO "[PIR] copy_from_user failed\n"); 
 			return -1;
 		}
-		printk(KERN_INFO "[PIR] PID-> %d\n", pid);       
+		// printk(KERN_INFO "[PIR] PID-> %d\n", pid);
+		printk(KERN_INFO "[PIR] Requested by PID %d\n", pid);
 	}
 	else
 	{

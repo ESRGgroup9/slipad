@@ -6,11 +6,10 @@
 #include <sys/ioctl.h>
 #include "utils.h"
 
-// #define SIGHIGH 10
 #define IOCTL_PID 1
-#define SIG_NOTIFY (SIGUSR2)
+#define SIGH (SIGUSR2)
 
-CFailureDetector::CFailureDetector(ISR lampfISR)
+CFailureDetector::CFailureDetector(ISR isr)
 {
 	pid_t pid;
 	
@@ -26,13 +25,12 @@ CFailureDetector::CFailureDetector(ISR lampfISR)
 	}
 	
 	sigemptyset(&act.sa_mask);
-	handler = lampfISR;
+	this->handler = isr;
 }
 
 CFailureDetector::~CFailureDetector(void)
 {
 	close(dev);
-	
 	panic("[LampF] Exiting\n");
 }
 
@@ -41,12 +39,11 @@ void CFailureDetector::enable(void)
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = handler;
 	
-	sigaction(SIG_NOTIFY, &act, NULL);
+	sigaction(SIGH, &act, NULL);
 }
 
 void CFailureDetector::disable(void)
 {
 	act.sa_handler = SIG_IGN;
-
-	sigaction(SIG_NOTIFY, &act, NULL);
+	sigaction(SIGH, &act, NULL);
 }
