@@ -1,9 +1,3 @@
-#include "timer.h"
-#include "utils.h"
-#include "debug.h"
-
-int Timer::ID = 0;
-const int Timer::id = ID;
 /*
  * ORIGINAL HEADER 
  *
@@ -22,6 +16,12 @@ const int Timer::id = ID;
  * http://ptgmedia.pearsoncmg.com/images/0201633922/sourcecode/sigev_thread.c 
  */
 
+#include "timer.h"
+#include "utils.h"
+#include "debug.h"
+
+int Timer::ID = 0;
+
 /**
  * CIRO's Header
  * This is a slightly modified version of the original one so that 
@@ -33,7 +33,7 @@ Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_period
 	// set timer period in seconds
 	this->period_secs = seconds;
 	// assign id
-	ID++;
+	this->id = ID++;
 
 	/*
 	* Set the sigevent structure to cause the signal to be

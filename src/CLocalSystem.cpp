@@ -28,6 +28,12 @@ CLocalSystem::CLocalSystem() :
 
 	loraParser(loraCmdList, " ")
 {
+	timISRVector = new TimISR[5]
+	{
+		{timLampOnHandler, timCamFrame.id},
+		{timLampOnHandler, timCamFrame.id}
+	};
+
 	if(pthread_mutex_init(&mutRecvSensors, NULL) != 0)
 		panic("CLS::CLocalSystem(): Mutex init");
 
@@ -87,7 +93,8 @@ void CLocalSystem::timer_handler(int tim_num)
 	switch(tim_num)
 	{
 		// case (timCamFrame.id):
-		case TIM_CAM_FRAME:
+		// case timISRVector[2].tim_num:
+		case 0:
 			DEBUG_MSG("[CLS::timer_handler] Signal tParkDetection");
 			pthread_cond_signal(&condCamFrame);
 			break;

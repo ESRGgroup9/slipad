@@ -23,6 +23,13 @@
 
 #define MSGQ_NAME "/dsensors"
 
+struct TimISR
+{
+	void (*handler)(union sigval);
+	const int tim_num;
+};
+
+
 class CLocalSystem 
 {
 public:
@@ -46,6 +53,7 @@ private:
 
 	void timer_handler(int tim_num);
 private:
+	TimISR *timISRVector;
 	CLamp lamp;
 	CLoraComm lora;
 	CCamera camera;
