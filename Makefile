@@ -4,9 +4,9 @@ GREEN	=\033[0;32m
 CYAN	=\033[0;36m
 RESET	=\033[0m
 
-PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ... "
-PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ... "
-PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ... "
+PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
+PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
+PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
 #------------------------------------------------------------------------------
 BLD_DIR=./build
 BIN_DIR=./bin
@@ -38,7 +38,7 @@ vpath %.cpp $(SRC_DIR) ./
 build: setup $(PROGS) ## Compile the binary program
 
 tests:
-	$(MAKE) -C $(TST_DIR)
+	@$(MAKE) -C $(TST_DIR)
 #------------------------------------------------------------------------------
 # Create dependencies
 
@@ -72,6 +72,9 @@ $(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
 IP=10.42.0.254
 DIR=/etc
 TARGET=$(BIN_DIR)/*
+
+transfer-tests: ## Transfer tests
+	@$(MAKE) transfer -C $(TST_DIR)
 
 transfer: ## Transfer TARGET=<file> to IP=<ip> into DIR=<dir> directory
 	@echo "Transfering:"

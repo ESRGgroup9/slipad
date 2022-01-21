@@ -20,14 +20,14 @@ public:
 	void run();
 
 private:
-	static void sigHandler(int sig);
-
 	static void *tLoraRecv(void*);
 	static void *tRecvSensors(void*);
 	static void *tParkDetection(void*);
 
 private:
 	static CLocalSystem* thisPtr;
+	
+	static void sigHandler(int sig);
 	static void timer_handler(union sigval arg);
 
 	void timCamFrameISR();

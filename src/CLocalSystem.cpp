@@ -12,7 +12,7 @@ using namespace std;
 #define MSGQ_NAME "/dsensors"
 
 // timer periods
-#define TIM_CAM_FRAME_SECS	(5)
+#define TIM_CAM_FRAME_SECS	(0)
 #define TIM_CAM_PROC_SECS	(0)
 #define TIM_LAMP_ON_SECS	(0)
 
@@ -141,7 +141,7 @@ void CLocalSystem::sigHandler(int sig)
 	{
 		case SIGUSR1:
 			DEBUG_MSG("[CLS::sigHandler] caught SIGUSR1");
-			// pthread_cond_signal(&c->condRecvSensors);
+			pthread_cond_signal(&thisPtr->condRecvSensors);
 			break;
 
 		default:
@@ -244,13 +244,13 @@ void *CLocalSystem::tRecvSensors(void *arg)
 			DEBUG_MSG("[CLS::tRecvSensors] Waiting for condRecvSensors...");
 			pthread_cond_wait(&c->condRecvSensors, &c->mutRecvSensors);
 			DEBUG_MSG("[CLS::tRecvSensors] Im awake!");
+			pthread_mutex_unlock(&c->mutRecvSensors);
 		}
 		else
 		{
 			// else, messages to read from dSensors
-			pthread_mutex_unlock(&c->mutRecvSensors);
-			DEBUG_MSG("[CLS::tRecvSensors] Sending (" << "LAMP " + string(msg) << ")");
-			c->lora.push(string("LAMP ") + msg);
+			// pthread_mutex_unlock(&c->mutRecvSensors);
+			DEBUG_MSG("[CLS::tRecvSensors] received cmd[" << string(msg) << "]");
 
 			int cmdPwm = parseSensorsCmd(msg);
 			DEBUG_MSG("[CLS::tRecvSensors] Setting lamp PWM to[" << cmdPwm << "]");
@@ -260,8 +260,14 @@ void *CLocalSystem::tRecvSensors(void *arg)
 				// Start lamp On timeout. When this ends, the lamp PWM is set
 				// to MIN_BRIGHT_PWM
 				c->timLampOn.start();
+
+			DEBUG_MSG("[CLS::tRecvSensors] Sending (" << "LAMP " + string(msg) << ")");
+			c->lora.push(string("LAMP ") + msg);
+			pthread_mutex_unlock(&c->mutRecvSensors);
 		}
 	}
+
+	DEBUG_MSG("[CLS::tRecvSensors] exiting thread");
 	return NULL;
 }
 
