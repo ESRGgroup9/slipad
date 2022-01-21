@@ -6,14 +6,10 @@
 #include "CLdr.h"
 #include "CFailureDetector.h"
 
-#include <signal.h>
+#include <signal.h> // sigval
 #include <pthread.h>
 #include <mqueue.h> // mqd_t
 #include <string>
-
-#define TIM_READ_LDR_SECS	(0)
-#define SIG_NOTIFY_MAIN (SIGUSR1)
-#define MSGQ_NAME "/dsensors"
 
 class CSensors 
 {
@@ -25,27 +21,30 @@ public:
 
 private:
 	static void *tReadLdr(void*);
-	static void timReadLdrHandler(union sigval arg);
 	void sendCmd(std::string cmd);
 
 private:
 	static CSensors *thisPtr;
-	static void pirISR(int, siginfo_t*, void*);
-	static void lampfISR(int, siginfo_t*, void*);
 
-	void handler_isr(int isr_num);
+	static void isrHandler(int n, siginfo_t *info, void *unused);
+	static void timHandler(union sigval arg);
+
+	void timReadLdrISR();
+	void pirISR();
+	void lampfISR();
+
 private:
 	CPir pir;
 	CLdr ldr;
 	CFailureDetector lampf;
 
-	pthread_mutex_t mutReadLdr;
-	// pthread_cond_t condReadLdr;
-
 	pthread_t tReadLdr_id;
+	
+	pthread_mutex_t mutReadLdr;
+	pthread_cond_t condReadLdr;
+
 	mqd_t msgqSensors;
 	pid_t mainPID;
-	
 	Timer timReadLdr;
 };
 // End CSensors class definition

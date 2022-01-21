@@ -58,8 +58,12 @@ CLamp::~CLamp()
  * */
 void CLamp::setBrightness(uint8_t lux)
 {
-	float duty = lux/100;
+    if(lux > 100)
+    {
+        return;
+    }
 
+    float duty = lux/100;
 	pthread_mutex_lock(&mutChangePWM);
 	pwmVal = lux;
 	bcm2835_pwm_set_data(PWM_CHANNEL, (duty*RANGE));

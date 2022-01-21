@@ -28,7 +28,7 @@ private:
 	static CLocalSystem* thisPtr;
 	
 	static void sigHandler(int sig);
-	static void timer_handler(union sigval arg);
+	static void timHandler(union sigval arg);
 
 	void timCamFrameISR();
 	void timCamProcISR();
@@ -44,9 +44,9 @@ private:
 	pthread_t tRecvSensors_id;
 	pthread_t tParkDetection_id;
 
-	mqd_t msgqSensors;
 	pthread_mutex_t mutRecvSensors;
 	pthread_mutex_t mutCamFrame;
+	
 	pthread_cond_t condRecvSensors;
 	pthread_cond_t condCamFrame; 
 
@@ -54,6 +54,7 @@ private:
 	Timer timCamProc;
 	Timer timLampOn;
 	
+	mqd_t msgqSensors;
 	Parser loraParser;
 };
 // End CLocalSystem class definition
