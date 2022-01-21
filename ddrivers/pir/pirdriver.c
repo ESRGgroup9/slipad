@@ -83,11 +83,14 @@ static ssize_t pir_read(struct file *filp, char __user *buf, size_t len, loff_t 
 {
 	char buffer[2];
 	int i = gpio_get_value(pinNum);
+	int ret = 0;
+
 	sprintf(buffer, "%d", i);
 
-	copy_to_user(buf, buffer, 1);
+	ret = copy_to_user(buf, buffer, 1);
 	printk(KERN_INFO "[PIR] PIN -> %d\n", i);
-	return 0;
+	
+	return ret;
 }
 
 static long pir_ioctl(struct file *file, unsigned int cmd, unsigned long arg)

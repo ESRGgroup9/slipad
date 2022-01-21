@@ -84,11 +84,14 @@ static ssize_t lampf_read(struct file *filp, char __user *buf, size_t len, loff_
 {
 	char buffer[2];
 	int i = gpio_get_value(pinNum);
+	int ret = 0;
+
 	sprintf(buffer, "%d", i);
 
-	copy_to_user(buf, buffer, 1);
+	ret = copy_to_user(buf, buffer, 1);
 	printk(KERN_INFO "PIN -> %d\n", i);
-	return 0;
+
+	return ret;
 }
 
 static long lampf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
