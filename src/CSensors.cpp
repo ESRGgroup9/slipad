@@ -62,11 +62,11 @@ void CSensors::isrHandler(int n, siginfo_t *info, void *unused)
 
 	switch(n)
 	{
-		case PIR_ISR:
+		case SIGUSR1:
 			thisPtr->pirISR();
 			break;
 
-		case LAMPF_ISR:
+		case SIGUSR2:
 			thisPtr->lampfISR();
 			break;
 
@@ -75,6 +75,12 @@ void CSensors::isrHandler(int n, siginfo_t *info, void *unused)
 			ERROR_MSG("[CSensors::isrHandler] unexpected ISR num");
 		}
 	}
+}
+
+void CSensors::timReadLdrISR()
+{
+	DEBUG_MSG("[CSensors::timReadLdrISR] Signal condReadLdr");
+	pthread_cond_signal(&condReadLdr);
 }
 
 void CSensors::timHandler(union sigval arg)
@@ -96,12 +102,6 @@ void CSensors::timHandler(union sigval arg)
 	{
 		ERROR_MSG("[CLS::timHandler] unexpected timer event");
 	}
-}
-
-void CSensors::timReadLdrISR()
-{
-	DEBUG_MSG("[CSensors::timReadLdrISR] Signal condReadLdr");
-	pthread_cond_signal(&condReadLdr);
 }
 
 // max length of a message queue

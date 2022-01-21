@@ -6,8 +6,9 @@
 #include <sys/ioctl.h>
 #include "utils.h"
 
-#define SIGHIGH 10
+// #define SIGHIGH 10
 #define IOCTL_PID 1
+#define SIG_NOTIFY (SIGUSR2)
 
 CFailureDetector::CFailureDetector(ISR lampfISR)
 {
@@ -41,12 +42,12 @@ void CFailureDetector::enable(void)
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = handler;
 	
-	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIG_NOTIFY, &act, NULL);
 }
 
 void CFailureDetector::disable(void)
 {
 	act.sa_handler = SIG_IGN;
 
-	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIG_NOTIFY, &act, NULL);
 }

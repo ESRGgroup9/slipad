@@ -12,7 +12,9 @@ BLD_DIR=./build
 BIN_DIR=./bin
 SRC_DIR=./src
 INC_DIR=./inc
+#------------------------------------------------------------------------------
 TST_DIR=./tests
+DDR_DIR=./ddrivers
 #------------------------------------------------------------------------------
 CXX 	=arm-buildroot-linux-gnueabihf-g++
 LIBS	=-lpthread -lbcm2835 -lrt
@@ -37,8 +39,13 @@ vpath %.cpp $(SRC_DIR) ./
 .DEFAULT_GOAL = build
 build: setup $(PROGS) ## Compile the binary program
 
+.PHONY: tests ddrivers
 tests:
 	@$(MAKE) -C $(TST_DIR)
+
+ddrivers:
+	@$(MAKE) -C $(DDR_DIR)
+
 #------------------------------------------------------------------------------
 # Create dependencies
 
@@ -72,6 +79,9 @@ $(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
 IP=10.42.0.254
 DIR=/etc
 TARGET=$(BIN_DIR)/*
+
+transfer-ddrivers: ## Transfer device drivers
+	@$(MAKE) transfer -C $(DDR_DIR)
 
 transfer-tests: ## Transfer tests
 	@$(MAKE) transfer -C $(TST_DIR)
