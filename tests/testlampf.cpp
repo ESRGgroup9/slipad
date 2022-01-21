@@ -17,7 +17,7 @@ void Handler(int signo)
     exit(0);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
 	CFailureDetector lampf(lampfISR);
 
