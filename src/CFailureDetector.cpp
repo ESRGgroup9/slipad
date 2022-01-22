@@ -1,29 +1,18 @@
 #include "CFailureDetector.h"
 
 #include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h> 
-#include <sys/ioctl.h>
+// #include <fcntl.h>
+// #include <unistd.h> 
+// #include <sys/ioctl.h>
 #include "utils.h"
 
 #define SIGHIGH 10
 #define IOCTL_PID 1
 
-CFailureDetector::CFailureDetector(ISR lampfISR)
+#define DEV_NAME "lampf"
+
+CFailureDetector::CFailureDetector(ISR lampfISR) : CCharacterDev(DEV_NAME)
 {
-	pid_t pid;
-	
-	dev = open("/dev/pir", O_RDWR);
-	if(dev < 0)
-		panic("[PIR] Device driver not found.\n");
-	
-	pid = getpid();
-	if(ioctl(dev, IOCTL_PID, &pid))
-	{
-		close(dev);
-		panic("[PIR] Failed system call. Closing device driver.\n");
-	}
-	
 	sigemptyset(&act.sa_mask);
 
 	handler = lampfISR;
@@ -31,9 +20,9 @@ CFailureDetector::CFailureDetector(ISR lampfISR)
 
 CFailureDetector::~CFailureDetector(void)
 {
-	close(dev);
+	// close(dev);
 	
-	panic("[PIR] Exiting\n");
+	// panic("[PIR] Exiting\n");
 }
 
 void CFailureDetector::enable(void)

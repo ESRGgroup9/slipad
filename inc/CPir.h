@@ -1,6 +1,6 @@
 /**
  * @file 	CPir.cpp, CPir.h
- * @author 	Diogo Fernandes, Tomás Abreu
+ * @author 	Diogo Fernandes, Tomas Abreu
  * @date 	18/01/2022
  *
  * @brief	Class that deals with the PIR sensor (movement)
@@ -10,10 +10,12 @@
 #define __CPIR_H__
 
 #include <signal.h>
+#include <string>
+#include "CCharacterDev.h"
 #include "interrupt.h"
 
 // CPir class
-class CPir
+class CPir : public CCharacterDev
 {
 public:
 	CPir(ISR isr);
@@ -24,7 +26,7 @@ public:
 
 private:
 	struct sigaction act;
-	int dev;
+	// int dev;
 
 	ISR handler;
 };

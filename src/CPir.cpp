@@ -1,28 +1,32 @@
 #include "CPir.h"
 
 #include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h> 
-#include <sys/ioctl.h>
+//#include <fcntl.h>
+// #include <unistd.h> 
+// #include <sys/ioctl.h>
 #include "utils.h"
 
 #define SIGHIGH 10
 #define IOCTL_PID 1
 
-CPir::CPir(ISR isr)
+#define DEV_NAME "lampf"
+
+using namespace std;
+
+CPir::CPir(ISR isr) : CCharacterDev(DEV_NAME)
 {
-	pid_t pid;
+	// pid_t pid;
 	 
-	dev = open("/dev/pir", O_RDWR);
-	if(dev < 0)
-		panic("[PIR] Device driver not found.\n");
+	// dev = open("/dev/pir", O_RDWR);
+	// if(dev < 0)
+	// 	panic("[PIR] Device driver not found.\n");
 	
-	pid = getpid();
-	if(ioctl(dev, IOCTL_PID, &pid))
-	{
-		close(dev);
-		panic("[PIR] Failed system call. Closing device driver.\n");
-	}
+	// pid = getpid();
+	// if(ioctl(dev, IOCTL_PID, &pid))
+	// {
+	// 	close(dev);
+	// 	panic("[PIR] Failed system call. Closing device driver.\n");
+	// }
 	
 	sigemptyset(&act.sa_mask);
 	handler = isr; 
@@ -30,8 +34,8 @@ CPir::CPir(ISR isr)
 
 CPir::~CPir()
 {
-	close(dev);
-	panic("[PIR] Exiting\n");
+	// close(dev);
+	// panic("[PIR] Exiting\n");
 }
 
 void CPir::enable(void)

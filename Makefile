@@ -15,17 +15,20 @@ INC_DIR=./inc
 TST_DIR=./tests
 #------------------------------------------------------------------------------
 CXX 	=arm-buildroot-linux-gnueabihf-g++
-LIBS	=-lpthread -lbcm2835 -lrt
+OPENCV 	= `pkg-config opencv --cflags --libs`
+LIBS	=-lpthread -lbcm2835 -lrt $(OPENCV)
 
 DEBUG	=-D DEBUG #-g
 INCLDS	=-I $(INC_DIR)
 CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
+# CXXFLAGS=$(filter-out CCamera.h,$(INCLDS)) -Wall $(LIBS) $(DEBUG)
 
 #------------------------------------------------------------------------------
 SRC= $(wildcard $(SRC_DIR)/*.c*)
 
 OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%.o,$(SRC)))
 OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
+OBJS+=$(SRC_DIR)/CMakeFiles/CCamera.dir/CCamera.cpp.o
 
 DEPS= $(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
 #------------------------------------------------------------------------------
@@ -60,6 +63,9 @@ $(BLD_DIR)/%.o: %.c
 $(BLD_DIR)/%.o: %.cpp
 	@echo $(PRINT_BUILDING)
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+# $(BLD_DIR)/%.o: %.cpp
+# 	@$(MAKE) CCamera
 
 #------------------------------------------------------------------------------
 # Create executables

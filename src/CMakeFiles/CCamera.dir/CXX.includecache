@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/CCamera.h
+opencv2/videoio.hpp
+-
+
+../inc/utils.h
+stdio.h
+-
+stdlib.h
+-
+
+/home/fernandes/code/slipad/src/CCamera.cpp
+CCamera.h
+/home/fernandes/code/slipad/src/CCamera.h
+utils.h
+/home/fernandes/code/slipad/src/utils.h
+

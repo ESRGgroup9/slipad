@@ -3,7 +3,7 @@
 
 #include "CLamp.h"
 #include "CLoraComm.h"
-#include "CCamera.h"
+//#include "CCamera.h"
 #include "CParkDetection.h"
 #include "timer.h"
 #include "parser.h"
@@ -37,7 +37,7 @@ private:
 private:
 	CLamp lamp;
 	CLoraComm lora;
-	CCamera camera;
+	//CCamera camera;
 	CParkDetection park;
 
 	pthread_t tLoraRecv_id;

@@ -15,7 +15,7 @@
 #include <string>
 #include "interrupt.h"
 
-class CFailureDetector : public CCharacterDevice
+class CFailureDetector : public CCharacterDev
 {
 public:
 	CFailureDetector(ISR lampfISR);
