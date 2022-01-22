@@ -2,7 +2,7 @@
 
 #include <fcntl.h>
 #include <sys/ioctl.h>
-#include <unistd.h> 
+#include <unistd.h>
 
 #include "utils.h"
 
@@ -13,10 +13,9 @@ using namespace std;
 CCharacterDev::CCharacterDev(string devName)
 {
 	pid_t pid;
-	devStr = "dev/";
+	devStr = "/dev/";
 
-	devStr.append(devStr);
-
+	devStr.append(devName);
 	dev = open(devStr.c_str(), O_RDWR);
 	if(dev < 0)
 	{	

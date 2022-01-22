@@ -9,7 +9,7 @@
 #define SIGHIGH 10
 #define IOCTL_PID 1
 
-#define DEV_NAME "lampf"
+#define DEV_NAME "pir"
 
 using namespace std;
 

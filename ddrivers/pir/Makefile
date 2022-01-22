@@ -8,7 +8,8 @@ KDIR 	:=$(HOME)/buildroot/buildroot-2021.02.5/output/build/linux-custom/
 # target architecture
 ARCH	?=arm
 #------------------------------------------------------------------------------
-CROSS_COMPILE :=arm-buildroot-linux-gnueabihf-
+# CROSS_COMPILE :=arm-buildroot-linux-gnueabihf-
+CROSS_COMPILE :=arm-linux-
 export ARCH CROSS_COMPILE
 #------------------------------------------------------------------------------
 KBUILD_TARGETS	:= clean help modules modules_install
