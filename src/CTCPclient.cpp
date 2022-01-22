@@ -34,7 +34,6 @@ CTCPclient::CTCPclient(std::string host, int port)
 	/* set the addr */
 	addr.sin_addr.s_addr = *(long*)(hostent->h_addr_list[0]);
 
-	// DEBUG_MSG("[CTCPclient::CTCPclient] Client created");
 	// syslog(LOG_INFO, "Connecting to server on %s:%d\n", hostent->h_name, this->port);
 	
 	// get host name
