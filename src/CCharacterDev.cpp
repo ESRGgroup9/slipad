@@ -5,7 +5,6 @@
 #include <unistd.h>
 
 #include "utils.h"
-
 using namespace std;
 
 #define IOCTL_PID 1
@@ -47,13 +46,3 @@ CCharacterDev::~CCharacterDev()
 	output.append("Exiting\n");
 	panic(output.c_str());
 }
-
-// bool CCharacterDev::open()
-// {
-
-// }
-
-// bool CCharacterDev::close()
-// {
-
-// }

@@ -11,20 +11,17 @@
 
 #include "CCharacterDev.h"
 
-#include <signal.h>
-#include <string>
 #include "interrupt.h"
+#include <signal.h>
 
 class CFailureDetector : public CCharacterDev
 {
 public:
-	CFailureDetector(ISR lampfISR);
+	CFailureDetector(ISR isr);
 	~CFailureDetector(void);
 
-	void enable(void);
-	void disable(void);
-
-protected:
+	virtual void enable(void);
+	virtual void disable(void);
 
 private:
 	struct sigaction act;

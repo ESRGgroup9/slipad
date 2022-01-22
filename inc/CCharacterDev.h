@@ -13,15 +13,12 @@
 
 class CCharacterDev
 {
-
 public:
 	CCharacterDev(std::string devName);
 	~CCharacterDev();
 
-	// bool open();
-	// bool close();
-
-protected:
+	virtual void enable(void) = 0;
+	virtual void disable(void) = 0;
 
 private:
 	int dev;

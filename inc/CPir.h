@@ -9,25 +9,22 @@
 #ifndef __CPIR_H__
 #define __CPIR_H__
 
-#include <signal.h>
-#include <string>
 #include "CCharacterDev.h"
-#include "interrupt.h"
 
-// CPir class
+#include "interrupt.h" // ISR
+#include <signal.h> // sigaction
+
 class CPir : public CCharacterDev
 {
 public:
 	CPir(ISR isr);
 	~CPir();
 	
-	void enable(void);
-	void disable(void);
+	virtual void enable(void);
+	virtual void disable(void);
 
 private:
 	struct sigaction act;
-	// int dev;
-
 	ISR handler;
 };
 
