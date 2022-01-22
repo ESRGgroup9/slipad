@@ -15,19 +15,19 @@
 #include <string>
 #include "interrupt.h"
 
-class CFailureDetector : public CCharacterDevice
+class CFailureDetector : public CCharacterDev
 {
 public:
-	CFailureDetector(ISR isr);
+	CFailureDetector(ISR lampfISR);
 	~CFailureDetector(void);
 
 	void enable(void);
 	void disable(void);
 
+protected:
+
 private:
 	struct sigaction act;
-
-	int dev;
 	ISR handler;
 };
 
