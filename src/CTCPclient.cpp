@@ -4,8 +4,6 @@
 
 #include <cstring>
 #include <iostream>
-
-#include <arpa/inet.h>
 #include <netdb.h>
 #include <sys/socket.h> // recv, send
 #include <sys/types.h>
@@ -16,12 +14,11 @@ using namespace std;
 CTCPclient::CTCPclient(std::string host, int port)
 {
 	struct hostent* hostent;
-	struct sockaddr_in addr;
 
 	// Get server's IP and standard service connection
 	hostent = gethostbyname(host.c_str());
 	this->host = hostent->h_name;
-	this->port = htons(port);
+	this->port = port;
 
 	// Create socket
 	this->sockfd = socket(PF_INET, SOCK_STREAM, 0);
@@ -33,15 +30,17 @@ CTCPclient::CTCPclient(std::string host, int port)
 	/* select internet protocol */
 	addr.sin_family = AF_INET;
 	/* set the port # */
-	addr.sin_port = this->port;
+	addr.sin_port = htons(port);
 	/* set the addr */
 	addr.sin_addr.s_addr = *(long*)(hostent->h_addr_list[0]);
 
-	DEBUG_MSG("Connecting to server on " << hostent->h_name << ":" << this->port);
+	// DEBUG_MSG("[CTCPclient::CTCPclient] Client created");
 	// syslog(LOG_INFO, "Connecting to server on %s:%d\n", hostent->h_name, this->port);
 	
 	// get host name
-	// gethostname(client_name, sizeof(client_name));
+	char str[32];
+	gethostname(str, sizeof(str));
+	DEBUG_MSG("[CTCPclient::CTCPclient] '" << str << "' set to connect to " << host << ":" << port);
 }
 
 CTCPclient::~CTCPclient()
@@ -50,6 +49,30 @@ CTCPclient::~CTCPclient()
 	shutdown(sockfd,SHUT_RD);
 	shutdown(sockfd,SHUT_WR);
 	shutdown(sockfd,SHUT_RDWR);	
+	close(sockfd);
+}
+
+int CTCPclient::connect()
+{
+	int ret = 0;
+	int err = 0;
+
+	DEBUG_MSG("[CTCPclient::connect] Connecting to server " << host << ":" << port << "...");
+	// connect to server
+	do
+	{
+		ret = ::connect(sockfd, (struct sockaddr*)&addr, sizeof(addr));
+		err = errno;
+	}
+	while((ret == -1) && (err == EAGAIN));
+
+	if(ret == 0)
+	{
+		DEBUG_MSG("[CTCPclient::connect] Connection successful");	
+	}
+
+	DEBUG_MSG("[CTCPclient::connect] Exit with return error[" << ret << "] errno[" << err << "]");
+	return ret;
 }
 
 int CTCPclient::recvFunc(std::string &msg)

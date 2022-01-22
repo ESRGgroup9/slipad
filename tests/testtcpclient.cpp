@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 	if(argc < 3)
 	{
-		cout << "Usage: " << argv[0] << "<hostName> <port>" << endl;
+		cout << "Usage: " << argv[0] << " <hostName> <port>" << endl;
 		return 1;
 	}
 
@@ -15,5 +15,7 @@ int main(int argc, char *argv[])
 	int port = atoi(argv[2]);
 	CTCPclient c1(host, port);
 
+	c1.connect();
+	
 	return 0;
 }
