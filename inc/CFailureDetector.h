@@ -18,16 +18,16 @@
 class CFailureDetector : public CCharacterDevice
 {
 public:
-	CFailureDetector(ISR lampfISR);
+	CFailureDetector(ISR isr);
 	~CFailureDetector(void);
 
 	void enable(void);
 	void disable(void);
 
-protected:
-
 private:
 	struct sigaction act;
+
+	int dev;
 	ISR handler;
 };
 

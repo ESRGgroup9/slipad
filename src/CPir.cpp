@@ -6,8 +6,8 @@
 #include <sys/ioctl.h>
 #include "utils.h"
 
-#define SIGHIGH 10
 #define IOCTL_PID 1
+#define SIGH (SIGUSR1)
 
 CPir::CPir(ISR isr)
 {
@@ -25,7 +25,7 @@ CPir::CPir(ISR isr)
 	}
 	
 	sigemptyset(&act.sa_mask);
-	handler = isr; 
+	this->handler = isr; 
 }
 
 CPir::~CPir()
@@ -39,12 +39,11 @@ void CPir::enable(void)
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = handler;
 	
-	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGH, &act, NULL);
 }
 
 void CPir::disable(void)
 {
 	act.sa_handler = SIG_IGN;
-
-	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGH, &act, NULL);
 }

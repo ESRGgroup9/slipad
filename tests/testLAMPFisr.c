@@ -9,19 +9,19 @@
 #include <sys/stat.h>
 #include <sys/ioctl.h>
 
-#define SIGHIGH 10
+#define SIGHIGH SIGUSR2
 #define IOCTL_PID 1
 
 void sigHigh(int n, siginfo_t *info, void *unused);
 
-int main(int argc, char *argv)
+int main(int argc, char *argv[])
 {
 	int lampf;
 	struct sigaction act;
 	pid_t pid;
 	
-	button = open("/dev/lampf", O_RDWR);
-	if(button < 0)
+	lampf = open("/dev/lampf", O_RDWR);
+	if(lampf < 0)
 	{
 		printf("[LampF] Device driver not found.\n");
 		return -1;
@@ -30,23 +30,22 @@ int main(int argc, char *argv)
 		printf("[LampF] Device driver successfully initialized\n");
 	
 	pid = getpid();
-	if(ioctl(button, IOCTL_PID, &pid))
+	if(ioctl(lampf, IOCTL_PID, &pid))
 	{
 		printf("[LampF] Failed system call. Closing device driver.\n");
-		close(button);
+		close(lampf);
 		return -1;
 	}
 	
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = sigHigh;
-	// sigaction(SIGHIGH, &act, NULL);
-	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGHIGH, &act, NULL);
 
 	printf("Waiting for lamp failure...\n");
 	while(1){}
 
-	close(button);
+	close(lampf);
 	
 	printf("\nExiting\n");
 	// return 0;
@@ -54,6 +53,6 @@ int main(int argc, char *argv)
 
 void sigHigh(int n, siginfo_t *info, void *unused)
 {
-	int pinValue = info->si_int;
+	// int pinValue = info->si_int;
 	printf("Lamp failure detected\n");
 }

@@ -15,14 +15,27 @@
 #include <linux/interrupt.h>
 #include "utils.h"
 
-#define DEVICE_NAME "lampf"
-#define CLASS_NAME "lampfClass"
+#define DEVICE_NAME "pir"
+#define CLASS_NAME "pirClass"
 #define REG_CURRENT_TASK _IOW('a','a',int32_t*)
-#define SIGH 10 	// SIGUSR1
+
+// #define SIGH 10 	// SIGUSR1
+#define SIGH SIGUSR1
+
 #define IOCTL_PID 1
 #define GPIO_INPUT 0
 
 MODULE_LICENSE("GPL");
+
+// Debounce mechanisms
+#define EN_DEBOUNCE 
+#ifdef EN_DEBOUNCE
+
+#include <linux/jiffies.h> 
+extern unsigned long volatile jiffies;
+unsigned long old_jiffie = 0;
+
+#endif // !EN_DEBOUNCE
 
 static struct kernel_siginfo info;
 static pid_t pid;
@@ -33,77 +46,94 @@ static struct class *dev_class = NULL;
 static struct cdev c_dev;  // Character device structure
 
 struct GpioRegisters *s_pGpioRegisters;
-
-static unsigned int pinNum = 26;
-
+static unsigned int pinNum = 16;
 static unsigned int irqNumber;
 
-static int __init lampf_driver_init(void);
-static void __exit lampf_driver_exit(void);
-static int lampf_open(struct inode *inode, struct file *file);
-static int lampf_close(struct inode *inode, struct file *file);
-static ssize_t lampf_read(struct file *filp, char __user *buf, size_t len, loff_t *off);
-static ssize_t lampf_write(struct file *filp, const char *buf, size_t len, loff_t *off);
-static long lampf_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
+static int __init pir_driver_init(void);
+static void __exit pir_driver_exit(void);
+static int pir_open(struct inode *inode, struct file *file);
+static int pir_close(struct inode *inode, struct file *file);
+static ssize_t pir_read(struct file *filp, char __user *buf, size_t len, loff_t *off);
+static ssize_t pir_write(struct file *filp, const char *buf, size_t len, loff_t *off);
+static long pir_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
 
 static irqreturn_t irq_handler(int irq, void *dev_id)
 {  	
-	printk(KERN_INFO "Interruption handler: PIN -> %d.\n", gpio_get_value(pinNum));
+	int pinVal = gpio_get_value(pinNum);
+
+//Debounce mechanisms
+#ifdef EN_DEBOUNCE
+	unsigned long diff = jiffies - old_jiffie;
+
+	if (diff < 200)
+	{
+		return IRQ_HANDLED;
+	}
+
+	old_jiffie = jiffies;
+#endif
+
+	printk(KERN_INFO "[PIR] Interruption handler: PIN -> %d.\n", pinVal);
 	info.si_signo = SIGH;
 	info.si_code = SI_QUEUE;
-	info.si_int = gpio_get_value(pinNum);
+	info.si_int = pinVal;
  	
  	task = pid_task(find_pid_ns(pid, &init_pid_ns), PIDTYPE_PID);
 	
 	if(task != NULL)
 		send_sig_info(SIGH, &info, task);
-		   	
+
 	return IRQ_HANDLED;
 }
 
-static int lampf_open(struct inode* inode, struct file *file)
+static int pir_open(struct inode* inode, struct file *file)
 {
-	printk(KERN_INFO "Device File Opened\n");
+	printk(KERN_INFO "[PIR] Device File Opened\n");
 	return 0;
 }
 
-static int lampf_close(struct inode *inode, struct file * file)
+static int pir_close(struct inode *inode, struct file * file)
 {
-	printk(KERN_INFO "Device File Closed\n");
+	printk(KERN_INFO "[PIR] Device File Closed\n");
 	return 0;
 }
 
-static ssize_t lampf_write(struct file *filp, const char __user *buf, size_t len, loff_t *off) 
+static ssize_t pir_write(struct file *filp, const char __user *buf, size_t len, loff_t *off) 
 {	
-   	printk(KERN_INFO "Write function\n");
+   	printk(KERN_INFO "[PIR] Write function\n");
    	return 0;
 }
 
-static ssize_t lampf_read(struct file *filp, char __user *buf, size_t len, loff_t *off)
+static ssize_t pir_read(struct file *filp, char __user *buf, size_t len, loff_t *off)
 {
 	char buffer[2];
 	int i = gpio_get_value(pinNum);
-	sprintf(buffer, "%d", i);
+	int ret = 0;
 
-	copy_to_user(buf, buffer, 1);
-	printk(KERN_INFO "PIN -> %d\n", i);
-	return 0;
+	sprintf(buffer, "%d", i);
+	ret = copy_to_user(buf, buffer, 1);
+	printk(KERN_INFO "[PIR] PIN -> %d\n", i);
+	
+	// returns number of bytes that cannot be read
+	// in success it must be zero
+	return ret;
 }
 
-static long lampf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+static long pir_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {	
 	if(cmd == IOCTL_PID)
 	{
 		if(copy_from_user(&pid, (pid_t*)arg, sizeof(pid_t))) 
 		{
-			printk(KERN_INFO "copy_from_user failed\n"); 
+			printk(KERN_INFO "[PIR] copy_from_user failed\n"); 
 			return -1;
 		}
-		printk(KERN_INFO "PID-> %d\n", pid);       
+		// printk(KERN_INFO "[PIR] PID-> %d\n", pid);
+		printk(KERN_INFO "[PIR] Requested by PID %d\n", pid);
 	}
 	else
 	{
-		printk(KERN_INFO "ioctl failed\n");	
+		printk(KERN_INFO "[PIR] ioctl failed\n");	
 	}
 	return 0;
 }
@@ -111,18 +141,18 @@ static long lampf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 static struct file_operations fops = 
 {
 	.owner = THIS_MODULE,
-	.write = lampf_write,
-	.read = lampf_read,
-	.release = lampf_close,
-	.open = lampf_open,
-	.unlocked_ioctl = lampf_ioctl,
+	.write = pir_write,
+	.read = pir_read,
+	.release = pir_close,
+	.open = pir_open,
+	.unlocked_ioctl = pir_ioctl,
 };
 
-static int __init lampf_driver_init(void) 
+static int __init pir_driver_init(void) 
 {
 	if ((alloc_chrdev_region(&dev, 0, 1, DEVICE_NAME)) < 0) 
 	{
-		printk(KERN_INFO "Cannot allocate major number\n");
+		printk(KERN_INFO "[PIR] Cannot allocate major number\n");
 	    return -1;
 	}
 
@@ -132,21 +162,21 @@ static int __init lampf_driver_init(void)
 	/*Adding character device to the system*/
 	if((cdev_add(&c_dev,dev,1)) < 0)
 	{
-		printk(KERN_INFO "Cannot add the device to the system\n");
+		printk(KERN_INFO "[PIR] Cannot add the device to the system\n");
 		unregister_chrdev_region(dev,1);
 	}	
 
 	/*Creating struct class*/
 	if((dev_class = class_create(THIS_MODULE, CLASS_NAME)) == NULL)
 	{
-		printk(KERN_INFO "Cannot create the struct class\n");
+		printk(KERN_INFO "[PIR] Cannot create the struct class\n");
 		unregister_chrdev_region(dev,1);
 	}
 
 	/*Creating device*/
 	if((device_create(dev_class, NULL, dev, NULL, DEVICE_NAME)) == NULL)
 	{
-		printk(KERN_INFO "Cannot create the Device\n");
+		printk(KERN_INFO "[PIR] Cannot create the Device\n");
 		class_destroy(dev_class);
 		unregister_chrdev_region(dev,1);
 	}
@@ -155,7 +185,7 @@ static int __init lampf_driver_init(void)
 
 	if (request_irq(irqNumber, irq_handler, IRQF_TRIGGER_RISING, DEVICE_NAME, (void *)(irq_handler)))
 	{
-		printk(KERN_INFO "Cannot register IRQ\n");
+		printk(KERN_INFO "[PIR] Cannot register IRQ\n");
 		free_irq(irqNumber,(void *)(irq_handler));
 		class_destroy(dev_class);
 		unregister_chrdev_region(dev,1);
@@ -168,7 +198,7 @@ static int __init lampf_driver_init(void)
 	return 0;
 }
 
-static void __exit lampf_driver_exit(void) 
+static void __exit pir_driver_exit(void) 
 {
 	SetGPIOFunction(s_pGpioRegisters, pinNum, GPIO_INPUT);
 	iounmap(s_pGpioRegisters);
@@ -178,8 +208,8 @@ static void __exit lampf_driver_exit(void)
 	class_destroy(dev_class);
 	cdev_del(&c_dev);
 	unregister_chrdev_region(dev, 1);
-	printk(KERN_INFO "Device Driver Remove\n");
+	printk(KERN_INFO "[PIR] Device Driver Remove\n");
 }
 
-module_init(lampf_driver_init);
-module_exit(lampf_driver_exit);
+module_init(pir_driver_init);
+module_exit(pir_driver_exit);

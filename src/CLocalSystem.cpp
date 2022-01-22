@@ -14,7 +14,7 @@ using namespace std;
 // timer periods
 #define TIM_CAM_FRAME_SECS	(0)
 #define TIM_CAM_PROC_SECS	(0)
-#define TIM_LAMP_ON_SECS	(0)
+#define TIM_LAMP_ON_SECS	(5)
 
 // minimum lamp bright - pwm value(0 - 100)
 #define MIN_BRIGHT_PWM		(50)
@@ -30,9 +30,9 @@ CLocalSystem::CLocalSystem() :
 	lamp(),
 	lora(433, GATEWAY_ADDR, LS_ADDR),
 	
-	timCamFrame(TIM_CAM_FRAME_SECS, timer_handler),
-	timCamProc(TIM_CAM_PROC_SECS, timer_handler),
-	timLampOn(TIM_LAMP_ON_SECS, timer_handler, false), // set non-periodic timer
+	timCamFrame(TIM_CAM_FRAME_SECS, timHandler),
+	timCamProc(TIM_CAM_PROC_SECS, timHandler),
+	timLampOn(TIM_LAMP_ON_SECS, timHandler, false), // set non-periodic timer
 
 	loraParser(loraCmdList, " ")
 {
@@ -72,7 +72,7 @@ CLocalSystem::~CLocalSystem()
 
 void CLocalSystem::timLampOnISR()
 {
-	DEBUG_MSG("[CLS::timLampOnISR] Turn off lamp");
+	DEBUG_MSG("[CLS::timLampOnISR] Lamp at minimum bright");
 	// turn off lamp
 	lamp.setBrightness(MIN_BRIGHT_PWM);
 }
@@ -85,17 +85,16 @@ void CLocalSystem::timCamFrameISR()
 
 void CLocalSystem::timCamProcISR()
 {
-	DEBUG_MSG("[CLS::timCamProcISR] Signal xxx");
-	// pthread_cond_signal(&condCamFrame);
+	DEBUG_MSG("[CLS::timCamProcISR] Camera processing taking too much time");
 }
 
-void CLocalSystem::timer_handler(union sigval arg)
+void CLocalSystem::timHandler(union sigval arg)
 {
 	if(!thisPtr)
-		panic("timer_handler(): thisPtr not defined");
+		panic("CLS::timHandler(): thisPtr not defined");
 
 	int id = arg.sival_int;
-	DEBUG_MSG("[CLS::timer_handler] handling timer[" << id << "] timeout...");
+	DEBUG_MSG("[CLS::timHandler] handling timer[" << id << "] timeout...");
 
 	// cannot do switch statement since tim*.id is not a compile time constant
 	if(id == thisPtr->timCamFrame.id)
@@ -112,7 +111,7 @@ void CLocalSystem::timer_handler(union sigval arg)
 	}
 	else
 	{
-		ERROR_MSG("[CLS::timer_handler] unexpected timer event");
+		ERROR_MSG("[CLS::timHandler] unexpected timer event");
 	}
 }
 
@@ -126,6 +125,7 @@ void CLocalSystem::run()
 
 	// set signal handler for dSensors signal
 	signal(SIGUSR1, sigHandler);
+	signal(SIGINT, sigHandler);
 
 	// join lora threads
 	lora.run();
@@ -144,6 +144,17 @@ void CLocalSystem::sigHandler(int sig)
 			pthread_cond_signal(&thisPtr->condRecvSensors);
 			break;
 
+		case SIGINT:
+			DEBUG_MSG("[CLS::sigHandler] caught SIGINT");
+			// closing the queue
+    		mq_close(thisPtr->msgqSensors);
+
+    		// remove msgq from the system
+		    if (mq_unlink(MSGQ_NAME) == -1)
+	   			panic("Removing queue error");
+    		
+    		DEBUG_MSG("[CLS::sigHandler] closing...");
+			exit(0);
 		default:
 			ERROR_MSG("[CLS::sigHandler] caught unexpected signal");
 	}
@@ -223,10 +234,18 @@ void *CLocalSystem::tRecvSensors(void *arg)
 		panic("In mq_send()");
 
 	// make sure that mq_receive does not happen before dSensors read the msg
-	// possible fix...
-	// wait while there are messages in msgq
-	// ..........
-	
+	mq_attr msgqAttr;
+   	// wait while there are messages in msgq
+   	DEBUG_MSG("[CLS::tRecvSensors] Waiting for dSensors to read PID...");
+   	do
+   	{
+   		mq_getattr(c->msgqSensors, &msgqAttr);
+   	}
+   	while(msgqAttr.mq_curmsgs != 0);
+
+   	// clear message - avoid bad content
+	memset(msg, 0, sizeof(msg));
+			
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutRecvSensors);
@@ -249,7 +268,6 @@ void *CLocalSystem::tRecvSensors(void *arg)
 		else
 		{
 			// else, messages to read from dSensors
-			// pthread_mutex_unlock(&c->mutRecvSensors);
 			DEBUG_MSG("[CLS::tRecvSensors] received cmd[" << string(msg) << "]");
 
 			int cmdPwm = parseSensorsCmd(msg);
@@ -263,6 +281,10 @@ void *CLocalSystem::tRecvSensors(void *arg)
 
 			DEBUG_MSG("[CLS::tRecvSensors] Sending (" << "LAMP " + string(msg) << ")");
 			c->lora.push(string("LAMP ") + msg);
+
+			// clear message
+			memset(msg, 0, sizeof(msg));
+			
 			pthread_mutex_unlock(&c->mutRecvSensors);
 		}
 	}

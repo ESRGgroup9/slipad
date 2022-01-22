@@ -8,10 +8,11 @@ PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
 PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
 PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
 #------------------------------------------------------------------------------
-BLD_DIR=./build
-BIN_DIR=./bin
 SRC_DIR=../src
 INC_DIR=../inc
+#------------------------------------------------------------------------------
+BLD_DIR=./build
+BIN_DIR=./bin
 #------------------------------------------------------------------------------
 CXX 	=arm-buildroot-linux-gnueabihf-g++
 LIBS	=-lpthread -lbcm2835 -lrt
@@ -19,7 +20,6 @@ LIBS	=-lpthread -lbcm2835 -lrt
 DEBUG	=-g #-D DEBUG
 INCLDS	=-I $(INC_DIR)
 CXXFLAGS=$(INCLDS) -Wall $(LIBS)
-
 #------------------------------------------------------------------------------
 SRC= $(wildcard $(SRC_DIR)/*.c*)
 
@@ -83,11 +83,12 @@ setup:
 	@mkdir -p $(BIN_DIR)
 
 clean: ## Delete built artifacts
-	@echo "Cleaning ... "
+	@echo "${CYAN}Cleaning tests ... $(RESET)"
 	@rm -rf $(BLD_DIR) $(BIN_DIR)
 
 help: ## Generate list of targets with descriptions
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: build clean transfer help
-.PRECIOUS: $(BLD_DIR)/%.o $(BLD_DIR)/%.d
+# .PRECIOUS: $(BLD_DIR)/%.o $(BLD_DIR)/%.d
+#==============================================================================

@@ -14,7 +14,7 @@
 
 void sigHigh(int n, siginfo_t *info, void *unused);
 
-int main(int argc, char *argv)
+int main(int argc, char *argv[])
 {
 	int pir;
 	struct sigaction act;
@@ -54,7 +54,7 @@ int main(int argc, char *argv)
 
 void sigHigh(int n, siginfo_t *info, void *unused)
 {
-	int pinValue = info->si_int;
+	// int pinValue = info->si_int;
 		
 	// printf("Button was pressed. Pin value %d.\n", pinValue);
 	// printf("Pin value %d\n", pinValue);

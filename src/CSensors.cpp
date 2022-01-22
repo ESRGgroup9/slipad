@@ -1,20 +1,24 @@
 #include "CSensors.h"
 #include "utils.h"
 #include "debug.h"
-
+#include <cstring> // memset
 using namespace std;
 
-#define PIR_ISR 	(1)
-#define LAMPF_ISR	(2)
+#define TIM_READ_LDR_SECS	(0)
+#define SIG_NOTIFY_MAIN (SIGUSR1)
+#define MSGQ_NAME "/dsensors"
 
-static pthread_cond_t condReadLdr;
+// must see ddriver definition and classes definitions
+#define PIR_SIG_NUM 	(SIGUSR1)
+#define LAMPF_SIG_NUM	(SIGUSR2)
+
 CSensors* CSensors::thisPtr = NULL;
 
 CSensors::CSensors() :
-	pir(pirISR),
+	pir(isrHandler),
 	ldr(),
-	lampf(lampfISR),
-	timReadLdr(TIM_READ_LDR_SECS, timReadLdrHandler)
+	lampf(isrHandler),
+	timReadLdr(TIM_READ_LDR_SECS, timHandler)
 {
 	if(pthread_cond_init(&condReadLdr, NULL) != 0)
 		panic("CSensors::CSensors(): Condition variable init");	
@@ -38,41 +42,67 @@ CSensors::~CSensors()
 
 }
 
-void CSensors::pirISR(int n, siginfo_t *info, void *unused)
+void CSensors::pirISR()
 {
-	if(thisPtr)
-		thisPtr->handler_isr(PIR_ISR);
+	DEBUG_MSG("[pirISR] Motion detected - Sending[ON]...");
+	sendCmd("ON");
 }
 
-void CSensors::lampfISR(int n, siginfo_t *info, void *unused)
+void CSensors::lampfISR()
 {
-	if(thisPtr)
-		thisPtr->handler_isr(LAMPF_ISR);
+	DEBUG_MSG("[lampfISR] Lamp failure detected - Sending[FAIL]...");
+	sendCmd("FAIL");
 }
 
-void CSensors::handler_isr(int isr_num)
+void CSensors::isrHandler(int n, siginfo_t *info, void *unused)
 {
-	switch(isr_num)
+	if(!thisPtr)
+		panic("CSensors::isrHandler(): thisPtr not defined");
+
+	DEBUG_MSG("[CSensors::isrHandler] handling interrupt[" << n << "]...");
+
+	switch(n)
 	{
-		case PIR_ISR:
-			DEBUG_MSG("[handler_isr] handling PIR ISR");
-			sendCmd("ON");
+		case PIR_SIG_NUM:
+			thisPtr->pirISR();
 			break;
 
-		case LAMPF_ISR:
-			DEBUG_MSG("[handler_isr] handling LampF ISR");
-			sendCmd("FAIL");
+		case LAMPF_SIG_NUM:
+			thisPtr->lampfISR();
 			break;
 
 		default:
-			panic("handle_isr(): unexpected ISR num");
+		{
+			ERROR_MSG("[CSensors::isrHandler] unexpected ISR num");
+		}
 	}
 }
 
-void CSensors::timReadLdrHandler(union sigval arg)
+void CSensors::timReadLdrISR()
 {
-	DEBUG_MSG("[CSensors::timReadLdrHandler] Signal condReadLdr");
+	DEBUG_MSG("[CSensors::timReadLdrISR] Signal condReadLdr");
 	pthread_cond_signal(&condReadLdr);
+}
+
+void CSensors::timHandler(union sigval arg)
+{
+	if(!thisPtr)
+		panic("CLS::timHandler(): thisPtr not defined");
+
+	int id = arg.sival_int;
+	DEBUG_MSG("[CLS::timHandler] handling timer[" << id << "] timeout...");
+
+	// cannot do switch statement since tim*.id is not a compile time constant
+	if(id == thisPtr->timReadLdr.id)
+	{
+		thisPtr->timReadLdrISR();
+		// DEBUG_MSG("[CSensors::timHandler] Signal condReadLdr");
+		// pthread_cond_signal(&thisPtr->condReadLdr);
+	}
+	else
+	{
+		ERROR_MSG("[CLS::timHandler] unexpected timer event");
+	}
 }
 
 // max length of a message queue
@@ -82,6 +112,9 @@ void CSensors::run()
 {
 	char msg[MAX_MSG_LEN_R];
 	int err = 0;
+
+	// clear message
+	memset(msg, 0, sizeof(msg));
 
 	DEBUG_MSG("[CSensors::run] Waiting for main PID...");
 	// receive main PID
@@ -105,10 +138,12 @@ void CSensors::run()
 	mainPID = static_cast<int>(atoi(msg));
 	DEBUG_MSG("[CSensors::run] Received main PID[" << mainPID << "]");
 
-	// notify main process that its PID has been received
-	// kill(mainPID, SIG_NOTIFY_MAIN);
-
-	// start sampling sensors
+#ifdef DEBUG
+	lampf.enable();
+	pir.enable();
+#endif // !DEBUG
+	
+	// start sampling LDR sensor
 	timReadLdr.start();
 
 	// wait for thread termination
@@ -126,7 +161,7 @@ void *CSensors::tReadLdr(void *arg)
 		pthread_mutex_lock(&c->mutReadLdr);
 		
 		DEBUG_MSG("[CSensors::tReadLdr] Waiting for condReadLdr...");
-		pthread_cond_wait(&condReadLdr, &c->mutReadLdr);
+		pthread_cond_wait(&c->condReadLdr, &c->mutReadLdr);
 		DEBUG_MSG("[CSensors::tReadLdr] Im awake!");
 
 		luxState = c->ldr.getLuxState();
@@ -137,13 +172,13 @@ void *CSensors::tReadLdr(void *arg)
 		{
 			if(luxState == LuxState::NIGHT)
 			{
-				// c->lampf.enable();
+				c->lampf.enable();
 				c->pir.enable();
 				c->sendCmd("MIN");
 			}
 			else
 			{
-				// c->lampf.disable();
+				c->lampf.disable();
 				c->pir.disable();
 				c->sendCmd("OFF");
 			}
@@ -161,7 +196,7 @@ void CSensors::sendCmd(string cmd)
 	if(mq_send(msgqSensors, cmd.c_str(), cmd.length(), 1) != 0)
 		panic("In mq_send()");
 
-	DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
+	// DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
 	kill(mainPID, SIG_NOTIFY_MAIN);
-	DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
+	// DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
 }
