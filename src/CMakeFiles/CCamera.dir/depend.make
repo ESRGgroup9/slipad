@@ -3,5 +3,7 @@
 
 CMakeFiles/CCamera.dir/CCamera.cpp.o: ../inc/CCamera.h
 CMakeFiles/CCamera.dir/CCamera.cpp.o: ../inc/utils.h
+CMakeFiles/CCamera.dir/CCamera.cpp.o: /home/fernandes/buildroot/buildroot-2021.02.5/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/include/opencv/cv.h
+CMakeFiles/CCamera.dir/CCamera.cpp.o: /home/fernandes/buildroot/buildroot-2021.02.5/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/include/opencv/cv.hpp
 CMakeFiles/CCamera.dir/CCamera.cpp.o: CCamera.cpp
 

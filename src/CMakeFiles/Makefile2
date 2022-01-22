@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/fernandes/code/slipad/src
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/CCamera.dir/all
+all: CMakeFiles/slipad.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/CCamera.dir/clean
+clean: CMakeFiles/slipad.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/CCamera.dir
+# Target rules for target CMakeFiles/slipad.dir
 
 # All Build rule for target.
-CMakeFiles/CCamera.dir/all:
-	$(MAKE) -f CMakeFiles/CCamera.dir/build.make CMakeFiles/CCamera.dir/depend
-	$(MAKE) -f CMakeFiles/CCamera.dir/build.make CMakeFiles/CCamera.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fernandes/code/slipad/src/CMakeFiles --progress-num=1,2 "Built target CCamera"
-.PHONY : CMakeFiles/CCamera.dir/all
+CMakeFiles/slipad.dir/all:
+	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/depend
+	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fernandes/code/slipad/src/CMakeFiles --progress-num=1,2 "Built target slipad"
+.PHONY : CMakeFiles/slipad.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/CCamera.dir/rule: cmake_check_build_system
+CMakeFiles/slipad.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/src/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/CCamera.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/slipad.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/src/CMakeFiles 0
-.PHONY : CMakeFiles/CCamera.dir/rule
+.PHONY : CMakeFiles/slipad.dir/rule
 
 # Convenience name for target.
-CCamera: CMakeFiles/CCamera.dir/rule
+slipad: CMakeFiles/slipad.dir/rule
 
-.PHONY : CCamera
+.PHONY : slipad
 
 # clean rule for target.
-CMakeFiles/CCamera.dir/clean:
-	$(MAKE) -f CMakeFiles/CCamera.dir/build.make CMakeFiles/CCamera.dir/clean
-.PHONY : CMakeFiles/CCamera.dir/clean
+CMakeFiles/slipad.dir/clean:
+	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/clean
+.PHONY : CMakeFiles/slipad.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

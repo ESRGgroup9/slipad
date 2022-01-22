@@ -69,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/cmake-gui -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named CCamera
+# Target rules for targets named slipad
 
 # Build rule for target.
-CCamera: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 CCamera
-.PHONY : CCamera
+slipad: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 slipad
+.PHONY : slipad
 
 # fast build rule for target.
-CCamera/fast:
-	$(MAKE) -f CMakeFiles/CCamera.dir/build.make CMakeFiles/CCamera.dir/build
-.PHONY : CCamera/fast
+slipad/fast:
+	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/build
+.PHONY : slipad/fast
 
 CCamera.o: CCamera.cpp.o
 
@@ -129,7 +129,7 @@ CCamera.o: CCamera.cpp.o
 
 # target to build an object file
 CCamera.cpp.o:
-	$(MAKE) -f CMakeFiles/CCamera.dir/build.make CMakeFiles/CCamera.dir/CCamera.cpp.o
+	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/CCamera.cpp.o
 .PHONY : CCamera.cpp.o
 
 CCamera.i: CCamera.cpp.i
@@ -138,7 +138,7 @@ CCamera.i: CCamera.cpp.i
 
 # target to preprocess a source file
 CCamera.cpp.i:
-	$(MAKE) -f CMakeFiles/CCamera.dir/build.make CMakeFiles/CCamera.dir/CCamera.cpp.i
+	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/CCamera.cpp.i
 .PHONY : CCamera.cpp.i
 
 CCamera.s: CCamera.cpp.s
@@ -147,7 +147,7 @@ CCamera.s: CCamera.cpp.s
 
 # target to generate assembly for a file
 CCamera.cpp.s:
-	$(MAKE) -f CMakeFiles/CCamera.dir/build.make CMakeFiles/CCamera.dir/CCamera.cpp.s
+	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/CCamera.cpp.s
 .PHONY : CCamera.cpp.s
 
 # Help Target
@@ -158,7 +158,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... CCamera"
+	@echo "... slipad"
 	@echo "... CCamera.o"
 	@echo "... CCamera.i"
 	@echo "... CCamera.s"
