@@ -7,7 +7,7 @@
 
 #include <arpa/inet.h>
 #include <netdb.h>
-#include <sys/socket.h>
+#include <sys/socket.h> // recv, send
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -46,7 +46,51 @@ CTCPclient::CTCPclient(std::string host, int port)
 
 CTCPclient::~CTCPclient()
 {
+	// close the tcp connection
+	shutdown(sockfd,SHUT_RD);
+	shutdown(sockfd,SHUT_WR);
+	shutdown(sockfd,SHUT_RDWR);	
+}
 
+int CTCPclient::recvFunc(std::string &msg)
+{
+	int err = 0;
+
+	// recv message from server
+	err = ::recv(sockfd, &msg.front(), msg.size(), 0);
+	if(err == -1)
+	{
+		err = errno;
+
+		// error caused by the lack of messages to read?
+		if(err != EAGAIN)
+		{
+			ERROR_MSG("[CTCPclient::recvFunc] in recv()  - errno[" << err << "]");
+		}
+
+		return -1;
+	}
+	// else, return the number of bytes read
+
+	return err;
+}
+
+int CTCPclient::sendFunc(std::string msg)
+{
+	int err = 0;
+
+	// send message to server
+	err = ::send(sockfd, msg.c_str(), msg.length(), 0);
+	if(err == -1)
+	{
+		err = errno;
+		ERROR_MSG("[CTCPclient::sendFunc] in send() - errno[" << err << "]");
+
+		return -1;
+	}
+	// else, return the number of bytes sent
+
+	return err;
 }
 
 string CTCPclient::getHost(void) const
@@ -57,14 +101,4 @@ string CTCPclient::getHost(void) const
 int CTCPclient::getPort(void) const
 {
 	return port;
-}
-
-int CTCPclient::recvFunc(std::string &msg)
-{
-	return 0;
-}
-
-int CTCPclient::sendFunc(std::string msg)
-{
-	return 0;
 }

@@ -1,10 +1,19 @@
 #include "CTCPclient.h"
-
-#define localhost ("127.0.0.1")
+#include <string>
+#include <iostream>
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-	CTCPclient c1(localhost, 5000);
+	if(argc < 3)
+	{
+		cout << "Usage: " << argv[0] << "<hostName> <port>" << endl;
+		return 1;
+	}
+
+	string host = argv[1];
+	int port = atoi(argv[2]);
+	CTCPclient c1(host, port);
 
 	return 0;
 }
