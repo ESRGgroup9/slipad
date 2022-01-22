@@ -27,6 +27,16 @@
 
 MODULE_LICENSE("GPL");
 
+// Debounce mechanisms
+#define EN_DEBOUNCE 
+#ifdef EN_DEBOUNCE
+
+#include <linux/jiffies.h> 
+extern unsigned long volatile jiffies;
+unsigned long old_jiffie = 0;
+
+#endif // !EN_DEBOUNCE
+
 static struct kernel_siginfo info;
 static pid_t pid;
 static struct task_struct *task = NULL;
@@ -36,9 +46,7 @@ static struct class *dev_class = NULL;
 static struct cdev c_dev;  // Character device structure
 
 struct GpioRegisters *s_pGpioRegisters;
-
 static unsigned int pinNum = 16;
-
 static unsigned int irqNumber;
 
 static int __init pir_driver_init(void);
@@ -51,16 +59,37 @@ static long pir_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
 
 static irqreturn_t irq_handler(int irq, void *dev_id)
 {  	
-	printk(KERN_INFO "[PIR] Interruption handler: PIN -> %d.\n", gpio_get_value(pinNum));
+	static int oldPinVal = 0;
+	int pinVal = gpio_get_value(pinNum);
+
+//Debounce mechanisms
+#ifdef EN_DEBOUNCE
+
+	unsigned long diff = jiffies - old_jiffie;
+
+	if (diff < 20)
+	{
+		return IRQ_HANDLED;
+	}
+
+	old_jiffie = jiffies;
+#endif
+
+	if((oldPinVal != pinVal) && (pinVal == 1))
+		return IRQ_HANDLED;
+
+	printk(KERN_INFO "[PIR] Interruption handler: PIN %d -> %d.\n", oldPinVal, pinVal);
 	info.si_signo = SIGH;
 	info.si_code = SI_QUEUE;
-	info.si_int = gpio_get_value(pinNum);
+	info.si_int = pinVal;
  	
  	task = pid_task(find_pid_ns(pid, &init_pid_ns), PIDTYPE_PID);
 	
 	if(task != NULL)
 		send_sig_info(SIGH, &info, task);
-		   	
+		   
+	oldPinVal = pinVal;
+
 	return IRQ_HANDLED;
 }
 

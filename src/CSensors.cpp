@@ -1,6 +1,7 @@
 #include "CSensors.h"
 #include "utils.h"
 #include "debug.h"
+#include <cstring> // memset
 using namespace std;
 
 #define TIM_READ_LDR_SECS	(0)
@@ -43,13 +44,13 @@ CSensors::~CSensors()
 
 void CSensors::pirISR()
 {
-	DEBUG_MSG("[pirISR] lamp ON. Sending[ON]...");
+	DEBUG_MSG("[pirISR] Motion detected - Sending[ON]...");
 	sendCmd("ON");
 }
 
 void CSensors::lampfISR()
 {
-	DEBUG_MSG("[lampfISR] lamp FAIL. Sending[FAIL]...");
+	DEBUG_MSG("[lampfISR] Lamp failure detected - Sending[FAIL]...");
 	sendCmd("FAIL");
 }
 
@@ -112,6 +113,9 @@ void CSensors::run()
 	char msg[MAX_MSG_LEN_R];
 	int err = 0;
 
+	// clear message
+	memset(msg, 0, sizeof(msg));
+
 	DEBUG_MSG("[CSensors::run] Waiting for main PID...");
 	// receive main PID
 	do
@@ -134,9 +138,11 @@ void CSensors::run()
 	mainPID = static_cast<int>(atoi(msg));
 	DEBUG_MSG("[CSensors::run] Received main PID[" << mainPID << "]");
 
-	DEBUG_MSG("Waiting for lampf...");
+#ifdef DEBUG
 	lampf.enable();
-
+	pir.enable();
+#endif // !DEBUG
+	
 	// start sampling LDR sensor
 	timReadLdr.start();
 
@@ -190,7 +196,7 @@ void CSensors::sendCmd(string cmd)
 	if(mq_send(msgqSensors, cmd.c_str(), cmd.length(), 1) != 0)
 		panic("In mq_send()");
 
-	DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
+	// DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
 	kill(mainPID, SIG_NOTIFY_MAIN);
 	// DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
 }

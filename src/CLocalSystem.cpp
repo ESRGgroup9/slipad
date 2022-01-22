@@ -278,6 +278,10 @@ void *CLocalSystem::tRecvSensors(void *arg)
 
 			DEBUG_MSG("[CLS::tRecvSensors] Sending (" << "LAMP " + string(msg) << ")");
 			c->lora.push(string("LAMP ") + msg);
+
+			// clear message
+			memset(msg, 0, sizeof(msg));
+			
 			pthread_mutex_unlock(&c->mutRecvSensors);
 		}
 	}
