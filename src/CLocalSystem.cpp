@@ -243,6 +243,9 @@ void *CLocalSystem::tRecvSensors(void *arg)
    	}
    	while(msgqAttr.mq_curmsgs != 0);
 
+   	// clear message - avoid bad content
+	memset(msg, 0, sizeof(msg));
+			
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutRecvSensors);
