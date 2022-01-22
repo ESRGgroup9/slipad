@@ -12,37 +12,24 @@ using namespace std;
 CCharacterDev::CCharacterDev(string devName)
 {
 	pid_t pid;
-	devStr = "/dev/";
+	
+	this->devStr = "/dev/" + devName;
+	this->dev = open(devStr.c_str(), O_RDWR);
 
-	devStr.append(devName);
-	dev = open(devStr.c_str(), O_RDWR);
 	if(dev < 0)
 	{	
-		string output = devName;
-		//output.assign(devName);
-		output.append("Device driver not found.\n");
-		panic(output.c_str());
+		panic(string(devStr + "Device driver not found.").c_str())
 	}
 	
 	pid = getpid();
 	if(ioctl(dev, IOCTL_PID, &pid))
 	{
 		close(dev);
-		string output = devName;
-		//output.assign(devName);
-		output.append("Failed system call. Closing device driver.\n");
-		panic(output.c_str());
+		panic(string(devStr + "Failed system call. Closing device driver.").c_str());
 	}
-
 }
 
 CCharacterDev::~CCharacterDev()
 {
 	close(dev);
-
-	// panic("[PIR] Exiting\n");
-	string output = devStr;
-	//output.assign(devName);
-	output.append("Exiting\n");
-	panic(output.c_str());
 }
