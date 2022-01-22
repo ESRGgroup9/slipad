@@ -59,15 +59,13 @@ static long pir_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
 
 static irqreturn_t irq_handler(int irq, void *dev_id)
 {  	
-	static int oldPinVal = 0;
 	int pinVal = gpio_get_value(pinNum);
 
 //Debounce mechanisms
 #ifdef EN_DEBOUNCE
-
 	unsigned long diff = jiffies - old_jiffie;
 
-	if (diff < 20)
+	if (diff < 200)
 	{
 		return IRQ_HANDLED;
 	}
@@ -75,10 +73,7 @@ static irqreturn_t irq_handler(int irq, void *dev_id)
 	old_jiffie = jiffies;
 #endif
 
-	if((oldPinVal != pinVal) && (pinVal == 1))
-		return IRQ_HANDLED;
-
-	printk(KERN_INFO "[PIR] Interruption handler: PIN %d -> %d.\n", oldPinVal, pinVal);
+	printk(KERN_INFO "[PIR] Interruption handler: PIN -> %d.\n", pinVal);
 	info.si_signo = SIGH;
 	info.si_code = SI_QUEUE;
 	info.si_int = pinVal;
@@ -87,8 +82,6 @@ static irqreturn_t irq_handler(int irq, void *dev_id)
 	
 	if(task != NULL)
 		send_sig_info(SIGH, &info, task);
-		   
-	oldPinVal = pinVal;
 
 	return IRQ_HANDLED;
 }
@@ -121,6 +114,8 @@ static ssize_t pir_read(struct file *filp, char __user *buf, size_t len, loff_t 
 	ret = copy_to_user(buf, buffer, 1);
 	printk(KERN_INFO "[PIR] PIN -> %d\n", i);
 	
+	// returns number of bytes that cannot be read
+	// in success it must be zero
 	return ret;
 }
 
