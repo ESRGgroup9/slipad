@@ -29,6 +29,7 @@ static Command_t loraCmdList[] =
 CLocalSystem::CLocalSystem() :
 	lamp(),
 	lora(433, GATEWAY_ADDR, LS_ADDR),
+	camera("video0"),
 	
 	timCamFrame(TIM_CAM_FRAME_SECS, timer_handler),
 	timCamProc(TIM_CAM_PROC_SECS, timer_handler),

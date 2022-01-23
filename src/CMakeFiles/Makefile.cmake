@@ -7,13 +7,13 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig-version.cmake"
-  "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/share/OpenCV/OpenCVConfig.cmake"
-  "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/share/OpenCV/OpenCVModules-release.cmake"
-  "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/share/OpenCV/OpenCVModules.cmake"
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "CMakeLists.txt"
+  "/usr/share/OpenCV/OpenCVConfig-version.cmake"
+  "/usr/share/OpenCV/OpenCVConfig.cmake"
+  "/usr/share/OpenCV/OpenCVModules-release.cmake"
+  "/usr/share/OpenCV/OpenCVModules.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCommonLanguageInclude.cmake"

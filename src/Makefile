@@ -150,6 +150,33 @@ CCamera.cpp.s:
 	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/CCamera.cpp.s
 .PHONY : CCamera.cpp.s
 
+testcamera.o: testcamera.cpp.o
+
+.PHONY : testcamera.o
+
+# target to build an object file
+testcamera.cpp.o:
+	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/testcamera.cpp.o
+.PHONY : testcamera.cpp.o
+
+testcamera.i: testcamera.cpp.i
+
+.PHONY : testcamera.i
+
+# target to preprocess a source file
+testcamera.cpp.i:
+	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/testcamera.cpp.i
+.PHONY : testcamera.cpp.i
+
+testcamera.s: testcamera.cpp.s
+
+.PHONY : testcamera.s
+
+# target to generate assembly for a file
+testcamera.cpp.s:
+	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/testcamera.cpp.s
+.PHONY : testcamera.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +189,9 @@ help:
 	@echo "... CCamera.o"
 	@echo "... CCamera.i"
 	@echo "... CCamera.s"
+	@echo "... testcamera.o"
+	@echo "... testcamera.i"
+	@echo "... testcamera.s"
 .PHONY : help
 
 

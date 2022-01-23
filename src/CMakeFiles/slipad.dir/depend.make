@@ -3,7 +3,11 @@
 
 CMakeFiles/slipad.dir/CCamera.cpp.o: ../inc/CCamera.h
 CMakeFiles/slipad.dir/CCamera.cpp.o: ../inc/utils.h
-CMakeFiles/slipad.dir/CCamera.cpp.o: /home/fernandes/buildroot/buildroot-2021.02.5/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/include/opencv/cv.h
-CMakeFiles/slipad.dir/CCamera.cpp.o: /home/fernandes/buildroot/buildroot-2021.02.5/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/include/opencv/cv.hpp
 CMakeFiles/slipad.dir/CCamera.cpp.o: CCamera.cpp
+CMakeFiles/slipad.dir/CCamera.cpp.o: /usr/include/opencv2/imgcodecs.hpp
+CMakeFiles/slipad.dir/CCamera.cpp.o: /usr/include/opencv2/videoio.hpp
+
+CMakeFiles/slipad.dir/testcamera.cpp.o: ../inc/CCamera.h
+CMakeFiles/slipad.dir/testcamera.cpp.o: testcamera.cpp
+CMakeFiles/slipad.dir/testcamera.cpp.o: /usr/include/opencv2/videoio.hpp
 

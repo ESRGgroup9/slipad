@@ -1,0 +1,27 @@
+OpenCV
+
+TargetPackages 
+	-> Libraries 
+		-> Graphics -> opencv3 
+			ffmpeg support
+			jpeg support
+			png support
+			v4l support
+		-> hardware handling -> libv4l
+
+	-> Audio and video applications
+		v4l2grab                                                       
+		v4l2loopback    
+    		utils 
+    		
+Depois de gerar o opencv no makemenuconfig:
+	Ir a /output/build/opencv3-3.4.13/buildroot-build: fazer $ cmake-gui, "configure" e ativar os packages necessários (imgproc, videoio, etc). No final "Generate". Sair
+	$ cmake .
+	$ make -j8 (8 - number of CPU cores)
+	$ sudo make install
+
+NOTA:
+	no caso de ter instalado o opencv no host machine, deve fazer $ sudo apt remove libopencv-dev
+
+------------------------------
+Target packages → Libraries → Multimedia → libcamera

@@ -15,6 +15,8 @@
 
 #define PATH 			"/etc/image.jpg"
 
+#include <imgcodecs.hpp>
+
 using namespace cv;
 using namespace std;
 	
@@ -53,8 +55,13 @@ bool CCamera::captureFrame()
 
     // check if read successfully
     if (lastFrame.empty())
+    {
         panic("ERROR! blank frame grabbed.\n");
+        return false;
+    }
 
     imwrite(PATH, lastFrame);
+
+    return true;
 }
 

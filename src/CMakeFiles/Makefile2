@@ -74,12 +74,12 @@ clean: CMakeFiles/slipad.dir/clean
 CMakeFiles/slipad.dir/all:
 	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/depend
 	$(MAKE) -f CMakeFiles/slipad.dir/build.make CMakeFiles/slipad.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fernandes/code/slipad/src/CMakeFiles --progress-num=1,2 "Built target slipad"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fernandes/code/slipad/src/CMakeFiles --progress-num=1,2,3 "Built target slipad"
 .PHONY : CMakeFiles/slipad.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/slipad.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/src/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/src/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/slipad.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/src/CMakeFiles 0
 .PHONY : CMakeFiles/slipad.dir/rule

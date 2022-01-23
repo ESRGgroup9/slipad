@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/slipad.dir/CCamera.cpp.o"
+  "CMakeFiles/slipad.dir/testcamera.cpp.o"
   "slipad"
   "slipad.pdb"
 )

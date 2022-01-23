@@ -14,21 +14,22 @@ SRC_DIR=./src
 INC_DIR=./inc
 TST_DIR=./tests
 #------------------------------------------------------------------------------
-CXX 	=arm-buildroot-linux-gnueabihf-g++
-OPENCV 	= `pkg-config opencv --cflags --libs`
+# CXX 	=arm-buildroot-linux-gnueabihf-g++
+CXX 	=arm-buildroot-linux-uclibcgnueabihf-g++
+OPENCV 	=-lopencv_core -lopencv_imgcodecs -lopencv_videoio -lopencv_imgproc -lopencv_highgui
 LIBS	=-lpthread -lbcm2835 -lrt $(OPENCV)
 
 DEBUG	=-D DEBUG #-g
 INCLDS	=-I $(INC_DIR)
-CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
-# CXXFLAGS=$(filter-out CCamera.h,$(INCLDS)) -Wall $(LIBS) $(DEBUG)
+CXXFLAGS=$(INCLDS) -Wall -L$(LIBS) $(DEBUG)
+#CXXFLAGS=$(filter-out CCamera.h,$(INCLDS)) -Wall $(LIBS) $(DEBUG)
 
 #------------------------------------------------------------------------------
 SRC= $(wildcard $(SRC_DIR)/*.c*)
 
 OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%.o,$(SRC)))
 OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
-OBJS+=$(SRC_DIR)/CMakeFiles/CCamera.dir/CCamera.cpp.o
+#OBJS+=$(SRC_DIR)/CMakeFiles/CCamera.dir/CCamera.cpp.o
 
 DEPS= $(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
 #------------------------------------------------------------------------------

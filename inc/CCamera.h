@@ -9,11 +9,12 @@
 #ifndef __CCAMERA_H__
 #define __CCAMERA_H__
 
-// #include <opencv2/opencv.hpp>
-// #include <cv.hpp>
-// #include "highgui.hpp"
+#include <opencv2/opencv.hpp>
 
-#include <opencv2/videoio.hpp>
+// #include <opencv/cv.h>
+//#include <highgui.h>
+
+#include <videoio.hpp>
 
 class CCamera
 {
