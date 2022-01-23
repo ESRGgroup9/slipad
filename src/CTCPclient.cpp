@@ -4,8 +4,9 @@
 
 #include <cstring>
 #include <iostream>
+
 #include <netdb.h>
-#include <sys/socket.h> // recv, send
+#include <sys/socket.h> 
 #include <sys/types.h>
 #include <unistd.h>
 
