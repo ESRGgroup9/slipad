@@ -5,6 +5,7 @@
 #include <string>
 #include <queue>
 
+// connection status
 enum class ConnStatus
 {
 	CREATED = 0,
@@ -12,6 +13,15 @@ enum class ConnStatus
 	ERROR,
 	CLOSED
 };
+
+// message status error
+// enum class MsgStatus
+// {
+// 	MSGOK = 0, 	// message OK
+// 	ENOMSGR,	// no message received
+// 	ENOTME,		// Message received is not for this device
+// 	EBADLMSG	// Message received lengths does not match
+// };
 
 class CCommunication
 {
@@ -28,11 +38,12 @@ public:
 	int recv(std::string &msg);
 
 protected:
-	static void *tSend(void*);
+	static void *tSend(void*);		
+	ConnStatus status;
+
+	// pure virtual methods
 	virtual int recvFunc(std::string &msg) = 0;
 	virtual int sendFunc(std::string msg) = 0;
-	
-	ConnStatus status;
 
 private:
 	std::queue<std::string> TxMsgs;

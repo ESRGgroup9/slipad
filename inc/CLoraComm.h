@@ -1,3 +1,11 @@
+/**
+ * @file CLoraComm.h
+ * @author Tomas Abreu, Diogo Fernandes
+ * @date 23 jan 2022
+ *
+ * @brief Defines class to use LoRaClass functions, inheriting from
+ * CCommunication
+ */
 #ifndef __CLORACOMM_H__
 #define __CLORACOMM_H__
 

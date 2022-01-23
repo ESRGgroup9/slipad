@@ -8,6 +8,6 @@ int main(int argc, char *argv[])
 
 	localsys.run();
 
-	cout << endl << "Exited main() local system" << endl;
+	cout << endl << "LocalSys: Exited main()" << endl;
 	return 0;
 }

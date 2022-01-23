@@ -48,22 +48,15 @@ enum class LoRaError
   EBADLMSG    // Message received lengths does not match
 };
 
-class LoRaClass {
+class LoRaClass
+{
 public:
   LoRaClass(uint8_t localAddress = -1);
 
   int begin(long frequency);
   void end();
 
-
-  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEBUG
-  void testspi(uint8_t value);
-  void printFIFORegs(void);
-
-
-
   // setup lora pins
-  // void setPins(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
   void setPins(int ss, int reset, int dio0);
   // set SPI
   void setSPI(void);
@@ -74,21 +67,8 @@ public:
 
   void setLocalAddress(uint8_t localAddress) { this->localAddress = localAddress; }
   uint8_t getLocalAddress(void) const { return localAddress; }
-  void setTxPower(int level, int outputPin = PA_OUTPUT_PA_BOOST_PIN);
-  void setFrequency(long frequency);
-  void setSpreadingFactor(int sf);
-  void setSignalBandwidth(long sbw);
-  void setCodingRate4(int denominator);
-  void setPreambleLength(long length);
-  void setSyncWord(int sw);
-
-  // Over Current Protection control
-  void setOCP(uint8_t mA);
-  // Set LNA gain
-  void setGain(uint8_t gain);
 
 private:
-  // ---- moved by me
   // packet creation functions
   int beginPacket(int implicitHeader = false);
   int endPacket(bool async = false);
@@ -97,16 +77,33 @@ private:
   size_t write(uint8_t byte);
   size_t write(const uint8_t *buffer, size_t size);
 
+  // read/write registers
+  uint8_t readRegister(uint8_t address);
+  void writeRegister(uint8_t address, uint8_t value);
+  uint8_t singleTransfer(uint8_t address, uint8_t value);
+
+  void recv(int size = 0);
   int parsePacket(int size = 0);
+  
+  void idle();
+  void sleep();
+
+  // set properties
+  void setTxPower(int level, int outputPin = PA_OUTPUT_PA_BOOST_PIN);
+  void setFrequency(long frequency);
+  void setSpreadingFactor(int sf);
+  void setSignalBandwidth(long sbw);
+  void setCodingRate4(int denominator);
+  void setPreambleLength(long length);
+  void setSyncWord(int sw);
+  void setOCP(uint8_t mA); // Over Current Protection control
+  void setGain(uint8_t gain); // Set LNA gain
+
   int packetRssi();
   float packetSnr();
   long packetFrequencyError();
 
   int rssi();
-
-  void idle();
-  void sleep();
-
   void enableCrc();
   void disableCrc();
   void enableInvertIQ();
@@ -124,8 +121,6 @@ private:
 
   void onReceive(void(*callback)(int));
   void onTxDone(void(*callback)());
-  void recv(int size = 0);
-  // ----------------
 
   void explicitHeaderMode();
   void implicitHeaderMode();
@@ -137,10 +132,6 @@ private:
   int getSpreadingFactor();
   long getSignalBandwidth();
   void setLdoFlag();
-
-  uint8_t readRegister(uint8_t address);
-  void writeRegister(uint8_t address, uint8_t value);
-  uint8_t singleTransfer(uint8_t address, uint8_t value);
 
 private:
   // Lora Module Pins

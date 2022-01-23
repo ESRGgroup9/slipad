@@ -69,11 +69,11 @@ void *CGateway::tTCPRecv(void *arg)
 
 		if(err == 0)
 		{
-			DEBUG_MSG("[CGateway::tLoraRecv] Received from TCP [" << msg << "]");
-			c->tcpParser.parse(msg.c_str());
+			DEBUG_MSG("[CGateway::tTCPRecv] Received[" << msg << "]");
+			// c->tcpParser.parse(msg.c_str());
 			// |-> returns cmd
-			string cmd;
-			c->lora.push(cmd);
+			// string cmd;
+			c->lora.push(msg);
 		}
 	}
 

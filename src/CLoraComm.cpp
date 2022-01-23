@@ -1,5 +1,12 @@
+/**
+ * @file CLoraComm.h
+ * @author Tomas Abreu, Diogo Fernandes
+ * @date 23 jan 2022
+ *
+ * @brief Defines class to use LoRaClass functions, inheriting from
+ * CCommunication
+ */
 #include "CLoraComm.h"
-#include "LoRa.h"
 #include "utils.h"
 #include "debug.h"
 #include <bcm2835.h>
@@ -42,7 +49,7 @@ int CLoraComm::recvFunc(string &msg)
 	err = lora.receive(loraMsg);
 	if(LoRaError::MSGOK == err)
 		msg = loraMsg.msg;
-
+	
 	return static_cast<int>(err);
 }
 

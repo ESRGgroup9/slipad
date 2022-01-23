@@ -6,7 +6,7 @@
 
 #include <iostream>
 using namespace std;
-
+ 
 CCommunication::CCommunication()
 {
 	if(pthread_mutex_init(&mutTxMsgs, NULL) != 0)

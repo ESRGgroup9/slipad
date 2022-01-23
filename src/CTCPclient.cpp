@@ -40,6 +40,9 @@ CTCPclient::CTCPclient(std::string host, int port)
 	char str[32];
 	gethostname(str, sizeof(str));
 	DEBUG_MSG("[CTCPclient::CTCPclient] '" << str << "' set to connect to " << host << ":" << port);
+
+	// set status
+	this->status = ConnStatus::ONLINE;
 }
 
 CTCPclient::~CTCPclient()
@@ -93,7 +96,6 @@ int CTCPclient::recvFunc(std::string &msg)
 		return -1;
 	}
 	// else, return the number of bytes read
-
 	return err;
 }
 
@@ -111,7 +113,6 @@ int CTCPclient::sendFunc(std::string msg)
 		return -1;
 	}
 	// else, return the number of bytes sent
-
 	return err;
 }
 
