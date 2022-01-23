@@ -3,6 +3,7 @@
 
 #include "CLoraComm.h"
 #include "CTCPclient.h"
+#include <pthread.h>
 
 class CGateway
 {
@@ -20,6 +21,9 @@ private:
 	// CLoraComm localSysList;
 	// CLoraComm localSys;
 	// CTCPclient tcpclient;
+
+	pthread_t tLoraRecv_id;
+	pthread_t tTCPRecv_id;
 
 	// queue<string> connReqList;
 	// semaphore semConnReq;

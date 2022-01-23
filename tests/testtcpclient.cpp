@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
 
 	string host = argv[1];
 	int port = atoi(argv[2]);
-	CTCPclient c1(host, port);
 
+	CTCPclient c1(host, port);
 	c1.connect();
-	
+
 	return 0;
 }
