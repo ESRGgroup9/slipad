@@ -2,6 +2,7 @@
 #define __CLORACOMM_H__
 
 #include "CCommunication.h"
+#include "LoRa.h"
 #include <string>
 
 class CLoraComm : public CCommunication
@@ -17,6 +18,7 @@ protected:
 	virtual int sendFunc(std::string msg);
 
 private:
+	LoRaClass lora;
 	int freqMhz;
 	int dest_addr;
 	int local_addr;

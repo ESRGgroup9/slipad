@@ -10,9 +10,6 @@ using namespace std;
 #define LORA_RESET_PIN     RPI_GPIO_P1_22
 #define LORA_DIO0_PIN      RPI_GPIO_P1_18
 
-// Create LoRa object
-static LoRaClass lora;
-
 CLoraComm::CLoraComm(int freqMhz, int dest, int src)
 {
 	this->freqMhz = freqMhz;

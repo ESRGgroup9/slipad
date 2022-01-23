@@ -5,7 +5,7 @@
 #include <string>
 #include <arpa/inet.h> // sockaddr_in
 
-class CTCPclient : CCommunication
+class CTCPclient : public CCommunication
 {
 public:
 	CTCPclient(std::string host, int port);
