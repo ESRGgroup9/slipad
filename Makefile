@@ -9,16 +9,27 @@ PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
 PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
 PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
 #------------------------------------------------------------------------------
+# Project directories
 BLD_DIR=./build
 BIN_DIR=./bin
 SRC_DIR=./src
 INC_DIR=./inc
 #------------------------------------------------------------------------------
+# Tests directory
 TST_DIR=tests
 # Device Drivers directory
 DDR_DIR=ddrivers
-# Doxxygen directory
+# Doxygen directory
 DOX_DIR=./doc/doxygen
+#------------------------------------------------------------------------------
+# Variables specifying destination of 'make transfer'
+# Destination IP
+IP=10.42.0.254
+# Destination directory in IP connection
+DIR=/etc
+# Export this variables for use in makefiles called recursively
+export IP
+export DIR
 #------------------------------------------------------------------------------
 CXX 	=arm-buildroot-linux-gnueabihf-g++
 LIBS	=-lpthread -lbcm2835 -lrt
@@ -40,12 +51,14 @@ PROGS= $(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
 SUBDIRS=$(TST_DIR) $(DDR_DIR)
 DOXYFILE=$(DOX_DIR)/Doxyfile
 #==============================================================================
+# Specify list of directories that make should search for *.c and *.cpp
 vpath %.c $(SRC_DIR) ./
 vpath %.cpp $(SRC_DIR) ./
 
+# Default rule
 .DEFAULT_GOAL = build
 #------------------------------------------------------------------------------
-# Create dependencies
+# Generate dependencies
 
 $(BLD_DIR)/%.d: %.c
 	@echo $(PRINT_GENERATING)
@@ -56,7 +69,7 @@ $(BLD_DIR)/%.d: %.cpp
 	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
-# Create object files
+# Build object files
 
 $(BLD_DIR)/%.o: %.c
 	@echo $(PRINT_BUILDING)
@@ -67,15 +80,19 @@ $(BLD_DIR)/%.o: %.cpp
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
-# Create executables
+# Compile executables
 
 $(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
 	@echo $(PRINT_COMPILING)
 	@$(CXX) -o $@ $< $(OBJS) $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
+# Build sub directories
 BLD_SUBDIRS=$(addprefix build-,$(SUBDIRS))
 
+# call 'make build' in subdirectories
+# Despite is not shown in make help, user can execute 'make build-<subdir>'
+# Ex: $ make build-ddrivers
 $(BLD_SUBDIRS): build-%:
 	@$(MAKE) -s -C $* build
 
@@ -84,18 +101,15 @@ build: .setup $(PROGS) ## Compile the binary program
 build-all: build $(BLD_SUBDIRS) ## Compile all
 
 #------------------------------------------------------------------------------
-IP=10.42.0.254
-DIR=/etc
-# Export this variables for use in makefiles called recursively
-export IP
-export DIR
-
+# Transfer sub directories
 TRANSF_SUBDIRS=$(addprefix transfer-,$(SUBDIRS))
 .PHONY: $(TRANSF_SUBDIRS)
 
 # call 'make transfer' in subdirectories
+# Despite is not shown in make help, user can execute 'make transfer-<subdir>'
+# Ex: $ make transfer-ddrivers
 $(TRANSF_SUBDIRS): transfer-%:
-	@$(MAKE) -s -C $* transfer $(IP) $(DIR)
+	@$(MAKE) -s -C $* transfer
 
 # stuff just to make transferring files print prettier
 .PHONY: .print_transfer transfer $(PRINT_TARGET)	
@@ -125,6 +139,8 @@ clean: ## Delete main artifacts
 	@rm -rf $(BLD_DIR) $(BIN_DIR)
 
 # call 'make clean' in subdirectories
+# Despite is not shown in make help, user can execute 'make clean-<subdir>'
+# Ex: $ make clean-ddrivers
 $(CLEAN_SUBDIRS): clean-%:
 	@$(MAKE) -s -C $* clean
 
@@ -143,6 +159,7 @@ doc: ## Generate Doxygen documentation
 	@echo "$(CYAN)Copy of generated index.html in $(DOX_DIR)."
 
 #------------------------------------------------------------------------------
+# Make output (bin, build) directories
 .setup:
 	@mkdir -p $(BLD_DIR)
 	@mkdir -p $(BIN_DIR)
@@ -150,6 +167,5 @@ doc: ## Generate Doxygen documentation
 help: ## Generate list of targets with descriptions
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-15s $(RESET)%s\n", $$1, $$2}'
 
-.PHONY: build help
-# .PRECIOUS: $(BLD_DIR)/%.o $(BLD_DIR)/%.d
+.PHONY: .setup help
 #==============================================================================
