@@ -15,6 +15,7 @@ INC_DIR=./inc
 #------------------------------------------------------------------------------
 TST_DIR=tests
 DDR_DIR=ddrivers
+DOX_DIR=./doc/doxygen
 #------------------------------------------------------------------------------
 CXX 	=arm-buildroot-linux-gnueabihf-g++
 LIBS	=-lpthread -lbcm2835 -lrt
@@ -32,14 +33,12 @@ DEPS= $(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
 #------------------------------------------------------------------------------
 PROGS=$(addprefix $(BIN_DIR)/, localsys.elf dSensors.elf)
 SUBDIRS=$(TST_DIR) $(DDR_DIR)
+DOXYFILE=$(DOX_DIR)/Doxyfile
 #==============================================================================
 vpath %.c $(SRC_DIR) ./
 vpath %.cpp $(SRC_DIR) ./
 
 .DEFAULT_GOAL = build
-.PHONY: build
-build: setup $(PROGS) ## Compile the binary program
-
 #------------------------------------------------------------------------------
 # Create dependencies
 
@@ -71,20 +70,14 @@ $(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
 
 #------------------------------------------------------------------------------
 BLD_SUBDIRS=$(addprefix build-,$(SUBDIRS))
-.PHONY: $(BLD_SUBDIRS)
+.PHONY: build $(BLD_SUBDIRS)
+
+build: .setup $(PROGS) ## Compile the binary program
+
 $(BLD_SUBDIRS): build-%:
 	@$(MAKE) -s -C $* build
 
-#------------------------------------------------------------------------------
-CLEAN_SUBDIRS=$(addprefix clean-,$(SUBDIRS))
-.PHONY: clean $(CLEAN_SUBDIRS)
-
-clean: ## Delete built artifacts
-	@echo "${CYAN}Cleaning ... $(RESET)"
-	@rm -rf $(BLD_DIR) $(BIN_DIR)
-
-$(CLEAN_SUBDIRS): clean-%:
-	@$(MAKE) -s -C $* clean
+build-all: build $(BLD_SUBDIRS)
 
 #------------------------------------------------------------------------------
 IP=10.42.0.254
@@ -99,22 +92,48 @@ TRANSF_SUBDIRS=$(addprefix transfer-,$(SUBDIRS))
 $(TRANSF_SUBDIRS): transfer-%:
 	@$(MAKE) -s -C $* transfer $(IP) $(DIR)
 
-# stuff just to print transferring files prettier
-.PHONY: print_transfer transfer $(PRINT_TARGET)	
+# stuff just to make transferring files print prettier
+.PHONY: .print_transfer transfer $(PRINT_TARGET)	
 TARGET=$(BIN_DIR)/*
 PRINT_TARGET=$(addprefix print-, $(wildcard $(TARGET)))
 
 $(PRINT_TARGET): print-$(BIN_DIR)/%:
 	@echo "$(CYAN)"$*"$(RESET)"
 
-print_transfer:
+.print_transfer:
 	@echo "Transfering to $(IP) into $(DIR)..."
 
-transfer: print_transfer $(PRINT_TARGET)
+transfer: .print_transfer $(PRINT_TARGET)
 	@scp $(TARGET) root@$(IP):$(DIR)
 
+transfer-all: transfer $(TRANSF_SUBDIRS)
+
 #------------------------------------------------------------------------------
-setup:
+CLEAN_SUBDIRS=$(addprefix clean-,$(SUBDIRS))
+.PHONY: clean $(CLEAN_SUBDIRS)
+
+clean: ## Delete built artifacts
+	@echo "${CYAN}Cleaning ... $(RESET)"
+	@rm -rf $(BLD_DIR) $(BIN_DIR)
+
+$(CLEAN_SUBDIRS): clean-%:
+	@$(MAKE) -s -C $* clean
+
+clean-all: clean $(CLEAN_SUBDIRS)
+
+clean-doc:
+	@echo "$(CYAN)Cleaning Doxyfile docs ...$(RESET)"
+	@rm -rf $(DOX_DIR)/html $(DOX_DIR)/latex $(DOX_DIR)/index.html
+#------------------------------------------------------------------------------
+.PHONY: doc # Generate the documentation
+doc:
+	@echo "$(GREEN)Generating documentation ...$(RESET)"
+	@doxygen $(DOXYFILE)
+	@cp $(DOX_DIR)/html/index.html $(DOX_DIR)/
+	@echo "$(CYAN)Copy of generated index.html in $(DOX_DIR)."
+
+#------------------------------------------------------------------------------
+.setup:
 	@mkdir -p $(BLD_DIR)
 	@mkdir -p $(BIN_DIR)
 

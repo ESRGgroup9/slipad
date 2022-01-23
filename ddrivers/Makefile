@@ -3,7 +3,7 @@ GREEN	=\033[0;32m
 CYAN	=\033[0;36m
 RESET	=\033[0m
 
-PRINT_BUILDING="${GREEN}Building $(shell basename $@) ...$(RESET)"
+PRINT_BUILDING="${GREEN}Building $(shell basename $@).ko ...$(RESET)"
 #------------------------------------------------------------------------------
 SUBDIRS=pir lampf
 #==============================================================================
@@ -22,7 +22,7 @@ CLEAN_SUBDIRS = $(addprefix clean-,$(SUBDIRS))
 .PHONY: clean $(CLEAN_SUBDIRS)
 clean: $(CLEAN_SUBDIRS) ## Delete built artifacts
 $(CLEAN_SUBDIRS): clean-%:
-	@echo "${CYAN}Cleaning $* ...$(RESET)"
+	@echo "${CYAN}Cleaning ddriver-$* ...$(RESET)"
 	@$(MAKE) -s -C $* clean
 
 #------------------------------------------------------------------------------
