@@ -10,7 +10,8 @@
 #include <unistd.h>
 
 const int CTCPserver::maxNumClients = 5;
-
+int CTCPserver::numClients = 0;
+ 
 CTCPserver::CTCPserver(int port)
 {
 	this->port = port;
@@ -25,6 +26,8 @@ CTCPserver::CTCPserver(int port)
 	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
 	// Translate an unsigned short integer into network byte order
+	// x86 is litle-endian
+	// network-order is big-endian
 	addr.sin_port = htons(port);;
 	// any interface
 	addr.sin_addr.s_addr = INADDR_ANY;
@@ -50,33 +53,35 @@ CTCPserver::~CTCPserver()
 
 int CTCPserver::accept()
 {
-	int n = sizeof(addr);
-	// accept connections
-	int sd = accept(listen_sd, (struct sockaddr*)&addr, &n);
+	socklen_t n = sizeof(addr);
+	// // accept connections
+	int sd = ::accept(listenSd, (struct sockaddr*)&addr, &n);
+	int num_clients = 0;
 
-	if((sd != -1) && (num_clients < MAX_CLIENT_NUM))
+	if((sd != -1) && (num_clients < maxNumClients))
 	{
-		pthread_t child_recv;
+		// pthread_t child_recv;
 
-		socket_table[num_clients].sockfd = sd;
-		socket_table[num_clients].state = CLIENT_ALIVE;
-		socket_table[num_clients].index = num_clients;
+		// socket_table[num_clients].sockfd = sd;
+		// socket_table[num_clients].state = CLIENT_ALIVE;
+		// socket_table[num_clients].index = num_clients;
 
-		// send ID to new client(index in socket table)
-		char msg[16];
-		// send ID in 'ID' field
-		snprintf(msg, sizeof(msg), "ID;%d", num_clients);
-		send(socket_table[num_clients].sockfd, msg, strlen(msg)+1, 0);
+		// // send ID to new client(index in socket table)
+		// char msg[16];
+		// // send ID in 'ID' field
+		// snprintf(msg, sizeof(msg), "ID;%d", num_clients);
+		// send(socket_table[num_clients].sockfd, msg, strlen(msg)+1, 0);
 
-		printf("Client(%d) connected (%d slots available)\n", sd, MAX_CLIENT_NUM - (num_clients+1));
-		// create thread to receive this socket's information
-		pthread_create(&child_recv, 0, thread_recv, &socket_table[num_clients]);
-		num_clients++;
+		// printf("Client(%d) connected (%d slots available)\n", sd, MAX_CLIENT_NUM - (num_clients+1));
+		// // create thread to receive this socket's information
+		// pthread_create(&child_recv, 0, thread_recv, &socket_table[num_clients]);
+		// num_clients++;
 
-		// dont track this
-		pthread_detach(child_recv);
-	} else
+		// // dont track this
+		// pthread_detach(child_recv);
+	}
+	else
 		printf("Cannot accept new connection\n");
-		
+
 	return 0;
 }

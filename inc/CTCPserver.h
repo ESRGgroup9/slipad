@@ -2,6 +2,7 @@
 #define __CTCPSERVER_H__
 
 #include <arpa/inet.h> // sockaddr_in
+#include <vector>
 
 class CTCPserver
 {
@@ -13,7 +14,9 @@ public:
 
 private:
 	static const int maxNumClients;
+	static int numClients;
 	
+	std::vector<int> clients;
 	int listenSd;
 	int port;
 	struct sockaddr_in addr;
