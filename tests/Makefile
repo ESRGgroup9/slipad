@@ -67,17 +67,22 @@ $(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
 	@$(CXX) -o $@ $< $(OBJS) $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
-IP=10.42.0.254
-DIR=/etc
-TEST=
+# stuff just to print transferring files prettier
+.PHONY: print_transfer transfer $(PRINT_TARGET)	
+TEST=*
 TARGET=$(BIN_DIR)/$(TEST)
+PRINT_TARGET=$(addprefix print-, $(wildcard $(TARGET)))
 
-transfer: ## Transfer TARGET=<file> to IP=<ip> into DIR=<dir> directory
-	@echo "Transfering:"
-	@echo "${GREEN}"$(shell ls $(TARGET))
-	@echo "$(RESET)To $(IP) into $(DIR)..."
+$(PRINT_TARGET): print-$(BIN_DIR)/%:
+	@echo "$(CYAN)"$*"$(RESET)"
+
+print_transfer:
+	@echo "Transfering to $(IP) into $(DIR)..."
+
+transfer: print_transfer $(PRINT_TARGET)
 	@scp $(TARGET) root@$(IP):$(DIR)
 
+#------------------------------------------------------------------------------
 setup:
 	@mkdir -p $(BLD_DIR)
 	@mkdir -p $(BIN_DIR)

@@ -26,19 +26,23 @@ $(CLEAN_SUBDIRS): clean-%:
 	@$(MAKE) -s -C $* clean
 
 #------------------------------------------------------------------------------
-IP=10.42.0.254
-DIR=/etc
+# stuff just to print transferring files prettier
+.PHONY: print_transfer transfer $(PRINT_TARGET)	$(TARGETS)
 TARGETS=$(shell find $(SUBDIRS) -name "*.ko")
+PRINT_TARGET=$(addprefix print-, $(wildcard $(TARGETS)))
 
-.PHONY: transfer $(TRANSFSUBDIRS)
-transfer: ## Transfer *.ko to IP into DIR
+$(PRINT_TARGET): print-%:
+	@echo "$(CYAN)"$*"$(RESET)"
+
+print_transfer:
 	@echo "Transfering to $(IP) into $(DIR)..."
-	@echo "$(GREEN)$(TARGETS) $(RESET)"
+
+transfer: print_transfer $(PRINT_TARGET)
 	@scp $(TARGETS) root@$(IP):$(DIR)
 
 #------------------------------------------------------------------------------
 .PHONY: help
 help: ## Generate list of targets with descriptions
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-15s $(RESET)%s\n", $$1, $$2}'
 
 #==============================================================================
