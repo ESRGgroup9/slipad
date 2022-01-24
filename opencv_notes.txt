@@ -39,6 +39,16 @@ Target packages -> Libraries -> Hardware handling -> libv4l
 
 Target packages -> Libraries -> Hardware handling -> bcm2835
 
+Target packages → Libraries → Graphics -> jpeg support
+
+Target packages → Audio and video applications -> v4l2grab 
+
+Target packages → Audio and video applications -> gstreamer 1.x
+
+Target packages → Audio and video applications → gst1-plugins-bad -> camerabin2
+
+Target packages → Audio and video applications → gst1-plugins-bad -> v4lcodecs
+
 Na pasta do buildroot:
 	$ make clean
 	$ make
