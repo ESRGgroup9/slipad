@@ -1,0 +1,68 @@
+\hypertarget{_c_local_system_8h_source}{}\doxysection{CLocal\+System.\+h}
+\label{_c_local_system_8h_source}\index{inc/CLocalSystem.h@{inc/CLocalSystem.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_CLOCALSYSTEM\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_CLOCALSYSTEM\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}CLamp.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_lora_comm_8h}{CLoraComm.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00006}00006 \textcolor{preprocessor}{\#include "{}CCamera.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00007}00007 \textcolor{preprocessor}{\#include "{}CParkDetection.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00008}00008 \textcolor{preprocessor}{\#include "{}timer.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00009}00009 \textcolor{preprocessor}{\#include "{}parser.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00011}00011 \textcolor{preprocessor}{\#include <pthread.h>}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00012}00012 \textcolor{preprocessor}{\#include <mqueue.h>} \textcolor{comment}{// mqd\_t}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00014}\mbox{\hyperlink{class_c_local_system}{00014}} \textcolor{keyword}{class }\mbox{\hyperlink{class_c_local_system}{CLocalSystem}} }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00015}00015 \{}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00016}00016 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00017}00017     \mbox{\hyperlink{class_c_local_system}{CLocalSystem}}();}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00018}00018     \mbox{\hyperlink{class_c_local_system}{\string~CLocalSystem}}();}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00020}00020     \textcolor{keywordtype}{void} run();}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00022}00022 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00023}00023     \textcolor{keyword}{static} \textcolor{keywordtype}{void} *tLoraRecv(\textcolor{keywordtype}{void}*);}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00024}00024     \textcolor{keyword}{static} \textcolor{keywordtype}{void} *tRecvSensors(\textcolor{keywordtype}{void}*);}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00025}00025     \textcolor{keyword}{static} \textcolor{keywordtype}{void} *tParkDetection(\textcolor{keywordtype}{void}*);}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00027}00027 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00028}00028     \textcolor{keyword}{static} \mbox{\hyperlink{class_c_local_system}{CLocalSystem}}* thisPtr;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00029}00029     }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00030}00030     \textcolor{keyword}{static} \textcolor{keywordtype}{void} sigHandler(\textcolor{keywordtype}{int} sig);}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00031}00031     \textcolor{keyword}{static} \textcolor{keywordtype}{void} timHandler(\textcolor{keyword}{union} sigval arg);}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00033}00033     \textcolor{keywordtype}{void} timCamFrameISR();}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00034}00034     \textcolor{keywordtype}{void} timCamProcISR();}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00035}00035     \textcolor{keywordtype}{void} timLampOnISR();}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00037}00037 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00038}00038     \mbox{\hyperlink{class_c_lamp}{CLamp}} lamp;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00039}00039     \mbox{\hyperlink{class_c_lora_comm}{CLoraComm}} lora;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00040}00040     \mbox{\hyperlink{class_c_camera}{CCamera}} camera;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00041}00041     \mbox{\hyperlink{class_c_park_detection}{CParkDetection}} park;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00043}00043     pthread\_t tLoraRecv\_id;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00044}00044     pthread\_t tRecvSensors\_id;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00045}00045     pthread\_t tParkDetection\_id;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00047}00047     pthread\_mutex\_t mutRecvSensors;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00048}00048     pthread\_mutex\_t mutCamFrame;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00049}00049     }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00050}00050     pthread\_cond\_t condRecvSensors;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00051}00051     pthread\_cond\_t condCamFrame; }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00053}00053     \mbox{\hyperlink{class_timer}{Timer}} timCamFrame;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00054}00054     \mbox{\hyperlink{class_timer}{Timer}} timCamProc;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00055}00055     \mbox{\hyperlink{class_timer}{Timer}} timLampOn;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00056}00056     }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00057}00057     mqd\_t msgqSensors;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00058}00058     \mbox{\hyperlink{class_parser}{Parser}} loraParser;}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00059}00059 \};}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00060}00060 \textcolor{comment}{// End CLocalSystem class definition}}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_c_local_system_8h_source_l00062}00062 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_CLOCALSYSTEM\_H\_\_}}
+
+\end{DoxyCode}

@@ -3,7 +3,7 @@
 
 #include "CCommunication.h"
 #include <string>
-#include <arpa/inet.h> // sockaddr_in
+#include <netdb.h> // sockaddr_in
 
 class CTCPclient : public CCommunication
 {

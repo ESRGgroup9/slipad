@@ -1,0 +1,196 @@
+\hypertarget{class_c_communication}{}\doxysection{CCommunication Class Reference}
+\label{class_c_communication}\index{CCommunication@{CCommunication}}
+
+
+Inheritance diagram for CCommunication\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{class_c_communication__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for CCommunication\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{class_c_communication__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}{init}} (int tprio)
+\item 
+void \mbox{\hyperlink{class_c_communication_a05e0ffe612d44e6d7f3a9ae5b9df56a2}{run}} (void)
+\item 
+Conn\+Status \mbox{\hyperlink{class_c_communication_acc857199d21ac73175bfc772bff814bf}{get\+Status}} (void) const
+\item 
+void \mbox{\hyperlink{class_c_communication_a1de846382f3fe0260a457f231935945f}{push}} (std\+::string msg)
+\item 
+int \mbox{\hyperlink{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}{send}} (std\+::string msg)
+\item 
+int \mbox{\hyperlink{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}{recv}} (std\+::string \&msg)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual int \mbox{\hyperlink{class_c_communication_a4026ebe281d4eba1f6ef98bc775df9b0}{recv\+Func}} (std\+::string \&msg)=0
+\item 
+virtual int \mbox{\hyperlink{class_c_communication_a734f26ff5d7c1e339d0dfb8d997aea35}{send\+Func}} (std\+::string msg)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void $\ast$ \mbox{\hyperlink{class_c_communication_ae50ad187d2820455d4d2f10b47760a59}{t\+Send}} (void $\ast$)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Conn\+Status \mbox{\hyperlink{class_c_communication_a1ff1b8e549c442417d1b819b259efd65}{status}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8h_source_l00026}{26}} of file \mbox{\hyperlink{_c_communication_8h_source}{CCommunication.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_communication_a9b40a76054d08aa93ae7f102c2f9ffbd}\label{class_c_communication_a9b40a76054d08aa93ae7f102c2f9ffbd}} 
+\index{CCommunication@{CCommunication}!CCommunication@{CCommunication}}
+\index{CCommunication@{CCommunication}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{CCommunication()}{CCommunication()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_c_communication}{CCommunication}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_affc53d8a882ef5c7973777ab0b33b2d6}\label{class_c_communication_affc53d8a882ef5c7973777ab0b33b2d6}} 
+\index{CCommunication@{CCommunication}!````~CCommunication@{$\sim$CCommunication}}
+\index{````~CCommunication@{$\sim$CCommunication}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{$\sim$CCommunication()}{~CCommunication()}}
+{\footnotesize\ttfamily $\sim$\mbox{\hyperlink{class_c_communication}{CCommunication}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00024}{24}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_communication_acc857199d21ac73175bfc772bff814bf}\label{class_c_communication_acc857199d21ac73175bfc772bff814bf}} 
+\index{CCommunication@{CCommunication}!getStatus@{getStatus}}
+\index{getStatus@{getStatus}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{getStatus()}{getStatus()}}
+{\footnotesize\ttfamily Conn\+Status get\+Status (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00041}{41}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}\label{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}} 
+\index{CCommunication@{CCommunication}!init@{init}}
+\index{init@{init}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void init (\begin{DoxyParamCaption}\item[{int}]{tprio }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00029}{29}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_a1de846382f3fe0260a457f231935945f}\label{class_c_communication_a1de846382f3fe0260a457f231935945f}} 
+\index{CCommunication@{CCommunication}!push@{push}}
+\index{push@{push}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily void push (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00046}{46}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}\label{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}} 
+\index{CCommunication@{CCommunication}!recv@{recv}}
+\index{recv@{recv}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{recv()}{recv()}}
+{\footnotesize\ttfamily int recv (\begin{DoxyParamCaption}\item[{std\+::string \&}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00066}{66}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_a4026ebe281d4eba1f6ef98bc775df9b0}\label{class_c_communication_a4026ebe281d4eba1f6ef98bc775df9b0}} 
+\index{CCommunication@{CCommunication}!recvFunc@{recvFunc}}
+\index{recvFunc@{recvFunc}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{recvFunc()}{recvFunc()}}
+{\footnotesize\ttfamily virtual int recv\+Func (\begin{DoxyParamCaption}\item[{std\+::string \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{CLora\+Comm}}.
+
+\mbox{\Hypertarget{class_c_communication_a05e0ffe612d44e6d7f3a9ae5b9df56a2}\label{class_c_communication_a05e0ffe612d44e6d7f3a9ae5b9df56a2}} 
+\index{CCommunication@{CCommunication}!run@{run}}
+\index{run@{run}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void run (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00036}{36}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}\label{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}} 
+\index{CCommunication@{CCommunication}!send@{send}}
+\index{send@{send}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily int send (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00055}{55}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_a734f26ff5d7c1e339d0dfb8d997aea35}\label{class_c_communication_a734f26ff5d7c1e339d0dfb8d997aea35}} 
+\index{CCommunication@{CCommunication}!sendFunc@{sendFunc}}
+\index{sendFunc@{sendFunc}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{sendFunc()}{sendFunc()}}
+{\footnotesize\ttfamily virtual int send\+Func (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}{CLora\+Comm}}.
+
+\mbox{\Hypertarget{class_c_communication_ae50ad187d2820455d4d2f10b47760a59}\label{class_c_communication_ae50ad187d2820455d4d2f10b47760a59}} 
+\index{CCommunication@{CCommunication}!tSend@{tSend}}
+\index{tSend@{tSend}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{tSend()}{tSend()}}
+{\footnotesize\ttfamily void $\ast$ t\+Send (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00077}{77}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{class_c_communication_a1ff1b8e549c442417d1b819b259efd65}\label{class_c_communication_a1ff1b8e549c442417d1b819b259efd65}} 
+\index{CCommunication@{CCommunication}!status@{status}}
+\index{status@{status}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{status}{status}}
+{\footnotesize\ttfamily Conn\+Status status\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8h_source_l00042}{42}} of file \mbox{\hyperlink{_c_communication_8h_source}{CCommunication.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inc/CCommunication.\+h\item 
+src/CCommunication.\+cpp\end{DoxyCompactItemize}

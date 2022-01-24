@@ -1,0 +1,70 @@
+\hypertarget{_c_lamp_8cpp_source}{}\doxysection{CLamp.\+cpp}
+\label{_c_lamp_8cpp_source}\index{src/CLamp.cpp@{src/CLamp.cpp}}
+\mbox{\hyperlink{_c_lamp_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00017}00017 \textcolor{preprocessor}{\#include "{}CLamp.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00019}00019 \textcolor{preprocessor}{\#include "{}utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00020}00020 \textcolor{preprocessor}{\#include <bcm2835.h>}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00025}\mbox{\hyperlink{_c_lamp_8cpp_af5a48adc9d939102a42f2829b7a1b8ac}{00025}} \textcolor{preprocessor}{\#define PWM\_PIN     (RPI\_GPIO\_P1\_12)}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00026}00026 \textcolor{preprocessor}{\#define PWM\_CHANNEL (0)}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00027}00027 \textcolor{preprocessor}{\#define RANGE       (67500)}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00029}00029 CLamp::CLamp()}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00030}00030 \{}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00031}00031     \textcolor{keywordflow}{if} (!bcm2835\_init())}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00032}00032         panic(\textcolor{stringliteral}{"{}Error bcm2835 init"{}});}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00034}00034     pwmVal = 0;}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00036}00036     \textcolor{comment}{// PWM Generation Initialization}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00037}00037     \textcolor{comment}{// Set the output pin to Alt Fun 5, to allow PWM channel 0 to be output there}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00038}00038     bcm2835\_gpio\_fsel(\mbox{\hyperlink{_c_lamp_8cpp_af5a48adc9d939102a42f2829b7a1b8ac}{PWM\_PIN}}, BCM2835\_GPIO\_FSEL\_ALT5);}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00039}00039     \textcolor{comment}{// set clock divider}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00040}00040     bcm2835\_pwm\_set\_clock(BCM2835\_PWM\_CLOCK\_DIVIDER\_16);}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00041}00041     \textcolor{comment}{//CTL reg}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00042}00042     bcm2835\_pwm\_set\_mode(PWM\_CHANNEL, 1, 1);}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00043}00043     \textcolor{comment}{//RNG1/2 reg}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00044}00044     bcm2835\_pwm\_set\_range(PWM\_CHANNEL, RANGE);}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00046}00046     \textcolor{keywordflow}{if}(pthread\_mutex\_init(\&mutChangePWM, NULL) != 0)}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00047}00047         panic(\textcolor{stringliteral}{"{}CLamp::CLamp(): Mutex init"{}});}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00048}00048 \}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00050}00050 CLamp::\string~CLamp()}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00051}00051 \{}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00053}00053 \}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00059}\mbox{\hyperlink{class_c_lamp_aac174a0cd7523a281d5fda5c105e4039}{00059}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_lamp_aac174a0cd7523a281d5fda5c105e4039}{CLamp::setBrightness}}(uint8\_t lux)}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00060}00060 \{}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00061}00061     \textcolor{keywordflow}{if}(lux > 100)}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00062}00062     \{}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00063}00063         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00064}00064     \}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00066}00066     \textcolor{keywordtype}{float} duty = lux/100;}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00067}00067     pthread\_mutex\_lock(\&mutChangePWM);}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00068}00068     pwmVal = lux;}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00069}00069     bcm2835\_pwm\_set\_data(PWM\_CHANNEL, (duty*RANGE));}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00070}00070     pthread\_mutex\_unlock(\&mutChangePWM);}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00071}00071 \}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00073}00073 uint8\_t CLamp::getBrightness(\textcolor{keywordtype}{void})\textcolor{keyword}{ const}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00074}00074 \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00075}00075     \textcolor{keywordflow}{return} pwmVal;}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00076}00076 \}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00078}00078 \textcolor{keywordtype}{void} CLamp::on(uint8\_t lux)}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00079}00079 \{}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00080}00080     \mbox{\hyperlink{class_c_lamp_aac174a0cd7523a281d5fda5c105e4039}{setBrightness}}(lux);}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00081}00081 \}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00083}00083 \textcolor{keywordtype}{void} CLamp::off(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00084}00084 \{}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00085}00085     \mbox{\hyperlink{class_c_lamp_aac174a0cd7523a281d5fda5c105e4039}{setBrightness}}(PWM\_OFF);}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8cpp_source_l00086}00086 \}}
+
+\end{DoxyCode}

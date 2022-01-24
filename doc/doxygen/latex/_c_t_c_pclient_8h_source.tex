@@ -1,0 +1,37 @@
+\hypertarget{_c_t_c_pclient_8h_source}{}\doxysection{CTCPclient.\+h}
+\label{_c_t_c_pclient_8h_source}\index{inc/CTCPclient.h@{inc/CTCPclient.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_CTCPCLIENT\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_CTCPCLIENT\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}CCommunication.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00006}00006 \textcolor{preprocessor}{\#include <netdb.h>} \textcolor{comment}{// sockaddr\_in}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00008}\mbox{\hyperlink{class_c_t_c_pclient}{00008}} \textcolor{keyword}{class }\mbox{\hyperlink{class_c_t_c_pclient}{CTCPclient}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_c_communication}{CCommunication}}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00009}00009 \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00010}00010 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00011}00011     \mbox{\hyperlink{class_c_t_c_pclient}{CTCPclient}}(std::string host, \textcolor{keywordtype}{int} port);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00012}00012     \mbox{\hyperlink{class_c_t_c_pclient}{\string~CTCPclient}}();}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00014}00014     \textcolor{keywordtype}{int} connect();}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00016}00016     std::string getHost(\textcolor{keywordtype}{void}) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00017}00017     \textcolor{keywordtype}{int} getPort(\textcolor{keywordtype}{void}) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00019}00019 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00020}00020     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} recvFunc(std::string \&msg);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00021}00021     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} sendFunc(std::string msg);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00023}00023 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00024}00024     \textcolor{keywordtype}{int} sockfd;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00025}00025     \textcolor{keywordtype}{int} port;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00026}00026     std::string host;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00027}00027     \textcolor{keyword}{struct }sockaddr\_in addr;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00028}00028 \};}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00029}00029 \textcolor{comment}{// End CTCPclient class definition}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8h_source_l00031}00031 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_CTCPCLIENT\_H\_\_}}
+
+\end{DoxyCode}

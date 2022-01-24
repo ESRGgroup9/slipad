@@ -40,7 +40,7 @@ CTCPclient::CTCPclient(std::string host, int port)
 	// get host name
 	char str[32];
 	gethostname(str, sizeof(str));
-	DEBUG_MSG("[CTCPclient::CTCPclient] '" << str << "' set to connect to " << host << ":" << port);
+	DEBUG_MSG("[CTCPclient] '" << str << "' set to connect to " << host << ":" << port);
 
 	// set status
 	this->status = ConnStatus::ONLINE;
@@ -60,7 +60,7 @@ int CTCPclient::connect()
 	int ret = 0;
 	int err = 0;
 
-	DEBUG_MSG("[CTCPclient::connect] Connecting to server " << host << ":" << port << "...");
+	DEBUG_MSG("[CTCPclient::connect] Connecting to " << host << ":" << port << " ...");
 	// connect to server
 	do
 	{
@@ -74,16 +74,17 @@ int CTCPclient::connect()
 		DEBUG_MSG("[CTCPclient::connect] Connection successful");	
 	}
 
-	DEBUG_MSG("[CTCPclient::connect] Exit with return error[" << ret << "] errno[" << err << "]");
+	// DEBUG_MSG("[CTCPclient::connect] Exit with return error[" << ret << "] errno[" << err << "]");
 	return ret;
 }
 
 int CTCPclient::recvFunc(std::string &msg)
 {
 	int err = 0;
+	char buffer[128];
 
 	// recv message from server
-	err = ::recv(sockfd, &msg.front(), msg.size(), 0);
+	err = ::recv(sockfd, &buffer, sizeof(buffer), 0);
 	if(err == -1)
 	{
 		err = errno;
@@ -91,12 +92,16 @@ int CTCPclient::recvFunc(std::string &msg)
 		// error caused by the lack of messages to read?
 		if(err != EAGAIN)
 		{
-			ERROR_MSG("[CTCPclient::recvFunc] in recv()  - errno[" << err << "]");
+			// DEBUG_MSG("[CTCPclient::recvFunc] in recv()  - errno[" << err << "]");
 		}
-
-		return -1;
 	}
-	// else, return the number of bytes read
+	else
+	{
+		// else, return the number of bytes read
+		// copy received message to msg
+		msg = string(buffer);
+	}
+	
 	return err;
 }
 

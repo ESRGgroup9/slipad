@@ -1,0 +1,35 @@
+\hypertarget{_c_remote_client_8h_source}{}\doxysection{CRemote\+Client.\+h}
+\label{_c_remote_client_8h_source}\index{inc/CRemoteClient.h@{inc/CRemoteClient.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_CREMOTECLIENT\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_CREMOTECLIENT\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00004}00004 \textcolor{keyword}{enum class} clientType}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00005}00005 \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00006}00006     GATEWAY,}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00007}00007     WEBSITE,}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00008}00008     APPLICATION}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00009}00009 \};}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00011}\mbox{\hyperlink{structclient_socket_info}{00011}} \textcolor{keyword}{struct }\mbox{\hyperlink{structclient_socket_info}{clientSocketInfo}}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00012}00012 \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00013}00013     \textcolor{keywordtype}{int} state;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00014}00014     \textcolor{keywordtype}{int} index;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00015}00015     \textcolor{keywordtype}{string} name;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00016}00016     \textcolor{keywordtype}{int} sockfd;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00017}00017     \textcolor{keyword}{enum class} clientType type;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00018}00018 \};}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00020}\mbox{\hyperlink{class_c_remote_client}{00020}} \textcolor{keyword}{class }\mbox{\hyperlink{class_c_remote_client}{CRemoteClient}}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00021}00021 \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00022}00022 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00023}00023     \mbox{\hyperlink{class_c_remote_client}{CRemoteClient}}();}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00024}00024     \mbox{\hyperlink{class_c_remote_client}{\string~CRemoteClient}}(); }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00027}00027 \};}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8h_source_l00029}00029 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_CREMOTECLIENT\_H\_\_}}
+
+\end{DoxyCode}

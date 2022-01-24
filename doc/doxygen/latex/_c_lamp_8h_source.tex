@@ -1,0 +1,34 @@
+\hypertarget{_c_lamp_8h_source}{}\doxysection{CLamp.\+h}
+\label{_c_lamp_8h_source}\index{inc/CLamp.h@{inc/CLamp.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_CLAMP\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_CLAMP\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00004}00004 \textcolor{preprocessor}{\#include <pthread.h>}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00007}00007 \textcolor{preprocessor}{\#define PWM\_MAX     (100)}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00008}00008 \textcolor{preprocessor}{\#define PWM\_OFF     (0)}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00010}\mbox{\hyperlink{class_c_lamp}{00010}} \textcolor{keyword}{class }\mbox{\hyperlink{class_c_lamp}{CLamp}}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00011}00011 \{}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00012}00012 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00013}00013     \mbox{\hyperlink{class_c_lamp}{CLamp}}();}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00014}00014     \mbox{\hyperlink{class_c_lamp}{\string~CLamp}}();}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00016}00016     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_lamp_aac174a0cd7523a281d5fda5c105e4039}{setBrightness}}(uint8\_t lux);}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00017}00017     uint8\_t getBrightness(\textcolor{keywordtype}{void}) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00019}00019     \textcolor{keywordtype}{void} on(uint8\_t lux);}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00020}00020     \textcolor{keywordtype}{void} off(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00022}00022 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00023}00023     pthread\_mutex\_t mutChangePWM;}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00024}00024     uint8\_t pwmVal; \textcolor{comment}{// BE CAREFUL uint8\_t}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00025}00025 \};}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00026}00026 \textcolor{comment}{// End CLamp class definition}}
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_c_lamp_8h_source_l00028}00028 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_CLAMP\_H\_\_}}
+
+\end{DoxyCode}

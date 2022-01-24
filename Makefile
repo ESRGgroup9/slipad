@@ -39,12 +39,12 @@ INCLDS	=-I $(INC_DIR)
 CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
 #------------------------------------------------------------------------------
 # Select all source files: *.c and *.cpp files
-SRC= $(wildcard $(SRC_DIR)/*.c*)
+SRC=$(wildcard $(SRC_DIR)/*.c*)
 # Set object files with the name from source file to BLD_DIR/*.o
 OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%.o,$(SRC)))
 OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
 # Set dependency files with the name from the objects to BLD_DIR/*.d
-DEPS= $(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
+DEPS=$(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
 #------------------------------------------------------------------------------
 # PROGS: find *.cpp in current dir and use their name in format BIN_DIR/*.elf
 PROGS= $(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
@@ -52,14 +52,16 @@ SUBDIRS=$(TST_DIR) $(DDR_DIR)
 DOXYFILE=$(DOX_DIR)/Doxyfile
 #==============================================================================
 # Specify list of directories that make should search for *.c and *.cpp
-vpath %.c $(SRC_DIR) ./
-vpath %.cpp $(SRC_DIR) ./
+vpath %.c $(SRC_DIR) .
+vpath %.cpp $(SRC_DIR) .
+vpath %.h $(INC_DIR)
 
 # Default rule
 .DEFAULT_GOAL = build
 #------------------------------------------------------------------------------
 # Generate dependencies
 
+# -M flag looks at the #include lines in the source files
 $(BLD_DIR)/%.d: %.c
 	@echo $(PRINT_GENERATING)
 	@$(CXX) -M $< -o $@ $(CXXFLAGS)
@@ -82,12 +84,14 @@ $(BLD_DIR)/%.o: %.cpp
 #------------------------------------------------------------------------------
 # Compile executables
 
+# Add PROG build files .o and .d to the prerequesites
 $(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
 	@echo $(PRINT_COMPILING)
 	@$(CXX) -o $@ $< $(OBJS) $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
 # Build sub directories
+.PHONY: build $(BLD_SUBDIRS)
 BLD_SUBDIRS=$(addprefix build-,$(SUBDIRS))
 
 # call 'make build' in subdirectories
@@ -96,7 +100,6 @@ BLD_SUBDIRS=$(addprefix build-,$(SUBDIRS))
 $(BLD_SUBDIRS): build-%:
 	@$(MAKE) -s -C $* build
 
-.PHONY: build $(BLD_SUBDIRS)
 build: .setup $(PROGS) ## Compile the binary program
 build-all: build $(BLD_SUBDIRS) ## Compile all
 
@@ -148,15 +151,13 @@ clean-all: clean $(CLEAN_SUBDIRS) ## Delete all built artifacts
 
 clean-doc: ## Delete Doxygen built artifacts
 	@echo "$(CYAN)Cleaning Doxyfile docs ...$(RESET)"
-	@rm -rf $(DOX_DIR)/html $(DOX_DIR)/latex $(DOX_DIR)/index.html
+	@rm -rf $(DOX_DIR)/html $(DOX_DIR)/latex
 
 #------------------------------------------------------------------------------
 .PHONY: doc
 doc: ## Generate Doxygen documentation
 	@echo "$(GREEN)Generating documentation ...$(RESET)"
 	@doxygen $(DOXYFILE)
-	@cp $(DOX_DIR)/html/index.html $(DOX_DIR)/
-	@echo "$(CYAN)Copy of generated index.html in $(DOX_DIR)."
 
 #------------------------------------------------------------------------------
 # Make output (bin, build) directories

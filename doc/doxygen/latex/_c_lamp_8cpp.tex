@@ -1,0 +1,75 @@
+\hypertarget{_c_lamp_8cpp}{}\doxysection{src/\+CLamp.cpp File Reference}
+\label{_c_lamp_8cpp}\index{src/CLamp.cpp@{src/CLamp.cpp}}
+
+
+Class to control the luminosity of the lamp.  
+
+
+{\ttfamily \#include \char`\"{}CLamp.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}utils.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$bcm2835.\+h$>$}\newline
+Include dependency graph for CLamp.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{_c_lamp_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_c_lamp_8cpp_af5a48adc9d939102a42f2829b7a1b8ac}{PWM\+\_\+\+PIN}}~(RPI\+\_\+\+GPIO\+\_\+\+P1\+\_\+12)
+\item 
+\#define \mbox{\hyperlink{_c_lamp_8cpp_acd1dba11989277eab79a76f9f2731bf9}{PWM\+\_\+\+CHANNEL}}~(0)
+\item 
+\#define \mbox{\hyperlink{_c_lamp_8cpp_ac04dd0afaf7ea3eb2ade2544d2d5f907}{RANGE}}~(67500)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class to control the luminosity of the lamp. 
+
+\begin{DoxyAuthor}{Author}
+Diogo Fernandes, Tomás Abreu 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+
+\end{DoxyDate}
+Detailed Description PWM Generation\+: Oscillator 54 MHz. With a divider of 16 in MARKSPACE mode, and a pulse repetition frequency of 50 Hz\+: 54 MHz / 16 = 3,375 MHz RANGE = 3,375MHz / 50 Hz RANGE = 67500 
+
+Definition in file \mbox{\hyperlink{_c_lamp_8cpp_source}{CLamp.\+cpp}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_c_lamp_8cpp_acd1dba11989277eab79a76f9f2731bf9}\label{_c_lamp_8cpp_acd1dba11989277eab79a76f9f2731bf9}} 
+\index{CLamp.cpp@{CLamp.cpp}!PWM\_CHANNEL@{PWM\_CHANNEL}}
+\index{PWM\_CHANNEL@{PWM\_CHANNEL}!CLamp.cpp@{CLamp.cpp}}
+\doxysubsubsection{\texorpdfstring{PWM\_CHANNEL}{PWM\_CHANNEL}}
+{\footnotesize\ttfamily \#define PWM\+\_\+\+CHANNEL~(0)}
+
+
+
+Definition at line \mbox{\hyperlink{_c_lamp_8cpp_source_l00026}{26}} of file \mbox{\hyperlink{_c_lamp_8cpp_source}{CLamp.\+cpp}}.
+
+\mbox{\Hypertarget{_c_lamp_8cpp_af5a48adc9d939102a42f2829b7a1b8ac}\label{_c_lamp_8cpp_af5a48adc9d939102a42f2829b7a1b8ac}} 
+\index{CLamp.cpp@{CLamp.cpp}!PWM\_PIN@{PWM\_PIN}}
+\index{PWM\_PIN@{PWM\_PIN}!CLamp.cpp@{CLamp.cpp}}
+\doxysubsubsection{\texorpdfstring{PWM\_PIN}{PWM\_PIN}}
+{\footnotesize\ttfamily \#define PWM\+\_\+\+PIN~(RPI\+\_\+\+GPIO\+\_\+\+P1\+\_\+12)}
+
+PWM Defines 
+
+Definition at line \mbox{\hyperlink{_c_lamp_8cpp_source_l00025}{25}} of file \mbox{\hyperlink{_c_lamp_8cpp_source}{CLamp.\+cpp}}.
+
+\mbox{\Hypertarget{_c_lamp_8cpp_ac04dd0afaf7ea3eb2ade2544d2d5f907}\label{_c_lamp_8cpp_ac04dd0afaf7ea3eb2ade2544d2d5f907}} 
+\index{CLamp.cpp@{CLamp.cpp}!RANGE@{RANGE}}
+\index{RANGE@{RANGE}!CLamp.cpp@{CLamp.cpp}}
+\doxysubsubsection{\texorpdfstring{RANGE}{RANGE}}
+{\footnotesize\ttfamily \#define RANGE~(67500)}
+
+
+
+Definition at line \mbox{\hyperlink{_c_lamp_8cpp_source_l00027}{27}} of file \mbox{\hyperlink{_c_lamp_8cpp_source}{CLamp.\+cpp}}.
+
