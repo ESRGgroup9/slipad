@@ -1,7 +1,19 @@
+
+#define DEBUG
+
 #include "CTCPserver.h"
+#include "debug.h"
 #include <string>
 #include <iostream>
+
+#include <netdb.h>
+#include <sys/socket.h> 
+#include <sys/types.h>
+#include <unistd.h>
+#include <cstring>
 using namespace std;
+
+static int myrecv(int sd);
 
 int main(int argc, char *argv[])
 {
@@ -21,9 +33,43 @@ int main(int argc, char *argv[])
 
 		if(sd != -1)
 		{
-			cout << "New client on sockfd[" << sd << "]" << endl;
+			int ret = -1;
+			do
+			{
+				ret = myrecv(sd);
+			}
+			while(ret > 0);
 		}
 	}
 
 	return 0;
+}
+
+static int myrecv(int sd)
+{
+	int ret = 0;
+	char buffer[256];
+	string msg;
+
+	// recv message from server
+	ret = ::recv(sd, buffer, sizeof(buffer), 0);
+	if(ret == -1)
+	{
+		ERROR_MSG("[CTCPclient::recvFunc] return -1: " << string(strerror(errno)));
+	}
+	else if(ret == 0)
+	{
+		DEBUG_MSG("[CTCPclient::recvFunc] return 0: Stream socket peer has performed an orderly shutdown");
+	}
+	// else, return the number of bytes read
+	else if(ret > 0)
+	{
+		// place null character at end of string
+		buffer[ret] = '\0';
+		// copy received message to msg
+		msg = string(buffer);
+		DEBUG_MSG("[CTCPclient::recvFunc] return " << ret << ": Received [" << msg << "]");
+	}
+
+	return ret;
 }

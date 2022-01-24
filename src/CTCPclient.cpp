@@ -73,36 +73,40 @@ int CTCPclient::connect()
 	{
 		DEBUG_MSG("[CTCPclient::connect] Connection successful");	
 	}
+	else
+	{
+		ERROR_MSG("[CTCPclient::connect] Exit with return error[" << ret << "] errno[" << err << "]");
+	}
 
-	// DEBUG_MSG("[CTCPclient::connect] Exit with return error[" << ret << "] errno[" << err << "]");
 	return ret;
 }
 
 int CTCPclient::recvFunc(std::string &msg)
 {
-	int err = 0;
-	char buffer[128];
+	int ret = 0;
+	char buffer[256];
 
 	// recv message from server
-	err = ::recv(sockfd, &buffer, sizeof(buffer), 0);
-	if(err == -1)
+	ret = ::recv(sockfd, buffer, sizeof(buffer), 0);
+	if(ret == -1)
 	{
-		err = errno;
-
-		// error caused by the lack of messages to read?
-		if(err != EAGAIN)
-		{
-			// DEBUG_MSG("[CTCPclient::recvFunc] in recv()  - errno[" << err << "]");
-		}
+		ERROR_MSG("[CTCPclient::recvFunc] return -1: " << string(strerror(errno)));
 	}
-	else
+	else if(ret == 0)
 	{
-		// else, return the number of bytes read
+		DEBUG_MSG("[CTCPclient::recvFunc] return 0: Stream socket peer has performed an orderly shutdown");
+	}
+	// else, return the number of bytes read
+	else if(ret > 0)
+	{
+		// place null character at end of string
+		buffer[ret] = '\0';
 		// copy received message to msg
 		msg = string(buffer);
+		DEBUG_MSG("[CTCPclient::recvFunc] return " << ret << ": Received [" << msg << "]");
 	}
-	
-	return err;
+
+	return ret;
 }
 
 int CTCPclient::sendFunc(std::string msg)
@@ -110,13 +114,11 @@ int CTCPclient::sendFunc(std::string msg)
 	int err = 0;
 
 	// send message to server
-	err = ::send(sockfd, msg.c_str(), msg.length(), 0);
+	err = ::send(sockfd, msg.c_str(), msg.size(), 0);
 	if(err == -1)
 	{
 		err = errno;
-		ERROR_MSG("[CTCPclient::sendFunc] in send() - errno[" << err << "]");
-
-		return -1;
+		ERROR_MSG("[CTCPclient::sendFunc] return -1: " << string(strerror(errno)));
 	}
 	// else, return the number of bytes sent
 	return err;
