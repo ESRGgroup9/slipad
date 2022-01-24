@@ -14,6 +14,7 @@
 using namespace std;
 
 static int myrecv(int sd);
+static int mysend(int sd, string msg);
 
 int main(int argc, char *argv[])
 {
@@ -37,6 +38,10 @@ int main(int argc, char *argv[])
 			do
 			{
 				ret = myrecv(sd);
+				mysend(sd, "hello back ... ");
+				for(int i = 0; i < 10000; i++)
+					;
+				mysend(sd, "motherfucker");
 			}
 			while(ret > 0);
 		}
@@ -72,4 +77,19 @@ static int myrecv(int sd)
 	}
 
 	return ret;
+}
+
+static int mysend(int sd, string msg)
+{
+	int err = 0;
+
+	// send message to server
+	err = ::send(sd, msg.c_str(), msg.size(), 0);
+	if(err == -1)
+	{
+		err = errno;
+		ERROR_MSG("[CTCPclient::sendFunc] return -1: " << string(strerror(errno)));
+	}
+	// else, return the number of bytes sent
+	return err;
 }
