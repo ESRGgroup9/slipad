@@ -9,7 +9,7 @@ class CRemoteSystem
 {
 public:
 	// CRemoteSystem();
-	CRemoteSystem(int sd);
+	CRemoteSystem(int port);
 	void run();
 
 private:

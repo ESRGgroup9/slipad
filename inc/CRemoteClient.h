@@ -12,11 +12,12 @@
 
 #include "CCommunication.h" // ConnStatus
 #include "CTCPcomm.h"
+#include "parser.h"
 #include <string>
 // #include <vector>
 #include <pthread.h>
 
-// Defines the remote client type
+// Defines the client type for this application
 enum class ClientType
 {
 	UNDEF = -1,
@@ -31,17 +32,34 @@ class CRemoteClient
 	struct ClientSocketInfo
 	{
 		enum ConnStatus state;
-		int index;
-		std::string name;
+		// int index;
+		// std::string name;
 		int sockfd;
 		enum ClientType type;
 	};
 
 public:
+/**
+ * @brief Defines the socket file descriptor to be used in TCP comms, as well
+ * as initializes the client info.
+ * @param sd - socket file descriptor
+ * @return none
+ */
 	CRemoteClient(int sd);
 	~CRemoteClient();
 
+/**
+ * @brief Create all threads used in communication
+ * @param recvPrio - priority of receiving thread (tRecv)
+ * @param sendPrio - priority of sending thread (CCommunication::tSend)
+ * @return none
+ */
 	void init(int recvPrio, int sendPrio);
+
+/**
+ * @brief Detach from all threads, updating client status to ONLINE
+ * @return none
+ */
 	void run();
 
 protected:
@@ -53,10 +71,10 @@ private:
 private:
 	CTCPComm tcp;
 	ClientSocketInfo info;
-	// int sockfd;
 	pthread_t tRecv_id;
 	
-	// std::vectir<clientCmd*> cmdList;
+	Parser clientParser;
+	// std::vector<clientCmd*> cmdList;
 };
 
 #endif // !__CREMOTECLIENT_H__

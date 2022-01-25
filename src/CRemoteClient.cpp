@@ -4,7 +4,8 @@
 
 using namespace std;
 
-CRemoteClient::CRemoteClient(int sd)
+CRemoteClient::CRemoteClient(int sd) :
+	clientParser(0,0)
 {
 	// use 'sd' - socket file descriptor - in tcp communications
 	tcp.setSockfd(sd);
@@ -54,6 +55,7 @@ void *CRemoteClient::tRecv(void *arg)
 
 		if(ret == 0)
 		{
+			// client has closed the connection
 			DEBUG_MSG("[CRemoteClient::tRecv] Stream socket peer[" << c->info.sockfd << "] has performed an orderly shutdown");
 			c->info.state = ConnStatus::CLOSED;
 			break;
@@ -64,7 +66,10 @@ void *CRemoteClient::tRecv(void *arg)
 			DEBUG_MSG("[CRemoteClient::tRecv] Received[" << msg << "]");
 			// parse
 			// c->parser.parse(msg);
-			// c->tcp.push(msg);
+
+			// make sure that the client has already identified himself
+			if(c->info.type != ClientType::UNDEF)
+				c->tcp.push(msg);
 		}
 	}
 

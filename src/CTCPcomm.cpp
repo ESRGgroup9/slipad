@@ -32,7 +32,7 @@ int CTCPComm::recvFunc(std::string &msg)
 	}
 	else if(ret == 0)
 	{
-		DEBUG_MSG("[CTCPComm::recvFunc] return 0: Stream socket peer has performed an orderly shutdown");
+		// DEBUG_MSG("[CTCPComm::recvFunc] return 0: Stream socket peer has performed an orderly shutdown");
 	}
 	// else, return the number of bytes read
 	else if(ret > 0)
@@ -41,7 +41,7 @@ int CTCPComm::recvFunc(std::string &msg)
 		buffer[ret] = '\0';
 		// copy received message to msg
 		msg = string(buffer);
-		DEBUG_MSG("[CTCPComm::recvFunc] return " << ret << ": Received [" << msg << "]");
+		// DEBUG_MSG("[CTCPComm::recvFunc] return " << ret << ": Received [" << msg << "]");
 	}
 
 	return ret;

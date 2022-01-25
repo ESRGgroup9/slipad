@@ -3,8 +3,8 @@
 
 #define SERVER_PORT (5000)
 
-CRemoteSystem::CRemoteSystem(int sd) :
-	server(sd)
+CRemoteSystem::CRemoteSystem(int port) :
+	server(port)
 // CRemoteSystem::CRemoteSystem() :
 	// server(SERVER_PORT)
 {
