@@ -13,8 +13,8 @@
 #include "CCommunication.h" // ConnStatus
 #include "CTCPcomm.h"
 #include "parser.h"
-#include <string>
-// #include <vector>
+
+// #include <string>
 #include <pthread.h>
 
 // Defines the client type for this application
@@ -65,16 +65,14 @@ public:
 protected:
 	static void *tRecv(void *arg);
 
-private:
-	std::string executeCmd(std::string cmd);
+protected:
+	Command_t *cmdList;
+	ClientSocketInfo info;
+	Parser cmdParser;
 
 private:
 	CTCPComm tcp;
-	ClientSocketInfo info;
 	pthread_t tRecv_id;
-	
-	Parser clientParser;
-	// std::vector<clientCmd*> cmdList;
 };
 
 #endif // !__CREMOTECLIENT_H__

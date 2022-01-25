@@ -1,4 +1,6 @@
 #include "CRemoteSystem.h"
+#include "RCGateway.h"
+
 #include "debug.h"
 
 #define SERVER_PORT (5000)
@@ -23,7 +25,8 @@ void CRemoteSystem::run()
 
 		if(sd != -1)
 		{
-			CRemoteClient *client = new CRemoteClient(sd);
+			// CRemoteClient *client = new CRemoteClient(sd);
+			RCGateway *client = new RCGateway(sd);
 			// client index
 			static int i = 0;
 			// DEBUG_MSG("[CRemoteSystem::run] client[" << i << "] on sockfd[" << sd << "]");

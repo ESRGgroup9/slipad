@@ -3,12 +3,18 @@
 #include <cstdlib>
 #include <cstdint>
 #include <cstring>
+#include <errno.h>
 
 Parser::Parser(Command_t *cmd_list, const char *delimeter) :
 	delimeter(delimeter),
 	cmd_list(cmd_list)
 {
 
+}
+
+void Parser::setCmdList(Command_t *cmd_list)
+{
+	this->cmd_list = cmd_list;
 }
 
 int Parser::parse(const char *str_in)

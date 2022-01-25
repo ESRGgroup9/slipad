@@ -4,53 +4,11 @@
 
 using namespace std;
 
-/*******************************************************************************
- * Gateway Command list
- * ****************************************************************************/
-// Callbacks for Gateway command list
-static int lampGatCb(int, char *[]);
-static int parkGatCb(int, char *[]);
-static int idGatCb(int, char *[]);
-static int crqGatCb(int, char *[]);
-
-// Command list for gateway remote client
-static Command_t gatewayCmdList[] =
-{
-	{"LAMP"	, lampGatCb},
-	{"PARK"	, parkGatCb},
-	{"ID"	, idGatCb},
-	{"CRQ"	, crqGatCb},
-	{0,0}
-};
-
-/*******************************************************************************
- * Website Command list
- * ****************************************************************************/
-// static int (int, char *[]);
-// static int (int, char *[]);
-
-// Command list for website remote client
-// static Command_t websiteCmdList[] =
-// {
-// 	// {"PARK", parkWebCb},
-// 	{0,0}
-// };
-
-/*******************************************************************************
- * Application Command list
- * ****************************************************************************/
-// static Command_t applicationCmdList[] =
-// {
-// 	{0,0}
-// };
-
-/*******************************************************************************
- * CRemoteClient methods
- * ****************************************************************************/
 CRemoteClient::CRemoteClient(int sd) :
-	clientParser(gatewayCmdList," ")
+	// cmdParser command list is defined in derived classes
+	cmdParser(NULL," ")
 {
-	// use 'sd' - socket file descriptor - in tcp communications
+	// use 'sd' socket file descriptor - in tcp communications
 	tcp.setSockfd(sd);
 	
 	// define client info
@@ -89,7 +47,7 @@ void *CRemoteClient::tRecv(void *arg)
 	CRemoteClient *c = reinterpret_cast<CRemoteClient*>(arg);
 	string msg;
 	int ret = 0;
-
+	
 	while(c)
 	{
 		ret = c->tcp.recv(msg);
@@ -106,54 +64,20 @@ void *CRemoteClient::tRecv(void *arg)
 		{
 			DEBUG_MSG("[CRemoteClient::tRecv] Received[" << msg << "]");
 			// parse received string
-			// c->clientParser.parse(msg.c_str());
+			int err = c->cmdParser.parse(msg.c_str());
 
 			// make sure that the client has already identified himself
-			if(c->info.type != ClientType::UNDEF)
+			if((err == 0) && (c->info.type != ClientType::UNDEF))
+			{
 				c->tcp.push(msg);
+			}
+			else
+			{
+				DEBUG_MSG("[CRemoteClient::tRecv] Parse returned[" << err << "]");
+				DEBUG_MSG("[CRemoteClient::tRecv] Client[" << c->info.sockfd << "] hasn't defined its type yet");
+			}
 		}
 	}
 
 	return NULL;
 }
-
-string CRemoteClient::executeCmd(string cmd)
-{
-
-	return "query";
-}
-
-/*******************************************************************************
- * Gateway Command list callbacks
- * ****************************************************************************/
-static int lampGatCb(int, char *[])
-{
-
-	return 0;
-}
-
-static int parkGatCb(int, char *[])
-{
-
-	return 0;
-}
-
-static int idGatCb(int, char *[])
-{
-
-	return 0;
-}
-
-static int crqGatCb(int, char *[])
-{
-
-	return 0;
-}
-
-/*******************************************************************************
- * Website Command list callbacks
- * ****************************************************************************/
-
-/*******************************************************************************
- * Application Command list callbacks
- * ****************************************************************************/
