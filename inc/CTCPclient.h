@@ -3,7 +3,7 @@
  * @author Tomas Abreu, Diogo Fernandes
  * @date 25 jan 2022
  *
- * @brief Implements a TCP client making use of CTCPcomm to use TCP communication
+ * @brief Implements a TCP client making use of CTCPComm to use TCP communication
  */
 #ifndef __CTCPCLIENT_H__
 #define __CTCPCLIENT_H__

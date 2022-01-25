@@ -3,10 +3,7 @@
 #include "debug.h"
 
 #include <cstring> // memset
-#include <netdb.h>
-#include <sys/socket.h> 
-#include <sys/types.h>
-#include <unistd.h>
+#include <unistd.h> // gethostname
 
 using namespace std;
 
@@ -66,8 +63,8 @@ int CTCPserver::accept()
 	else
 	{
 		DEBUG_MSG("[CTCPserver::accept] Cannot accept new connection");
-		// return -1 in case accept returned a non zero value but the maximum
-		// number of clients were reached
+		// return -1 in case accept() returned a non zero value but the maximum
+		// number of clients was reached
 		sd = -1;
 	}
 

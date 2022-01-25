@@ -4,8 +4,24 @@
 
 using namespace std;
 
+static Command_t gatewayCmdList[] =
+{
+	{0,0}
+};
+
+static Command_t websiteCmdList[] =
+{
+	{0,0}
+};
+
+static Command_t applicationCmdList[] =
+{
+	{0,0}
+};
+
+
 CRemoteClient::CRemoteClient(int sd) :
-	clientParser(0,0)
+	clientParser(0," ")
 {
 	// use 'sd' - socket file descriptor - in tcp communications
 	tcp.setSockfd(sd);
@@ -64,8 +80,8 @@ void *CRemoteClient::tRecv(void *arg)
 		if(ret > 0)
 		{
 			DEBUG_MSG("[CRemoteClient::tRecv] Received[" << msg << "]");
-			// parse
-			// c->parser.parse(msg);
+			// parse received string
+			c->clientParser.parse(msg.c_str());
 
 			// make sure that the client has already identified himself
 			if(c->info.type != ClientType::UNDEF)

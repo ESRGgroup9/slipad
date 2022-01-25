@@ -24,8 +24,9 @@ void CRemoteSystem::run()
 		if(sd != -1)
 		{
 			CRemoteClient *client = new CRemoteClient(sd);
+			// client index
 			static int i = 0;
-			// DEBUG_MSG("[CRemoteSystem::run] client[" << clientList.size() << "] on sockfd[" << sd << "]");
+			// DEBUG_MSG("[CRemoteSystem::run] client[" << i << "] on sockfd[" << sd << "]");
 			
 			// add new client
 			clientList.push_back(client);

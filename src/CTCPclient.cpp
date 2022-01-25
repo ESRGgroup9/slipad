@@ -3,7 +3,6 @@
 #include "debug.h"
 
 #include <unistd.h> // gethostname
-
 using namespace std;
 
 CTCPclient::CTCPclient(std::string host, int port)

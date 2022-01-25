@@ -3,7 +3,7 @@
  * @author Tomas Abreu, Diogo Fernandes
  * @date 25 jan 2022
  *
- * @brief Implements a remote client, using TCP communication
+ * @brief Implements a remote client, making use of CTCPComm to use TCP communication.
  * 
  * This class is used in CRemoteSystem as a result of a new CTCPserver connection.
  */
