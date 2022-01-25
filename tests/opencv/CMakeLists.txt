@@ -27,6 +27,7 @@ message(STATUS "CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
 add_executable( testpark.elf ../parkdetection.cpp ${all_SRCS})
 target_link_libraries( testpark.elf ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT} -lrt -DWITH_FFMPEG=ON)
 
+configure_file(testpark.elf ../bin/testpark.elf COPYONLY)
 
 #**********************************************************************************************************
 #set(CMAKE_CXX_COMPILER "/usr/bin/g++")
