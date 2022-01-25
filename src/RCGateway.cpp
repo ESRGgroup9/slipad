@@ -1,5 +1,6 @@
 #include "RCGateway.h"
 #include "debug.h"
+// #include <mysql.h>
 
 RCGateway::RCGateway(int sd) :
 	CRemoteClient(sd)
