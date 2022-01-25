@@ -151,7 +151,7 @@ CLEAN_SUBDIRS=$(addprefix clean-,$(SUBDIRS))
 .PHONY: clean $(CLEAN_SUBDIRS)
 
 clean: ## Delete main artifacts
-	@echo "${CYAN}Cleaning ... $(RESET)"
+	@echo "${CYAN}Cleaning main ... $(RESET)"
 	@rm -rf $(BLD_DIR) $(BIN_DIR)
 
 # call 'make clean' in subdirectories
