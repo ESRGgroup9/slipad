@@ -23,12 +23,18 @@ void CRemoteSystem::run()
 
 		if(sd != -1)
 		{
-			DEBUG_MSG("[CRemoteSystem::run] client[" << clientList.size() << "] on sockfd[" << sd << "]");
-			CRemoteClient client(sd);
-			// clientList.push_back(client);
-
-			client.init(1,2);
-			client.run();
+			CRemoteClient *client = new CRemoteClient(sd);
+			static int i = 0;
+			// DEBUG_MSG("[CRemoteSystem::run] client[" << clientList.size() << "] on sockfd[" << sd << "]");
+			
+			// add new client
+			clientList.push_back(client);
+			// execute respective init and run methods
+			clientList[i]->init(1,2);
+			clientList[i]->run();
+			i++;
+			
+			DEBUG_MSG("[CRemoteSystem::run] continue listening for new connections...");
 		}
 	}
 }

@@ -17,7 +17,7 @@ BIN_DIR=./bin
 CXX 	=arm-buildroot-linux-gnueabihf-g++
 LIBS	=-lpthread -lbcm2835 -lrt
 
-DEBUG	=-g #-D DEBUG
+DEBUG	=-g -D DEBUG
 INCLDS	=-I $(INC_DIR)
 CXXFLAGS=$(INCLDS) -Wall $(LIBS)
 #------------------------------------------------------------------------------

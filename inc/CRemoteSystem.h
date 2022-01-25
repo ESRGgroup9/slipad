@@ -14,7 +14,7 @@ public:
 
 private:
 	CTCPserver server;
-	std::vector <CRemoteClient> clientList;
+	std::vector <CRemoteClient*> clientList;
 	// CDatabase db;
 };
 

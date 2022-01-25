@@ -23,16 +23,16 @@ int main(int argc, char *argv[])
  		client.send(argv[i]);
  	}
 
- 	while(1)
- 	{
- 		string msg;
- 		int ret;
+ 	// while(1)
+ 	// {
+ 	// 	string msg;
+ 	// 	int ret;
 
-		ret = client.recv(msg);
+		// ret = client.recv(msg);
 
-		if(ret > 0)
-			cout << "Received " << ret << " bytes: " << msg << endl;
- 	}
-
+		// if(ret > 0)
+		// 	cout << "Received " << ret << " bytes: " << msg << endl;
+ 	// }
+ 	getchar();
 	return 0;
 }
