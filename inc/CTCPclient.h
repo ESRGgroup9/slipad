@@ -36,6 +36,9 @@ public:
  */
 	int connect();
 
+    inline int recv(std::string &msg) { return tcp.recv(msg); }
+    inline int send(std::string msg) { return tcp.send(msg); }
+    inline void push(std::string msg) { tcp.push(msg); }
 /**
  * @brief Get host name
  */

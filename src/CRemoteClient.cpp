@@ -4,20 +4,20 @@
 
 using namespace std;
 
-static Command_t gatewayCmdList[] =
-{
-	{0,0}
-};
+// static Command_t gatewayCmdList[] =
+// {
+// 	{0,0}
+// };
 
-static Command_t websiteCmdList[] =
-{
-	{0,0}
-};
+// static Command_t websiteCmdList[] =
+// {
+// 	{0,0}
+// };
 
-static Command_t applicationCmdList[] =
-{
-	{0,0}
-};
+// static Command_t applicationCmdList[] =
+// {
+// 	{0,0}
+// };
 
 
 CRemoteClient::CRemoteClient(int sd) :

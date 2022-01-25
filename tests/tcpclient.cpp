@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
  	for(int i = 3; i < argc; i++)
  	{
  		cout << "Sending [" << argv[i] << "]..." << endl;
- 		// client.send(argv[i]);
+ 		client.send(argv[i]);
  	}
 
  	// while(1)

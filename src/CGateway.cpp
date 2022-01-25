@@ -48,7 +48,7 @@ void *CGateway::tLoraRecv(void *arg)
 		if(err == static_cast<int>(LoRaError::MSGOK))
 		{
 			DEBUG_MSG("[CGateway::tLoraRecv] Received[" << msg << "]");
-			// c->tcp.push(msg);
+			c->tcp.push(msg);
 		}
 	}
 
@@ -65,7 +65,7 @@ void *CGateway::tTCPRecv(void *arg)
 
 	while(c)
 	{
-		// err = c->tcp.recv(msg);
+		err = c->tcp.recv(msg);
 
 		if(err == 0)
 		{
