@@ -1,11 +1,10 @@
 #==============================================================================
+# build module lampf.ko using the lampf.o object file
 obj-m 	:= lampf.o
+# module objects
 lampf-objs:=lampfdriver.o utils.o
-KDIR 	:=$(HOME)/buildroot/buildroot-2021.02.5/output/build/linux-custom/
-ARCH 	?=arm
 #------------------------------------------------------------------------------
-# CROSS_COMPILE :=arm-buildroot-linux-gnueabihf-
-CROSS_COMPILE :=arm-linux-
+# Make use of CROSS_COMPILE and KDIR, exported in main makefile
 export ARCH CROSS_COMPILE
 #------------------------------------------------------------------------------
 KBUILD_TARGETS	:= clean help modules modules_install

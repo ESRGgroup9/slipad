@@ -1,6 +1,3 @@
-
-#define DEBUG
-
 #include "CTCPserver.h"
 #include "debug.h"
 #include <string>

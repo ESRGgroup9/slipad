@@ -1,9 +1,9 @@
 #==============================================================================
 # Escape colors for printing messages
-BLUE 	=\033[0;34m
-GREEN	=\033[0;32m
-CYAN	=\033[0;36m
-RESET	=\033[0m
+export BLUE 	=\033[0;34m
+export GREEN	=\033[0;32m
+export CYAN		=\033[0;36m
+export RESET	=\033[0m
 # Default print messages
 PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
 PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
@@ -22,21 +22,34 @@ DDR_DIR=ddrivers
 # Doxygen directory
 DOX_DIR=./doc/doxygen
 #------------------------------------------------------------------------------
+# Export the following variables for use in makefiles called recursively
+BLDROOT_OUT=$(HOME)/buildroot/buildroot-2021.02.5/output
+
+# target architecture
+export ARCH ?=arm
+
+# path of the kernel build directory
+export KDIR :=$(BLDROOT_OUT)/build/linux-custom/
+
+# host/ contains the tools built for the host
+# export CROSS_COMPILE:=$(BLDROOT_OUT)/host/bin/arm-buildroot-linux-gnueabihf-
+export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
+
+# compiler in use
+COMPILE=g++
+#------------------------------------------------------------------------------
+export CXX 	=$(CROSS_COMPILE)$(COMPILE)
+export LIBS	=-lpthread -lbcm2835 -lrt
+
+export DEBUG=-D DEBUG #-g
+INCLDS		=-I $(INC_DIR)
+CXXFLAGS	=$(INCLDS) -Wall $(LIBS) $(DEBUG)
+#------------------------------------------------------------------------------
 # Variables specifying destination of 'make transfer'
 # Destination IP
-IP=10.42.0.254
+export IP=10.42.0.254
 # Destination directory in IP connection
-DIR=/etc
-# Export this variables for use in makefiles called recursively
-export IP
-export DIR
-#------------------------------------------------------------------------------
-CXX 	=arm-buildroot-linux-gnueabihf-g++
-LIBS	=-lpthread -lbcm2835 -lrt
-
-DEBUG	=-D DEBUG #-g
-INCLDS	=-I $(INC_DIR)
-CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
+export DIR=/etc
 #------------------------------------------------------------------------------
 # Select all source files: *.c and *.cpp files
 SRC=$(wildcard $(SRC_DIR)/*.c*)
@@ -169,4 +182,9 @@ help: ## Generate list of targets with descriptions
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-15s $(RESET)%s\n", $$1, $$2}'
 
 .PHONY: .setup help
+#------------------------------------------------------------------------------
+# On the first pass this should fail, but it should discover how 
+# to build these dependencies and then build them and load them in.
+# once they are loaded in, it should know how to build the object files.
+# -include $(DEPS) # DOESNT WORK
 #==============================================================================
