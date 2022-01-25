@@ -1,5 +1,5 @@
 /**
- * @file CCommunication
+ * @file CCommunication.h
  * @author Tomas Abreu, Diogo Fernandes
  * @date 24 jan 2022
  *
@@ -93,9 +93,15 @@ public:
 	int recv(std::string &msg);
 
 protected:
-	// thread in charge of dispatching messages from queue TxMsgs
-	// Is usually in sleep, being awaken by 'push'
-	static void *tSend(void*);		
+/**
+ * @brief Thread in charge of dispatching the messages in queue TxMsgs
+ * @param arg - must be a pointer to 'this' instance
+ * @return null
+ *
+ * This thread is usually in sleep, being awaken by 'push' when one wants to
+ * send a message.
+ */
+	static void *tSend(void *arg);		
 	ConnStatus status;
 
 	// pure virtual methods

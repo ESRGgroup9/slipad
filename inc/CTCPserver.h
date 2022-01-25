@@ -1,9 +1,8 @@
 #ifndef __CTCPSERVER_H__
 #define __CTCPSERVER_H__
 
-// #include <arpa/inet.h> 
 #include <netdb.h> // sockaddr_in
-#include <vector>
+// #include <vector>
 
 class CTCPserver
 {
@@ -12,10 +11,6 @@ public:
 	~CTCPserver();
 
 	int accept();
-
-// private:
-// 	static void *recvFcn(void *arg);
-//     static void *sendFcn(void *arg);
 
 private:
 	static const int maxNumClients;

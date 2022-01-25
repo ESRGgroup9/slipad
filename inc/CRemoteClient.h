@@ -1,27 +1,40 @@
+/**
+ * @file CRemoteClient.h
+ * @author Tomas Abreu, Diogo Fernandes
+ * @date 25 jan 2022
+ *
+ * @brief Implements a remote client, using TCP communication
+ * 
+ * This class is used in CRemoteSystem as a result of a new CTCPserver connection.
+ */
 #ifndef __CREMOTECLIENT_H__
 #define __CREMOTECLIENT_H__
 
-#include "CCommunication.h"
+#include "CCommunication.h" // ConnStatus
+#include "CTCPcomm.h"
 #include <string>
 // #include <vector>
 #include <pthread.h>
 
-class CRemoteClient : public CCommunication
+// Defines the remote client type
+enum class ClientType
 {
-	enum class clientType
-	{
-		GATEWAY,
-		WEBSITE,
-		APPLICATION
-	};
+	UNDEF = -1,
+	GATEWAY,
+	WEBSITE,
+	APPLICATION
+};
 
-	struct clientSocketInfo
+class CRemoteClient
+{
+	// Defines all the information about the remote client
+	struct ClientSocketInfo
 	{
-		int state;
+		enum ConnStatus state;
 		int index;
 		std::string name;
 		int sockfd;
-		enum clientType type;
+		enum ClientType type;
 	};
 
 public:
@@ -34,16 +47,15 @@ public:
 protected:
 	static void *tRecv(void *arg);
 
-	virtual int recvFunc(std::string &msg);
-	virtual int sendFunc(std::string msg);
-
 private:
 	std::string executeCmd(std::string cmd);
 
 private:
-	int sockfd;
+	CTCPComm tcp;
+	ClientSocketInfo info;
+	// int sockfd;
 	pthread_t tRecv_id;
-	clientSocketInfo info;
+	
 	// std::vectir<clientCmd*> cmdList;
 };
 

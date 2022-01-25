@@ -2,17 +2,19 @@
 #include "utils.h"
 #include "debug.h"
 
-#include <cstring>
-#include <netdb.h>
-#include <sys/socket.h> 
-#include <sys/types.h>
-#include <unistd.h>
 using namespace std;
 
-CRemoteClient::CRemoteClient(int sd) :
-	sockfd(sd)
+CRemoteClient::CRemoteClient(int sd)
 {
-
+	// use 'sd' - socket file descriptor - in tcp communications
+	tcp.setSockfd(sd);
+	
+	// define client info
+	info.sockfd = sd;
+	info.state = ConnStatus::CREATED;
+	info.type = ClientType::UNDEF;
+	// info.index = ; // ?????
+	// info.name = ; // necessario????
 }
 
 CRemoteClient::~CRemoteClient()
@@ -22,17 +24,21 @@ CRemoteClient::~CRemoteClient()
 
 void CRemoteClient::init(int recvPrio, int sendPrio)
 {
+	// >>>>>>>>>>>>>>>>>>>>>>>> set recvPrio
 	if(pthread_create(&tRecv_id, NULL, tRecv, this) != 0)
 		panic("CRemoteClient::initThFunc(): pthread_create");
 
-	CCommunication::init(sendPrio);
+	tcp.init(sendPrio);
 }
 
 void CRemoteClient::run()
 {
-	// detach from tRecv and from CCommunication threads
+	// detach from tRecv
 	pthread_detach(tRecv_id);
-	CCommunication::run(RUN_NONBLOCK);
+	// detach from CTCPcomm threads
+	tcp.run(RUN_NONBLOCK);
+	// update client state
+	info.state = ConnStatus::ONLINE;
 }
 
 void *CRemoteClient::tRecv(void *arg)
@@ -44,11 +50,12 @@ void *CRemoteClient::tRecv(void *arg)
 
 	while(c)
 	{
-		ret = c->CCommunication::recv(msg);
+		ret = c->tcp.recv(msg);
 
 		if(ret == 0)
 		{
-			DEBUG_MSG("[CRemoteClient::tRecv] Stream socket peer[" << c->sockfd << "] has performed an orderly shutdown");
+			DEBUG_MSG("[CRemoteClient::tRecv] Stream socket peer[" << c->info.sockfd << "] has performed an orderly shutdown");
+			c->info.state = ConnStatus::CLOSED;
 			break;
 		}
 
@@ -57,56 +64,11 @@ void *CRemoteClient::tRecv(void *arg)
 			DEBUG_MSG("[CRemoteClient::tRecv] Received[" << msg << "]");
 			// parse
 			// c->parser.parse(msg);
-			// c->CCommunication::push(msg);
+			// c->tcp.push(msg);
 		}
 	}
 
 	return NULL;
-}
-
-int CRemoteClient::recvFunc(string &msg)
-{
-	int ret = 0;
-	char buffer[256];
-
-	// recv message from server
-	ret = ::recv(sockfd, buffer, sizeof(buffer), 0);
-	if(ret == -1)
-	{
-		ERROR_MSG("[CTCPclient::recvFunc] return -1: " << string(strerror(errno)));
-	}
-	else if(ret == 0)
-	{
-		// DEBUG_MSG("[CTCPclient::recvFunc] return 0: Stream socket peer has performed an orderly shutdown");
-	}
-	// else, return the number of bytes read
-	else if(ret > 0)
-	{
-		// place null character at end of string
-		buffer[ret] = '\0';
-		// copy received message to msg
-		msg = string(buffer);
-		// DEBUG_MSG("[CTCPclient::recvFunc] return " << ret << ": Received [" << msg << "]");
-	}
-
-	return ret;
-}
-
-int CRemoteClient::sendFunc(string msg)
-{
-	int err = 0;
-
-	// send message to server
-	err = ::send(sockfd, msg.c_str(), msg.length(), 0);
-	if(err == -1)
-	{
-		err = errno;
-		ERROR_MSG("[CTCPclient::sendFunc] in send() - errno[" << err << "]");
-
-		return -1;
-	}
-	// else, return the number of bytes sent
-	return err;
 }
 
 string CRemoteClient::executeCmd(string cmd)

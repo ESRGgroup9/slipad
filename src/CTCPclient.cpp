@@ -2,13 +2,7 @@
 #include "utils.h"
 #include "debug.h"
 
-#include <cstring>
-#include <iostream>
-
-#include <netdb.h>
-#include <sys/socket.h> 
-#include <sys/types.h>
-#include <unistd.h>
+#include <unistd.h> // gethostname
 
 using namespace std;
 
@@ -26,6 +20,9 @@ CTCPclient::CTCPclient(std::string host, int port)
 	if (sockfd < 0)
 		panic("socket");
 	
+	// use sockfd in tcp communications
+	tcp.setSockfd(sockfd);
+
 	/* create & zero struct */
 	memset(&addr, 0, sizeof(addr));
 	/* select internet protocol */
@@ -35,15 +32,10 @@ CTCPclient::CTCPclient(std::string host, int port)
 	/* set the addr */
 	addr.sin_addr.s_addr = *(long*)(hostent->h_addr_list[0]);
 
-	// syslog(LOG_INFO, "Connecting to server on %s:%d\n", hostent->h_name, this->port);
-	
 	// get host name
 	char str[32];
 	gethostname(str, sizeof(str));
 	DEBUG_MSG("[CTCPclient] '" << str << "' set to connect to " << host << ":" << port);
-
-	// set status
-	this->status = ConnStatus::ONLINE;
 }
 
 CTCPclient::~CTCPclient()
@@ -79,49 +71,6 @@ int CTCPclient::connect()
 	}
 
 	return ret;
-}
-
-int CTCPclient::recvFunc(std::string &msg)
-{
-	int ret = 0;
-	char buffer[256];
-
-	// recv message from server
-	ret = ::recv(sockfd, buffer, sizeof(buffer), 0);
-	if(ret == -1)
-	{
-		ERROR_MSG("[CTCPclient::recvFunc] return -1: " << string(strerror(errno)));
-	}
-	else if(ret == 0)
-	{
-		DEBUG_MSG("[CTCPclient::recvFunc] return 0: Stream socket peer has performed an orderly shutdown");
-	}
-	// else, return the number of bytes read
-	else if(ret > 0)
-	{
-		// place null character at end of string
-		buffer[ret] = '\0';
-		// copy received message to msg
-		msg = string(buffer);
-		DEBUG_MSG("[CTCPclient::recvFunc] return " << ret << ": Received [" << msg << "]");
-	}
-
-	return ret;
-}
-
-int CTCPclient::sendFunc(std::string msg)
-{
-	int err = 0;
-
-	// send message to server
-	err = ::send(sockfd, msg.c_str(), msg.size(), 0);
-	if(err == -1)
-	{
-		err = errno;
-		ERROR_MSG("[CTCPclient::sendFunc] return -1: " << string(strerror(errno)));
-	}
-	// else, return the number of bytes sent
-	return err;
 }
 
 string CTCPclient::getHost(void) const

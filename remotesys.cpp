@@ -1,5 +1,4 @@
 #include <iostream>
-#include "CTCPserver.h"
 #include "CRemoteSystem.h"
 using namespace std;
 
