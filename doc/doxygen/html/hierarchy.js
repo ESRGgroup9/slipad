@@ -7,12 +7,11 @@ var hierarchy =
     ] ],
     [ "CCommunication", "class_c_communication.html", [
       [ "CLoraComm", "class_c_lora_comm.html", null ],
-      [ "CTCPclient", "class_c_t_c_pclient.html", null ]
+      [ "CTCPComm", "class_c_t_c_p_comm.html", null ]
     ] ],
     [ "CGateway", "class_c_gateway.html", null ],
     [ "CLamp", "class_c_lamp.html", null ],
     [ "CLdr", "class_c_ldr.html", null ],
-    [ "clientSocketInfo", "structclient_socket_info.html", null ],
     [ "CLocalSystem", "class_c_local_system.html", null ],
     [ "cmdSensors_t", "structcmd_sensors__t.html", null ],
     [ "Command_t", "struct_command__t.html", null ],
@@ -20,6 +19,7 @@ var hierarchy =
     [ "CRemoteClient", "class_c_remote_client.html", null ],
     [ "CRemoteSystem", "class_c_remote_system.html", null ],
     [ "CSensors", "class_c_sensors.html", null ],
+    [ "CTCPclient", "class_c_t_c_pclient.html", null ],
     [ "CTCPserver", "class_c_t_c_pserver.html", null ],
     [ "GpioRegisters", "struct_gpio_registers.html", null ],
     [ "LoRaClass", "class_lo_ra_class.html", null ],

@@ -2,49 +2,32 @@
 \label{class_c_t_c_pclient}\index{CTCPclient@{CTCPclient}}
 
 
-Inheritance diagram for CTCPclient\+:
-\nopagebreak
+Collaboration diagram for CTCPclient\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=208pt]{class_c_t_c_pclient__inherit__graph}
-\end{center}
-\end{figure}
-
-
-Collaboration diagram for CTCPclient\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=208pt]{class_c_t_c_pclient__coll__graph}
+\includegraphics[width=175pt]{class_c_t_c_pclient__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_c_t_c_pclient_a2dda42f62a9a3a2fbe932c52070884f2}{CTCPclient}} (std\+::string host, int port)
-\item 
+\begin{DoxyCompactList}\small\item\em Creates a TCP client. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_c_t_c_pclient_a3a0d16d9b3bf431e2812ac3465cd2197}{$\sim$\+CTCPclient}} ()
+\begin{DoxyCompactList}\small\item\em Close the TCP connection. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_c_t_c_pclient_a6045e10b730f1c443651f5209bd9e913}{connect}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Connect to the TCP server defined in \mbox{\hyperlink{class_c_t_c_pclient}{CTCPclient}} constructor. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{class_c_t_c_pclient_aa6a48f4c64a4ee41d001b18e6b1b232a}{get\+Host}} (void) const
-\item 
+\begin{DoxyCompactList}\small\item\em Get host name. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_c_t_c_pclient_a7f7ecd3594688cd1a47391cd5b77fc28}{get\+Port}} (void) const
-\end{DoxyCompactItemize}
-\doxysubsection*{Protected Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-virtual int \mbox{\hyperlink{class_c_t_c_pclient_ac0e3ed2e099fe51ef71284a00d8ecad7}{recv\+Func}} (std\+::string \&msg)
-\item 
-virtual int \mbox{\hyperlink{class_c_t_c_pclient_a9cc108d99a998ef764d401cf8ee67925}{send\+Func}} (std\+::string msg)
-\end{DoxyCompactItemize}
-\doxysubsection*{Additional Inherited Members}
+\begin{DoxyCompactList}\small\item\em Get port number. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 
 
-Definition at line \mbox{\hyperlink{_c_t_c_pclient_8h_source_l00008}{8}} of file \mbox{\hyperlink{_c_t_c_pclient_8h_source}{CTCPclient.\+h}}.
+Definition at line \mbox{\hyperlink{_c_t_c_pclient_8h_source_l00015}{15}} of file \mbox{\hyperlink{_c_t_c_pclient_8h_source}{CTCPclient.\+h}}.
 
 
 
@@ -57,7 +40,21 @@ Definition at line \mbox{\hyperlink{_c_t_c_pclient_8h_source_l00008}{8}} of file
 
 
 
-Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
+Creates a TCP client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em host} & -\/ hostname to connect to \\
+\hline
+{\em port} & -\/ port to connect to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+This only sets all necessary variables to connect to the given server info. In order to connect, there is a method for that -\/ \textquotesingle{}connect\textquotesingle{} 
+
+Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
 
 \mbox{\Hypertarget{class_c_t_c_pclient_a3a0d16d9b3bf431e2812ac3465cd2197}\label{class_c_t_c_pclient_a3a0d16d9b3bf431e2812ac3465cd2197}} 
 \index{CTCPclient@{CTCPclient}!````~CTCPclient@{$\sim$CTCPclient}}
@@ -67,7 +64,11 @@ Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00015}{15}} of f
 
 
 
-Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00049}{49}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
+Close the TCP connection. 
+
+
+
+Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00040}{40}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
 
 
 
@@ -80,7 +81,14 @@ Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00049}{49}} of f
 
 
 
-Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00058}{58}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
+Connect to the TCP server defined in \mbox{\hyperlink{class_c_t_c_pclient}{CTCPclient}} constructor. 
+
+\begin{DoxyReturn}{Returns}
+0 if connection successfull. -\/1 if not, with errno indicating the error. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00049}{49}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
 
 \mbox{\Hypertarget{class_c_t_c_pclient_aa6a48f4c64a4ee41d001b18e6b1b232a}\label{class_c_t_c_pclient_aa6a48f4c64a4ee41d001b18e6b1b232a}} 
 \index{CTCPclient@{CTCPclient}!getHost@{getHost}}
@@ -90,7 +98,11 @@ Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00058}{58}} of f
 
 
 
-Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00118}{118}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
+Get host name. 
+
+
+
+Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00075}{75}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
 
 \mbox{\Hypertarget{class_c_t_c_pclient_a7f7ecd3594688cd1a47391cd5b77fc28}\label{class_c_t_c_pclient_a7f7ecd3594688cd1a47391cd5b77fc28}} 
 \index{CTCPclient@{CTCPclient}!getPort@{getPort}}
@@ -100,39 +112,15 @@ Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00118}{118}} of 
 
 
 
-Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00123}{123}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
-
-\mbox{\Hypertarget{class_c_t_c_pclient_ac0e3ed2e099fe51ef71284a00d8ecad7}\label{class_c_t_c_pclient_ac0e3ed2e099fe51ef71284a00d8ecad7}} 
-\index{CTCPclient@{CTCPclient}!recvFunc@{recvFunc}}
-\index{recvFunc@{recvFunc}!CTCPclient@{CTCPclient}}
-\doxysubsubsection{\texorpdfstring{recvFunc()}{recvFunc()}}
-{\footnotesize\ttfamily int recv\+Func (\begin{DoxyParamCaption}\item[{std\+::string \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+Get port number. 
 
 
 
-Implements \mbox{\hyperlink{class_c_communication}{CCommunication}}.
-
-
-
-Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00081}{81}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
-
-\mbox{\Hypertarget{class_c_t_c_pclient_a9cc108d99a998ef764d401cf8ee67925}\label{class_c_t_c_pclient_a9cc108d99a998ef764d401cf8ee67925}} 
-\index{CTCPclient@{CTCPclient}!sendFunc@{sendFunc}}
-\index{sendFunc@{sendFunc}!CTCPclient@{CTCPclient}}
-\doxysubsubsection{\texorpdfstring{sendFunc()}{sendFunc()}}
-{\footnotesize\ttfamily int send\+Func (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
-
-
-
-Implements \mbox{\hyperlink{class_c_communication}{CCommunication}}.
-
-
-
-Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00101}{101}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
+Definition at line \mbox{\hyperlink{_c_t_c_pclient_8cpp_source_l00080}{80}} of file \mbox{\hyperlink{_c_t_c_pclient_8cpp_source}{CTCPclient.\+cpp}}.
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-inc/CTCPclient.\+h\item 
+inc/\mbox{\hyperlink{_c_t_c_pclient_8h}{CTCPclient.\+h}}\item 
 src/CTCPclient.\+cpp\end{DoxyCompactItemize}

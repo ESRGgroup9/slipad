@@ -1,9 +1,9 @@
 var indexSectionsWithContent =
 {
-  0: "cglprst",
+  0: "cgilprst~",
   1: "cglpt",
   2: "c",
-  3: "cgrst",
+  3: "cgiprst~",
   4: "p",
   5: "s"
 };

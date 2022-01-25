@@ -86,7 +86,99 @@ $(document).ready(function(){initNavTree('_c_remote_client_8cpp_source.html','')
   <div class="headertitle"><div class="title">CRemoteClient.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;CRemoteClient.h&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_c_remote_client_8h.html">CRemoteClient.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;utils.h&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;debug.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">using namespace </span>std;</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="class_c_remote_client.html#ad8e4b1c3f90c1125f14cf0fb5c4f8fb1">    7</a></span><a class="code hl_function" href="class_c_remote_client.html#ad8e4b1c3f90c1125f14cf0fb5c4f8fb1">CRemoteClient::CRemoteClient</a>(<span class="keywordtype">int</span> sd) :</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    clientParser(0,<span class="stringliteral">&quot; &quot;</span>)</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="comment">// use &#39;sd&#39; - socket file descriptor - in tcp communications</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    tcp.<a class="code hl_function" href="class_c_t_c_p_comm.html#ac9645d2f362f00fef4fb3d309285b8e9">setSockfd</a>(sd);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="comment">// define client info</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    info.sockfd = sd;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    info.state = ConnStatus::CREATED;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    info.type = ClientType::UNDEF;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="comment">// info.index = ; // ?????</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="comment">// info.name = ; // necessario????</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>CRemoteClient::~CRemoteClient()</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_c_remote_client.html#a206419b943327342ba19783787ead5f0">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_remote_client.html#a206419b943327342ba19783787ead5f0">CRemoteClient::init</a>(<span class="keywordtype">int</span> recvPrio, <span class="keywordtype">int</span> sendPrio)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="comment">// &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; set recvPrio</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span>(pthread_create(&amp;tRecv_id, NULL, tRecv, <span class="keyword">this</span>) != 0)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        panic(<span class="stringliteral">&quot;CRemoteClient::initThFunc(): pthread_create&quot;</span>);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    tcp.<a class="code hl_function" href="class_c_communication.html#a839f85b3b6f2ea59a5480e219c0f925e">init</a>(sendPrio);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="class_c_remote_client.html#a13a43e6d814de94978c515cb084873b1">   35</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_c_remote_client.html#a13a43e6d814de94978c515cb084873b1">CRemoteClient::run</a>()</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">// detach from tRecv</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    pthread_detach(tRecv_id);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">// detach from CTCPcomm threads</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    tcp.<a class="code hl_function" href="class_c_communication.html#a283bce9561f0b8e618bbe8b89c473636">run</a>(RUN_NONBLOCK);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="comment">// update client state</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    info.state = ConnStatus::ONLINE;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keywordtype">void</span> *CRemoteClient::tRecv(<span class="keywordtype">void</span> *arg)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">// get CRemoteClient instance</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="class_c_remote_client.html">CRemoteClient</a> *c = <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_class" href="class_c_remote_client.html">CRemoteClient</a>*<span class="keyword">&gt;</span>(arg);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">string</span> msg;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">int</span> ret = 0;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">while</span>(c)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        ret = c-&gt;tcp.<a class="code hl_function" href="class_c_communication.html#adb44decdeb760ebf7c0d3d38ecb7822c">recv</a>(msg);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">if</span>(ret == 0)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="comment">// client has closed the connection</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            DEBUG_MSG(<span class="stringliteral">&quot;[CRemoteClient::tRecv] Stream socket peer[&quot;</span> &lt;&lt; c-&gt;info.sockfd &lt;&lt; <span class="stringliteral">&quot;] has performed an orderly shutdown&quot;</span>);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            c-&gt;info.state = ConnStatus::CLOSED;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">if</span>(ret &gt; 0)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            DEBUG_MSG(<span class="stringliteral">&quot;[CRemoteClient::tRecv] Received[&quot;</span> &lt;&lt; msg &lt;&lt; <span class="stringliteral">&quot;]&quot;</span>);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="comment">// parse received string</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            c-&gt;parser.parse(msg);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="comment">// make sure that the client has already identified himself</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">if</span>(c-&gt;info.type != ClientType::UNDEF)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                c-&gt;tcp.<a class="code hl_function" href="class_c_communication.html#a1de846382f3fe0260a457f231935945f">push</a>(msg);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">string</span> CRemoteClient::executeCmd(<span class="keywordtype">string</span> cmd)</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>{</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> <span class="stringliteral">&quot;query&quot;</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+<div class="ttc" id="a_c_remote_client_8h_html"><div class="ttname"><a href="_c_remote_client_8h.html">CRemoteClient.h</a></div><div class="ttdoc">Implements a remote client, making use of CTCPComm to use TCP communication.</div></div>
+<div class="ttc" id="aclass_c_communication_html_a1de846382f3fe0260a457f231935945f"><div class="ttname"><a href="class_c_communication.html#a1de846382f3fe0260a457f231935945f">CCommunication::push</a></div><div class="ttdeci">void push(std::string msg)</div><div class="ttdoc">Adds a new message to the queue of messages to be sent.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00046">CCommunication.cpp:46</a></div></div>
+<div class="ttc" id="aclass_c_communication_html_a283bce9561f0b8e618bbe8b89c473636"><div class="ttname"><a href="class_c_communication.html#a283bce9561f0b8e618bbe8b89c473636">CCommunication::run</a></div><div class="ttdeci">void run(bool async=RUN_BLOCK)</div><div class="ttdoc">Waits for thread termination (default action), or detaches from them.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00031">CCommunication.cpp:31</a></div></div>
+<div class="ttc" id="aclass_c_communication_html_a839f85b3b6f2ea59a5480e219c0f925e"><div class="ttname"><a href="class_c_communication.html#a839f85b3b6f2ea59a5480e219c0f925e">CCommunication::init</a></div><div class="ttdeci">void init(int tprio)</div><div class="ttdoc">Creates thread for sending messages (tSend)</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00024">CCommunication.cpp:24</a></div></div>
+<div class="ttc" id="aclass_c_communication_html_adb44decdeb760ebf7c0d3d38ecb7822c"><div class="ttname"><a href="class_c_communication.html#adb44decdeb760ebf7c0d3d38ecb7822c">CCommunication::recv</a></div><div class="ttdeci">int recv(std::string &amp;msg)</div><div class="ttdoc">Receive a message.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00066">CCommunication.cpp:66</a></div></div>
+<div class="ttc" id="aclass_c_remote_client_html"><div class="ttname"><a href="class_c_remote_client.html">CRemoteClient</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_remote_client_8h_source.html#l00029">CRemoteClient.h:30</a></div></div>
+<div class="ttc" id="aclass_c_remote_client_html_a13a43e6d814de94978c515cb084873b1"><div class="ttname"><a href="class_c_remote_client.html#a13a43e6d814de94978c515cb084873b1">CRemoteClient::run</a></div><div class="ttdeci">void run()</div><div class="ttdoc">Detach from all threads, updating client status to ONLINE.</div><div class="ttdef"><b>Definition:</b> <a href="_c_remote_client_8cpp_source.html#l00035">CRemoteClient.cpp:35</a></div></div>
+<div class="ttc" id="aclass_c_remote_client_html_a206419b943327342ba19783787ead5f0"><div class="ttname"><a href="class_c_remote_client.html#a206419b943327342ba19783787ead5f0">CRemoteClient::init</a></div><div class="ttdeci">void init(int recvPrio, int sendPrio)</div><div class="ttdoc">Create all threads used in communication.</div><div class="ttdef"><b>Definition:</b> <a href="_c_remote_client_8cpp_source.html#l00026">CRemoteClient.cpp:26</a></div></div>
+<div class="ttc" id="aclass_c_remote_client_html_ad8e4b1c3f90c1125f14cf0fb5c4f8fb1"><div class="ttname"><a href="class_c_remote_client.html#ad8e4b1c3f90c1125f14cf0fb5c4f8fb1">CRemoteClient::CRemoteClient</a></div><div class="ttdeci">CRemoteClient(int sd)</div><div class="ttdoc">Defines the socket file descriptor to be used in TCP comms, as well as initializes the client info.</div><div class="ttdef"><b>Definition:</b> <a href="_c_remote_client_8cpp_source.html#l00007">CRemoteClient.cpp:7</a></div></div>
+<div class="ttc" id="aclass_c_t_c_p_comm_html_ac9645d2f362f00fef4fb3d309285b8e9"><div class="ttname"><a href="class_c_t_c_p_comm.html#ac9645d2f362f00fef4fb3d309285b8e9">CTCPComm::setSockfd</a></div><div class="ttdeci">void setSockfd(int sd)</div><div class="ttdoc">Sets the socket file descriptor to be used in TCP communications.</div><div class="ttdef"><b>Definition:</b> <a href="_c_t_c_pcomm_8cpp_source.html#l00017">CTCPcomm.cpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

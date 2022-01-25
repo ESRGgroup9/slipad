@@ -2,6 +2,88 @@
 \label{_c_remote_client_8cpp_source}\index{src/CRemoteClient.cpp@{src/CRemoteClient.cpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}CRemoteClient.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_remote_client_8h}{CRemoteClient.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00002}00002 \textcolor{preprocessor}{\#include "{}utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}debug.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00005}00005 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00007}\mbox{\hyperlink{class_c_remote_client_ad8e4b1c3f90c1125f14cf0fb5c4f8fb1}{00007}} \mbox{\hyperlink{class_c_remote_client_ad8e4b1c3f90c1125f14cf0fb5c4f8fb1}{CRemoteClient::CRemoteClient}}(\textcolor{keywordtype}{int} sd) :}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00008}00008     clientParser(0,\textcolor{stringliteral}{"{} "{}})}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00009}00009 \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00010}00010     \textcolor{comment}{// use 'sd' -\/ socket file descriptor -\/ in tcp communications}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00011}00011     tcp.\mbox{\hyperlink{class_c_t_c_p_comm_ac9645d2f362f00fef4fb3d309285b8e9}{setSockfd}}(sd);}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00012}00012     }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00013}00013     \textcolor{comment}{// define client info}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00014}00014     info.sockfd = sd;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00015}00015     info.state = ConnStatus::CREATED;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00016}00016     info.type = ClientType::UNDEF;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00017}00017     \textcolor{comment}{// info.index = ; // ?????}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00018}00018     \textcolor{comment}{// info.name = ; // necessario????}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00019}00019 \}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00021}00021 CRemoteClient::\string~CRemoteClient()}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00022}00022 \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00024}00024 \}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00026}\mbox{\hyperlink{class_c_remote_client_a206419b943327342ba19783787ead5f0}{00026}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_remote_client_a206419b943327342ba19783787ead5f0}{CRemoteClient::init}}(\textcolor{keywordtype}{int} recvPrio, \textcolor{keywordtype}{int} sendPrio)}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00027}00027 \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00028}00028     \textcolor{comment}{// >>>>>>>>>>>>>>>>>>>>>>>> set recvPrio}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00029}00029     \textcolor{keywordflow}{if}(pthread\_create(\&tRecv\_id, NULL, tRecv, \textcolor{keyword}{this}) != 0)}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00030}00030         panic(\textcolor{stringliteral}{"{}CRemoteClient::initThFunc(): pthread\_create"{}});}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00032}00032     tcp.\mbox{\hyperlink{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}{init}}(sendPrio);}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00033}00033 \}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00035}\mbox{\hyperlink{class_c_remote_client_a13a43e6d814de94978c515cb084873b1}{00035}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_remote_client_a13a43e6d814de94978c515cb084873b1}{CRemoteClient::run}}()}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00036}00036 \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00037}00037     \textcolor{comment}{// detach from tRecv}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00038}00038     pthread\_detach(tRecv\_id);}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00039}00039     \textcolor{comment}{// detach from CTCPcomm threads}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00040}00040     tcp.\mbox{\hyperlink{class_c_communication_a283bce9561f0b8e618bbe8b89c473636}{run}}(RUN\_NONBLOCK);}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00041}00041     \textcolor{comment}{// update client state}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00042}00042     info.state = ConnStatus::ONLINE;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00043}00043 \}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00045}00045 \textcolor{keywordtype}{void} *CRemoteClient::tRecv(\textcolor{keywordtype}{void} *arg)}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00046}00046 \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00047}00047     \textcolor{comment}{// get CRemoteClient instance}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00048}00048     \mbox{\hyperlink{class_c_remote_client}{CRemoteClient}} *c = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{class_c_remote_client}{CRemoteClient}}*\textcolor{keyword}{>}(arg);}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00049}00049     \textcolor{keywordtype}{string} msg;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00050}00050     \textcolor{keywordtype}{int} ret = 0;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00052}00052     \textcolor{keywordflow}{while}(c)}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00053}00053     \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00054}00054         ret = c-\/>tcp.\mbox{\hyperlink{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}{recv}}(msg);}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00056}00056         \textcolor{keywordflow}{if}(ret == 0)}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00057}00057         \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00058}00058             \textcolor{comment}{// client has closed the connection}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00059}00059             DEBUG\_MSG(\textcolor{stringliteral}{"{}[CRemoteClient::tRecv] Stream socket peer["{}} << c-\/>info.sockfd << \textcolor{stringliteral}{"{}] has performed an orderly shutdown"{}});}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00060}00060             c-\/>info.state = ConnStatus::CLOSED;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00061}00061             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00062}00062         \}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00064}00064         \textcolor{keywordflow}{if}(ret > 0)}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00065}00065         \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00066}00066             DEBUG\_MSG(\textcolor{stringliteral}{"{}[CRemoteClient::tRecv] Received["{}} << msg << \textcolor{stringliteral}{"{}]"{}});}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00067}00067             \textcolor{comment}{// parse received string}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00068}00068             c-\/>parser.parse(msg);}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00070}00070             \textcolor{comment}{// make sure that the client has already identified himself}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00071}00071             \textcolor{keywordflow}{if}(c-\/>info.type != ClientType::UNDEF)}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00072}00072                 c-\/>tcp.\mbox{\hyperlink{class_c_communication_a1de846382f3fe0260a457f231935945f}{push}}(msg);}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00073}00073         \}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00074}00074     \}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00076}00076     \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00077}00077 \}}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00079}00079 \textcolor{keywordtype}{string} CRemoteClient::executeCmd(\textcolor{keywordtype}{string} cmd)}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00080}00080 \{}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00082}00082     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}query"{}};}
+\DoxyCodeLine{\Hypertarget{_c_remote_client_8cpp_source_l00083}00083 \}}
 
 \end{DoxyCode}

@@ -4,14 +4,14 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#undef DEBUG}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00002}00002 }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}CCommunication.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_communication_8h}{CCommunication.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}utils.h"{}}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}debug.h"{}}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00006}00006 }
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include <iostream>}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00008}00008 \textcolor{keyword}{using namespace }std;}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00009}00009  }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00010}00010 CCommunication::CCommunication()}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00010}\mbox{\hyperlink{class_c_communication_a9b40a76054d08aa93ae7f102c2f9ffbd}{00010}} \mbox{\hyperlink{class_c_communication_a9b40a76054d08aa93ae7f102c2f9ffbd}{CCommunication::CCommunication}}()}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00011}00011 \{}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00012}00012     \textcolor{keywordflow}{if}(pthread\_mutex\_init(\&mutTxMsgs, NULL) != 0)}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00013}00013         panic(\textcolor{stringliteral}{"{}CComms::CComms(): Mutex init"{}});}
@@ -25,29 +25,29 @@
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00021}00021     status = ConnStatus::CREATED;}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00022}00022 \}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00023}00023 }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00024}00024 CCommunication::\string~CCommunication()}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00024}\mbox{\hyperlink{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}{00024}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}{CCommunication::init}}(\textcolor{keywordtype}{int} tprio)}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00025}00025 \{}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00026}00026 }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00027}00027 \}}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00028}00028 }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00029}00029 \textcolor{keywordtype}{void} CCommunication::init(\textcolor{keywordtype}{int} tprio)}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00030}00030 \{}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00031}00031     \textcolor{comment}{// >>>>>>>>>>>>>>>>>>>>>>> SET PRIO}}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00032}00032     \textcolor{keywordflow}{if}(pthread\_create(\&tSend\_id, NULL, tSend, \textcolor{keyword}{this}) != 0)}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00033}00033         panic(\textcolor{stringliteral}{"{}CComms::init(): pthread\_create"{}});}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00034}00034 \}}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00035}00035 }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00036}00036 \textcolor{keywordtype}{void} CCommunication::run(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00037}00037 \{}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00038}00038     pthread\_join(tSend\_id, NULL);}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00026}00026     \textcolor{comment}{// >>>>>>>>>>>>>>>>>>>>>>> SET PRIO}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00027}00027     \textcolor{keywordflow}{if}(pthread\_create(\&tSend\_id, NULL, \mbox{\hyperlink{class_c_communication_a705363c9cab951334da3e07f445b209c}{tSend}}, \textcolor{keyword}{this}) != 0)}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00028}00028         panic(\textcolor{stringliteral}{"{}CComms::init(): pthread\_create"{}});}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00029}00029 \}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00031}\mbox{\hyperlink{class_c_communication_a283bce9561f0b8e618bbe8b89c473636}{00031}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_communication_a283bce9561f0b8e618bbe8b89c473636}{CCommunication::run}}(\textcolor{keywordtype}{bool} async)}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00032}00032 \{}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00033}00033     \textcolor{keywordflow}{if}(async)}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00034}00034         \textcolor{comment}{// dont track the thread}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00035}00035         pthread\_detach(tSend\_id);}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00036}00036     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00037}00037         \textcolor{comment}{// default operation. Wait for thread termination}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00038}00038         pthread\_join(tSend\_id, NULL);}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00039}00039 \}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00040}00040 }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00041}00041 ConnStatus CCommunication::getStatus(\textcolor{keywordtype}{void})\textcolor{keyword}{ const}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00041}\mbox{\hyperlink{class_c_communication_acc857199d21ac73175bfc772bff814bf}{00041}} ConnStatus \mbox{\hyperlink{class_c_communication_acc857199d21ac73175bfc772bff814bf}{CCommunication::getStatus}}(\textcolor{keywordtype}{void})\textcolor{keyword}{ const}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00042}00042 \textcolor{keyword}{}\{}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00043}00043     \textcolor{keywordflow}{return} status;}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00044}00044 \}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00045}00045 }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00046}00046 \textcolor{keywordtype}{void} CCommunication::push(\textcolor{keywordtype}{string} msg)}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00046}\mbox{\hyperlink{class_c_communication_a1de846382f3fe0260a457f231935945f}{00046}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_communication_a1de846382f3fe0260a457f231935945f}{CCommunication::push}}(\textcolor{keywordtype}{string} msg)}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00047}00047 \{}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00048}00048     pthread\_mutex\_lock(\&mutTxMsgs);}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00049}00049     TxMsgs.push(msg);}
@@ -56,7 +56,7 @@
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00052}00052     pthread\_mutex\_unlock(\&mutTxMsgs);}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00053}00053 \}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00054}00054 }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00055}00055 \textcolor{keywordtype}{int} CCommunication::send(\textcolor{keywordtype}{string} msg)}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00055}\mbox{\hyperlink{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}{00055}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}{CCommunication::send}}(\textcolor{keywordtype}{string} msg)}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00056}00056 \{}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00057}00057     \textcolor{keywordtype}{int} ret = 0;}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00058}00058 }
@@ -67,7 +67,7 @@
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00063}00063     \textcolor{keywordflow}{return} ret;}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00064}00064 \}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00065}00065 }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00066}00066 \textcolor{keywordtype}{int} CCommunication::recv(\textcolor{keywordtype}{string} \&msg)}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00066}\mbox{\hyperlink{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}{00066}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}{CCommunication::recv}}(\textcolor{keywordtype}{string} \&msg)}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00067}00067 \{}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00068}00068     \textcolor{keywordtype}{int} err = 0;}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00069}00069 }
@@ -78,7 +78,7 @@
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00074}00074     \textcolor{keywordflow}{return} err;}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00075}00075 \}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00076}00076 }
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00077}00077 \textcolor{keywordtype}{void} *CCommunication::tSend(\textcolor{keywordtype}{void} *arg)}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00077}\mbox{\hyperlink{class_c_communication_a705363c9cab951334da3e07f445b209c}{00077}} \textcolor{keywordtype}{void} *\mbox{\hyperlink{class_c_communication_a705363c9cab951334da3e07f445b209c}{CCommunication::tSend}}(\textcolor{keywordtype}{void} *arg)}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00078}00078 \{}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00079}00079     \textcolor{comment}{// get CCommunication instance}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00080}00080     \mbox{\hyperlink{class_c_communication}{CCommunication}} *ccomm = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{class_c_communication}{CCommunication}}*\textcolor{keyword}{>}(arg);}
@@ -107,8 +107,8 @@
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00103}00103         }
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00104}00104         DEBUG\_MSG(\textcolor{stringliteral}{"{}[CComms::tSend] Popped("{}} << msg << \textcolor{stringliteral}{"{}) -\/ ["{}} << ccomm-\/>TxMsgs.size() << \textcolor{stringliteral}{"{}] msgs queued"{}});}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00105}00105         \textcolor{comment}{// send message}}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00106}00106         ccomm-\/>send(msg);}
-\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00107}00107         cout << \textcolor{stringliteral}{"{}[CComms::tSend] Sent("{}} << msg << \textcolor{stringliteral}{"{})"{}} << endl;}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00106}00106         ccomm-\/>\mbox{\hyperlink{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}{send}}(msg);}
+\DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00107}00107         DEBUG\_MSG(\textcolor{stringliteral}{"{}[CComms::tSend] Sent("{}} << msg << \textcolor{stringliteral}{"{})"{}});}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00108}00108         msg.clear();}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00109}00109     \}}
 \DoxyCodeLine{\Hypertarget{_c_communication_8cpp_source_l00110}00110 }

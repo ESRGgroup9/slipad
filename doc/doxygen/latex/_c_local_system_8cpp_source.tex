@@ -125,14 +125,14 @@
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00121}00121     timCamFrame.start();}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00122}00122 }
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00123}00123     \textcolor{comment}{// >>>>>>>>>>>>>>>>>>>>>>>>>>>>> set prio}}
-\DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00124}00124     lora.init(2);}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00124}00124     lora.\mbox{\hyperlink{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}{init}}(2);}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00125}00125 }
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00126}00126     \textcolor{comment}{// set signal handler for dSensors signal}}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00127}00127     signal(SIGUSR1, sigHandler);}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00128}00128     signal(SIGINT, sigHandler);}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00129}00129 }
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00130}00130     \textcolor{comment}{// join lora threads}}
-\DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00131}00131     lora.run();}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00131}00131     lora.\mbox{\hyperlink{class_c_communication_a283bce9561f0b8e618bbe8b89c473636}{run}}();}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00132}00132 }
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00133}00133     pthread\_join(tLoraRecv\_id, NULL);}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00134}00134     pthread\_join(tRecvSensors\_id, NULL);}
@@ -174,7 +174,7 @@
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00170}00170     \textcolor{keywordflow}{while}(c)}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00171}00171     \{}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00172}00172         \textcolor{comment}{// message was received?}}
-\DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00173}00173         err = \textcolor{keyword}{static\_cast<}LoRaError\textcolor{keyword}{>}(c-\/>lora.recv(msg));}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00173}00173         err = \textcolor{keyword}{static\_cast<}LoRaError\textcolor{keyword}{>}(c-\/>lora.\mbox{\hyperlink{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}{recv}}(msg));}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00174}00174         \textcolor{keywordflow}{if}(err == LoRaError::MSGOK)}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00175}00175         \{}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00176}00176             c-\/>loraParser.parse(msg.c\_str());}
@@ -284,7 +284,7 @@
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00280}00280                 c-\/>timLampOn.start();}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00281}00281 }
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00282}00282             DEBUG\_MSG(\textcolor{stringliteral}{"{}[CLS::tRecvSensors] Sending ("{}} << \textcolor{stringliteral}{"{}LAMP "{}} + \textcolor{keywordtype}{string}(msg) << \textcolor{stringliteral}{"{})"{}});}
-\DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00283}00283             c-\/>lora.push(\textcolor{keywordtype}{string}(\textcolor{stringliteral}{"{}LAMP "{}}) + msg);}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00283}00283             c-\/>lora.\mbox{\hyperlink{class_c_communication_a1de846382f3fe0260a457f231935945f}{push}}(\textcolor{keywordtype}{string}(\textcolor{stringliteral}{"{}LAMP "{}}) + msg);}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00284}00284 }
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00285}00285             \textcolor{comment}{// clear message}}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00286}00286             memset(msg, 0, \textcolor{keyword}{sizeof}(msg));}
@@ -332,7 +332,7 @@
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00328}00328         \textcolor{keywordflow}{if}(vacantsNum != oldVacantsNum)}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00329}00329         \{}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00330}00330             \textcolor{comment}{// send update info to remote system}}
-\DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00331}00331             c-\/>lora.push(\textcolor{stringliteral}{"{}PARK "{}}+ vacantsNum);}
+\DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00331}00331             c-\/>lora.\mbox{\hyperlink{class_c_communication_a1de846382f3fe0260a457f231935945f}{push}}(\textcolor{stringliteral}{"{}PARK "{}}+ vacantsNum);}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00332}00332             oldVacantsNum = vacantsNum;}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00333}00333         \}}
 \DoxyCodeLine{\Hypertarget{_c_local_system_8cpp_source_l00334}00334 }

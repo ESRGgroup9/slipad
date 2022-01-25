@@ -15,6 +15,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "CRemoteSystem.cpp", "_c_remote_system_8cpp_source.html", null ],
     [ "CSensors.cpp", "_c_sensors_8cpp_source.html", null ],
     [ "CTCPclient.cpp", "_c_t_c_pclient_8cpp_source.html", null ],
+    [ "CTCPcomm.cpp", "_c_t_c_pcomm_8cpp_source.html", null ],
     [ "CTCPserver.cpp", "_c_t_c_pserver_8cpp_source.html", null ],
     [ "debug.c", "debug_8c_source.html", null ],
     [ "DEV_Config.c", "_d_e_v___config_8c_source.html", null ],

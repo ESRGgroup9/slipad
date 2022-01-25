@@ -12,17 +12,18 @@
 \DoxyCodeLine{\Hypertarget{debug_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <iomanip>}}
 \DoxyCodeLine{\Hypertarget{debug_8h_source_l00009}00009 \textcolor{preprocessor}{\#include <stdarg.h>}}
 \DoxyCodeLine{\Hypertarget{debug_8h_source_l00010}00010 \textcolor{preprocessor}{\#include <iostream>}}
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00011}00011 }
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00012}00012 \textcolor{preprocessor}{\#define DEBUG\_MSG(str) (std::cout << str << std::endl)}}
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00013}00013 \textcolor{preprocessor}{\#define ERROR\_MSG(str)  \{DEBUG\_MSG("{}ERROR> "{}} << str); abort();\}}
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00014}00014 }
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00015}00015 \textcolor{comment}{// **********************************************}}
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00016}00016 \textcolor{preprocessor}{\#else }\textcolor{comment}{// DEBUG not defined}}
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00017}00017 }
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00018}00018 \textcolor{preprocessor}{\#define DEBUG\_MSG(str)}}
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00019}00019 \textcolor{preprocessor}{\#define ERROR\_MSG(str)}}
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00020}00020 }
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00021}00021 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !DEBUG}}
-\DoxyCodeLine{\Hypertarget{debug_8h_source_l00022}00022 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_DEBUG\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00011}00011 \textcolor{preprocessor}{\#include <cstring>}}
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00013}00013 \textcolor{preprocessor}{\#define DEBUG\_MSG(str) (std::cout << str << std::endl)}}
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00014}00014 \textcolor{preprocessor}{\#define ERROR\_MSG(str)  \{DEBUG\_MSG("{}ERROR> "{}} << str); abort();\}}
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00016}00016 \textcolor{comment}{// **********************************************}}
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00017}00017 \textcolor{preprocessor}{\#else }\textcolor{comment}{// DEBUG not defined}}
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00019}00019 \textcolor{preprocessor}{\#define DEBUG\_MSG(str)}}
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00020}00020 \textcolor{preprocessor}{\#define ERROR\_MSG(str)}}
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00022}00022 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !DEBUG}}
+\DoxyCodeLine{\Hypertarget{debug_8h_source_l00023}00023 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_DEBUG\_H\_\_}}
 
 \end{DoxyCode}

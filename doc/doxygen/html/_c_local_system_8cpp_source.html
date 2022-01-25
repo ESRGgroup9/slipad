@@ -209,14 +209,14 @@ $(document).ready(function(){initNavTree('_c_local_system_8cpp_source.html','');
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    timCamFrame.start();</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="comment">// &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; set prio</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    lora.init(2);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    lora.<a class="code hl_function" href="class_c_communication.html#a839f85b3b6f2ea59a5480e219c0f925e">init</a>(2);</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="comment">// set signal handler for dSensors signal</span></div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    signal(SIGUSR1, sigHandler);</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    signal(SIGINT, sigHandler);</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="comment">// join lora threads</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    lora.run();</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    lora.<a class="code hl_function" href="class_c_communication.html#a283bce9561f0b8e618bbe8b89c473636">run</a>();</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    pthread_join(tLoraRecv_id, NULL);</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    pthread_join(tRecvSensors_id, NULL);</div>
@@ -258,7 +258,7 @@ $(document).ready(function(){initNavTree('_c_local_system_8cpp_source.html','');
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">while</span>(c)</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    {</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="comment">// message was received?</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        err = <span class="keyword">static_cast&lt;</span>LoRaError<span class="keyword">&gt;</span>(c-&gt;lora.recv(msg));</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        err = <span class="keyword">static_cast&lt;</span>LoRaError<span class="keyword">&gt;</span>(c-&gt;lora.<a class="code hl_function" href="class_c_communication.html#adb44decdeb760ebf7c0d3d38ecb7822c">recv</a>(msg));</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">if</span>(err == LoRaError::MSGOK)</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        {</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            c-&gt;loraParser.parse(msg.c_str());</div>
@@ -368,7 +368,7 @@ $(document).ready(function(){initNavTree('_c_local_system_8cpp_source.html','');
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>                c-&gt;timLampOn.start();</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            DEBUG_MSG(<span class="stringliteral">&quot;[CLS::tRecvSensors] Sending (&quot;</span> &lt;&lt; <span class="stringliteral">&quot;LAMP &quot;</span> + <span class="keywordtype">string</span>(msg) &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>);</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            c-&gt;lora.push(<span class="keywordtype">string</span>(<span class="stringliteral">&quot;LAMP &quot;</span>) + msg);</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            c-&gt;lora.<a class="code hl_function" href="class_c_communication.html#a1de846382f3fe0260a457f231935945f">push</a>(<span class="keywordtype">string</span>(<span class="stringliteral">&quot;LAMP &quot;</span>) + msg);</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            <span class="comment">// clear message</span></div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>            memset(msg, 0, <span class="keyword">sizeof</span>(msg));</div>
@@ -416,7 +416,7 @@ $(document).ready(function(){initNavTree('_c_local_system_8cpp_source.html','');
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        <span class="keywordflow">if</span>(vacantsNum != oldVacantsNum)</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        {</div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>            <span class="comment">// send update info to remote system</span></div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>            c-&gt;lora.push(<span class="stringliteral">&quot;PARK &quot;</span>+ vacantsNum);</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>            c-&gt;lora.<a class="code hl_function" href="class_c_communication.html#a1de846382f3fe0260a457f231935945f">push</a>(<span class="stringliteral">&quot;PARK &quot;</span>+ vacantsNum);</div>
 <div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>            oldVacantsNum = vacantsNum;</div>
 <div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        }</div>
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
@@ -426,6 +426,10 @@ $(document).ready(function(){initNavTree('_c_local_system_8cpp_source.html','');
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    </div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordflow">return</span> NULL;</div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>}</div>
+<div class="ttc" id="aclass_c_communication_html_a1de846382f3fe0260a457f231935945f"><div class="ttname"><a href="class_c_communication.html#a1de846382f3fe0260a457f231935945f">CCommunication::push</a></div><div class="ttdeci">void push(std::string msg)</div><div class="ttdoc">Adds a new message to the queue of messages to be sent.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00046">CCommunication.cpp:46</a></div></div>
+<div class="ttc" id="aclass_c_communication_html_a283bce9561f0b8e618bbe8b89c473636"><div class="ttname"><a href="class_c_communication.html#a283bce9561f0b8e618bbe8b89c473636">CCommunication::run</a></div><div class="ttdeci">void run(bool async=RUN_BLOCK)</div><div class="ttdoc">Waits for thread termination (default action), or detaches from them.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00031">CCommunication.cpp:31</a></div></div>
+<div class="ttc" id="aclass_c_communication_html_a839f85b3b6f2ea59a5480e219c0f925e"><div class="ttname"><a href="class_c_communication.html#a839f85b3b6f2ea59a5480e219c0f925e">CCommunication::init</a></div><div class="ttdeci">void init(int tprio)</div><div class="ttdoc">Creates thread for sending messages (tSend)</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00024">CCommunication.cpp:24</a></div></div>
+<div class="ttc" id="aclass_c_communication_html_adb44decdeb760ebf7c0d3d38ecb7822c"><div class="ttname"><a href="class_c_communication.html#adb44decdeb760ebf7c0d3d38ecb7822c">CCommunication::recv</a></div><div class="ttdeci">int recv(std::string &amp;msg)</div><div class="ttdoc">Receive a message.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00066">CCommunication.cpp:66</a></div></div>
 <div class="ttc" id="aclass_c_lamp_html_aac174a0cd7523a281d5fda5c105e4039"><div class="ttname"><a href="class_c_lamp.html#aac174a0cd7523a281d5fda5c105e4039">CLamp::setBrightness</a></div><div class="ttdeci">void setBrightness(uint8_t lux)</div><div class="ttdoc">Sets PWM in channel 0 to the specified value.</div><div class="ttdef"><b>Definition:</b> <a href="_c_lamp_8cpp_source.html#l00059">CLamp.cpp:59</a></div></div>
 <div class="ttc" id="aclass_c_local_system_html"><div class="ttname"><a href="class_c_local_system.html">CLocalSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_local_system_8h_source.html#l00014">CLocalSystem.h:15</a></div></div>
 <div class="ttc" id="astruct_command__t_html"><div class="ttname"><a href="struct_command__t.html">Command_t</a></div><div class="ttdef"><b>Definition:</b> <a href="parser_8h_source.html#l00023">parser.h:24</a></div></div>

@@ -4,7 +4,7 @@ var dir_bfccd401955b95cf8c75461437045ac0 =
     [ "CCharacterDev.h", "_c_character_dev_8h.html", [
       [ "CCharacterDev", "class_c_character_dev.html", null ]
     ] ],
-    [ "CCommunication.h", "_c_communication_8h_source.html", null ],
+    [ "CCommunication.h", "_c_communication_8h.html", "_c_communication_8h" ],
     [ "CFailureDetector.h", "_c_failure_detector_8h_source.html", null ],
     [ "CGateway.h", "_c_gateway_8h_source.html", null ],
     [ "CLamp.h", "_c_lamp_8h_source.html", null ],
@@ -15,10 +15,15 @@ var dir_bfccd401955b95cf8c75461437045ac0 =
     ] ],
     [ "CParkDetection.h", "_c_park_detection_8h_source.html", null ],
     [ "CPir.h", "_c_pir_8h_source.html", null ],
-    [ "CRemoteClient.h", "_c_remote_client_8h_source.html", null ],
+    [ "CRemoteClient.h", "_c_remote_client_8h.html", "_c_remote_client_8h" ],
     [ "CRemoteSystem.h", "_c_remote_system_8h_source.html", null ],
     [ "CSensors.h", "_c_sensors_8h_source.html", null ],
-    [ "CTCPclient.h", "_c_t_c_pclient_8h_source.html", null ],
+    [ "CTCPclient.h", "_c_t_c_pclient_8h.html", [
+      [ "CTCPclient", "class_c_t_c_pclient.html", "class_c_t_c_pclient" ]
+    ] ],
+    [ "CTCPcomm.h", "_c_t_c_pcomm_8h.html", [
+      [ "CTCPComm", "class_c_t_c_p_comm.html", "class_c_t_c_p_comm" ]
+    ] ],
     [ "CTCPserver.h", "_c_t_c_pserver_8h_source.html", null ],
     [ "debug.h", "debug_8h_source.html", null ],
     [ "DEV_Config.h", "_d_e_v___config_8h_source.html", null ],
