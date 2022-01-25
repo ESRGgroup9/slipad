@@ -10,6 +10,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "CMakeLists.txt"
+  "testcamera.elf"
   "/usr/share/OpenCV/OpenCVConfig-version.cmake"
   "/usr/share/OpenCV/OpenCVConfig.cmake"
   "/usr/share/OpenCV/OpenCVModules-release.cmake"
@@ -42,6 +43,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
+  "/home/fernandes/code/slipad/tests/bin/testcamera.elf"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 

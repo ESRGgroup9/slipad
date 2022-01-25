@@ -1,16 +1,13 @@
 #include "CCamera.h"
 #include "utils.h"
-
-//#include <opencv2/opencv.hpp>
+#include <unistd.h>
 
 #define FRAME_W 		640
 #define FRAME_H 		480
 
-#define CAM_BRIGHTNESS	50//50
-#define CAM_EXPOSURE	20//20
-#define CAM_CONTRAST	80//0
-#define CAM_SATURATION	100//50
-#define CAM_HUE  180//50
+#define CAM_BRIGHTNESS	0.4  //-> 20
+#define CAM_CONTRAST	0.50 //-> 0
+#define CAM_SATURATION	0.6  //-> 10
 
 #define DEV_ID 			0
 
@@ -25,21 +22,23 @@ CCamera::CCamera(string camDevName)
 {
     open();
 
+    /******** Camera Configurations **********/    
 	camDev.set(CAP_PROP_FRAME_WIDTH , FRAME_W);
     camDev.set(CAP_PROP_FRAME_HEIGHT, FRAME_H);
     camDev.set(CAP_PROP_BRIGHTNESS, CAM_BRIGHTNESS);
-    camDev.set(CAP_PROP_EXPOSURE, CAM_EXPOSURE);
     camDev.set(CAP_PROP_CONTRAST, CAM_CONTRAST);
     camDev.set(CAP_PROP_SATURATION, CAM_SATURATION);
-    // camDev.set(CAP_PROP_WHITE_BALANCE_RED_V, CAM_HUE);
 
-    //camDev.set(CAP_PROP_SHARPNESS, CAM_SHARPNESS);
+    system("v4l2-ctl --set-ctrl=auto_exposure=0");
+    system("v4l2-ctl --set-ctrl=iso_sensitivity=4");
+    system("v4l2-ctl --set-ctrl=auto_exposure_bias=18");
+    system("v4l2-ctl --set-ctrl=exposure_time_absolute=1000");
+    system("v4l2-ctl --set-ctrl=exposure_dynamic_framerate=1");
+    system("v4l2-ctl --set-ctrl=white_balance_auto_preset=7");
 
-    
-    // printf("BRIGHTNESS: %d\n", camDev.get(CAP_PROP_BRIGHTNESS));
-    // printf("EXPOSURE: %d\n", camDev.get(CAP_PROP_EXPOSURE));
-    // printf("CONTRAST: %d\n", camDev.get(CAP_PROP_CONTRAST));
-    // printf("SATURATION: %d\n", camDev.get(CAP_PROP_SATURATION));
+    system("v4l2-ctl --set-ctrl=sharpness=30");
+
+    sleep(2);
 }
 
 CCamera::~CCamera()
@@ -70,8 +69,14 @@ bool CCamera::captureFrame()
         panic("ERROR! blank frame grabbed.\n");
         return false;
     }
+
+    // Convert to grey scale
     cvtColor(lastFrame,lastFrame, CV_BGR2GRAY);
+
+    // write image to path
     imwrite(PATH, lastFrame);
+
+    // system("scp image.jpg fernandes@10.42.0.1:/home/fernandes/code/slipad/doc/report/images/13tests/camera/");
 
     return true;
 }

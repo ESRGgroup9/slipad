@@ -26,6 +26,9 @@ message(STATUS "CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
 add_executable( testcamera.elf ../tests/testcamera.cpp ${all_SRCS})
 target_link_libraries( testcamera.elf ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT} -lrt -DWITH_FFMPEG=ON)
 
+configure_file(testcamera.elf ../tests/bin/testcamera.elf COPYONLY)
+
+
 
 #**********************************************************************************************************
 #set(CMAKE_CXX_COMPILER "/usr/bin/g++")

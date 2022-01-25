@@ -30,8 +30,18 @@ int main(int argc, char** argv)
         return -1;
     }
 
+    // Mat median;
+    // medianBlur(src, median, 5);
+    // imshow("median", median);
+    // // Wait and Exit
+    // waitKey();
+
+    // Mat filtered;
+    // filter2D(src, filtered, )
+
     // Edge detection
-    Canny(src, dst, 50, 200, 3);
+    //(image, edges, threshold1, threshold2, apertureSize, L2gradient)
+    Canny(src, dst, 80, 230, 3);
 
     imshow("Canny", dst);
     // Wait and Exit
@@ -108,10 +118,10 @@ int main(int argc, char** argv)
 
 
     // Show results
-    imshow("Source", src);
-    imshow("Detected Lines (in red) - Standard Hough Line Transform", cdst);
-    // imshow("Detected Lines (in red) - Probabilistic Line Transform", cdstP);
-    // Wait and Exit
-    waitKey();
+    // imshow("Source", src);
+    // imshow("Detected Lines (in red) - Standard Hough Line Transform", cdst);
+    // // imshow("Detected Lines (in red) - Probabilistic Line Transform", cdstP);
+    // // Wait and Exit
+    // waitKey();
     return 0;
 }
