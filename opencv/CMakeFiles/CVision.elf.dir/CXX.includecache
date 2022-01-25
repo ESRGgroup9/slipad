@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/CParkDetection.h
+opencv2/opencv.hpp
+-
+vector
+-
+
+/home/fernandes/code/slipad/src/CParkDetection.cpp
+CParkDetection.h
+/home/fernandes/code/slipad/src/CParkDetection.h
+

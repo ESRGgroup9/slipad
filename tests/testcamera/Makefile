@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named CVision.elf
+# Target rules for targets named testcamera.elf
 
 # Build rule for target.
-CVision.elf: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 CVision.elf
-.PHONY : CVision.elf
+testcamera.elf: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testcamera.elf
+.PHONY : testcamera.elf
 
 # fast build rule for target.
-CVision.elf/fast:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/build
-.PHONY : CVision.elf/fast
+testcamera.elf/fast:
+	$(MAKE) -f CMakeFiles/testcamera.elf.dir/build.make CMakeFiles/testcamera.elf.dir/build
+.PHONY : testcamera.elf/fast
 
 home/fernandes/code/slipad/src/CCamera.o: home/fernandes/code/slipad/src/CCamera.cpp.o
 
@@ -129,7 +129,7 @@ home/fernandes/code/slipad/src/CCamera.o: home/fernandes/code/slipad/src/CCamera
 
 # target to build an object file
 home/fernandes/code/slipad/src/CCamera.cpp.o:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.o
+	$(MAKE) -f CMakeFiles/testcamera.elf.dir/build.make CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.o
 .PHONY : home/fernandes/code/slipad/src/CCamera.cpp.o
 
 home/fernandes/code/slipad/src/CCamera.i: home/fernandes/code/slipad/src/CCamera.cpp.i
@@ -138,7 +138,7 @@ home/fernandes/code/slipad/src/CCamera.i: home/fernandes/code/slipad/src/CCamera
 
 # target to preprocess a source file
 home/fernandes/code/slipad/src/CCamera.cpp.i:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.i
+	$(MAKE) -f CMakeFiles/testcamera.elf.dir/build.make CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.i
 .PHONY : home/fernandes/code/slipad/src/CCamera.cpp.i
 
 home/fernandes/code/slipad/src/CCamera.s: home/fernandes/code/slipad/src/CCamera.cpp.s
@@ -147,62 +147,35 @@ home/fernandes/code/slipad/src/CCamera.s: home/fernandes/code/slipad/src/CCamera
 
 # target to generate assembly for a file
 home/fernandes/code/slipad/src/CCamera.cpp.s:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.s
+	$(MAKE) -f CMakeFiles/testcamera.elf.dir/build.make CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.s
 .PHONY : home/fernandes/code/slipad/src/CCamera.cpp.s
 
-home/fernandes/code/slipad/src/CParkDetection.o: home/fernandes/code/slipad/src/CParkDetection.cpp.o
+home/fernandes/code/slipad/tests/testcamera.o: home/fernandes/code/slipad/tests/testcamera.cpp.o
 
-.PHONY : home/fernandes/code/slipad/src/CParkDetection.o
-
-# target to build an object file
-home/fernandes/code/slipad/src/CParkDetection.cpp.o:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/src/CParkDetection.cpp.o
-.PHONY : home/fernandes/code/slipad/src/CParkDetection.cpp.o
-
-home/fernandes/code/slipad/src/CParkDetection.i: home/fernandes/code/slipad/src/CParkDetection.cpp.i
-
-.PHONY : home/fernandes/code/slipad/src/CParkDetection.i
-
-# target to preprocess a source file
-home/fernandes/code/slipad/src/CParkDetection.cpp.i:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/src/CParkDetection.cpp.i
-.PHONY : home/fernandes/code/slipad/src/CParkDetection.cpp.i
-
-home/fernandes/code/slipad/src/CParkDetection.s: home/fernandes/code/slipad/src/CParkDetection.cpp.s
-
-.PHONY : home/fernandes/code/slipad/src/CParkDetection.s
-
-# target to generate assembly for a file
-home/fernandes/code/slipad/src/CParkDetection.cpp.s:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/src/CParkDetection.cpp.s
-.PHONY : home/fernandes/code/slipad/src/CParkDetection.cpp.s
-
-main.o: main.cpp.o
-
-.PHONY : main.o
+.PHONY : home/fernandes/code/slipad/tests/testcamera.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/main.cpp.o
-.PHONY : main.cpp.o
+home/fernandes/code/slipad/tests/testcamera.cpp.o:
+	$(MAKE) -f CMakeFiles/testcamera.elf.dir/build.make CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/tests/testcamera.cpp.o
+.PHONY : home/fernandes/code/slipad/tests/testcamera.cpp.o
 
-main.i: main.cpp.i
+home/fernandes/code/slipad/tests/testcamera.i: home/fernandes/code/slipad/tests/testcamera.cpp.i
 
-.PHONY : main.i
+.PHONY : home/fernandes/code/slipad/tests/testcamera.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/main.cpp.i
-.PHONY : main.cpp.i
+home/fernandes/code/slipad/tests/testcamera.cpp.i:
+	$(MAKE) -f CMakeFiles/testcamera.elf.dir/build.make CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/tests/testcamera.cpp.i
+.PHONY : home/fernandes/code/slipad/tests/testcamera.cpp.i
 
-main.s: main.cpp.s
+home/fernandes/code/slipad/tests/testcamera.s: home/fernandes/code/slipad/tests/testcamera.cpp.s
 
-.PHONY : main.s
+.PHONY : home/fernandes/code/slipad/tests/testcamera.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/main.cpp.s
-.PHONY : main.cpp.s
+home/fernandes/code/slipad/tests/testcamera.cpp.s:
+	$(MAKE) -f CMakeFiles/testcamera.elf.dir/build.make CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/tests/testcamera.cpp.s
+.PHONY : home/fernandes/code/slipad/tests/testcamera.cpp.s
 
 # Help Target
 help:
@@ -212,16 +185,13 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... CVision.elf"
+	@echo "... testcamera.elf"
 	@echo "... home/fernandes/code/slipad/src/CCamera.o"
 	@echo "... home/fernandes/code/slipad/src/CCamera.i"
 	@echo "... home/fernandes/code/slipad/src/CCamera.s"
-	@echo "... home/fernandes/code/slipad/src/CParkDetection.o"
-	@echo "... home/fernandes/code/slipad/src/CParkDetection.i"
-	@echo "... home/fernandes/code/slipad/src/CParkDetection.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... home/fernandes/code/slipad/tests/testcamera.o"
+	@echo "... home/fernandes/code/slipad/tests/testcamera.i"
+	@echo "... home/fernandes/code/slipad/tests/testcamera.s"
 .PHONY : help
 
 

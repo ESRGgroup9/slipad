@@ -13,9 +13,7 @@ include_directories(include ${CMAKE_CURRENT_SOURCE_DIR}/../inc/ )
 
 file(GLOB all_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/../src/CCamera.cpp"
-   "${CMAKE_CURRENT_SOURCE_DIR}/../src/CParkDetection.cpp"
    "${CMAKE_CURRENT_SOURCE_DIR}/../inc/CCamera.h"
-   "${CMAKE_CURRENT_SOURCE_DIR}/../inc/CParkDetection.h"
 )
 
 #***********output variables***************
@@ -25,8 +23,12 @@ message(STATUS "OpenCV_LIBRARIES = ${OpenCV_LIBRARIES}")
 message(STATUS "CMAKE_CXX_COMPILER = ${CMAKE_CXX_COMPILER}")
 message(STATUS "CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
 
-add_executable( CVision.elf main.cpp ${all_SRCS}) # CVision does nothing -> dummy 
-target_link_libraries( CVision.elf ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT})
+add_executable( testcamera.elf ../tests/testcamera.cpp ${all_SRCS})
+target_link_libraries( testcamera.elf ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT} -lrt -DWITH_FFMPEG=ON)
+
+## Send binary file to tests's bin directory
+configure_file(testcamera.elf ../tests/bin/testcamera.elf COPYONLY)
+
 
 
 #**********************************************************************************************************

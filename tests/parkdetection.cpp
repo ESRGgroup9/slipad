@@ -1,169 +1,3 @@
-// #include "opencv2/imgcodecs.hpp"
-// #include "opencv2/highgui.hpp"
-// #include "opencv2/imgproc.hpp"
-// #include <cmath>
-// #include <string>
-// #include <iostream>
-// #include <vector> 
-
-// using namespace cv;
-// using namespace std;
-
-// /**
-//  * Helper function to find a cosine of angle between vectors
-//  * from pt0->pt1 and pt0->pt2
-//  */
-// static double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0)
-// {
-//     double dx1 = pt1.x - pt0.x;
-//     double dy1 = pt1.y - pt0.y;
-//     double dx2 = pt2.x - pt0.x;
-//     double dy2 = pt2.y - pt0.y;
-//     return (dx1*dx2 + dy1*dy2)/sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
-// }
-
-// /**
-//  * Helper function to display text in the center of a contour
-//  */
-// void setLabel(cv::Mat& im, const std::string label, std::vector<cv::Point>& contour)
-// {
-//     int fontface = cv::FONT_HERSHEY_SIMPLEX;
-//     double scale = 0.4;
-//     int thickness = 1;
-//     int baseline = 0;
-
-//     cv::Size text = cv::getTextSize(label, fontface, scale, thickness, &baseline);
-//     cv::Rect r = cv::boundingRect(contour);
-
-//     cv::Point pt(r.x + ((r.width - text.width) / 2), r.y + ((r.height + text.height) / 2));
-//     cv::rectangle(im, pt + cv::Point(0, baseline), pt + cv::Point(text.width, -text.height), CV_RGB(255,255,255), FILLED);
-//     cv::putText(im, label, pt, fontface, scale, CV_RGB(0,0,0), thickness, 8);
-// }
-
-
-// int main(int argc, char** argv)
-// {
-//     // Declare the output variables
-//     Mat canny, cdst, cdstP;
-//     const char* default_file = "image.jpg";
-//     const char* filename = argc >=2 ? argv[1] : default_file;
-    
-//     string filePath = "../";
-//     filePath.append(filename);
-
-//     cout << filePath << endl;
-
-//     // Loads an image
-//     Mat src = imread( filePath, IMREAD_GRAYSCALE );
-
-//     // Check if image is loaded fine
-//     if(src.empty()){
-//         printf(" Error opening image\n");
-//         printf(" Program Arguments: [image_name -- default %s] \n", default_file);
-//         return -1;
-//     }
-
-//     // Edge detection
-//     //(image, edges, threshold1, threshold2, apertureSize, L2gradient)
-//     Canny(src, canny, 50, 150, 3);
-
-//     // Find contours
-//     vector<vector<Point>> contours; // lines
-//     findContours(canny.clone(), contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-
-//     vector<Point> approx;
-//     Mat dst = src.clone();
-
-//     for (int i = 0; i < contours.size(); i++)
-//     {
-//         // Approximate contour with accuracy proportional
-//         // to the contour perimeter
-//         approxPolyDP(Mat(contours[i]), approx, arcLength(Mat(contours[i]), true)*0.02, true);
-
-//         // Skip small or non-convex objects 
-//         if (fabs(contourArea(contours[i])) < 100 || !isContourConvex(approx))
-//             continue;
-
-//         if (approx.size() >= 4 && approx.size() <= 6)
-//         {
-//             // Number of vertices of polygonal curve
-//             int vtc = approx.size();
-
-//             // Get the cosines of all corners
-//             std::vector<double> cos;
-//             for (int j = 2; j < vtc+1; j++)
-//                 cos.push_back(angle(approx[j%vtc], approx[j-2], approx[j-1]));
-
-//             // Sort ascending the cosine values
-//             std::sort(cos.begin(), cos.end());
-
-//             // Get the lowest and the highest cosine
-//             double mincos = cos.front();
-//             double maxcos = cos.back();
-
-//             // Use the degrees obtained above and the number of vertices
-//             // to determine the shape of the contour
-//             if (vtc == 4 && mincos >= -0.1 && maxcos <= 0.3)
-//                 setLabel(dst, "RECT", contours[i]);
-//             else if (vtc == 5 && mincos >= -0.34 && maxcos <= -0.27)
-//                 setLabel(dst, "PENTA", contours[i]);
-//             else if (vtc == 6 && mincos >= -0.55 && maxcos <= -0.45)
-//                 setLabel(dst, "HEXA", contours[i]);
-//         }
-//         else
-//         {
-//             // Detect and label circles
-//             double area = cv::contourArea(contours[i]);
-//             cv::Rect r = cv::boundingRect(contours[i]);
-//             int radius = r.width / 2;
-
-//             if (std::abs(1 - ((double)r.width / r.height)) <= 0.2 &&
-//                 std::abs(1 - (area / (CV_PI * std::pow(radius, 2)))) <= 0.2)
-//                 setLabel(dst, "CIR", contours[i]);
-//         }
-//     }
-
-
-//     // Copy edges to the images that will display the results in BGR
-//     cvtColor(dst, cdst, COLOR_GRAY2BGR);
-//     cdstP = cdst.clone();
-
-//     // Show results
-//     imshow("Source", src);
-//     // imshow("Detected Lines (in red) - Standard Hough Line Transform", cdst);
-//     imshow("Detected Rectangles", dst);
-//     // // Wait and Exit
-//     waitKey();
-//     return 0;
-// }
-
-/* void calculate_m_b(xxxx)
-{
-    // (image, lines, rho, theta, threshold, minLineLenght, maxLineGap)
-    HoughLinesP(dst, linesP, 1, CV_PI/180, 50, 50, 15); // runs the actual detection -->> Melhores parametrops
- 
-
-    // for (size_t j=i+1; j < linesP.size(); i++)
-        // {
-        //     Vec4i l2 = linesP[i];
-        //     if(l1[0]!=l1[2])
-        //     {
-        //         m1=(l1[3]-l1[1])/(l1[2]-l1[0]);
-        //         b1=l1[1]-l1[0]*m1;
-        //     }
-        //     if(l2[0]!=l2[2])
-        //     {
-        //         m2=(l2[3]-l2[1])/(l2[2]-l2[0]);
-        //         b2=l2[1]-l2[0]*m2;
-        //     }
-
-                
-        // }
-}*/
-
-// The "Square Detector" program.
-// It loads several images sequentially and tries to find squares in
-// each image
 #include "opencv2/core.hpp"
 #include "opencv2/imgproc.hpp"
 #include "opencv2/imgcodecs.hpp"
@@ -174,13 +8,11 @@
 using namespace cv;
 using namespace std;
 
-const char* wndname = "Square Detection";
-
 int thresh = 50, N = 11;
 
 // finds a cosine of angle between vectors
 // from pt0->pt1 and from pt0->pt2
-static double angle( Point pt1, Point pt2, Point pt0 )
+static double angle_cosine( Point pt1, Point pt2, Point pt0 )
 {
     double dx1 = pt1.x - pt0.x;
     double dy1 = pt1.y - pt0.y;
@@ -189,7 +21,6 @@ static double angle( Point pt1, Point pt2, Point pt0 )
     return (dx1*dx2 + dy1*dy2)/sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
 }
 
-// returns sequence of squares detected on the image.
 static void findSquares( const Mat& image, vector<vector<Point> >& squares )
 {
     squares.clear();
@@ -218,7 +49,6 @@ static void findSquares( const Mat& image, vector<vector<Point> >& squares )
         // try several threshold levels
         for( int l = 0; l < N; l++ )
         {
-            // hack: use Canny instead of zero threshold level.
             // Canny helps to catch squares with gradient shading
             if( l == 0 )
             {
@@ -261,7 +91,7 @@ static void findSquares( const Mat& image, vector<vector<Point> >& squares )
                     // find the maximum cosine of all angles of the polygon
                     for( int j = 2; j < 5; j++ )
                     {
-                        double cosine = fabs(angle(approx[j%4], approx[j-2], approx[j-1]));
+                        double cosine = fabs(angle_cosine(approx[j%4], approx[j-2], approx[j-1]));
                         maxCosine = MAX(maxCosine, cosine);
                     }
 

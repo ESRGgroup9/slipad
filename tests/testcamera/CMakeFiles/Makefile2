@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/fernandes/code/slipad/opencv
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/CVision.elf.dir/all
+all: CMakeFiles/testcamera.elf.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/CVision.elf.dir/clean
+clean: CMakeFiles/testcamera.elf.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/CVision.elf.dir
+# Target rules for target CMakeFiles/testcamera.elf.dir
 
 # All Build rule for target.
-CMakeFiles/CVision.elf.dir/all:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/depend
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fernandes/code/slipad/opencv/CMakeFiles --progress-num=1,2,3,4 "Built target CVision.elf"
-.PHONY : CMakeFiles/CVision.elf.dir/all
+CMakeFiles/testcamera.elf.dir/all:
+	$(MAKE) -f CMakeFiles/testcamera.elf.dir/build.make CMakeFiles/testcamera.elf.dir/depend
+	$(MAKE) -f CMakeFiles/testcamera.elf.dir/build.make CMakeFiles/testcamera.elf.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fernandes/code/slipad/opencv/CMakeFiles --progress-num=1,2,3 "Built target testcamera.elf"
+.PHONY : CMakeFiles/testcamera.elf.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/CVision.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/opencv/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/CVision.elf.dir/all
+CMakeFiles/testcamera.elf.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/opencv/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testcamera.elf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/opencv/CMakeFiles 0
-.PHONY : CMakeFiles/CVision.elf.dir/rule
+.PHONY : CMakeFiles/testcamera.elf.dir/rule
 
 # Convenience name for target.
-CVision.elf: CMakeFiles/CVision.elf.dir/rule
+testcamera.elf: CMakeFiles/testcamera.elf.dir/rule
 
-.PHONY : CVision.elf
+.PHONY : testcamera.elf
 
 # clean rule for target.
-CMakeFiles/CVision.elf.dir/clean:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/clean
-.PHONY : CMakeFiles/CVision.elf.dir/clean
+CMakeFiles/testcamera.elf.dir/clean:
+	$(MAKE) -f CMakeFiles/testcamera.elf.dir/build.make CMakeFiles/testcamera.elf.dir/clean
+.PHONY : CMakeFiles/testcamera.elf.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
