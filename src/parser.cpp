@@ -8,7 +8,7 @@ Parser::Parser(Command_t *cmd_list, const char *delimeter) :
 	delimeter(delimeter),
 	cmd_list(cmd_list)
 {
- 
+
 }
 
 int Parser::parse(const char *str_in)
@@ -20,6 +20,9 @@ int Parser::parse(const char *str_in)
 	uint8_t len;
 	uint8_t argc = 0;
 	int retval = (-ECMDNF);
+	
+	if(cmd_list == NULL)
+		return (-ENOLIST);
 	
 	if ((str_in == NULL) || (strlen(str_in) == 0)) // empty command
 		return (-ENOCMD);

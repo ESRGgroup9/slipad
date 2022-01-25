@@ -12,7 +12,7 @@ CTCPclient::CTCPclient(std::string host, int port)
 	// Get server's IP and standard service connection
 	hostent = gethostbyname(host.c_str());
 	this->host = hostent->h_name;
-	this->port = port;
+	this->port = port; 
 
 	// Create socket
 	this->sockfd = socket(PF_INET, SOCK_STREAM, 0);
