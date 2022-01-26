@@ -45,7 +45,9 @@ int RCGateway::lampGatCb(int argc, char *argv[])
 
 	// execute query
 	stringstream query;
-	query << "UPDATE lamppost SET status=" << argv[1] << " WHERE id=" << id;
+	query << "UPDATE lamppost SET status='" << argv[1] << "' WHERE id=" << id;
+
+	DEBUG_MSG("QUERY: " << query.str());
 
 	if(mysql_query(thisPtr->db, query.str().c_str()) == 0)
 	{

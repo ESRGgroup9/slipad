@@ -28,9 +28,9 @@ CRemoteSystem::CRemoteSystem(int port) :
 		panic("MySQL: Connection Error");
 	}
 
-	if(mysql_query(db, "show tables") == 0)
+	if(mysql_query(db, "update lamppost set status='FAIL' where id=2") == 0)
 	{
-		cout << "show tables ok" << endl;
+		cout << "update ok" << endl;
 	}
 
 	DEBUG_MSG("[CRemoteSystem] Successfully initialized!");
