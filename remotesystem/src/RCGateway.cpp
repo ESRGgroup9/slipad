@@ -39,13 +39,21 @@ int RCGateway::lampGatCb(int argc, char *argv[])
 	// check that command argument, argv[1], is valid
 	// ....
 
+	// get lamppost ID
+	int id = 1;
+	// ....
+
 	// execute query
 	stringstream query;
-	query << "UPDATE * FROM bank_account WHERE acc_no=" << argv[1];
+	query << "UPDATE lamppost SET status=" << argv[1] << " WHERE id=" << id;
 
 	if(mysql_query(thisPtr->db, query.str().c_str()) == 0)
 	{
-
+		DEBUG_MSG("UPDATE Lamppost[" << id << "] to status[" << argv[1] << "] successful");
+	}
+	else
+	{
+		DEBUG_MSG("UPDATE Lamppost[" << id << "] to status[" << argv[1] << "] failed");	
 	}
 
 	return 0;
@@ -58,6 +66,22 @@ int RCGateway::parkGatCb(int argc, char *argv[])
 	if(argc != 2)
 		return -1;
 	
+	// MYSQL_RES* rset;
+ //   	MYSQL_ROW row;
+
+	// if(mysql_query(thisPtr->db, query.str().c_str()) == 0)
+	// {
+	// 	rset = mysql_use_result(thisPtr->db);
+	// 	row = mysql_fetch_row(rset);
+
+	// 	// b->setAccountNumber(atoi(row[0]));
+	// 	// b->setFirstName(row[1]);
+	// 	// b->setLastName(row[2]);
+	// 	// b->setBalance(atof(row[3]));
+	// }
+
+	// mysql_free_result(rset);
+
 	return 0;
 }
 

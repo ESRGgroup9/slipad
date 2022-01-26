@@ -11,6 +11,8 @@ class CRemoteSystem
 public:
 	// CRemoteSystem();
 	CRemoteSystem(int port);
+	~CRemoteSystem();
+	
 	void run();
 
 private:

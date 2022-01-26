@@ -2,12 +2,14 @@
 #include "RCGateway.h"
 #include "utils.h"
 #include "debug.h"
+#include <iostream>
+using namespace std;
 
 #define SERVER_PORT (5000)
 
 #define HOST		("localhost")
 #define USER		("root")
-#define PASSWORD	("password")
+#define PASSWORD	("Password123#@!")
 #define DATABASE 	("slipad")
 
 CRemoteSystem::CRemoteSystem(int port) :
@@ -21,9 +23,22 @@ CRemoteSystem::CRemoteSystem(int port) :
 
 	db = mysql_real_connect(db, HOST, USER, PASSWORD, DATABASE, 0, NULL, 0);
 	if(!db)
+	{
+		cout << mysql_error(db) << endl;
 		panic("MySQL: Connection Error");
+	}
+
+	if(mysql_query(db, "show tables") == 0)
+	{
+		cout << "show tables ok" << endl;
+	}
 
 	DEBUG_MSG("[CRemoteSystem] Successfully initialized!");
+}
+
+CRemoteSystem::~CRemoteSystem()
+{
+	mysql_close(db);
 }
 
 void CRemoteSystem::run()
