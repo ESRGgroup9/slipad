@@ -17,7 +17,9 @@ CRemoteSystem::CRemoteSystem(int port) :
 // CRemoteSystem::CRemoteSystem() :
 	// server(SERVER_PORT)
 {
-	db = mysql_init(NULL);
+	db = new MYSQL;
+	mysql_init(db);
+	
 	if(!db)
 		panic("MySQL: initialization failed");
 

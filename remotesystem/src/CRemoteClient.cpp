@@ -5,9 +5,9 @@
 using namespace std;
 
 CRemoteClient::CRemoteClient(int sd, MYSQL* database) :
+	db(database),
 	// cmdParser command list is defined in derived classes
-	cmdParser(NULL," "),
-	db(database)
+	cmdParser(NULL," ")
 {
 	// use 'sd' socket file descriptor - in tcp communications
 	tcp.setSockfd(sd);
@@ -64,21 +64,26 @@ void *CRemoteClient::tRecv(void *arg)
 		if(ret > 0)
 		{
 			DEBUG_MSG("[CRemoteClient::tRecv] Received[" << msg << "]");
+			// make sure that the client has already identified himself
+			if(c->info.type == ClientType::UNDEF)
+			{
+				DEBUG_MSG("[CRemoteClient::tRecv] Client[" << c->info.sockfd << "] hasn't defined its type yet");
+				continue;
+			}
+
 			// parse received string
 			int err = c->cmdParser.parse(msg.c_str());
-
-			// make sure that the client has already identified himself
-			if((err == 0) && (c->info.type != ClientType::UNDEF))
+			if(err == 0)
 			{
 				c->tcp.push(msg);
 			}
 			else
 			{
 				DEBUG_MSG("[CRemoteClient::tRecv] Parse returned[" << err << "]");
-				DEBUG_MSG("[CRemoteClient::tRecv] Client[" << c->info.sockfd << "] hasn't defined its type yet");
 			}
 		}
 	}
 
+	// DEBUG_MSG("[CRemoteClient::tRecv] Client[" << c->info.sockfd << "] tRecv exit");
 	return NULL;
 }

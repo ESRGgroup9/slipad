@@ -10,10 +10,10 @@ public:
 
 private:
 	// Callbacks for Gateway command list
-	static int lampGatCb(int, char *[]);
-	static int parkGatCb(int, char *[]);
-	static int idGatCb(int, char *[]);
-	static int crqGatCb(int, char *[]);
+	static int lampCb(int, char *[]);
+	static int parkCb(int, char *[]);
+	static int idCb(int, char *[]);
+	static int crqCb(int, char *[]);
 
 private:
 	static RCGateway* thisPtr;
