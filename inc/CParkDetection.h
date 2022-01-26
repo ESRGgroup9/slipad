@@ -26,13 +26,16 @@ public:
 
 private:
 	double angle_cosine( cv::Point pt1, cv::Point pt2, cv::Point pt0 );
-
+	void isSquare( std::vector<cv::Point>& squares );
 
 private:
 	int vacantsNum;
 	int parkNum;
 
-	std::vector<cv::Point> parkCoords;
+	std::vector<std::vector<cv::Point> > parkCoords;
+	
+	const int thresh;
+	const int levels;
 };
 // End CParkDetection class definition
 
