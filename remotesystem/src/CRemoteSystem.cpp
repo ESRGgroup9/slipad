@@ -19,7 +19,7 @@ CRemoteSystem::CRemoteSystem(int port) :
 {
 	db = new MYSQL;
 	mysql_init(db);
-	
+
 	if(!db)
 		panic("MySQL: initialization failed");
 

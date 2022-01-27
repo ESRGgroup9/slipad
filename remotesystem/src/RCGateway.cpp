@@ -1,6 +1,5 @@
 #include "RCGateway.h"
 #include "debug.h"
-#include <mysql/mysql.h>
 #include <sstream>
 using namespace std;
 

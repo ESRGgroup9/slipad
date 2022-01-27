@@ -4,7 +4,7 @@ USE `slipad`;
 
 DROP TABLE IF EXISTS `operator`;
 CREATE TABLE `operator`(
-	`id` INTEGER NOT NULL AUTO_INCREMENT,
+	`id` INTEGER UNIQUE NOT NULL AUTO_INCREMENT,
 	`name` CHAR(50) NOT NULL,
 	`password` CHAR(50) NOT NULL,
 	PRIMARY KEY(`id`)
@@ -12,8 +12,8 @@ CREATE TABLE `operator`(
 
 DROP TABLE IF EXISTS `region`;
 CREATE TABLE `region`(
-	`post_code` CHAR(8) NOT NULL,
-	`operator_id` INTEGER NOT NULL,
+	`post_code` CHAR(8) UNIQUE NOT NULL CHECK(`post_code` LIKE '____-___'),
+	`operator_id` INTEGER,
 	`parish` CHAR(50) NOT NULL,
 	`county` CHAR(50) NOT NULL,
 	`district` CHAR(50) NOT NULL,
@@ -24,9 +24,9 @@ CREATE TABLE `region`(
 
 DROP TABLE IF EXISTS `location`;
 CREATE TABLE `location`(
-	`id` INTEGER NOT NULL,
-	`latitude` DECIMAL(8,6) NOT NULL,
-	`longitude` DECIMAL(9,6) NOT NULL,
+	`id` INTEGER AUTO_INCREMENT,
+	`latitude` DECIMAL(8,6) UNIQUE NOT NULL,
+	`longitude` DECIMAL(9,6) UNIQUE NOT NULL,
 	`post_code` CHAR(8) NOT NULL,
 	`street_name` CHAR(50) NOT NULL,
 	PRIMARY KEY(`id`),
@@ -36,8 +36,8 @@ CREATE TABLE `location`(
 
 DROP TABLE IF EXISTS `lamppost`;
 CREATE TABLE `lamppost`(
-	`id` INTEGER NOT NULL AUTO_INCREMENT,
-	`address` INTEGER NOT NULL,
+	`id` INTEGER,
+	`address` INTEGER UNIQUE NOT NULL,
 	`status` ENUM('FAIL', 'OFF', 'ON', 'MIN'),
 	PRIMARY KEY(`id`),
 	FOREIGN KEY(`id`) REFERENCES `location`(`id`)
@@ -46,8 +46,8 @@ CREATE TABLE `lamppost`(
 
 DROP TABLE IF EXISTS `parking_space`;
 CREATE TABLE `parking_space`(
-	`id` INTEGER NOT NULL,
-	`num_vacants` INTEGER DEFAULT(0),
+	`id` INTEGER,
+	`num_vacants` INTEGER DEFAULT(0) CHECK(`num_vacants`>=0),
 	PRIMARY KEY(`id`),
 	FOREIGN KEY(`id`) REFERENCES `lamppost`(`id`)
 		ON UPDATE CASCADE
