@@ -23,7 +23,7 @@ public:
  * In order to use TCP communication, one must call 'setSockfd' before the use
  * of 'send' and 'recv' functions (inherited from CCommunication).
  */
-	CTCPComm();
+	CTCPComm(int sd = -1);
 
 /**
  * @brief Sets the socket file descriptor to be used in TCP communications

@@ -3,6 +3,7 @@
 
 #include "CTCPserver.h"
 #include "CRemoteClient.h"
+#include "parser.h"
 #include <mysql/mysql.h>
 #include <vector>
 
@@ -16,7 +17,17 @@ public:
 	void run();
 
 private:
+	static void *recvType(void *arg);
+	static int typeCb(int argc, char *argv[]);
+
+private:
+	static CRemoteSystem *thisPtr;
+	Parser typeParser;
+	Command_t *cmdList;
+
+private:
 	CTCPserver server;
+	int client_port;
 	std::vector <CRemoteClient*> clientList;
 	MYSQL* db;
 };

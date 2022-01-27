@@ -5,11 +5,11 @@
 
 using namespace std;
 
-CTCPComm::CTCPComm()
+CTCPComm::CTCPComm(int sd)
 {
 	// initialize as non valid file descriptor
-	this->sockfd = -1;
-
+	this->sockfd = sd;
+	
 	// set status
 	this->status = ConnStatus::ONLINE;
 }

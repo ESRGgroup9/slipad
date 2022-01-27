@@ -1,22 +1,38 @@
 #include "CRemoteSystem.h"
+
 #include "RCGateway.h"
+#include "RCApplication.h"
+#include "RCWebsite.h"
+#include "CTCPcomm.h"
+
 #include "utils.h"
 #include "debug.h"
 #include <iostream>
+#include <pthread.h>
+
 using namespace std;
 
 #define SERVER_PORT (5000)
-
 #define HOST		("localhost")
 #define USER		("root")
 #define PASSWORD	("Password123#@!")
 #define DATABASE 	("slipad")
 
+CRemoteSystem *CRemoteSystem::thisPtr = NULL;
+
 CRemoteSystem::CRemoteSystem(int port) :
+	typeParser(NULL, " "),
 	server(port)
-// CRemoteSystem::CRemoteSystem() :
-	// server(SERVER_PORT)
 {
+	cmdList = new Command_t[4]
+	{
+		{"TYPE", typeCb},
+		{0,0}
+	};
+
+	// update parser command list
+	typeParser.setCmdList(cmdList);
+
 	db = new MYSQL;
 	mysql_init(db);
 
@@ -29,6 +45,9 @@ CRemoteSystem::CRemoteSystem(int port) :
 		cout << mysql_error(db) << endl;
 		panic("MySQL: Connection Error");
 	}
+
+	this->client_port = port;
+	thisPtr = this;
 }
 
 CRemoteSystem::~CRemoteSystem()
@@ -48,20 +67,88 @@ void CRemoteSystem::run()
 
 		if(sd != -1)
 		{
-			// CRemoteClient *client = new CRemoteClient(sd);
-			RCGateway *client = new RCGateway(sd, db);
-			// client index
-			static int i = 0;
-			// DEBUG_MSG("[CRemoteSystem::run] client[" << i << "] on sockfd[" << sd << "]");
-			
-			// add new client
-			clientList.push_back(client);
-			// execute respective init and run methods
-			clientList[i]->init(1,2);
-			clientList[i]->run();
-			i++;
-			
-			DEBUG_MSG("[CRemoteSystem::run] continue listening for new connections...");
+			pthread_t recvType_id;
+			// handle client addition to client list in thread
+			client_port = sd;
+			pthread_create(&recvType_id, NULL, recvType, this);
+			pthread_detach(recvType_id);
+			DEBUG_MSG("[CRemoteSystem::run] Continue listening for new connections...");
 		}
 	}
+}
+
+int CRemoteSystem::typeCb(int argc, char *argv[])
+{
+	if(argc != 2)
+	{
+		DEBUG_MSG("[CRemoteSystem::typeCb] Usage: TYPE <clientType>");
+		return -1;
+	}
+
+	ClientType type = static_cast<ClientType>(atoi(argv[1]));
+	CRemoteClient *client = NULL;
+
+	switch(type)
+	{
+		case ClientType::GATEWAY:
+			client = new RCGateway(thisPtr->client_port, thisPtr->db);
+			break;
+
+		case ClientType::WEBSITE:
+			client = new RCWebsite(thisPtr->client_port, thisPtr->db);
+			break;
+
+		case ClientType::APPLICATION:
+			client = new RCApplication(thisPtr->client_port, thisPtr->db);
+			break;
+
+		default:
+		// do not handle other types - client stays NULL
+			break;
+	}
+
+	if(client == NULL)
+	{
+		DEBUG_MSG("[CRemoteSystem::typeCb] Client not created");
+		return -1;
+	}
+
+	// add new client
+	thisPtr->clientList.push_back(client); 
+	// execute respective init and run methods
+	int i = thisPtr->clientList.size() - 1;
+	thisPtr->clientList[i]->init(1,2);
+	thisPtr->clientList[i]->run();
+	DEBUG_MSG("[CRemoteSystem::typeCb] Client(" << static_cast<int>(type) << ") created successfull");
+
+	return 0;
+}
+
+void *CRemoteSystem::recvType(void *arg)
+{
+	// get CRemoteSystem instance
+	CRemoteSystem *c = reinterpret_cast<CRemoteSystem*>(arg);
+	CTCPComm tcp(c->client_port);
+
+	string msg;
+	int ret = 0;
+	int err = -1;
+
+	do
+	{
+		ret = tcp.recv(msg);
+
+		if(ret == 0)
+			// client has closed the connection
+			return NULL;
+
+		if(ret > 0)
+		{
+			// parse received string
+			err = c->typeParser.parse(msg.c_str());
+		}
+	}
+	while(err != 0);
+
+	return NULL;
 }
