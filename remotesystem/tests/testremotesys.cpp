@@ -1,46 +1,60 @@
+#include "CTCPclient.h"
+#include <string>
+#include <iostream>
+using namespace std;
+
+const static char *typeStr[] =
+{
+	"GATEWAY",
+	"WEBSITE",
+	"APPLICATION",
+};
 
 int main(int argc, char *argv[])
 {
-	server(port);
-
-	db = new MYSQL;
-	mysql_init(db);
-
-	if(!db)
-		panic("MySQL: initialization failed");
-
-	db = mysql_real_connect(db, HOST, USER, PASSWORD, DATABASE, 0, NULL, 0);
-	if(!db)
+	if(argc < 4)
 	{
-		cout << mysql_error(db) << endl;
-		panic("MySQL: Connection Error");
+		cout << "Usage: " << argv[0] << " <hostName> <port> <clientType>" << endl;
+		return 1;
 	}
 
-	int sd;
+	string host = argv[1];
+	int port = atoi(argv[2]);
 
-	DEBUG_MSG("[CRemoteSystem::run] Listening for new connections...");
+	CTCPclient client(host, port);
+	client.connect();
+ 	
+ 	// -------------- run ----------------
+ 	cout << "Insert command after '>'" << endl;
+ 	cout << "Type 'q' to quit" << endl << endl;
+ 	string cmd;
+ 
+ 	// send client type
+ 	cmd = string("TYPE;") + argv[3];
+ 	client.send(cmd);
+ 	cout << ">" << cmd;
 
-	while(1)
-	{
-		sd = server.accept();
+ 	// print client type - verbose
+ 	int type = atoi(argv[3]);
+ 	if((type >= 0) && (type < 3))
+ 		cout << "   # Connecting as "<< typeStr[type];
+ 	
+ 	cout << endl;
 
-		if(sd != -1)
-		{
-			// CRemoteClient *client = new CRemoteClient(sd);
-			RCGateway *client = new RCGateway(sd, db);
-			// client index
-			static int i = 0;
-			// DEBUG_MSG("[CRemoteSystem::run] client[" << i << "] on sockfd[" << sd << "]");
-			
-			// add new client
-			clientList.push_back(client);
-			// execute respective init and run methods
-			clientList[i]->init(1,2);
-			clientList[i]->run();
-			i++;
-			
-			DEBUG_MSG("[CRemoteSystem::run] continue listening for new connections...");
-		}
-	}
-	
+ 	while(1)
+ 	{
+ 		putchar('>');
+	    getline(cin, cmd);
+
+	    if(cmd.compare("q") == 0)
+	    {
+	    	break;
+	    }
+	    else
+ 			cout << "OK(" << client.send(cmd) << ")" << endl;
+    }
+
+    cout << "Bye" << endl;
+
+	return 0;
 }

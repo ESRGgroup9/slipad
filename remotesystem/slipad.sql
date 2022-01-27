@@ -25,10 +25,11 @@ CREATE TABLE `region`(
 DROP TABLE IF EXISTS `location`;
 CREATE TABLE `location`(
 	`id` INTEGER AUTO_INCREMENT,
-	`latitude` DECIMAL(8,6) UNIQUE NOT NULL,
-	`longitude` DECIMAL(9,6) UNIQUE NOT NULL,
+	`latitude` DECIMAL(8,6) NOT NULL,
+	`longitude` DECIMAL(9,6) NOT NULL,
 	`post_code` CHAR(8) NOT NULL,
 	`street_name` CHAR(50) NOT NULL,
+	CONSTRAINT `UC_Coords` UNIQUE (`latitude`,`longitude`),
 	PRIMARY KEY(`id`),
 	FOREIGN KEY(`post_code`) REFERENCES `region`(`post_code`)
 		ON UPDATE CASCADE

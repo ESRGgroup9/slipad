@@ -7,7 +7,7 @@ using namespace std;
 CRemoteClient::CRemoteClient(int sd, MYSQL* database) :
 	db(database),
 	// cmdParser command list is defined in derived classes
-	cmdParser(NULL," ")
+	cmdParser(NULL,";")
 {
 	// use 'sd' socket file descriptor - in tcp communications
 	tcp.setSockfd(sd);
@@ -87,33 +87,3 @@ void *CRemoteClient::tRecv(void *arg)
 	// DEBUG_MSG("[CRemoteClient::tRecv] Client[" << c->info.sockfd << "] tRecv exit");
 	return NULL;
 }
-
-// int CRemoteClient::typeCb(int argc, char *argv[])
-// {
-// 	if(argc != 2)
-// 	{
-// 		DEBUG_MSG("[CRemoteClient::typeCb] Usage: TYPE <remoteCli_type>");
-// 		return -1;
-// 	}
-
-// 	switch(type)
-// 	{
-// 		case ClientType::GATEWAY:
-
-// 			break;
-
-// 		case ClientType::WEBSITE:
-
-// 			break;
-
-// 		case ClientType::APPLICATION:
-
-// 			break;
-
-// 		case ClientType::UNDEF:
-// 		default:
-// 	}
-
-// 	return 0;
-// }
-

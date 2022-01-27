@@ -21,7 +21,7 @@ using namespace std;
 CRemoteSystem *CRemoteSystem::thisPtr = NULL;
 
 CRemoteSystem::CRemoteSystem(int port) :
-	typeParser(NULL, " "),
+	typeParser(NULL, ";"),
 	server(port)
 {
 	cmdList = new Command_t[4]
@@ -81,7 +81,7 @@ int CRemoteSystem::typeCb(int argc, char *argv[])
 {
 	if(argc != 2)
 	{
-		DEBUG_MSG("[CRemoteSystem::typeCb] Usage: TYPE <clientType>");
+		DEBUG_MSG("[CRemoteSystem::typeCb] Usage: TYPE;<clientType>");
 		return -1;
 	}
 
