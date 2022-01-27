@@ -44,16 +44,16 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/fernandes/code/slipad/tests/testpark
+CMAKE_SOURCE_DIR = /home/fernandes/code/slipad/tests/testclassifier
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fernandes/code/slipad/tests/testpark
+CMAKE_BINARY_DIR = /home/fernandes/code/slipad/tests/testclassifier
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/testpark.elf.dir/all
+all: CMakeFiles/testclassifier.elf.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/testpark.elf.dir/clean
+clean: CMakeFiles/testclassifier.elf.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/testpark.elf.dir
+# Target rules for target CMakeFiles/testclassifier.elf.dir
 
 # All Build rule for target.
-CMakeFiles/testpark.elf.dir/all:
-	$(MAKE) -f CMakeFiles/testpark.elf.dir/build.make CMakeFiles/testpark.elf.dir/depend
-	$(MAKE) -f CMakeFiles/testpark.elf.dir/build.make CMakeFiles/testpark.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fernandes/code/slipad/tests/testpark/CMakeFiles --progress-num=1,2 "Built target testpark.elf"
-.PHONY : CMakeFiles/testpark.elf.dir/all
+CMakeFiles/testclassifier.elf.dir/all:
+	$(MAKE) -f CMakeFiles/testclassifier.elf.dir/build.make CMakeFiles/testclassifier.elf.dir/depend
+	$(MAKE) -f CMakeFiles/testclassifier.elf.dir/build.make CMakeFiles/testclassifier.elf.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fernandes/code/slipad/tests/testclassifier/CMakeFiles --progress-num=1,2 "Built target testclassifier.elf"
+.PHONY : CMakeFiles/testclassifier.elf.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/testpark.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/tests/testpark/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testpark.elf.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/tests/testpark/CMakeFiles 0
-.PHONY : CMakeFiles/testpark.elf.dir/rule
+CMakeFiles/testclassifier.elf.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/tests/testclassifier/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testclassifier.elf.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/tests/testclassifier/CMakeFiles 0
+.PHONY : CMakeFiles/testclassifier.elf.dir/rule
 
 # Convenience name for target.
-testpark.elf: CMakeFiles/testpark.elf.dir/rule
+testclassifier.elf: CMakeFiles/testclassifier.elf.dir/rule
 
-.PHONY : testpark.elf
+.PHONY : testclassifier.elf
 
 # clean rule for target.
-CMakeFiles/testpark.elf.dir/clean:
-	$(MAKE) -f CMakeFiles/testpark.elf.dir/build.make CMakeFiles/testpark.elf.dir/clean
-.PHONY : CMakeFiles/testpark.elf.dir/clean
+CMakeFiles/testclassifier.elf.dir/clean:
+	$(MAKE) -f CMakeFiles/testclassifier.elf.dir/build.make CMakeFiles/testclassifier.elf.dir/clean
+.PHONY : CMakeFiles/testclassifier.elf.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

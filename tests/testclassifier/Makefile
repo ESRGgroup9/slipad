@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/fernandes/code/slipad/tests/testpark
+CMAKE_SOURCE_DIR = /home/fernandes/code/slipad/tests/testclassifier
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fernandes/code/slipad/tests/testpark
+CMAKE_BINARY_DIR = /home/fernandes/code/slipad/tests/testclassifier
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/tests/testpark/CMakeFiles /home/fernandes/code/slipad/tests/testpark/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/tests/testclassifier/CMakeFiles /home/fernandes/code/slipad/tests/testclassifier/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/tests/testpark/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/tests/testclassifier/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,44 +111,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named testpark.elf
+# Target rules for targets named testclassifier.elf
 
 # Build rule for target.
-testpark.elf: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testpark.elf
-.PHONY : testpark.elf
+testclassifier.elf: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testclassifier.elf
+.PHONY : testclassifier.elf
 
 # fast build rule for target.
-testpark.elf/fast:
-	$(MAKE) -f CMakeFiles/testpark.elf.dir/build.make CMakeFiles/testpark.elf.dir/build
-.PHONY : testpark.elf/fast
+testclassifier.elf/fast:
+	$(MAKE) -f CMakeFiles/testclassifier.elf.dir/build.make CMakeFiles/testclassifier.elf.dir/build
+.PHONY : testclassifier.elf/fast
 
-home/fernandes/code/slipad/tests/testpark.o: home/fernandes/code/slipad/tests/testpark.cpp.o
+home/fernandes/code/slipad/tests/testclassifier.o: home/fernandes/code/slipad/tests/testclassifier.cpp.o
 
-.PHONY : home/fernandes/code/slipad/tests/testpark.o
+.PHONY : home/fernandes/code/slipad/tests/testclassifier.o
 
 # target to build an object file
-home/fernandes/code/slipad/tests/testpark.cpp.o:
-	$(MAKE) -f CMakeFiles/testpark.elf.dir/build.make CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.o
-.PHONY : home/fernandes/code/slipad/tests/testpark.cpp.o
+home/fernandes/code/slipad/tests/testclassifier.cpp.o:
+	$(MAKE) -f CMakeFiles/testclassifier.elf.dir/build.make CMakeFiles/testclassifier.elf.dir/home/fernandes/code/slipad/tests/testclassifier.cpp.o
+.PHONY : home/fernandes/code/slipad/tests/testclassifier.cpp.o
 
-home/fernandes/code/slipad/tests/testpark.i: home/fernandes/code/slipad/tests/testpark.cpp.i
+home/fernandes/code/slipad/tests/testclassifier.i: home/fernandes/code/slipad/tests/testclassifier.cpp.i
 
-.PHONY : home/fernandes/code/slipad/tests/testpark.i
+.PHONY : home/fernandes/code/slipad/tests/testclassifier.i
 
 # target to preprocess a source file
-home/fernandes/code/slipad/tests/testpark.cpp.i:
-	$(MAKE) -f CMakeFiles/testpark.elf.dir/build.make CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.i
-.PHONY : home/fernandes/code/slipad/tests/testpark.cpp.i
+home/fernandes/code/slipad/tests/testclassifier.cpp.i:
+	$(MAKE) -f CMakeFiles/testclassifier.elf.dir/build.make CMakeFiles/testclassifier.elf.dir/home/fernandes/code/slipad/tests/testclassifier.cpp.i
+.PHONY : home/fernandes/code/slipad/tests/testclassifier.cpp.i
 
-home/fernandes/code/slipad/tests/testpark.s: home/fernandes/code/slipad/tests/testpark.cpp.s
+home/fernandes/code/slipad/tests/testclassifier.s: home/fernandes/code/slipad/tests/testclassifier.cpp.s
 
-.PHONY : home/fernandes/code/slipad/tests/testpark.s
+.PHONY : home/fernandes/code/slipad/tests/testclassifier.s
 
 # target to generate assembly for a file
-home/fernandes/code/slipad/tests/testpark.cpp.s:
-	$(MAKE) -f CMakeFiles/testpark.elf.dir/build.make CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.s
-.PHONY : home/fernandes/code/slipad/tests/testpark.cpp.s
+home/fernandes/code/slipad/tests/testclassifier.cpp.s:
+	$(MAKE) -f CMakeFiles/testclassifier.elf.dir/build.make CMakeFiles/testclassifier.elf.dir/home/fernandes/code/slipad/tests/testclassifier.cpp.s
+.PHONY : home/fernandes/code/slipad/tests/testclassifier.cpp.s
 
 # Help Target
 help:
@@ -158,10 +158,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... testpark.elf"
-	@echo "... home/fernandes/code/slipad/tests/testpark.o"
-	@echo "... home/fernandes/code/slipad/tests/testpark.i"
-	@echo "... home/fernandes/code/slipad/tests/testpark.s"
+	@echo "... testclassifier.elf"
+	@echo "... home/fernandes/code/slipad/tests/testclassifier.o"
+	@echo "... home/fernandes/code/slipad/tests/testclassifier.i"
+	@echo "... home/fernandes/code/slipad/tests/testclassifier.s"
 .PHONY : help
 
 

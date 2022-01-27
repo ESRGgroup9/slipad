@@ -6,16 +6,10 @@ find_package( OpenCV REQUIRED )
 #set(CMAKE_CXX_COMPILER "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-g++")
 #set(CMAKE_CC_COMPILER "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-gcc")
 
-set(CMAKE_CXX_COMPILER "/usr/bin/g++")
-set(CMAKE_CC_COMPILER "/usr/bin/gcc")
-
 #set(OpenCV_INCLUDE_DIRS "/usr/include/opencv2")
 
 include_directories(include ${OpenCV_INCLUDE_DIRS})
-
-file(GLOB all_SRCS
-   "${CMAKE_CURRENT_SOURCE_DIR}/../testpark.cpp"
-)
+#include_directories(include ${CMAKE_CURRENT_SOURCE_DIR}/../inc/ )
 
 #***********output variables***************
 message(STATUS "OpenCV_INCLUDE_DIRS = ${OpenCV_INCLUDE_DIRS}")
@@ -24,10 +18,11 @@ message(STATUS "OpenCV_LIBRARIES = ${OpenCV_LIBRARIES}")
 message(STATUS "CMAKE_CXX_COMPILER = ${CMAKE_CXX_COMPILER}")
 message(STATUS "CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
 
-add_executable( testpark.elf ../testpark.cpp ${all_SRCS})
-target_link_libraries( testpark.elf ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT})
+add_executable( testclassifier.elf ../testclassifier.cpp ${all_SRCS})
+target_link_libraries( testclassifier.elf ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 
-configure_file(testpark.elf ../bin/testpark.elf COPYONLY)
+## Send binary file to tests's bin directory
+#configure_file(testclassifier.elf ../tests/bin/testclassifier.elf COPYONLY)
 
 #**********************************************************************************************************
 #set(CMAKE_CXX_COMPILER "/usr/bin/g++")

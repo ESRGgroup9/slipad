@@ -61,22 +61,24 @@ void CCamera::close()
 
 bool CCamera::captureFrame()
 {
+    open();
+
+    if (!camDev.isOpened())
+        panic("[Camera] Not open.\n");
+
     camDev.read(lastFrame);
 
     // check if read successfully
     if (lastFrame.empty())
-    {
-        panic("ERROR! blank frame grabbed.\n");
-        return false;
-    }
+        panic("[Camera] blank frame captured.\n");
 
     // Convert to grey scale
-    cvtColor(lastFrame,lastFrame, CV_BGR2GRAY);
+    //cvtColor(lastFrame,lastFrame, CV_BGR2GRAY);
 
     // write image to path
     imwrite(PATH, lastFrame);
 
-    // system("scp image.jpg fernandes@10.42.0.1:/home/fernandes/code/slipad/doc/report/images/13tests/camera/");
+    close();
 
     return true;
 }

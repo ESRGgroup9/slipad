@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/fernandes/code/slipad/tests/opencv
+CMAKE_SOURCE_DIR = /home/fernandes/code/slipad/tests/testpark
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fernandes/code/slipad/tests/opencv
+CMAKE_BINARY_DIR = /home/fernandes/code/slipad/tests/testpark
 
 # Include any dependencies generated for this target.
 include CMakeFiles/testpark.elf.dir/depend.make
@@ -57,27 +57,27 @@ include CMakeFiles/testpark.elf.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/testpark.elf.dir/flags.make
 
-CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.o: CMakeFiles/testpark.elf.dir/flags.make
-CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.o: /home/fernandes/code/slipad/tests/parkdetection.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernandes/code/slipad/tests/opencv/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.o -c /home/fernandes/code/slipad/tests/parkdetection.cpp
+CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.o: CMakeFiles/testpark.elf.dir/flags.make
+CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.o: /home/fernandes/code/slipad/tests/testpark.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernandes/code/slipad/tests/testpark/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.o -c /home/fernandes/code/slipad/tests/testpark.cpp
 
-CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernandes/code/slipad/tests/parkdetection.cpp > CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.i
+CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernandes/code/slipad/tests/testpark.cpp > CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.i
 
-CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernandes/code/slipad/tests/parkdetection.cpp -o CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.s
+CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernandes/code/slipad/tests/testpark.cpp -o CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.s
 
 # Object files for target testpark.elf
 testpark_elf_OBJECTS = \
-"CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.o"
+"CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.o"
 
 # External object files for target testpark.elf
 testpark_elf_EXTERNAL_OBJECTS =
 
-testpark.elf: CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.o
+testpark.elf: CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.o
 testpark.elf: CMakeFiles/testpark.elf.dir/build.make
 testpark.elf: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.2.0
 testpark.elf: /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.2.0
@@ -128,7 +128,7 @@ testpark.elf: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.2.0
 testpark.elf: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.2.0
 testpark.elf: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.2.0
 testpark.elf: CMakeFiles/testpark.elf.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/fernandes/code/slipad/tests/opencv/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable testpark.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/fernandes/code/slipad/tests/testpark/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable testpark.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/testpark.elf.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -141,6 +141,6 @@ CMakeFiles/testpark.elf.dir/clean:
 .PHONY : CMakeFiles/testpark.elf.dir/clean
 
 CMakeFiles/testpark.elf.dir/depend:
-	cd /home/fernandes/code/slipad/tests/opencv && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fernandes/code/slipad/tests/opencv /home/fernandes/code/slipad/tests/opencv /home/fernandes/code/slipad/tests/opencv /home/fernandes/code/slipad/tests/opencv /home/fernandes/code/slipad/tests/opencv/CMakeFiles/testpark.elf.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/fernandes/code/slipad/tests/testpark && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fernandes/code/slipad/tests/testpark /home/fernandes/code/slipad/tests/testpark /home/fernandes/code/slipad/tests/testpark /home/fernandes/code/slipad/tests/testpark /home/fernandes/code/slipad/tests/testpark/CMakeFiles/testpark.elf.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/testpark.elf.dir/depend
 

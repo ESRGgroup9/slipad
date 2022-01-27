@@ -4,10 +4,7 @@
 CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.o: ../inc/CCamera.h
 CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.o: ../inc/utils.h
 CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.o: /home/fernandes/code/slipad/src/CCamera.cpp
-CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.o: /usr/include/opencv2/imgcodecs.hpp
-CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.o: /usr/include/opencv2/videoio.hpp
 
 CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/tests/testcamera.cpp.o: ../inc/CCamera.h
 CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/tests/testcamera.cpp.o: /home/fernandes/code/slipad/tests/testcamera.cpp
-CMakeFiles/testcamera.elf.dir/home/fernandes/code/slipad/tests/testcamera.cpp.o: /usr/include/opencv2/videoio.hpp
 

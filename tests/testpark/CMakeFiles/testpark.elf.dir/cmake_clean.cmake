@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/parkdetection.cpp.o"
+  "CMakeFiles/testpark.elf.dir/home/fernandes/code/slipad/tests/testpark.cpp.o"
   "testpark.elf"
   "testpark.elf.pdb"
 )
