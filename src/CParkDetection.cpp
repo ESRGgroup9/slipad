@@ -74,10 +74,6 @@ bool CParkDetection::getOutline(const Mat& frame)
         }
     }
 
-    // polylines(frame, parkCoords, true, Scalar(0, 255, 0), 1, LINE_AA);
-    // imwrite("outline.jpg", frame);
-    // system("scp outline.jpg fernandes@10.42.0.1:/home/fernandes/code/slipad/opencv");
-
     vacantsNum = parkCoords.size();
 
     if(vacantsNum == 0)
@@ -88,6 +84,11 @@ bool CParkDetection::getOutline(const Mat& frame)
 
 int CParkDetection::calcVacants(const Mat& frame)
 {
+    // no parking spot detected
+    if(!parkCoords.size())
+        getOutline(frame);
+
+    // detect cars in the frame
 	vector<Rect> features = detectCars(frame);
 
     // Reset the number of parking spots available
@@ -99,41 +100,16 @@ int CParkDetection::calcVacants(const Mat& frame)
     {
         vector<Point> rect = getRectPoints(features[f]);
         
-        int pos = isOverlapp(rect);
-        cout << "pos:" << pos << endl;
         // Is the car over the parking spot?
-            //      The center of the car match with the center of the parking spot?
+        //  The center of the car match with the center of the parking spot?
+        int pos = isOverlapp(rect);
         if( pos != -1 )
         {
             vacantsNum--;
             // park unavailable
             parkStatus[pos] = 0;
-            cout << "overlapped" << endl;
         }
     }
-
-    // // Evaluate the parking spot availability
-    // for( int f = 0; f < features.size(); f++ )
-    // {
-    //     vector<Point> rect = getRectPoints(features[f]);
-    //     Point rectCenter = findCenter(rect);
-    //     for ( int p = 0; p < parkCoords.size(); p++ )
-    //     {
-    //         Point parkCenter = findCenter(parkCoords[p]);
-
-    //         // Is the car over the parking spot?
-    //         //      The center of the car match with the center of the parking spot?
-    //         if ( (fabs(rectCenter.x - parkCenter.x) < 50) && (fabs(rectCenter.x - parkCenter.x) < 50) )
-    //         {
-    //             vacantsNum--;
-    //             // park unavailable
-    //             parkStatus[p] = 0;
-    //         }
-    //         else 
-    //             // park available
-    //             parkStatus[p] = 1;   
-    //     }
-    // }
    
 	// return number of free parking spots
 	return vacantsNum;
@@ -221,16 +197,12 @@ int CParkDetection::isOverlapp(vector<Point>& approx)
     for( int i=0; i < parkCoords.size(); i++ )
     {        
         Point parkCoordsCenter = findCenter(parkCoords[i]);
-        cout << "parkCoordsCenter(" << parkCoordsCenter.x << "," << parkCoordsCenter.y << ")" << endl;
-        cout << "approxCenter(" << approxCenter.x << "," << approxCenter.y << ")" << endl;
 
         // centers are overlapped? Distance between centers inferior to 30
         if( fabs(parkCoordsCenter.x - (approxCenter.x)) < 80 &&
             fabs(parkCoordsCenter.y - (approxCenter.y)) < 80 )   
             return i;
     }
-
-
 
     return -1;
 }
@@ -260,31 +232,34 @@ vector<Point> CParkDetection::getRectPoints(const Rect& rectangle)
     float width = rectangle.width;
     float height = rectangle.height;
 
-    // top left point
+    // down left point
     points.push_back(Point(rectangle.x, rectangle.y));
 
-    // top right point
+    // down right point
     points.push_back(Point(rectangle.x+width, rectangle.y));
 
-    // down right point
-    points.push_back(Point(rectangle.x+width, rectangle.y-height));
+    // top right point
+    points.push_back(Point(rectangle.x+width, rectangle.y+height));
 
-    // down left point 
-    points.push_back(Point(rectangle.x, rectangle.y-height));
+    // top left point 
+    points.push_back(Point(rectangle.x, rectangle.y+height));
 
     return points;
 }
 
+/**
+ * Debug Function 
+ */
 void CParkDetection::writeParks(Mat& frame)
 {
     for( int i = 0; i < parkCoords.size(); i++ )
-    {
+    { 
         // Available
         if( parkStatus[i] == 1 )
-            polylines(frame, parkCoords, true, Scalar(0, 255, 0), 1, LINE_AA);
+            polylines(frame, parkCoords[i], true, Scalar(0, 255, 0), 1, LINE_AA);
         // unavailable
         else if( parkStatus[i] == 0 )
-            polylines(frame, parkCoords, true, Scalar(0, 0, 255), 1, LINE_AA);
+            polylines(frame, parkCoords[i], true, Scalar(0, 0, 255), 1, LINE_AA);
     }
     
     imwrite("image.jpg", frame);

@@ -6,21 +6,33 @@
 
 #IncludeRegexTransform: 
 
-../inc/CParkDetection.h
+../inc/CCamera.h
 opencv2/opencv.hpp
 -
-vector
+videoio.hpp
 -
 
-/home/fernandes/code/slipad/src/CParkDetection.cpp
-CParkDetection.h
-/home/fernandes/code/slipad/src/CParkDetection.h
-opencv2/imgproc.hpp
-/home/fernandes/code/slipad/src/opencv2/imgproc.hpp
-opencv2/imgcodecs.hpp
-/home/fernandes/code/slipad/src/opencv2/imgcodecs.hpp
-opencv2/highgui.hpp
-/home/fernandes/code/slipad/src/opencv2/highgui.hpp
+../inc/utils.h
+stdio.h
+-
+stdlib.h
+-
+
+/home/fernandes/code/slipad/src/CCamera.cpp
+CCamera.h
+/home/fernandes/code/slipad/src/CCamera.h
+utils.h
+/home/fernandes/code/slipad/src/utils.h
 unistd.h
 -
+imgcodecs.hpp
+-
+
+/usr/include/opencv2/imgcodecs.hpp
+opencv2/core.hpp
+/usr/include/opencv2/opencv2/core.hpp
+
+/usr/include/opencv2/videoio.hpp
+opencv2/core.hpp
+/usr/include/opencv2/opencv2/core.hpp
 

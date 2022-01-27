@@ -18,7 +18,8 @@
 using namespace cv;
 using namespace std;
 	
-CCamera::CCamera(string camDevName)
+CCamera::CCamera(string camDevName):
+        camDeviceName(camDevName)
 {
     open();
 
@@ -38,7 +39,7 @@ CCamera::CCamera(string camDevName)
 
     system("v4l2-ctl --set-ctrl=sharpness=30");
 
-    sleep(2);
+    close();
 }
 
 CCamera::~CCamera()
@@ -48,10 +49,11 @@ CCamera::~CCamera()
 
 bool CCamera::open()
 {
-	// device ID -> camera device
+    // device ID -> camera device
     // apiPreference = cv::CAP_ANY (0) -> autodetect default API
-	// return camDev.open(DEV_ID, cv::CAP_ANY);
     return camDev.open(DEV_ID, cv::CAP_V4L2);
+    // return camDev.open(DEV_ID, cv::CAP_ANY);
+
 }
 
 void CCamera::close()
@@ -61,11 +63,14 @@ void CCamera::close()
 
 bool CCamera::captureFrame()
 {
+    // open device
     open();
 
+    // device opened?
     if (!camDev.isOpened())
         panic("[Camera] Not open.\n");
 
+    // read frame into lastFrame
     camDev.read(lastFrame);
 
     // check if read successfully
@@ -78,6 +83,7 @@ bool CCamera::captureFrame()
     // write image to path
     imwrite(PATH, lastFrame);
 
+    // close device
     close();
 
     return true;

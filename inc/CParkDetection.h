@@ -40,7 +40,12 @@ public:
 	 * */
 	const int getVacants(void);
 
-		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<DEBUG
+	/**
+	 * @brief 	Circulate the free parks in green and
+	 * 					the occupied parks in red
+	 * @param 	3 points forming an angle
+	 * @return  Cosine of the angle
+	 * */
 	void writeParks(cv::Mat& frame);
 
 private:

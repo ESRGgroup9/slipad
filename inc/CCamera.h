@@ -10,10 +10,6 @@
 #define __CCAMERA_H__
 
 #include <opencv2/opencv.hpp>
-
-// #include <opencv/cv.h>
-//#include <highgui.h>
-
 #include <videoio.hpp>
 
 class CCamera
@@ -22,20 +18,33 @@ public:
 	CCamera(std::string camDevName);
 	~CCamera();
 
+	/**
+	 * @brief 	Open camera device
+	 * @return  True if opened/ false if not
+	 * */
 	bool open();
+
+	/**
+	 * @brief 	Close camera device
+	 * */
 	void close();
 
-	//bool isOpen();
-
+	/**
+	 * @brief 	Capture image and store it 
+	 * @return  True if captured
+	 * */
 	bool captureFrame();
 
 protected:
 	
 private:
+	// camera device
 	cv::VideoCapture camDev;
-	std::string camDeviceName; // >>>>>>>>>>>>>>>>>>>>>>>>> See if useful
+	
+	// camera device name 
+	const std::string camDeviceName;
 
-	//std::vector<Mat>lastFrame;
+	// last image captured
 	cv::Mat lastFrame;
 };
 // End CCamera class definition
