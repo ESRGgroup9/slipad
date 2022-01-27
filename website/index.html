@@ -1,29 +1,3 @@
-<!-- // PHP code to establish connection with the localserver
-<?php
-  
-// Database properties
-$user = 'root';
-$password = 'Password123#@!'; 
-$database = 'slipad'; 
-
-// Server is localhost with port number 3308
-$servername ='localhost:3308';
-$servername ='localhost';
-$mysqli = new mysqli($servername, $user, $password, $database);
-
-// Checking for connections
-if ($mysqli->connect_error) {
-    die('Connect Error (' . 
-    $mysqli->connect_errno . ') '. 
-    $mysqli->connect_error);
-}
-  
-// SQL query to select data from database
-$sql = "SELECT * FROM userdata ORDER BY score DESC ";
-$result = $mysqli->query($sql);
-$mysqli->close(); 
-?> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +16,7 @@ $mysqli->close();
   <h1>SLiPaD</h1>
   <div id="map"></div>
   <script>
+
     function initMap(){
       // Map options - default zoom and center location
       var options = {
@@ -66,22 +41,6 @@ $mysqli->close();
           coords:{lat:42.7762,lng:-71.0773}
         }
       ];
-
-      // // PHP CODE TO FETCH DATA FROM ROWS
-      // <?php   // LOOP TILL END OF DATA 
-      //     while($rows=$result->fetch_assoc())
-      //     {
-      //  ?>
-      // <tr>
-      //     // FETCHING DATA FROM EACH ROW OF EVERY COLUMN
-      //     <td><?php echo $rows['username'];?></td>
-      //     <td><?php echo $rows['problems'];?></td>
-      //     <td><?php echo $rows['score'];?></td>
-      //     <td><?php echo $rows['articles'];?></td>
-      // </tr>
-      // <?php
-      //     }
-      //   ?>
 
       // Loop through markers
       for(var i = 0;i < markers.length;i++){

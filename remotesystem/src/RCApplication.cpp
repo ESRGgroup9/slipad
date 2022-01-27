@@ -46,39 +46,39 @@ int RCApplication::addCb(int argc, char *argv[])
 	string post_code, parish, county, district;
 	int operator_id;
 
-	// operator: ID, name, password
-	query << "INSERT INTO operator VALUES(";
-	query << operator_id << ",";
-	query << name << ",";
-	query << password << ",";
+	// // operator: ID, name, password
+	// query << "INSERT INTO operator VALUES(";
+	// query << operator_id << ",";
+	// query << name << ",";
+	// query << password << ",";
 
-	// region: post_code, operatorID, parish, county, district
-	query << "INSERT INTO region VALUES(";
-	query << post_code << ",";
-	query << operator_id << ",";
-	query << parish << ",";
-	query << county << ",";
-	query << district << ")";
+	// // region: post_code, operatorID, parish, county, district
+	// query << "INSERT INTO region VALUES(";
+	// query << post_code << ",";
+	// query << operator_id << ",";
+	// query << parish << ",";
+	// query << county << ",";
+	// query << district << ")";
 
-	// location: id, latitude, longitude, post_code, street_name
-	query << "INSERT INTO location VALUES(";
-	query << locationID << ",";
-	query << latitude << ",";
-	query << longitude << ",";
-	query << post_code << ",";
-	query << street_name << ")";
+	// // location: id, latitude, longitude, post_code, street_name
+	// query << "INSERT INTO location VALUES(";
+	// query << locationID << ",";
+	// query << latitude << ",";
+	// query << longitude << ",";
+	// query << post_code << ",";
+	// query << street_name << ")";
 
-	// lamppost: locationID, address, status
-	query << "INSERT INTO lamppost VALUES(";
-	query << locationID << ",";
-	query << address << ",";
-	query << status << ")";
+	// // lamppost: locationID, address, status
+	// query << "INSERT INTO lamppost VALUES(";
+	// query << locationID << ",";
+	// query << address << ",";
+	// query << status << ")";
 
-	// parking_space: lamppostID, num_vacants
-	query << "INSERT INTO parking_space  VALUES(";
-	query << locationID << ",";
-	query << address << ",";
-	query << status << ")";
+	// // parking_space: lamppostID, num_vacants
+	// query << "INSERT INTO parking_space  VALUES(";
+	// query << locationID << ",";
+	// query << address << ",";
+	// query << status << ")";
 
 	DEBUG_MSG("[RCGateway::addCb] " << query.str());
 
