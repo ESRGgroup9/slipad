@@ -1,29 +1,28 @@
 #==============================================================================
-PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
-PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
-PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
-#------------------------------------------------------------------------------
-SRC_DIR=../src
-INC_DIR=../inc
-#------------------------------------------------------------------------------
-BLD_DIR=./build
-BIN_DIR=./bin
-#------------------------------------------------------------------------------
-# Make use of variables exported in main makefile
-# Define includes
-INCLDS	=-I $(INC_DIR)
-# Redefine compiler flags
-CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
-#------------------------------------------------------------------------------
-SRC= $(wildcard $(SRC_DIR)/*.c*)
-
-OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,../$(BLD_DIR)/%.o,$(SRC)))
-OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,../$(BLD_DIR)/%.o,$(SRC)))
-
-DEPS= $(patsubst ../$(BLD_DIR)/%.o,../$(BLD_DIR)/%.d,$(OBJS))
+# Project directories
+BLD_DIR=build
+BIN_DIR=bin
 #------------------------------------------------------------------------------
 PROGS=$(patsubst ./%.c, $(BIN_DIR)/%.elf, $(wildcard ./*.c))
 PROGS+=$(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
+#------------------------------------------------------------------------------
+CXX 	=$(CROSS_COMPILE)$(COMPILE)
+LIBS	=-lpthread -lbcm2835 -lrt
+# INCLDS	+=-I $(INC_DIR)
+CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
+#------------------------------------------------------------------------------
+# Select all source files: *.c and *.cpp files
+SRC+= $(wildcard $(SRC_DIR)/*.c*)
+# Set object files with the name from source file to BLD_DIR/*.o
+OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%.o,$(SRC)))
+OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
+# Set dependency files with the name from the objects to BLD_DIR/*.d
+DEPS= $(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
+#------------------------------------------------------------------------------
+# Default print messages
+PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
+PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
+PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
 #==============================================================================
 vpath %.c $(SRC_DIR) ./
 vpath %.cpp $(SRC_DIR) ./
@@ -31,6 +30,12 @@ vpath %.h $(INC_DIR)
 
 .DEFAULT_GOAL = build
 build: setup $(PROGS) ## Compile the binary program
+	@echo "SRC: " $(SRC)
+	@echo
+	@echo "DEPS: " $(DEPS)
+	@echo
+	@echo "OBJS: " $(OBJS)
+	@echo
 
 #------------------------------------------------------------------------------
 # Create dependencies

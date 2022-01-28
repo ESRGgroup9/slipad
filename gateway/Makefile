@@ -1,76 +1,31 @@
 #==============================================================================
-# Export the following variables for use in makefiles called recursively
-BLDROOT_OUT=$(HOME)/buildroot/buildroot-2021.02.5/output
-
-# target architecture
-export ARCH ?=arm
-
-# path of the kernel build directory
-export KDIR :=$(BLDROOT_OUT)/build/linux-custom/
-
-# host/ contains the tools built for the host
-# export CROSS_COMPILE:=$(BLDROOT_OUT)/host/bin/arm-buildroot-linux-gnueabihf-
-export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
-
-# compiler in use
-export COMPILE=g++
-#------------------------------------------------------------------------------
-# Variables specifying destination of 'make transfer'
-# Destination IP
-export IP=10.42.0.254
-# Destination directory in IP connection
-export DIR=/etc
-#------------------------------------------------------------------------------
-# Project directory
-export PROJ_DIR=$(shell pwd)
-#------------------------------------------------------------------------------
-# Project source directories
-export SRC_PROJ_DIR=$(PROJ_DIR)/src
-export INC_PROJ_DIR=$(PROJ_DIR)/inc
-#------------------------------------------------------------------------------
-SRC_DIR=$(SRC_PROJ_DIR)
-INC_DIR=$(INC_PROJ_DIR)
-BLD_DIR=$(PROJ_DIR)/build
+# Project directories
+BLD_DIR=build
+BIN_DIR=bin
+SRC_DIR=src
+INC_DIR=inc
 #------------------------------------------------------------------------------
 # Tests directory
 TST_DIR=tests
-# Doxygen directory
-DOX_DIR=doc/doxygen
-# Local system directory
-LS_DIR=localSystem
-# Remote system directory
-RS_DIR=remoteSystem
-# Gateway directory
-GAT_DIR=gateway
 #------------------------------------------------------------------------------
+# PROGS: find *.cpp in current dir and use their name in format BIN_DIR/*.elf
+PROGS= $(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
 # Identify the subdirectories in order to execute its makefiles
-SUBDIRS=$(TST_DIR) $(LS_DIR) $(RS_DIR) $(GAT_DIR)
-# Doxygen configuration file
-DOXYFILE=$(DOX_DIR)/Doxyfile
+SUBDIRS=$(TST_DIR)
 #------------------------------------------------------------------------------
 CXX 	=$(CROSS_COMPILE)$(COMPILE)
 LIBS	=-lpthread -lbcm2835 -lrt
-
-export DEBUG	=-D DEBUG #-g
-export INCLDS	=-I $(INC_DIR)
-CXXFLAGS		=$(INCLDS) -Wall $(LIBS) $(DEBUG)
+INCLDS	+=-I $(INC_DIR)
+CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
 #------------------------------------------------------------------------------
 # Select all source files: *.c and *.cpp files
-SRC=$(wildcard $(SRC_DIR)/*.c*)
+SRC+=$(wildcard $(SRC_DIR)/*.c*)
 # Set object files with the name from source file to BLD_DIR/*.o
-OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%.o,$(SRC)))
+OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%.o,$(SRC)))
 OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
 # Set dependency files with the name from the objects to BLD_DIR/*.d
-DEPS=$(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
+DEPS+=$(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
 #------------------------------------------------------------------------------
-# These will be used in makefiles called from this one
-export SRC OBJS DEPS
-#------------------------------------------------------------------------------
-# Escape colors for printing messages
-export BLUE 	=\033[0;34m
-export GREEN	=\033[0;32m
-export CYAN		=\033[0;36m
-export RESET	=\033[0m
 # Default print messages
 PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
 PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
@@ -107,18 +62,26 @@ $(BLD_DIR)/%.o: %.cpp
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
+# Compile executables
+
+# Add PROG build files .o and .d to the prerequesites
+$(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
+	@echo $(PRINT_COMPILING)
+	@$(CXX) -o $@ $< $(OBJS) $(CXXFLAGS)
+
+#------------------------------------------------------------------------------
 # Build sub directories
 .PHONY: build $(BLD_SUBDIRS)
-build: .setup $(DEPS) $(OBJS) ## Build the object files
-
 BLD_SUBDIRS=$(addprefix build-,$(SUBDIRS))
-build-all: build $(BLD_SUBDIRS) ## Compile all
 
 # call 'make build' in subdirectories
 # Despite is not shown in make help, user can execute 'make build-<subdir>'
 # Ex: $ make build-ddrivers
 $(BLD_SUBDIRS): build-%:
 	@$(MAKE) -s -C $* build
+
+build: .setup $(PROGS) ## Compile the binary program
+build-all: build $(BLD_SUBDIRS) ## Compile all
 
 #------------------------------------------------------------------------------
 # Transfer sub directories
@@ -156,7 +119,7 @@ CLEAN_SUBDIRS=$(addprefix clean-,$(SUBDIRS))
 
 clean: ## Delete main artifacts
 	@echo "${CYAN}Cleaning main ... $(RESET)"
-	@rm -rf $(BLD_DIR)
+	@rm -rf $(BLD_DIR) $(BIN_DIR)
 
 # call 'make clean' in subdirectories
 # Despite is not shown in make help, user can execute 'make clean-<subdir>'
@@ -166,20 +129,11 @@ $(CLEAN_SUBDIRS): clean-%:
 
 clean-all: clean $(CLEAN_SUBDIRS) ## Delete all built artifacts
 
-clean-doc: ## Delete Doxygen built artifacts
-	@echo "$(CYAN)Cleaning Doxyfile docs ...$(RESET)"
-	@rm -rf $(DOX_DIR)/html $(DOX_DIR)/latex
-
-#------------------------------------------------------------------------------
-.PHONY: doc
-doc: ## Generate Doxygen documentation
-	@echo "$(GREEN)Generating documentation ...$(RESET)"
-	@doxygen $(DOXYFILE)
-
 #------------------------------------------------------------------------------
 # Make output (bin, build) directories
 .setup:
 	@mkdir -p $(BLD_DIR)
+	@mkdir -p $(BIN_DIR)
 
 help: ## Generate list of targets with descriptions
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-15s $(RESET)%s\n", $$1, $$2}'
