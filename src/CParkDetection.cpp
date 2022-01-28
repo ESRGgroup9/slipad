@@ -199,8 +199,8 @@ int CParkDetection::isOverlapp(vector<Point>& approx)
         Point parkCoordsCenter = findCenter(parkCoords[i]);
 
         // centers are overlapped? Distance between centers inferior to 30
-        if( fabs(parkCoordsCenter.x - (approxCenter.x)) < 80 &&
-            fabs(parkCoordsCenter.y - (approxCenter.y)) < 80 )   
+        if( fabs(parkCoordsCenter.x - (approxCenter.x)) < 30 &&
+            fabs(parkCoordsCenter.y - (approxCenter.y)) < 30 )   
             return i;
     }
 
