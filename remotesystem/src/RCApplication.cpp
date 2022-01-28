@@ -143,13 +143,84 @@ int RCApplication::addCb(int argc, char *argv[])
 
 int RCApplication::modifyCb(int argc, char *argv[])
 {
+	if(argc != 2)
+	{
+		// DEBUG_MSG("[RCApplication::modifyCb] Usage: MOD <operator_id> <lamppost_id>");
+		DEBUG_MSG("[RCApplication::modifyCb] Usage: MOD <lamppost_id>");
+		return -1;
+	}
+
+	stringstream query;
+	int lamppost_id = atoi(argv[1]);
+
+	query << "UPDATE lamppost SET status='OFF' WHERE ";
+	query << "id=" << lamppost_id;
+
+	// execute query
+	DEBUG_MSG("[RCApplication::modifyCb] " << query.str());
+	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
+	{
+		DEBUG_MSG("[RCApplication::modifyCb] Invalid lamppost id(" << lamppost_id << ")");
+		return -1;
+	}
 
 	return 0;
 }
 
 int RCApplication::consultCb(int argc, char *argv[])
 {
+	if(argc != 2)
+	{
+		DEBUG_MSG("[RCApplication::consultCb] Usage: CONSULT <post_code>");
+		return -1;
+	}
+	
+	// stringstream query;
+	// int operator_id = atoi(argv[1]);
+	// query << "SELECT * FROM lamppost WHERE ";
+	// // query << "id=" << operator_id << " AND ";
+	// // query << "name='" << argv[2] << "' AND ";
+	// // query << "password='" << argv[3] << "'";
 
+	// // execute query
+	// DEBUG_MSG("[RCApplication::signInCb] " << query.str());
+	// if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
+	// {
+	// 	DEBUG_MSG("[RCApplication::signInCb] Invalid sign IN: " << mysql_error(thisPtr->db));
+	// 	return -1;
+	// }
+
+	// // just check if the query returned an empty set or not
+	// MYSQL_RES *res;
+ //    MYSQL_ROW row;
+ //    int err = 0;
+ //    int num_fields = 0;
+
+ //    // get the result set
+ //    res = mysql_store_result(thisPtr->db);
+
+ //    // get the number of the columns
+ //    num_fields = mysql_num_fields(res);
+
+  //  	if((num_fields == 1) && (row = mysql_fetch_row(res)))
+  //  	{
+		// if(row[0] != NULL)
+		// {
+  //       	// operator_id is the same as atoi(argv[1]), as declared before
+  //       	operator_id = atoi(row[0]);
+  //       	DEBUG_MSG("[RCApplication::signInCb] Operator with id(" << operator_id << ") signed IN");
+		// }
+  //  	}
+  //  	else
+  //  	{
+  //  		DEBUG_MSG("[RCApplication::signInCb] Invalid sign IN: operator("<< operator_id << ") credentials doesnt match");
+  //  		err = -1;
+  //  	}
+
+   	// if(res != NULL)
+    // 	mysql_free_result(res);
+
+	// return err;
 	return 0;
 }
 
