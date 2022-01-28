@@ -14,7 +14,6 @@
 #include "CTCPcomm.h"
 #include "parser.h"
 
-// #include <string>
 #include <pthread.h>
 #include <mysql/mysql.h>
 

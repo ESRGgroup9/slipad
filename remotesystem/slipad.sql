@@ -12,7 +12,7 @@ CREATE TABLE `operator`(
 
 DROP TABLE IF EXISTS `region`;
 CREATE TABLE `region`(
-	`post_code` CHAR(8) UNIQUE NOT NULL CHECK(`post_code` LIKE '____-___'),
+	`post_code` CHAR(8) NOT NULL CHECK(`post_code` LIKE '____-___'),
 	`operator_id` INTEGER,
 	`parish` CHAR(50) NOT NULL,
 	`county` CHAR(50) NOT NULL,
