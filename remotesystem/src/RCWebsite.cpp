@@ -21,3 +21,8 @@ RCWebsite::RCWebsite(int sd, MYSQL* database) :
 
 	thisPtr = this;
 }
+
+RCWebsite::~RCWebsite()
+{
+	delete[] cmdList;
+}

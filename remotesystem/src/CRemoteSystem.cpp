@@ -24,7 +24,8 @@ CRemoteSystem::CRemoteSystem(int port) :
 	typeParser(NULL, ";"),
 	server(port)
 {
-	cmdList = new Command_t[4]
+	// only one command to determine which type is the newly connected remote client
+	cmdList = new Command_t[2]
 	{
 		{"TYPE", typeCb},
 		{0,0}
@@ -52,7 +53,37 @@ CRemoteSystem::CRemoteSystem(int port) :
 
 CRemoteSystem::~CRemoteSystem()
 {
+	// close database connection
 	mysql_close(db);
+
+	// delete allocated variables
+	delete[] cmdList;
+	delete db;
+
+	// delete client list
+	for(auto client : clientList)
+   	{
+    	delete client;
+   	}
+}
+
+void CRemoteSystem::checkClientConnection()
+{
+	// Declaring iterator to a vector
+    vector<CRemoteClient*>::iterator it;
+      
+    // search for non connected clients (connection CLOSED)
+    for (it = clientList.begin(); it < clientList.end(); it++)
+    {
+    	if((*it)->info.state == ConnStatus::CLOSED)
+		{
+			// client has disconnected
+			DEBUG_MSG("[CRemoteSystem::checkConn] Removing client[" << (*it)->info.sockfd << "] with connection closed...");
+			// remove it from the client list
+			clientList.erase(it);
+			server.numClients--;
+		}
+    }
 }
 
 void CRemoteSystem::run()
@@ -123,7 +154,7 @@ int CRemoteSystem::typeCb(int argc, char *argv[])
 
 	return 0;
 }
-
+ 
 void *CRemoteSystem::recvType(void *arg)
 {
 	// get CRemoteSystem instance

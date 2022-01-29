@@ -17,7 +17,8 @@ public:
  * @return none
  */
 	RCApplication(int sd, MYSQL* database);
-
+	~RCApplication();
+	
 private:
 	static void addParkingSpace(int lamppost_id);
 	static void addLamppost(int lamppost_id, int address);

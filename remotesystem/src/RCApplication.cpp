@@ -1,5 +1,7 @@
 #include "RCApplication.h"
 #include "debug.h"
+#include "CTCPcomm.h"
+
 #include <sstream>
 #include <stdexcept> // invalid_argument
 using namespace std;
@@ -28,6 +30,11 @@ RCApplication::RCApplication(int sd, MYSQL* database) :
 	DEBUG_MSG("[RCApplication] New APPLICATION client");
 
 	thisPtr = this;
+}
+
+RCApplication::~RCApplication()
+{
+	delete[] cmdList;
 }
 
 int RCApplication::modifyCb(int argc, char *argv[])
@@ -105,6 +112,8 @@ int RCApplication::consultCb(int argc, char *argv[])
     }
     else
     {
+    	CTCPComm tcp(thisPtr->info.sockfd);
+
     	while((row = mysql_fetch_row(res)))
 	    {
 	    	lamppost_id = atoi(row[0]);
@@ -120,6 +129,9 @@ int RCApplication::consultCb(int argc, char *argv[])
 	    		lamppost_id, status.c_str(), post_code.c_str(), street_name.c_str(), parish.c_str(), county.c_str(), district.c_str());
 	    	// DEBUG_MSG("[RCApplication::consultCb] " << string(str));
 	    	
+	    	// send lamppost info to the remote client
+	    	// tcp.send(str);
+
 	    	num_lamppost++;
 	    }
 

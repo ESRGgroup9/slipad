@@ -2,7 +2,6 @@
 #define __CTCPSERVER_H__
 
 #include <netdb.h> // sockaddr_in
-// #include <vector>
 
 class CTCPserver
 {
@@ -12,11 +11,12 @@ public:
 
 	int accept();
 
+public:
+	static int numClients;
+
 private:
 	static const int maxNumClients;
-	static int numClients;
-	// std::vector<int> clientsSd;
-
+	
 	int listenSd;
 	int port;
 	struct sockaddr_in addr;

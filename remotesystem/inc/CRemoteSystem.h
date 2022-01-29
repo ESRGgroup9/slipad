@@ -10,7 +10,6 @@
 class CRemoteSystem
 {
 public:
-	// CRemoteSystem();
 	CRemoteSystem(int port);
 	~CRemoteSystem();
 	
@@ -19,6 +18,8 @@ public:
 private:
 	static void *recvType(void *arg);
 	static int typeCb(int argc, char *argv[]);
+
+	void checkClientConnection();
 
 private:
 	static CRemoteSystem *thisPtr;
