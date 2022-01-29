@@ -3,6 +3,9 @@
 
 #include "CRemoteClient.h"
 #include <mysql/mysql.h>
+#include <string>
+
+using std::string;
 
 class RCApplication : public CRemoteClient
 {
@@ -16,6 +19,10 @@ public:
 	RCApplication(int sd, MYSQL* database);
 
 private:
+	static void addParkingSpace(int lamppost_id);
+	static void addLamppost(int lamppost_id, int address);
+	static void addLocation(double latitude, double longitude, const string &post_code, const string &street_name);
+	static void addRegion(const string &post_code, int operator_id, const string &parish, const string &county, const string &district);
 // Callbacks for Application command list
 /**
   * @brief  Add new lamppost and its associated region, location and parking_space
