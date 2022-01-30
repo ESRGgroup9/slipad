@@ -198,7 +198,7 @@ int RCApplication::signInCb(int argc, char *argv[])
     	mysql_free_result(res);
 
 	return err;
-}
+} 
 
 int RCApplication::signUpCb(int argc, char *argv[])
 {

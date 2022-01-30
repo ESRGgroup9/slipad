@@ -18,11 +18,15 @@ using namespace std;
 #define PASSWORD	("Password123#@!")
 #define DATABASE 	("slipad")
 
+// check client connections after TIM_CHECK_CONN seconds
+#define TIM_CHECK_CONN (10)
+
 CRemoteSystem *CRemoteSystem::thisPtr = NULL;
 
 CRemoteSystem::CRemoteSystem(int port) :
 	typeParser(NULL, ";"),
-	server(port)
+	server(port),
+	timCheckConn(TIM_CHECK_CONN, timHandler)
 {
 	// only one command to determine which type is the newly connected remote client
 	cmdList = new Command_t[2]
@@ -67,7 +71,7 @@ CRemoteSystem::~CRemoteSystem()
    	}
 }
 
-void CRemoteSystem::checkClientConnection()
+void CRemoteSystem::timCheckConnISR()
 {
 	// Declaring iterator to a vector
     vector<CRemoteClient*>::iterator it;
@@ -86,11 +90,31 @@ void CRemoteSystem::checkClientConnection()
     }
 }
 
+void CRemoteSystem::timHandler(union sigval arg)
+{
+	if(!thisPtr)
+		panic("CRemoteSystem::timHandler(): thisPtr not defined");
+
+	int id = arg.sival_int;
+	DEBUG_MSG("[CRemoteSystem::timHandler] handling timer[" << id << "] timeout...");
+
+	// cannot do switch statement since tim*.id is not a compile time constant
+	if(id == thisPtr->timCheckConn.id)
+	{
+		thisPtr->timCheckConnISR();
+	}
+	else
+	{
+		ERROR_MSG("[CRemoteSystem::timHandler] unexpected timer event");
+	}
+}
+
 void CRemoteSystem::run()
 {
 	int sd;
 
 	DEBUG_MSG("[CRemoteSystem::run] Listening for new connections...");
+	timCheckConn.start();
 
 	while(1)
 	{
@@ -150,7 +174,7 @@ int CRemoteSystem::typeCb(int argc, char *argv[])
 	int i = thisPtr->clientList.size() - 1;
 	thisPtr->clientList[i]->init(1,2);
 	thisPtr->clientList[i]->run();
-	DEBUG_MSG("[CRemoteSystem::typeCb] Client(" << static_cast<int>(type) << ") created successfull");
+	DEBUG_MSG("[CRemoteSystem::typeCb] Client of type(" << static_cast<int>(type) << ") created successfully");
 
 	return 0;
 }

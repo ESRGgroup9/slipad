@@ -70,7 +70,7 @@ private:
  */
 	static int signUpCb(int, char *[]);
 
-protected:
+private:
 	static RCApplication* thisPtr;
 };
 
