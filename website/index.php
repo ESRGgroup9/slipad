@@ -1,9 +1,14 @@
 <?php
 
-$servername='localhost';
-$username='root';
-$password='Password123#@!';
-$database='slipad';
+// load secret variables
+require_once 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$servername =$_ENV['SERVER'];
+$username   =$_ENV['USERNAME'];
+$password   =$_ENV['PASSWORD'];
+$database   =$_ENV['DATABASE'];
 
 $con = mysqli_connect($servername, $username, $password, $database);
 
@@ -61,9 +66,8 @@ $result=mysqli_query($con, $query);
       var markers = [];
 
       // fill array of markers
-      var j = 0;
-
       // get latitude, longitude, post_code, street_name, num_vacants, parish, county, district
+      var j = 0;
       <?php
       while($rows=$result->fetch_assoc())
       {
@@ -88,6 +92,7 @@ $result=mysqli_query($con, $query);
           content:label
         };
 
+        // fill next marker
         j++;
       <?php
       }
@@ -108,10 +113,10 @@ $result=mysqli_query($con, $query);
         });
 
         // Check for customicon
-        if(props.iconImage){
-          // Set icon image
-          marker.setIcon(props.iconImage);
-        }
+        // if(props.iconImage){
+        //   // Set icon image
+        //   marker.setIcon(props.iconImage);
+        // }
 
         // Check content
         if(props.content){
@@ -127,7 +132,7 @@ $result=mysqli_query($con, $query);
     }
   </script>
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAasTJqCRmyNHiT3k64ktwdmTfDiTm_kgo&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=<?php echo $_ENV['API_KEY'] ?>&callback=initMap">
     </script>
 </body>
 </html>
