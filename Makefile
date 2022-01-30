@@ -1,27 +1,4 @@
 #==============================================================================
-# Escape colors for printing messages
-export BLUE 	=\033[0;34m
-export GREEN	=\033[0;32m
-export CYAN		=\033[0;36m
-export RESET	=\033[0m
-# Default print messages
-PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
-PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
-PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
-#------------------------------------------------------------------------------
-# Project directories
-BLD_DIR=./build
-BIN_DIR=./bin
-SRC_DIR=./src
-INC_DIR=./inc
-#------------------------------------------------------------------------------
-# Tests directory
-TST_DIR=tests
-# Device Drivers directory
-DDR_DIR=ddrivers
-# Doxygen directory
-DOX_DIR=./doc/doxygen
-#------------------------------------------------------------------------------
 # Export the following variables for use in makefiles called recursively
 BLDROOT_OUT=$(HOME)/buildroot/buildroot-2021.02.5/output
 
@@ -36,7 +13,31 @@ export KDIR :=$(BLDROOT_OUT)/build/linux-custom/
 export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
 
 # compiler in use
-COMPILE=g++
+export COMPILE=g++
+#------------------------------------------------------------------------------
+# Variables specifying destination of 'make transfer'
+# Destination IP
+export IP=10.42.0.254
+# Destination directory in IP connection
+export DIR=/etc
+#------------------------------------------------------------------------------
+# Project directories
+BLD_DIR=build
+BIN_DIR=bin
+SRC_DIR=src
+INC_DIR=inc
+#------------------------------------------------------------------------------
+# Tests directory
+TST_DIR=tests
+# Device Drivers directory
+DDR_DIR=ddrivers
+# Doxygen directory
+DOX_DIR=./doc/doxygen
+#------------------------------------------------------------------------------
+# PROGS: find *.cpp in current dir and use their name in format BIN_DIR/*.elf
+PROGS= $(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
+SUBDIRS=$(TST_DIR) $(DDR_DIR)
+DOXYFILE=$(DOX_DIR)/Doxyfile
 #------------------------------------------------------------------------------
 export CXX 	=$(CROSS_COMPILE)$(COMPILE)
 export LIBS	=-lpthread -lbcm2835 -lrt
@@ -44,12 +45,6 @@ export LIBS	=-lpthread -lbcm2835 -lrt
 export DEBUG=-D DEBUG #-g
 INCLDS		=-I $(INC_DIR)
 CXXFLAGS	=$(INCLDS) -Wall $(LIBS) $(DEBUG)
-#------------------------------------------------------------------------------
-# Variables specifying destination of 'make transfer'
-# Destination IP
-export IP=10.42.0.254
-# Destination directory in IP connection
-export DIR=/etc
 #------------------------------------------------------------------------------
 # Select all source files: *.c and *.cpp files
 SRC=$(wildcard $(SRC_DIR)/*.c*)
@@ -59,10 +54,15 @@ OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
 # Set dependency files with the name from the objects to BLD_DIR/*.d
 DEPS=$(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
 #------------------------------------------------------------------------------
-# PROGS: find *.cpp in current dir and use their name in format BIN_DIR/*.elf
-PROGS= $(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
-SUBDIRS=$(TST_DIR) $(DDR_DIR)
-DOXYFILE=$(DOX_DIR)/Doxyfile
+# Escape colors for printing messages
+export BLUE 	=\033[0;34m
+export GREEN	=\033[0;32m
+export CYAN		=\033[0;36m
+export RESET	=\033[0m
+# Default print messages
+PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
+PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
+PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
 #==============================================================================
 # Specify list of directories that make should search for *.c and *.cpp
 vpath %.c $(SRC_DIR) .
