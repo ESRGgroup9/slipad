@@ -1,2 +1,5 @@
 sudo apt install php7.4-cli
 sudo apt install php-mysqli
+
+to run index.php, go into index.php directory and type:
+php -S 127.0.0.1:8000
