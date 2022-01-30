@@ -22,8 +22,8 @@ public:
 private:
 	static void addParkingSpace(int lamppost_id);
 	static void addLamppost(int lamppost_id, int address);
-	static void addLocation(double latitude, double longitude, const string &post_code, const string &street_name);
-	static void addRegion(const string &post_code, int operator_id, const string &parish, const string &county, const string &district);
+	static void addLocation(double latitude, double longitude, string post_code, string street_name);
+	static void addRegion(string post_code, int operator_id, string parish, string county, string district);
 // Callbacks for Application command list
 /**
   * @brief  Add new lamppost and its associated region, location and parking_space
@@ -70,7 +70,7 @@ private:
  */
 	static int signUpCb(int, char *[]);
 
-private:
+protected:
 	static RCApplication* thisPtr;
 };
 

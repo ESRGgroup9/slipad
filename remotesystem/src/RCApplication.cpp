@@ -42,7 +42,7 @@ int RCApplication::modifyCb(int argc, char *argv[])
 	if(argc != 2)
 	{
 		// DEBUG_MSG("[RCApplication::modifyCb] Usage: MOD <operator_id> <lamppost_id>");
-		DEBUG_MSG("[RCApplication::modifyCb] Usage: MOD <lamppost_id>");
+		DEBUG_MSG("[RCApplication::modifyCb] Usage: MOD;<lamppost_id>");
 		return -1;
 	}
 
@@ -67,7 +67,7 @@ int RCApplication::consultCb(int argc, char *argv[])
 {
 	if(argc != 2)
 	{
-		DEBUG_MSG("[RCApplication::consultCb] Usage: CONSULT <post_code>");
+		DEBUG_MSG("[RCApplication::consultCb] Usage: CONSULT;<post_code>");
 		return -1;
 	}
 	
@@ -148,7 +148,7 @@ int RCApplication::signInCb(int argc, char *argv[])
 {
 	if(argc != 4)
 	{
-		DEBUG_MSG("[RCApplication::signInCb] Usage: SIGNIN <operator_id> <name> <password>");
+		DEBUG_MSG("[RCApplication::signInCb] Usage: SIGNIN;<operator_id>;<name>;<password>");
 		return -1;
 	}
 	
@@ -204,7 +204,7 @@ int RCApplication::signUpCb(int argc, char *argv[])
 {
 	if(argc != 3)
 	{
-		DEBUG_MSG("[RCApplication::signUpCb] Usage: SIGNUP <name> <password>");
+		DEBUG_MSG("[RCApplication::signUpCb] Usage: SIGNUP;<name>;<password>");
 		return -1;
 	}
 	
@@ -237,10 +237,9 @@ int RCApplication::addCb(int argc, char *argv[])
 {
 	if(argc != 10)
 	{
-		DEBUG_MSG("[RCApplication::addCb] Usage: ADD;<operator_id>;<addr><street_name> <post_code> <parish> <county> <district> <latitude> <longitude>");
-		return -1; 
+		DEBUG_MSG("[RCApplication::addCb] Usage: ADD;<operator_id>;<addr>;<street_name>;<post_code>;<parish>;<county>;<district>;<latitude>;<longitude>");		return -1; 
 	}
-
+ 
 	// improve readability
 	int operator_id		= atoi(argv[1]);
 	int address 		= atoi(argv[2]);
@@ -252,11 +251,26 @@ int RCApplication::addCb(int argc, char *argv[])
 	double latitude 	= atof(argv[8]);
 	double longitude 	= atof(argv[9]);
 
+	DEBUG_MSG("convert ok");	
 	// start transaction
-	mysql_query(thisPtr->db, "START TRANSACTION");
+	// mysql_query(thisPtr->db, "START TRANSACTION");
 
+	if(!thisPtr->db)
+	{
+		DEBUG_MSG("db is null");
+		return -1;
+	}
+
+	if(mysql_query(thisPtr->db, "START TRANSACTION") != 0)
+	{
+		DEBUG_MSG("[RCApplication::addCb] Start transaction: " << mysql_error(thisPtr->db));
+		return -1;
+	}
+
+	DEBUG_MSG("start TRANSACTION");	
 	try
 	{
+		DEBUG_MSG("in try()");	
 		addRegion(post_code, operator_id, parish, county, district);
 		addLocation(latitude, longitude, post_code, street_name);
 		
@@ -264,7 +278,7 @@ int RCApplication::addCb(int argc, char *argv[])
 		int locationID = mysql_insert_id(thisPtr->db);
 
 		addLamppost(locationID, address);
-		addParkingSpace(locationID);
+		// addParkingSpace(locationID);
 	}
 	catch(invalid_argument& e)
 	{
@@ -281,13 +295,15 @@ int RCApplication::addCb(int argc, char *argv[])
 	return 0;
 }
 
-void RCApplication::addRegion(const string &post_code, int operator_id, const string &parish, const string &county, const string &district)
+void RCApplication::addRegion(string post_code, int operator_id, string parish, string county, string district)
 {
 	stringstream query;
 	
+	DEBUG_MSG("ok");
 	// check if region already exists
 	query << "SELECT post_code FROM region WHERE post_code=" << post_code;
 	
+	DEBUG_MSG("ok2");
 	// execute query
 	DEBUG_MSG("[RCGateway::addCb] " << query.str());
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
@@ -336,7 +352,7 @@ void RCApplication::addRegion(const string &post_code, int operator_id, const st
 }
 
 // INSERT location: id, latitude, longitude, post_code, street_name
-void RCApplication::addLocation(double latitude, double longitude, const string &post_code, const string &street_name)
+void RCApplication::addLocation(double latitude, double longitude, string post_code, string street_name)
 {
 	stringstream query;
 	query << "INSERT INTO location VALUES(";
@@ -370,7 +386,7 @@ void RCApplication::addLamppost(int lamppost_id, int address)
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		char str[256];
-		snprintf(str, sizeof(str), "[RCGateway::addCb] Invalid lamppost_id(%d) or address(%d)" ,lamppost_id, address);
+		snprintf(str, sizeof(str), "[RCGateway::addCb] Invalid lamppost_id(%d) or address(%d) exists" ,lamppost_id, address);
 		throw invalid_argument(str);
 	}
 }

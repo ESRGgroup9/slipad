@@ -60,23 +60,23 @@ INSERT INTO lamppost(id, address) VALUES
 (17, 0xb1);
 
 # parking_space: lamppostID, num_vacants
-INSERT INTO parking_space(id) VALUES
--- (1),
-(2),
-(3),
-(4),
-(5),
-(6),
-(7),
+-- INSERT INTO parking_space(id) VALUES
+-- -- (1),
+-- (2),
+-- (3),
+-- (4),
+-- (5),
+-- (6),
+-- (7),
 
-(8),
-(9),
-(10),
-(11),
-(12),
+-- (8),
+-- (9),
+-- (10),
+-- (11),
+-- (12),
 
-(13),
-(14),
-(15),
-(16),
-(17);
+-- (13),
+-- (14),
+-- (15),
+-- (16),
+-- (17);

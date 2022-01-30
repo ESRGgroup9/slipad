@@ -55,18 +55,18 @@ CREATE TABLE `parking_space`(
 );
 
 -- ------------ Triggers ------------
--- DELIMITER $$
+DELIMITER $$
 
--- DROP TRIGGER IF EXISTS insert_parking$$
+DROP TRIGGER IF EXISTS insert_parking$$
 
--- CREATE TRIGGER insert_parking
--- 	AFTER INSERT ON lamppost
--- 	FOR EACH ROW
--- 	BEGIN
--- 		DECLARE park_id INTEGER;
+CREATE TRIGGER insert_parking
+	AFTER INSERT ON lamppost
+	FOR EACH ROW
+	BEGIN
+		DECLARE park_id INTEGER;
+		
+		SELECT NEW.id INTO park_id;
+		INSERT INTO parking_space(id) VALUES(park_id);
+	END$$
 
--- 		SELECT LAST_INSERT_ID() INTO park_id;
--- 		INSERT INTO parking_space(id) VALUES(park_id);
--- 	END$$
-
--- DELIMITER ;
+DELIMITER ;

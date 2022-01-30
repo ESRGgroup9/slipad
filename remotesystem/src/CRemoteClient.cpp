@@ -75,7 +75,7 @@ void *CRemoteClient::tRecv(void *arg)
 			int err = c->cmdParser.parse(msg.c_str());
 			if(err == 0)
 			{
-				c->tcp.push(msg);
+				// c->tcp.push(msg);
 			}
 			else
 			{
