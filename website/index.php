@@ -19,14 +19,14 @@ if ($con->connect_error) {
     $con->connect_error);
 }
 
+// create query to retrieve info about the location of parking spaces available
 $query=
 "SELECT latitude, longitude, l.post_code, l.street_name, p.num_vacants, parish, county, district
 FROM location l, parking_space p, region r
 WHERE l.id=p.id AND r.post_code=l.post_code AND p.id IN
-
-(SELECT id
-FROM parking_space
-WHERE num_vacants>=0)";
+  (SELECT id
+  FROM parking_space
+  WHERE num_vacants>=0)";
 
 // execute query
 $result=mysqli_query($con, $query);
@@ -41,11 +41,20 @@ $result=mysqli_query($con, $query);
   <title>SLiPaD</title>
   <style>
     #map{
-      height:800px;
+      height:750px;
       width:100%;
     }
+
+    footer {
+      text-align: center;
+      /*padding: 0px;*/
+      /*background-color: DarkSalmon;*/
+      color: black;
+    }
+
   </style>
 </head>
+
 <body>
   <h1>SLiPaD</h1>
   <h5>Smart Lighting with Parking Detection</h5>
@@ -55,8 +64,8 @@ $result=mysqli_query($con, $query);
     function initMap(){
       // Map options - default zoom and center location
       var options = {
-        zoom:15,
-        center:{lat:41.457564,lng:-8.279383} , 
+        zoom:17,
+        center:{lat:41.448259, lng:-8.298030} , 
       }
 
       // New map
@@ -133,6 +142,12 @@ $result=mysqli_query($con, $query);
   </script>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=<?php echo $_ENV['API_KEY'] ?>&callback=initMap">
-    </script>
+  </script>
+
+  <footer>
+    <p><small>Tomás Abreu, Diogo Fernandes @ Universidade do Minho 2021</small><br>
+    <!-- <a href="mailto:hege@example.com">hege@example.com</a></p> -->
+  </footer>
+
 </body>
 </html>
