@@ -14,7 +14,7 @@ PROGS= $(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
 SUBDIRS=#$(TST_DIR)
 #------------------------------------------------------------------------------
 CXX 	=$(COMPILE)
-LIBS	=-lpthread -lmysqlclient
+LIBS	=-lpthread -lmysqlclient -lrt
 INCLDS	+=-I $(INC_DIR)
 CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
 #------------------------------------------------------------------------------

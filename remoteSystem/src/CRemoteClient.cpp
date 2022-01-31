@@ -63,7 +63,7 @@ void *CRemoteClient::tRecv(void *arg)
 
 		if(ret > 0)
 		{
-			DEBUG_MSG("[CRemoteClient::tRecv] Received[" << msg << "]");
+			DEBUG_MSG("[CRemoteClient::tRecv] Received[" << msg << "] from sockfd[" << c->info.sockfd << "]");
 			// make sure that the client has already identified himself
 			if(c->info.type == ClientType::UNDEF)
 			{
@@ -75,7 +75,7 @@ void *CRemoteClient::tRecv(void *arg)
 			int err = c->cmdParser.parse(msg.c_str());
 			if(err == 0)
 			{
-				c->tcp.push(msg);
+				// c->tcp.push(msg);
 			}
 			else
 			{

@@ -4,13 +4,16 @@
 #include "CTCPserver.h"
 #include "CRemoteClient.h"
 #include "parser.h"
+#include "timer.h"
+
 #include <mysql/mysql.h>
 #include <vector>
+#include <signal.h>
+#include <pthread.h>
 
 class CRemoteSystem
 {
 public:
-	// CRemoteSystem();
 	CRemoteSystem(int port);
 	~CRemoteSystem();
 	
@@ -19,6 +22,9 @@ public:
 private:
 	static void *recvType(void *arg);
 	static int typeCb(int argc, char *argv[]);
+
+	static void timHandler(union sigval arg);
+	void timCheckConnISR();
 
 private:
 	static CRemoteSystem *thisPtr;
@@ -30,6 +36,9 @@ private:
 	int client_port;
 	std::vector <CRemoteClient*> clientList;
 	MYSQL* db;
+	Timer timCheckConn;
+	pthread_mutex_t mutAddClient;
+
 };
 
 #endif // ! __CREMOTESYSTEM_H__

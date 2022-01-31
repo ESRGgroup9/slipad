@@ -62,13 +62,15 @@ public:
  */
 	void run();
 
+public:
+	ClientSocketInfo info;
+	
 protected:
 	static void *tRecv(void *arg);
 
 protected:
 	MYSQL* db;
 	Command_t *cmdList;
-	ClientSocketInfo info;
 	Parser cmdParser;
 
 private:

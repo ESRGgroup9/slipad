@@ -14,7 +14,8 @@ public:
  * @return none
  */
 	RCGateway(int sd, MYSQL* database);
-
+    ~RCGateway();
+    
 private:
 // Callbacks for Gateway command list
 

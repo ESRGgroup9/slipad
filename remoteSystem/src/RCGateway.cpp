@@ -28,6 +28,11 @@ RCGateway::RCGateway(int sd, MYSQL* database) :
 	thisPtr = this;
 }
 
+RCGateway::~RCGateway()
+{
+	delete[] cmdList;
+}
+
 int RCGateway::lampCb(int argc, char *argv[])
 {
 	if(argc != 3)

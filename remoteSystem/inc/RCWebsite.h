@@ -8,6 +8,8 @@ class RCWebsite : public CRemoteClient
 {
 public:
 	RCWebsite(int sd, MYSQL* database);
+	~RCWebsite();
+	
 protected:
 
 private:

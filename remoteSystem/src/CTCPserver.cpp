@@ -9,7 +9,7 @@ using namespace std;
 
 const int CTCPserver::maxNumClients = 5;
 int CTCPserver::numClients = 0;
- 
+  
 CTCPserver::CTCPserver(int port)
 { 
 	this->port = port;
@@ -58,7 +58,7 @@ int CTCPserver::accept()
 	{
 		// new client connected
 		numClients++;
-		DEBUG_MSG("[CTCPserver::accept] Client on sockfd["<< sd << "] connected ("<< maxNumClients - numClients << " slots available)");
+		DEBUG_MSG("[CTCPserver::accept] Client on sockfd["<< sd << "] connected (slot "<< numClients << "/" << maxNumClients << ")");
 	}
 	else
 	{
