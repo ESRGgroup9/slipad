@@ -7,13 +7,11 @@ INC_DIR=inc
 #------------------------------------------------------------------------------
 # Tests directory
 TST_DIR=tests
-# Device drivers directory
-DDR_DIR=ddrivers
 #------------------------------------------------------------------------------
 # PROGS: find *.cpp in current dir and use their name in format BIN_DIR/*.elf
 PROGS= $(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
 # Identify the subdirectories in order to execute its makefiles
-SUBDIRS=$(TST_DIR) $(DDR_DIR)
+SUBDIRS=#$(TST_DIR) 
 #------------------------------------------------------------------------------
 CXX 	=$(CROSS_COMPILE)$(COMPILE)
 LIBS	=-lpthread -lbcm2835 -lrt
@@ -23,10 +21,13 @@ CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
 # Select all source files: *.c and *.cpp files
 SRC+=$(wildcard $(SRC_DIR)/*.c*)
 # Set object files with the name from source file to BLD_DIR/*.o
-OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%.o,$(SRC)))
-OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
+# Get only the *_arm.o files from OBJS
+OBJS2=$(filter %_arm.o,$(OBJS))
+OBJS2+=$(filter %_arm.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%_arm.o,$(SRC)))
+OBJS2+=$(filter %_arm.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%_arm.o,$(SRC)))
+
 # Set dependency files with the name from the objects to BLD_DIR/*.d
-DEPS+=$(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
+DEPS+=$(patsubst $(BLD_DIR)/%_arm.o,$(BLD_DIR)/%_arm.d,$(OBJS2))
 #------------------------------------------------------------------------------
 # Default print messages
 PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
@@ -40,26 +41,27 @@ vpath %.h $(INC_DIR)
 
 # Default rule
 .DEFAULT_GOAL = build
+
 #------------------------------------------------------------------------------
 # Generate dependencies
 
 # -M flag looks at the #include lines in the source files
-$(BLD_DIR)/%.d: %.c
+$(BLD_DIR)/%_arm.d: %.c
 	@echo $(PRINT_GENERATING)
 	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
-$(BLD_DIR)/%.d: %.cpp
+$(BLD_DIR)/%_arm.d: %.cpp
 	@echo $(PRINT_GENERATING)
 	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
 # Build object files
 
-$(BLD_DIR)/%.o: %.c
+$(BLD_DIR)/%_arm.o: %.c
 	@echo $(PRINT_BUILDING)
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-$(BLD_DIR)/%.o: %.cpp
+$(BLD_DIR)/%_arm.o: %.cpp
 	@echo $(PRINT_BUILDING)
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
@@ -67,9 +69,9 @@ $(BLD_DIR)/%.o: %.cpp
 # Compile executables
 
 # Add PROG build files .o and .d to the prerequesites
-$(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
+$(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%_arm.o $(BLD_DIR)/%_arm.d $(DEPS) $(OBJS2)
 	@echo $(PRINT_COMPILING)
-	@$(CXX) -o $@ $< $(OBJS) $(CXXFLAGS)
+	@$(CXX) -o $@ $< $(OBJS2) $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
 # Build sub directories
@@ -78,7 +80,7 @@ BLD_SUBDIRS=$(addprefix build-,$(SUBDIRS))
 
 # call 'make build' in subdirectories
 # Despite is not shown in make help, user can execute 'make build-<subdir>'
-# Ex: $ make build-ddrivers
+# Ex: $ make build-tests
 $(BLD_SUBDIRS): build-%:
 	@$(MAKE) -s -C $* build
 
@@ -92,7 +94,7 @@ TRANSF_SUBDIRS=$(addprefix transfer-,$(SUBDIRS))
 
 # call 'make transfer' in subdirectories
 # Despite is not shown in make help, user can execute 'make transfer-<subdir>'
-# Ex: $ make transfer-ddrivers
+# Ex: $ make transfer-tests
 $(TRANSF_SUBDIRS): transfer-%:
 	@$(MAKE) -s -C $* transfer
 
@@ -111,7 +113,7 @@ $(PRINT_TARGET): print-$(BIN_DIR)/%:
 
 # call print rules and do transfer using scp
 transfer: .print_transfer $(PRINT_TARGET) ## Transfer executables
-	@scp $(TARGET) root@$(IP):$(DIR)
+	@scp $(TARGET) $(USR)@$(IP):$(DIR)
 
 transfer-all: transfer $(TRANSF_SUBDIRS) ## Transfer all
 
@@ -120,12 +122,12 @@ CLEAN_SUBDIRS=$(addprefix clean-,$(SUBDIRS))
 .PHONY: clean $(CLEAN_SUBDIRS)
 
 clean: ## Delete main artifacts
-	@echo "${CYAN}Cleaning main ... $(RESET)"
+	@echo "${CYAN}Cleaning local system ... $(RESET)"
 	@rm -rf $(BLD_DIR) $(BIN_DIR)
 
 # call 'make clean' in subdirectories
 # Despite is not shown in make help, user can execute 'make clean-<subdir>'
-# Ex: $ make clean-ddrivers
+# Ex: $ make clean-tests
 $(CLEAN_SUBDIRS): clean-%:
 	@$(MAKE) -s -C $* clean
 

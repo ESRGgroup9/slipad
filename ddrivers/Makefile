@@ -34,7 +34,7 @@ print_transfer:
 	@echo "Transfering to $(IP) into $(DIR)..."
 
 transfer: print_transfer $(PRINT_TARGET)
-	@scp $(TARGETS) root@$(IP):$(DIR)
+	@scp $(TARGETS) $(USR)@$(IP):$(DIR)
 
 #------------------------------------------------------------------------------
 .PHONY: help

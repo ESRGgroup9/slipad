@@ -18,6 +18,8 @@ export COMPILE=g++
 # Variables specifying destination of 'make transfer'
 # Destination IP
 export IP=10.42.0.254
+# Destination user
+export USR=root
 # Destination directory in IP connection
 export DIR=/etc
 #------------------------------------------------------------------------------
@@ -30,7 +32,10 @@ export INC_PROJ_DIR=$(PROJ_DIR)/inc
 #------------------------------------------------------------------------------
 SRC_DIR=$(SRC_PROJ_DIR)
 INC_DIR=$(INC_PROJ_DIR)
-BLD_DIR=$(PROJ_DIR)/build
+# BLD_DIR=$(PROJ_DIR)/build
+
+BLD_ARM_DIR=$(PROJ_DIR)/build_arm
+BLD_x86_DIR=$(PROJ_DIR)/build_x86
 #------------------------------------------------------------------------------
 # Tests directory
 TST_DIR=tests
@@ -42,9 +47,11 @@ LS_DIR=localSystem
 RS_DIR=remoteSystem
 # Gateway directory
 GAT_DIR=gateway
+# Device drivers directory
+DDR_DIR=ddrivers
 #------------------------------------------------------------------------------
 # Identify the subdirectories in order to execute its makefiles
-SUBDIRS=$(TST_DIR) $(LS_DIR) $(RS_DIR) $(GAT_DIR)
+SUBDIRS=$(LS_DIR) $(RS_DIR) $(GAT_DIR) $(DDR_DIR)
 # Doxygen configuration file
 DOXYFILE=$(DOX_DIR)/Doxyfile
 #------------------------------------------------------------------------------
@@ -58,11 +65,21 @@ CXXFLAGS		=$(INCLDS) -Wall $(LIBS) $(DEBUG)
 # Select all source files: *.c and *.cpp files
 SRC=$(wildcard $(SRC_DIR)/*.c*)
 # Set object files with the name from source file to BLD_DIR/*.o
-OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%.o,$(SRC)))
-OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
+OBJS=$(filter %_arm.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_ARM_DIR)/%_arm.o,$(SRC)))
+OBJS+=$(filter %_arm.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_ARM_DIR)/%_arm.o,$(SRC)))
 # Set dependency files with the name from the objects to BLD_DIR/*.d
-DEPS=$(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
+DEPS=$(patsubst $(BLD_ARM_DIR)/%_arm.o,$(BLD_ARM_DIR)/%_arm.d,$(OBJS))
 #------------------------------------------------------------------------------
+# Select all source files: *.c and *.cpp files
+# Select files that need to be compiled in x86
+SRC2=$(addprefix $(SRC_DIR)/, CTCPcomm.cpp parser.cpp CCommunication.cpp)
+# Set object files with the name from source file to BLD_DIR/*.o
+OBJS+=$(filter %_x86.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_x86_DIR)/%_x86.o,$(SRC2)))
+OBJS+=$(filter %_x86.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_x86_DIR)/%_x86.o,$(SRC2)))
+
+# Set dependency files with the name from the objects to BLD_DIR/*.d
+DEPS+=$(patsubst $(BLD_x86_DIR)/%_x86.o,$(BLD_x86_DIR)/%_x86.d,$(OBJS))
+# #------------------------------------------------------------------------------
 # These will be used in makefiles called from this one
 export SRC OBJS DEPS
 #------------------------------------------------------------------------------
@@ -82,34 +99,59 @@ vpath %.cpp $(SRC_DIR) .
 vpath %.h $(INC_DIR)
 
 # Default rule
-.DEFAULT_GOAL = build
+.DEFAULT_GOAL = build-all
+
 #------------------------------------------------------------------------------
 # Generate dependencies
 
 # -M flag looks at the #include lines in the source files
-$(BLD_DIR)/%.d: %.c
+$(BLD_ARM_DIR)/%_arm.d: %.c
 	@echo $(PRINT_GENERATING)
 	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
-$(BLD_DIR)/%.d: %.cpp
+$(BLD_ARM_DIR)/%_arm.d: %.cpp
 	@echo $(PRINT_GENERATING)
 	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
 # Build object files
 
-$(BLD_DIR)/%.o: %.c
+$(BLD_ARM_DIR)/%_arm.o: %.c
 	@echo $(PRINT_BUILDING)
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-$(BLD_DIR)/%.o: %.cpp
+$(BLD_ARM_DIR)/%_arm.o: %.cpp
 	@echo $(PRINT_BUILDING)
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
+# -M flag looks at the #include lines in the source files
+$(BLD_x86_DIR)/%_x86.d: %.c
+	@echo $(PRINT_GENERATING)
+	@$(COMPILE) -M $< -o $@ $(CXXFLAGS)
+
+$(BLD_x86_DIR)/%_x86.d: %.cpp
+	@echo $(PRINT_GENERATING)
+	@$(COMPILE) -M $< -o $@ $(CXXFLAGS)
+
+#------------------------------------------------------------------------------
+# Build object files
+
+$(BLD_x86_DIR)/%_x86.o: %.c
+	@echo $(PRINT_BUILDING)
+	@$(COMPILE) -c $< -o $@ $(CXXFLAGS)
+
+$(BLD_x86_DIR)/%_x86.o: %.cpp
+	@echo $(PRINT_BUILDING)
+	@$(COMPILE) -c $< -o $@ $(CXXFLAGS)
+#------------------------------------------------------------------------------
 # Build sub directories
 .PHONY: build $(BLD_SUBDIRS)
-build: .setup $(DEPS) $(OBJS) ## Build the object files
+
+print_build_all: 
+	@echo "Making main ..."
+
+build: print_build_all .setup $(DEPS) $(OBJS) ## Build the object files
 
 BLD_SUBDIRS=$(addprefix build-,$(SUBDIRS))
 build-all: build $(BLD_SUBDIRS) ## Compile all
@@ -118,6 +160,7 @@ build-all: build $(BLD_SUBDIRS) ## Compile all
 # Despite is not shown in make help, user can execute 'make build-<subdir>'
 # Ex: $ make build-ddrivers
 $(BLD_SUBDIRS): build-%:
+	@echo "Making $* ..."
 	@$(MAKE) -s -C $* build
 
 #------------------------------------------------------------------------------
@@ -145,10 +188,11 @@ $(PRINT_TARGET): print-$(BIN_DIR)/%:
 	@echo "Transfering to $(IP) into $(DIR)..."
 
 # call print rules and do transfer using scp
-transfer: .print_transfer $(PRINT_TARGET) ## Transfer executables
-	@scp $(TARGET) root@$(IP):$(DIR)
+# transfer: .print_transfer $(PRINT_TARGET) ## Transfer executables
+# 	@scp $(TARGET) root@$(IP):$(DIR)
 
-transfer-all: transfer $(TRANSF_SUBDIRS) ## Transfer all
+# transfer-all: transfer $(TRANSF_SUBDIRS) ## Transfer all
+transfer-all: $(TRANSF_SUBDIRS) ## Transfer all
 
 #------------------------------------------------------------------------------
 CLEAN_SUBDIRS=$(addprefix clean-,$(SUBDIRS))
@@ -156,7 +200,7 @@ CLEAN_SUBDIRS=$(addprefix clean-,$(SUBDIRS))
 
 clean: ## Delete main artifacts
 	@echo "${CYAN}Cleaning main ... $(RESET)"
-	@rm -rf $(BLD_DIR)
+	@rm -rf $(BLD_ARM_DIR) $(BLD_x86_DIR)
 
 # call 'make clean' in subdirectories
 # Despite is not shown in make help, user can execute 'make clean-<subdir>'
@@ -179,7 +223,8 @@ doc: ## Generate Doxygen documentation
 #------------------------------------------------------------------------------
 # Make output (bin, build) directories
 .setup:
-	@mkdir -p $(BLD_DIR)
+	@mkdir -p $(BLD_ARM_DIR)
+	@mkdir -p $(BLD_x86_DIR)
 
 help: ## Generate list of targets with descriptions
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-15s $(RESET)%s\n", $$1, $$2}'
