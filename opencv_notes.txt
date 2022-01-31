@@ -12,7 +12,7 @@ TargetPackages
 	-> Audio and video applications
 		v4l2grab                                                       
 		v4l2loopback    
-    		utils 
+    		v4l2loopback-> utils 
     		
 Depois de gerar o opencv no makemenuconfig:
 	Ir a /output/build/opencv3-3.4.13/buildroot-build: fazer $ cmake-gui, "configure" e ativar os packages necessários (imgproc, videoio, etc). No final "Generate". Sair

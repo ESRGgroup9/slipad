@@ -3,8 +3,8 @@ project( slipad LANGUAGES CXX)
 
 find_package( OpenCV REQUIRED )
 
-set(CMAKE_CXX_COMPILER "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-g++")
-set(CMAKE_CC_COMPILER "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-gcc")
+set(CMAKE_CXX_COMPILER "/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++")
+set(CMAKE_CC_COMPILER "/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-gcc")
 
 set(OpenCV_INCLUDE_DIRS "/usr/include/opencv2")
 
@@ -26,7 +26,7 @@ message(STATUS "CMAKE_CXX_COMPILER = ${CMAKE_CXX_COMPILER}")
 message(STATUS "CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
 
 add_executable( CVision.elf main.cpp ${all_SRCS}) # CVision does nothing -> dummy 
-target_link_libraries( CVision.elf ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries( CVision.elf ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT} -std=c++11)
 
 
 #**********************************************************************************************************

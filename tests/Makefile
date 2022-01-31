@@ -30,12 +30,6 @@ vpath %.h $(INC_DIR)
 
 .DEFAULT_GOAL = build
 build: setup $(PROGS) ## Compile the binary program
-	@echo "SRC: " $(SRC)
-	@echo
-	@echo "DEPS: " $(DEPS)
-	@echo
-	@echo "OBJS: " $(OBJS)
-	@echo
 
 #------------------------------------------------------------------------------
 # Create dependencies

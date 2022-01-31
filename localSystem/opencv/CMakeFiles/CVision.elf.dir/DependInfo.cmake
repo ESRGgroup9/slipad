@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/fernandes/code/slipad/src/CCamera.cpp" "/home/fernandes/code/slipad/opencv/CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/src/CCamera.cpp.o"
-  "/home/fernandes/code/slipad/src/CParkDetection.cpp" "/home/fernandes/code/slipad/opencv/CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/src/CParkDetection.cpp.o"
-  "/home/fernandes/code/slipad/opencv/main.cpp" "/home/fernandes/code/slipad/opencv/CMakeFiles/CVision.elf.dir/main.cpp.o"
+  "/home/tomas/slipad/localSystem/src/CCamera.cpp" "/home/tomas/slipad/localSystem/opencv/CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.o"
+  "/home/tomas/slipad/localSystem/src/CParkDetection.cpp" "/home/tomas/slipad/localSystem/opencv/CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.o"
+  "/home/tomas/slipad/localSystem/opencv/main.cpp" "/home/tomas/slipad/localSystem/opencv/CMakeFiles/CVision.elf.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
