@@ -19,7 +19,7 @@ using namespace std;
 #define DATABASE 	("slipad")
 
 // check client connections after TIM_CHECK_CONN seconds
-#define TIM_CHECK_CONN (10)
+#define TIM_CHECK_CONN (5)
 
 CRemoteSystem *CRemoteSystem::thisPtr = NULL;
 
@@ -38,21 +38,25 @@ CRemoteSystem::CRemoteSystem(int port) :
 	// update parser command list
 	typeParser.setCmdList(cmdList);
 
+	if(pthread_mutex_init(&mutAddClient, NULL) != 0)
+		panic("CRemoteSystem: Mutex init");
+
 	db = new MYSQL;
 	mysql_init(db);
 
 	if(!db)
-		panic("MySQL: initialization failed");
+		panic("CRemoteSystem: MySQL initialization failed");
 
 	db = mysql_real_connect(db, HOST, USER, PASSWORD, DATABASE, 0, NULL, 0);
 	if(!db)
 	{
 		cout << mysql_error(db) << endl;
-		panic("MySQL: Connection Error");
+		panic("CRemoteSystem: MySQL Connection Error");
 	}
 
 	this->client_port = port;
 	thisPtr = this;
+	clientList.clear();
 }
 
 CRemoteSystem::~CRemoteSystem()
@@ -73,21 +77,30 @@ CRemoteSystem::~CRemoteSystem()
 
 void CRemoteSystem::timCheckConnISR()
 {
-	// Declaring iterator to a vector
-    vector<CRemoteClient*>::iterator it;
-      
-    // search for non connected clients (connection CLOSED)
-    for (it = clientList.begin(); it < clientList.end(); it++)
-    {
-    	if((*it)->info.state == ConnStatus::CLOSED)
+    int size = clientList.size();
+    int i = 0;
+
+    while(i < size)
+   	{
+   		if(clientList[i]->info.state == ConnStatus::CLOSED)
 		{
 			// client has disconnected
-			DEBUG_MSG("[CRemoteSystem::checkConn] Removing client[" << (*it)->info.sockfd << "] with connection closed...");
+			DEBUG_MSG("[CRemoteSystem::checkConn] Removing dead client with sockfd[" << clientList[i]->info.sockfd << "]");
 			// remove it from the client list
-			clientList.erase(it);
+			clientList.erase(clientList.begin() + i);
+			// decrease client list size used as loop variable
+			size--;
+			// decrease number of connected clients to the server
 			server.numClients--;
+
+			/* do not increment i
+			since 'erase' deletes the position, in the next iteration the same
+			value for 'i' will index the next vector element*/
 		}
-    }
+		else
+			// go to the next element
+			i++;
+   	}
 }
 
 void CRemoteSystem::timHandler(union sigval arg)
@@ -96,7 +109,7 @@ void CRemoteSystem::timHandler(union sigval arg)
 		panic("CRemoteSystem::timHandler(): thisPtr not defined");
 
 	int id = arg.sival_int;
-	DEBUG_MSG("[CRemoteSystem::timHandler] handling timer[" << id << "] timeout...");
+	// DEBUG_MSG("[CRemoteSystem::timHandler] handling timer[" << id << "] timeout...");
 
 	// cannot do switch statement since tim*.id is not a compile time constant
 	if(id == thisPtr->timCheckConn.id)
@@ -168,10 +181,13 @@ int CRemoteSystem::typeCb(int argc, char *argv[])
 		return -1;
 	}
 
+	pthread_mutex_lock(&thisPtr->mutAddClient);
 	// add new client
 	thisPtr->clientList.push_back(client); 
 	// execute respective init and run methods
 	int i = thisPtr->clientList.size() - 1;
+	pthread_mutex_unlock(&thisPtr->mutAddClient);
+
 	thisPtr->clientList[i]->init(1,2);
 	thisPtr->clientList[i]->run();
 	DEBUG_MSG("[CRemoteSystem::typeCb] Client of type(" << static_cast<int>(type) << ") created successfully");

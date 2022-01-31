@@ -9,6 +9,7 @@
 #include <mysql/mysql.h>
 #include <vector>
 #include <signal.h>
+#include <pthread.h>
 
 class CRemoteSystem
 {
@@ -36,6 +37,7 @@ private:
 	std::vector <CRemoteClient*> clientList;
 	MYSQL* db;
 	Timer timCheckConn;
+	pthread_mutex_t mutAddClient;
 
 };
 
