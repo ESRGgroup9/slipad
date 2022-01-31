@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "addLamp.h"
+#include "repairLamp.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class menu; }
@@ -22,9 +23,14 @@ private slots:
 
     void on_add_new_released();
 
+    void on_logout_b_released();
+
+    void on_mod_lamp_released();
+
 private:
     Ui::menu *ui;
 
     addLamp *addMenu;
+    repairLamp *repairMenu;
 };
 #endif // MENU_H

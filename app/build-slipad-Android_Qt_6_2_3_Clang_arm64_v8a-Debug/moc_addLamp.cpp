@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_addLamp_t {
-    const uint offsetsAndSize[12];
-    char stringdata0[69];
+    const uint offsetsAndSize[8];
+    char stringdata0[50];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_addLamp_t, stringdata0) + ofs), len 
@@ -32,13 +32,11 @@ static const qt_meta_stringdata_addLamp_t qt_meta_stringdata_addLamp = {
 QT_MOC_LITERAL(0, 7), // "addLamp"
 QT_MOC_LITERAL(8, 21), // "on_addLamp_b_released"
 QT_MOC_LITERAL(30, 0), // ""
-QT_MOC_LITERAL(31, 15), // "positionUpdated"
-QT_MOC_LITERAL(47, 16), // "QGeoPositionInfo"
-QT_MOC_LITERAL(64, 4) // "info"
+QT_MOC_LITERAL(31, 18) // "on_back_b_released"
 
     },
     "addLamp\0on_addLamp_b_released\0\0"
-    "positionUpdated\0QGeoPositionInfo\0info"
+    "on_back_b_released"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,11 +55,11 @@ static const uint qt_meta_data_addLamp[] = {
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
        1,    0,   26,    2, 0x08,    1 /* Private */,
-       3,    1,   27,    2, 0x08,    2 /* Private */,
+       3,    0,   27,    2, 0x08,    2 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -73,21 +71,11 @@ void addLamp::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         (void)_t;
         switch (_id) {
         case 0: _t->on_addLamp_b_released(); break;
-        case 1: _t->positionUpdated((*reinterpret_cast< const QGeoPositionInfo(*)>(_a[1]))); break;
+        case 1: _t->on_back_b_released(); break;
         default: ;
         }
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        switch (_id) {
-        default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
-        case 1:
-            switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
-            case 0:
-                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QGeoPositionInfo >(); break;
-            }
-            break;
-        }
     }
+    (void)_a;
 }
 
 const QMetaObject addLamp::staticMetaObject = { {
@@ -98,7 +86,7 @@ const QMetaObject addLamp::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_addLamp_t
 , QtPrivate::TypeAndForceComplete<addLamp, std::true_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QGeoPositionInfo &, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
@@ -130,7 +118,7 @@ int addLamp::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 2)
-            qt_static_metacall(this, _c, _id, _a);
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
         _id -= 2;
     }
     return _id;

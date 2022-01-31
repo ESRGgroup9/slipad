@@ -19,6 +19,8 @@ public:
 private slots:
     void on_addLamp_b_released();
 
+    void on_back_b_released();
+
 private:
     Ui::addLamp *ui;
 

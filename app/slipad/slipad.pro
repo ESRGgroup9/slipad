@@ -13,16 +13,19 @@ SOURCES += \
     addLamp.cpp \
     main.cpp \
     menu.cpp \
+    repairLamp.cpp \
     slipad.cpp
 
 HEADERS += \
     addLamp.h \
     menu.h \
+    repairLamp.h \
     slipad.h
 
 FORMS += \
     addLamp.ui \
     menu.ui \
+    repairLamp.ui \
     slipad.ui
 
 # Default rules for deployment.

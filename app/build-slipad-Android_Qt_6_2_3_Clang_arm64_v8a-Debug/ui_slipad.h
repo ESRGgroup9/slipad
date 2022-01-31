@@ -153,6 +153,7 @@ public:
         SLIPAD->setGeometry(QRect(0, 130, 360, 101));
         SLIPAD->setFrameShape(QFrame::NoFrame);
         SLIPAD->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        SLIPAD->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         smart_lighting = new QTextBrowser(centralwidget);
         smart_lighting->setObjectName(QString::fromUtf8("smart_lighting"));
         smart_lighting->setGeometry(QRect(0, 220, 360, 31));
@@ -234,6 +235,7 @@ public:
 #endif
         smart_lighting->setPalette(palette1);
         smart_lighting->setFrameShape(QFrame::NoFrame);
+        smart_lighting->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         op_id_txt = new QTextBrowser(centralwidget);
         op_id_txt->setObjectName(QString::fromUtf8("op_id_txt"));
         op_id_txt->setGeometry(QRect(40, 350, 280, 30));
@@ -315,6 +317,7 @@ public:
 #endif
         op_id_txt->setPalette(palette2);
         op_id_txt->setFrameShape(QFrame::NoFrame);
+        op_id_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         password_txt = new QTextBrowser(centralwidget);
         password_txt->setObjectName(QString::fromUtf8("password_txt"));
         password_txt->setGeometry(QRect(40, 430, 280, 30));
@@ -396,6 +399,7 @@ public:
 #endif
         password_txt->setPalette(palette3);
         password_txt->setFrameShape(QFrame::NoFrame);
+        password_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         password = new QLineEdit(centralwidget);
         password->setObjectName(QString::fromUtf8("password"));
         password->setGeometry(QRect(40, 470, 280, 30));
@@ -574,6 +578,7 @@ public:
         wrong_txt->setPalette(palette5);
         wrong_txt->setFrameShape(QFrame::NoFrame);
         wrong_txt->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        wrong_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         slipad->setCentralWidget(centralwidget);
 
         retranslateUi(slipad);

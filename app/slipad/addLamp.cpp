@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QDebug>
+#include <QMessageBox>
 
 addLamp::addLamp(QWidget *parent)
     : QMainWindow(parent)
@@ -42,12 +43,19 @@ void addLamp::on_addLamp_b_released()
     ui->county->clear();
     ui->district->clear();
 
+    if( !street.size() && !postCode.size() &&
+        !parish.size() && !county.size() && !district.size() )
+    {
+        QMessageBox::warning(this,"Add Lamppost", "Empty fields: All fields required!");
+        return;
+    }
+
      //qDebug() << "Position: " << source->lastKnownPosition();
     QGeoCoordinate coords = source->lastKnownPosition().coordinate();
 
     // store longitude and latitude coordinates
-    int longitude = coords.longitude();
-    int latitude = coords.latitude();
+    double longitude = coords.longitude();
+    double latitude = coords.latitude();
 
     if( (longitude != 0) && (latitude != 0) )
     {
@@ -55,5 +63,13 @@ void addLamp::on_addLamp_b_released()
         source->stopUpdates();
 
         // ADD LAMPPOST TO DATABASE
+        qDebug() << "Position (" << latitude << "," << longitude<< ")";
+        //this->hide();
+        this->deleteLater();
     }
+}
+
+void addLamp::on_back_b_released()
+{
+    this->deleteLater();
 }

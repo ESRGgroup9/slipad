@@ -26,18 +26,19 @@ public:
     QWidget *centralwidget;
     QTextBrowser *SLIPAD;
     QTextBrowser *smart_lighting;
-    QTextBrowser *op_id_txt;
-    QTextBrowser *password_txt;
-    QLineEdit *password;
-    QLineEdit *op_id;
+    QTextBrowser *street_txt;
+    QTextBrowser *postCode_txt;
+    QLineEdit *postCode;
+    QLineEdit *street;
     QPushButton *addLamp_b;
     QPushButton *back_b;
-    QLineEdit *password_2;
-    QTextBrowser *password_txt_2;
-    QTextBrowser *password_txt_3;
-    QLineEdit *password_3;
-    QLineEdit *password_4;
-    QTextBrowser *password_txt_4;
+    QLineEdit *parish;
+    QTextBrowser *parish_txt;
+    QTextBrowser *count_txt;
+    QLineEdit *county;
+    QLineEdit *district;
+    QTextBrowser *district_txt;
+    QTextBrowser *add_lamp_txt;
 
     void setupUi(QMainWindow *addLamp)
     {
@@ -157,12 +158,13 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         SLIPAD = new QTextBrowser(centralwidget);
         SLIPAD->setObjectName(QString::fromUtf8("SLIPAD"));
-        SLIPAD->setGeometry(QRect(0, 70, 360, 101));
+        SLIPAD->setGeometry(QRect(0, 50, 360, 101));
         SLIPAD->setFrameShape(QFrame::NoFrame);
         SLIPAD->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        SLIPAD->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         smart_lighting = new QTextBrowser(centralwidget);
         smart_lighting->setObjectName(QString::fromUtf8("smart_lighting"));
-        smart_lighting->setGeometry(QRect(0, 160, 360, 31));
+        smart_lighting->setGeometry(QRect(0, 140, 360, 31));
         QPalette palette1;
         palette1.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette1.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -241,9 +243,10 @@ public:
 #endif
         smart_lighting->setPalette(palette1);
         smart_lighting->setFrameShape(QFrame::NoFrame);
-        op_id_txt = new QTextBrowser(centralwidget);
-        op_id_txt->setObjectName(QString::fromUtf8("op_id_txt"));
-        op_id_txt->setGeometry(QRect(40, 220, 280, 30));
+        smart_lighting->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
+        street_txt = new QTextBrowser(centralwidget);
+        street_txt->setObjectName(QString::fromUtf8("street_txt"));
+        street_txt->setGeometry(QRect(40, 220, 280, 30));
         QPalette palette2;
         palette2.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette2.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -320,13 +323,13 @@ public:
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette2.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush13);
 #endif
-        op_id_txt->setPalette(palette2);
-        op_id_txt->setMouseTracking(false);
-        op_id_txt->setFrameShape(QFrame::NoFrame);
-        op_id_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
-        password_txt = new QTextBrowser(centralwidget);
-        password_txt->setObjectName(QString::fromUtf8("password_txt"));
-        password_txt->setGeometry(QRect(40, 290, 280, 30));
+        street_txt->setPalette(palette2);
+        street_txt->setMouseTracking(false);
+        street_txt->setFrameShape(QFrame::NoFrame);
+        street_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
+        postCode_txt = new QTextBrowser(centralwidget);
+        postCode_txt->setObjectName(QString::fromUtf8("postCode_txt"));
+        postCode_txt->setGeometry(QRect(40, 290, 280, 30));
         QPalette palette3;
         palette3.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette3.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -403,27 +406,27 @@ public:
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette3.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush13);
 #endif
-        password_txt->setPalette(palette3);
-        password_txt->setMouseTracking(false);
-        password_txt->setFrameShape(QFrame::NoFrame);
-        password_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
-        password = new QLineEdit(centralwidget);
-        password->setObjectName(QString::fromUtf8("password"));
-        password->setGeometry(QRect(40, 320, 280, 30));
+        postCode_txt->setPalette(palette3);
+        postCode_txt->setMouseTracking(false);
+        postCode_txt->setFrameShape(QFrame::NoFrame);
+        postCode_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
+        postCode = new QLineEdit(centralwidget);
+        postCode->setObjectName(QString::fromUtf8("postCode"));
+        postCode->setGeometry(QRect(40, 320, 280, 30));
         QFont font;
         font.setPointSize(10);
-        password->setFont(font);
-        password->setEchoMode(QLineEdit::Password);
-        op_id = new QLineEdit(centralwidget);
-        op_id->setObjectName(QString::fromUtf8("op_id"));
-        op_id->setGeometry(QRect(40, 250, 280, 30));
+        postCode->setFont(font);
+        postCode->setEchoMode(QLineEdit::Normal);
+        street = new QLineEdit(centralwidget);
+        street->setObjectName(QString::fromUtf8("street"));
+        street->setGeometry(QRect(40, 250, 280, 30));
         QFont font1;
         font1.setPointSize(13);
-        op_id->setFont(font1);
-        op_id->setEchoMode(QLineEdit::Normal);
+        street->setFont(font1);
+        street->setEchoMode(QLineEdit::Normal);
         addLamp_b = new QPushButton(centralwidget);
         addLamp_b->setObjectName(QString::fromUtf8("addLamp_b"));
-        addLamp_b->setGeometry(QRect(200, 610, 121, 31));
+        addLamp_b->setGeometry(QRect(200, 590, 121, 31));
         QPalette palette4;
         palette4.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette4.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -515,14 +518,14 @@ public:
         back_b->setIcon(icon);
         back_b->setIconSize(QSize(30, 25));
         back_b->setFlat(true);
-        password_2 = new QLineEdit(centralwidget);
-        password_2->setObjectName(QString::fromUtf8("password_2"));
-        password_2->setGeometry(QRect(40, 400, 280, 30));
-        password_2->setFont(font);
-        password_2->setEchoMode(QLineEdit::Password);
-        password_txt_2 = new QTextBrowser(centralwidget);
-        password_txt_2->setObjectName(QString::fromUtf8("password_txt_2"));
-        password_txt_2->setGeometry(QRect(40, 370, 280, 30));
+        parish = new QLineEdit(centralwidget);
+        parish->setObjectName(QString::fromUtf8("parish"));
+        parish->setGeometry(QRect(40, 390, 280, 30));
+        parish->setFont(font);
+        parish->setEchoMode(QLineEdit::Normal);
+        parish_txt = new QTextBrowser(centralwidget);
+        parish_txt->setObjectName(QString::fromUtf8("parish_txt"));
+        parish_txt->setGeometry(QRect(40, 360, 280, 30));
         QPalette palette5;
         palette5.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette5.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -599,13 +602,13 @@ public:
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette5.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush13);
 #endif
-        password_txt_2->setPalette(palette5);
-        password_txt_2->setMouseTracking(false);
-        password_txt_2->setFrameShape(QFrame::NoFrame);
-        password_txt_2->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
-        password_txt_3 = new QTextBrowser(centralwidget);
-        password_txt_3->setObjectName(QString::fromUtf8("password_txt_3"));
-        password_txt_3->setGeometry(QRect(40, 450, 280, 30));
+        parish_txt->setPalette(palette5);
+        parish_txt->setMouseTracking(false);
+        parish_txt->setFrameShape(QFrame::NoFrame);
+        parish_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
+        count_txt = new QTextBrowser(centralwidget);
+        count_txt->setObjectName(QString::fromUtf8("count_txt"));
+        count_txt->setGeometry(QRect(40, 430, 280, 30));
         QPalette palette6;
         palette6.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette6.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -682,23 +685,23 @@ public:
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette6.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush13);
 #endif
-        password_txt_3->setPalette(palette6);
-        password_txt_3->setMouseTracking(false);
-        password_txt_3->setFrameShape(QFrame::NoFrame);
-        password_txt_3->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
-        password_3 = new QLineEdit(centralwidget);
-        password_3->setObjectName(QString::fromUtf8("password_3"));
-        password_3->setGeometry(QRect(40, 480, 280, 30));
-        password_3->setFont(font);
-        password_3->setEchoMode(QLineEdit::Password);
-        password_4 = new QLineEdit(centralwidget);
-        password_4->setObjectName(QString::fromUtf8("password_4"));
-        password_4->setGeometry(QRect(40, 560, 280, 30));
-        password_4->setFont(font);
-        password_4->setEchoMode(QLineEdit::Password);
-        password_txt_4 = new QTextBrowser(centralwidget);
-        password_txt_4->setObjectName(QString::fromUtf8("password_txt_4"));
-        password_txt_4->setGeometry(QRect(40, 530, 280, 30));
+        count_txt->setPalette(palette6);
+        count_txt->setMouseTracking(false);
+        count_txt->setFrameShape(QFrame::NoFrame);
+        count_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
+        county = new QLineEdit(centralwidget);
+        county->setObjectName(QString::fromUtf8("county"));
+        county->setGeometry(QRect(40, 460, 280, 30));
+        county->setFont(font);
+        county->setEchoMode(QLineEdit::Normal);
+        district = new QLineEdit(centralwidget);
+        district->setObjectName(QString::fromUtf8("district"));
+        district->setGeometry(QRect(40, 530, 280, 30));
+        district->setFont(font);
+        district->setEchoMode(QLineEdit::Normal);
+        district_txt = new QTextBrowser(centralwidget);
+        district_txt->setObjectName(QString::fromUtf8("district_txt"));
+        district_txt->setGeometry(QRect(40, 500, 280, 30));
         QPalette palette7;
         palette7.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette7.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -775,10 +778,93 @@ public:
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette7.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush13);
 #endif
-        password_txt_4->setPalette(palette7);
-        password_txt_4->setMouseTracking(false);
-        password_txt_4->setFrameShape(QFrame::NoFrame);
-        password_txt_4->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
+        district_txt->setPalette(palette7);
+        district_txt->setMouseTracking(false);
+        district_txt->setFrameShape(QFrame::NoFrame);
+        district_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
+        add_lamp_txt = new QTextBrowser(centralwidget);
+        add_lamp_txt->setObjectName(QString::fromUtf8("add_lamp_txt"));
+        add_lamp_txt->setGeometry(QRect(40, 180, 280, 30));
+        QPalette palette8;
+        palette8.setBrush(QPalette::Active, QPalette::WindowText, brush);
+        palette8.setBrush(QPalette::Active, QPalette::Button, brush1);
+        palette8.setBrush(QPalette::Active, QPalette::Light, brush2);
+        palette8.setBrush(QPalette::Active, QPalette::Midlight, brush3);
+        palette8.setBrush(QPalette::Active, QPalette::Dark, brush4);
+        palette8.setBrush(QPalette::Active, QPalette::Mid, brush5);
+        palette8.setBrush(QPalette::Active, QPalette::Text, brush);
+        palette8.setBrush(QPalette::Active, QPalette::BrightText, brush2);
+        palette8.setBrush(QPalette::Active, QPalette::ButtonText, brush);
+        palette8.setBrush(QPalette::Active, QPalette::Base, brush2);
+        palette8.setBrush(QPalette::Active, QPalette::Window, brush2);
+        palette8.setBrush(QPalette::Active, QPalette::Shadow, brush6);
+        palette8.setBrush(QPalette::Active, QPalette::Highlight, brush7);
+        palette8.setBrush(QPalette::Active, QPalette::HighlightedText, brush2);
+        palette8.setBrush(QPalette::Active, QPalette::Link, brush8);
+        palette8.setBrush(QPalette::Active, QPalette::LinkVisited, brush9);
+        palette8.setBrush(QPalette::Active, QPalette::AlternateBase, brush10);
+        QBrush brush40(QColor(0, 0, 0, 255));
+        brush40.setStyle(Qt::NoBrush);
+        palette8.setBrush(QPalette::Active, QPalette::NoRole, brush40);
+        palette8.setBrush(QPalette::Active, QPalette::ToolTipBase, brush12);
+        palette8.setBrush(QPalette::Active, QPalette::ToolTipText, brush);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette8.setBrush(QPalette::Active, QPalette::PlaceholderText, brush13);
+#endif
+        palette8.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        palette8.setBrush(QPalette::Inactive, QPalette::Button, brush1);
+        palette8.setBrush(QPalette::Inactive, QPalette::Light, brush2);
+        palette8.setBrush(QPalette::Inactive, QPalette::Midlight, brush3);
+        palette8.setBrush(QPalette::Inactive, QPalette::Dark, brush4);
+        palette8.setBrush(QPalette::Inactive, QPalette::Mid, brush5);
+        palette8.setBrush(QPalette::Inactive, QPalette::Text, brush);
+        palette8.setBrush(QPalette::Inactive, QPalette::BrightText, brush2);
+        palette8.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        palette8.setBrush(QPalette::Inactive, QPalette::Base, brush2);
+        palette8.setBrush(QPalette::Inactive, QPalette::Window, brush1);
+        palette8.setBrush(QPalette::Inactive, QPalette::Shadow, brush6);
+        palette8.setBrush(QPalette::Inactive, QPalette::Highlight, brush7);
+        palette8.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush2);
+        palette8.setBrush(QPalette::Inactive, QPalette::Link, brush8);
+        palette8.setBrush(QPalette::Inactive, QPalette::LinkVisited, brush9);
+        palette8.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush10);
+        QBrush brush41(QColor(0, 0, 0, 255));
+        brush41.setStyle(Qt::NoBrush);
+        palette8.setBrush(QPalette::Inactive, QPalette::NoRole, brush41);
+        palette8.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush12);
+        palette8.setBrush(QPalette::Inactive, QPalette::ToolTipText, brush);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette8.setBrush(QPalette::Inactive, QPalette::PlaceholderText, brush13);
+#endif
+        palette8.setBrush(QPalette::Disabled, QPalette::WindowText, brush15);
+        palette8.setBrush(QPalette::Disabled, QPalette::Button, brush1);
+        palette8.setBrush(QPalette::Disabled, QPalette::Light, brush2);
+        palette8.setBrush(QPalette::Disabled, QPalette::Midlight, brush3);
+        palette8.setBrush(QPalette::Disabled, QPalette::Dark, brush15);
+        palette8.setBrush(QPalette::Disabled, QPalette::Mid, brush5);
+        palette8.setBrush(QPalette::Disabled, QPalette::Text, brush15);
+        palette8.setBrush(QPalette::Disabled, QPalette::BrightText, brush2);
+        palette8.setBrush(QPalette::Disabled, QPalette::ButtonText, brush15);
+        palette8.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        palette8.setBrush(QPalette::Disabled, QPalette::Window, brush2);
+        palette8.setBrush(QPalette::Disabled, QPalette::Shadow, brush16);
+        palette8.setBrush(QPalette::Disabled, QPalette::Highlight, brush17);
+        palette8.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush2);
+        palette8.setBrush(QPalette::Disabled, QPalette::Link, brush8);
+        palette8.setBrush(QPalette::Disabled, QPalette::LinkVisited, brush9);
+        palette8.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush10);
+        QBrush brush42(QColor(0, 0, 0, 255));
+        brush42.setStyle(Qt::NoBrush);
+        palette8.setBrush(QPalette::Disabled, QPalette::NoRole, brush42);
+        palette8.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush12);
+        palette8.setBrush(QPalette::Disabled, QPalette::ToolTipText, brush);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette8.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush13);
+#endif
+        add_lamp_txt->setPalette(palette8);
+        add_lamp_txt->setMouseTracking(false);
+        add_lamp_txt->setFrameShape(QFrame::NoFrame);
+        add_lamp_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         addLamp->setCentralWidget(centralwidget);
 
         retranslateUi(addLamp);
@@ -800,17 +886,17 @@ public:
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt; font-weight:700;\">Smart Lighting with Park Detection</span></p></body></html>", nullptr));
 #if QT_CONFIG(accessibility)
-        op_id_txt->setAccessibleName(QString());
+        street_txt->setAccessibleName(QString());
 #endif // QT_CONFIG(accessibility)
-        op_id_txt->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        street_txt->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">Street</span></p></body></html>", nullptr));
 #if QT_CONFIG(accessibility)
-        password_txt->setAccessibleName(QString());
+        postCode_txt->setAccessibleName(QString());
 #endif // QT_CONFIG(accessibility)
-        password_txt->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        postCode_txt->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
@@ -818,29 +904,37 @@ public:
         addLamp_b->setText(QCoreApplication::translate("addLamp", "Add Lamppost", nullptr));
         back_b->setText(QString());
 #if QT_CONFIG(accessibility)
-        password_txt_2->setAccessibleName(QString());
+        parish_txt->setAccessibleName(QString());
 #endif // QT_CONFIG(accessibility)
-        password_txt_2->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        parish_txt->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">Parish</span></p></body></html>", nullptr));
 #if QT_CONFIG(accessibility)
-        password_txt_3->setAccessibleName(QString());
+        count_txt->setAccessibleName(QString());
 #endif // QT_CONFIG(accessibility)
-        password_txt_3->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        count_txt->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">County</span></p></body></html>", nullptr));
 #if QT_CONFIG(accessibility)
-        password_txt_4->setAccessibleName(QString());
+        district_txt->setAccessibleName(QString());
 #endif // QT_CONFIG(accessibility)
-        password_txt_4->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        district_txt->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">District</span></p></body></html>", nullptr));
+#if QT_CONFIG(accessibility)
+        add_lamp_txt->setAccessibleName(QString());
+#endif // QT_CONFIG(accessibility)
+        add_lamp_txt->setHtml(QCoreApplication::translate("addLamp", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">Add Lamppost</span></p></body></html>", nullptr));
     } // retranslateUi
 
 };

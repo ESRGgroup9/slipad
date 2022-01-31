@@ -32,8 +32,11 @@ void slipad::on_login_b_released()
     // SEARCH IN THE DATABASE
     // ------------------------------------------ DEBUG
     if( (operator_id == "D") && (password == "1") )
-        // success login´
+    {
+        // success login
         menuWind->show();
+        ui->wrong_txt->setHidden(true);
+    }
     else
         //QMessageBox::warning(this,"Login", "Operator ID/ password incorrect");
         ui->wrong_txt->show();

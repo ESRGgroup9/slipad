@@ -28,7 +28,7 @@ public:
     QPushButton *add_new;
     QPushButton *mod_lamp;
     QPushButton *consult;
-    QPushButton *consult_2;
+    QPushButton *logout_b;
 
     void setupUi(QMainWindow *menu)
     {
@@ -151,6 +151,7 @@ public:
         SLIPAD->setGeometry(QRect(0, 130, 360, 101));
         SLIPAD->setFrameShape(QFrame::NoFrame);
         SLIPAD->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        SLIPAD->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         smart_lighting = new QTextBrowser(centralwidget);
         smart_lighting->setObjectName(QString::fromUtf8("smart_lighting"));
         smart_lighting->setGeometry(QRect(0, 220, 360, 31));
@@ -232,6 +233,7 @@ public:
 #endif
         smart_lighting->setPalette(palette1);
         smart_lighting->setFrameShape(QFrame::NoFrame);
+        smart_lighting->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         sel_op_txt = new QTextBrowser(centralwidget);
         sel_op_txt->setObjectName(QString::fromUtf8("sel_op_txt"));
         sel_op_txt->setGeometry(QRect(40, 300, 280, 31));
@@ -559,9 +561,9 @@ public:
 #endif
         consult->setPalette(palette5);
         consult->setFont(font);
-        consult_2 = new QPushButton(centralwidget);
-        consult_2->setObjectName(QString::fromUtf8("consult_2"));
-        consult_2->setGeometry(QRect(230, 620, 91, 30));
+        logout_b = new QPushButton(centralwidget);
+        logout_b->setObjectName(QString::fromUtf8("logout_b"));
+        logout_b->setGeometry(QRect(230, 620, 91, 30));
         QPalette palette6;
         palette6.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette6.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -638,10 +640,10 @@ public:
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette6.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush13);
 #endif
-        consult_2->setPalette(palette6);
+        logout_b->setPalette(palette6);
         QFont font1;
         font1.setPointSize(13);
-        consult_2->setFont(font1);
+        logout_b->setFont(font1);
         menu->setCentralWidget(centralwidget);
 
         retranslateUi(menu);
@@ -670,7 +672,7 @@ public:
         add_new->setText(QCoreApplication::translate("menu", "Add New Lamppost", nullptr));
         mod_lamp->setText(QCoreApplication::translate("menu", "Modify Lamppost", nullptr));
         consult->setText(QCoreApplication::translate("menu", "Consult Lamppost Network ", nullptr));
-        consult_2->setText(QCoreApplication::translate("menu", "Logout", nullptr));
+        logout_b->setText(QCoreApplication::translate("menu", "Logout", nullptr));
     } // retranslateUi
 
 };

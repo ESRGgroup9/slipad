@@ -20,9 +20,20 @@ void menu::on_add_new_released()
     addMenu->show();
 }
 
+void menu::on_mod_lamp_released()
+{
+    repairMenu = new repairLamp(this);
+    repairMenu->show();
+}
+
 void menu::on_consult_released()
 {
 
+}
+
+void menu::on_logout_b_released()
+{
+    this->deleteLater();
 }
 
 
