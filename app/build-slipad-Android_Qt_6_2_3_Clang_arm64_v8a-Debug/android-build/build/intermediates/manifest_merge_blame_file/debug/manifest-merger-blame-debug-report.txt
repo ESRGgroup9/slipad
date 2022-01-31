@@ -1,0 +1,91 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="org.qtproject.example.slipad"
+4    android:installLocation="auto"
+5    android:versionCode="1"
+6    android:versionName="1.0" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="23"
+9-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml
+10        android:targetSdkVersion="30" />
+10-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml
+11
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:7:5-67
+12-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:7:22-64
+13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+13-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:8:5-81
+13-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:8:22-78
+14
+15    <supports-screens
+15-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:10:5-14:39
+16        android:anyDensity="true"
+16-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:11:9-34
+17        android:largeScreens="true"
+17-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:12:9-36
+18        android:normalScreens="true"
+18-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:13:9-37
+19        android:smallScreens="true" />
+19-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:14:9-36
+20
+21    <application
+21-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:15:5-45:19
+22        android:name="org.qtproject.qt.android.bindings.QtApplication"
+22-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:16:9-71
+23        android:allowNativeHeapPointerTagging="false"
+23-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:21:9-54
+24        android:debuggable="true"
+25        android:extractNativeLibs="true"
+25-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:17:9-41
+26        android:hardwareAccelerated="true"
+26-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:18:9-43
+27        android:label="slipad"
+27-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:19:9-31
+28        android:requestLegacyExternalStorage="true" >
+28-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:20:9-52
+29        <activity
+29-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:22:9-44:20
+30            android:name="org.qtproject.qt.android.bindings.QtActivity"
+30-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:23:13-72
+31            android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
+31-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:24:13-182
+32            android:label="slipad"
+32-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:25:13-35
+33            android:launchMode="singleTop"
+33-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:26:13-43
+34            android:screenOrientation="unspecified" >
+34-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:27:13-52
+35            <intent-filter>
+35-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:28:13-31:29
+36                <action android:name="android.intent.action.MAIN" />
+36-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:29:17-69
+36-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:29:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:30:17-77
+38-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:30:27-74
+39            </intent-filter>
+40
+41            <meta-data
+41-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:33:11-35:42
+42                android:name="android.app.lib_name"
+42-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:34:17-52
+43                android:value="slipad" />
+43-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:35:17-39
+44            <meta-data
+44-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:37:11-39:36
+45                android:name="android.app.arguments"
+45-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:38:17-53
+46                android:value="" />
+46-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:39:17-33
+47            <meta-data
+47-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:41:13-43:43
+48                android:name="android.app.extract_android_style"
+48-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:42:17-65
+49                android:value="minimal" />
+49-->/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/AndroidManifest.xml:43:17-40
+50        </activity>
+51    </application>
+52
+53</manifest>
