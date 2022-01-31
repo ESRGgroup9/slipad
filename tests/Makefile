@@ -1,161 +1,92 @@
-# CC=g++
-CC=arm-buildroot-linux-gnueabihf-g++
+#==============================================================================
+# Project directories
+BLD_DIR=build
+BIN_DIR=bin
+#------------------------------------------------------------------------------
+PROGS=$(patsubst ./%.c, $(BIN_DIR)/%.elf, $(wildcard ./*.c))
+PROGS+=$(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
+#------------------------------------------------------------------------------
+CXX 	=$(CROSS_COMPILE)$(COMPILE)
+LIBS	=-lpthread -lbcm2835 -lrt
+# INCLDS	+=-I $(INC_DIR)
+CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
+#------------------------------------------------------------------------------
+# Select all source files: *.c and *.cpp files
+SRC+= $(wildcard $(SRC_DIR)/*.c*)
+# Set object files with the name from source file to BLD_DIR/*.o
+OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%.o,$(SRC)))
+OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
+# Set dependency files with the name from the objects to BLD_DIR/*.d
+DEPS= $(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
+#------------------------------------------------------------------------------
+# Default print messages
+PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
+PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
+PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
+#==============================================================================
+vpath %.c $(SRC_DIR) ./
+vpath %.cpp $(SRC_DIR) ./
+vpath %.h $(INC_DIR)
 
-CFLAGS= -Wall -g -I. -lbcm2835
+.DEFAULT_GOAL = build
+build: setup $(PROGS) ## Compile the binary program
 
-DEPS=LoRa.h
-OBJS=LoRa.o test.o
-TARGET=loratest.elf
+#------------------------------------------------------------------------------
+# Create dependencies
 
-IP=10.42.0.254
-DIR=/etc
+$(BLD_DIR)/%.d: %.c
+	@echo $(PRINT_GENERATING)
+	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
-all: $(TARGET)
+$(BLD_DIR)/%.d: %.cpp
+	@echo $(PRINT_GENERATING)
+	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
-$(TARGET) : $(OBJS) 
-	$(CC) -o $(TARGET) $(OBJS) $(CFLAGS)
+#------------------------------------------------------------------------------
+# Create object files
 
-%.o: %.cpp $(DEPS)
-	$(CC) -c  $< -o $@ $(CFLAGS)
+$(BLD_DIR)/%.o: %.c
+	@echo $(PRINT_BUILDING)
+	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-transfer:
-	scp $(TARGET) root@$(IP):$(DIR)
+$(BLD_DIR)/%.o: %.cpp
+	@echo $(PRINT_BUILDING)
+	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-.PHONY: clean transfer
-clean:
-	rm -rf $(TARGET) *.o *~
+#------------------------------------------------------------------------------
+# Create executables
 
-##################################### Makefile ###############################
-# a Makefile works accordingly to the following syntax:
-#
-# rule: dependencies
-# 	<TAB>	comand1
-# 	<TAB>	comand2
-#
-# all: the name of the rules to be executed
-# teste.o: teste.c (can be interpreted as destination_file: origin_file)
-# clean: deletes the intermediary files. If one writes in the terminal <make
-# clean> the object files are deleted.
-# mrproper: deletes everything that must be modified
-#
-# ----- Defining variables -----------------------------------
-#  VAR_NAME=VAL
-#  and to use the variable we placed between $(): $(VAR_NAME) 
-#
-#	#Using wildcards to help define variables
-#	SRC=$(wildcard *.c)
-#	OBJ=$(SRC:.c=.o)
-# -------------------------------------------------------------
-# 
-# #Silent Mode (no echo in the command line)
-# add @ to the beginning of the command. Ex:
-# 				@$(CC) -o $@ $^
-#
-# ------------------- Internal Variables ---------------------
-# $@	Name of the rule
-# $<	Name of the 1st dependency
-# $^	List of dependencies
-# $?	List of dependencies more recent than the rule
-# $*	Name of the file with suffix
-# ------------------------------------------------------------
-# 
-#	Rules without dependencies, e.g., actions like clean:, must be called
-#	explicitly, otherwise they wont be executed.
-#			make clean #will remove all objects files from folder, as described below
-#
-# -------------------- Interference rules -------------------
-#  Generic rules called by default
-#  - .c.o: make a .o file from a .c file
-#  - %o: %.c: the same thing. The line teste.o:teste.c can be modified with this
-#  rule
-#  - .PHONY: This rule avoids conflicts.
-#  			- If one has a clean file in the directory, nothing will happen when one
-#  			executes make clean
-#  			- So .PHONY says that clean and mrproper should be executed even if
-#  			files with that name exist current path
-# ----------------------------------------------------------------
-# 
-# ------------------------- make install -------------------------
-#  Automating the program's installation with the install: rule
-#   - install: Places the binary or executable inside a given folder, e.g., /bin
-#   or /usr/bin in Linux. It can be any other, using the command mv or cp to
-#   move or copy
-#   - Lets create 2 vars:
-#   	- prefix=path/to/proj
-#   	- bindir=$(prefix)/bin
-#   	- and we add the rule install:all
+$(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
+	@echo $(PRINT_COMPILING)
+	@$(CXX) -o $@ $< $(OBJS) $(CXXFLAGS)
 
-# PROJ (used to be test)
-PROJ=slipad
+#------------------------------------------------------------------------------
+# stuff just to print transferring files prettier
+.PHONY: print_transfer transfer $(PRINT_TARGET)	
+TEST=*
+TARGET=$(BIN_DIR)/$(TEST)
+PRINT_TARGET=$(addprefix print-, $(wildcard $(TARGET)))
 
-# File Paths
-SRC_DIR=../src
-BIN_DIR=${SRC_DIR}/bin
+$(PRINT_TARGET): print-$(BIN_DIR)/%:
+	@echo "$(CYAN)"$*"$(RESET)"
 
-#LIBS=-lform -lncurses
-CFLAGS=-Wall #-W -ansi -pedantic # options passed to the compiler
-RM=rm -rf
+print_transfer:
+	@echo "Transfering to $(IP) into $(DIR)..."
 
-# documentation
-# DOXYGEN=/usr/local/bin/doxygen
-# DOXYFILE=../Doxyfile
+transfer: print_transfer $(PRINT_TARGET)
+	@scp $(TARGET) root@$(IP):$(DIR)
 
-# Databases
-# DB = $(wildcard *.db)
-
-SRC := $(wildcard *.c)
-CC:=arm-buildroot-linux-gnueabihf-g++
-
-# Debub settings
-DEBUG ?= 1
-ifeq ($(DEBUG), 1)
-    CFLAGS+=-g
-else
-    CFLAGS+=-DNDEBUG
-endif
-
-# CC=gcc #defining the compiler name for C or C++ (here its gcc) // bad practice
-# to define it (not portable)
-OBJ := $(SRC:.c=.o)
-
-# Building executable (w/ linking)
-$(PROJ): $(OBJ)
-# the compiler does the linking between the 2 objects
-# gcc -o teste teste.o main.o
-# $@ = teste:						#Rule name
-# $^ = teste.o main.o		#dependency list
-	@echo "Creating executable"
-	$(CC) -o $@ $^ ${LIBS}
-
-# Building object files from sources
-%.o: ${SRC_DIR}/%.c # make a .o file from a .c file
-# gcc -o teste.o -c teste.c -W -Wall -ansi -pedantic
-# $< Name of the 1st dependency
-	@echo "Building object files"
-	$(CC) -o $@ -c $^ $(CFLAGS)
-
-all: $(PROJ)
-	@echo "Compiling project"
-
-# Install: run make and then make install
-install: all clean
-	@echo "Installing binaries"
+#------------------------------------------------------------------------------
+setup:
+	@mkdir -p $(BLD_DIR)
 	@mkdir -p $(BIN_DIR)
-	@mv $(PROJ) $(BIN_DIR)/
-	@mv $(BIN_DIR) ../
 
+clean: ## Delete built artifacts
+	@echo "${CYAN}Cleaning tests ... $(RESET)"
+	@rm -rf $(BLD_DIR) $(BIN_DIR)
 
-.PHONY: clean mrproper clean-all doc pu-seq
-clean-all: clean mrproper
-clean: 
-# @- $(RM) *.o # this does not work	
-#	@- $(RM) $(wildcard *.o) # this does not work
-#	this works:
-	 @- $(RM) $(OBJ)
-#	 @- $(RM) $(DB)
-mrproper: clean
-	@$(RM) $(PROJ)
-# Documentation
-# doc:
-# 	@echo "Generating documentation"
-# 	@$(DOXYGEN) $(DOXYFILE)
+help: ## Generate list of targets with descriptions
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: build clean transfer help
+#==============================================================================

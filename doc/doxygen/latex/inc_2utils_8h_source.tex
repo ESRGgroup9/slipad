@@ -1,0 +1,16 @@
+\hypertarget{inc_2utils_8h_source}{}\doxysection{utils.\+h}
+\label{inc_2utils_8h_source}\index{inc/utils.h@{inc/utils.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{inc_2utils_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_UTILS\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{inc_2utils_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_UTILS\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{inc_2utils_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{inc_2utils_8h_source_l00004}00004 \textcolor{preprocessor}{\#include <stdio.h>} \textcolor{comment}{// perror}}
+\DoxyCodeLine{\Hypertarget{inc_2utils_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <stdlib.h>} \textcolor{comment}{// abort}}
+\DoxyCodeLine{\Hypertarget{inc_2utils_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{inc_2utils_8h_source_l00007}00007 \textcolor{keywordtype}{void} panic(\textcolor{keywordtype}{char} *msg);}
+\DoxyCodeLine{\Hypertarget{inc_2utils_8h_source_l00008}00008 \textcolor{preprocessor}{\#define panic(m)    \{perror(m); abort();\}}}
+\DoxyCodeLine{\Hypertarget{inc_2utils_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{inc_2utils_8h_source_l00010}00010 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_UTILS\_H\_\_}}
+
+\end{DoxyCode}

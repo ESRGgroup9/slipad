@@ -55,7 +55,32 @@ After the I2C configuration, one can see that the TSL2581 was detected in the bu
 	\label{fig:i2cDetect}
 \end{figure}
 
-(CONTINUE)
+After the device was detected in the I2C bus, one wrote a small program to test the values read by the sensor module. The figure \ref{fig:testtsl} shows the execution of the test program, \verb|testtsl.elf|, that prints the values read from the sensor every second.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.5\textwidth]{13tests/ldr/testtsl}
+	\caption{Test TSL2581 module: Test program for TSL2581.}
+	\label{fig:testtsl}
+\end{figure}
+
+As previously seen, the I2C communication protocol uses a clock line and a data line. The communications start by the master sending the slave address to the bus, and if the correspondent slave responds, then the master can send other commands to the slave. In figure \ref{fig:i2c_SCL_SDA} is presented the clock line (SCL), in red, and the data line (SDA), in yellow, and shows that in the first eight bits of clock, the master sends the slave address \verb|0x39|. In the next eight bits of clock, the master sends a command to read the low byte of the \textit{Channel\_0}, being the command sent by the master equal to \verb|0xD4|.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=1\textwidth]{13tests/ldr/scl_sda_i2c}
+	\caption{Test TSL2581 module: Transmission of two bytes: SCL (in red) and SCK (in yellow) signals.}
+	\label{fig:i2c_SCL_SDA}
+\end{figure}
+
+The figure \ref{fig:tsl} shows the montage of the TSL2581 with the Raspberry Pi, with the interrupt pin not being used.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.9\textwidth]{13tests/ldr/ldr}
+	\caption{Test TSL2581 module: Montage.}
+	\label{fig:tsl}
+\end{figure}
 
 %**********************************************************
 \section{PWM control}
@@ -94,3 +119,21 @@ In figure \ref{fig:pwm_25} is shown the a PWM generated signal with \verb+25 %+ 
 
 %**********************************************************
 \section{Motion Detector}
+
+As mentioned before, for the motion detector, the PIR HC-SR501, it was implemented a device driver. After insert its module in the kernel using the \verb|insmod| command, one can test if the sensor detects movement, using a small test code. In figure \ref{fig:testpir}, one can see the execution of the program that shows that the sensor detected movement.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.5\textwidth]{13tests/pir/testpir}
+	\caption{Test PIR HC-SR501 module: Detection of movement.}
+	\label{fig:testpir}
+\end{figure}
+
+In figure \ref{fig:pirMount}, it is shown the the movement sensor connected to the Raspberry Pi. During the tests, it was noticed that the sensor must be stable to not detect false positives. Furthermore, there is a insignificant delay in the detection of the movement, despite the attempts to adjust, using the potentiometers in the module.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.4\textwidth]{13tests/pir/pir}
+	\caption{Test PIR HC-SR501 module: Montage.}
+	\label{fig:pirMount}
+\end{figure}

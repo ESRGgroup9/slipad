@@ -1,0 +1,141 @@
+\hypertarget{class_lo_ra_class}{}\doxysection{Lo\+Ra\+Class Class Reference}
+\label{class_lo_ra_class}\index{LoRaClass@{LoRaClass}}
+
+
+Collaboration diagram for Lo\+Ra\+Class\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{class_lo_ra_class__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_lo_ra_class_a1caa697ed7ad3df11b103298b54181a8}{Lo\+Ra\+Class}} (uint8\+\_\+t local\+Address=-\/1)
+\item 
+int \mbox{\hyperlink{class_lo_ra_class_a0fb9ec6d3b1626729aa98fbb59421ac0}{begin}} (long frequency)
+\item 
+void \mbox{\hyperlink{class_lo_ra_class_aaf81d3fdaf258088d7692fa70cece087}{end}} ()
+\item 
+void \mbox{\hyperlink{class_lo_ra_class_ac384f08d410b05417a0cc917e2af7487}{set\+Pins}} (int ss, int reset, int dio0)
+\item 
+void \mbox{\hyperlink{class_lo_ra_class_a81e3f4763a992f036c0e9820028a287a}{set\+SPI}} (void)
+\item 
+\mbox{\hyperlink{class_lo_ra_msg}{Lo\+Ra\+Msg}} \mbox{\hyperlink{class_lo_ra_class_a8fa6e9f934d73105850b8c183c22595d}{send\+To}} (std\+::string msg, uint8\+\_\+t destination)
+\item 
+Lo\+Ra\+Error \mbox{\hyperlink{class_lo_ra_class_a9931b94d97a90a6aa7ed6d7e1e210e5f}{receive}} (\mbox{\hyperlink{class_lo_ra_msg}{Lo\+Ra\+Msg}} \&lora\+Msg)
+\item 
+void \mbox{\hyperlink{class_lo_ra_class_a8a98ac4fe9ce0a2c7000916703919519}{set\+Local\+Address}} (uint8\+\_\+t local\+Address)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{class_lo_ra_class_ae1caa39fa13b93451da96608718ccd4d}{get\+Local\+Address}} (void) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_lo_ra_8h_source_l00051}{51}} of file \mbox{\hyperlink{_lo_ra_8h_source}{Lo\+Ra.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_lo_ra_class_a1caa697ed7ad3df11b103298b54181a8}\label{class_lo_ra_class_a1caa697ed7ad3df11b103298b54181a8}} 
+\index{LoRaClass@{LoRaClass}!LoRaClass@{LoRaClass}}
+\index{LoRaClass@{LoRaClass}!LoRaClass@{LoRaClass}}
+\doxysubsubsection{\texorpdfstring{LoRaClass()}{LoRaClass()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_lo_ra_class}{Lo\+Ra\+Class}} (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{local\+Address = {\ttfamily -\/1} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra_8cpp_source_l00169}{169}} of file \mbox{\hyperlink{_lo_ra_8cpp_source}{Lo\+Ra.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_lo_ra_class_a0fb9ec6d3b1626729aa98fbb59421ac0}\label{class_lo_ra_class_a0fb9ec6d3b1626729aa98fbb59421ac0}} 
+\index{LoRaClass@{LoRaClass}!begin@{begin}}
+\index{begin@{begin}!LoRaClass@{LoRaClass}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily int begin (\begin{DoxyParamCaption}\item[{long}]{frequency }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra_8cpp_source_l00189}{189}} of file \mbox{\hyperlink{_lo_ra_8cpp_source}{Lo\+Ra.\+cpp}}.
+
+\mbox{\Hypertarget{class_lo_ra_class_aaf81d3fdaf258088d7692fa70cece087}\label{class_lo_ra_class_aaf81d3fdaf258088d7692fa70cece087}} 
+\index{LoRaClass@{LoRaClass}!end@{end}}
+\index{end@{end}!LoRaClass@{LoRaClass}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily void end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra_8cpp_source_l00256}{256}} of file \mbox{\hyperlink{_lo_ra_8cpp_source}{Lo\+Ra.\+cpp}}.
+
+\mbox{\Hypertarget{class_lo_ra_class_ae1caa39fa13b93451da96608718ccd4d}\label{class_lo_ra_class_ae1caa39fa13b93451da96608718ccd4d}} 
+\index{LoRaClass@{LoRaClass}!getLocalAddress@{getLocalAddress}}
+\index{getLocalAddress@{getLocalAddress}!LoRaClass@{LoRaClass}}
+\doxysubsubsection{\texorpdfstring{getLocalAddress()}{getLocalAddress()}}
+{\footnotesize\ttfamily uint8\+\_\+t get\+Local\+Address (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra_8h_source_l00069}{69}} of file \mbox{\hyperlink{_lo_ra_8h_source}{Lo\+Ra.\+h}}.
+
+\mbox{\Hypertarget{class_lo_ra_class_a9931b94d97a90a6aa7ed6d7e1e210e5f}\label{class_lo_ra_class_a9931b94d97a90a6aa7ed6d7e1e210e5f}} 
+\index{LoRaClass@{LoRaClass}!receive@{receive}}
+\index{receive@{receive}!LoRaClass@{LoRaClass}}
+\doxysubsubsection{\texorpdfstring{receive()}{receive()}}
+{\footnotesize\ttfamily Lo\+Ra\+Error receive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_lo_ra_msg}{Lo\+Ra\+Msg}} \&}]{lora\+Msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra_8cpp_source_l00342}{342}} of file \mbox{\hyperlink{_lo_ra_8cpp_source}{Lo\+Ra.\+cpp}}.
+
+\mbox{\Hypertarget{class_lo_ra_class_a8fa6e9f934d73105850b8c183c22595d}\label{class_lo_ra_class_a8fa6e9f934d73105850b8c183c22595d}} 
+\index{LoRaClass@{LoRaClass}!sendTo@{sendTo}}
+\index{sendTo@{sendTo}!LoRaClass@{LoRaClass}}
+\doxysubsubsection{\texorpdfstring{sendTo()}{sendTo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_lo_ra_msg}{Lo\+Ra\+Msg}} send\+To (\begin{DoxyParamCaption}\item[{std\+::string}]{msg,  }\item[{uint8\+\_\+t}]{destination }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra_8cpp_source_l00289}{289}} of file \mbox{\hyperlink{_lo_ra_8cpp_source}{Lo\+Ra.\+cpp}}.
+
+\mbox{\Hypertarget{class_lo_ra_class_a8a98ac4fe9ce0a2c7000916703919519}\label{class_lo_ra_class_a8a98ac4fe9ce0a2c7000916703919519}} 
+\index{LoRaClass@{LoRaClass}!setLocalAddress@{setLocalAddress}}
+\index{setLocalAddress@{setLocalAddress}!LoRaClass@{LoRaClass}}
+\doxysubsubsection{\texorpdfstring{setLocalAddress()}{setLocalAddress()}}
+{\footnotesize\ttfamily void set\+Local\+Address (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{local\+Address }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra_8h_source_l00068}{68}} of file \mbox{\hyperlink{_lo_ra_8h_source}{Lo\+Ra.\+h}}.
+
+\mbox{\Hypertarget{class_lo_ra_class_ac384f08d410b05417a0cc917e2af7487}\label{class_lo_ra_class_ac384f08d410b05417a0cc917e2af7487}} 
+\index{LoRaClass@{LoRaClass}!setPins@{setPins}}
+\index{setPins@{setPins}!LoRaClass@{LoRaClass}}
+\doxysubsubsection{\texorpdfstring{setPins()}{setPins()}}
+{\footnotesize\ttfamily void set\+Pins (\begin{DoxyParamCaption}\item[{int}]{ss,  }\item[{int}]{reset,  }\item[{int}]{dio0 }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra_8cpp_source_l00266}{266}} of file \mbox{\hyperlink{_lo_ra_8cpp_source}{Lo\+Ra.\+cpp}}.
+
+\mbox{\Hypertarget{class_lo_ra_class_a81e3f4763a992f036c0e9820028a287a}\label{class_lo_ra_class_a81e3f4763a992f036c0e9820028a287a}} 
+\index{LoRaClass@{LoRaClass}!setSPI@{setSPI}}
+\index{setSPI@{setSPI}!LoRaClass@{LoRaClass}}
+\doxysubsubsection{\texorpdfstring{setSPI()}{setSPI()}}
+{\footnotesize\ttfamily void set\+SPI (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_lo_ra_8cpp_source_l00273}{273}} of file \mbox{\hyperlink{_lo_ra_8cpp_source}{Lo\+Ra.\+cpp}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inc/Lo\+Ra.\+h\item 
+src/Lo\+Ra.\+cpp\end{DoxyCompactItemize}

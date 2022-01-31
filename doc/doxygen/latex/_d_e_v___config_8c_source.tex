@@ -1,0 +1,68 @@
+\hypertarget{_d_e_v___config_8c_source}{}\doxysection{DEV\+\_\+\+Config.\+c}
+\label{_d_e_v___config_8c_source}\index{src/DEV\_Config.c@{src/DEV\_Config.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00001}00001 \textcolor{preprocessor}{\#include "{}DEV\_Config.h"{}}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00002}00002 \textcolor{preprocessor}{\#include "{}utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00004}00004 \textcolor{preprocessor}{\#include <bcm2835.h>}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00006}00006 \textcolor{comment}{/**********************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00007}00007 \textcolor{comment}{* @brief    DEV\_ModuleInit}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00008}00008 \textcolor{comment}{* @brief    Module configuration, I2C protocol }}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00009}00009 \textcolor{comment}{* @param}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00010}00010 \textcolor{comment}{**********************************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00011}00011 uint8\_t DEV\_ModuleInit(uint8\_t devAddr)}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00012}00012 \{}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00013}00013     \textcolor{keywordflow}{if} (!bcm2835\_init())}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00014}00014         panic(\textcolor{stringliteral}{"{}bcm2835\_init()"{}});}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00016}00016     \textcolor{comment}{//I2C Config}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00017}00017     bcm2835\_i2c\_begin();}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00018}00018     bcm2835\_i2c\_setSlaveAddress(devAddr);  \textcolor{comment}{//i2c address}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00019}00019     bcm2835\_i2c\_set\_baudrate(100000);    \textcolor{comment}{//10K baudrate 10000}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00020}00020     bcm2835\_i2c\_setClockDivider(BCM2835\_I2C\_CLOCK\_DIVIDER\_626);}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00021}00021     }
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00022}00022     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00023}00023 \}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00025}00025 \textcolor{comment}{/**********************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00026}00026 \textcolor{comment}{* @brief    bcm2835\_IIC\_Write}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00027}00027 \textcolor{comment}{* @brief    I2C Write}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00028}00028 \textcolor{comment}{* @param    }}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00029}00029 \textcolor{comment}{**********************************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00030}00030 \textcolor{keywordtype}{void} bcm2835\_IIC\_Write(uint8\_t add\_, uint8\_t data\_)}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00031}00031 \{}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00032}00032     \textcolor{keywordtype}{char} Buf[2] = \{0, 0\};}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00033}00033     Buf[0] = add\_;}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00034}00034     Buf[1] = data\_;}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00035}00035     bcm2835\_i2c\_write(Buf, 2);}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00036}00036 \}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00038}00038 \textcolor{comment}{/**********************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00039}00039 \textcolor{comment}{* @brief    DEV\_ModuleInit()}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00040}00040 \textcolor{comment}{* @brief    I2C Read}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00041}00041 \textcolor{comment}{* @param}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00042}00042 \textcolor{comment}{**********************************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00043}00043 uint8\_t bcm2835\_IIC\_Read(uint8\_t add\_)}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00044}00044 \{}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00045}00045     \textcolor{keywordtype}{char} Buf[1]=\{add\_\};}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00046}00046     bcm2835\_i2c\_write(Buf, 1);}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00047}00047     bcm2835\_i2c\_read(Buf, 1);}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00048}00048     \textcolor{keywordflow}{return} Buf[0];}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00049}00049 \}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00051}00051 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00052}00052 \textcolor{comment}{function:   }}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00053}00053 \textcolor{comment}{    Module exits, closes I2C}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00054}00054 \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00055}00055 \textcolor{keywordtype}{void} DEV\_ModuleExit(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00056}00056 \{}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00057}00057     bcm2835\_i2c\_end();}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00058}00058     bcm2835\_close();}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00059}00059 \}}
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_d_e_v___config_8c_source_l00062}00062 \textcolor{comment}{/************************************************/}}
+
+\end{DoxyCode}

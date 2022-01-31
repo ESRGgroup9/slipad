@@ -1,0 +1,65 @@
+\hypertarget{_c_lora_comm_8cpp_source}{}\doxysection{CLora\+Comm.\+cpp}
+\label{_c_lora_comm_8cpp_source}\index{src/CLoraComm.cpp@{src/CLoraComm.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_lora_comm_8h}{CLoraComm.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#include "{}utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#include "{}debug.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00012}00012 \textcolor{preprocessor}{\#include <bcm2835.h>}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00013}00013 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00015}00015 \textcolor{comment}{// default LoRa pins}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00016}00016 \textcolor{preprocessor}{\#define LORA\_SS\_PIN        RPI\_V2\_GPIO\_P1\_11}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00017}00017 \textcolor{preprocessor}{\#define LORA\_RESET\_PIN     RPI\_GPIO\_P1\_22}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00018}00018 \textcolor{preprocessor}{\#define LORA\_DIO0\_PIN      RPI\_GPIO\_P1\_18}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00020}\mbox{\hyperlink{class_c_lora_comm_a2397fefa827f81addcb1b742ec55ab57}{00020}} \mbox{\hyperlink{class_c_lora_comm_a2397fefa827f81addcb1b742ec55ab57}{CLoraComm::CLoraComm}}(\textcolor{keywordtype}{int} freqMhz, \textcolor{keywordtype}{int} dest, \textcolor{keywordtype}{int} src)}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00021}00021 \{}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00022}00022     this-\/>freqMhz = freqMhz;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00023}00023     this-\/>dest\_addr = dest;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00024}00024     this-\/>local\_addr = src;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00026}00026     \textcolor{comment}{// set LoRa local address}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00027}00027     lora.setLocalAddress(src);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00029}00029     \textcolor{comment}{// set LoRa pins}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00030}00030     lora.setPins(LORA\_SS\_PIN, LORA\_RESET\_PIN, LORA\_DIO0\_PIN);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00031}00031     }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00032}00032     \textcolor{comment}{// set frequency}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00033}00033     \textcolor{comment}{// if(!lora.begin(freqMhz*1E6))}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00034}00034         \textcolor{comment}{// panic("{}CLoraComm::CLoraComm(): lora begin()"{});}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00035}00035  }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00036}00036     status = ConnStatus::ONLINE;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00037}00037 \}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00039}00039 CLoraComm::\string~CLoraComm()}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00040}00040 \{}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00042}00042 \}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00044}\mbox{\hyperlink{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{00044}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{CLoraComm::recvFunc}}(\textcolor{keywordtype}{string} \&msg)}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00045}00045 \{}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00046}00046     \mbox{\hyperlink{class_lo_ra_msg}{LoRaMsg}} loraMsg;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00047}00047     LoRaError err;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00049}00049     err = lora.receive(loraMsg);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00050}00050     \textcolor{keywordflow}{if}(LoRaError::MSGOK == err)}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00051}00051         msg = loraMsg.msg;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00052}00052     }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00053}00053     \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(err);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00054}00054 \}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00056}\mbox{\hyperlink{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}{00056}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}{CLoraComm::sendFunc}}(std::string msg)}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00057}00057 \{}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00058}00058     \mbox{\hyperlink{class_lo_ra_msg}{LoRaMsg}} loraMsg;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00059}00059     loraMsg = lora.sendTo(msg, dest\_addr);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00060}00060     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00061}00061 \}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00063}\mbox{\hyperlink{class_c_lora_comm_af2cf1c6ca6651ea56391bd8638dc0a0d}{00063}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_af2cf1c6ca6651ea56391bd8638dc0a0d}{CLoraComm::getLocalAddr}}(\textcolor{keywordtype}{void})\textcolor{keyword}{ const}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00064}00064 \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00065}00065     \textcolor{keywordflow}{return} local\_addr;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8cpp_source_l00066}00066 \}}
+
+\end{DoxyCode}

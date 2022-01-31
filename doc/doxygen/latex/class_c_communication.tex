@@ -1,0 +1,272 @@
+\hypertarget{class_c_communication}{}\doxysection{CCommunication Class Reference}
+\label{class_c_communication}\index{CCommunication@{CCommunication}}
+
+
+Inheritance diagram for CCommunication\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{class_c_communication__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for CCommunication\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{class_c_communication__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_communication_a9b40a76054d08aa93ae7f102c2f9ffbd}{CCommunication}} ()
+\begin{DoxyCompactList}\small\item\em Initialize all variables and set connection state to Conn\+Status\+::\+CREATED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}{init}} (int tprio)
+\begin{DoxyCompactList}\small\item\em Creates thread for sending messages (t\+Send) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_communication_a283bce9561f0b8e618bbe8b89c473636}{run}} (bool async=RUN\+\_\+\+BLOCK)
+\begin{DoxyCompactList}\small\item\em Waits for thread termination (default action), or detaches from them. \end{DoxyCompactList}\item 
+Conn\+Status \mbox{\hyperlink{class_c_communication_acc857199d21ac73175bfc772bff814bf}{get\+Status}} (void) const
+\begin{DoxyCompactList}\small\item\em Get current communication status. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_communication_a1de846382f3fe0260a457f231935945f}{push}} (std\+::string msg)
+\begin{DoxyCompactList}\small\item\em Adds a new message to the queue of messages to be sent. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}{send}} (std\+::string msg)
+\begin{DoxyCompactList}\small\item\em Send a message. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}{recv}} (std\+::string \&msg)
+\begin{DoxyCompactList}\small\item\em Receive a message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual int \mbox{\hyperlink{class_c_communication_a4026ebe281d4eba1f6ef98bc775df9b0}{recv\+Func}} (std\+::string \&msg)=0
+\item 
+virtual int \mbox{\hyperlink{class_c_communication_a734f26ff5d7c1e339d0dfb8d997aea35}{send\+Func}} (std\+::string msg)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void $\ast$ \mbox{\hyperlink{class_c_communication_a705363c9cab951334da3e07f445b209c}{t\+Send}} (void $\ast$arg)
+\begin{DoxyCompactList}\small\item\em Thread in charge of dispatching the messages in queue Tx\+Msgs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Conn\+Status \mbox{\hyperlink{class_c_communication_a1ff1b8e549c442417d1b819b259efd65}{status}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8h_source_l00031}{31}} of file \mbox{\hyperlink{_c_communication_8h_source}{CCommunication.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_communication_a9b40a76054d08aa93ae7f102c2f9ffbd}\label{class_c_communication_a9b40a76054d08aa93ae7f102c2f9ffbd}} 
+\index{CCommunication@{CCommunication}!CCommunication@{CCommunication}}
+\index{CCommunication@{CCommunication}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{CCommunication()}{CCommunication()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_c_communication}{CCommunication}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialize all variables and set connection state to Conn\+Status\+::\+CREATED. 
+
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_communication_acc857199d21ac73175bfc772bff814bf}\label{class_c_communication_acc857199d21ac73175bfc772bff814bf}} 
+\index{CCommunication@{CCommunication}!getStatus@{getStatus}}
+\index{getStatus@{getStatus}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{getStatus()}{getStatus()}}
+{\footnotesize\ttfamily Conn\+Status get\+Status (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption}) const}
+
+
+
+Get current communication status. 
+
+\begin{DoxyReturn}{Returns}
+Conn\+Status -\/ Communication status 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00041}{41}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}\label{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}} 
+\index{CCommunication@{CCommunication}!init@{init}}
+\index{init@{init}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void init (\begin{DoxyParamCaption}\item[{int}]{tprio }\end{DoxyParamCaption})}
+
+
+
+Creates thread for sending messages (t\+Send) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tprio} & -\/ thread priority \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00024}{24}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_a1de846382f3fe0260a457f231935945f}\label{class_c_communication_a1de846382f3fe0260a457f231935945f}} 
+\index{CCommunication@{CCommunication}!push@{push}}
+\index{push@{push}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily void push (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})}
+
+
+
+Adds a new message to the queue of messages to be sent. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & -\/ string to be added to the queue \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+Adds a message to the queue and signalizes the thread t\+Sent, which is in charge of dispatching the messages from the queue. 
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00046}{46}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}\label{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}} 
+\index{CCommunication@{CCommunication}!recv@{recv}}
+\index{recv@{recv}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{recv()}{recv()}}
+{\footnotesize\ttfamily int recv (\begin{DoxyParamCaption}\item[{std\+::string \&}]{msg }\end{DoxyParamCaption})}
+
+
+
+Receive a message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & -\/ received string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ non zero if successfull. -\/1 if an error occurred
+\end{DoxyReturn}
+Receives a message by calling \textquotesingle{}recv\+Func\textquotesingle{} method, which must be defined by derived classes. 
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00066}{66}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_a4026ebe281d4eba1f6ef98bc775df9b0}\label{class_c_communication_a4026ebe281d4eba1f6ef98bc775df9b0}} 
+\index{CCommunication@{CCommunication}!recvFunc@{recvFunc}}
+\index{recvFunc@{recvFunc}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{recvFunc()}{recvFunc()}}
+{\footnotesize\ttfamily virtual int recv\+Func (\begin{DoxyParamCaption}\item[{std\+::string \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{CLora\+Comm}}, and \mbox{\hyperlink{class_c_t_c_p_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{CTCPComm}}.
+
+\mbox{\Hypertarget{class_c_communication_a283bce9561f0b8e618bbe8b89c473636}\label{class_c_communication_a283bce9561f0b8e618bbe8b89c473636}} 
+\index{CCommunication@{CCommunication}!run@{run}}
+\index{run@{run}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void run (\begin{DoxyParamCaption}\item[{bool}]{async = {\ttfamily RUN\+\_\+BLOCK} }\end{DoxyParamCaption})}
+
+
+
+Waits for thread termination (default action), or detaches from them. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em async} & -\/ from asynchronous -\/ defines if this function will be blocking (waiting for thread termination) or not (detaching) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+Async can be used with defines \textquotesingle{}RUN\+\_\+\+BLOCK\textquotesingle{} and \textquotesingle{}RUN\+\_\+\+NONBLOCK\textquotesingle{}. If async=RUN\+\_\+\+BLOCK the function will join the threads, waiting for their termination. If async=RUN\+\_\+\+NONBLOCK the function will detach from the threads. 
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00031}{31}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}\label{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}} 
+\index{CCommunication@{CCommunication}!send@{send}}
+\index{send@{send}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily int send (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})}
+
+
+
+Send a message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & -\/ string to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ non zero if successfull. -\/1 if an error occurred
+\end{DoxyReturn}
+Sends a message by calling \textquotesingle{}send\+Func\textquotesingle{} method, which must be defined by derived classes. 
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00055}{55}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_communication_a734f26ff5d7c1e339d0dfb8d997aea35}\label{class_c_communication_a734f26ff5d7c1e339d0dfb8d997aea35}} 
+\index{CCommunication@{CCommunication}!sendFunc@{sendFunc}}
+\index{sendFunc@{sendFunc}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{sendFunc()}{sendFunc()}}
+{\footnotesize\ttfamily virtual int send\+Func (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}{CLora\+Comm}}, and \mbox{\hyperlink{class_c_t_c_p_comm_a9cc108d99a998ef764d401cf8ee67925}{CTCPComm}}.
+
+\mbox{\Hypertarget{class_c_communication_a705363c9cab951334da3e07f445b209c}\label{class_c_communication_a705363c9cab951334da3e07f445b209c}} 
+\index{CCommunication@{CCommunication}!tSend@{tSend}}
+\index{tSend@{tSend}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{tSend()}{tSend()}}
+{\footnotesize\ttfamily void $\ast$ t\+Send (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Thread in charge of dispatching the messages in queue Tx\+Msgs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em arg} & -\/ must be a pointer to \textquotesingle{}this\textquotesingle{} instance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+null
+\end{DoxyReturn}
+This thread is usually in sleep, being awaken by \textquotesingle{}push\textquotesingle{} when one wants to send a message. 
+
+Definition at line \mbox{\hyperlink{_c_communication_8cpp_source_l00077}{77}} of file \mbox{\hyperlink{_c_communication_8cpp_source}{CCommunication.\+cpp}}.
+
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{class_c_communication_a1ff1b8e549c442417d1b819b259efd65}\label{class_c_communication_a1ff1b8e549c442417d1b819b259efd65}} 
+\index{CCommunication@{CCommunication}!status@{status}}
+\index{status@{status}!CCommunication@{CCommunication}}
+\doxysubsubsection{\texorpdfstring{status}{status}}
+{\footnotesize\ttfamily Conn\+Status status\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8h_source_l00105}{105}} of file \mbox{\hyperlink{_c_communication_8h_source}{CCommunication.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inc/\mbox{\hyperlink{_c_communication_8h}{CCommunication.\+h}}\item 
+src/CCommunication.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,70 @@
+\hypertarget{_c_remote_client_8h}{}\doxysection{inc/\+CRemote\+Client.h File Reference}
+\label{_c_remote_client_8h}\index{inc/CRemoteClient.h@{inc/CRemoteClient.h}}
+
+
+Implements a remote client, making use of \mbox{\hyperlink{class_c_t_c_p_comm}{CTCPComm}} to use TCP communication.  
+
+
+{\ttfamily \#include \char`\"{}CCommunication.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}CTCPcomm.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}parser.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+Include dependency graph for CRemote\+Client.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_c_remote_client_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_c_remote_client_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_c_remote_client}{CRemote\+Client}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class {\bfseries Client\+Type} \{ {\bfseries UNDEF} = -\/1
+, {\bfseries GATEWAY}
+, {\bfseries WEBSITE}
+, {\bfseries APPLICATION}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a remote client, making use of \mbox{\hyperlink{class_c_t_c_p_comm}{CTCPComm}} to use TCP communication. 
+
+\begin{DoxyAuthor}{Author}
+Tomas Abreu, Diogo Fernandes 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+25 jan 2022
+\end{DoxyDate}
+This class is used in \mbox{\hyperlink{class_c_remote_system}{CRemote\+System}} as a result of a new \mbox{\hyperlink{class_c_t_c_pserver}{CTCPserver}} connection. 
+
+Definition in file \mbox{\hyperlink{_c_remote_client_8h_source}{CRemote\+Client.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{_c_remote_client_8h_af7f22c7d662171af2c3a5b74f621dc98}\label{_c_remote_client_8h_af7f22c7d662171af2c3a5b74f621dc98}} 
+\index{CRemoteClient.h@{CRemoteClient.h}!ClientType@{ClientType}}
+\index{ClientType@{ClientType}!CRemoteClient.h@{CRemoteClient.h}}
+\doxysubsubsection{\texorpdfstring{ClientType}{ClientType}}
+{\footnotesize\ttfamily enum class Client\+Type\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_remote_client_8h_source_l00021}{21}} of file \mbox{\hyperlink{_c_remote_client_8h_source}{CRemote\+Client.\+h}}.
+

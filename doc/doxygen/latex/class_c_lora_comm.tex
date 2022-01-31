@@ -1,0 +1,159 @@
+\hypertarget{class_c_lora_comm}{}\doxysection{CLora\+Comm Class Reference}
+\label{class_c_lora_comm}\index{CLoraComm@{CLoraComm}}
+
+
+Inheritance diagram for CLora\+Comm\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{class_c_lora_comm__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for CLora\+Comm\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{class_c_lora_comm__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_lora_comm_a2397fefa827f81addcb1b742ec55ab57}{CLora\+Comm}} (int freq\+Mhz, int dest, int src)
+\begin{DoxyCompactList}\small\item\em Create a \mbox{\hyperlink{class_c_lora_comm}{CLora\+Comm}} object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_c_lora_comm_af2cf1c6ca6651ea56391bd8638dc0a0d}{get\+Local\+Addr}} (void) const
+\begin{DoxyCompactList}\small\item\em get local address \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual int \mbox{\hyperlink{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{recv\+Func}} (std\+::string \&msg)
+\begin{DoxyCompactList}\small\item\em Receive a message using Lo\+Ra communication. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}{send\+Func}} (std\+::string msg)
+\begin{DoxyCompactList}\small\item\em Send a message using Lo\+Ra communication. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_c_lora_comm_8h_source_l00016}{16}} of file \mbox{\hyperlink{_c_lora_comm_8h_source}{CLora\+Comm.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_lora_comm_a2397fefa827f81addcb1b742ec55ab57}\label{class_c_lora_comm_a2397fefa827f81addcb1b742ec55ab57}} 
+\index{CLoraComm@{CLoraComm}!CLoraComm@{CLoraComm}}
+\index{CLoraComm@{CLoraComm}!CLoraComm@{CLoraComm}}
+\doxysubsubsection{\texorpdfstring{CLoraComm()}{CLoraComm()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_c_lora_comm}{CLora\+Comm}} (\begin{DoxyParamCaption}\item[{int}]{freq\+Mhz,  }\item[{int}]{dest,  }\item[{int}]{src }\end{DoxyParamCaption})}
+
+
+
+Create a \mbox{\hyperlink{class_c_lora_comm}{CLora\+Comm}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em freq\+Mhz} & -\/ operation frequency in MHz \\
+\hline
+{\em dest} & -\/ destination address \\
+\hline
+{\em std} & -\/ local address \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+Setups lora communication, setting all necessary variables 
+
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_lora_comm_a1e0829f0b47add8a6909cc5f45a95ad8}\label{class_c_lora_comm_a1e0829f0b47add8a6909cc5f45a95ad8}} 
+\index{CLoraComm@{CLoraComm}!````~CLoraComm@{$\sim$CLoraComm}}
+\index{````~CLoraComm@{$\sim$CLoraComm}!CLoraComm@{CLoraComm}}
+\doxysubsubsection{\texorpdfstring{$\sim$CLoraComm()}{~CLoraComm()}}
+{\footnotesize\ttfamily $\sim$\mbox{\hyperlink{class_c_lora_comm}{CLora\+Comm}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00039}{39}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_lora_comm_af2cf1c6ca6651ea56391bd8638dc0a0d}\label{class_c_lora_comm_af2cf1c6ca6651ea56391bd8638dc0a0d}} 
+\index{CLoraComm@{CLoraComm}!getLocalAddr@{getLocalAddr}}
+\index{getLocalAddr@{getLocalAddr}!CLoraComm@{CLoraComm}}
+\doxysubsubsection{\texorpdfstring{getLocalAddr()}{getLocalAddr()}}
+{\footnotesize\ttfamily int get\+Local\+Addr (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption}) const}
+
+
+
+get local address 
+
+\begin{DoxyReturn}{Returns}
+int -\/ local address 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00063}{63}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}\label{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}} 
+\index{CLoraComm@{CLoraComm}!recvFunc@{recvFunc}}
+\index{recvFunc@{recvFunc}!CLoraComm@{CLoraComm}}
+\doxysubsubsection{\texorpdfstring{recvFunc()}{recvFunc()}}
+{\footnotesize\ttfamily int recv\+Func (\begin{DoxyParamCaption}\item[{std\+::string \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Receive a message using Lo\+Ra communication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \&msg} & -\/ received message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ error code. 0 if message was received, -\/1 if not
+\end{DoxyReturn}
+Non blocking function for receiveing a message using Lo\+Ra communication provided by \mbox{\hyperlink{class_lo_ra_class}{Lo\+Ra\+Class}}. 
+
+Implements \mbox{\hyperlink{class_c_communication}{CCommunication}}.
+
+
+
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00044}{44}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}\label{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}} 
+\index{CLoraComm@{CLoraComm}!sendFunc@{sendFunc}}
+\index{sendFunc@{sendFunc}!CLoraComm@{CLoraComm}}
+\doxysubsubsection{\texorpdfstring{sendFunc()}{sendFunc()}}
+{\footnotesize\ttfamily int send\+Func (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Send a message using Lo\+Ra communication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & -\/ message to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ error code. 0 if message was sent correctly, -\/1 if not
+\end{DoxyReturn}
+Non blocking function for sending a message using Lo\+Ra communication provided by \mbox{\hyperlink{class_lo_ra_class}{Lo\+Ra\+Class}}. 
+
+Implements \mbox{\hyperlink{class_c_communication}{CCommunication}}.
+
+
+
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00056}{56}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inc/\mbox{\hyperlink{_c_lora_comm_8h}{CLora\+Comm.\+h}}\item 
+src/CLora\+Comm.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,221 @@
+\hypertarget{pirdriver_8c_source}{}\doxysection{pirdriver.\+c}
+\label{pirdriver_8c_source}\index{ddrivers/pir/pirdriver.c@{ddrivers/pir/pirdriver.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00001}00001 \textcolor{preprocessor}{\#include <linux/init.h>}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00002}00002 \textcolor{preprocessor}{\#include <linux/kernel.h>}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00003}00003 \textcolor{preprocessor}{\#include <linux/module.h>}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00004}00004 \textcolor{preprocessor}{\#include <linux/fs.h>}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00005}00005 \textcolor{preprocessor}{\#include <linux/cdev.h>}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00006}00006 \textcolor{preprocessor}{\#include <linux/device.h>}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00007}00007 \textcolor{preprocessor}{\#include <linux/slab.h>}                 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00008}00008 \textcolor{preprocessor}{\#include <linux/uaccess.h>}             }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00009}00009 \textcolor{preprocessor}{\#include <linux/ioctl.h>}   }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00010}00010 \textcolor{preprocessor}{\#include <linux/sched/signal.h>} }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00011}00011 \textcolor{preprocessor}{\#include <linux/proc\_fs.h>} }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00012}00012 \textcolor{preprocessor}{\#include <linux/fcntl.h>} }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00013}00013 \textcolor{preprocessor}{\#include <linux/types.h>}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00014}00014 \textcolor{preprocessor}{\#include <linux/gpio.h>} }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00015}00015 \textcolor{preprocessor}{\#include <linux/interrupt.h>}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00016}00016 \textcolor{preprocessor}{\#include "{}utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00018}00018 \textcolor{preprocessor}{\#define DEVICE\_NAME "{}pir"{}}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00019}00019 \textcolor{preprocessor}{\#define CLASS\_NAME "{}pirClass"{}}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00020}00020 \textcolor{preprocessor}{\#define REG\_CURRENT\_TASK \_IOW('a','a',int32\_t*)}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00022}00022 \textcolor{comment}{// \#define SIGH 10  // SIGUSR1}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00023}00023 \textcolor{preprocessor}{\#define SIGH SIGUSR1}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00025}00025 \textcolor{preprocessor}{\#define IOCTL\_PID 1}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00026}00026 \textcolor{preprocessor}{\#define GPIO\_INPUT 0}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00028}00028 MODULE\_LICENSE(\textcolor{stringliteral}{"{}GPL"{}});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00030}00030 \textcolor{comment}{// Debounce mechanisms}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00031}00031 \textcolor{preprocessor}{\#define EN\_DEBOUNCE }}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00032}00032 \textcolor{preprocessor}{\#ifdef EN\_DEBOUNCE}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00034}00034 \textcolor{preprocessor}{\#include <linux/jiffies.h>} }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00035}00035 \textcolor{keyword}{extern} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keyword}{volatile} jiffies;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00036}00036 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} old\_jiffie = 0;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00038}00038 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !EN\_DEBOUNCE}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00040}00040 \textcolor{keyword}{static} \textcolor{keyword}{struct }kernel\_siginfo info;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00041}00041 \textcolor{keyword}{static} pid\_t pid;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00042}00042 \textcolor{keyword}{static} \textcolor{keyword}{struct }task\_struct *task = NULL;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00044}00044 \textcolor{keyword}{static} dev\_t dev;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00045}00045 \textcolor{keyword}{static} \textcolor{keyword}{struct }class *dev\_class = NULL;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00046}00046 \textcolor{keyword}{static} \textcolor{keyword}{struct }cdev c\_dev;  \textcolor{comment}{// Character device structure}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00048}00048 \textcolor{keyword}{struct }\mbox{\hyperlink{struct_gpio_registers}{GpioRegisters}} *s\_pGpioRegisters;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00049}00049 \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} pinNum = 16;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00050}00050 \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} irqNumber;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00052}00052 \textcolor{keyword}{static} \textcolor{keywordtype}{int} \_\_init pir\_driver\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00053}00053 \textcolor{keyword}{static} \textcolor{keywordtype}{void} \_\_exit pir\_driver\_exit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00054}00054 \textcolor{keyword}{static} \textcolor{keywordtype}{int} pir\_open(\textcolor{keyword}{struct} inode *inode, \textcolor{keyword}{struct} file *file);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00055}00055 \textcolor{keyword}{static} \textcolor{keywordtype}{int} pir\_close(\textcolor{keyword}{struct} inode *inode, \textcolor{keyword}{struct} file *file);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00056}00056 \textcolor{keyword}{static} ssize\_t pir\_read(\textcolor{keyword}{struct} file *filp, \textcolor{keywordtype}{char} \_\_user *buf, \textcolor{keywordtype}{size\_t} len, loff\_t *off);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00057}00057 \textcolor{keyword}{static} ssize\_t pir\_write(\textcolor{keyword}{struct} file *filp, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *buf, \textcolor{keywordtype}{size\_t} len, loff\_t *off);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00058}00058 \textcolor{keyword}{static} \textcolor{keywordtype}{long} pir\_ioctl(\textcolor{keyword}{struct} file *file, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} cmd, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} arg);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00060}00060 \textcolor{keyword}{static} irqreturn\_t irq\_handler(\textcolor{keywordtype}{int} irq, \textcolor{keywordtype}{void} *dev\_id)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00061}00061 \{   }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00062}00062     \textcolor{keywordtype}{int} pinVal = gpio\_get\_value(pinNum);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00064}00064 \textcolor{comment}{//Debounce mechanisms}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00065}00065 \textcolor{preprocessor}{\#ifdef EN\_DEBOUNCE}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00066}00066     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} diff = jiffies -\/ old\_jiffie;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00068}00068     \textcolor{keywordflow}{if} (diff < 200)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00069}00069     \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00070}00070         \textcolor{keywordflow}{return} IRQ\_HANDLED;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00071}00071     \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00073}00073     old\_jiffie = jiffies;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00074}00074 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00076}00076     printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Interruption handler: PIN -\/> \%d.\(\backslash\)n"{}}, pinVal);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00077}00077     info.si\_signo = SIGH;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00078}00078     info.si\_code = SI\_QUEUE;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00079}00079     info.si\_int = pinVal;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00080}00080     }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00081}00081     task = pid\_task(find\_pid\_ns(pid, \&init\_pid\_ns), PIDTYPE\_PID);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00082}00082     }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00083}00083     \textcolor{keywordflow}{if}(task != NULL)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00084}00084         send\_sig\_info(SIGH, \&info, task);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00086}00086     \textcolor{keywordflow}{return} IRQ\_HANDLED;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00087}00087 \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00089}00089 \textcolor{keyword}{static} \textcolor{keywordtype}{int} pir\_open(\textcolor{keyword}{struct} inode* inode, \textcolor{keyword}{struct} file *file)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00090}00090 \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00091}00091     printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Device File Opened\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00092}00092     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00093}00093 \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00095}00095 \textcolor{keyword}{static} \textcolor{keywordtype}{int} pir\_close(\textcolor{keyword}{struct} inode *inode, \textcolor{keyword}{struct} file * file)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00096}00096 \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00097}00097     printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Device File Closed\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00098}00098     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00099}00099 \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00101}00101 \textcolor{keyword}{static} ssize\_t pir\_write(\textcolor{keyword}{struct} file *filp, \textcolor{keyword}{const} \textcolor{keywordtype}{char} \_\_user *buf, \textcolor{keywordtype}{size\_t} len, loff\_t *off) }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00102}00102 \{   }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00103}00103     printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Write function\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00104}00104     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00105}00105 \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00107}00107 \textcolor{keyword}{static} ssize\_t pir\_read(\textcolor{keyword}{struct} file *filp, \textcolor{keywordtype}{char} \_\_user *buf, \textcolor{keywordtype}{size\_t} len, loff\_t *off)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00108}00108 \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00109}00109     \textcolor{keywordtype}{char} buffer[2];}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00110}00110     \textcolor{keywordtype}{int} i = gpio\_get\_value(pinNum);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00111}00111     \textcolor{keywordtype}{int} ret = 0;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00113}00113     sprintf(buffer, \textcolor{stringliteral}{"{}\%d"{}}, i);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00114}00114     ret = copy\_to\_user(buf, buffer, 1);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00115}00115     printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] PIN -\/> \%d\(\backslash\)n"{}}, i);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00116}00116     }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00117}00117     \textcolor{comment}{// returns number of bytes that cannot be read}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00118}00118     \textcolor{comment}{// in success it must be zero}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00119}00119     \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00120}00120 \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00122}00122 \textcolor{keyword}{static} \textcolor{keywordtype}{long} pir\_ioctl(\textcolor{keyword}{struct} file *file, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} cmd, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} arg)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00123}00123 \{   }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00124}00124     \textcolor{keywordflow}{if}(cmd == IOCTL\_PID)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00125}00125     \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00126}00126         \textcolor{keywordflow}{if}(copy\_from\_user(\&pid, (pid\_t*)arg, \textcolor{keyword}{sizeof}(pid\_t))) }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00127}00127         \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00128}00128             printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] copy\_from\_user failed\(\backslash\)n"{}}); }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00129}00129             \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00130}00130         \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00131}00131         \textcolor{comment}{// printk(KERN\_INFO "{}[PIR] PID-\/> \%d\(\backslash\)n"{}, pid);}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00132}00132         printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Requested by PID \%d\(\backslash\)n"{}}, pid);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00133}00133     \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00134}00134     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00135}00135     \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00136}00136         printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] ioctl failed\(\backslash\)n"{}});   }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00137}00137     \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00138}00138     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00139}00139 \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00140}00140 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00141}00141 \textcolor{keyword}{static} \textcolor{keyword}{struct }file\_operations fops = }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00142}00142 \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00143}00143     .owner = THIS\_MODULE,}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00144}00144     .write = pir\_write,}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00145}00145     .read = pir\_read,}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00146}00146     .release = pir\_close,}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00147}00147     .open = pir\_open,}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00148}00148     .unlocked\_ioctl = pir\_ioctl,}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00149}00149 \};}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00151}00151 \textcolor{keyword}{static} \textcolor{keywordtype}{int} \_\_init pir\_driver\_init(\textcolor{keywordtype}{void}) }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00152}00152 \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00153}00153     \textcolor{keywordflow}{if} ((alloc\_chrdev\_region(\&dev, 0, 1, DEVICE\_NAME)) < 0) }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00154}00154     \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00155}00155         printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Cannot allocate major number\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00156}00156         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00157}00157     \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00158}00158 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00159}00159     \textcolor{comment}{/*Creating cdev structure*/}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00160}00160     cdev\_init(\&c\_dev, \&fops);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00162}00162     \textcolor{comment}{/*Adding character device to the system*/}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00163}00163     \textcolor{keywordflow}{if}((cdev\_add(\&c\_dev,dev,1)) < 0)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00164}00164     \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00165}00165         printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Cannot add the device to the system\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00166}00166         unregister\_chrdev\_region(dev,1);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00167}00167     \}   }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00168}00168 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00169}00169     \textcolor{comment}{/*Creating struct class*/}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00170}00170     \textcolor{keywordflow}{if}((dev\_class = class\_create(THIS\_MODULE, CLASS\_NAME)) == NULL)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00171}00171     \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00172}00172         printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Cannot create the struct class\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00173}00173         unregister\_chrdev\_region(dev,1);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00174}00174     \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00176}00176     \textcolor{comment}{/*Creating device*/}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00177}00177     \textcolor{keywordflow}{if}((device\_create(dev\_class, NULL, dev, NULL, DEVICE\_NAME)) == NULL)}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00178}00178     \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00179}00179         printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Cannot create the Device\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00180}00180         class\_destroy(dev\_class);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00181}00181         unregister\_chrdev\_region(dev,1);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00182}00182     \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00183}00183         }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00184}00184     irqNumber = gpio\_to\_irq(pinNum);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00185}00185 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00186}00186     \textcolor{keywordflow}{if} (request\_irq(irqNumber, irq\_handler, IRQF\_TRIGGER\_RISING, DEVICE\_NAME, (\textcolor{keywordtype}{void} *)(irq\_handler)))}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00187}00187     \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00188}00188         printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Cannot register IRQ\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00189}00189         free\_irq(irqNumber,(\textcolor{keywordtype}{void} *)(irq\_handler));}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00190}00190         class\_destroy(dev\_class);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00191}00191         unregister\_chrdev\_region(dev,1);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00192}00192     \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00193}00193     }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00194}00194     s\_pGpioRegisters = (\textcolor{keyword}{struct }\mbox{\hyperlink{struct_gpio_registers}{GpioRegisters}} *)ioremap(GPIO\_BASE, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \mbox{\hyperlink{struct_gpio_registers}{GpioRegisters}}));}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00195}00195     \textcolor{comment}{// s\_pGpioRegisters = (struct GpioRegisters *)ioremap\_nocache(GPIO\_BASE, sizeof(struct GpioRegisters));}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00196}00196     SetGPIOFunction(s\_pGpioRegisters, pinNum, GPIO\_INPUT);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00198}00198     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00199}00199 \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00200}00200 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00201}00201 \textcolor{keyword}{static} \textcolor{keywordtype}{void} \_\_exit pir\_driver\_exit(\textcolor{keywordtype}{void}) }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00202}00202 \{}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00203}00203     SetGPIOFunction(s\_pGpioRegisters, pinNum, GPIO\_INPUT);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00204}00204     iounmap(s\_pGpioRegisters);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00205}00205     }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00206}00206     free\_irq(irqNumber,(\textcolor{keywordtype}{void} *)(irq\_handler));}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00207}00207     device\_destroy(dev\_class, dev);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00208}00208     class\_destroy(dev\_class);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00209}00209     cdev\_del(\&c\_dev);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00210}00210     unregister\_chrdev\_region(dev, 1);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00211}00211     printk(KERN\_INFO \textcolor{stringliteral}{"{}[PIR] Device Driver Remove\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00212}00212 \}}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00213}00213 }
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00214}00214 module\_init(pir\_driver\_init);}
+\DoxyCodeLine{\Hypertarget{pirdriver_8c_source_l00215}00215 module\_exit(pir\_driver\_exit);}
+
+\end{DoxyCode}

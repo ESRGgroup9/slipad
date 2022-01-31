@@ -1,0 +1,28 @@
+\hypertarget{d_sensors_8cpp_source}{}\doxysection{d\+Sensors.\+cpp}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include <sys/stat.h>} \textcolor{comment}{// umask}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00002}00002 \textcolor{preprocessor}{\#include <stdio.h>}  \textcolor{comment}{// perror}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include <stdlib.h>} \textcolor{comment}{// pid\_t, EXIT\_FAILURE}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include <unistd.h>} \textcolor{comment}{// fork, setsid, getsid,...}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include <syslog.h>}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00007}00007 \textcolor{preprocessor}{\#include "{}debug.h"{}}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include "{}CSensors.h"{}}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00010}00010 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00011}00011 \{}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00012}00012     \textcolor{comment}{// CREATE DAEMON ....}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00013}00013     }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00014}00014 \textcolor{comment}{    /******************************************************}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00015}00015 \textcolor{comment}{    * Service implementation}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00016}00016 \textcolor{comment}{    ******************************************************/}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00017}00017     \mbox{\hyperlink{class_c_sensors}{CSensors}} csensors;}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00019}00019     csensors.run();}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00021}00021     DEBUG\_MSG(\textcolor{stringliteral}{"{}[dSensors] Exit success"{}});}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00022}00022     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00023}00023 \}}
+
+\end{DoxyCode}

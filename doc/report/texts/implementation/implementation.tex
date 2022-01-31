@@ -230,11 +230,3 @@ temp += (1 << (LUX_SCALE - 1));			// round lsb (2^(LUX_SCALE-1))
 lux_temp = temp >> LUX_SCALE;			// strip off fractional portion
 \end{lstlisting}
 
-
-%The communication is done through 3 types of signals:
-%
-%\begin{itemize}
-%	\item \textbf{Start signal:} indicates the begin of a transmission; when SCL is high and SDA jumps from high to low;
-%	\item \textbf{Stop signal:} indicates the end of a transmission; when SCL is high and SDA jumps from low to high;
-%	\item \textbf{ACK/ NACK signal:} indicates that the data have been received successfully; when the 8-bit data has been transmitted, the master generates another SCL pulse to receive the confirmation from the receiving device. If the receiving device puts the SDA line to low, then it is an ACK signal (communication was successful). If the receiving device doesn't put the SDA line to low, then it is a NACK signal (communication unsuccessful). 
-%\end{itemize}
