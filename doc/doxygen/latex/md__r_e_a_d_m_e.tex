@@ -1,0 +1,77 @@
+\doxysubsection*{Problem}
+
+Nowadays, the energy crisis is a constant theme because of the inflated energy prices. \href{\#1}{\texttt{ \mbox{[}1\mbox{]}}} Furthermore, huge energy consumption is a burden to the environment, as not all means of energy production are non-\/polluting. According to ”\+Our World in Data” \href{\#2}{\texttt{ \mbox{[}2\mbox{]}}}, in 2019, 63,3 \% of eletrical energy production comes from fossil fuels. It is known that generally, street lamps are continuously switched on at night, most of the time unnecessarily glowing with its full intensity, in the absence of any activities in the street, leading to a great waste of energy. Furthermore, it is in cities where the consequences of using cars are most noticeable. An example of this is the search for a parking space. According to the RAC Foundation \href{\#3}{\texttt{ \mbox{[}3\mbox{]}}}, in England, an average car is parked 95 \% of the time, which explains how hard it can get sometimes when trying to find a parking spot. This struggle leads to an increase in carbon dioxide production as well as fuel and energy consumption.
+
+\doxysubsection*{Project Goal}
+
+This project aims the implementation of applications for a Smart City, regarding Smart Lighting and Smart Parking, in order to decrease the energy consumption in public streets, while improving the lives of citizens around the world. The solution will embrace a centralized system, composed by smart street lights capable of turning on only when they detect movement in the surroundings, at night time, and also, capable of detecting available parking spaces in the street post vicinity.
+
+\doxysection*{System Overview}
+
+The network architecture to be developed in this project is presented in the following image. This is a star topology, in which the gateway relay messages between each local system (lamppost) and a central network server, the remote system. In order for the local systems to communicate with the gateway, {\bfseries{Lo\+Ra communication}} is used. This wireless communication takes advantage of the Long Range characteristics of the Lo\+Ra physical layer, allowing a single-\/hop link between the local system and the gateway. All communication modes are capable of bi-\/directional communication, and there is support for multicast addressing groups. The gateway is connected to the internet, through {\bfseries{TCP-\/\+IP}}, in order to store new information about the network in the remote system.
+
+
+
+We can divide the system into three subsystems\+: the {\bfseries{local system}}, which represents a lamppost, the {\bfseries{gateway}}, a device that links the lampposts network to the remote server, and the {\bfseries{remote system}}, that stores information about the lamppost network and allows interaction with the system users by the use of remote client applications. The system overview diagram is shown next.
+
+
+
+\doxysubsubsection*{Workflow}
+
+This project follows Waterfall model\+:
+
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} Requirements
+\item \mbox{[}x\mbox{]} Analysis
+\item \mbox{[}x\mbox{]} Design
+\item \mbox{[} \mbox{]} Implementation
+\item \mbox{[} \mbox{]} Testing
+\item \mbox{[} \mbox{]} Deployment
+\item \mbox{[} \mbox{]} Maintenance
+\end{DoxyItemize}
+
+Since this project serves educational purposes, the last two phases of the Waterfall model, {\itshape Deployment} and {\itshape Maintenance}, won\textquotesingle{}t be approached.
+
+\doxysubsubsection*{Project Tree}
+
+
+\begin{DoxyItemize}
+\item {\ttfamily src/} — Source files
+\item {\ttfamily inc/} — Header files
+\item {\ttfamily ext/} — Contains third-\/party libraries
+\item {\ttfamily bin/} — Compiled executables goes here
+\item {\ttfamily build/} — The compiler\textquotesingle{}s build files
+\item {\ttfamily doc/} — Documentation of any kind
+\item README
+\end{DoxyItemize}
+
+\doxysubsubsection*{}
+
+\doxysubsubsection*{}
+
+\doxysubsubsection*{}
+
+\doxysubsection*{Done by}
+
+
+\begin{DoxyItemize}
+\item José Tomás Lima de Abreu
+\item Diogo Miguel Cunha Fernandes
+\end{DoxyItemize}
+
+Master in Embedded Systems @ Universidade do Minho, 2021/2022
+
+\DoxyHorRuler{0}
+
+
+\doxysubsection*{References}
+
+\label{_1}%
+\mbox{[}1\mbox{]} C. Helman, “\+Energy crisis 2021\+: How bad is it, and how long will it last?” Forbes, 2021, \href{https://www.forbes.com/sites/christopherhelman/2021/10/19/energy-crisis-2021-how-bad-is-it-and-how-long-will-it-last/?sh=6a5feff14c63}{\texttt{ https\+://www.\+forbes.\+com/sites/christopherhelman/2021/10/19/energy-\/crisis-\/2021-\/how-\/bad-\/is-\/it-\/and-\/how-\/long-\/will-\/it-\/last/?sh=6a5feff14c63}} \mbox{[}Accessed on 28/10/2021\mbox{]}.
+
+\label{_2}%
+\mbox{[}2\mbox{]} H. Ritchie and M. Roser, “\+Energy,” Our World in Data, 2020, \href{https://ourworldindata.org/energy}{\texttt{ https\+://ourworldindata.\+org/energy}} \mbox{[}Accessed on 28/10/2021\mbox{]}.
+
+\label{_3}%
+\mbox{[}3\mbox{]} \char`\"{}\+Cars parked 23 hours a day,” https\+://www.\+racfoundation.\+org/media-\/centre/cars-\/parked-\/23-\/hours-\/a-\/day \mbox{[}\+Accessed on 8/11/2021\mbox{]}.\char`\"{} 

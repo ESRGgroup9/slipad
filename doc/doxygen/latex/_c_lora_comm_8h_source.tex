@@ -1,0 +1,36 @@
+\hypertarget{_c_lora_comm_8h_source}{}\doxysection{CLora\+Comm.\+h}
+\label{_c_lora_comm_8h_source}\index{inc/CLoraComm.h@{inc/CLoraComm.h}}
+\mbox{\hyperlink{_c_lora_comm_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00009}00009 \textcolor{preprocessor}{\#ifndef \_\_CLORACOMM\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00010}00010 \textcolor{preprocessor}{\#define \_\_CLORACOMM\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_communication_8h}{CCommunication.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00013}00013 \textcolor{preprocessor}{\#include "{}LoRa.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00014}00014 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00016}\mbox{\hyperlink{class_c_lora_comm}{00016}} \textcolor{keyword}{class }\mbox{\hyperlink{class_c_lora_comm}{CLoraComm}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_c_communication}{CCommunication}}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00017}00017 \{}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00018}00018 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00028}00028     \mbox{\hyperlink{class_c_lora_comm_a2397fefa827f81addcb1b742ec55ab57}{CLoraComm}}(\textcolor{keywordtype}{int} freqMhz, \textcolor{keywordtype}{int} dest, \textcolor{keywordtype}{int} src);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00029}00029     \mbox{\hyperlink{class_c_lora_comm}{\string~CLoraComm}}();}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00035}00035     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_af2cf1c6ca6651ea56391bd8638dc0a0d}{getLocalAddr}}(\textcolor{keywordtype}{void}) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00037}00037 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00046}00046     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{recvFunc}}(std::string \&msg);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00056}00056     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}{sendFunc}}(std::string msg);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00058}00058 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00059}00059     \mbox{\hyperlink{class_lo_ra_class}{LoRaClass}} lora;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00060}00060     \textcolor{keywordtype}{int} freqMhz;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00061}00061     \textcolor{keywordtype}{int} dest\_addr;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00062}00062     \textcolor{keywordtype}{int} local\_addr;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00063}00063 \};}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00064}00064 \textcolor{comment}{// End  CLoraComm class definition}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00066}00066 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_CLORACOMM\_H\_\_}}
+
+\end{DoxyCode}

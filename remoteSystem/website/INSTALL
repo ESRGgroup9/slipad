@@ -1,0 +1,12 @@
+# Install PHP client
+sudo apt install php7.4-cli
+# Install PHP with MySql
+sudo apt install php-mysqli
+
+# Look into https://github.com/vlucas/phpdotenv
+sudo apt install composer
+composer install
+composer require vlucas/phpdotenv
+
+# Open PHP server in localhost
+php -S 127.0.0.1:8000

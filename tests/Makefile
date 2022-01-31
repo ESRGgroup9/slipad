@@ -1,41 +1,41 @@
 #==============================================================================
-BLUE 	=\033[0;34m
-GREEN	=\033[0;32m
-CYAN	=\033[0;36m
-RESET	=\033[0m
-
-PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
-PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
-PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
-#------------------------------------------------------------------------------
-BLD_DIR=./build
-BIN_DIR=./bin
-SRC_DIR=../src
-INC_DIR=../inc
-#------------------------------------------------------------------------------
-CXX 	=arm-buildroot-linux-gnueabihf-g++
-LIBS	=-lpthread -lbcm2835 -lrt
-
-DEBUG	=-g #-D DEBUG
-INCLDS	=-I $(INC_DIR)
-CXXFLAGS=$(INCLDS) -Wall $(LIBS)
-
-#------------------------------------------------------------------------------
-SRC= $(wildcard $(SRC_DIR)/*.c*)
-
-OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,../$(BLD_DIR)/%.o,$(SRC)))
-OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,../$(BLD_DIR)/%.o,$(SRC)))
-
-DEPS= $(patsubst ../$(BLD_DIR)/%.o,../$(BLD_DIR)/%.d,$(OBJS))
+# Project directories
+BLD_DIR=build
+BIN_DIR=bin
 #------------------------------------------------------------------------------
 PROGS=$(patsubst ./%.c, $(BIN_DIR)/%.elf, $(wildcard ./*.c))
 PROGS+=$(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
+#------------------------------------------------------------------------------
+CXX 	=$(CROSS_COMPILE)$(COMPILE)
+LIBS	=-lpthread -lbcm2835 -lrt
+# INCLDS	+=-I $(INC_DIR)
+CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
+#------------------------------------------------------------------------------
+# Select all source files: *.c and *.cpp files
+SRC+= $(wildcard $(SRC_DIR)/*.c*)
+# Set object files with the name from source file to BLD_DIR/*.o
+OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%.o,$(SRC)))
+OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC)))
+# Set dependency files with the name from the objects to BLD_DIR/*.d
+DEPS= $(patsubst $(BLD_DIR)/%.o,$(BLD_DIR)/%.d,$(OBJS))
+#------------------------------------------------------------------------------
+# Default print messages
+PRINT_GENERATING="${CYAN}Generating $(shell basename $@) ...$(RESET)"
+PRINT_BUILDING	="${BLUE}Building $(shell basename $@) ...$(RESET)"
+PRINT_COMPILING	="${GREEN}Compiling $(shell basename $@) ...$(RESET)"
 #==============================================================================
 vpath %.c $(SRC_DIR) ./
 vpath %.cpp $(SRC_DIR) ./
+vpath %.h $(INC_DIR)
 
 .DEFAULT_GOAL = build
 build: setup $(PROGS) ## Compile the binary program
+	@echo "SRC: " $(SRC)
+	@echo
+	@echo "DEPS: " $(DEPS)
+	@echo
+	@echo "OBJS: " $(OBJS)
+	@echo
 
 #------------------------------------------------------------------------------
 # Create dependencies
@@ -67,27 +67,32 @@ $(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
 	@$(CXX) -o $@ $< $(OBJS) $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
-IP=10.42.0.254
-DIR=/etc
-TEST=
+# stuff just to print transferring files prettier
+.PHONY: print_transfer transfer $(PRINT_TARGET)	
+TEST=*
 TARGET=$(BIN_DIR)/$(TEST)
+PRINT_TARGET=$(addprefix print-, $(wildcard $(TARGET)))
 
-transfer: ## Transfer TARGET=<file> to IP=<ip> into DIR=<dir> directory
-	@echo "Transfering:"
-	@echo "${GREEN}"$(shell ls $(TARGET))
-	@echo "$(RESET)To $(IP) into $(DIR)..."
+$(PRINT_TARGET): print-$(BIN_DIR)/%:
+	@echo "$(CYAN)"$*"$(RESET)"
+
+print_transfer:
+	@echo "Transfering to $(IP) into $(DIR)..."
+
+transfer: print_transfer $(PRINT_TARGET)
 	@scp $(TARGET) root@$(IP):$(DIR)
 
+#------------------------------------------------------------------------------
 setup:
 	@mkdir -p $(BLD_DIR)
 	@mkdir -p $(BIN_DIR)
 
 clean: ## Delete built artifacts
-	@echo "Cleaning ... "
+	@echo "${CYAN}Cleaning tests ... $(RESET)"
 	@rm -rf $(BLD_DIR) $(BIN_DIR)
 
 help: ## Generate list of targets with descriptions
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: build clean transfer help
-.PRECIOUS: $(BLD_DIR)/%.o $(BLD_DIR)/%.d
+#==============================================================================

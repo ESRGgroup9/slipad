@@ -1,0 +1,162 @@
+\hypertarget{_lo_ra_8h_source}{}\doxysection{Lo\+Ra.\+h}
+\label{_lo_ra_8h_source}\index{inc/LoRa.h@{inc/LoRa.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00001}00001 \textcolor{comment}{// Copyright (c) Sandeep Mistry. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00002}00002 \textcolor{comment}{// Licensed under the MIT license. See LICENSE file in the project root for full license information.}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00004}00004 \textcolor{preprocessor}{\#ifndef LORA\_H}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00005}00005 \textcolor{preprocessor}{\#define LORA\_H}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00007}00007 \textcolor{preprocessor}{\#include <cstdint>} \textcolor{comment}{// uint8\_t}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <cstddef>} \textcolor{comment}{// size\_t}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00009}00009 \textcolor{preprocessor}{\#include <string>}  \textcolor{comment}{// string}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00010}00010 \textcolor{preprocessor}{\#include <ostream>}  \textcolor{comment}{// ostream}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00011}00011 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00013}00013 \textcolor{comment}{// if you change this see LoraClass::setSPI}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00014}00014 \textcolor{preprocessor}{\#define LORA\_DEFAULT\_SPI\_FREQUENCY 8E6}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00016}00016 \textcolor{comment}{// lora default pins}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00017}00017 \textcolor{comment}{// CE0 when SPI0 in use   RPI\_GPIO\_P1\_24}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00018}00018 \textcolor{comment}{// CE1 when SPI0 in use   RPI\_GPIO\_P1\_26}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00020}00020 \textcolor{comment}{// CLK when SPI0 in use   RPI\_GPIO\_P1\_23}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00021}00021 \textcolor{comment}{// MISO when SPI0 in use  RPI\_GPIO\_P1\_21}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00022}00022 \textcolor{comment}{// MOSI when SPI0 in use  RPI\_GPIO\_P1\_19}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00024}00024 \textcolor{preprocessor}{\#define PA\_OUTPUT\_RFO\_PIN          0}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00025}00025 \textcolor{preprocessor}{\#define PA\_OUTPUT\_PA\_BOOST\_PIN     1}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00027}00027 \textcolor{comment}{// defines a Lora message}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00028}\mbox{\hyperlink{class_lo_ra_msg}{00028}} \textcolor{keyword}{class }\mbox{\hyperlink{class_lo_ra_msg}{LoRaMsg}}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00029}00029 \{}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00030}00030 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00031}00031   \textcolor{keywordtype}{int} recvAddr;     \textcolor{comment}{// receiver address}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00032}00032   \textcolor{keywordtype}{int} sendAddr;     \textcolor{comment}{// sender address}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00034}00034   \textcolor{keywordtype}{int} msgID;        \textcolor{comment}{// message ID}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00035}00035   \textcolor{keywordtype}{size\_t} msgLength; \textcolor{comment}{// message length}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00036}00036   \textcolor{keywordtype}{string} msg;       \textcolor{comment}{// message}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00038}00038 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00039}00039   \textcolor{keyword}{friend} ostream\& operator<<(ostream\& os, \textcolor{keyword}{const} \mbox{\hyperlink{class_lo_ra_msg}{LoRaMsg}}\& msg);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00040}00040 \};}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00042}00042 \textcolor{keyword}{enum class} LoRaError}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00043}00043 \{}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00044}00044   MSGOK = 0,  \textcolor{comment}{// Message OK}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00045}00045   ENOADDR,    \textcolor{comment}{// Local address not defined}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00046}00046   ENOMSGR,    \textcolor{comment}{// No message received}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00047}00047   ENOTME,     \textcolor{comment}{// Message received is not for this device}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00048}00048   EBADLMSG    \textcolor{comment}{// Message received lengths does not match}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00049}00049 \};}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00051}\mbox{\hyperlink{class_lo_ra_class}{00051}} \textcolor{keyword}{class }\mbox{\hyperlink{class_lo_ra_class}{LoRaClass}}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00052}00052 \{}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00053}00053 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00054}00054   \mbox{\hyperlink{class_lo_ra_class}{LoRaClass}}(uint8\_t localAddress = -\/1);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00056}00056   \textcolor{keywordtype}{int} begin(\textcolor{keywordtype}{long} frequency);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00057}00057   \textcolor{keywordtype}{void} end();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00059}00059   \textcolor{comment}{// setup lora pins}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00060}00060   \textcolor{keywordtype}{void} setPins(\textcolor{keywordtype}{int} ss, \textcolor{keywordtype}{int} reset, \textcolor{keywordtype}{int} dio0);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00061}00061   \textcolor{comment}{// set SPI}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00062}00062   \textcolor{keywordtype}{void} setSPI(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00063}00063   }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00064}00064   \textcolor{comment}{// user functions to send and recv Lora messages}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00065}00065   \mbox{\hyperlink{class_lo_ra_msg}{LoRaMsg}} sendTo(std::string msg, uint8\_t destination);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00066}00066   LoRaError receive(\mbox{\hyperlink{class_lo_ra_msg}{LoRaMsg}} \&loraMsg);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00068}00068   \textcolor{keywordtype}{void} setLocalAddress(uint8\_t localAddress) \{ this-\/>localAddress = localAddress; \}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00069}00069   uint8\_t getLocalAddress(\textcolor{keywordtype}{void})\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} localAddress; \}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00071}00071 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00072}00072   \textcolor{comment}{// packet creation functions}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00073}00073   \textcolor{keywordtype}{int} beginPacket(\textcolor{keywordtype}{int} implicitHeader = \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00074}00074   \textcolor{keywordtype}{int} endPacket(\textcolor{keywordtype}{bool} async = \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00076}00076   \textcolor{comment}{// write functions}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00077}00077   \textcolor{keywordtype}{size\_t} write(uint8\_t \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00078}00078   \textcolor{keywordtype}{size\_t} write(\textcolor{keyword}{const} uint8\_t *buffer, \textcolor{keywordtype}{size\_t} size);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00080}00080   \textcolor{comment}{// read/write registers}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00081}00081   uint8\_t readRegister(uint8\_t address);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00082}00082   \textcolor{keywordtype}{void} writeRegister(uint8\_t address, uint8\_t value);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00083}00083   uint8\_t singleTransfer(uint8\_t address, uint8\_t value);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00085}00085   \textcolor{keywordtype}{void} recv(\textcolor{keywordtype}{int} size = 0);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00086}00086   \textcolor{keywordtype}{int} parsePacket(\textcolor{keywordtype}{int} size = 0);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00087}00087   }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00088}00088   \textcolor{keywordtype}{void} idle();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00089}00089   \textcolor{keywordtype}{void} sleep();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00091}00091   \textcolor{comment}{// set properties}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00092}00092   \textcolor{keywordtype}{void} setTxPower(\textcolor{keywordtype}{int} level, \textcolor{keywordtype}{int} outputPin = PA\_OUTPUT\_PA\_BOOST\_PIN);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00093}00093   \textcolor{keywordtype}{void} setFrequency(\textcolor{keywordtype}{long} frequency);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00094}00094   \textcolor{keywordtype}{void} setSpreadingFactor(\textcolor{keywordtype}{int} sf);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00095}00095   \textcolor{keywordtype}{void} setSignalBandwidth(\textcolor{keywordtype}{long} sbw);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00096}00096   \textcolor{keywordtype}{void} setCodingRate4(\textcolor{keywordtype}{int} denominator);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00097}00097   \textcolor{keywordtype}{void} setPreambleLength(\textcolor{keywordtype}{long} length);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00098}00098   \textcolor{keywordtype}{void} setSyncWord(\textcolor{keywordtype}{int} sw);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00099}00099   \textcolor{keywordtype}{void} setOCP(uint8\_t mA); \textcolor{comment}{// Over Current Protection control}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00100}00100   \textcolor{keywordtype}{void} setGain(uint8\_t gain); \textcolor{comment}{// Set LNA gain}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00102}00102   \textcolor{keywordtype}{int} packetRssi();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00103}00103   \textcolor{keywordtype}{float} packetSnr();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00104}00104   \textcolor{keywordtype}{long} packetFrequencyError();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00106}00106   \textcolor{keywordtype}{int} rssi();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00107}00107   \textcolor{keywordtype}{void} enableCrc();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00108}00108   \textcolor{keywordtype}{void} disableCrc();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00109}00109   \textcolor{keywordtype}{void} enableInvertIQ();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00110}00110   \textcolor{keywordtype}{void} disableInvertIQ();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00111}00111   }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00112}00112   \textcolor{comment}{// deprecated}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00113}00113   \textcolor{keywordtype}{void} crc()    \{ enableCrc(); \}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00114}00114   \textcolor{keywordtype}{void} noCrc()  \{ disableCrc(); \}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00116}00116   uint8\_t random();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00117}00117   \textcolor{keywordtype}{int} available();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00118}00118   \textcolor{keywordtype}{int} read();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00119}00119   \textcolor{keywordtype}{int} peek();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00120}00120   \textcolor{keywordtype}{void} flush();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00122}00122   \textcolor{keywordtype}{void} onReceive(\textcolor{keywordtype}{void}(*callback)(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00123}00123   \textcolor{keywordtype}{void} onTxDone(\textcolor{keywordtype}{void}(*callback)());}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00125}00125   \textcolor{keywordtype}{void} explicitHeaderMode();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00126}00126   \textcolor{keywordtype}{void} implicitHeaderMode();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00128}00128   \textcolor{keywordtype}{void} handleDio0Rise();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00129}00129   \textcolor{keyword}{static} \textcolor{keywordtype}{void} onDio0Rise();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00131}00131   \textcolor{keywordtype}{bool} isTransmitting();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00132}00132   \textcolor{keywordtype}{int} getSpreadingFactor();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00133}00133   \textcolor{keywordtype}{long} getSignalBandwidth();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00134}00134   \textcolor{keywordtype}{void} setLdoFlag();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00135}00135 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00136}00136 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00137}00137   \textcolor{comment}{// Lora Module Pins}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00138}00138   \textcolor{keywordtype}{int} \_ss;}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00139}00139   \textcolor{keywordtype}{int} \_reset;}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00140}00140   \textcolor{keywordtype}{int} \_dio0;}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00141}00141 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00142}00142   \textcolor{comment}{// Local address to be used in comunications with other modules}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00143}00143   uint8\_t localAddress;}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00145}00145   \textcolor{keywordtype}{long} \_frequency;}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00146}00146   \textcolor{keywordtype}{int} \_packetIndex;}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00147}00147   \textcolor{keywordtype}{int} \_implicitHeaderMode;}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00148}00148   }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00149}00149   \textcolor{comment}{// receive/transmitt done callbacks}}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00150}00150   void (*\_onReceive)(int);}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00151}00151   void (*\_onTxDone)();}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00152}00152 \};}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00153}00153 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00154}00154 \textcolor{keyword}{extern} \mbox{\hyperlink{class_lo_ra_class}{LoRaClass}} LoRa;}
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{_lo_ra_8h_source_l00156}00156 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

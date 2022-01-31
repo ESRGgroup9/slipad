@@ -6,7 +6,7 @@
 
 #include <iostream>
 using namespace std;
-
+ 
 CCommunication::CCommunication()
 {
 	if(pthread_mutex_init(&mutTxMsgs, NULL) != 0)
@@ -21,11 +21,6 @@ CCommunication::CCommunication()
 	status = ConnStatus::CREATED;
 }
 
-CCommunication::~CCommunication()
-{
-
-}
-
 void CCommunication::init(int tprio)
 {
 	// >>>>>>>>>>>>>>>>>>>>>>> SET PRIO
@@ -33,9 +28,14 @@ void CCommunication::init(int tprio)
 		panic("CComms::init(): pthread_create");
 }
 
-void CCommunication::run(void)
+void CCommunication::run(bool async)
 {
-	pthread_join(tSend_id, NULL);
+	if(async)
+		// dont track the thread
+		pthread_detach(tSend_id);
+	else
+		// default operation. Wait for thread termination
+		pthread_join(tSend_id, NULL);
 }
 
 ConnStatus CCommunication::getStatus(void) const
@@ -104,7 +104,7 @@ void *CCommunication::tSend(void *arg)
 		DEBUG_MSG("[CComms::tSend] Popped(" << msg << ") - [" << ccomm->TxMsgs.size() << "] msgs queued");
 		// send message
 		ccomm->send(msg);
-		cout << "[CComms::tSend] Sent(" << msg << ")" << endl;
+		DEBUG_MSG("[CComms::tSend] Sent(" << msg << ")");
 		msg.clear();
 	}
 

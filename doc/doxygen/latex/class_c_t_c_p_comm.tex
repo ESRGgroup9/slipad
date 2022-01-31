@@ -1,0 +1,145 @@
+\hypertarget{class_c_t_c_p_comm}{}\doxysection{CTCPComm Class Reference}
+\label{class_c_t_c_p_comm}\index{CTCPComm@{CTCPComm}}
+
+
+Inheritance diagram for CTCPComm\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{class_c_t_c_p_comm__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for CTCPComm\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{class_c_t_c_p_comm__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_t_c_p_comm_a7fd2bab7f332bbe667af58e74206b631}{CTCPComm}} ()
+\begin{DoxyCompactList}\small\item\em Creates a CTCPcomm object initializing the socket file descriptor as non valid. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_t_c_p_comm_ac9645d2f362f00fef4fb3d309285b8e9}{set\+Sockfd}} (int sd)
+\begin{DoxyCompactList}\small\item\em Sets the socket file descriptor to be used in TCP communications. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual int \mbox{\hyperlink{class_c_t_c_p_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{recv\+Func}} (std\+::string \&msg)
+\begin{DoxyCompactList}\small\item\em Receives a message using TCP. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{class_c_t_c_p_comm_a9cc108d99a998ef764d401cf8ee67925}{send\+Func}} (std\+::string msg)
+\begin{DoxyCompactList}\small\item\em Sends a message using TCP. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_c_t_c_pcomm_8h_source_l00015}{15}} of file \mbox{\hyperlink{_c_t_c_pcomm_8h_source}{CTCPcomm.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_t_c_p_comm_a7fd2bab7f332bbe667af58e74206b631}\label{class_c_t_c_p_comm_a7fd2bab7f332bbe667af58e74206b631}} 
+\index{CTCPComm@{CTCPComm}!CTCPComm@{CTCPComm}}
+\index{CTCPComm@{CTCPComm}!CTCPComm@{CTCPComm}}
+\doxysubsubsection{\texorpdfstring{CTCPComm()}{CTCPComm()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_c_t_c_p_comm}{CTCPComm}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates a CTCPcomm object initializing the socket file descriptor as non valid. 
+
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+In order to use TCP communication, one must call \textquotesingle{}set\+Sockfd\textquotesingle{} before the use of \textquotesingle{}send\textquotesingle{} and \textquotesingle{}recv\textquotesingle{} functions (inherited from \mbox{\hyperlink{class_c_communication}{CCommunication}}). 
+
+Definition at line \mbox{\hyperlink{_c_t_c_pcomm_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{_c_t_c_pcomm_8cpp_source}{CTCPcomm.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_t_c_p_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}\label{class_c_t_c_p_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}} 
+\index{CTCPComm@{CTCPComm}!recvFunc@{recvFunc}}
+\index{recvFunc@{recvFunc}!CTCPComm@{CTCPComm}}
+\doxysubsubsection{\texorpdfstring{recvFunc()}{recvFunc()}}
+{\footnotesize\ttfamily int recv\+Func (\begin{DoxyParamCaption}\item[{std\+::string \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Receives a message using TCP. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & -\/ received string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ non zero if successfull. -\/1 if an error occurred 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_c_communication}{CCommunication}}.
+
+
+
+Definition at line \mbox{\hyperlink{_c_t_c_pcomm_8cpp_source_l00022}{22}} of file \mbox{\hyperlink{_c_t_c_pcomm_8cpp_source}{CTCPcomm.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_t_c_p_comm_a9cc108d99a998ef764d401cf8ee67925}\label{class_c_t_c_p_comm_a9cc108d99a998ef764d401cf8ee67925}} 
+\index{CTCPComm@{CTCPComm}!sendFunc@{sendFunc}}
+\index{sendFunc@{sendFunc}!CTCPComm@{CTCPComm}}
+\doxysubsubsection{\texorpdfstring{sendFunc()}{sendFunc()}}
+{\footnotesize\ttfamily int send\+Func (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Sends a message using TCP. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & -\/ string to be sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ non zero if successfull. -\/1 if an error occurred 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_c_communication}{CCommunication}}.
+
+
+
+Definition at line \mbox{\hyperlink{_c_t_c_pcomm_8cpp_source_l00050}{50}} of file \mbox{\hyperlink{_c_t_c_pcomm_8cpp_source}{CTCPcomm.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_t_c_p_comm_ac9645d2f362f00fef4fb3d309285b8e9}\label{class_c_t_c_p_comm_ac9645d2f362f00fef4fb3d309285b8e9}} 
+\index{CTCPComm@{CTCPComm}!setSockfd@{setSockfd}}
+\index{setSockfd@{setSockfd}!CTCPComm@{CTCPComm}}
+\doxysubsubsection{\texorpdfstring{setSockfd()}{setSockfd()}}
+{\footnotesize\ttfamily void set\+Sockfd (\begin{DoxyParamCaption}\item[{int}]{sd }\end{DoxyParamCaption})}
+
+
+
+Sets the socket file descriptor to be used in TCP communications. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sd} & -\/ socket file descriptor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_t_c_pcomm_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{_c_t_c_pcomm_8cpp_source}{CTCPcomm.\+cpp}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inc/\mbox{\hyperlink{_c_t_c_pcomm_8h}{CTCPcomm.\+h}}\item 
+src/CTCPcomm.\+cpp\end{DoxyCompactItemize}

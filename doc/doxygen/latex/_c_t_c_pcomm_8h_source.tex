@@ -1,0 +1,29 @@
+\hypertarget{_c_t_c_pcomm_8h_source}{}\doxysection{CTCPcomm.\+h}
+\label{_c_t_c_pcomm_8h_source}\index{inc/CTCPcomm.h@{inc/CTCPcomm.h}}
+\mbox{\hyperlink{_c_t_c_pcomm_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00009}00009 \textcolor{preprocessor}{\#ifndef \_\_CTCPCOMM\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00010}00010 \textcolor{preprocessor}{\#define \_\_CTCPCOMM\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_communication_8h}{CCommunication.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00013}00013 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00015}\mbox{\hyperlink{class_c_t_c_p_comm}{00015}} \textcolor{keyword}{class }\mbox{\hyperlink{class_c_t_c_p_comm}{CTCPComm}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_c_communication}{CCommunication}}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00016}00016 \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00017}00017 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00026}00026     \mbox{\hyperlink{class_c_t_c_p_comm_a7fd2bab7f332bbe667af58e74206b631}{CTCPComm}}();}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00033}00033     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_t_c_p_comm_ac9645d2f362f00fef4fb3d309285b8e9}{setSockfd}}(\textcolor{keywordtype}{int} sd);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00035}00035 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00041}00041     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_t_c_p_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{recvFunc}}(std::string \&msg);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00047}00047     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_t_c_p_comm_a9cc108d99a998ef764d401cf8ee67925}{sendFunc}}(std::string msg);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00049}00049 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00050}00050     \textcolor{keywordtype}{int} sockfd;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00051}00051 \};}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8h_source_l00053}00053 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_CTCPCOMM\_H\_\_}}
+
+\end{DoxyCode}

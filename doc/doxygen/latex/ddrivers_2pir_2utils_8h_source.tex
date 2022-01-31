@@ -1,0 +1,22 @@
+\hypertarget{ddrivers_2pir_2utils_8h_source}{}\doxysection{utils.\+h}
+\label{ddrivers_2pir_2utils_8h_source}\index{ddrivers/pir/utils.h@{ddrivers/pir/utils.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00001}00001 \textcolor{preprocessor}{\#include <linux/types.h>}}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00003}00003 \textcolor{preprocessor}{\#define BCM2711\_PERI\_BASE       0xfE000000}}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00004}00004 \textcolor{preprocessor}{\#define GPIO\_BASE (BCM2711\_PERI\_BASE + 0x200000) }\textcolor{comment}{// GPIO controller}}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00006}00006 \textcolor{keyword}{struct }\mbox{\hyperlink{struct_gpio_registers}{GpioRegisters}}}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00007}00007 \{}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00008}00008     uint32\_t GPFSEL[6];}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00009}00009     uint32\_t Reserved1;}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00010}00010     uint32\_t GPSET[2];}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00011}00011     uint32\_t Reserved2;}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00012}00012     uint32\_t GPCLR[2];}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00013}00013 \};}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00015}00015 \textcolor{keywordtype}{void} SetGPIOFunction(\textcolor{keyword}{struct} \mbox{\hyperlink{struct_gpio_registers}{GpioRegisters}} *s\_pGpioRegisters, \textcolor{keywordtype}{int} GPIO, \textcolor{keywordtype}{int} functionCode);}
+\DoxyCodeLine{\Hypertarget{ddrivers_2pir_2utils_8h_source_l00016}00016 \textcolor{keywordtype}{void} SetGPIOOutputValue(\textcolor{keyword}{struct} \mbox{\hyperlink{struct_gpio_registers}{GpioRegisters}} *s\_pGpioRegisters, \textcolor{keywordtype}{int} GPIO, \textcolor{keywordtype}{bool} outputValue);}
+
+\end{DoxyCode}

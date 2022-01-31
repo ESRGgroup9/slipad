@@ -76,3 +76,6 @@ dkms.conf
 *.out
 *.synctex.gz
 report.pdf
+
+# store APIs
+.env

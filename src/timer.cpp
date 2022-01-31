@@ -52,15 +52,11 @@ Timer::Timer(unsigned seconds, void (*handler)(union sigval arg), bool is_period
 		panic("Create timer");
 
 #ifdef DEBUG
-	DEBUG_MSG("Timer["<< id << "] created with timeout[" << period_secs << "]");
-	if(is_periodic == true)
-	{
-		DEBUG_MSG("- Continuous expire");
-	}
-	else
-	{
-		DEBUG_MSG("- Single expire");
-	}
+	char msg[64];
+	snprintf(msg, sizeof(msg), "Timer[%d] created with %s timeout of %d seconds",
+		id, (is_periodic == true ? "continuous" : "single"), period_secs);
+
+	DEBUG_MSG(msg);
 #endif // !DEBUG
 
 }
@@ -99,7 +95,7 @@ void Timer::setPeriod(unsigned period_secs)
 void Timer::start()
 {
 	setPeriod(period_secs);
-	DEBUG_MSG("Timer["<< (int)id << "] started with timeout[" << period_secs << "]");
+	DEBUG_MSG("Timer["<< (int)id << "] started with timeout " << period_secs << " seconds");
 }
 
 void Timer::stop()

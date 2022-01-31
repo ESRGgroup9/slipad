@@ -1,0 +1,89 @@
+\hypertarget{_c_t_c_pclient_8cpp_source}{}\doxysection{CTCPclient.\+cpp}
+\label{_c_t_c_pclient_8cpp_source}\index{src/CTCPclient.cpp@{src/CTCPclient.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_t_c_pclient_8h}{CTCPclient.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00002}00002 \textcolor{preprocessor}{\#include "{}utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}debug.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include <unistd.h>} \textcolor{comment}{// gethostname}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00006}00006 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00008}\mbox{\hyperlink{class_c_t_c_pclient_a2dda42f62a9a3a2fbe932c52070884f2}{00008}} \mbox{\hyperlink{class_c_t_c_pclient_a2dda42f62a9a3a2fbe932c52070884f2}{CTCPclient::CTCPclient}}(std::string host, \textcolor{keywordtype}{int} port)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00009}00009 \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00010}00010     \textcolor{keyword}{struct }hostent* hostent;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00012}00012     \textcolor{comment}{// Get server's IP and standard service connection}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00013}00013     hostent = gethostbyname(host.c\_str());}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00014}00014     this-\/>host = hostent-\/>h\_name;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00015}00015     this-\/>port = port;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00017}00017     \textcolor{comment}{// Create socket}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00018}00018     this-\/>sockfd = socket(PF\_INET, SOCK\_STREAM, 0);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00019}00019     \textcolor{keywordflow}{if} (sockfd < 0)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00020}00020         panic(\textcolor{stringliteral}{"{}socket"{}});}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00021}00021     }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00022}00022     \textcolor{comment}{// use sockfd in tcp communications}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00023}00023     tcp.\mbox{\hyperlink{class_c_t_c_p_comm_ac9645d2f362f00fef4fb3d309285b8e9}{setSockfd}}(sockfd);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00025}00025     \textcolor{comment}{/* create \& zero struct */}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00026}00026     memset(\&addr, 0, \textcolor{keyword}{sizeof}(addr));}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00027}00027     \textcolor{comment}{/* select internet protocol */}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00028}00028     addr.sin\_family = AF\_INET;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00029}00029     \textcolor{comment}{/* set the port \# */}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00030}00030     addr.sin\_port = htons(port);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00031}00031     \textcolor{comment}{/* set the addr */}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00032}00032     addr.sin\_addr.s\_addr = *(\textcolor{keywordtype}{long}*)(hostent-\/>h\_addr\_list[0]);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00034}00034     \textcolor{comment}{// get host name}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00035}00035     \textcolor{keywordtype}{char} str[32];}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00036}00036     gethostname(str, \textcolor{keyword}{sizeof}(str));}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00037}00037     DEBUG\_MSG(\textcolor{stringliteral}{"{}[CTCPclient] '"{}} << str << \textcolor{stringliteral}{"{}' set to connect to "{}} << host << \textcolor{stringliteral}{"{}:"{}} << port);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00038}00038 \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00040}\mbox{\hyperlink{class_c_t_c_pclient_a3a0d16d9b3bf431e2812ac3465cd2197}{00040}} \mbox{\hyperlink{class_c_t_c_pclient_a3a0d16d9b3bf431e2812ac3465cd2197}{CTCPclient::\string~CTCPclient}}()}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00041}00041 \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00042}00042     \textcolor{comment}{// close the tcp connection}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00043}00043     shutdown(sockfd,SHUT\_RD);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00044}00044     shutdown(sockfd,SHUT\_WR);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00045}00045     shutdown(sockfd,SHUT\_RDWR); }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00046}00046     close(sockfd);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00047}00047 \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00049}\mbox{\hyperlink{class_c_t_c_pclient_a6045e10b730f1c443651f5209bd9e913}{00049}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_t_c_pclient_a6045e10b730f1c443651f5209bd9e913}{CTCPclient::connect}}()}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00050}00050 \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00051}00051     \textcolor{keywordtype}{int} ret = 0;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00052}00052     \textcolor{keywordtype}{int} err = 0;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00054}00054     DEBUG\_MSG(\textcolor{stringliteral}{"{}[CTCPclient::connect] Connecting to "{}} << host << \textcolor{stringliteral}{"{}:"{}} << port << \textcolor{stringliteral}{"{} ..."{}});}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00055}00055     \textcolor{comment}{// connect to server}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00056}00056     \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00057}00057     \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00058}00058         ret = \mbox{\hyperlink{class_c_t_c_pclient_a6045e10b730f1c443651f5209bd9e913}{::connect}}(sockfd, (\textcolor{keyword}{struct} sockaddr*)\&addr, \textcolor{keyword}{sizeof}(addr));}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00059}00059         err = errno;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00060}00060     \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00061}00061     \textcolor{keywordflow}{while}((ret == -\/1) \&\& (err == EAGAIN));}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00063}00063     \textcolor{keywordflow}{if}(ret == 0)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00064}00064     \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00065}00065         DEBUG\_MSG(\textcolor{stringliteral}{"{}[CTCPclient::connect] Connection successful"{}});   }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00066}00066     \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00067}00067     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00068}00068     \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00069}00069         ERROR\_MSG(\textcolor{stringliteral}{"{}[CTCPclient::connect] Exit with return error["{}} << ret << \textcolor{stringliteral}{"{}] errno["{}} << err << \textcolor{stringliteral}{"{}]"{}});}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00070}00070     \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00072}00072     \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00073}00073 \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00075}\mbox{\hyperlink{class_c_t_c_pclient_aa6a48f4c64a4ee41d001b18e6b1b232a}{00075}} \textcolor{keywordtype}{string} \mbox{\hyperlink{class_c_t_c_pclient_aa6a48f4c64a4ee41d001b18e6b1b232a}{CTCPclient::getHost}}(\textcolor{keywordtype}{void})\textcolor{keyword}{ const}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00076}00076 \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00077}00077     \textcolor{keywordflow}{return} host;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00078}00078 \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00080}\mbox{\hyperlink{class_c_t_c_pclient_a7f7ecd3594688cd1a47391cd5b77fc28}{00080}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_t_c_pclient_a7f7ecd3594688cd1a47391cd5b77fc28}{CTCPclient::getPort}}(\textcolor{keywordtype}{void})\textcolor{keyword}{ const}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00081}00081 \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00082}00082     \textcolor{keywordflow}{return} port;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00083}00083 \}}
+
+\end{DoxyCode}

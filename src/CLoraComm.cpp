@@ -1,11 +1,21 @@
+/**
+ * @file CLoraComm.h
+ * @author Tomas Abreu, Diogo Fernandes
+ * @date 23 jan 2022
+ *
+ * @brief Defines class to use LoRaClass functions, inheriting from
+ * CCommunication
+ */
 #include "CLoraComm.h"
 #include "utils.h"
 #include "debug.h"
- 
+#include <bcm2835.h>
 using namespace std;
 
-// Create LoRa object
-static LoRaClass lora;
+// default LoRa pins
+#define LORA_SS_PIN        RPI_V2_GPIO_P1_11
+#define LORA_RESET_PIN     RPI_GPIO_P1_22
+#define LORA_DIO0_PIN      RPI_GPIO_P1_18
 
 CLoraComm::CLoraComm(int freqMhz, int dest, int src)
 {
@@ -31,11 +41,6 @@ CLoraComm::~CLoraComm()
 
 }
 
-int CLoraComm::getLocalAddr(void) const
-{
-	return local_addr;
-}
-
 int CLoraComm::recvFunc(string &msg)
 {
 	LoRaMsg loraMsg;
@@ -44,7 +49,7 @@ int CLoraComm::recvFunc(string &msg)
 	err = lora.receive(loraMsg);
 	if(LoRaError::MSGOK == err)
 		msg = loraMsg.msg;
-
+	
 	return static_cast<int>(err);
 }
 
@@ -53,4 +58,9 @@ int CLoraComm::sendFunc(std::string msg)
 	LoRaMsg loraMsg;
 	loraMsg = lora.sendTo(msg, dest_addr);
 	return 0;
+}
+
+int CLoraComm::getLocalAddr(void) const
+{
+	return local_addr;
 }

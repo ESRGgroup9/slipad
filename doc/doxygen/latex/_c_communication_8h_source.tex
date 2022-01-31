@@ -1,0 +1,66 @@
+\hypertarget{_c_communication_8h_source}{}\doxysection{CCommunication.\+h}
+\label{_c_communication_8h_source}\index{inc/CCommunication.h@{inc/CCommunication.h}}
+\mbox{\hyperlink{_c_communication_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00009}00009 \textcolor{preprocessor}{\#ifndef \_\_CCOMMUNICATION\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00010}00010 \textcolor{preprocessor}{\#define \_\_CCOMMUNICATION\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00012}00012 \textcolor{preprocessor}{\#include <pthread.h>}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00013}00013 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00014}00014 \textcolor{preprocessor}{\#include <queue>}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00016}00016 \textcolor{comment}{// Connection status}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00017}00017 \textcolor{keyword}{enum class} ConnStatus}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00018}00018 \{}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00019}00019     CREATED = 0,}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00020}00020     ONLINE,}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00021}00021     ERROR,}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00022}00022     CLOSED}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00023}00023 \};}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00025}00025 \textcolor{comment}{// Define CCommunication::run as blocking -\/ waits for threads termination}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00026}00026 \textcolor{preprocessor}{\#define RUN\_BLOCK       (bool)(false)}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00027}00027 \textcolor{comment}{// Define CCommunication::run as non-\/blocking -\/ detachs from threads}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00028}00028 \textcolor{preprocessor}{\#define RUN\_NONBLOCK    (bool)(true)}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00031}\mbox{\hyperlink{class_c_communication}{00031}} \textcolor{keyword}{class }\mbox{\hyperlink{class_c_communication}{CCommunication}}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00032}00032 \{}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00033}00033 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00038}00038     \mbox{\hyperlink{class_c_communication_a9b40a76054d08aa93ae7f102c2f9ffbd}{CCommunication}}();}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00045}00045     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_communication_a839f85b3b6f2ea59a5480e219c0f925e}{init}}(\textcolor{keywordtype}{int} tprio);}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00057}00057     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_communication_a283bce9561f0b8e618bbe8b89c473636}{run}}(\textcolor{keywordtype}{bool} async = RUN\_BLOCK);}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00063}00063     ConnStatus \mbox{\hyperlink{class_c_communication_acc857199d21ac73175bfc772bff814bf}{getStatus}}(\textcolor{keywordtype}{void}) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00073}00073     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_communication_a1de846382f3fe0260a457f231935945f}{push}}(std::string msg);}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00083}00083     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}{send}}(std::string msg);}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00093}00093     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}{recv}}(std::string \&msg);}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00095}00095 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00104}00104     \textcolor{keyword}{static} \textcolor{keywordtype}{void} *\mbox{\hyperlink{class_c_communication_a705363c9cab951334da3e07f445b209c}{tSend}}(\textcolor{keywordtype}{void} *arg);     }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00105}00105     ConnStatus status;}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00107}00107     \textcolor{comment}{// pure virtual methods}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00108}00108     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} recvFunc(std::string \&msg) = 0;}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00109}00109     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} sendFunc(std::string msg) = 0;}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00111}00111 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00112}00112     \textcolor{comment}{// list of strings to be sent}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00113}00113     std::queue<std::string> TxMsgs;}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00115}00115     pthread\_t tSend\_id;}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00116}00116     pthread\_mutex\_t mutComms;}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00117}00117     pthread\_mutex\_t mutTxMsgs;}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00118}00118     pthread\_cond\_t condtSend;}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00119}00119 \};}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00120}00120 \textcolor{comment}{// End CCommunication class definition}}
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{_c_communication_8h_source_l00122}00122 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_CCOMMUNICATION\_H\_\_}}
+
+\end{DoxyCode}

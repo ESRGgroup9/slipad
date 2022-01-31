@@ -1,0 +1,69 @@
+\hypertarget{_c_t_c_pcomm_8cpp_source}{}\doxysection{CTCPcomm.\+cpp}
+\label{_c_t_c_pcomm_8cpp_source}\index{src/CTCPcomm.cpp@{src/CTCPcomm.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_t_c_pcomm_8h}{CTCPcomm.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00002}00002 \textcolor{preprocessor}{\#include "{}debug.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include <sys/socket.h>} \textcolor{comment}{// recv, send}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00006}00006 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00008}\mbox{\hyperlink{class_c_t_c_p_comm_a7fd2bab7f332bbe667af58e74206b631}{00008}} \mbox{\hyperlink{class_c_t_c_p_comm_a7fd2bab7f332bbe667af58e74206b631}{CTCPComm::CTCPComm}}()}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00009}00009 \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00010}00010     \textcolor{comment}{// initialize as non valid file descriptor}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00011}00011     this-\/>sockfd = -\/1;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00013}00013     \textcolor{comment}{// set status}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00014}00014     this-\/>status = ConnStatus::ONLINE;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00015}00015 \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00017}\mbox{\hyperlink{class_c_t_c_p_comm_ac9645d2f362f00fef4fb3d309285b8e9}{00017}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_t_c_p_comm_ac9645d2f362f00fef4fb3d309285b8e9}{CTCPComm::setSockfd}}(\textcolor{keywordtype}{int} sd)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00018}00018 \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00019}00019     this-\/>sockfd = sd;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00020}00020 \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00022}\mbox{\hyperlink{class_c_t_c_p_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{00022}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_t_c_p_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{CTCPComm::recvFunc}}(std::string \&msg)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00023}00023 \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00024}00024     \textcolor{keywordtype}{int} ret = 0;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00025}00025     \textcolor{keywordtype}{char} buffer[256];}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00027}00027     \textcolor{comment}{// recv message from server}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00028}00028     ret = \mbox{\hyperlink{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}{::recv}}(sockfd, buffer, \textcolor{keyword}{sizeof}(buffer), 0);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00029}00029     \textcolor{keywordflow}{if}(ret == -\/1)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00030}00030     \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00031}00031         ERROR\_MSG(\textcolor{stringliteral}{"{}[CTCPComm::recvFunc] return -\/1: "{}} << \textcolor{keywordtype}{string}(strerror(errno)));}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00032}00032     \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00033}00033     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(ret == 0)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00034}00034     \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00035}00035         \textcolor{comment}{// DEBUG\_MSG("{}[CTCPComm::recvFunc] return 0: Stream socket peer has performed an orderly shutdown"{});}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00036}00036     \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00037}00037     \textcolor{comment}{// else, return the number of bytes read}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00038}00038     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(ret > 0)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00039}00039     \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00040}00040         \textcolor{comment}{// place null character at end of string}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00041}00041         buffer[ret] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00042}00042         \textcolor{comment}{// copy received message to msg}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00043}00043         msg = string(buffer);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00044}00044         \textcolor{comment}{// DEBUG\_MSG("{}[CTCPComm::recvFunc] return "{} << ret << "{}: Received ["{} << msg << "{}]"{});}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00045}00045     \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00047}00047     \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00048}00048 \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00050}\mbox{\hyperlink{class_c_t_c_p_comm_a9cc108d99a998ef764d401cf8ee67925}{00050}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_t_c_p_comm_a9cc108d99a998ef764d401cf8ee67925}{CTCPComm::sendFunc}}(std::string msg)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00051}00051 \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00052}00052     \textcolor{keywordtype}{int} err = 0;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00054}00054     \textcolor{comment}{// send message to server}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00055}00055     err = \mbox{\hyperlink{class_c_communication_ad48d712afc67b70f3a98f70877a9d6d0}{::send}}(sockfd, msg.c\_str(), msg.size(), 0);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00056}00056     \textcolor{keywordflow}{if}(err == -\/1)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00057}00057     \{}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00058}00058         err = errno;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00059}00059         ERROR\_MSG(\textcolor{stringliteral}{"{}[CTCPComm::sendFunc] return -\/1: "{}} << \textcolor{keywordtype}{string}(strerror(errno)));}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00060}00060     \}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00061}00061     \textcolor{comment}{// else, return the number of bytes sent}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00062}00062     \textcolor{keywordflow}{return} err;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pcomm_8cpp_source_l00063}00063 \}}
+
+\end{DoxyCode}

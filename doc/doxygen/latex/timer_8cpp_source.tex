@@ -1,0 +1,92 @@
+\hypertarget{timer_8cpp_source}{}\doxysection{timer.\+cpp}
+\label{timer_8cpp_source}\index{src/timer.cpp@{src/timer.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00001}00001 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00002}00002 \textcolor{comment}{ * ORIGINAL HEADER }}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00003}00003 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00004}00004 \textcolor{comment}{ * sigev\_thread.c}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00006}00006 \textcolor{comment}{ * Demonstrate use of the SIGEV\_THREAD signal mode to handle}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00007}00007 \textcolor{comment}{ * signals by creating a new thread.}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00009}00009 \textcolor{comment}{ * Special notes: This program will not compile on Solaris 2.5.}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00010}00010 \textcolor{comment}{ * It will compile on Digital UNIX 4.0 but will not work.}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00011}00011 \textcolor{comment}{ * Digital UNIX 4.0c fixes SIGEV\_THREAD, and sources inform me}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00012}00012 \textcolor{comment}{ * that Solaris 2.6 will also fix SIGEV\_THREAD. To try this on}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00013}00013 \textcolor{comment}{ * Solaris 2.5, remove the "{}\#ifdef sun"{} conditionals in main.}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00014}00014 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00015}00015 \textcolor{comment}{ * Original: }}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00016}00016 \textcolor{comment}{ * http://ptgmedia.pearsoncmg.com/images/0201633922/sourcecode/sigev\_thread.c }}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00017}00017 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00019}00019 \textcolor{preprocessor}{\#include "{}timer.h"{}}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00020}00020 \textcolor{preprocessor}{\#include "{}utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00021}00021 \textcolor{preprocessor}{\#include "{}debug.h"{}}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00023}00023 \textcolor{keywordtype}{int} Timer::ID = 0;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00031}\mbox{\hyperlink{class_timer_a4db41cff29cac0a1cbe4bca2d47c8081}{00031}} \mbox{\hyperlink{class_timer_a4db41cff29cac0a1cbe4bca2d47c8081}{Timer::Timer}}(\textcolor{keywordtype}{unsigned} seconds, \textcolor{keywordtype}{void} (*handler)(\textcolor{keyword}{union} sigval arg), \textcolor{keywordtype}{bool} is\_periodic) \{}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00032}00032     this-\/>is\_periodic = is\_periodic;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00033}00033     \textcolor{comment}{// set timer period in seconds}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00034}00034     this-\/>period\_secs = seconds;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00035}00035     \textcolor{comment}{// assign id}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00036}00036     this-\/>\textcolor{keywordtype}{id} = ID++;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00038}00038     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00039}00039 \textcolor{comment}{    * Set the sigevent structure to cause the signal to be}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00040}00040 \textcolor{comment}{    * delivered by creating a new thread.}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00041}00041 \textcolor{comment}{    */}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00042}00042     se.sigev\_notify = SIGEV\_THREAD;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00044}00044     se.sigev\_value.sival\_ptr = \&timer\_id;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00045}00045     se.sigev\_value.sival\_int = this-\/>id;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00046}00046     }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00047}00047     \textcolor{comment}{// set handler function}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00048}00048     se.sigev\_notify\_function = handler;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00049}00049     se.sigev\_notify\_attributes = NULL;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00051}00051     \textcolor{keywordflow}{if} (timer\_create(CLOCK\_REALTIME, \&se, \&timer\_id) == -\/1)}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00052}00052         panic(\textcolor{stringliteral}{"{}Create timer"{}});}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00054}00054 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00055}00055     \textcolor{keywordtype}{char} msg[64];}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00056}00056     snprintf(msg, \textcolor{keyword}{sizeof}(msg), \textcolor{stringliteral}{"{}Timer[\%d] created with \%s timeout of \%d seconds"{}},}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00057}00057         \textcolor{keywordtype}{id}, (is\_periodic == \textcolor{keyword}{true} ? \textcolor{stringliteral}{"{}continuous"{}} : \textcolor{stringliteral}{"{}single"{}}), period\_secs);}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00059}00059     DEBUG\_MSG(msg);}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00060}00060 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !DEBUG}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00062}00062 \}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00064}00064 Timer::\string~Timer()}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00065}00065 \{}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00067}00067 \}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00082}00082 \textcolor{keywordtype}{void} Timer::setPeriod(\textcolor{keywordtype}{unsigned} period\_secs)}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00083}00083 \{}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00084}00084     \textcolor{comment}{// period between now and the first timer interrupt}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00085}00085     ts.it\_value.tv\_sec = period\_secs;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00086}00086     ts.it\_value.tv\_nsec = 0;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00087}00087     \textcolor{comment}{// period between successive timer interrupts}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00088}00088     ts.it\_interval.tv\_sec = period\_secs * (is\_periodic);}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00089}00089     ts.it\_interval.tv\_nsec = 0;}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00091}00091     \textcolor{keywordflow}{if} (timer\_settime(timer\_id, 0, \&ts, 0) == -\/1)}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00092}00092         panic(\textcolor{stringliteral}{"{}Set timer"{}});}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00093}00093 \}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00095}00095 \textcolor{keywordtype}{void} Timer::start()}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00096}00096 \{}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00097}00097     setPeriod(period\_secs);}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00098}00098     DEBUG\_MSG(\textcolor{stringliteral}{"{}Timer["{}}<< (\textcolor{keywordtype}{int})\textcolor{keywordtype}{id} << \textcolor{stringliteral}{"{}] started with timeout "{}} << period\_secs << \textcolor{stringliteral}{"{} seconds"{}});}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00099}00099 \}}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00101}00101 \textcolor{keywordtype}{void} Timer::stop()}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00102}00102 \{}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00103}00103     setPeriod(0);}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00104}00104     DEBUG\_MSG(\textcolor{stringliteral}{"{}Timer["{}} << (\textcolor{keywordtype}{int})\textcolor{keywordtype}{id} << \textcolor{stringliteral}{"{}] stopped"{}});}
+\DoxyCodeLine{\Hypertarget{timer_8cpp_source_l00105}00105 \}}
+
+\end{DoxyCode}

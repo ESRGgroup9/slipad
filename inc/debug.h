@@ -8,6 +8,7 @@ void ERROR_MSG(char *msg);
 #include <iomanip>
 #include <stdarg.h>
 #include <iostream>
+#include <cstring>
 
 #define DEBUG_MSG(str) (std::cout << str << std::endl)
 #define ERROR_MSG(str)	{DEBUG_MSG("ERROR> " << str); abort();}

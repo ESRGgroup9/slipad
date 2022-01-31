@@ -1,0 +1,75 @@
+\hypertarget{parser_8cpp_source}{}\doxysection{parser.\+cpp}
+\label{parser_8cpp_source}\index{src/parser.cpp@{src/parser.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}parser.h"{}}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include <cstdlib>}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include <cstring>}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00007}00007 Parser::Parser(\mbox{\hyperlink{struct_command__t}{Command\_t}} *cmd\_list, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *delimeter) :}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00008}00008     delimeter(delimeter),}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00009}00009     cmd\_list(cmd\_list)}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00010}00010 \{}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00011}00011  }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00012}00012 \}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00014}00014 \textcolor{keywordtype}{int} Parser::parse(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *str\_in)}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00015}00015 \{}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00016}00016     \textcolor{keywordtype}{char} **argv = NULL; \textcolor{comment}{// List of arguments}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00017}00017     \textcolor{keywordtype}{char} *arg; \textcolor{comment}{// aux variable. Holds latest found argument}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00018}00018     \textcolor{keywordtype}{char} *s; \textcolor{comment}{// copy of received command. Necessary to use strtok}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00019}00019     }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00020}00020     uint8\_t len;}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00021}00021     uint8\_t argc = 0;}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00022}00022     \textcolor{keywordtype}{int} retval = (-\/ECMDNF);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00023}00023     }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00024}00024     \textcolor{keywordflow}{if} ((str\_in == NULL) || (strlen(str\_in) == 0)) \textcolor{comment}{// empty command}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00025}00025         \textcolor{keywordflow}{return} (-\/ENOCMD);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00027}00027     len = strlen(str\_in) + 1;}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00028}00028     s = (\textcolor{keywordtype}{char}*)malloc(len);                 \textcolor{comment}{// just in case str\_in is const}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00029}00029     }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00030}00030     \textcolor{keywordflow}{if}(s == NULL)}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00031}00031         \textcolor{keywordflow}{return} (-\/ENOMEM);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00032}00032     }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00033}00033     strcpy(s, str\_in);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00034}00034     arg = strtok(s, delimeter);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00035}00035     \textcolor{keywordflow}{while} (arg)}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00036}00036     \{}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00037}00037         argc++;}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00038}00038         len = \textcolor{keyword}{sizeof} (argv);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00039}00039         \textcolor{keywordflow}{if}(argc == 1)}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00040}00040                 argv = (\textcolor{keywordtype}{char}**)malloc(len);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00041}00041         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00042}00042                 argv = (\textcolor{keywordtype}{char}**)realloc(argv, argc * len);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00044}00044         argv[argc-\/1] = arg;}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00045}00045         arg = strtok(NULL, delimeter);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00046}00046     \}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00048}00048     \textcolor{keywordflow}{if} (argc)}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00049}00049     \{}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00050}00050         \textcolor{keyword}{const} \mbox{\hyperlink{struct_command__t}{Command\_t}} *p;}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00052}00052         \textcolor{keywordflow}{for}(p = cmd\_list; p-\/>cmd; p++)}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00053}00053         \{}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00054}00054             \textcolor{keywordflow}{if}(strcmp(p-\/>cmd, argv[0]) == 0)}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00055}00055             \{}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00056}00056                 retval = (p-\/>fn(argc, argv)); \textcolor{comment}{// Execute func}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00057}00057                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00058}00058             \}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00059}00059         \}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00060}00060     \}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00062}00062     \textcolor{comment}{// command not found}}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00063}00063     \textcolor{keywordflow}{if}(argv)}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00064}00064         free(argv);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00066}00066     free(s);}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00068}00068     \textcolor{keywordflow}{return} retval;}
+\DoxyCodeLine{\Hypertarget{parser_8cpp_source_l00069}00069 \}}
+
+\end{DoxyCode}

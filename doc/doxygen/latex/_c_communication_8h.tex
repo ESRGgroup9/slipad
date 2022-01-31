@@ -1,0 +1,97 @@
+\hypertarget{_c_communication_8h}{}\doxysection{inc/\+CCommunication.h File Reference}
+\label{_c_communication_8h}\index{inc/CCommunication.h@{inc/CCommunication.h}}
+
+
+Class that defines a communication of any kind, defining basic methods for \textquotesingle{}send\textquotesingle{} and \textquotesingle{}recv\textquotesingle{}.  
+
+
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$queue$>$}\newline
+Include dependency graph for CCommunication.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{_c_communication_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_c_communication_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_c_communication}{CCommunication}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_c_communication_8h_aa1ceb116bb9c701c0155a26d51101dcc}{RUN\+\_\+\+BLOCK}}~(bool)(false)
+\item 
+\#define \mbox{\hyperlink{_c_communication_8h_a4f5d71094d3020e430cd042233e50a24}{RUN\+\_\+\+NONBLOCK}}~(bool)(true)
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class {\bfseries Conn\+Status} \{ {\bfseries CREATED} = 0
+, {\bfseries ONLINE}
+, {\bfseries ERROR}
+, {\bfseries CLOSED}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that defines a communication of any kind, defining basic methods for \textquotesingle{}send\textquotesingle{} and \textquotesingle{}recv\textquotesingle{}. 
+
+\begin{DoxyAuthor}{Author}
+Tomas Abreu, Diogo Fernandes 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+24 jan 2022 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{_c_communication_8h_source}{CCommunication.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_c_communication_8h_aa1ceb116bb9c701c0155a26d51101dcc}\label{_c_communication_8h_aa1ceb116bb9c701c0155a26d51101dcc}} 
+\index{CCommunication.h@{CCommunication.h}!RUN\_BLOCK@{RUN\_BLOCK}}
+\index{RUN\_BLOCK@{RUN\_BLOCK}!CCommunication.h@{CCommunication.h}}
+\doxysubsubsection{\texorpdfstring{RUN\_BLOCK}{RUN\_BLOCK}}
+{\footnotesize\ttfamily \#define RUN\+\_\+\+BLOCK~(bool)(false)}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8h_source_l00026}{26}} of file \mbox{\hyperlink{_c_communication_8h_source}{CCommunication.\+h}}.
+
+\mbox{\Hypertarget{_c_communication_8h_a4f5d71094d3020e430cd042233e50a24}\label{_c_communication_8h_a4f5d71094d3020e430cd042233e50a24}} 
+\index{CCommunication.h@{CCommunication.h}!RUN\_NONBLOCK@{RUN\_NONBLOCK}}
+\index{RUN\_NONBLOCK@{RUN\_NONBLOCK}!CCommunication.h@{CCommunication.h}}
+\doxysubsubsection{\texorpdfstring{RUN\_NONBLOCK}{RUN\_NONBLOCK}}
+{\footnotesize\ttfamily \#define RUN\+\_\+\+NONBLOCK~(bool)(true)}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8h_source_l00028}{28}} of file \mbox{\hyperlink{_c_communication_8h_source}{CCommunication.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{_c_communication_8h_aa7768bc698be68217d86e74a87e99d23}\label{_c_communication_8h_aa7768bc698be68217d86e74a87e99d23}} 
+\index{CCommunication.h@{CCommunication.h}!ConnStatus@{ConnStatus}}
+\index{ConnStatus@{ConnStatus}!CCommunication.h@{CCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ConnStatus}{ConnStatus}}
+{\footnotesize\ttfamily enum class Conn\+Status\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_communication_8h_source_l00017}{17}} of file \mbox{\hyperlink{_c_communication_8h_source}{CCommunication.\+h}}.
+

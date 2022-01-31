@@ -1,0 +1,46 @@
+\hypertarget{parser_8h_source}{}\doxysection{parser.\+h}
+\label{parser_8h_source}\index{inc/parser.h@{inc/parser.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_PARSER\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_PARSER\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00004}00004 \textcolor{preprocessor}{\#include <cstring>}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <errno.h>}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00007}00007 \textcolor{preprocessor}{\#define ECMDNF      1 }\textcolor{comment}{// Command not found}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00008}00008 \textcolor{preprocessor}{\#define ENOCMD      2 }\textcolor{comment}{// Command is empty}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00009}00009 \textcolor{preprocessor}{\#define ENOLIST     3 }\textcolor{comment}{// List is empty}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00011}00011 \textcolor{comment}{// \#define ENOMEM   4 // No memory available or bad allocation of memory}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00012}00012 \textcolor{comment}{// \#define EPERM    5 // Permission error}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00013}00013  }
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00014}00014 \textcolor{comment}{// \#define EINVARG  6 // Invalid (number of) argument(s)}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00015}00015 \textcolor{comment}{// \#define EALREADY 7 // Operation already in progress}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00016}00016 \textcolor{comment}{// \#define ENOP     8 // No operation in progress}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00018}00018 \textcolor{comment}{// \#define ENOKEY   9 // Required parameter/key not defined}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00020}00020 \textcolor{keyword}{typedef} int (*Command\_cb)(int, \textcolor{keywordtype}{char} *[]);}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00022}00022 \textcolor{comment}{// brief simple struct to hold data for a single command}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00023}\mbox{\hyperlink{struct_command__t}{00023}} \textcolor{keyword}{struct }\mbox{\hyperlink{struct_command__t}{Command\_t}}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00024}00024 \{}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00025}00025     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *cmd;    \textcolor{comment}{// the command string to match against}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00026}00026     Command\_cb fn;      \textcolor{comment}{// the function to call when cmd is matched}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00027}00027 \};}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00029}\mbox{\hyperlink{class_parser}{00029}} \textcolor{keyword}{class }\mbox{\hyperlink{class_parser}{Parser}}}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00030}00030 \{}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00031}00031 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00032}00032     \mbox{\hyperlink{class_parser}{Parser}}(\mbox{\hyperlink{struct_command__t}{Command\_t}} *cmd\_list, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *delimeter);}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00033}00033     \textcolor{keywordtype}{int} parse(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *str);}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00035}00035 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00036}00036     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *delimeter;}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00037}00037     \mbox{\hyperlink{struct_command__t}{Command\_t}} *cmd\_list;}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00038}00038 \};}
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{parser_8h_source_l00040}00040 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_PARSER\_H\_\_}}
+
+\end{DoxyCode}
