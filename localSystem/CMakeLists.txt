@@ -8,8 +8,8 @@ find_package( OpenCV REQUIRED )
 find_package( Threads REQUIRED )
 
 # Compilers
-set(CMAKE_CXX_COMPILER "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++")
-set(CMAKE_CC_COMPILER "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-gcc")
+set(CMAKE_CXX_COMPILER "$ENV{HOME}/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++")
+set(CMAKE_CC_COMPILER "$ENV{HOME}/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-gcc")
 
 # bin files to bin dir
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
