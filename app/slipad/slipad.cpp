@@ -2,7 +2,8 @@
 #include "ui_slipad.h"
 
 #include <QString>
-#include <QMessageBox>
+//#include <QDebug>
+//#include <QMessageBox>
 
 slipad::slipad(QWidget *parent)
     : QMainWindow(parent)
@@ -26,12 +27,13 @@ void slipad::on_login_b_released()
     ui->password->clear();
 
     //qDebug() << operator_id;
+    menuWind = new menu(this);
 
     // SEARCH IN THE DATABASE
     // ------------------------------------------ DEBUG
-    if( (operator_id == "d") && (password == "12") )
+    if( (operator_id == "D") && (password == "1") )
         // success login´
-        menuWind.show();
+        menuWind->show();
     else
         //QMessageBox::warning(this,"Login", "Operator ID/ password incorrect");
         ui->wrong_txt->show();

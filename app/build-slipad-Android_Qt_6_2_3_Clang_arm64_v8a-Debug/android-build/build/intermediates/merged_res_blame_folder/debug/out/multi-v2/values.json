@@ -6,37 +6,35 @@
                 {
                     "source": "/home/fernandes/code/slipad/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Debug/android-build/res/values/libs.xml",
                     "from": {
-                        "startLines": "4,15,8,21,19,20",
-                        "startColumns": "4,4,4,4,4,4",
-                        "startOffsets": "148,435,203,659,562,611",
-                        "endLines": "6,17,13,21,19,20",
-                        "endColumns": "12,12,12,50,48,47",
-                        "endOffsets": "197,556,429,705,606,654"
+                        "startLines": "-1,16,8,-1,20,-1",
+                        "startColumns": "-1,4,4,-1,4,-1",
+                        "startOffsets": "-1,491,203,-1,670,-1",
+                        "endLines": "-1,18,14,-1,20,-1",
+                        "endColumns": "-1,12,12,-1,98,-1",
+                        "endOffsets": "-1,664,485,-1,764,-1"
                     },
                     "to": {
-                        "startLines": "2,5,8,14,16,18",
+                        "startLines": "2,5,8,15,17,19",
                         "startColumns": "4,4,4,4,4,4",
-                        "startOffsets": "55,109,235,466,625,764",
-                        "endLines": "4,7,13,14,16,18",
-                        "endColumns": "12,12,12,50,40,47",
-                        "endOffsets": "104,230,461,512,661,807"
+                        "startOffsets": "55,109,287,574,733,930",
+                        "endLines": "4,7,14,15,17,19",
+                        "endColumns": "12,12,12,50,98,47",
+                        "endOffsets": "104,282,569,620,827,973"
                     }
                 },
                 {
                     "source": "/home/fernandes/Qt/6.2.3/android_arm64_v8a/src/android/java/res/values/strings.xml",
                     "from": {
-                        "startLines": "3,4",
-                        "startColumns": "4,4",
-                        "startOffsets": "85,193",
-                        "endColumns": "107,97",
-                        "endOffsets": "188,286"
+                        "startLines": "-1,-1",
+                        "startColumns": "-1,-1",
+                        "startOffsets": "-1,-1"
                     },
                     "to": {
-                        "startLines": "15,17",
+                        "startLines": "16,18",
                         "startColumns": "4,4",
-                        "startOffsets": "517,666",
+                        "startOffsets": "625,832",
                         "endColumns": "107,97",
-                        "endOffsets": "620,759"
+                        "endOffsets": "728,925"
                     }
                 }
             ]

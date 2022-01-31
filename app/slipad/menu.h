@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "addLamp.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class menu; }
 QT_END_NAMESPACE
@@ -18,7 +20,11 @@ public:
 private slots:
     void on_consult_released();
 
+    void on_add_new_released();
+
 private:
     Ui::menu *ui;
+
+    addLamp *addMenu;
 };
 #endif // MENU_H

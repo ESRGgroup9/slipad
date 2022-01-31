@@ -23,6 +23,6 @@ private slots:
 private:
     Ui::slipad *ui;
 
-    menu menuWind;
+    menu *menuWind;
 };
 #endif // SLIPAD_H

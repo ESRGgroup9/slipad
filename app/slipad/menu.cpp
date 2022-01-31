@@ -6,6 +6,7 @@ menu::menu(QWidget *parent)
     , ui(new Ui::menu)
 {
     ui->setupUi(this);
+
 }
 
 menu::~menu()
@@ -13,9 +14,15 @@ menu::~menu()
     delete ui;
 }
 
+void menu::on_add_new_released()
+{
+    addMenu = new addLamp(this);
+    addMenu->show();
+}
 
 void menu::on_consult_released()
 {
 
 }
+
 

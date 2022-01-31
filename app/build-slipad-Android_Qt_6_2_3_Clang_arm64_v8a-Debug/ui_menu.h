@@ -316,7 +316,7 @@ public:
         sel_op_txt->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         add_new = new QPushButton(centralwidget);
         add_new->setObjectName(QString::fromUtf8("add_new"));
-        add_new->setGeometry(QRect(40, 380, 281, 35));
+        add_new->setGeometry(QRect(40, 380, 281, 40));
         QPalette palette3;
         palette3.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette3.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -399,7 +399,7 @@ public:
         add_new->setFont(font);
         mod_lamp = new QPushButton(centralwidget);
         mod_lamp->setObjectName(QString::fromUtf8("mod_lamp"));
-        mod_lamp->setGeometry(QRect(40, 450, 281, 35));
+        mod_lamp->setGeometry(QRect(40, 450, 281, 40));
         QPalette palette4;
         palette4.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette4.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -480,7 +480,7 @@ public:
         mod_lamp->setFont(font);
         consult = new QPushButton(centralwidget);
         consult->setObjectName(QString::fromUtf8("consult"));
-        consult->setGeometry(QRect(40, 520, 281, 35));
+        consult->setGeometry(QRect(40, 520, 281, 40));
         QPalette palette5;
         palette5.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette5.setBrush(QPalette::Active, QPalette::Button, brush1);
