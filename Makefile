@@ -10,8 +10,8 @@ export KDIR :=$(BLDROOT_OUT)/build/linux-custom/
 
 # host/ contains the tools built for the host
 # export CROSS_COMPILE:=$(BLDROOT_OUT)/host/bin/arm-buildroot-linux-gnueabihf-
-# export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
-export CROSS_COMPILE:=arm-linux-
+export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
+# export CROSS_COMPILE:=arm-linux-
 
 # compiler in use
 export COMPILE=g++
