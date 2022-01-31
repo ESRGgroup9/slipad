@@ -43,7 +43,6 @@ CLoraComm::~CLoraComm()
 
 int CLoraComm::recvFunc(string &msg)
 {
-	LoRaMsg loraMsg;
 	LoRaError err;
 
 	err = lora.receive(loraMsg);
@@ -55,12 +54,21 @@ int CLoraComm::recvFunc(string &msg)
 
 int CLoraComm::sendFunc(std::string msg)
 {
-	LoRaMsg loraMsg;
 	loraMsg = lora.sendTo(msg, dest_addr);
 	return 0;
+}
+
+void CLoraComm::setDestination(int dest)
+{
+	this->dest_addr = dest;
 }
 
 int CLoraComm::getLocalAddr(void) const
 {
 	return local_addr;
+}
+
+LoRaMsg CLoraComm::getMsgAttr(void) const
+{
+	return loraMsg;
 }

@@ -29,7 +29,6 @@ CGateway::~CGateway()
 
 void CGateway::run()
 {
-
 	pthread_join(tLoraRecv_id, NULL);
 	pthread_join(tTCPRecv_id, NULL);
 }
@@ -47,6 +46,11 @@ void *CGateway::tLoraRecv(void *arg)
 
 		if(err == static_cast<int>(LoRaError::MSGOK))
 		{
+			// get received message
+			LoRaMsg loraMsg = c->lora.getMsgAttr();
+			// add LoRa sender address into TCP message payload
+			msg += " " + loraMsg.sendAddr;
+			// send message
 			DEBUG_MSG("[CGateway::tLoraRecv] Received[" << msg << "]");
 			c->tcp.push(msg);
 		}
@@ -70,10 +74,16 @@ void *CGateway::tTCPRecv(void *arg)
 		if(err == 0)
 		{
 			DEBUG_MSG("[CGateway::tTCPRecv] Received[" << msg << "]");
-			// c->tcpParser.parse(msg.c_str());
-			// |-> returns cmd
-			// string cmd;
-			c->lora.push(msg);
+
+			// "parse" receive message. Get message payload and destination addr
+			size_t i = msg.find_last_of(" ");
+			// set message payload
+			string str = msg.substr(0,i);
+			// set destination - receiver address
+			int destAddr = atoi(msg.substr(i+1).c_str());
+			
+			c->lora.setDestination(destAddr);
+			c->lora.push(str);
 		}
 	}
 
