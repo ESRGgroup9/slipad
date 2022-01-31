@@ -670,7 +670,7 @@ public:
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt;\">Select Operation</span></p></body></html>", nullptr));
         add_new->setText(QCoreApplication::translate("menu", "Add New Lamppost", nullptr));
-        mod_lamp->setText(QCoreApplication::translate("menu", "Modify Lamppost", nullptr));
+        mod_lamp->setText(QCoreApplication::translate("menu", "Repair Lamppost", nullptr));
         consult->setText(QCoreApplication::translate("menu", "Consult Lamppost Network ", nullptr));
         logout_b->setText(QCoreApplication::translate("menu", "Logout", nullptr));
     } // retranslateUi
