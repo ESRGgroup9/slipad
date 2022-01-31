@@ -3,19 +3,21 @@ project( slipad LANGUAGES CXX)
 
 find_package( OpenCV REQUIRED )
 
-set(CMAKE_CXX_COMPILER "/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++")
-set(CMAKE_CC_COMPILER "/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-gcc")
+set(CMAKE_CXX_COMPILER "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++")
+set(CMAKE_CC_COMPILER "/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-gcc")
 
 set(OpenCV_INCLUDE_DIRS "/usr/include/opencv2")
 
 include_directories(include ${OpenCV_INCLUDE_DIRS})
 include_directories(include ${CMAKE_CURRENT_SOURCE_DIR}/../inc/ )
+include_directories(include ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/ )
 
 file(GLOB all_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/../src/CCamera.cpp"
    "${CMAKE_CURRENT_SOURCE_DIR}/../src/CParkDetection.cpp"
    "${CMAKE_CURRENT_SOURCE_DIR}/../inc/CCamera.h"
    "${CMAKE_CURRENT_SOURCE_DIR}/../inc/CParkDetection.h"
+   "${CMAKE_CURRENT_SOURCE_DIR}/../../inc/utils.h"
 )
 
 #***********output variables***************
@@ -25,8 +27,8 @@ message(STATUS "OpenCV_LIBRARIES = ${OpenCV_LIBRARIES}")
 message(STATUS "CMAKE_CXX_COMPILER = ${CMAKE_CXX_COMPILER}")
 message(STATUS "CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
 
-add_executable( CVision.elf main.cpp ${all_SRCS}) # CVision does nothing -> dummy 
-target_link_libraries( CVision.elf ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT} -std=c++11)
+#add_executable( CVision.elf main.cpp ${all_SRCS}) # CVision does nothing -> dummy 
+target_link_libraries( ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 
 
 #**********************************************************************************************************

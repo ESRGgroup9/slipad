@@ -10,7 +10,8 @@ export KDIR :=$(BLDROOT_OUT)/build/linux-custom/
 
 # host/ contains the tools built for the host
 # export CROSS_COMPILE:=$(BLDROOT_OUT)/host/bin/arm-buildroot-linux-gnueabihf-
-export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
+# export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
+export CROSS_COMPILE:=arm-linux-
 
 # compiler in use
 export COMPILE=g++
@@ -51,7 +52,7 @@ GAT_DIR=gateway
 DDR_DIR=ddrivers
 #------------------------------------------------------------------------------
 # Identify the subdirectories in order to execute its makefiles
-SUBDIRS=$(LS_DIR) $(RS_DIR) $(GAT_DIR) $(DDR_DIR)
+SUBDIRS=$(RS_DIR) $(GAT_DIR) $(DDR_DIR) #$(LS_DIR) 
 # Doxygen configuration file
 DOXYFILE=$(DOX_DIR)/Doxyfile
 #------------------------------------------------------------------------------
@@ -156,8 +157,13 @@ print_build_all:
 
 build: print_build_all .setup $(DEPS) $(OBJS) ## Build the object files
 
+#build-localsys: 
+	#$(shell cmake ./localSystem)
+#	@echo "Making localSystem"
+#	$(MAKE) -s -C ./localSystem
+
 BLD_SUBDIRS=$(addprefix build-,$(SUBDIRS))
-build-all: build $(BLD_SUBDIRS) ## Compile all
+build-all: build $(BLD_SUBDIRS) #build-localsys ## Compile all
 
 # call 'make build' in subdirectories
 # Despite is not shown in make help, user can execute 'make build-<subdir>'
@@ -211,6 +217,11 @@ clean: ## Delete main artifacts
 $(CLEAN_SUBDIRS): clean-%:
 	@$(MAKE) -s -C $* clean
 
+clean-localsys:
+	@echo "${CYAN}Cleaning localSystem ... $(RESET)"
+	@-$(MAKE) -s -C $(LS_DIR) clean
+	@rm -rf $(LS_DIR)/CMakeFiles $(LS_DIR)/CMakeCache.txt $(LS_DIR)/cmake_install.cmake
+	
 clean-all: clean $(CLEAN_SUBDIRS) ## Delete all built artifacts
 
 clean-doc: ## Delete Doxygen built artifacts

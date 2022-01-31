@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tomas/slipad/localSystem/opencv
+CMAKE_SOURCE_DIR = /home/fernandes/code/slipad/localSystem/opencv
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tomas/slipad/localSystem/opencv
+CMAKE_BINARY_DIR = /home/fernandes/code/slipad/localSystem/opencv
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tomas/slipad/localSystem/opencv/CMakeFiles /home/tomas/slipad/localSystem/opencv/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/localSystem/opencv/CMakeFiles /home/fernandes/code/slipad/localSystem/opencv/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tomas/slipad/localSystem/opencv/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/localSystem/opencv/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,59 +123,59 @@ CVision.elf/fast:
 	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/build
 .PHONY : CVision.elf/fast
 
-home/tomas/slipad/localSystem/src/CCamera.o: home/tomas/slipad/localSystem/src/CCamera.cpp.o
+home/fernandes/code/slipad/localSystem/src/CCamera.o: home/fernandes/code/slipad/localSystem/src/CCamera.cpp.o
 
-.PHONY : home/tomas/slipad/localSystem/src/CCamera.o
-
-# target to build an object file
-home/tomas/slipad/localSystem/src/CCamera.cpp.o:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.o
-.PHONY : home/tomas/slipad/localSystem/src/CCamera.cpp.o
-
-home/tomas/slipad/localSystem/src/CCamera.i: home/tomas/slipad/localSystem/src/CCamera.cpp.i
-
-.PHONY : home/tomas/slipad/localSystem/src/CCamera.i
-
-# target to preprocess a source file
-home/tomas/slipad/localSystem/src/CCamera.cpp.i:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.i
-.PHONY : home/tomas/slipad/localSystem/src/CCamera.cpp.i
-
-home/tomas/slipad/localSystem/src/CCamera.s: home/tomas/slipad/localSystem/src/CCamera.cpp.s
-
-.PHONY : home/tomas/slipad/localSystem/src/CCamera.s
-
-# target to generate assembly for a file
-home/tomas/slipad/localSystem/src/CCamera.cpp.s:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.s
-.PHONY : home/tomas/slipad/localSystem/src/CCamera.cpp.s
-
-home/tomas/slipad/localSystem/src/CParkDetection.o: home/tomas/slipad/localSystem/src/CParkDetection.cpp.o
-
-.PHONY : home/tomas/slipad/localSystem/src/CParkDetection.o
+.PHONY : home/fernandes/code/slipad/localSystem/src/CCamera.o
 
 # target to build an object file
-home/tomas/slipad/localSystem/src/CParkDetection.cpp.o:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.o
-.PHONY : home/tomas/slipad/localSystem/src/CParkDetection.cpp.o
+home/fernandes/code/slipad/localSystem/src/CCamera.cpp.o:
+	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.o
+.PHONY : home/fernandes/code/slipad/localSystem/src/CCamera.cpp.o
 
-home/tomas/slipad/localSystem/src/CParkDetection.i: home/tomas/slipad/localSystem/src/CParkDetection.cpp.i
+home/fernandes/code/slipad/localSystem/src/CCamera.i: home/fernandes/code/slipad/localSystem/src/CCamera.cpp.i
 
-.PHONY : home/tomas/slipad/localSystem/src/CParkDetection.i
+.PHONY : home/fernandes/code/slipad/localSystem/src/CCamera.i
 
 # target to preprocess a source file
-home/tomas/slipad/localSystem/src/CParkDetection.cpp.i:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.i
-.PHONY : home/tomas/slipad/localSystem/src/CParkDetection.cpp.i
+home/fernandes/code/slipad/localSystem/src/CCamera.cpp.i:
+	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.i
+.PHONY : home/fernandes/code/slipad/localSystem/src/CCamera.cpp.i
 
-home/tomas/slipad/localSystem/src/CParkDetection.s: home/tomas/slipad/localSystem/src/CParkDetection.cpp.s
+home/fernandes/code/slipad/localSystem/src/CCamera.s: home/fernandes/code/slipad/localSystem/src/CCamera.cpp.s
 
-.PHONY : home/tomas/slipad/localSystem/src/CParkDetection.s
+.PHONY : home/fernandes/code/slipad/localSystem/src/CCamera.s
 
 # target to generate assembly for a file
-home/tomas/slipad/localSystem/src/CParkDetection.cpp.s:
-	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.s
-.PHONY : home/tomas/slipad/localSystem/src/CParkDetection.cpp.s
+home/fernandes/code/slipad/localSystem/src/CCamera.cpp.s:
+	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.s
+.PHONY : home/fernandes/code/slipad/localSystem/src/CCamera.cpp.s
+
+home/fernandes/code/slipad/localSystem/src/CParkDetection.o: home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.o
+
+.PHONY : home/fernandes/code/slipad/localSystem/src/CParkDetection.o
+
+# target to build an object file
+home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.o:
+	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.o
+.PHONY : home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.o
+
+home/fernandes/code/slipad/localSystem/src/CParkDetection.i: home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.i
+
+.PHONY : home/fernandes/code/slipad/localSystem/src/CParkDetection.i
+
+# target to preprocess a source file
+home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.i:
+	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.i
+.PHONY : home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.i
+
+home/fernandes/code/slipad/localSystem/src/CParkDetection.s: home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.s
+
+.PHONY : home/fernandes/code/slipad/localSystem/src/CParkDetection.s
+
+# target to generate assembly for a file
+home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.s:
+	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.s
+.PHONY : home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.s
 
 main.o: main.cpp.o
 
@@ -213,12 +213,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... CVision.elf"
-	@echo "... home/tomas/slipad/localSystem/src/CCamera.o"
-	@echo "... home/tomas/slipad/localSystem/src/CCamera.i"
-	@echo "... home/tomas/slipad/localSystem/src/CCamera.s"
-	@echo "... home/tomas/slipad/localSystem/src/CParkDetection.o"
-	@echo "... home/tomas/slipad/localSystem/src/CParkDetection.i"
-	@echo "... home/tomas/slipad/localSystem/src/CParkDetection.s"
+	@echo "... home/fernandes/code/slipad/localSystem/src/CCamera.o"
+	@echo "... home/fernandes/code/slipad/localSystem/src/CCamera.i"
+	@echo "... home/fernandes/code/slipad/localSystem/src/CCamera.s"
+	@echo "... home/fernandes/code/slipad/localSystem/src/CParkDetection.o"
+	@echo "... home/fernandes/code/slipad/localSystem/src/CParkDetection.i"
+	@echo "... home/fernandes/code/slipad/localSystem/src/CParkDetection.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -44,10 +44,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tomas/slipad/localSystem/opencv
+CMAKE_SOURCE_DIR = /home/fernandes/code/slipad/localSystem/opencv
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tomas/slipad/localSystem/opencv
+CMAKE_BINARY_DIR = /home/fernandes/code/slipad/localSystem/opencv
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -74,14 +74,14 @@ clean: CMakeFiles/CVision.elf.dir/clean
 CMakeFiles/CVision.elf.dir/all:
 	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/depend
 	$(MAKE) -f CMakeFiles/CVision.elf.dir/build.make CMakeFiles/CVision.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tomas/slipad/localSystem/opencv/CMakeFiles --progress-num=1,2,3,4 "Built target CVision.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/fernandes/code/slipad/localSystem/opencv/CMakeFiles --progress-num=1,2,3,4 "Built target CVision.elf"
 .PHONY : CMakeFiles/CVision.elf.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/CVision.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tomas/slipad/localSystem/opencv/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/localSystem/opencv/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/CVision.elf.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tomas/slipad/localSystem/opencv/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernandes/code/slipad/localSystem/opencv/CMakeFiles 0
 .PHONY : CMakeFiles/CVision.elf.dir/rule
 
 # Convenience name for target.

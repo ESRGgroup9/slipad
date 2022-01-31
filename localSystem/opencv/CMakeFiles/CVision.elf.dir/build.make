@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tomas/slipad/localSystem/opencv
+CMAKE_SOURCE_DIR = /home/fernandes/code/slipad/localSystem/opencv
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tomas/slipad/localSystem/opencv
+CMAKE_BINARY_DIR = /home/fernandes/code/slipad/localSystem/opencv
 
 # Include any dependencies generated for this target.
 include CMakeFiles/CVision.elf.dir/depend.make
@@ -59,56 +59,57 @@ include CMakeFiles/CVision.elf.dir/flags.make
 
 CMakeFiles/CVision.elf.dir/main.cpp.o: CMakeFiles/CVision.elf.dir/flags.make
 CMakeFiles/CVision.elf.dir/main.cpp.o: main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tomas/slipad/localSystem/opencv/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/CVision.elf.dir/main.cpp.o"
-	/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CVision.elf.dir/main.cpp.o -c /home/tomas/slipad/localSystem/opencv/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernandes/code/slipad/localSystem/opencv/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/CVision.elf.dir/main.cpp.o"
+	/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CVision.elf.dir/main.cpp.o -c /home/fernandes/code/slipad/localSystem/opencv/main.cpp
 
 CMakeFiles/CVision.elf.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CVision.elf.dir/main.cpp.i"
-	/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tomas/slipad/localSystem/opencv/main.cpp > CMakeFiles/CVision.elf.dir/main.cpp.i
+	/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernandes/code/slipad/localSystem/opencv/main.cpp > CMakeFiles/CVision.elf.dir/main.cpp.i
 
 CMakeFiles/CVision.elf.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CVision.elf.dir/main.cpp.s"
-	/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tomas/slipad/localSystem/opencv/main.cpp -o CMakeFiles/CVision.elf.dir/main.cpp.s
+	/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernandes/code/slipad/localSystem/opencv/main.cpp -o CMakeFiles/CVision.elf.dir/main.cpp.s
 
-CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.o: CMakeFiles/CVision.elf.dir/flags.make
-CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.o: /home/tomas/slipad/localSystem/src/CCamera.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tomas/slipad/localSystem/opencv/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.o"
-	/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.o -c /home/tomas/slipad/localSystem/src/CCamera.cpp
+CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.o: CMakeFiles/CVision.elf.dir/flags.make
+CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.o: /home/fernandes/code/slipad/localSystem/src/CCamera.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernandes/code/slipad/localSystem/opencv/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.o"
+	/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.o -c /home/fernandes/code/slipad/localSystem/src/CCamera.cpp
 
-CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.i"
-	/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tomas/slipad/localSystem/src/CCamera.cpp > CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.i
+CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.i"
+	/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernandes/code/slipad/localSystem/src/CCamera.cpp > CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.i
 
-CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.s"
-	/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tomas/slipad/localSystem/src/CCamera.cpp -o CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.s
+CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.s"
+	/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernandes/code/slipad/localSystem/src/CCamera.cpp -o CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.s
 
-CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.o: CMakeFiles/CVision.elf.dir/flags.make
-CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.o: /home/tomas/slipad/localSystem/src/CParkDetection.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tomas/slipad/localSystem/opencv/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.o"
-	/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.o -c /home/tomas/slipad/localSystem/src/CParkDetection.cpp
+CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.o: CMakeFiles/CVision.elf.dir/flags.make
+CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.o: /home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernandes/code/slipad/localSystem/opencv/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.o"
+	/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.o -c /home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp
 
-CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.i"
-	/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tomas/slipad/localSystem/src/CParkDetection.cpp > CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.i
+CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.i"
+	/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp > CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.i
 
-CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.s"
-	/home/tomas/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tomas/slipad/localSystem/src/CParkDetection.cpp -o CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.s
+CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.s"
+	/home/fernandes/buildroot/buildroot-2021.02.5/output/host/bin/arm-linux-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp -o CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.s
 
 # Object files for target CVision.elf
 CVision_elf_OBJECTS = \
 "CMakeFiles/CVision.elf.dir/main.cpp.o" \
-"CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.o" \
-"CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.o"
+"CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.o" \
+"CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.o"
 
 # External object files for target CVision.elf
 CVision_elf_EXTERNAL_OBJECTS =
 
 CVision.elf: CMakeFiles/CVision.elf.dir/main.cpp.o
-CVision.elf: CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CCamera.cpp.o
-CVision.elf: CMakeFiles/CVision.elf.dir/home/tomas/slipad/localSystem/src/CParkDetection.cpp.o
+CVision.elf: CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CCamera.cpp.o
+CVision.elf: CMakeFiles/CVision.elf.dir/home/fernandes/code/slipad/localSystem/src/CParkDetection.cpp.o
 CVision.elf: CMakeFiles/CVision.elf.dir/build.make
+CVision.elf: /usr/lib/libopencv_dnn.so.3.4.13
 CVision.elf: /usr/lib/libopencv_highgui.so.3.4.13
 CVision.elf: /usr/lib/libopencv_ml.so.3.4.13
 CVision.elf: /usr/lib/libopencv_objdetect.so.3.4.13
@@ -126,7 +127,7 @@ CVision.elf: /usr/lib/libopencv_imgcodecs.so.3.4.13
 CVision.elf: /usr/lib/libopencv_imgproc.so.3.4.13
 CVision.elf: /usr/lib/libopencv_core.so.3.4.13
 CVision.elf: CMakeFiles/CVision.elf.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tomas/slipad/localSystem/opencv/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable CVision.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/fernandes/code/slipad/localSystem/opencv/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable CVision.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CVision.elf.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -139,6 +140,6 @@ CMakeFiles/CVision.elf.dir/clean:
 .PHONY : CMakeFiles/CVision.elf.dir/clean
 
 CMakeFiles/CVision.elf.dir/depend:
-	cd /home/tomas/slipad/localSystem/opencv && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tomas/slipad/localSystem/opencv /home/tomas/slipad/localSystem/opencv /home/tomas/slipad/localSystem/opencv /home/tomas/slipad/localSystem/opencv /home/tomas/slipad/localSystem/opencv/CMakeFiles/CVision.elf.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/fernandes/code/slipad/localSystem/opencv && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fernandes/code/slipad/localSystem/opencv /home/fernandes/code/slipad/localSystem/opencv /home/fernandes/code/slipad/localSystem/opencv /home/fernandes/code/slipad/localSystem/opencv /home/fernandes/code/slipad/localSystem/opencv/CMakeFiles/CVision.elf.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/CVision.elf.dir/depend
 
