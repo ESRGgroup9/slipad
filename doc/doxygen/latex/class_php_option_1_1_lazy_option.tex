@@ -1,0 +1,601 @@
+\hypertarget{class_php_option_1_1_lazy_option}{}\doxysection{Lazy\+Option Class Reference}
+\label{class_php_option_1_1_lazy_option}\index{LazyOption@{LazyOption}}
+
+
+Inheritance diagram for Lazy\+Option\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_php_option_1_1_lazy_option__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Lazy\+Option\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_php_option_1_1_lazy_option__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a5d5880cd442cc917d517858edc05b3f9}{\+\_\+\+\_\+construct}} (\$callback, array \$arguments=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a66c5a889e5b6f39b0e05763c6ef5c041}{is\+Defined}} ()
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_aedcc52b3673b8df9425e52f13accb2a1}{is\+Empty}} ()
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_ac33ee765f5ad9f134540bac393721cfe}{get}} ()
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a0d3d42d75bed447d6d78da820af076f3}{get\+Or\+Else}} (\$default)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a6e5a6d1b7f398fb9b49f9812f5f3a415}{get\+Or\+Call}} (\$callable)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a5b06a3372cf52c12596a2089ea7aab12}{get\+Or\+Throw}} (\textbackslash{}Exception \$ex)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a82ca001f145b91cd4cdb7dbdbcfef6b7}{or\+Else}} (\mbox{\hyperlink{class_php_option_1_1_option}{Option}} \$else)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a9d0bcba5d95c1924c65960f08dd5ddcf}{if\+Defined}} (\$callable)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a8145ff8ed91954e38555f72f6d739576}{for\+All}} (\$callable)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a88fd780eac9686e1478f7c5432b849f1}{map}} (\$callable)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a5440b2d61feee556c3a8ae83fccadfc1}{flat\+Map}} (\$callable)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a8480d90e20e47f2a514664eabfb2d4bd}{filter}} (\$callable)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a7c23aafad735eb9adabc8c59d42f4f56}{filter\+Not}} (\$callable)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a54e5174ae17c191112638cfc09e1a76f}{select}} (\$value)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a5190f0236c96bdb8da2124e284f352f0}{reject}} (\$value)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a7a9f937c2958e6f4dd7b030f86fb70b7}{get\+Iterator}} ()
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a09b3c15f5e383a390dbf75452cfb1acd}{fold\+Left}} (\$initial\+Value, \$callable)
+\item 
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a13afb06e46a65484320fc57e55509df1}{fold\+Right}} (\$initial\+Value, \$callable)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_php_option_1_1_lazy_option_a56a152b1c6595ae6e6fea6ac1d08cb79}{create}} (\$callback, array \$arguments=\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+@template T
+
+$<$\+T$>$ 
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00028}{28}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a5d5880cd442cc917d517858edc05b3f9}\label{class_php_option_1_1_lazy_option_a5d5880cd442cc917d517858edc05b3f9}} 
+\index{LazyOption@{LazyOption}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{}]{\$callback,  }\item[{array}]{\$arguments = {\ttfamily \mbox{[}\mbox{]}} }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable(mixed...)\+:(\+Option$<$\+T$>$)} & \$callback \\
+\hline
+{\em array$<$int,mixed$>$} & \$arguments \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00055}{55}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a56a152b1c6595ae6e6fea6ac1d08cb79}\label{class_php_option_1_1_lazy_option_a56a152b1c6595ae6e6fea6ac1d08cb79}} 
+\index{LazyOption@{LazyOption}!create@{create}}
+\index{create@{create}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily static create (\begin{DoxyParamCaption}\item[{}]{\$callback,  }\item[{array}]{\$arguments = {\ttfamily \mbox{[}\mbox{]}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+@template S 
+\begin{DoxyParams}{Parameters}
+{\em callable(mixed...)\+:(\+Option$<$\+S$>$)} & \$callback \\
+\hline
+{\em array$<$int,mixed$>$} & \$arguments\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_php_option_1_1_lazy_option}{Lazy\+Option}}\sout{ }
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00046}{46}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a8480d90e20e47f2a514664eabfb2d4bd}\label{class_php_option_1_1_lazy_option_a8480d90e20e47f2a514664eabfb2d4bd}} 
+\index{LazyOption@{LazyOption}!filter@{filter}}
+\index{filter@{filter}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{filter()}{filter()}}
+{\footnotesize\ttfamily filter (\begin{DoxyParamCaption}\item[{}]{\$callable }\end{DoxyParamCaption})}
+
+If the option is empty, it is returned immediately without applying the callable.
+
+If the option is non-\/empty, the callable is applied, and if it returns true, the option itself is returned; otherwise, \mbox{\hyperlink{class_php_option_1_1_none}{None}} is returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable(\+T)\+:bool} & \$callable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Option$<$\+T$>$ 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a8480d90e20e47f2a514664eabfb2d4bd}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00120}{120}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a7c23aafad735eb9adabc8c59d42f4f56}\label{class_php_option_1_1_lazy_option_a7c23aafad735eb9adabc8c59d42f4f56}} 
+\index{LazyOption@{LazyOption}!filterNot@{filterNot}}
+\index{filterNot@{filterNot}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{filterNot()}{filterNot()}}
+{\footnotesize\ttfamily filter\+Not (\begin{DoxyParamCaption}\item[{}]{\$callable }\end{DoxyParamCaption})}
+
+If the option is empty, it is returned immediately without applying the callable.
+
+If the option is non-\/empty, the callable is applied, and if it returns false, the option itself is returned; otherwise, \mbox{\hyperlink{class_php_option_1_1_none}{None}} is returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable(\+T)\+:bool} & \$callable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Option$<$\+T$>$ 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a7c23aafad735eb9adabc8c59d42f4f56}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00125}{125}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a5440b2d61feee556c3a8ae83fccadfc1}\label{class_php_option_1_1_lazy_option_a5440b2d61feee556c3a8ae83fccadfc1}} 
+\index{LazyOption@{LazyOption}!flatMap@{flatMap}}
+\index{flatMap@{flatMap}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{flatMap()}{flatMap()}}
+{\footnotesize\ttfamily flat\+Map (\begin{DoxyParamCaption}\item[{}]{\$callable }\end{DoxyParamCaption})}
+
+Applies the callable to the value of the option if it is non-\/empty, and returns the return value of the callable directly.
+
+In contrast to {\ttfamily map}, the return value of the callable is expected to be an \mbox{\hyperlink{class_php_option_1_1_option}{Option}} itself; it is not automatically wrapped in Some().
+
+@template S
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable(\+T)\+:\+Option$<$\+S$>$} & \$callable must return an \mbox{\hyperlink{class_php_option_1_1_option}{Option}}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_php_option_1_1_option}{Option}}\sout{ }
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a5440b2d61feee556c3a8ae83fccadfc1}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00115}{115}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a09b3c15f5e383a390dbf75452cfb1acd}\label{class_php_option_1_1_lazy_option_a09b3c15f5e383a390dbf75452cfb1acd}} 
+\index{LazyOption@{LazyOption}!foldLeft@{foldLeft}}
+\index{foldLeft@{foldLeft}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{foldLeft()}{foldLeft()}}
+{\footnotesize\ttfamily fold\+Left (\begin{DoxyParamCaption}\item[{}]{\$initial\+Value,  }\item[{}]{\$callable }\end{DoxyParamCaption})}
+
+Binary operator for the initial value and the option\textquotesingle{}s value.
+
+If empty, the initial value is returned. If non-\/empty, the callable receives the initial value and the option\textquotesingle{}s value as arguments.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$some = \textcolor{keyword}{new} Some(5);}
+\DoxyCodeLine{\$none = \mbox{\hyperlink{class_php_option_1_1_none_a239b1c70258014a86569483c2d009de6}{None::create}}();}
+\DoxyCodeLine{\$result = \$some-\/>foldLeft(1, \textcolor{keyword}{function}(\$a, \$b) \{ \textcolor{keywordflow}{return} \$a + \$b; \}); \textcolor{comment}{// int(6)}}
+\DoxyCodeLine{\$result = \$none-\/>foldLeft(1, \textcolor{keyword}{function}(\$a, \$b) \{ \textcolor{keywordflow}{return} \$a + \$b; \}); \textcolor{comment}{// int(1)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// This can be used instead of something like the following:}}
+\DoxyCodeLine{\$option = \mbox{\hyperlink{class_php_option_1_1_option_ac7e22d0d5b74d0a0bf4b8604d7eae863}{Option::fromValue}}(\$integerOrNull);}
+\DoxyCodeLine{\$result = 1;}
+\DoxyCodeLine{\textcolor{keywordflow}{if} ( ! \$option-\/>isEmpty()) \{}
+\DoxyCodeLine{    \$result += \$option-\/>get();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+@template S
+
+
+\begin{DoxyParams}[1]{Parameters}
+S & {\em \$initial\+Value} & \\
+\hline
+ & {\em callable(S,T)\+:S} & \$callable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a09b3c15f5e383a390dbf75452cfb1acd}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00148}{148}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a13afb06e46a65484320fc57e55509df1}\label{class_php_option_1_1_lazy_option_a13afb06e46a65484320fc57e55509df1}} 
+\index{LazyOption@{LazyOption}!foldRight@{foldRight}}
+\index{foldRight@{foldRight}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{foldRight()}{foldRight()}}
+{\footnotesize\ttfamily fold\+Right (\begin{DoxyParamCaption}\item[{}]{\$initial\+Value,  }\item[{}]{\$callable }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{class_php_option_1_1_lazy_option_a09b3c15f5e383a390dbf75452cfb1acd}{fold\+Left()}} but with reversed arguments for the callable.
+
+@template S
+
+
+\begin{DoxyParams}[1]{Parameters}
+S & {\em \$initial\+Value} & \\
+\hline
+ & {\em callable(T,S)\+:S} & \$callable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a13afb06e46a65484320fc57e55509df1}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00153}{153}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a8145ff8ed91954e38555f72f6d739576}\label{class_php_option_1_1_lazy_option_a8145ff8ed91954e38555f72f6d739576}} 
+\index{LazyOption@{LazyOption}!forAll@{forAll}}
+\index{forAll@{forAll}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{forAll()}{forAll()}}
+{\footnotesize\ttfamily for\+All (\begin{DoxyParamCaption}\item[{}]{\$callable }\end{DoxyParamCaption})}
+
+This is similar to \mbox{\hyperlink{class_php_option_1_1_lazy_option_a88fd780eac9686e1478f7c5432b849f1}{map()}} except that the return value of the callable has no meaning.
+
+The passed callable is simply executed if the option is non-\/empty, and ignored if the option is empty. This method is preferred for callables with side-\/effects, while \mbox{\hyperlink{class_php_option_1_1_lazy_option_a88fd780eac9686e1478f7c5432b849f1}{map()}} is intended for callables without side-\/effects.
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable(\+T)\+:mixed} & \$callable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Option$<$\+T$>$ 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a8145ff8ed91954e38555f72f6d739576}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00105}{105}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_ac33ee765f5ad9f134540bac393721cfe}\label{class_php_option_1_1_lazy_option_ac33ee765f5ad9f134540bac393721cfe}} 
+\index{LazyOption@{LazyOption}!get@{get}}
+\index{get@{get}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the value if available, or throws an exception otherwise.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+Runtime\+Exception If value is not available.
+
+\begin{DoxyReturn}{Returns}
+T 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_ac33ee765f5ad9f134540bac393721cfe}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00075}{75}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a7a9f937c2958e6f4dd7b030f86fb70b7}\label{class_php_option_1_1_lazy_option_a7a9f937c2958e6f4dd7b030f86fb70b7}} 
+\index{LazyOption@{LazyOption}!getIterator@{getIterator}}
+\index{getIterator@{getIterator}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{getIterator()}{getIterator()}}
+{\footnotesize\ttfamily get\+Iterator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Traversable$<$\+T$>$ 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00143}{143}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a6e5a6d1b7f398fb9b49f9812f5f3a415}\label{class_php_option_1_1_lazy_option_a6e5a6d1b7f398fb9b49f9812f5f3a415}} 
+\index{LazyOption@{LazyOption}!getOrCall@{getOrCall}}
+\index{getOrCall@{getOrCall}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{getOrCall()}{getOrCall()}}
+{\footnotesize\ttfamily get\+Or\+Call (\begin{DoxyParamCaption}\item[{}]{\$callable }\end{DoxyParamCaption})}
+
+Returns the value if available, or the results of the callable.
+
+This is preferable over {\ttfamily get\+Or\+Else} if the computation of the default value is expensive.
+
+@template S
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable()\+:S} & \$callable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T$\vert$S 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a6e5a6d1b7f398fb9b49f9812f5f3a415}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00085}{85}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a0d3d42d75bed447d6d78da820af076f3}\label{class_php_option_1_1_lazy_option_a0d3d42d75bed447d6d78da820af076f3}} 
+\index{LazyOption@{LazyOption}!getOrElse@{getOrElse}}
+\index{getOrElse@{getOrElse}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{getOrElse()}{getOrElse()}}
+{\footnotesize\ttfamily get\+Or\+Else (\begin{DoxyParamCaption}\item[{}]{\$default }\end{DoxyParamCaption})}
+
+Returns the value if available, or the default value if not.
+
+@template S
+
+
+\begin{DoxyParams}[1]{Parameters}
+S & {\em \$default} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T$\vert$S 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a0d3d42d75bed447d6d78da820af076f3}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00080}{80}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a5b06a3372cf52c12596a2089ea7aab12}\label{class_php_option_1_1_lazy_option_a5b06a3372cf52c12596a2089ea7aab12}} 
+\index{LazyOption@{LazyOption}!getOrThrow@{getOrThrow}}
+\index{getOrThrow@{getOrThrow}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{getOrThrow()}{getOrThrow()}}
+{\footnotesize\ttfamily get\+Or\+Throw (\begin{DoxyParamCaption}\item[{\textbackslash{}Exception}]{\$ex }\end{DoxyParamCaption})}
+
+Returns the value if available, or throws the passed exception.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+Exception & {\em \$ex} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a5b06a3372cf52c12596a2089ea7aab12}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00090}{90}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a9d0bcba5d95c1924c65960f08dd5ddcf}\label{class_php_option_1_1_lazy_option_a9d0bcba5d95c1924c65960f08dd5ddcf}} 
+\index{LazyOption@{LazyOption}!ifDefined@{ifDefined}}
+\index{ifDefined@{ifDefined}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{ifDefined()}{ifDefined()}}
+{\footnotesize\ttfamily if\+Defined (\begin{DoxyParamCaption}\item[{}]{\$callable }\end{DoxyParamCaption})}
+
+This is similar to \mbox{\hyperlink{class_php_option_1_1_lazy_option_a88fd780eac9686e1478f7c5432b849f1}{map()}} below except that the return value has no meaning; the passed callable is simply executed if the option is non-\/empty, and ignored if the option is empty.
+
+In all cases, the return value of the callable is discarded.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$comment-\/>getMaybeFile()-\/>ifDefined(\textcolor{keyword}{function}(\$file) \{}
+\DoxyCodeLine{    \textcolor{comment}{// Do something with \$file here.}}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+If you\textquotesingle{}re looking for something like {\ttfamily if\+Empty}, you can use {\ttfamily get\+Or\+Call} and {\ttfamily get\+Or\+Else} in these cases.
+
+\begin{DoxyRefDesc}{Deprecated}
+\item[\mbox{\hyperlink{deprecated__deprecated000001}{Deprecated}}]Use \mbox{\hyperlink{class_php_option_1_1_lazy_option_a8145ff8ed91954e38555f72f6d739576}{for\+All()}} instead.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable(\+T)\+:mixed} & \$callable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a9d0bcba5d95c1924c65960f08dd5ddcf}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00100}{100}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a66c5a889e5b6f39b0e05763c6ef5c041}\label{class_php_option_1_1_lazy_option_a66c5a889e5b6f39b0e05763c6ef5c041}} 
+\index{LazyOption@{LazyOption}!isDefined@{isDefined}}
+\index{isDefined@{isDefined}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{isDefined()}{isDefined()}}
+{\footnotesize\ttfamily is\+Defined (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns true if a value is available, false otherwise.
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a66c5a889e5b6f39b0e05763c6ef5c041}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00065}{65}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_aedcc52b3673b8df9425e52f13accb2a1}\label{class_php_option_1_1_lazy_option_aedcc52b3673b8df9425e52f13accb2a1}} 
+\index{LazyOption@{LazyOption}!isEmpty@{isEmpty}}
+\index{isEmpty@{isEmpty}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{isEmpty()}{isEmpty()}}
+{\footnotesize\ttfamily is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns true if no value is available, false otherwise.
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_aedcc52b3673b8df9425e52f13accb2a1}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00070}{70}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a88fd780eac9686e1478f7c5432b849f1}\label{class_php_option_1_1_lazy_option_a88fd780eac9686e1478f7c5432b849f1}} 
+\index{LazyOption@{LazyOption}!map@{map}}
+\index{map@{map}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}}
+{\footnotesize\ttfamily map (\begin{DoxyParamCaption}\item[{}]{\$callable }\end{DoxyParamCaption})}
+
+Applies the callable to the value of the option if it is non-\/empty, and returns the return value of the callable wrapped in Some().
+
+If the option is empty, then the callable is not applied.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\textcolor{keyword}{new} Some(\textcolor{stringliteral}{"{}foo"{}}))-\/>\mbox{\hyperlink{class_php_option_1_1_lazy_option_a88fd780eac9686e1478f7c5432b849f1}{map}}(\textcolor{stringliteral}{'strtoupper'})-\/>get(); \textcolor{comment}{// "{}FOO"{}}}
+
+\end{DoxyCode}
+
+
+@template S
+
+
+\begin{DoxyParams}{Parameters}
+{\em callable(\+T)\+:S} & \$callable\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_php_option_1_1_option}{Option}}\sout{ }
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a88fd780eac9686e1478f7c5432b849f1}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00110}{110}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a82ca001f145b91cd4cdb7dbdbcfef6b7}\label{class_php_option_1_1_lazy_option_a82ca001f145b91cd4cdb7dbdbcfef6b7}} 
+\index{LazyOption@{LazyOption}!orElse@{orElse}}
+\index{orElse@{orElse}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{orElse()}{orElse()}}
+{\footnotesize\ttfamily or\+Else (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_php_option_1_1_option}{Option}}}]{\$else }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00095}{95}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a5190f0236c96bdb8da2124e284f352f0}\label{class_php_option_1_1_lazy_option_a5190f0236c96bdb8da2124e284f352f0}} 
+\index{LazyOption@{LazyOption}!reject@{reject}}
+\index{reject@{reject}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{reject()}{reject()}}
+{\footnotesize\ttfamily reject (\begin{DoxyParamCaption}\item[{}]{\$value }\end{DoxyParamCaption})}
+
+If the option is empty, it is returned immediately.
+
+If the option is non-\/empty, and its value does equal the passed value (via a shallow comparison ===), then \mbox{\hyperlink{class_php_option_1_1_none}{None}} is returned; otherwise, the \mbox{\hyperlink{class_php_option_1_1_option}{Option}} is returned.
+
+In other words, this will let all values through except the passed value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+T & {\em \$value} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Option$<$\+T$>$ 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a5190f0236c96bdb8da2124e284f352f0}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00135}{135}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+\mbox{\Hypertarget{class_php_option_1_1_lazy_option_a54e5174ae17c191112638cfc09e1a76f}\label{class_php_option_1_1_lazy_option_a54e5174ae17c191112638cfc09e1a76f}} 
+\index{LazyOption@{LazyOption}!select@{select}}
+\index{select@{select}!LazyOption@{LazyOption}}
+\doxysubsubsection{\texorpdfstring{select()}{select()}}
+{\footnotesize\ttfamily select (\begin{DoxyParamCaption}\item[{}]{\$value }\end{DoxyParamCaption})}
+
+If the option is empty, it is returned immediately.
+
+If the option is non-\/empty, and its value does not equal the passed value (via a shallow comparison ===), then \mbox{\hyperlink{class_php_option_1_1_none}{None}} is returned. Otherwise, the \mbox{\hyperlink{class_php_option_1_1_option}{Option}} is returned.
+
+In other words, this will filter all but the passed value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+T & {\em \$value} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Option$<$\+T$>$ 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_php_option_1_1_option_a54e5174ae17c191112638cfc09e1a76f}{Option}}.
+
+
+
+Definition at line \mbox{\hyperlink{_lazy_option_8php_source_l00130}{130}} of file \mbox{\hyperlink{_lazy_option_8php_source}{Lazy\+Option.\+php}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+remote\+System/website/vendor/phpoption/phpoption/src/\+Php\+Option/Lazy\+Option.\+php\end{DoxyCompactItemize}

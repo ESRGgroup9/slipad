@@ -86,24 +86,42 @@ $(document).ready(function(){initNavTree('class_c_remote_client.html',''); initR
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-static-methods">Static Protected Member Functions</a>  </div>
+<a href="#pub-attribs">Data Fields</a> &#124;
+<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle"><div class="title">CRemoteClient Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for CRemoteClient:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_c_remote_client__inherit__graph.png" border="0" usemap="#a_c_remote_client_inherit__map" alt="Inheritance graph"/></div>
+<map name="a_c_remote_client_inherit__map" id="a_c_remote_client_inherit__map">
+<area shape="rect" title=" " alt="" coords="169,5,325,200"/>
+<area shape="rect" href="class_r_c_application.html" title=" " alt="" coords="5,248,155,340"/>
+<area shape="rect" href="class_r_c_gateway.html" title=" " alt="" coords="179,248,314,340"/>
+<area shape="rect" href="class_r_c_website.html" title=" " alt="" coords="339,248,467,340"/>
+</map>
+</div>
 <div class="dynheader">
 Collaboration diagram for CRemoteClient:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_c_remote_client__coll__graph.png" border="0" usemap="#a_c_remote_client_coll__map" alt="Collaboration graph"/></div>
 <map name="a_c_remote_client_coll__map" id="a_c_remote_client_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,161,141"/>
+<area shape="rect" title=" " alt="" coords="197,448,353,584"/>
+<area shape="rect" title=" " alt="" coords="5,271,133,378"/>
+<area shape="rect" href="struct_command__t.html" title=" " alt="" coords="157,279,259,371"/>
+<area shape="rect" href="class_parser.html" title=" " alt="" coords="283,271,403,378"/>
+<area shape="rect" href="class_c_t_c_p_comm.html" title=" " alt="" coords="427,264,549,385"/>
+<area shape="rect" href="class_c_communication.html" title=" " alt="" coords="409,5,567,215"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad8e4b1c3f90c1125f14cf0fb5c4f8fb1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_remote_client.html#ad8e4b1c3f90c1125f14cf0fb5c4f8fb1">CRemoteClient</a> (int sd)</td></tr>
-<tr class="memdesc:ad8e4b1c3f90c1125f14cf0fb5c4f8fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the socket file descriptor to be used in TCP comms, as well as initializes the client info.  <a href="class_c_remote_client.html#ad8e4b1c3f90c1125f14cf0fb5c4f8fb1">More...</a><br /></td></tr>
-<tr class="separator:ad8e4b1c3f90c1125f14cf0fb5c4f8fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b473def768f93a3c50f02f1a6f0df79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_remote_client.html#a4b473def768f93a3c50f02f1a6f0df79">CRemoteClient</a> (int sd, MYSQL *database)</td></tr>
+<tr class="memdesc:a4b473def768f93a3c50f02f1a6f0df79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the socket file descriptor to be used in TCP comms, as well as initializes the client info.  <a href="class_c_remote_client.html#a4b473def768f93a3c50f02f1a6f0df79">More...</a><br /></td></tr>
+<tr class="separator:a4b473def768f93a3c50f02f1a6f0df79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a206419b943327342ba19783787ead5f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_remote_client.html#a206419b943327342ba19783787ead5f0">init</a> (int recvPrio, int sendPrio)</td></tr>
 <tr class="memdesc:a206419b943327342ba19783787ead5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create all threads used in communication.  <a href="class_c_remote_client.html#a206419b943327342ba19783787ead5f0">More...</a><br /></td></tr>
 <tr class="separator:a206419b943327342ba19783787ead5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,17 +129,33 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a13a43e6d814de94978c515cb084873b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detach from all threads, updating client status to ONLINE.  <a href="class_c_remote_client.html#a13a43e6d814de94978c515cb084873b1">More...</a><br /></td></tr>
 <tr class="separator:a13a43e6d814de94978c515cb084873b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:af0ad4f5587e854dfccc730bb75fa55c9"><td class="memItemLeft" align="right" valign="top">ClientSocketInfo&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_remote_client.html#af0ad4f5587e854dfccc730bb75fa55c9">info</a></td></tr>
+<tr class="separator:af0ad4f5587e854dfccc730bb75fa55c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:aa3fc836537dc7d4c753a27fb18af90e9"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_remote_client.html#aa3fc836537dc7d4c753a27fb18af90e9">tRecv</a> (void *arg)</td></tr>
 <tr class="separator:aa3fc836537dc7d4c753a27fb18af90e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a0a39edaeac2357a6e0d702d0de535f9f"><td class="memItemLeft" align="right" valign="top">MYSQL *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_remote_client.html#a0a39edaeac2357a6e0d702d0de535f9f">db</a></td></tr>
+<tr class="separator:a0a39edaeac2357a6e0d702d0de535f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4542651206a37a17422a67e7ea20d3b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_command__t.html">Command_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_remote_client.html#a4542651206a37a17422a67e7ea20d3b7">cmdList</a></td></tr>
+<tr class="separator:a4542651206a37a17422a67e7ea20d3b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9f527a3558a805a6ffdc971d351efc9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_parser.html">Parser</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_remote_client.html#ac9f527a3558a805a6ffdc971d351efc9">cmdParser</a></td></tr>
+<tr class="separator:ac9f527a3558a805a6ffdc971d351efc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bc866cd8d5d8901340fda1f8887f19b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_t_c_p_comm.html">CTCPComm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_remote_client.html#a7bc866cd8d5d8901340fda1f8887f19b">tcp</a></td></tr>
+<tr class="separator:a7bc866cd8d5d8901340fda1f8887f19b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="_c_remote_client_8h_source.html#l00029">29</a> of file <a class="el" href="_c_remote_client_8h_source.html">CRemoteClient.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad8e4b1c3f90c1125f14cf0fb5c4f8fb1" name="ad8e4b1c3f90c1125f14cf0fb5c4f8fb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8e4b1c3f90c1125f14cf0fb5c4f8fb1">&#9670;&nbsp;</a></span>CRemoteClient()</h2>
+<a id="a4b473def768f93a3c50f02f1a6f0df79" name="a4b473def768f93a3c50f02f1a6f0df79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b473def768f93a3c50f02f1a6f0df79">&#9670;&nbsp;</a></span>CRemoteClient()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -130,8 +164,18 @@ Static Protected Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="class_c_remote_client.html">CRemoteClient</a> </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>sd</em></td><td>)</td>
+          <td class="paramname"><em>sd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">MYSQL *&#160;</td>
+          <td class="paramname"><em>database</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -259,9 +303,122 @@ Static Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="a4542651206a37a17422a67e7ea20d3b7" name="a4542651206a37a17422a67e7ea20d3b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4542651206a37a17422a67e7ea20d3b7">&#9670;&nbsp;</a></span>cmdList</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_command__t.html">Command_t</a>* cmdList</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_c_remote_client_8h_source.html#l00073">73</a> of file <a class="el" href="_c_remote_client_8h_source.html">CRemoteClient.h</a>.</p>
+
+</div>
+</div>
+<a id="ac9f527a3558a805a6ffdc971d351efc9" name="ac9f527a3558a805a6ffdc971d351efc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9f527a3558a805a6ffdc971d351efc9">&#9670;&nbsp;</a></span>cmdParser</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_parser.html">Parser</a> cmdParser</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_c_remote_client_8h_source.html#l00074">74</a> of file <a class="el" href="_c_remote_client_8h_source.html">CRemoteClient.h</a>.</p>
+
+</div>
+</div>
+<a id="a0a39edaeac2357a6e0d702d0de535f9f" name="a0a39edaeac2357a6e0d702d0de535f9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a39edaeac2357a6e0d702d0de535f9f">&#9670;&nbsp;</a></span>db</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MYSQL* db</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_c_remote_client_8h_source.html#l00072">72</a> of file <a class="el" href="_c_remote_client_8h_source.html">CRemoteClient.h</a>.</p>
+
+</div>
+</div>
+<a id="af0ad4f5587e854dfccc730bb75fa55c9" name="af0ad4f5587e854dfccc730bb75fa55c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0ad4f5587e854dfccc730bb75fa55c9">&#9670;&nbsp;</a></span>info</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ClientSocketInfo info</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_c_remote_client_8h_source.html#l00066">66</a> of file <a class="el" href="_c_remote_client_8h_source.html">CRemoteClient.h</a>.</p>
+
+</div>
+</div>
+<a id="a7bc866cd8d5d8901340fda1f8887f19b" name="a7bc866cd8d5d8901340fda1f8887f19b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bc866cd8d5d8901340fda1f8887f19b">&#9670;&nbsp;</a></span>tcp</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_t_c_p_comm.html">CTCPComm</a> tcp</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_c_remote_client_8h_source.html#l00075">75</a> of file <a class="el" href="_c_remote_client_8h_source.html">CRemoteClient.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>inc/<a class="el" href="_c_remote_client_8h_source.html">CRemoteClient.h</a></li>
-<li>src/<a class="el" href="_c_remote_client_8cpp_source.html">CRemoteClient.cpp</a></li>
+<li>remoteSystem/inc/<a class="el" href="_c_remote_client_8h_source.html">CRemoteClient.h</a></li>
+<li>remoteSystem/src/<a class="el" href="_c_remote_client_8cpp_source.html">CRemoteClient.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

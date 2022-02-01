@@ -26,13 +26,14 @@ var NAVTREE =
 [
   [ "SLiPaD", "index.html", [
     [ "SLiPaD - Smart Lighting and Parking Detection", "md__r_e_a_d_m_e.html", null ],
+    [ "Deprecated List", "deprecated.html", null ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -47,7 +48,9 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_c_camera_8cpp_source.html"
+"_adapter_interface_8php_source.html",
+"class_dotenv_1_1_repository_1_1_adapter_1_1_multi_reader.html#a428b54ce86ee3ee182eb5efdce3c370d",
+"functions_func.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

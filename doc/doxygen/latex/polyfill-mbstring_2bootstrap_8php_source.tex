@@ -1,0 +1,153 @@
+\hypertarget{polyfill-mbstring_2bootstrap_8php_source}{}\doxysection{bootstrap.\+php}
+\label{polyfill-mbstring_2bootstrap_8php_source}\index{remoteSystem/website/vendor/symfony/polyfill-\/mbstring/bootstrap.php@{remoteSystem/website/vendor/symfony/polyfill-\/mbstring/bootstrap.php}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00001}00001 <?php}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00003}00003 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00004}00004 \textcolor{comment}{ * This file is part of the Symfony package.}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00006}00006 \textcolor{comment}{ * (c) Fabien Potencier <fabien@symfony.com>}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00007}00007 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00008}00008 \textcolor{comment}{ * For the full copyright and license information, please view the LICENSE}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00009}00009 \textcolor{comment}{ * file that was distributed with this source code.}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00010}00010 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00012}00012 use Symfony\(\backslash\)Polyfill\(\backslash\)Mbstring as p;}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00014}00014 \textcolor{keywordflow}{if} (\(\backslash\)PHP\_VERSION\_ID >= 80000) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00015}00015     \textcolor{keywordflow}{return} require \_\_DIR\_\_.\textcolor{stringliteral}{'/bootstrap80.php'};}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00016}00016 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00018}00018 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_convert\_encoding'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00019}00019     \textcolor{keyword}{function} mb\_convert\_encoding(\$string, \$to\_encoding, \$from\_encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_convert\_encoding(\$string, \$to\_encoding, \$from\_encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00020}00020 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00021}00021 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_decode\_mimeheader'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00022}00022     \textcolor{keyword}{function} mb\_decode\_mimeheader(\$string) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_decode\_mimeheader(\$string); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00023}00023 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00024}00024 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_encode\_mimeheader'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00025}00025     \textcolor{keyword}{function} mb\_encode\_mimeheader(\$string, \$charset = \textcolor{keyword}{null}, \$transfer\_encoding = \textcolor{keyword}{null}, \$newline = \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}, \$indent = 0) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_encode\_mimeheader(\$string, \$charset, \$transfer\_encoding, \$newline, \$indent); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00026}00026 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00027}00027 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_decode\_numericentity'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00028}00028     \textcolor{keyword}{function} mb\_decode\_numericentity(\$string, \$map, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_decode\_numericentity(\$string, \$map, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00029}00029 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00030}00030 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_encode\_numericentity'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00031}00031     \textcolor{keyword}{function} mb\_encode\_numericentity(\$string, \$map, \$encoding = \textcolor{keyword}{null}, \$hex = \textcolor{keyword}{false}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_encode\_numericentity(\$string, \$map, \$encoding, \$hex); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00032}00032 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00033}00033 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_convert\_case'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00034}00034     \textcolor{keyword}{function} mb\_convert\_case(\$string, \$mode, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_convert\_case(\$string, \$mode, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00035}00035 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00036}00036 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_internal\_encoding'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00037}00037     \textcolor{keyword}{function} mb\_internal\_encoding(\$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_internal\_encoding(\$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00038}00038 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00039}00039 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_language'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00040}00040     \textcolor{keyword}{function} mb\_language(\$language = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_language(\$language); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00041}00041 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00042}00042 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_list\_encodings'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00043}00043     \textcolor{keyword}{function} mb\_list\_encodings() \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_list\_encodings(); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00044}00044 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00045}00045 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_encoding\_aliases'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00046}00046     \textcolor{keyword}{function} mb\_encoding\_aliases(\$encoding) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_encoding\_aliases(\$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00047}00047 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00048}00048 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_check\_encoding'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00049}00049     \textcolor{keyword}{function} mb\_check\_encoding(\$value = \textcolor{keyword}{null}, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_check\_encoding(\$value, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00050}00050 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00051}00051 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_detect\_encoding'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00052}00052     \textcolor{keyword}{function} mb\_detect\_encoding(\$string, \$encodings = \textcolor{keyword}{null}, \$strict = \textcolor{keyword}{false}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_detect\_encoding(\$string, \$encodings, \$strict); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00053}00053 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00054}00054 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_detect\_order'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00055}00055     \textcolor{keyword}{function} mb\_detect\_order(\$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_detect\_order(\$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00056}00056 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00057}00057 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_parse\_str'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00058}00058     \textcolor{keyword}{function} mb\_parse\_str(\$string, \&\$result = []) \{ parse\_str(\$string, \$result); \textcolor{keywordflow}{return} (\textcolor{keywordtype}{bool}) \$result; \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00059}00059 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00060}00060 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_strlen'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00061}00061     \textcolor{keyword}{function} mb\_strlen(\$string, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_strlen(\$string, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00062}00062 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00063}00063 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_strpos'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00064}00064     \textcolor{keyword}{function} mb\_strpos(\$haystack, \$needle, \$offset = 0, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_strpos(\$haystack, \$needle, \$offset, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00065}00065 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00066}00066 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_strtolower'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00067}00067     \textcolor{keyword}{function} mb\_strtolower(\$string, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_strtolower(\$string, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00068}00068 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00069}00069 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_strtoupper'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00070}00070     \textcolor{keyword}{function} mb\_strtoupper(\$string, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_strtoupper(\$string, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00071}00071 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00072}00072 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_substitute\_character'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00073}00073     \textcolor{keyword}{function} mb\_substitute\_character(\$substitute\_character = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_substitute\_character(\$substitute\_character); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00074}00074 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00075}00075 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_substr'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00076}00076     \textcolor{keyword}{function} mb\_substr(\$string, \$start, \$length = 2147483647, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_substr(\$string, \$start, \$length, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00077}00077 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00078}00078 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_stripos'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00079}00079     \textcolor{keyword}{function} mb\_stripos(\$haystack, \$needle, \$offset = 0, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_stripos(\$haystack, \$needle, \$offset, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00080}00080 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00081}00081 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_stristr'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00082}00082     \textcolor{keyword}{function} mb\_stristr(\$haystack, \$needle, \$before\_needle = \textcolor{keyword}{false}, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_stristr(\$haystack, \$needle, \$before\_needle, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00083}00083 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00084}00084 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_strrchr'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00085}00085     \textcolor{keyword}{function} mb\_strrchr(\$haystack, \$needle, \$before\_needle = \textcolor{keyword}{false}, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_strrchr(\$haystack, \$needle, \$before\_needle, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00086}00086 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00087}00087 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_strrichr'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00088}00088     \textcolor{keyword}{function} mb\_strrichr(\$haystack, \$needle, \$before\_needle = \textcolor{keyword}{false}, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_strrichr(\$haystack, \$needle, \$before\_needle, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00089}00089 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00090}00090 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_strripos'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00091}00091     \textcolor{keyword}{function} mb\_strripos(\$haystack, \$needle, \$offset = 0, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_strripos(\$haystack, \$needle, \$offset, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00092}00092 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00093}00093 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_strrpos'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00094}00094     \textcolor{keyword}{function} mb\_strrpos(\$haystack, \$needle, \$offset = 0, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_strrpos(\$haystack, \$needle, \$offset, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00095}00095 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00096}00096 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_strstr'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00097}00097     \textcolor{keyword}{function} mb\_strstr(\$haystack, \$needle, \$before\_needle = \textcolor{keyword}{false}, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_strstr(\$haystack, \$needle, \$before\_needle, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00098}00098 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00099}00099 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_get\_info'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00100}00100     \textcolor{keyword}{function} mb\_get\_info(\$type = \textcolor{stringliteral}{'all'}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_get\_info(\$type); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00101}00101 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00102}00102 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_http\_output'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00103}00103     \textcolor{keyword}{function} mb\_http\_output(\$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_http\_output(\$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00104}00104 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00105}00105 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_strwidth'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00106}00106     \textcolor{keyword}{function} mb\_strwidth(\$string, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_strwidth(\$string, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00107}00107 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00108}00108 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_substr\_count'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00109}00109     \textcolor{keyword}{function} mb\_substr\_count(\$haystack, \$needle, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_substr\_count(\$haystack, \$needle, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00110}00110 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00111}00111 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_output\_handler'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00112}00112     \textcolor{keyword}{function} mb\_output\_handler(\$string, \$status) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_output\_handler(\$string, \$status); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00113}00113 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00114}00114 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_http\_input'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00115}00115     \textcolor{keyword}{function} mb\_http\_input(\$type = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_http\_input(\$type); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00116}00116 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00117}00117 }
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00118}00118 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_convert\_variables'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00119}00119     \textcolor{keyword}{function} mb\_convert\_variables(\$to\_encoding, \$from\_encoding, \&...\$vars) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_convert\_variables(\$to\_encoding, \$from\_encoding, ...\$vars); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00120}00120 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00122}00122 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_ord'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00123}00123     \textcolor{keyword}{function} mb\_ord(\$string, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_ord(\$string, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00124}00124 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00125}00125 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_chr'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00126}00126     \textcolor{keyword}{function} mb\_chr(\$codepoint, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_chr(\$codepoint, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00127}00127 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00128}00128 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_scrub'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00129}00129     \textcolor{keyword}{function} mb\_scrub(\$string, \$encoding = \textcolor{keyword}{null}) \{ \$encoding = \textcolor{keyword}{null} === \$encoding ? mb\_internal\_encoding() : \$encoding; \textcolor{keywordflow}{return} mb\_convert\_encoding(\$string, \$encoding, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00130}00130 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00131}00131 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'mb\_str\_split'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00132}00132     \textcolor{keyword}{function} mb\_str\_split(\$string, \$length = 1, \$encoding = \textcolor{keyword}{null}) \{ \textcolor{keywordflow}{return} p\(\backslash\)Mbstring::mb\_str\_split(\$string, \$length, \$encoding); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00133}00133 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00134}00134 }
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00135}00135 \textcolor{keywordflow}{if} (extension\_loaded(\textcolor{stringliteral}{'mbstring'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00136}00136     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00137}00137 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00139}00139 \textcolor{keywordflow}{if} (!defined(\textcolor{stringliteral}{'MB\_CASE\_UPPER'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00140}00140     define(\textcolor{stringliteral}{'MB\_CASE\_UPPER'}, 0);}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00141}00141 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00142}00142 \textcolor{keywordflow}{if} (!defined(\textcolor{stringliteral}{'MB\_CASE\_LOWER'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00143}00143     define(\textcolor{stringliteral}{'MB\_CASE\_LOWER'}, 1);}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00144}00144 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00145}00145 \textcolor{keywordflow}{if} (!defined(\textcolor{stringliteral}{'MB\_CASE\_TITLE'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00146}00146     define(\textcolor{stringliteral}{'MB\_CASE\_TITLE'}, 2);}
+\DoxyCodeLine{\Hypertarget{polyfill-mbstring_2bootstrap_8php_source_l00147}00147 \}}
+
+\end{DoxyCode}

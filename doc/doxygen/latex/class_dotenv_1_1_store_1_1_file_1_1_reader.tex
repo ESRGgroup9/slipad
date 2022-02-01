@@ -1,0 +1,64 @@
+\hypertarget{class_dotenv_1_1_store_1_1_file_1_1_reader}{}\doxysection{Reader Class Reference}
+\label{class_dotenv_1_1_store_1_1_file_1_1_reader}\index{Reader@{Reader}}
+
+
+Collaboration diagram for Reader\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=137pt]{class_dotenv_1_1_store_1_1_file_1_1_reader__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_dotenv_1_1_store_1_1_file_1_1_reader_abb45516aa0dbf115fb50d695fdf62d65}{read}} (array \$file\+Paths, bool \$short\+Circuit=true, string \$file\+Encoding=null)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_reader_8php_source_l00014}{14}} of file \mbox{\hyperlink{_reader_8php_source}{Reader.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_dotenv_1_1_store_1_1_file_1_1_reader_abb45516aa0dbf115fb50d695fdf62d65}\label{class_dotenv_1_1_store_1_1_file_1_1_reader_abb45516aa0dbf115fb50d695fdf62d65}} 
+\index{Reader@{Reader}!read@{read}}
+\index{read@{read}!Reader@{Reader}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily static read (\begin{DoxyParamCaption}\item[{array}]{\$file\+Paths,  }\item[{bool}]{\$short\+Circuit = {\ttfamily true},  }\item[{string}]{\$file\+Encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Read the file(s), and return their raw content.
+
+We provide the file path as the key, and its content as the value. If short circuit mode is enabled, then the returned array with have length at most one. File paths that couldn\textquotesingle{}t be read are omitted entirely.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string\mbox{[}$\,$\mbox{]} & {\em \$file\+Paths} & \\
+\hline
+bool & {\em \$short\+Circuit} & \\
+\hline
+string | null & {\em \$file\+Encoding} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{class_dotenv_1_1_dotenv}{Dotenv}}\textbackslash{}\+Exception\textbackslash{}\+Invalid\+Encoding\+Exception
+
+\begin{DoxyReturn}{Returns}
+array$<$string,string$>$ 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_reader_8php_source_l00043}{43}} of file \mbox{\hyperlink{_reader_8php_source}{Reader.\+php}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+remote\+System/website/vendor/vlucas/phpdotenv/src/\+Store/\+File/Reader.\+php\end{DoxyCompactItemize}

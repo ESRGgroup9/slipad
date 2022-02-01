@@ -1,0 +1,41 @@
+\hypertarget{_parser_8php_source}{}\doxysection{Parser.\+php}
+\label{_parser_8php_source}\index{remoteSystem/website/vendor/vlucas/phpdotenv/src/Parser/Parser.php@{remoteSystem/website/vendor/vlucas/phpdotenv/src/Parser/Parser.php}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00001}00001 <?php}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00003}00003 declare(strict\_types=1);}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00005}00005 \textcolor{keyword}{namespace }\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_parser}{Dotenv\(\backslash\)Parser}};}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00007}00007 use \mbox{\hyperlink{class_dotenv_1_1_exception_1_1_invalid_file_exception}{Dotenv\(\backslash\)Exception\(\backslash\)InvalidFileException}};}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00008}00008 use \mbox{\hyperlink{class_dotenv_1_1_util_1_1_regex}{Dotenv\(\backslash\)Util\(\backslash\)Regex}};}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00009}00009 use \mbox{\hyperlink{class_graham_campbell_1_1_result_type_1_1_result}{GrahamCampbell\(\backslash\)ResultType\(\backslash\)Result}};}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00010}00010 use \mbox{\hyperlink{class_graham_campbell_1_1_result_type_1_1_success}{GrahamCampbell\(\backslash\)ResultType\(\backslash\)Success}};}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00012}\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_parser}{00012}} \textcolor{keyword}{final} \textcolor{keyword}{class }\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_parser}{Parser}} \textcolor{keyword}{implements} \mbox{\hyperlink{interface_dotenv_1_1_parser_1_1_parser_interface}{ParserInterface}}}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00013}00013 \{}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00023}\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_parser_aff43f0606445021b8f66862e00f86e3a}{00023}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_dotenv_1_1_parser_1_1_parser_aff43f0606445021b8f66862e00f86e3a}{parse}}(\textcolor{keywordtype}{string} \$content)}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00024}00024     \{}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00025}00025         \textcolor{keywordflow}{return} Regex::split(\textcolor{stringliteral}{"{}/(\(\backslash\)r\(\backslash\)n|\(\backslash\)n|\(\backslash\)r)/"{}}, \$content)-\/>mapError(\textcolor{keyword}{static} \textcolor{keyword}{function} () \{}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00026}00026             \textcolor{keywordflow}{return} \textcolor{stringliteral}{'Could not split into separate lines.'};}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00027}00027         \})-\/>flatMap(\textcolor{keyword}{static} \textcolor{keyword}{function} (array \$lines) \{}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00028}00028             \textcolor{keywordflow}{return} self::process(\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_lines_ab30e80a4003270a7cb2cd7212857b2b2}{Lines::process}}(\$lines));}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00029}00029         \})-\/>mapError(\textcolor{keyword}{static} \textcolor{keyword}{function} (\textcolor{keywordtype}{string} \$error) \{}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00030}00030             \textcolor{keywordflow}{throw} \textcolor{keyword}{new} \mbox{\hyperlink{class_dotenv_1_1_exception_1_1_invalid_file_exception}{InvalidFileException}}(\(\backslash\)sprintf(\textcolor{stringliteral}{'Failed to parse dotenv file. \%s'}, \$error));}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00031}00031         \})-\/>success()-\/>get();}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00032}00032     \}}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00041}00041     \textcolor{keyword}{private} \textcolor{keyword}{static} \textcolor{keyword}{function} process(array \$entries)}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00042}00042     \{}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00044}00044         return \(\backslash\)array\_reduce(\$entries, \textcolor{keyword}{static} \textcolor{keyword}{function} (\mbox{\hyperlink{class_graham_campbell_1_1_result_type_1_1_result}{Result}} \$result, \textcolor{keywordtype}{string} \$raw) \{}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00045}00045             \textcolor{keywordflow}{return} \$result-\/>flatMap(\textcolor{keyword}{static} \textcolor{keyword}{function} (array \$entries) use (\$raw) \{}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00046}00046                 \textcolor{keywordflow}{return} EntryParser::parse(\$raw)-\/>map(\textcolor{keyword}{static} \textcolor{keyword}{function} (\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_entry}{Entry}} \$entry) use (\$entries) \{}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00047}00047                     return \(\backslash\)array\_merge(\$entries, [\$entry]);}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00048}00048                 \});}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00049}00049             \});}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00050}00050         \}, \mbox{\hyperlink{class_graham_campbell_1_1_result_type_1_1_success_a95592398c063f14f4ec180d392b60c48}{Success::create}}([]));}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00051}00051     \}}
+\DoxyCodeLine{\Hypertarget{_parser_8php_source_l00052}00052 \}}
+
+\end{DoxyCode}

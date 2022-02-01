@@ -1,0 +1,52 @@
+\hypertarget{polyfill-ctype_2bootstrap80_8php_source}{}\doxysection{bootstrap80.\+php}
+\label{polyfill-ctype_2bootstrap80_8php_source}\index{remoteSystem/website/vendor/symfony/polyfill-\/ctype/bootstrap80.php@{remoteSystem/website/vendor/symfony/polyfill-\/ctype/bootstrap80.php}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00001}00001 <?php}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00003}00003 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00004}00004 \textcolor{comment}{ * This file is part of the Symfony package.}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00006}00006 \textcolor{comment}{ * (c) Fabien Potencier <fabien@symfony.com>}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00007}00007 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00008}00008 \textcolor{comment}{ * For the full copyright and license information, please view the LICENSE}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00009}00009 \textcolor{comment}{ * file that was distributed with this source code.}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00010}00010 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00012}00012 use Symfony\(\backslash\)Polyfill\(\backslash\)Ctype as p;}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00014}00014 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_alnum'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00015}00015     \textcolor{keyword}{function} ctype\_alnum(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_alnum(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00016}00016 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00017}00017 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_alpha'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00018}00018     \textcolor{keyword}{function} ctype\_alpha(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_alpha(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00019}00019 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00020}00020 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_cntrl'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00021}00021     \textcolor{keyword}{function} ctype\_cntrl(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_cntrl(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00022}00022 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00023}00023 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_digit'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00024}00024     \textcolor{keyword}{function} ctype\_digit(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_digit(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00025}00025 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00026}00026 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_graph'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00027}00027     \textcolor{keyword}{function} ctype\_graph(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_graph(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00028}00028 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00029}00029 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_lower'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00030}00030     \textcolor{keyword}{function} ctype\_lower(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_lower(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00031}00031 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00032}00032 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_print'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00033}00033     \textcolor{keyword}{function} ctype\_print(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_print(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00034}00034 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00035}00035 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_punct'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00036}00036     \textcolor{keyword}{function} ctype\_punct(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_punct(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00037}00037 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00038}00038 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_space'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00039}00039     \textcolor{keyword}{function} ctype\_space(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_space(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00040}00040 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00041}00041 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_upper'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00042}00042     \textcolor{keyword}{function} ctype\_upper(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_upper(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00043}00043 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00044}00044 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'ctype\_xdigit'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00045}00045     \textcolor{keyword}{function} ctype\_xdigit(mixed \$text): bool \{ return p\(\backslash\)Ctype::ctype\_xdigit(\$text); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-ctype_2bootstrap80_8php_source_l00046}00046 \}}
+
+\end{DoxyCode}

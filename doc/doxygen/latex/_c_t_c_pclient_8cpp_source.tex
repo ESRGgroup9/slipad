@@ -1,5 +1,5 @@
 \hypertarget{_c_t_c_pclient_8cpp_source}{}\doxysection{CTCPclient.\+cpp}
-\label{_c_t_c_pclient_8cpp_source}\index{src/CTCPclient.cpp@{src/CTCPclient.cpp}}
+\label{_c_t_c_pclient_8cpp_source}\index{gateway/src/CTCPclient.cpp@{gateway/src/CTCPclient.cpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_t_c_pclient_8h}{CTCPclient.h}}"{}}}
@@ -16,7 +16,7 @@
 \DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00012}00012     \textcolor{comment}{// Get server's IP and standard service connection}}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00013}00013     hostent = gethostbyname(host.c\_str());}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00014}00014     this-\/>host = hostent-\/>h\_name;}
-\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00015}00015     this-\/>port = port;}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00015}00015     this-\/>port = port; }
 \DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00016}00016 }
 \DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00017}00017     \textcolor{comment}{// Create socket}}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pclient_8cpp_source_l00018}00018     this-\/>sockfd = socket(PF\_INET, SOCK\_STREAM, 0);}

@@ -1,0 +1,145 @@
+\hypertarget{_option_8php_source}{}\doxysection{Option.\+php}
+\label{_option_8php_source}\index{remoteSystem/website/vendor/phpoption/phpoption/src/PhpOption/Option.php@{remoteSystem/website/vendor/phpoption/phpoption/src/PhpOption/Option.php}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00001}00001 <?php}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00003}00003 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00004}00004 \textcolor{comment}{ * Copyright 2012 Johannes M. Schmitt <schmittjoh@gmail.com>}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00006}00006 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00007}00007 \textcolor{comment}{ * you may not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00008}00008 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00009}00009 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00010}00010 \textcolor{comment}{ * http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00011}00011 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00012}00012 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00013}00013 \textcolor{comment}{ * distributed under the License is distributed on an "{}AS IS"{} BASIS,}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00014}00014 \textcolor{comment}{ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00015}00015 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00016}00016 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00017}00017 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00019}00019 \textcolor{keyword}{namespace }PhpOption;}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00021}00021 use ArrayAccess;}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00022}00022 use IteratorAggregate;}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00029}\mbox{\hyperlink{class_php_option_1_1_option}{00029}} \textcolor{keyword}{abstract} \textcolor{keyword}{class }\mbox{\hyperlink{class_php_option_1_1_option}{Option}} \textcolor{keyword}{implements} IteratorAggregate}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00030}00030 \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00046}\mbox{\hyperlink{class_php_option_1_1_option_ac7e22d0d5b74d0a0bf4b8604d7eae863}{00046}}     \textcolor{keyword}{public} \textcolor{keyword}{static} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_ac7e22d0d5b74d0a0bf4b8604d7eae863}{fromValue}}(\$value, \$noneValue = \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00047}00047     \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00048}00048         \textcolor{keywordflow}{if} (\$value === \$noneValue) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00049}00049             \textcolor{keywordflow}{return} None::create();}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00050}00050         \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00052}00052         \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{class_php_option_1_1_some}{Some}}(\$value);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00053}00053     \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00069}\mbox{\hyperlink{class_php_option_1_1_option_a53ae7cf90856ade79fc04c34888896f3}{00069}}     \textcolor{keyword}{public} \textcolor{keyword}{static} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a53ae7cf90856ade79fc04c34888896f3}{fromArraysValue}}(\$array, \$key)}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00070}00070     \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00071}00071         \textcolor{keywordflow}{if} (!(is\_array(\$array) || \$array instanceof ArrayAccess) || !isset(\$array[\$key])) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00072}00072             \textcolor{keywordflow}{return} None::create();}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00073}00073         \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00075}00075         \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{class_php_option_1_1_some}{Some}}(\$array[\$key]);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00076}00076     \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00094}00094     \textcolor{keyword}{public} \textcolor{keyword}{static} \textcolor{keyword}{function} fromReturn(\$callback, array \$arguments = [], \$noneValue = \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00095}00095     \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00096}00096         \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{class_php_option_1_1_lazy_option}{LazyOption}}(\textcolor{keyword}{static} \textcolor{keyword}{function} () use (\$callback, \$arguments, \$noneValue) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00098}00098             \$return = call\_user\_func\_array(\$callback, \$arguments);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00100}00100             \textcolor{keywordflow}{if} (\$return === \$noneValue) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00101}00101                 \textcolor{keywordflow}{return} None::create();}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00102}00102             \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00104}00104             \textcolor{keywordflow}{return} \textcolor{keyword}{new} Some(\$return);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00105}00105         \});}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00106}00106     \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00124}00124     \textcolor{keyword}{public} \textcolor{keyword}{static} \textcolor{keyword}{function} ensure(\$value, \$noneValue = \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00125}00125     \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00126}00126         \textcolor{keywordflow}{if} (\$value instanceof \textcolor{keyword}{self}) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00127}00127             \textcolor{keywordflow}{return} \$value;}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00128}00128         \} elseif (is\_callable(\$value)) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00129}00129             \textcolor{keywordflow}{return} \textcolor{keyword}{new} LazyOption(\textcolor{keyword}{static} \textcolor{keyword}{function} () use (\$value, \$noneValue) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00131}00131                 \$return = \$value();}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00133}00133                 \textcolor{keywordflow}{if} (\$return instanceof \textcolor{keyword}{self}) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00134}00134                     \textcolor{keywordflow}{return} \$return;}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00135}00135                 \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00136}00136                     \textcolor{keywordflow}{return} self::fromValue(\$return, \$noneValue);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00137}00137                 \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00138}00138             \});}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00139}00139         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00140}00140             \textcolor{keywordflow}{return} self::fromValue(\$value, \$noneValue);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00141}00141         \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00142}00142     \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00160}00160     \textcolor{keyword}{public} \textcolor{keyword}{static} \textcolor{keyword}{function} lift(\$callback, \$noneValue = \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00161}00161     \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00162}00162         \textcolor{keywordflow}{return} \textcolor{keyword}{static} \textcolor{keyword}{function} () use (\$callback, \$noneValue) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00164}00164             \$args = func\_get\_args();}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00166}00166             \$reduced\_args = array\_reduce(}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00167}00167                 \$args,}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00169}00169                 \textcolor{keyword}{static} \textcolor{keyword}{function} (\$status, \textcolor{keyword}{self} \$o) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00170}00170                     \textcolor{keywordflow}{return} \$o-\/>isEmpty() ? \textcolor{keyword}{true} : \$status;}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00171}00171                 \},}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00172}00172                 false}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00173}00173             );}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00174}00174             \textcolor{comment}{// if at least one parameter is empty, return None}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00175}00175             \textcolor{keywordflow}{if} (\$reduced\_args) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00176}00176                 \textcolor{keywordflow}{return} None::create();}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00177}00177             \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00179}00179             \$args = array\_map(}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00181}00181                 \textcolor{keyword}{static} \textcolor{keyword}{function} (\textcolor{keyword}{self} \$o) \{}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00182}00182                     \textcolor{comment}{// it is safe to do so because the fold above checked}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00183}00183                     \textcolor{comment}{// that all arguments are of type Some}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00185}00185 \textcolor{comment}{}                    \textcolor{keywordflow}{return} \$o-\/>get();}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00186}00186                 \},}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00187}00187                 \$args}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00188}00188             );}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00189}00189 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00190}00190             \textcolor{keywordflow}{return} self::ensure(call\_user\_func\_array(\$callback, \$args), \$noneValue);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00191}00191         \};}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00192}00192     \}}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00201}\mbox{\hyperlink{class_php_option_1_1_option_ac33ee765f5ad9f134540bac393721cfe}{00201}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \textcolor{keyword}{get}();}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00202}00202 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00212}\mbox{\hyperlink{class_php_option_1_1_option_a0d3d42d75bed447d6d78da820af076f3}{00212}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a0d3d42d75bed447d6d78da820af076f3}{getOrElse}}(\$default);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00213}00213 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00226}\mbox{\hyperlink{class_php_option_1_1_option_a6e5a6d1b7f398fb9b49f9812f5f3a415}{00226}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a6e5a6d1b7f398fb9b49f9812f5f3a415}{getOrCall}}(\$callable);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00227}00227 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00235}\mbox{\hyperlink{class_php_option_1_1_option_a5b06a3372cf52c12596a2089ea7aab12}{00235}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a5b06a3372cf52c12596a2089ea7aab12}{getOrThrow}}(\(\backslash\)Exception \$ex);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00236}00236 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00242}\mbox{\hyperlink{class_php_option_1_1_option_aedcc52b3673b8df9425e52f13accb2a1}{00242}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_aedcc52b3673b8df9425e52f13accb2a1}{isEmpty}}();}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00249}\mbox{\hyperlink{class_php_option_1_1_option_a66c5a889e5b6f39b0e05763c6ef5c041}{00249}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a66c5a889e5b6f39b0e05763c6ef5c041}{isDefined}}();}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00250}00250 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00267}\mbox{\hyperlink{class_php_option_1_1_option_a2cbb79b4efaf5c541674f55ed81fa27c}{00267}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a2cbb79b4efaf5c541674f55ed81fa27c}{orElse}}(\textcolor{keyword}{self} \$else);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00268}00268 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00291}\mbox{\hyperlink{class_php_option_1_1_option_a9d0bcba5d95c1924c65960f08dd5ddcf}{00291}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a9d0bcba5d95c1924c65960f08dd5ddcf}{ifDefined}}(\$callable);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00292}00292 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00304}\mbox{\hyperlink{class_php_option_1_1_option_a8145ff8ed91954e38555f72f6d739576}{00304}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a8145ff8ed91954e38555f72f6d739576}{forAll}}(\$callable);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00305}00305 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00322}\mbox{\hyperlink{class_php_option_1_1_option_a88fd780eac9686e1478f7c5432b849f1}{00322}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a88fd780eac9686e1478f7c5432b849f1}{map}}(\$callable);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00323}00323 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00337}\mbox{\hyperlink{class_php_option_1_1_option_a5440b2d61feee556c3a8ae83fccadfc1}{00337}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a5440b2d61feee556c3a8ae83fccadfc1}{flatMap}}(\$callable);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00338}00338 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00349}\mbox{\hyperlink{class_php_option_1_1_option_a8480d90e20e47f2a514664eabfb2d4bd}{00349}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a8480d90e20e47f2a514664eabfb2d4bd}{filter}}(\$callable);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00350}00350 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00361}\mbox{\hyperlink{class_php_option_1_1_option_a7c23aafad735eb9adabc8c59d42f4f56}{00361}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a7c23aafad735eb9adabc8c59d42f4f56}{filterNot}}(\$callable);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00362}00362 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00376}\mbox{\hyperlink{class_php_option_1_1_option_a54e5174ae17c191112638cfc09e1a76f}{00376}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a54e5174ae17c191112638cfc09e1a76f}{select}}(\$value);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00377}00377 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00391}\mbox{\hyperlink{class_php_option_1_1_option_a5190f0236c96bdb8da2124e284f352f0}{00391}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a5190f0236c96bdb8da2124e284f352f0}{reject}}(\$value);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00392}00392 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00421}\mbox{\hyperlink{class_php_option_1_1_option_a09b3c15f5e383a390dbf75452cfb1acd}{00421}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a09b3c15f5e383a390dbf75452cfb1acd}{foldLeft}}(\$initialValue, \$callable);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00422}00422 }
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00433}\mbox{\hyperlink{class_php_option_1_1_option_a13afb06e46a65484320fc57e55509df1}{00433}}     \textcolor{keyword}{abstract} \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_php_option_1_1_option_a13afb06e46a65484320fc57e55509df1}{foldRight}}(\$initialValue, \$callable);}
+\DoxyCodeLine{\Hypertarget{_option_8php_source_l00434}00434 \}}
+
+\end{DoxyCode}

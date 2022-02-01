@@ -1,0 +1,81 @@
+\hypertarget{add_lamp_8cpp_source}{}\doxysection{add\+Lamp.\+cpp}
+\label{add_lamp_8cpp_source}\index{remoteSystem/app/slipad/addLamp.cpp@{remoteSystem/app/slipad/addLamp.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}addLamp.h"{}}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00002}00002 \textcolor{preprocessor}{\#include "{}ui\_addLamp.h"{}}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include <QString>}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include <QDebug>}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00006}00006 \textcolor{preprocessor}{\#include <QMessageBox>}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00008}00008 addLamp::addLamp(QWidget *parent)}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00009}00009     : QMainWindow(parent)}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00010}00010     , ui(new Ui::\mbox{\hyperlink{classadd_lamp}{addLamp}})}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00011}00011 \{}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00012}00012     ui-\/>setupUi(\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00014}00014     \textcolor{comment}{// set up GPS}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00015}00015     source = QGeoPositionInfoSource::createDefaultSource(\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00016}00016     \textcolor{keywordflow}{if} ( source )}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00017}00017     \{}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00018}00018         \textcolor{comment}{// conect to GPS}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00019}00019         connect(source, SIGNAL(positionUpdated(QGeoPositionInfo)),}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00020}00020                 \textcolor{keyword}{this}, SLOT(positionUpdated(QGeoPositionInfo)));}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00022}00022         \textcolor{comment}{// start updating localization}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00023}00023         source-\/>startUpdates();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00024}00024     \}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00025}00025 \}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00027}00027 addLamp::\string~addLamp()}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00028}00028 \{}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00029}00029     \textcolor{keyword}{delete} ui;}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00030}00030 \}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00032}00032 \textcolor{keywordtype}{void} addLamp::on\_addLamp\_b\_released()}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00033}00033 \{}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00034}00034     QString street = ui-\/>street-\/>text();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00035}00035     QString postCode = ui-\/>postCode-\/>text();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00036}00036     QString parish = ui-\/>parish-\/>text();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00037}00037     QString county = ui-\/>county-\/>text();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00038}00038     QString district = ui-\/>district-\/>text();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00040}00040     ui-\/>street-\/>clear();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00041}00041     ui-\/>postCode-\/>clear();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00042}00042     ui-\/>parish-\/>clear();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00043}00043     ui-\/>county-\/>clear();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00044}00044     ui-\/>district-\/>clear();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00046}00046     \textcolor{keywordflow}{if}( !street.size() \&\& !postCode.size() \&\&}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00047}00047         !parish.size() \&\& !county.size() \&\& !district.size() )}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00048}00048     \{}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00049}00049         QMessageBox::warning(\textcolor{keyword}{this},\textcolor{stringliteral}{"{}Add Lamppost"{}}, \textcolor{stringliteral}{"{}Empty fields: All fields required!"{}});}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00050}00050         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00051}00051     \}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00053}00053      \textcolor{comment}{//qDebug() << "{}Position: "{} << source-\/>lastKnownPosition();}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00054}00054     QGeoCoordinate coords = source-\/>lastKnownPosition().coordinate();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00056}00056     \textcolor{comment}{// store longitude and latitude coordinates}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00057}00057     \textcolor{keywordtype}{double} longitude = coords.longitude();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00058}00058     \textcolor{keywordtype}{double} latitude = coords.latitude();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00060}00060     \textcolor{keywordflow}{if}( (longitude != 0) \&\& (latitude != 0) )}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00061}00061     \{}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00062}00062         \textcolor{comment}{// stop updating coordinates}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00063}00063         source-\/>stopUpdates();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00065}00065         \textcolor{comment}{// ADD LAMPPOST TO DATABASE}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00066}00066         qDebug() << \textcolor{stringliteral}{"{}Position ("{}} << latitude << \textcolor{stringliteral}{"{},"{}} << longitude<< \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00067}00067         \textcolor{comment}{//this-\/>hide();}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00068}00068         this-\/>deleteLater();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00069}00069     \}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00070}00070 \}}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00072}00072 \textcolor{keywordtype}{void} addLamp::on\_back\_b\_released()}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00073}00073 \{}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00074}00074     this-\/>deleteLater();}
+\DoxyCodeLine{\Hypertarget{add_lamp_8cpp_source_l00075}00075 \}}
+
+\end{DoxyCode}

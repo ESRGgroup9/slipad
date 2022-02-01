@@ -1,0 +1,413 @@
+\hypertarget{class_composer_1_1_autoload_1_1_class_loader}{}\doxysection{Class\+Loader Class Reference}
+\label{class_composer_1_1_autoload_1_1_class_loader}\index{ClassLoader@{ClassLoader}}
+
+
+Collaboration diagram for Class\+Loader\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{class_composer_1_1_autoload_1_1_class_loader__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a102069675f7a94f8917f44acc2390687}{get\+Prefixes}} ()
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_aa51c60813356de68739dbc9047976ceb}{get\+Prefixes\+Psr4}} ()
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_ae15bf208c8df574932ed0db749d5447b}{get\+Fallback\+Dirs}} ()
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a1f1f85b44a8d01987ad2b6cd78f268bd}{get\+Fallback\+Dirs\+Psr4}} ()
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a7e9a9730c400820ee2b1c995cd5134fe}{get\+Class\+Map}} ()
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a164966b8bcb9bf5470152bb5707a28af}{add\+Class\+Map}} (array \$class\+Map)
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a5c0f76dc6dde6d1209d78b2fa27db0af}{add}} (\$prefix, \$paths, \$prepend=false)
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a264d8845526646ebc3725f219949baca}{add\+Psr4}} (\$prefix, \$paths, \$prepend=false)
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a558e395314f41f94b501b189ae74dcae}{set}} (\$prefix, \$paths)
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a7f92172519c08357430e7da877a88995}{set\+Psr4}} (\$prefix, \$paths)
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_aed3e96782322ebc7352f1e62de1cc38c}{set\+Use\+Include\+Path}} (\$use\+Include\+Path)
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a21c8a2ce47b9ab8184cce5949496414c}{get\+Use\+Include\+Path}} ()
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_aa3d6610396da6f5bef836d4fc5547816}{set\+Class\+Map\+Authoritative}} (\$class\+Map\+Authoritative)
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a5187f29c880def2863b3592d2cce5844}{is\+Class\+Map\+Authoritative}} ()
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_aad0640d28c755d32a9c4d13322959848}{set\+Apcu\+Prefix}} (\$apcu\+Prefix)
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a570c1269e2a739a2849b7e579e7d83b9}{get\+Apcu\+Prefix}} ()
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a3968965f178f6a5ef212b31b72231e69}{register}} (\$prepend=false)
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a501cedfa611556a0100e024a0e102d9d}{unregister}} ()
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a8326a997d0cfe76d80196f60d240d144}{load\+Class}} (\$class)
+\item 
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a4f8534c9205630e4b9c61e47ebf2867a}{find\+File}} (\$class)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader}{Class\+Loader}} implements a PSR-\/0, PSR-\/4 and classmap class loader. \begin{DoxyVerb}$loader = new \Composer\Autoload\ClassLoader();
+
+// register classes with namespaces
+$loader->add('Symfony\Component', __DIR__.'/component');
+$loader->add('Symfony',           __DIR__.'/framework');
+
+// activate the autoloader
+$loader->register();
+
+// to enable searching the include path (eg. for PEAR packages)
+$loader->setUseIncludePath(true);
+\end{DoxyVerb}
+ In this example, if you try to use a class in the Symfony\textbackslash{}\+Component namespace or one of its children (Symfony\textbackslash{}\+Component\textbackslash{}\+Console for instance), the autoloader will first look for the class under the component/ directory, and it will then fallback to the framework/ directory if not found before giving up.
+
+This class is loosely based on the Symfony Universal\+Class\+Loader.
+
+\begin{DoxyAuthor}{Author}
+Fabien Potencier \href{mailto:fabien@symfony.com}{\texttt{ fabien@symfony.\+com}} 
+
+Jordi Boggiano \href{mailto:j.boggiano@seld.be}{\texttt{ j.\+boggiano@seld.\+be}} 
+\end{DoxyAuthor}
+\begin{DoxySeeAlso}{See also}
+\href{http://www.php-fig.org/psr/psr-0/}{\texttt{ http\+://www.\+php-\/fig.\+org/psr/psr-\/0/}} 
+
+\href{http://www.php-fig.org/psr/psr-4/}{\texttt{ http\+://www.\+php-\/fig.\+org/psr/psr-\/4/}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00043}{43}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a5c0f76dc6dde6d1209d78b2fa27db0af}\label{class_composer_1_1_autoload_1_1_class_loader_a5c0f76dc6dde6d1209d78b2fa27db0af}} 
+\index{ClassLoader@{ClassLoader}!add@{add}}
+\index{add@{add}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily add (\begin{DoxyParamCaption}\item[{}]{\$prefix,  }\item[{}]{\$paths,  }\item[{}]{\$prepend = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Registers a set of PSR-\/0 directories for a given prefix, either appending or prepending to the ones previously set for this prefix.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$prefix} & The prefix \\
+\hline
+array | string & {\em \$paths} & The PSR-\/0 root directories \\
+\hline
+bool & {\em \$prepend} & Whether to prepend the directories \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00109}{109}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a164966b8bcb9bf5470152bb5707a28af}\label{class_composer_1_1_autoload_1_1_class_loader_a164966b8bcb9bf5470152bb5707a28af}} 
+\index{ClassLoader@{ClassLoader}!addClassMap@{addClassMap}}
+\index{addClassMap@{addClassMap}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{addClassMap()}{addClassMap()}}
+{\footnotesize\ttfamily add\+Class\+Map (\begin{DoxyParamCaption}\item[{array}]{\$class\+Map }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$class\+Map} & Class to filename map \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00092}{92}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a264d8845526646ebc3725f219949baca}\label{class_composer_1_1_autoload_1_1_class_loader_a264d8845526646ebc3725f219949baca}} 
+\index{ClassLoader@{ClassLoader}!addPsr4@{addPsr4}}
+\index{addPsr4@{addPsr4}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{addPsr4()}{addPsr4()}}
+{\footnotesize\ttfamily add\+Psr4 (\begin{DoxyParamCaption}\item[{}]{\$prefix,  }\item[{}]{\$paths,  }\item[{}]{\$prepend = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Registers a set of PSR-\/4 directories for a given namespace, either appending or prepending to the ones previously set for this namespace.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$prefix} & The prefix/namespace, with trailing \textquotesingle{}\textbackslash{}\textquotesingle{} \\
+\hline
+array | string & {\em \$paths} & The PSR-\/4 base directories \\
+\hline
+bool & {\em \$prepend} & Whether to prepend the directories\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+Invalid\+Argument\+Exception 
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00156}{156}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a4f8534c9205630e4b9c61e47ebf2867a}\label{class_composer_1_1_autoload_1_1_class_loader_a4f8534c9205630e4b9c61e47ebf2867a}} 
+\index{ClassLoader@{ClassLoader}!findFile@{findFile}}
+\index{findFile@{findFile}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{findFile()}{findFile()}}
+{\footnotesize\ttfamily find\+File (\begin{DoxyParamCaption}\item[{}]{\$class }\end{DoxyParamCaption})}
+
+Finds the path to the file where the class is defined.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$class} & The name of the class\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string$\vert$false The path if found, false otherwise 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00335}{335}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a570c1269e2a739a2849b7e579e7d83b9}\label{class_composer_1_1_autoload_1_1_class_loader_a570c1269e2a739a2849b7e579e7d83b9}} 
+\index{ClassLoader@{ClassLoader}!getApcuPrefix@{getApcuPrefix}}
+\index{getApcuPrefix@{getApcuPrefix}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{getApcuPrefix()}{getApcuPrefix()}}
+{\footnotesize\ttfamily get\+Apcu\+Prefix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+The APCu prefix in use, or null if APCu caching is not enabled.
+
+\begin{DoxyReturn}{Returns}
+string$\vert$null 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00290}{290}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a7e9a9730c400820ee2b1c995cd5134fe}\label{class_composer_1_1_autoload_1_1_class_loader_a7e9a9730c400820ee2b1c995cd5134fe}} 
+\index{ClassLoader@{ClassLoader}!getClassMap@{getClassMap}}
+\index{getClassMap@{getClassMap}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{getClassMap()}{getClassMap()}}
+{\footnotesize\ttfamily get\+Class\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00084}{84}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_ae15bf208c8df574932ed0db749d5447b}\label{class_composer_1_1_autoload_1_1_class_loader_ae15bf208c8df574932ed0db749d5447b}} 
+\index{ClassLoader@{ClassLoader}!getFallbackDirs@{getFallbackDirs}}
+\index{getFallbackDirs@{getFallbackDirs}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{getFallbackDirs()}{getFallbackDirs()}}
+{\footnotesize\ttfamily get\+Fallback\+Dirs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00074}{74}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a1f1f85b44a8d01987ad2b6cd78f268bd}\label{class_composer_1_1_autoload_1_1_class_loader_a1f1f85b44a8d01987ad2b6cd78f268bd}} 
+\index{ClassLoader@{ClassLoader}!getFallbackDirsPsr4@{getFallbackDirsPsr4}}
+\index{getFallbackDirsPsr4@{getFallbackDirsPsr4}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{getFallbackDirsPsr4()}{getFallbackDirsPsr4()}}
+{\footnotesize\ttfamily get\+Fallback\+Dirs\+Psr4 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00079}{79}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a102069675f7a94f8917f44acc2390687}\label{class_composer_1_1_autoload_1_1_class_loader_a102069675f7a94f8917f44acc2390687}} 
+\index{ClassLoader@{ClassLoader}!getPrefixes@{getPrefixes}}
+\index{getPrefixes@{getPrefixes}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{getPrefixes()}{getPrefixes()}}
+{\footnotesize\ttfamily get\+Prefixes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00060}{60}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_aa51c60813356de68739dbc9047976ceb}\label{class_composer_1_1_autoload_1_1_class_loader_aa51c60813356de68739dbc9047976ceb}} 
+\index{ClassLoader@{ClassLoader}!getPrefixesPsr4@{getPrefixesPsr4}}
+\index{getPrefixesPsr4@{getPrefixesPsr4}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{getPrefixesPsr4()}{getPrefixesPsr4()}}
+{\footnotesize\ttfamily get\+Prefixes\+Psr4 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00069}{69}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a21c8a2ce47b9ab8184cce5949496414c}\label{class_composer_1_1_autoload_1_1_class_loader_a21c8a2ce47b9ab8184cce5949496414c}} 
+\index{ClassLoader@{ClassLoader}!getUseIncludePath@{getUseIncludePath}}
+\index{getUseIncludePath@{getUseIncludePath}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{getUseIncludePath()}{getUseIncludePath()}}
+{\footnotesize\ttfamily get\+Use\+Include\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Can be used to check if the autoloader uses the include path to check for classes.
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00249}{249}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a5187f29c880def2863b3592d2cce5844}\label{class_composer_1_1_autoload_1_1_class_loader_a5187f29c880def2863b3592d2cce5844}} 
+\index{ClassLoader@{ClassLoader}!isClassMapAuthoritative@{isClassMapAuthoritative}}
+\index{isClassMapAuthoritative@{isClassMapAuthoritative}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{isClassMapAuthoritative()}{isClassMapAuthoritative()}}
+{\footnotesize\ttfamily is\+Class\+Map\+Authoritative (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Should class lookup fail if not found in the current class map?
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00270}{270}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a8326a997d0cfe76d80196f60d240d144}\label{class_composer_1_1_autoload_1_1_class_loader_a8326a997d0cfe76d80196f60d240d144}} 
+\index{ClassLoader@{ClassLoader}!loadClass@{loadClass}}
+\index{loadClass@{loadClass}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{loadClass()}{loadClass()}}
+{\footnotesize\ttfamily load\+Class (\begin{DoxyParamCaption}\item[{}]{\$class }\end{DoxyParamCaption})}
+
+Loads the given class or interface.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$class} & The name of the class \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool$\vert$null True if loaded, null otherwise 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00319}{319}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a3968965f178f6a5ef212b31b72231e69}\label{class_composer_1_1_autoload_1_1_class_loader_a3968965f178f6a5ef212b31b72231e69}} 
+\index{ClassLoader@{ClassLoader}!register@{register}}
+\index{register@{register}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{register()}{register()}}
+{\footnotesize\ttfamily register (\begin{DoxyParamCaption}\item[{}]{\$prepend = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Registers this instance as an autoloader.
+
+
+\begin{DoxyParams}[1]{Parameters}
+bool & {\em \$prepend} & Whether to prepend the autoloader or not \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00300}{300}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a558e395314f41f94b501b189ae74dcae}\label{class_composer_1_1_autoload_1_1_class_loader_a558e395314f41f94b501b189ae74dcae}} 
+\index{ClassLoader@{ClassLoader}!set@{set}}
+\index{set@{set}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{set()}{set()}}
+{\footnotesize\ttfamily set (\begin{DoxyParamCaption}\item[{}]{\$prefix,  }\item[{}]{\$paths }\end{DoxyParamCaption})}
+
+Registers a set of PSR-\/0 directories for a given prefix, replacing any others previously set for this prefix.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$prefix} & The prefix \\
+\hline
+array | string & {\em \$paths} & The PSR-\/0 base directories \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00201}{201}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_aad0640d28c755d32a9c4d13322959848}\label{class_composer_1_1_autoload_1_1_class_loader_aad0640d28c755d32a9c4d13322959848}} 
+\index{ClassLoader@{ClassLoader}!setApcuPrefix@{setApcuPrefix}}
+\index{setApcuPrefix@{setApcuPrefix}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{setApcuPrefix()}{setApcuPrefix()}}
+{\footnotesize\ttfamily set\+Apcu\+Prefix (\begin{DoxyParamCaption}\item[{}]{\$apcu\+Prefix }\end{DoxyParamCaption})}
+
+APCu prefix to use to cache found/not-\/found classes, if the extension is enabled.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string | null & {\em \$apcu\+Prefix} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00280}{280}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_aa3d6610396da6f5bef836d4fc5547816}\label{class_composer_1_1_autoload_1_1_class_loader_aa3d6610396da6f5bef836d4fc5547816}} 
+\index{ClassLoader@{ClassLoader}!setClassMapAuthoritative@{setClassMapAuthoritative}}
+\index{setClassMapAuthoritative@{setClassMapAuthoritative}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{setClassMapAuthoritative()}{setClassMapAuthoritative()}}
+{\footnotesize\ttfamily set\+Class\+Map\+Authoritative (\begin{DoxyParamCaption}\item[{}]{\$class\+Map\+Authoritative }\end{DoxyParamCaption})}
+
+Turns off searching the prefix and fallback directories for classes that have not been registered with the class map.
+
+
+\begin{DoxyParams}[1]{Parameters}
+bool & {\em \$class\+Map\+Authoritative} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00260}{260}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a7f92172519c08357430e7da877a88995}\label{class_composer_1_1_autoload_1_1_class_loader_a7f92172519c08357430e7da877a88995}} 
+\index{ClassLoader@{ClassLoader}!setPsr4@{setPsr4}}
+\index{setPsr4@{setPsr4}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{setPsr4()}{setPsr4()}}
+{\footnotesize\ttfamily set\+Psr4 (\begin{DoxyParamCaption}\item[{}]{\$prefix,  }\item[{}]{\$paths }\end{DoxyParamCaption})}
+
+Registers a set of PSR-\/4 directories for a given namespace, replacing any others previously set for this namespace.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$prefix} & The prefix/namespace, with trailing \textquotesingle{}\textbackslash{}\textquotesingle{} \\
+\hline
+array | string & {\em \$paths} & The PSR-\/4 base directories\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+Invalid\+Argument\+Exception 
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00219}{219}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_aed3e96782322ebc7352f1e62de1cc38c}\label{class_composer_1_1_autoload_1_1_class_loader_aed3e96782322ebc7352f1e62de1cc38c}} 
+\index{ClassLoader@{ClassLoader}!setUseIncludePath@{setUseIncludePath}}
+\index{setUseIncludePath@{setUseIncludePath}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{setUseIncludePath()}{setUseIncludePath()}}
+{\footnotesize\ttfamily set\+Use\+Include\+Path (\begin{DoxyParamCaption}\item[{}]{\$use\+Include\+Path }\end{DoxyParamCaption})}
+
+Turns on searching the include path for class files.
+
+
+\begin{DoxyParams}[1]{Parameters}
+bool & {\em \$use\+Include\+Path} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00238}{238}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+\mbox{\Hypertarget{class_composer_1_1_autoload_1_1_class_loader_a501cedfa611556a0100e024a0e102d9d}\label{class_composer_1_1_autoload_1_1_class_loader_a501cedfa611556a0100e024a0e102d9d}} 
+\index{ClassLoader@{ClassLoader}!unregister@{unregister}}
+\index{unregister@{unregister}!ClassLoader@{ClassLoader}}
+\doxysubsubsection{\texorpdfstring{unregister()}{unregister()}}
+{\footnotesize\ttfamily unregister (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Unregisters this instance as an autoloader. 
+
+Definition at line \mbox{\hyperlink{_class_loader_8php_source_l00308}{308}} of file \mbox{\hyperlink{_class_loader_8php_source}{Class\+Loader.\+php}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+remote\+System/website/vendor/composer/Class\+Loader.\+php\end{DoxyCompactItemize}

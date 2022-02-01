@@ -1,0 +1,328 @@
+\hypertarget{_class_loader_8php_source}{}\doxysection{Class\+Loader.\+php}
+\label{_class_loader_8php_source}\index{remoteSystem/website/vendor/composer/ClassLoader.php@{remoteSystem/website/vendor/composer/ClassLoader.php}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00001}00001 <?php}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00003}00003 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00004}00004 \textcolor{comment}{ * This file is part of Composer.}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00006}00006 \textcolor{comment}{ * (c) Nils Adermann <naderman@naderman.de>}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00007}00007 \textcolor{comment}{ *     Jordi Boggiano <j.boggiano@seld.be>}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00009}00009 \textcolor{comment}{ * For the full copyright and license information, please view the LICENSE}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00010}00010 \textcolor{comment}{ * file that was distributed with this source code.}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00011}00011 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00013}00013 \textcolor{keyword}{namespace }Composer\(\backslash\)Autoload;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00043}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader}{00043}} \textcolor{keyword}{class }\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader}{ClassLoader}}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00044}00044 \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00045}00045     \textcolor{comment}{// PSR-\/4}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00046}00046     \textcolor{keyword}{private} \$prefixLengthsPsr4 = array();}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00047}00047     \textcolor{keyword}{private} \$prefixDirsPsr4 = array();}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00048}00048     \textcolor{keyword}{private} \$fallbackDirsPsr4 = array();}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00050}00050     \textcolor{comment}{// PSR-\/0}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00051}00051     \textcolor{keyword}{private} \$prefixesPsr0 = array();}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00052}00052     \textcolor{keyword}{private} \$fallbackDirsPsr0 = array();}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00054}00054     \textcolor{keyword}{private} \$useIncludePath = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00055}00055     \textcolor{keyword}{private} \$classMap = array();}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00056}00056     \textcolor{keyword}{private} \$classMapAuthoritative = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00057}00057     \textcolor{keyword}{private} \$missingClasses = array();}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00058}00058     \textcolor{keyword}{private} \$apcuPrefix;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00060}00060     \textcolor{keyword}{public} \textcolor{keyword}{function} getPrefixes()}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00061}00061     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00062}00062         \textcolor{keywordflow}{if} (!empty(\$this-\/>prefixesPsr0)) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00063}00063             \textcolor{keywordflow}{return} call\_user\_func\_array(\textcolor{stringliteral}{'array\_merge'}, \$this-\/>prefixesPsr0);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00064}00064         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00066}00066         \textcolor{keywordflow}{return} array();}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00067}00067     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00069}00069     \textcolor{keyword}{public} \textcolor{keyword}{function} getPrefixesPsr4()}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00070}00070     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00071}00071         \textcolor{keywordflow}{return} \$this-\/>prefixDirsPsr4;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00072}00072     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00074}00074     \textcolor{keyword}{public} \textcolor{keyword}{function} getFallbackDirs()}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00075}00075     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00076}00076         \textcolor{keywordflow}{return} \$this-\/>fallbackDirsPsr0;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00077}00077     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00079}00079     \textcolor{keyword}{public} \textcolor{keyword}{function} getFallbackDirsPsr4()}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00080}00080     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00081}00081         \textcolor{keywordflow}{return} \$this-\/>fallbackDirsPsr4;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00082}00082     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00084}00084     \textcolor{keyword}{public} \textcolor{keyword}{function} getClassMap()}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00085}00085     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00086}00086         \textcolor{keywordflow}{return} \$this-\/>classMap;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00087}00087     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00092}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a164966b8bcb9bf5470152bb5707a28af}{00092}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a164966b8bcb9bf5470152bb5707a28af}{addClassMap}}(array \$classMap)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00093}00093     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00094}00094         \textcolor{keywordflow}{if} (\$this-\/>classMap) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00095}00095             \$this-\/>classMap = array\_merge(\$this-\/>classMap, \$classMap);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00096}00096         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00097}00097             \$this-\/>classMap = \$classMap;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00098}00098         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00099}00099     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00109}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a5c0f76dc6dde6d1209d78b2fa27db0af}{00109}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a5c0f76dc6dde6d1209d78b2fa27db0af}{add}}(\$prefix, \$paths, \$prepend = \textcolor{keyword}{false})}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00110}00110     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00111}00111         \textcolor{keywordflow}{if} (!\$prefix) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00112}00112             \textcolor{keywordflow}{if} (\$prepend) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00113}00113                 \$this-\/>fallbackDirsPsr0 = array\_merge(}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00114}00114                     (array) \$paths,}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00115}00115                     \$this-\/>fallbackDirsPsr0}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00116}00116                 );}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00117}00117             \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00118}00118                 \$this-\/>fallbackDirsPsr0 = array\_merge(}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00119}00119                     \$this-\/>fallbackDirsPsr0,}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00120}00120                     (array) \$paths}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00121}00121                 );}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00122}00122             \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00124}00124             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00125}00125         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00127}00127         \$first = \$prefix[0];}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00128}00128         \textcolor{keywordflow}{if} (!isset(\$this-\/>prefixesPsr0[\$first][\$prefix])) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00129}00129             \$this-\/>prefixesPsr0[\$first][\$prefix] = (array) \$paths;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00131}00131             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00132}00132         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00133}00133         \textcolor{keywordflow}{if} (\$prepend) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00134}00134             \$this-\/>prefixesPsr0[\$first][\$prefix] = array\_merge(}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00135}00135                 (array) \$paths,}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00136}00136                 \$this-\/>prefixesPsr0[\$first][\$prefix]}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00137}00137             );}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00138}00138         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00139}00139             \$this-\/>prefixesPsr0[\$first][\$prefix] = array\_merge(}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00140}00140                 \$this-\/>prefixesPsr0[\$first][\$prefix],}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00141}00141                 (array) \$paths}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00142}00142             );}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00143}00143         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00144}00144     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00145}00145 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00156}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a264d8845526646ebc3725f219949baca}{00156}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a264d8845526646ebc3725f219949baca}{addPsr4}}(\$prefix, \$paths, \$prepend = \textcolor{keyword}{false})}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00157}00157     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00158}00158         \textcolor{keywordflow}{if} (!\$prefix) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00159}00159             \textcolor{comment}{// Register directories for the root namespace.}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00160}00160             \textcolor{keywordflow}{if} (\$prepend) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00161}00161                 \$this-\/>fallbackDirsPsr4 = array\_merge(}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00162}00162                     (array) \$paths,}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00163}00163                     \$this-\/>fallbackDirsPsr4}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00164}00164                 );}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00165}00165             \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00166}00166                 \$this-\/>fallbackDirsPsr4 = array\_merge(}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00167}00167                     \$this-\/>fallbackDirsPsr4,}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00168}00168                     (array) \$paths}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00169}00169                 );}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00170}00170             \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00171}00171         \} elseif (!isset(\$this-\/>prefixDirsPsr4[\$prefix])) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00172}00172             \textcolor{comment}{// Register directories for a new namespace.}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00173}00173             \$length = strlen(\$prefix);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00174}00174             \textcolor{keywordflow}{if} (\textcolor{charliteral}{'\(\backslash\)\(\backslash\)'} !== \$prefix[\$length -\/ 1]) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00175}00175                 \textcolor{keywordflow}{throw} new \(\backslash\)InvalidArgumentException(\textcolor{stringliteral}{"{}A non-\/empty PSR-\/4 prefix must end with a namespace separator."{}});}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00176}00176             \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00177}00177             \$this-\/>prefixLengthsPsr4[\$prefix[0]][\$prefix] = \$length;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00178}00178             \$this-\/>prefixDirsPsr4[\$prefix] = (array) \$paths;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00179}00179         \} elseif (\$prepend) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00180}00180             \textcolor{comment}{// Prepend directories for an already registered namespace.}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00181}00181             \$this-\/>prefixDirsPsr4[\$prefix] = array\_merge(}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00182}00182                 (array) \$paths,}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00183}00183                 \$this-\/>prefixDirsPsr4[\$prefix]}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00184}00184             );}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00185}00185         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00186}00186             \textcolor{comment}{// Append directories for an already registered namespace.}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00187}00187             \$this-\/>prefixDirsPsr4[\$prefix] = array\_merge(}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00188}00188                 \$this-\/>prefixDirsPsr4[\$prefix],}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00189}00189                 (array) \$paths}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00190}00190             );}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00191}00191         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00192}00192     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00201}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a558e395314f41f94b501b189ae74dcae}{00201}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \textcolor{keyword}{set}(\$prefix, \$paths)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00202}00202     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00203}00203         \textcolor{keywordflow}{if} (!\$prefix) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00204}00204             \$this-\/>fallbackDirsPsr0 = (array) \$paths;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00205}00205         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00206}00206             \$this-\/>prefixesPsr0[\$prefix[0]][\$prefix] = (array) \$paths;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00207}00207         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00208}00208     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00209}00209 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00219}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a7f92172519c08357430e7da877a88995}{00219}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a7f92172519c08357430e7da877a88995}{setPsr4}}(\$prefix, \$paths)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00220}00220     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00221}00221         \textcolor{keywordflow}{if} (!\$prefix) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00222}00222             \$this-\/>fallbackDirsPsr4 = (array) \$paths;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00223}00223         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00224}00224             \$length = strlen(\$prefix);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00225}00225             \textcolor{keywordflow}{if} (\textcolor{charliteral}{'\(\backslash\)\(\backslash\)'} !== \$prefix[\$length -\/ 1]) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00226}00226                 \textcolor{keywordflow}{throw} new \(\backslash\)InvalidArgumentException(\textcolor{stringliteral}{"{}A non-\/empty PSR-\/4 prefix must end with a namespace separator."{}});}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00227}00227             \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00228}00228             \$this-\/>prefixLengthsPsr4[\$prefix[0]][\$prefix] = \$length;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00229}00229             \$this-\/>prefixDirsPsr4[\$prefix] = (array) \$paths;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00230}00230         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00231}00231     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00232}00232 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00238}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_aed3e96782322ebc7352f1e62de1cc38c}{00238}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_aed3e96782322ebc7352f1e62de1cc38c}{setUseIncludePath}}(\$useIncludePath)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00239}00239     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00240}00240         \$this-\/>useIncludePath = \$useIncludePath;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00241}00241     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00249}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a21c8a2ce47b9ab8184cce5949496414c}{00249}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a21c8a2ce47b9ab8184cce5949496414c}{getUseIncludePath}}()}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00250}00250     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00251}00251         \textcolor{keywordflow}{return} \$this-\/>useIncludePath;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00252}00252     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00253}00253 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00260}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_aa3d6610396da6f5bef836d4fc5547816}{00260}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_aa3d6610396da6f5bef836d4fc5547816}{setClassMapAuthoritative}}(\$classMapAuthoritative)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00261}00261     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00262}00262         \$this-\/>classMapAuthoritative = \$classMapAuthoritative;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00263}00263     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00264}00264 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00270}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a5187f29c880def2863b3592d2cce5844}{00270}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a5187f29c880def2863b3592d2cce5844}{isClassMapAuthoritative}}()}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00271}00271     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00272}00272         \textcolor{keywordflow}{return} \$this-\/>classMapAuthoritative;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00273}00273     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00274}00274 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00280}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_aad0640d28c755d32a9c4d13322959848}{00280}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_aad0640d28c755d32a9c4d13322959848}{setApcuPrefix}}(\$apcuPrefix)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00281}00281     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00282}00282         \$this-\/>apcuPrefix = function\_exists(\textcolor{stringliteral}{'apcu\_fetch'}) \&\& filter\_var(ini\_get(\textcolor{stringliteral}{'apc.enabled'}), FILTER\_VALIDATE\_BOOLEAN) ? \$apcuPrefix : \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00283}00283     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00284}00284 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00290}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a570c1269e2a739a2849b7e579e7d83b9}{00290}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a570c1269e2a739a2849b7e579e7d83b9}{getApcuPrefix}}()}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00291}00291     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00292}00292         \textcolor{keywordflow}{return} \$this-\/>apcuPrefix;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00293}00293     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00294}00294 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00300}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a3968965f178f6a5ef212b31b72231e69}{00300}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \textcolor{keyword}{register}(\$prepend = \textcolor{keyword}{false})}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00301}00301     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00302}00302         spl\_autoload\_register(array(\$this, \textcolor{stringliteral}{'loadClass'}), \textcolor{keyword}{true}, \$prepend);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00303}00303     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00304}00304 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00308}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a501cedfa611556a0100e024a0e102d9d}{00308}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a501cedfa611556a0100e024a0e102d9d}{unregister}}()}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00309}00309     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00310}00310         spl\_autoload\_unregister(array(\$this, \textcolor{stringliteral}{'loadClass'}));}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00311}00311     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00312}00312 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00319}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a8326a997d0cfe76d80196f60d240d144}{00319}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a8326a997d0cfe76d80196f60d240d144}{loadClass}}(\$class)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00320}00320     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00321}00321         \textcolor{keywordflow}{if} (\$file = \$this-\/>\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a4f8534c9205630e4b9c61e47ebf2867a}{findFile}}(\$class)) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00322}00322             includeFile(\$file);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00323}00323 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00324}00324             \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00325}00325         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00326}00326     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00327}00327 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00335}\mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a4f8534c9205630e4b9c61e47ebf2867a}{00335}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_composer_1_1_autoload_1_1_class_loader_a4f8534c9205630e4b9c61e47ebf2867a}{findFile}}(\$class)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00336}00336     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00337}00337         \textcolor{comment}{// class map lookup}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00338}00338         \textcolor{keywordflow}{if} (isset(\$this-\/>classMap[\$class])) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00339}00339             \textcolor{keywordflow}{return} \$this-\/>classMap[\$class];}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00340}00340         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00341}00341         \textcolor{keywordflow}{if} (\$this-\/>classMapAuthoritative || isset(\$this-\/>missingClasses[\$class])) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00342}00342             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00343}00343         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00344}00344         \textcolor{keywordflow}{if} (\textcolor{keyword}{null} !== \$this-\/>apcuPrefix) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00345}00345             \$file = apcu\_fetch(\$this-\/>apcuPrefix.\$class, \$hit);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00346}00346             \textcolor{keywordflow}{if} (\$hit) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00347}00347                 \textcolor{keywordflow}{return} \$file;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00348}00348             \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00349}00349         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00350}00350 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00351}00351         \$file = \$this-\/>findFileWithExtension(\$class, \textcolor{stringliteral}{'.php'});}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00352}00352 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00353}00353         \textcolor{comment}{// Search for Hack files if we are running on HHVM}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00354}00354         \textcolor{keywordflow}{if} (\textcolor{keyword}{false} === \$file \&\& defined(\textcolor{stringliteral}{'HHVM\_VERSION'})) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00355}00355             \$file = \$this-\/>findFileWithExtension(\$class, \textcolor{stringliteral}{'.hh'});}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00356}00356         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00357}00357 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00358}00358         \textcolor{keywordflow}{if} (\textcolor{keyword}{null} !== \$this-\/>apcuPrefix) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00359}00359             apcu\_add(\$this-\/>apcuPrefix.\$class, \$file);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00360}00360         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00361}00361 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00362}00362         \textcolor{keywordflow}{if} (\textcolor{keyword}{false} === \$file) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00363}00363             \textcolor{comment}{// Remember that this class does not exist.}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00364}00364             \$this-\/>missingClasses[\$class] = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00365}00365         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00366}00366 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00367}00367         \textcolor{keywordflow}{return} \$file;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00368}00368     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00369}00369 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00370}00370     \textcolor{keyword}{private} \textcolor{keyword}{function} findFileWithExtension(\$class, \$ext)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00371}00371     \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00372}00372         \textcolor{comment}{// PSR-\/4 lookup}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00373}00373         \$logicalPathPsr4 = strtr(\$class, \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}, DIRECTORY\_SEPARATOR) . \$ext;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00374}00374 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00375}00375         \$first = \$class[0];}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00376}00376         \textcolor{keywordflow}{if} (isset(\$this-\/>prefixLengthsPsr4[\$first])) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00377}00377             \$subPath = \$class;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00378}00378             \textcolor{keywordflow}{while} (\textcolor{keyword}{false} !== \$lastPos = strrpos(\$subPath, \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'})) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00379}00379                 \$subPath = substr(\$subPath, 0, \$lastPos);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00380}00380                 \$search = \$subPath . \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'};}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00381}00381                 \textcolor{keywordflow}{if} (isset(\$this-\/>prefixDirsPsr4[\$search])) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00382}00382                     \$pathEnd = DIRECTORY\_SEPARATOR . substr(\$logicalPathPsr4, \$lastPos + 1);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00383}00383                     \textcolor{keywordflow}{foreach} (\$this-\/>prefixDirsPsr4[\$search] as \$dir) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00384}00384                         \textcolor{keywordflow}{if} (file\_exists(\$file = \$dir . \$pathEnd)) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00385}00385                             \textcolor{keywordflow}{return} \$file;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00386}00386                         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00387}00387                     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00388}00388                 \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00389}00389             \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00390}00390         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00391}00391 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00392}00392         \textcolor{comment}{// PSR-\/4 fallback dirs}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00393}00393         \textcolor{keywordflow}{foreach} (\$this-\/>fallbackDirsPsr4 as \$dir) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00394}00394             \textcolor{keywordflow}{if} (file\_exists(\$file = \$dir . DIRECTORY\_SEPARATOR . \$logicalPathPsr4)) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00395}00395                 \textcolor{keywordflow}{return} \$file;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00396}00396             \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00397}00397         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00398}00398 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00399}00399         \textcolor{comment}{// PSR-\/0 lookup}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00400}00400         \textcolor{keywordflow}{if} (\textcolor{keyword}{false} !== \$pos = strrpos(\$class, \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'})) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00401}00401             \textcolor{comment}{// namespaced class name}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00402}00402             \$logicalPathPsr0 = substr(\$logicalPathPsr4, 0, \$pos + 1)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00403}00403                 . strtr(substr(\$logicalPathPsr4, \$pos + 1), \textcolor{charliteral}{'\_'}, DIRECTORY\_SEPARATOR);}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00404}00404         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00405}00405             \textcolor{comment}{// PEAR-\/like class name}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00406}00406             \$logicalPathPsr0 = strtr(\$class, \textcolor{charliteral}{'\_'}, DIRECTORY\_SEPARATOR) . \$ext;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00407}00407         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00408}00408 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00409}00409         \textcolor{keywordflow}{if} (isset(\$this-\/>prefixesPsr0[\$first])) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00410}00410             \textcolor{keywordflow}{foreach} (\$this-\/>prefixesPsr0[\$first] as \$prefix => \$dirs) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00411}00411                 \textcolor{keywordflow}{if} (0 === strpos(\$class, \$prefix)) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00412}00412                     \textcolor{keywordflow}{foreach} (\$dirs as \$dir) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00413}00413                         \textcolor{keywordflow}{if} (file\_exists(\$file = \$dir . DIRECTORY\_SEPARATOR . \$logicalPathPsr0)) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00414}00414                             \textcolor{keywordflow}{return} \$file;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00415}00415                         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00416}00416                     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00417}00417                 \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00418}00418             \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00419}00419         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00420}00420 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00421}00421         \textcolor{comment}{// PSR-\/0 fallback dirs}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00422}00422         \textcolor{keywordflow}{foreach} (\$this-\/>fallbackDirsPsr0 as \$dir) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00423}00423             \textcolor{keywordflow}{if} (file\_exists(\$file = \$dir . DIRECTORY\_SEPARATOR . \$logicalPathPsr0)) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00424}00424                 \textcolor{keywordflow}{return} \$file;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00425}00425             \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00426}00426         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00427}00427 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00428}00428         \textcolor{comment}{// PSR-\/0 include paths.}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00429}00429         \textcolor{keywordflow}{if} (\$this-\/>useIncludePath \&\& \$file = stream\_resolve\_include\_path(\$logicalPathPsr0)) \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00430}00430             \textcolor{keywordflow}{return} \$file;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00431}00431         \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00432}00432 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00433}00433         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00434}00434     \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00435}00435 \}}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00436}00436 }
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00442}00442 \textcolor{keyword}{function} includeFile(\$file)}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00443}00443 \{}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00444}00444     include \$file;}
+\DoxyCodeLine{\Hypertarget{_class_loader_8php_source_l00445}00445 \}}
+
+\end{DoxyCode}

@@ -1,0 +1,117 @@
+\hypertarget{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer}{}\doxysection{Multi\+Writer Class Reference}
+\label{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer}\index{MultiWriter@{MultiWriter}}
+
+
+Inheritance diagram for Multi\+Writer\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Multi\+Writer\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer_ac37cada463d25cb95597bc9c405ef857}{\+\_\+\+\_\+construct}} (array \$writers)
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer_ab7cb510c0407388f7efa654e896b7d65}{write}} (string \$name, string \$value)
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer_a3702377c488cc3f291c4bea213134028}{delete}} (string \$name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_multi_writer_8php_source_l00007}{7}} of file \mbox{\hyperlink{_multi_writer_8php_source}{Multi\+Writer.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer_ac37cada463d25cb95597bc9c405ef857}\label{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer_ac37cada463d25cb95597bc9c405ef857}} 
+\index{MultiWriter@{MultiWriter}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!MultiWriter@{MultiWriter}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{array}]{\$writers }\end{DoxyParamCaption})}
+
+Create a new multi-\/writer instance.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+Dotenv\textbackslash{}\+Repository\textbackslash{}\+Adapter\textbackslash{}\+Writer\+Interface\mbox{[}$\,$\mbox{]} & {\em \$writers} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_multi_writer_8php_source_l00023}{23}} of file \mbox{\hyperlink{_multi_writer_8php_source}{Multi\+Writer.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer_a3702377c488cc3f291c4bea213134028}\label{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer_a3702377c488cc3f291c4bea213134028}} 
+\index{MultiWriter@{MultiWriter}!delete@{delete}}
+\index{delete@{delete}!MultiWriter@{MultiWriter}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily delete (\begin{DoxyParamCaption}\item[{string}]{\$name }\end{DoxyParamCaption})}
+
+Delete an environment variable, if possible.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_adapter_1_1_writer_interface_a3702377c488cc3f291c4bea213134028}{Writer\+Interface}}.
+
+
+
+Definition at line \mbox{\hyperlink{_multi_writer_8php_source_l00054}{54}} of file \mbox{\hyperlink{_multi_writer_8php_source}{Multi\+Writer.\+php}}.
+
+\mbox{\Hypertarget{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer_ab7cb510c0407388f7efa654e896b7d65}\label{class_dotenv_1_1_repository_1_1_adapter_1_1_multi_writer_ab7cb510c0407388f7efa654e896b7d65}} 
+\index{MultiWriter@{MultiWriter}!write@{write}}
+\index{write@{write}!MultiWriter@{MultiWriter}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily write (\begin{DoxyParamCaption}\item[{string}]{\$name,  }\item[{string}]{\$value }\end{DoxyParamCaption})}
+
+Write to an environment variable, if possible.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+string & {\em \$value} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_adapter_1_1_writer_interface_ab7cb510c0407388f7efa654e896b7d65}{Writer\+Interface}}.
+
+
+
+Definition at line \mbox{\hyperlink{_multi_writer_8php_source_l00036}{36}} of file \mbox{\hyperlink{_multi_writer_8php_source}{Multi\+Writer.\+php}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+remote\+System/website/vendor/vlucas/phpdotenv/src/\+Repository/\+Adapter/Multi\+Writer.\+php\end{DoxyCompactItemize}

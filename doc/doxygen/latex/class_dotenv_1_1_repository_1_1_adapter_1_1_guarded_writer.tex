@@ -1,0 +1,119 @@
+\hypertarget{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer}{}\doxysection{Guarded\+Writer Class Reference}
+\label{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer}\index{GuardedWriter@{GuardedWriter}}
+
+
+Inheritance diagram for Guarded\+Writer\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Guarded\+Writer\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer_aef505f55551beb3553877a6b4e89870d}{\+\_\+\+\_\+construct}} (\mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_adapter_1_1_writer_interface}{Writer\+Interface}} \$writer, array \$allow\+List)
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer_ab7cb510c0407388f7efa654e896b7d65}{write}} (string \$name, string \$value)
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer_a3702377c488cc3f291c4bea213134028}{delete}} (string \$name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_guarded_writer_8php_source_l00007}{7}} of file \mbox{\hyperlink{_guarded_writer_8php_source}{Guarded\+Writer.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer_aef505f55551beb3553877a6b4e89870d}\label{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer_aef505f55551beb3553877a6b4e89870d}} 
+\index{GuardedWriter@{GuardedWriter}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!GuardedWriter@{GuardedWriter}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_adapter_1_1_writer_interface}{Writer\+Interface}}}]{\$writer,  }\item[{array}]{\$allow\+List }\end{DoxyParamCaption})}
+
+Create a new guarded writer instance.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+Dotenv\textbackslash{}\+Repository\textbackslash{}\+Adapter\textbackslash{}\+Writer\+Interface & {\em \$writer} & \\
+\hline
+string\mbox{[}$\,$\mbox{]} & {\em \$allow\+List} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_guarded_writer_8php_source_l00031}{31}} of file \mbox{\hyperlink{_guarded_writer_8php_source}{Guarded\+Writer.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer_a3702377c488cc3f291c4bea213134028}\label{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer_a3702377c488cc3f291c4bea213134028}} 
+\index{GuardedWriter@{GuardedWriter}!delete@{delete}}
+\index{delete@{delete}!GuardedWriter@{GuardedWriter}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily delete (\begin{DoxyParamCaption}\item[{string}]{\$name }\end{DoxyParamCaption})}
+
+Delete an environment variable, if possible.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_adapter_1_1_writer_interface_a3702377c488cc3f291c4bea213134028}{Writer\+Interface}}.
+
+
+
+Definition at line \mbox{\hyperlink{_guarded_writer_8php_source_l00063}{63}} of file \mbox{\hyperlink{_guarded_writer_8php_source}{Guarded\+Writer.\+php}}.
+
+\mbox{\Hypertarget{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer_ab7cb510c0407388f7efa654e896b7d65}\label{class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer_ab7cb510c0407388f7efa654e896b7d65}} 
+\index{GuardedWriter@{GuardedWriter}!write@{write}}
+\index{write@{write}!GuardedWriter@{GuardedWriter}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily write (\begin{DoxyParamCaption}\item[{string}]{\$name,  }\item[{string}]{\$value }\end{DoxyParamCaption})}
+
+Write to an environment variable, if possible.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+string & {\em \$value} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_adapter_1_1_writer_interface_ab7cb510c0407388f7efa654e896b7d65}{Writer\+Interface}}.
+
+
+
+Definition at line \mbox{\hyperlink{_guarded_writer_8php_source_l00045}{45}} of file \mbox{\hyperlink{_guarded_writer_8php_source}{Guarded\+Writer.\+php}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+remote\+System/website/vendor/vlucas/phpdotenv/src/\+Repository/\+Adapter/Guarded\+Writer.\+php\end{DoxyCompactItemize}

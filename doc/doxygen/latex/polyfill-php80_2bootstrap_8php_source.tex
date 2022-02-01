@@ -1,0 +1,48 @@
+\hypertarget{polyfill-php80_2bootstrap_8php_source}{}\doxysection{bootstrap.\+php}
+\label{polyfill-php80_2bootstrap_8php_source}\index{remoteSystem/website/vendor/symfony/polyfill-\/php80/bootstrap.php@{remoteSystem/website/vendor/symfony/polyfill-\/php80/bootstrap.php}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00001}00001 <?php}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00003}00003 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00004}00004 \textcolor{comment}{ * This file is part of the Symfony package.}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00006}00006 \textcolor{comment}{ * (c) Fabien Potencier <fabien@symfony.com>}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00007}00007 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00008}00008 \textcolor{comment}{ * For the full copyright and license information, please view the LICENSE}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00009}00009 \textcolor{comment}{ * file that was distributed with this source code.}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00010}00010 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00012}00012 use Symfony\(\backslash\)Polyfill\(\backslash\)Php80 as p;}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00014}00014 \textcolor{keywordflow}{if} (\(\backslash\)PHP\_VERSION\_ID >= 80000) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00015}00015     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00016}00016 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00018}00018 \textcolor{keywordflow}{if} (!defined(\textcolor{stringliteral}{'FILTER\_VALIDATE\_BOOL'}) \&\& defined(\textcolor{stringliteral}{'FILTER\_VALIDATE\_BOOLEAN'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00019}00019     define(\textcolor{stringliteral}{'FILTER\_VALIDATE\_BOOL'}, \(\backslash\)FILTER\_VALIDATE\_BOOLEAN);}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00020}00020 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00022}00022 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'fdiv'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00023}00023     \textcolor{keyword}{function} fdiv(\textcolor{keywordtype}{float} \$num1, \textcolor{keywordtype}{float} \$num2): float \{ return p\(\backslash\)Php80::fdiv(\$num1, \$num2); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00024}00024 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00025}00025 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'preg\_last\_error\_msg'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00026}00026     \textcolor{keyword}{function} preg\_last\_error\_msg(): string \{ return p\(\backslash\)Php80::preg\_last\_error\_msg(); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00027}00027 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00028}00028 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'str\_contains'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00029}00029     \textcolor{keyword}{function} str\_contains(?\textcolor{keywordtype}{string} \$haystack, ?\textcolor{keywordtype}{string} \$needle): bool \{ return p\(\backslash\)Php80::str\_contains(\$haystack ?? \textcolor{stringliteral}{''}, \$needle ?? \textcolor{stringliteral}{''}); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00030}00030 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00031}00031 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'str\_starts\_with'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00032}00032     \textcolor{keyword}{function} str\_starts\_with(?\textcolor{keywordtype}{string} \$haystack, ?\textcolor{keywordtype}{string} \$needle): bool \{ return p\(\backslash\)Php80::str\_starts\_with(\$haystack ?? \textcolor{stringliteral}{''}, \$needle ?? \textcolor{stringliteral}{''}); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00033}00033 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00034}00034 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'str\_ends\_with'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00035}00035     \textcolor{keyword}{function} str\_ends\_with(?\textcolor{keywordtype}{string} \$haystack, ?\textcolor{keywordtype}{string} \$needle): bool \{ return p\(\backslash\)Php80::str\_ends\_with(\$haystack ?? \textcolor{stringliteral}{''}, \$needle ?? \textcolor{stringliteral}{''}); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00036}00036 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00037}00037 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'get\_debug\_type'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00038}00038     \textcolor{keyword}{function} get\_debug\_type(\$value): string \{ return p\(\backslash\)Php80::get\_debug\_type(\$value); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00039}00039 \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00040}00040 \textcolor{keywordflow}{if} (!function\_exists(\textcolor{stringliteral}{'get\_resource\_id'})) \{}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00041}00041     \textcolor{keyword}{function} get\_resource\_id(\$resource): int \{ return p\(\backslash\)Php80::get\_resource\_id(\$resource); \}}
+\DoxyCodeLine{\Hypertarget{polyfill-php80_2bootstrap_8php_source_l00042}00042 \}}
+
+\end{DoxyCode}

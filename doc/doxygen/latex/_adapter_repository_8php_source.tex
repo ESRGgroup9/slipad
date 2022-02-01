@@ -1,0 +1,47 @@
+\hypertarget{_adapter_repository_8php_source}{}\doxysection{Adapter\+Repository.\+php}
+\label{_adapter_repository_8php_source}\index{remoteSystem/website/vendor/vlucas/phpdotenv/src/Repository/AdapterRepository.php@{remoteSystem/website/vendor/vlucas/phpdotenv/src/Repository/AdapterRepository.php}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00001}00001 <?php}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00003}00003 declare(strict\_types=1);}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00005}00005 \textcolor{keyword}{namespace }Dotenv\(\backslash\)Repository;}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00007}00007 use \mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_adapter_1_1_reader_interface}{Dotenv\(\backslash\)Repository\(\backslash\)Adapter\(\backslash\)ReaderInterface}};}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00008}00008 use \mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_adapter_1_1_writer_interface}{Dotenv\(\backslash\)Repository\(\backslash\)Adapter\(\backslash\)WriterInterface}};}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00010}\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_repository}{00010}} \textcolor{keyword}{final} \textcolor{keyword}{class }\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_repository}{AdapterRepository}} \textcolor{keyword}{implements} \mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_repository_interface}{RepositoryInterface}}}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00011}00011 \{}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00017}00017     \textcolor{keyword}{private} \$reader;}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00024}00024     \textcolor{keyword}{private} \$writer;}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00034}\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_repository_a8f2f872b6016bc03430d7f05f5470c1e}{00034}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_repository_a8f2f872b6016bc03430d7f05f5470c1e}{\_\_construct}}(\mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_adapter_1_1_reader_interface}{ReaderInterface}} \$reader, \mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_adapter_1_1_writer_interface}{WriterInterface}} \$writer)}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00035}00035     \{}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00036}00036         \$this-\/>reader = \$reader;}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00037}00037         \$this-\/>writer = \$writer;}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00038}00038     \}}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00047}\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_repository_a36c5aea84ecb000ab035e47ec3f351c3}{00047}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_repository_a36c5aea84ecb000ab035e47ec3f351c3}{has}}(\textcolor{keywordtype}{string} \$name)}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00048}00048     \{}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00049}00049         \textcolor{keywordflow}{return} \$this-\/>reader-\/>read(\$name)-\/>isDefined();}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00050}00050     \}}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00059}\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_repository_a004397797e263171281784084cf4a502}{00059}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \textcolor{keyword}{get}(\textcolor{keywordtype}{string} \$name)}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00060}00060     \{}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00061}00061         \textcolor{keywordflow}{return} \$this-\/>reader-\/>read(\$name)-\/>getOrElse(\textcolor{keyword}{null});}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00062}00062     \}}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00072}\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_repository_a90796cfc15d582a03076188d5a98cfb2}{00072}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \textcolor{keyword}{set}(\textcolor{keywordtype}{string} \$name, \textcolor{keywordtype}{string} \$value)}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00073}00073     \{}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00074}00074         \textcolor{keywordflow}{return} \$this-\/>writer-\/>write(\$name, \$value);}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00075}00075     \}}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00084}\mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_repository_aded2418b3797220db4fd5b15bdd0f6b8}{00084}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_dotenv_1_1_repository_1_1_adapter_repository_aded2418b3797220db4fd5b15bdd0f6b8}{clear}}(\textcolor{keywordtype}{string} \$name)}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00085}00085     \{}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00086}00086         \textcolor{keywordflow}{return} \$this-\/>writer-\/>delete(\$name);}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00087}00087     \}}
+\DoxyCodeLine{\Hypertarget{_adapter_repository_8php_source_l00088}00088 \}}
+
+\end{DoxyCode}

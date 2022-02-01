@@ -18,19 +18,27 @@
 \DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00030}00030 }
 \DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00035}00035     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_af2cf1c6ca6651ea56391bd8638dc0a0d}{getLocalAddr}}(\textcolor{keywordtype}{void}) \textcolor{keyword}{const};}
 \DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00036}00036 }
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00037}00037 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00046}00046     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{recvFunc}}(std::string \&msg);}
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00047}00047 }
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00056}00056     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}{sendFunc}}(std::string msg);}
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00057}00057 }
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00058}00058 \textcolor{keyword}{private}:}
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00059}00059     \mbox{\hyperlink{class_lo_ra_class}{LoRaClass}} lora;}
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00060}00060     \textcolor{keywordtype}{int} freqMhz;}
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00061}00061     \textcolor{keywordtype}{int} dest\_addr;}
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00062}00062     \textcolor{keywordtype}{int} local\_addr;}
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00063}00063 \};}
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00064}00064 \textcolor{comment}{// End  CLoraComm class definition}}
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00065}00065 }
-\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00066}00066 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_CLORACOMM\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00042}00042     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_lora_comm_a795b2052249d6a3f16e2e7ce81bd91c4}{setSrcAddr}}(\textcolor{keywordtype}{int} src);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00049}00049     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_lora_comm_a99b8a4639dfbcd774408c015ef38bd75}{setDestAddr}}(\textcolor{keywordtype}{int} dest);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00055}00055     \mbox{\hyperlink{class_lo_ra_msg}{LoRaMsg}} \mbox{\hyperlink{class_c_lora_comm_a6b7a5c0b3b8a2befb5f410dbe6e61cd6}{getMsgAttr}}(\textcolor{keywordtype}{void}) \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00057}00057 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00066}00066     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}{recvFunc}}(std::string \&msg);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00076}00076     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}{sendFunc}}(std::string msg);}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00078}00078 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00079}00079     \mbox{\hyperlink{class_lo_ra_class}{LoRaClass}} lora;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00080}00080     \mbox{\hyperlink{class_lo_ra_msg}{LoRaMsg}} loraMsg;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00082}00082     \textcolor{keywordtype}{int} freqMhz;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00083}00083     \textcolor{keywordtype}{int} dest\_addr;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00084}00084     \textcolor{keywordtype}{int} local\_addr;}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00085}00085 \};}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00086}00086 \textcolor{comment}{// End  CLoraComm class definition}}
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{_c_lora_comm_8h_source_l00088}00088 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_CLORACOMM\_H\_\_}}
 
 \end{DoxyCode}

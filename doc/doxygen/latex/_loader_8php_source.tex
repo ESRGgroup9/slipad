@@ -1,0 +1,42 @@
+\hypertarget{_loader_8php_source}{}\doxysection{Loader.\+php}
+\label{_loader_8php_source}\index{remoteSystem/website/vendor/vlucas/phpdotenv/src/Loader/Loader.php@{remoteSystem/website/vendor/vlucas/phpdotenv/src/Loader/Loader.php}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00001}00001 <?php}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00003}00003 declare(strict\_types=1);}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00005}00005 \textcolor{keyword}{namespace }\mbox{\hyperlink{class_dotenv_1_1_loader_1_1_loader}{Dotenv\(\backslash\)Loader}};}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00007}00007 use \mbox{\hyperlink{class_dotenv_1_1_parser_1_1_entry}{Dotenv\(\backslash\)Parser\(\backslash\)Entry}};}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00008}00008 use \mbox{\hyperlink{class_dotenv_1_1_parser_1_1_value}{Dotenv\(\backslash\)Parser\(\backslash\)Value}};}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00009}00009 use \mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_repository_interface}{Dotenv\(\backslash\)Repository\(\backslash\)RepositoryInterface}};}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00011}\mbox{\hyperlink{class_dotenv_1_1_loader_1_1_loader}{00011}} \textcolor{keyword}{final} \textcolor{keyword}{class }\mbox{\hyperlink{class_dotenv_1_1_loader_1_1_loader}{Loader}} \textcolor{keyword}{implements} \mbox{\hyperlink{interface_dotenv_1_1_loader_1_1_loader_interface}{LoaderInterface}}}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00012}00012 \{}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00024}\mbox{\hyperlink{class_dotenv_1_1_loader_1_1_loader_af9e711445f8a9b8a6664adc88e4b45f9}{00024}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_dotenv_1_1_loader_1_1_loader_af9e711445f8a9b8a6664adc88e4b45f9}{load}}(\mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_repository_interface}{RepositoryInterface}} \$repository, array \$entries)}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00025}00025     \{}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00026}00026         return \(\backslash\)array\_reduce(\$entries, \textcolor{keyword}{static} \textcolor{keyword}{function} (array \$vars, \mbox{\hyperlink{class_dotenv_1_1_parser_1_1_entry}{Entry}} \$entry) use (\$repository) \{}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00027}00027             \$name = \$entry-\/>\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_entry_a3d0963e68bb313b163a73f2803c64600}{getName}}();}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00029}00029             \$value = \$entry-\/>getValue()-\/>map(\textcolor{keyword}{static} \textcolor{keyword}{function} (\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_value}{Value}} \$value) use (\$repository) \{}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00030}00030                 \textcolor{keywordflow}{return} \mbox{\hyperlink{class_dotenv_1_1_loader_1_1_resolver_a246f7088bed4524d4700afcce66a8b39}{Resolver::resolve}}(\$repository, \$value);}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00031}00031             \});}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00033}00033             \textcolor{keywordflow}{if} (\$value-\/>isDefined()) \{}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00034}00034                 \$inner = \$value-\/>get();}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00035}00035                 \textcolor{keywordflow}{if} (\$repository-\/>\mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_repository_interface_a90796cfc15d582a03076188d5a98cfb2}{set}}(\$name, \$inner)) \{}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00036}00036                     return \(\backslash\)array\_merge(\$vars, [\$name => \$inner]);}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00037}00037                 \}}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00038}00038             \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00039}00039                 \textcolor{keywordflow}{if} (\$repository-\/>\mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_repository_interface_aded2418b3797220db4fd5b15bdd0f6b8}{clear}}(\$name)) \{}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00040}00040                     return \(\backslash\)array\_merge(\$vars, [\$name => \textcolor{keyword}{null}]);}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00041}00041                 \}}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00042}00042             \}}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00044}00044             \textcolor{keywordflow}{return} \$vars;}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00045}00045         \}, []);}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00046}00046     \}}
+\DoxyCodeLine{\Hypertarget{_loader_8php_source_l00047}00047 \}}
+
+\end{DoxyCode}

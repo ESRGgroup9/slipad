@@ -1,0 +1,535 @@
+\hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring}{}\doxysection{Mbstring Class Reference}
+\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring}\index{Mbstring@{Mbstring}}
+
+
+Collaboration diagram for Mbstring\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a84d99dd1d7d8820af71edae7d97eb866}{mb\+\_\+convert\+\_\+encoding}} (\$s, \$to\+Encoding, \$from\+Encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a97f34c70f1a60e8329657ca02004671f}{mb\+\_\+convert\+\_\+variables}} (\$to\+Encoding, \$from\+Encoding, \&... \$vars)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a59fca468dcbbab7c0d4cebce410553c9}{mb\+\_\+decode\+\_\+mimeheader}} (\$s)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aa67f9cc753f3e241d00609d9b5ae02de}{mb\+\_\+encode\+\_\+mimeheader}} (\$s, \$charset=null, \$transfer\+Encoding=null, \$linefeed=null, \$indent=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a3b8ae2be3e3b9c621b15bbefe0132746}{mb\+\_\+decode\+\_\+numericentity}} (\$s, \$convmap, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a58adb7a1d0e7aa7eaa1d2a3e4d7fd446}{mb\+\_\+encode\+\_\+numericentity}} (\$s, \$convmap, \$encoding=null, \$is\+\_\+hex=false)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a95a646eeac9e6ebf48c150a62526f2c2}{mb\+\_\+convert\+\_\+case}} (\$s, \$mode, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a67ac58e6c2555b1d7797f7e473a0fb33}{mb\+\_\+internal\+\_\+encoding}} (\$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a99ab75b3eee86651a314e0c6d22b5f7e}{mb\+\_\+language}} (\$lang=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a8545f48c9859d5067686aaf1fd40ff79}{mb\+\_\+list\+\_\+encodings}} ()
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ae18ef9f92abf7edf6c53ccf88e662ef3}{mb\+\_\+encoding\+\_\+aliases}} (\$encoding)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a6757acdc010a4c72638af822d2342bbe}{mb\+\_\+check\+\_\+encoding}} (\$var=null, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aad01538b14f3efa0d9c5cea4cd4c507d}{mb\+\_\+detect\+\_\+encoding}} (\$str, \$encoding\+List=null, \$strict=false)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aceb5dad7107f3937cbcfd16104add294}{mb\+\_\+detect\+\_\+order}} (\$encoding\+List=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ab852281314426dd75499a0673c85db87}{mb\+\_\+strlen}} (\$s, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a24124a5eaea8ede2e7d44d8fd84b4058}{mb\+\_\+strpos}} (\$haystack, \$needle, \$offset=0, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_afe50237ad9c1ed920a8166a5458ae1cf}{mb\+\_\+strrpos}} (\$haystack, \$needle, \$offset=0, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aa9cdb52e5d4f8e9f2763d3f54858f407}{mb\+\_\+str\+\_\+split}} (\$string, \$split\+\_\+length=1, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a7bdc9beffa5b1ba23c203987acba05fb}{mb\+\_\+strtolower}} (\$s, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a6e59eada26c79194acf7a139701041fe}{mb\+\_\+strtoupper}} (\$s, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ad48dc100280736ad272fc923f01fa1be}{mb\+\_\+substitute\+\_\+character}} (\$c=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ade00c2aedaee40ae772eec3e055262be}{mb\+\_\+substr}} (\$s, \$start, \$length=null, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a26967603570e1dd43b65c27c2856ff6f}{mb\+\_\+stripos}} (\$haystack, \$needle, \$offset=0, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a5aef53f68586028a78f894b7f923681c}{mb\+\_\+stristr}} (\$haystack, \$needle, \$part=false, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ad561e330e70cb4f2a233e7c2cb624c91}{mb\+\_\+strrchr}} (\$haystack, \$needle, \$part=false, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_acd39b3830028a508b06080f8a38d5403}{mb\+\_\+strrichr}} (\$haystack, \$needle, \$part=false, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a9056dcc9df1d477cb03001adbb8a9497}{mb\+\_\+strripos}} (\$haystack, \$needle, \$offset=0, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a05052e4e0bab49cfe3a0c6dad91f66c8}{mb\+\_\+strstr}} (\$haystack, \$needle, \$part=false, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a9fdfc07707533f6258415211559b1034}{mb\+\_\+get\+\_\+info}} (\$type=\textquotesingle{}all\textquotesingle{})
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aa9e130c2420821c3fcf6ad2645a63efe}{mb\+\_\+http\+\_\+input}} (\$type=\textquotesingle{}\textquotesingle{})
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a387494572e7ce41ee7f0d5c99b72df4d}{mb\+\_\+http\+\_\+output}} (\$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_afc98384ebc04d26f6e8a1abb88cce3af}{mb\+\_\+strwidth}} (\$s, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a0e1557ace6c7748126cc4e08067bdba2}{mb\+\_\+substr\+\_\+count}} (\$haystack, \$needle, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a1b552cf101641e067fffed656fd91179}{mb\+\_\+output\+\_\+handler}} (\$contents, \$status)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ae97531bdf938906edbb3d2fc524e6e63}{mb\+\_\+chr}} (\$code, \$encoding=null)
+\item 
+static \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a8984c6a38ccef2cf6a6bde439458e7b2}{mb\+\_\+ord}} (\$s, \$encoding=null)
+\end{DoxyCompactItemize}
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a75524db562c45e6d46a7ca4bc6988aa5}{MB\+\_\+\+CASE\+\_\+\+FOLD}} = \textbackslash{}PHP\+\_\+\+INT\+\_\+\+MAX
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Partial mbstring implementation in PHP, iconv based, UTF-\/8 centric.
+
+Implemented\+:
+\begin{DoxyItemize}
+\item mb\+\_\+chr -\/ Returns a specific character from its Unicode code point
+\item mb\+\_\+convert\+\_\+encoding -\/ Convert character encoding
+\item mb\+\_\+convert\+\_\+variables -\/ Convert character code in variable(s)
+\item mb\+\_\+decode\+\_\+mimeheader -\/ Decode string in MIME header field
+\item mb\+\_\+encode\+\_\+mimeheader -\/ Encode string for MIME header XXX NATIVE IMPLEMENTATION IS REALLY BUGGED
+\item mb\+\_\+decode\+\_\+numericentity -\/ Decode HTML numeric string reference to character
+\item mb\+\_\+encode\+\_\+numericentity -\/ Encode character to HTML numeric string reference
+\item mb\+\_\+convert\+\_\+case -\/ Perform case folding on a string
+\item mb\+\_\+detect\+\_\+encoding -\/ Detect character encoding
+\item mb\+\_\+get\+\_\+info -\/ Get internal settings of mbstring
+\item mb\+\_\+http\+\_\+input -\/ Detect HTTP input character encoding
+\item mb\+\_\+http\+\_\+output -\/ Set/\+Get HTTP output character encoding
+\item mb\+\_\+internal\+\_\+encoding -\/ Set/\+Get internal character encoding
+\item mb\+\_\+list\+\_\+encodings -\/ Returns an array of all supported encodings
+\item mb\+\_\+ord -\/ Returns the Unicode code point of a character
+\item mb\+\_\+output\+\_\+handler -\/ Callback function converts character encoding in output buffer
+\item mb\+\_\+scrub -\/ Replaces ill-\/formed byte sequences with substitute characters
+\item mb\+\_\+strlen -\/ Get string length
+\item mb\+\_\+strpos -\/ Find position of first occurrence of string in a string
+\item mb\+\_\+strrpos -\/ Find position of last occurrence of a string in a string
+\item mb\+\_\+str\+\_\+split -\/ Convert a string to an array
+\item mb\+\_\+strtolower -\/ Make a string lowercase
+\item mb\+\_\+strtoupper -\/ Make a string uppercase
+\item mb\+\_\+substitute\+\_\+character -\/ Set/\+Get substitution character
+\item mb\+\_\+substr -\/ Get part of string
+\item mb\+\_\+stripos -\/ Finds position of first occurrence of a string within another, case insensitive
+\item mb\+\_\+stristr -\/ Finds first occurrence of a string within another, case insensitive
+\item mb\+\_\+strrchr -\/ Finds the last occurrence of a character in a string within another
+\item mb\+\_\+strrichr -\/ Finds the last occurrence of a character in a string within another, case insensitive
+\item mb\+\_\+strripos -\/ Finds position of last occurrence of a string within another, case insensitive
+\item mb\+\_\+strstr -\/ Finds first occurrence of a string within another
+\item mb\+\_\+strwidth -\/ Return width of string
+\item mb\+\_\+substr\+\_\+count -\/ Count the number of substring occurrences
+\end{DoxyItemize}
+
+Not implemented\+:
+\begin{DoxyItemize}
+\item mb\+\_\+convert\+\_\+kana -\/ Convert \char`\"{}kana\char`\"{} one from another (\char`\"{}zen-\/kaku\char`\"{}, \char`\"{}han-\/kaku\char`\"{} and more)
+\item mb\+\_\+ereg\+\_\+$\ast$ -\/ Regular expression with multibyte support
+\item mb\+\_\+parse\+\_\+str -\/ Parse GET/\+POST/\+COOKIE data and set global variable
+\item mb\+\_\+preferred\+\_\+mime\+\_\+name -\/ Get MIME charset string
+\item mb\+\_\+regex\+\_\+encoding -\/ Returns current encoding for multibyte regex as string
+\item mb\+\_\+regex\+\_\+set\+\_\+options -\/ Set/\+Get the default options for mbregex functions
+\item mb\+\_\+send\+\_\+mail -\/ Send encoded mail
+\item mb\+\_\+split -\/ Split multibyte string using regular expression
+\item mb\+\_\+strcut -\/ Get part of string
+\item mb\+\_\+strimwidth -\/ Get truncated string with specified width
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Nicolas Grekas \href{mailto:p@tchwork.com}{\texttt{ p@tchwork.\+com}} 
+\end{DoxyAuthor}
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00068}{68}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a6757acdc010a4c72638af822d2342bbe}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a6757acdc010a4c72638af822d2342bbe}} 
+\index{Mbstring@{Mbstring}!mb\_check\_encoding@{mb\_check\_encoding}}
+\index{mb\_check\_encoding@{mb\_check\_encoding}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_check\_encoding()}{mb\_check\_encoding()}}
+{\footnotesize\ttfamily static mb\+\_\+check\+\_\+encoding (\begin{DoxyParamCaption}\item[{}]{\$var = {\ttfamily null},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00407}{407}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ae97531bdf938906edbb3d2fc524e6e63}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ae97531bdf938906edbb3d2fc524e6e63}} 
+\index{Mbstring@{Mbstring}!mb\_chr@{mb\_chr}}
+\index{mb\_chr@{mb\_chr}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_chr()}{mb\_chr()}}
+{\footnotesize\ttfamily static mb\+\_\+chr (\begin{DoxyParamCaption}\item[{}]{\$code,  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00757}{757}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a95a646eeac9e6ebf48c150a62526f2c2}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a95a646eeac9e6ebf48c150a62526f2c2}} 
+\index{Mbstring@{Mbstring}!mb\_convert\_case@{mb\_convert\_case}}
+\index{mb\_convert\_case@{mb\_convert\_case}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_convert\_case()}{mb\_convert\_case()}}
+{\footnotesize\ttfamily static mb\+\_\+convert\+\_\+case (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$mode,  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00271}{271}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a84d99dd1d7d8820af71edae7d97eb866}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a84d99dd1d7d8820af71edae7d97eb866}} 
+\index{Mbstring@{Mbstring}!mb\_convert\_encoding@{mb\_convert\_encoding}}
+\index{mb\_convert\_encoding@{mb\_convert\_encoding}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_convert\_encoding()}{mb\_convert\_encoding()}}
+{\footnotesize\ttfamily static mb\+\_\+convert\+\_\+encoding (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$to\+Encoding,  }\item[{}]{\$from\+Encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00081}{81}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a97f34c70f1a60e8329657ca02004671f}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a97f34c70f1a60e8329657ca02004671f}} 
+\index{Mbstring@{Mbstring}!mb\_convert\_variables@{mb\_convert\_variables}}
+\index{mb\_convert\_variables@{mb\_convert\_variables}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_convert\_variables()}{mb\_convert\_variables()}}
+{\footnotesize\ttfamily static mb\+\_\+convert\+\_\+variables (\begin{DoxyParamCaption}\item[{}]{\$to\+Encoding,  }\item[{}]{\$from\+Encoding,  }\item[{\&...}]{\$vars }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00119}{119}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a59fca468dcbbab7c0d4cebce410553c9}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a59fca468dcbbab7c0d4cebce410553c9}} 
+\index{Mbstring@{Mbstring}!mb\_decode\_mimeheader@{mb\_decode\_mimeheader}}
+\index{mb\_decode\_mimeheader@{mb\_decode\_mimeheader}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_decode\_mimeheader()}{mb\_decode\_mimeheader()}}
+{\footnotesize\ttfamily static mb\+\_\+decode\+\_\+mimeheader (\begin{DoxyParamCaption}\item[{}]{\$s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00131}{131}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a3b8ae2be3e3b9c621b15bbefe0132746}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a3b8ae2be3e3b9c621b15bbefe0132746}} 
+\index{Mbstring@{Mbstring}!mb\_decode\_numericentity@{mb\_decode\_numericentity}}
+\index{mb\_decode\_numericentity@{mb\_decode\_numericentity}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_decode\_numericentity()}{mb\_decode\_numericentity()}}
+{\footnotesize\ttfamily static mb\+\_\+decode\+\_\+numericentity (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$convmap,  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00141}{141}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aad01538b14f3efa0d9c5cea4cd4c507d}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aad01538b14f3efa0d9c5cea4cd4c507d}} 
+\index{Mbstring@{Mbstring}!mb\_detect\_encoding@{mb\_detect\_encoding}}
+\index{mb\_detect\_encoding@{mb\_detect\_encoding}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_detect\_encoding()}{mb\_detect\_encoding()}}
+{\footnotesize\ttfamily static mb\+\_\+detect\+\_\+encoding (\begin{DoxyParamCaption}\item[{}]{\$str,  }\item[{}]{\$encoding\+List = {\ttfamily null},  }\item[{}]{\$strict = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00419}{419}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aceb5dad7107f3937cbcfd16104add294}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aceb5dad7107f3937cbcfd16104add294}} 
+\index{Mbstring@{Mbstring}!mb\_detect\_order@{mb\_detect\_order}}
+\index{mb\_detect\_order@{mb\_detect\_order}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_detect\_order()}{mb\_detect\_order()}}
+{\footnotesize\ttfamily static mb\+\_\+detect\+\_\+order (\begin{DoxyParamCaption}\item[{}]{\$encoding\+List = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00455}{455}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aa67f9cc753f3e241d00609d9b5ae02de}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aa67f9cc753f3e241d00609d9b5ae02de}} 
+\index{Mbstring@{Mbstring}!mb\_encode\_mimeheader@{mb\_encode\_mimeheader}}
+\index{mb\_encode\_mimeheader@{mb\_encode\_mimeheader}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_encode\_mimeheader()}{mb\_encode\_mimeheader()}}
+{\footnotesize\ttfamily static mb\+\_\+encode\+\_\+mimeheader (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$charset = {\ttfamily null},  }\item[{}]{\$transfer\+Encoding = {\ttfamily null},  }\item[{}]{\$linefeed = {\ttfamily null},  }\item[{}]{\$indent = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00136}{136}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a58adb7a1d0e7aa7eaa1d2a3e4d7fd446}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a58adb7a1d0e7aa7eaa1d2a3e4d7fd446}} 
+\index{Mbstring@{Mbstring}!mb\_encode\_numericentity@{mb\_encode\_numericentity}}
+\index{mb\_encode\_numericentity@{mb\_encode\_numericentity}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_encode\_numericentity()}{mb\_encode\_numericentity()}}
+{\footnotesize\ttfamily static mb\+\_\+encode\+\_\+numericentity (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$convmap,  }\item[{}]{\$encoding = {\ttfamily null},  }\item[{}]{\$is\+\_\+hex = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00201}{201}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ae18ef9f92abf7edf6c53ccf88e662ef3}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ae18ef9f92abf7edf6c53ccf88e662ef3}} 
+\index{Mbstring@{Mbstring}!mb\_encoding\_aliases@{mb\_encoding\_aliases}}
+\index{mb\_encoding\_aliases@{mb\_encoding\_aliases}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_encoding\_aliases()}{mb\_encoding\_aliases()}}
+{\footnotesize\ttfamily static mb\+\_\+encoding\+\_\+aliases (\begin{DoxyParamCaption}\item[{}]{\$encoding }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00396}{396}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a9fdfc07707533f6258415211559b1034}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a9fdfc07707533f6258415211559b1034}} 
+\index{Mbstring@{Mbstring}!mb\_get\_info@{mb\_get\_info}}
+\index{mb\_get\_info@{mb\_get\_info}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_get\_info()}{mb\_get\_info()}}
+{\footnotesize\ttfamily static mb\+\_\+get\+\_\+info (\begin{DoxyParamCaption}\item[{}]{\$type = {\ttfamily \textquotesingle{}all\textquotesingle{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00695}{695}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aa9e130c2420821c3fcf6ad2645a63efe}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aa9e130c2420821c3fcf6ad2645a63efe}} 
+\index{Mbstring@{Mbstring}!mb\_http\_input@{mb\_http\_input}}
+\index{mb\_http\_input@{mb\_http\_input}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_http\_input()}{mb\_http\_input()}}
+{\footnotesize\ttfamily static mb\+\_\+http\+\_\+input (\begin{DoxyParamCaption}\item[{}]{\$type = {\ttfamily \textquotesingle{}\textquotesingle{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00724}{724}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a387494572e7ce41ee7f0d5c99b72df4d}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a387494572e7ce41ee7f0d5c99b72df4d}} 
+\index{Mbstring@{Mbstring}!mb\_http\_output@{mb\_http\_output}}
+\index{mb\_http\_output@{mb\_http\_output}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_http\_output()}{mb\_http\_output()}}
+{\footnotesize\ttfamily static mb\+\_\+http\+\_\+output (\begin{DoxyParamCaption}\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00729}{729}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a67ac58e6c2555b1d7797f7e473a0fb33}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a67ac58e6c2555b1d7797f7e473a0fb33}} 
+\index{Mbstring@{Mbstring}!mb\_internal\_encoding@{mb\_internal\_encoding}}
+\index{mb\_internal\_encoding@{mb\_internal\_encoding}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_internal\_encoding()}{mb\_internal\_encoding()}}
+{\footnotesize\ttfamily static mb\+\_\+internal\+\_\+encoding (\begin{DoxyParamCaption}\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00349}{349}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a99ab75b3eee86651a314e0c6d22b5f7e}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a99ab75b3eee86651a314e0c6d22b5f7e}} 
+\index{Mbstring@{Mbstring}!mb\_language@{mb\_language}}
+\index{mb\_language@{mb\_language}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_language()}{mb\_language()}}
+{\footnotesize\ttfamily static mb\+\_\+language (\begin{DoxyParamCaption}\item[{}]{\$lang = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00370}{370}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a8545f48c9859d5067686aaf1fd40ff79}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a8545f48c9859d5067686aaf1fd40ff79}} 
+\index{Mbstring@{Mbstring}!mb\_list\_encodings@{mb\_list\_encodings}}
+\index{mb\_list\_encodings@{mb\_list\_encodings}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_list\_encodings()}{mb\_list\_encodings()}}
+{\footnotesize\ttfamily static mb\+\_\+list\+\_\+encodings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00391}{391}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a8984c6a38ccef2cf6a6bde439458e7b2}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a8984c6a38ccef2cf6a6bde439458e7b2}} 
+\index{Mbstring@{Mbstring}!mb\_ord@{mb\_ord}}
+\index{mb\_ord@{mb\_ord}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_ord()}{mb\_ord()}}
+{\footnotesize\ttfamily static mb\+\_\+ord (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00776}{776}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a1b552cf101641e067fffed656fd91179}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a1b552cf101641e067fffed656fd91179}} 
+\index{Mbstring@{Mbstring}!mb\_output\_handler@{mb\_output\_handler}}
+\index{mb\_output\_handler@{mb\_output\_handler}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_output\_handler()}{mb\_output\_handler()}}
+{\footnotesize\ttfamily static mb\+\_\+output\+\_\+handler (\begin{DoxyParamCaption}\item[{}]{\$contents,  }\item[{}]{\$status }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00752}{752}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aa9cdb52e5d4f8e9f2763d3f54858f407}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_aa9cdb52e5d4f8e9f2763d3f54858f407}} 
+\index{Mbstring@{Mbstring}!mb\_str\_split@{mb\_str\_split}}
+\index{mb\_str\_split@{mb\_str\_split}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_str\_split()}{mb\_str\_split()}}
+{\footnotesize\ttfamily static mb\+\_\+str\+\_\+split (\begin{DoxyParamCaption}\item[{}]{\$string,  }\item[{}]{\$split\+\_\+length = {\ttfamily 1},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00542}{542}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a26967603570e1dd43b65c27c2856ff6f}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a26967603570e1dd43b65c27c2856ff6f}} 
+\index{Mbstring@{Mbstring}!mb\_stripos@{mb\_stripos}}
+\index{mb\_stripos@{mb\_stripos}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_stripos()}{mb\_stripos()}}
+{\footnotesize\ttfamily static mb\+\_\+stripos (\begin{DoxyParamCaption}\item[{}]{\$haystack,  }\item[{}]{\$needle,  }\item[{}]{\$offset = {\ttfamily 0},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00638}{638}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a5aef53f68586028a78f894b7f923681c}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a5aef53f68586028a78f894b7f923681c}} 
+\index{Mbstring@{Mbstring}!mb\_stristr@{mb\_stristr}}
+\index{mb\_stristr@{mb\_stristr}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_stristr()}{mb\_stristr()}}
+{\footnotesize\ttfamily static mb\+\_\+stristr (\begin{DoxyParamCaption}\item[{}]{\$haystack,  }\item[{}]{\$needle,  }\item[{}]{\$part = {\ttfamily false},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00646}{646}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ab852281314426dd75499a0673c85db87}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ab852281314426dd75499a0673c85db87}} 
+\index{Mbstring@{Mbstring}!mb\_strlen@{mb\_strlen}}
+\index{mb\_strlen@{mb\_strlen}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_strlen()}{mb\_strlen()}}
+{\footnotesize\ttfamily static mb\+\_\+strlen (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00484}{484}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a24124a5eaea8ede2e7d44d8fd84b4058}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a24124a5eaea8ede2e7d44d8fd84b4058}} 
+\index{Mbstring@{Mbstring}!mb\_strpos@{mb\_strpos}}
+\index{mb\_strpos@{mb\_strpos}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_strpos()}{mb\_strpos()}}
+{\footnotesize\ttfamily static mb\+\_\+strpos (\begin{DoxyParamCaption}\item[{}]{\$haystack,  }\item[{}]{\$needle,  }\item[{}]{\$offset = {\ttfamily 0},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00494}{494}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ad561e330e70cb4f2a233e7c2cb624c91}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ad561e330e70cb4f2a233e7c2cb624c91}} 
+\index{Mbstring@{Mbstring}!mb\_strrchr@{mb\_strrchr}}
+\index{mb\_strrchr@{mb\_strrchr}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_strrchr()}{mb\_strrchr()}}
+{\footnotesize\ttfamily static mb\+\_\+strrchr (\begin{DoxyParamCaption}\item[{}]{\$haystack,  }\item[{}]{\$needle,  }\item[{}]{\$part = {\ttfamily false},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00653}{653}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_acd39b3830028a508b06080f8a38d5403}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_acd39b3830028a508b06080f8a38d5403}} 
+\index{Mbstring@{Mbstring}!mb\_strrichr@{mb\_strrichr}}
+\index{mb\_strrichr@{mb\_strrichr}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_strrichr()}{mb\_strrichr()}}
+{\footnotesize\ttfamily static mb\+\_\+strrichr (\begin{DoxyParamCaption}\item[{}]{\$haystack,  }\item[{}]{\$needle,  }\item[{}]{\$part = {\ttfamily false},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00666}{666}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a9056dcc9df1d477cb03001adbb8a9497}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a9056dcc9df1d477cb03001adbb8a9497}} 
+\index{Mbstring@{Mbstring}!mb\_strripos@{mb\_strripos}}
+\index{mb\_strripos@{mb\_strripos}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_strripos()}{mb\_strripos()}}
+{\footnotesize\ttfamily static mb\+\_\+strripos (\begin{DoxyParamCaption}\item[{}]{\$haystack,  }\item[{}]{\$needle,  }\item[{}]{\$offset = {\ttfamily 0},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00674}{674}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_afe50237ad9c1ed920a8166a5458ae1cf}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_afe50237ad9c1ed920a8166a5458ae1cf}} 
+\index{Mbstring@{Mbstring}!mb\_strrpos@{mb\_strrpos}}
+\index{mb\_strrpos@{mb\_strrpos}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_strrpos()}{mb\_strrpos()}}
+{\footnotesize\ttfamily static mb\+\_\+strrpos (\begin{DoxyParamCaption}\item[{}]{\$haystack,  }\item[{}]{\$needle,  }\item[{}]{\$offset = {\ttfamily 0},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00515}{515}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a05052e4e0bab49cfe3a0c6dad91f66c8}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a05052e4e0bab49cfe3a0c6dad91f66c8}} 
+\index{Mbstring@{Mbstring}!mb\_strstr@{mb\_strstr}}
+\index{mb\_strstr@{mb\_strstr}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_strstr()}{mb\_strstr()}}
+{\footnotesize\ttfamily static mb\+\_\+strstr (\begin{DoxyParamCaption}\item[{}]{\$haystack,  }\item[{}]{\$needle,  }\item[{}]{\$part = {\ttfamily false},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00682}{682}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a7bdc9beffa5b1ba23c203987acba05fb}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a7bdc9beffa5b1ba23c203987acba05fb}} 
+\index{Mbstring@{Mbstring}!mb\_strtolower@{mb\_strtolower}}
+\index{mb\_strtolower@{mb\_strtolower}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_strtolower()}{mb\_strtolower()}}
+{\footnotesize\ttfamily static mb\+\_\+strtolower (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00584}{584}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a6e59eada26c79194acf7a139701041fe}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a6e59eada26c79194acf7a139701041fe}} 
+\index{Mbstring@{Mbstring}!mb\_strtoupper@{mb\_strtoupper}}
+\index{mb\_strtoupper@{mb\_strtoupper}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_strtoupper()}{mb\_strtoupper()}}
+{\footnotesize\ttfamily static mb\+\_\+strtoupper (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00589}{589}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_afc98384ebc04d26f6e8a1abb88cce3af}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_afc98384ebc04d26f6e8a1abb88cce3af}} 
+\index{Mbstring@{Mbstring}!mb\_strwidth@{mb\_strwidth}}
+\index{mb\_strwidth@{mb\_strwidth}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_strwidth()}{mb\_strwidth()}}
+{\footnotesize\ttfamily static mb\+\_\+strwidth (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00734}{734}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ad48dc100280736ad272fc923f01fa1be}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ad48dc100280736ad272fc923f01fa1be}} 
+\index{Mbstring@{Mbstring}!mb\_substitute\_character@{mb\_substitute\_character}}
+\index{mb\_substitute\_character@{mb\_substitute\_character}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_substitute\_character()}{mb\_substitute\_character()}}
+{\footnotesize\ttfamily static mb\+\_\+substitute\+\_\+character (\begin{DoxyParamCaption}\item[{}]{\$c = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00594}{594}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ade00c2aedaee40ae772eec3e055262be}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_ade00c2aedaee40ae772eec3e055262be}} 
+\index{Mbstring@{Mbstring}!mb\_substr@{mb\_substr}}
+\index{mb\_substr@{mb\_substr}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_substr()}{mb\_substr()}}
+{\footnotesize\ttfamily static mb\+\_\+substr (\begin{DoxyParamCaption}\item[{}]{\$s,  }\item[{}]{\$start,  }\item[{}]{\$length = {\ttfamily null},  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00612}{612}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a0e1557ace6c7748126cc4e08067bdba2}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a0e1557ace6c7748126cc4e08067bdba2}} 
+\index{Mbstring@{Mbstring}!mb\_substr\_count@{mb\_substr\_count}}
+\index{mb\_substr\_count@{mb\_substr\_count}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{mb\_substr\_count()}{mb\_substr\_count()}}
+{\footnotesize\ttfamily static mb\+\_\+substr\+\_\+count (\begin{DoxyParamCaption}\item[{}]{\$haystack,  }\item[{}]{\$needle,  }\item[{}]{\$encoding = {\ttfamily null} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00747}{747}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a75524db562c45e6d46a7ca4bc6988aa5}\label{class_symfony_1_1_polyfill_1_1_mbstring_1_1_mbstring_a75524db562c45e6d46a7ca4bc6988aa5}} 
+\index{Mbstring@{Mbstring}!MB\_CASE\_FOLD@{MB\_CASE\_FOLD}}
+\index{MB\_CASE\_FOLD@{MB\_CASE\_FOLD}!Mbstring@{Mbstring}}
+\doxysubsubsection{\texorpdfstring{MB\_CASE\_FOLD}{MB\_CASE\_FOLD}}
+{\footnotesize\ttfamily const MB\+\_\+\+CASE\+\_\+\+FOLD = \textbackslash{}PHP\+\_\+\+INT\+\_\+\+MAX}
+
+
+
+Definition at line \mbox{\hyperlink{_mbstring_8php_source_l00070}{70}} of file \mbox{\hyperlink{_mbstring_8php_source}{Mbstring.\+php}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+remote\+System/website/vendor/symfony/polyfill-\/mbstring/Mbstring.\+php\end{DoxyCompactItemize}

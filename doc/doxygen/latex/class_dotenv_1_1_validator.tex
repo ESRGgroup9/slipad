@@ -1,0 +1,281 @@
+\hypertarget{class_dotenv_1_1_validator}{}\doxysection{Validator Class Reference}
+\label{class_dotenv_1_1_validator}\index{Validator@{Validator}}
+
+
+Collaboration diagram for Validator\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{class_dotenv_1_1_validator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_validator_a644a02548c9a73385f9b2ef8a99f6eb4}{\+\_\+\+\_\+construct}} (\mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_repository_interface}{Repository\+Interface}} \$repository, array \$variables)
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_validator_abd2999eed85fa7437ba20d06fc517623}{required}} ()
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_validator_a3604719b7c07c40e50129a2ca6ce790f}{not\+Empty}} ()
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_validator_a24e86cad809e8bd0f4050e502dfeebaa}{is\+Integer}} ()
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_validator_a866ab620382351d0d002a2d2e5a55e8f}{is\+Boolean}} ()
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_validator_af00c6e077b9146252d3bc45c968facfb}{allowed\+Values}} (array \$choices)
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_validator_ada0351bd8a9f16a479a489e64be19882}{allowed\+Regex\+Values}} (string \$regex)
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_validator_a32d056d4f58c3d39331fcc01ad7f79a1}{assert}} (callable \$callback, string \$message)
+\item 
+\mbox{\hyperlink{class_dotenv_1_1_validator_ab4e500ce19d5596b80f56cc9affc45e0}{assert\+Nullable}} (callable \$callback, string \$message)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_validator_8php_source_l00012}{12}} of file \mbox{\hyperlink{_validator_8php_source}{Validator.\+php}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_dotenv_1_1_validator_a644a02548c9a73385f9b2ef8a99f6eb4}\label{class_dotenv_1_1_validator_a644a02548c9a73385f9b2ef8a99f6eb4}} 
+\index{Validator@{Validator}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!Validator@{Validator}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_dotenv_1_1_repository_1_1_repository_interface}{Repository\+Interface}}}]{\$repository,  }\item[{array}]{\$variables }\end{DoxyParamCaption})}
+
+Create a new validator instance.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+Dotenv\textbackslash{}\+Repository\textbackslash{}\+Repository\+Interface & {\em \$repository} & \\
+\hline
+string\mbox{[}$\,$\mbox{]} & {\em \$variables} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{class_dotenv_1_1_dotenv}{Dotenv}}\textbackslash{}\+Exception\textbackslash{}\+Validation\+Exception
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_validator_8php_source_l00038}{38}} of file \mbox{\hyperlink{_validator_8php_source}{Validator.\+php}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_dotenv_1_1_validator_ada0351bd8a9f16a479a489e64be19882}\label{class_dotenv_1_1_validator_ada0351bd8a9f16a479a489e64be19882}} 
+\index{Validator@{Validator}!allowedRegexValues@{allowedRegexValues}}
+\index{allowedRegexValues@{allowedRegexValues}!Validator@{Validator}}
+\doxysubsubsection{\texorpdfstring{allowedRegexValues()}{allowedRegexValues()}}
+{\footnotesize\ttfamily allowed\+Regex\+Values (\begin{DoxyParamCaption}\item[{string}]{\$regex }\end{DoxyParamCaption})}
+
+Assert that each variable matches the given regular expression.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$regex} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{class_dotenv_1_1_dotenv}{Dotenv}}\textbackslash{}\+Exception\textbackslash{}\+Validation\+Exception
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Dotenv\textbackslash{}\+Validator 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_validator_8php_source_l00144}{144}} of file \mbox{\hyperlink{_validator_8php_source}{Validator.\+php}}.
+
+\mbox{\Hypertarget{class_dotenv_1_1_validator_af00c6e077b9146252d3bc45c968facfb}\label{class_dotenv_1_1_validator_af00c6e077b9146252d3bc45c968facfb}} 
+\index{Validator@{Validator}!allowedValues@{allowedValues}}
+\index{allowedValues@{allowedValues}!Validator@{Validator}}
+\doxysubsubsection{\texorpdfstring{allowedValues()}{allowedValues()}}
+{\footnotesize\ttfamily allowed\+Values (\begin{DoxyParamCaption}\item[{array}]{\$choices }\end{DoxyParamCaption})}
+
+Assert that each variable is amongst the given choices.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string\mbox{[}$\,$\mbox{]} & {\em \$choices} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{class_dotenv_1_1_dotenv}{Dotenv}}\textbackslash{}\+Exception\textbackslash{}\+Validation\+Exception
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Dotenv\textbackslash{}\+Validator 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_validator_8php_source_l00125}{125}} of file \mbox{\hyperlink{_validator_8php_source}{Validator.\+php}}.
+
+\mbox{\Hypertarget{class_dotenv_1_1_validator_a32d056d4f58c3d39331fcc01ad7f79a1}\label{class_dotenv_1_1_validator_a32d056d4f58c3d39331fcc01ad7f79a1}} 
+\index{Validator@{Validator}!assert@{assert}}
+\index{assert@{assert}!Validator@{Validator}}
+\doxysubsubsection{\texorpdfstring{assert()}{assert()}}
+{\footnotesize\ttfamily assert (\begin{DoxyParamCaption}\item[{callable}]{\$callback,  }\item[{string}]{\$message }\end{DoxyParamCaption})}
+
+Assert that the callback returns true for each variable.
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em callable(?string)\+:bool} & \$callback \\
+\hline
+string & {\em \$message} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{class_dotenv_1_1_dotenv}{Dotenv}}\textbackslash{}\+Exception\textbackslash{}\+Validation\+Exception
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Dotenv\textbackslash{}\+Validator 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_validator_8php_source_l00164}{164}} of file \mbox{\hyperlink{_validator_8php_source}{Validator.\+php}}.
+
+\mbox{\Hypertarget{class_dotenv_1_1_validator_ab4e500ce19d5596b80f56cc9affc45e0}\label{class_dotenv_1_1_validator_ab4e500ce19d5596b80f56cc9affc45e0}} 
+\index{Validator@{Validator}!assertNullable@{assertNullable}}
+\index{assertNullable@{assertNullable}!Validator@{Validator}}
+\doxysubsubsection{\texorpdfstring{assertNullable()}{assertNullable()}}
+{\footnotesize\ttfamily assert\+Nullable (\begin{DoxyParamCaption}\item[{callable}]{\$callback,  }\item[{string}]{\$message }\end{DoxyParamCaption})}
+
+Assert that the callback returns true for each variable.
+
+Skip checking null variable values.
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em callable(string)\+:bool} & \$callback \\
+\hline
+string & {\em \$message} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{class_dotenv_1_1_dotenv}{Dotenv}}\textbackslash{}\+Exception\textbackslash{}\+Validation\+Exception
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Dotenv\textbackslash{}\+Validator 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_validator_8php_source_l00196}{196}} of file \mbox{\hyperlink{_validator_8php_source}{Validator.\+php}}.
+
+\mbox{\Hypertarget{class_dotenv_1_1_validator_a866ab620382351d0d002a2d2e5a55e8f}\label{class_dotenv_1_1_validator_a866ab620382351d0d002a2d2e5a55e8f}} 
+\index{Validator@{Validator}!isBoolean@{isBoolean}}
+\index{isBoolean@{isBoolean}!Validator@{Validator}}
+\doxysubsubsection{\texorpdfstring{isBoolean()}{isBoolean()}}
+{\footnotesize\ttfamily is\+Boolean (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Assert that each specified variable is a boolean.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{class_dotenv_1_1_dotenv}{Dotenv}}\textbackslash{}\+Exception\textbackslash{}\+Validation\+Exception
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Dotenv\textbackslash{}\+Validator 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_validator_8php_source_l00102}{102}} of file \mbox{\hyperlink{_validator_8php_source}{Validator.\+php}}.
+
+\mbox{\Hypertarget{class_dotenv_1_1_validator_a24e86cad809e8bd0f4050e502dfeebaa}\label{class_dotenv_1_1_validator_a24e86cad809e8bd0f4050e502dfeebaa}} 
+\index{Validator@{Validator}!isInteger@{isInteger}}
+\index{isInteger@{isInteger}!Validator@{Validator}}
+\doxysubsubsection{\texorpdfstring{isInteger()}{isInteger()}}
+{\footnotesize\ttfamily is\+Integer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Assert that each specified variable is an integer.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{class_dotenv_1_1_dotenv}{Dotenv}}\textbackslash{}\+Exception\textbackslash{}\+Validation\+Exception
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Dotenv\textbackslash{}\+Validator 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_validator_8php_source_l00085}{85}} of file \mbox{\hyperlink{_validator_8php_source}{Validator.\+php}}.
+
+\mbox{\Hypertarget{class_dotenv_1_1_validator_a3604719b7c07c40e50129a2ca6ce790f}\label{class_dotenv_1_1_validator_a3604719b7c07c40e50129a2ca6ce790f}} 
+\index{Validator@{Validator}!notEmpty@{notEmpty}}
+\index{notEmpty@{notEmpty}!Validator@{Validator}}
+\doxysubsubsection{\texorpdfstring{notEmpty()}{notEmpty()}}
+{\footnotesize\ttfamily not\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Assert that each variable is not empty.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{class_dotenv_1_1_dotenv}{Dotenv}}\textbackslash{}\+Exception\textbackslash{}\+Validation\+Exception
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Dotenv\textbackslash{}\+Validator 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_validator_8php_source_l00068}{68}} of file \mbox{\hyperlink{_validator_8php_source}{Validator.\+php}}.
+
+\mbox{\Hypertarget{class_dotenv_1_1_validator_abd2999eed85fa7437ba20d06fc517623}\label{class_dotenv_1_1_validator_abd2999eed85fa7437ba20d06fc517623}} 
+\index{Validator@{Validator}!required@{required}}
+\index{required@{required}!Validator@{Validator}}
+\doxysubsubsection{\texorpdfstring{required()}{required()}}
+{\footnotesize\ttfamily required (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Assert that each variable is present.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\hyperlink{class_dotenv_1_1_dotenv}{Dotenv}}\textbackslash{}\+Exception\textbackslash{}\+Validation\+Exception
+
+\begin{DoxyReturn}{Returns}
+\textbackslash{}\+Dotenv\textbackslash{}\+Validator 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_validator_8php_source_l00051}{51}} of file \mbox{\hyperlink{_validator_8php_source}{Validator.\+php}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+remote\+System/website/vendor/vlucas/phpdotenv/src/Validator.\+php\end{DoxyCompactItemize}

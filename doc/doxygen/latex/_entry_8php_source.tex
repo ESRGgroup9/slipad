@@ -1,0 +1,36 @@
+\hypertarget{_entry_8php_source}{}\doxysection{Entry.\+php}
+\label{_entry_8php_source}\index{remoteSystem/website/vendor/vlucas/phpdotenv/src/Parser/Entry.php@{remoteSystem/website/vendor/vlucas/phpdotenv/src/Parser/Entry.php}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00001}00001 <?php}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00003}00003 declare(strict\_types=1);}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00005}00005 \textcolor{keyword}{namespace }\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_parser}{Dotenv\(\backslash\)Parser}};}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00007}00007 use \mbox{\hyperlink{class_php_option_1_1_option}{PhpOption\(\backslash\)Option}};}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00009}\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_entry}{00009}} \textcolor{keyword}{final} \textcolor{keyword}{class }\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_entry}{Entry}}}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00010}00010 \{}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00016}00016     \textcolor{keyword}{private} \$name;}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00023}00023     \textcolor{keyword}{private} \$value;}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00033}\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_entry_a3e2b7dc961ccb29aab6c2bf7162b22f4}{00033}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_dotenv_1_1_parser_1_1_entry_a3e2b7dc961ccb29aab6c2bf7162b22f4}{\_\_construct}}(\textcolor{keywordtype}{string} \$name, \mbox{\hyperlink{class_dotenv_1_1_parser_1_1_value}{Value}} \$value = \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00034}00034     \{}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00035}00035         \$this-\/>name = \$name;}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00036}00036         \$this-\/>value = \$value;}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00037}00037     \}}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00044}\mbox{\hyperlink{class_dotenv_1_1_parser_1_1_entry_a3d0963e68bb313b163a73f2803c64600}{00044}}     \textcolor{keyword}{public} \textcolor{keyword}{function} \mbox{\hyperlink{class_dotenv_1_1_parser_1_1_entry_a3d0963e68bb313b163a73f2803c64600}{getName}}()}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00045}00045     \{}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00046}00046         \textcolor{keywordflow}{return} \$this-\/>name;}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00047}00047     \}}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00054}00054     \textcolor{keyword}{public} \textcolor{keyword}{function} getValue()}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00055}00055     \{}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00057}00057         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_php_option_1_1_option_ac7e22d0d5b74d0a0bf4b8604d7eae863}{Option::fromValue}}(\$this-\/>value);}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00058}00058     \}}
+\DoxyCodeLine{\Hypertarget{_entry_8php_source_l00059}00059 \}}
+
+\end{DoxyCode}

@@ -2,26 +2,51 @@
 \label{class_c_remote_client}\index{CRemoteClient@{CRemoteClient}}
 
 
+Inheritance diagram for CRemote\+Client\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_c_remote_client__inherit__graph}
+\end{center}
+\end{figure}
+
+
 Collaboration diagram for CRemote\+Client\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=197pt]{class_c_remote_client__coll__graph}
+\includegraphics[width=350pt]{class_c_remote_client__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_c_remote_client_ad8e4b1c3f90c1125f14cf0fb5c4f8fb1}{CRemote\+Client}} (int sd)
+\mbox{\hyperlink{class_c_remote_client_a4b473def768f93a3c50f02f1a6f0df79}{CRemote\+Client}} (int sd, MYSQL $\ast$database)
 \begin{DoxyCompactList}\small\item\em Defines the socket file descriptor to be used in TCP comms, as well as initializes the client info. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_c_remote_client_a206419b943327342ba19783787ead5f0}{init}} (int recv\+Prio, int send\+Prio)
 \begin{DoxyCompactList}\small\item\em Create all threads used in communication. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_c_remote_client_a13a43e6d814de94978c515cb084873b1}{run}} ()
 \begin{DoxyCompactList}\small\item\em Detach from all threads, updating client status to ONLINE. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+Client\+Socket\+Info \mbox{\hyperlink{class_c_remote_client_af0ad4f5587e854dfccc730bb75fa55c9}{info}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 static void $\ast$ \mbox{\hyperlink{class_c_remote_client_aa3fc836537dc7d4c753a27fb18af90e9}{t\+Recv}} (void $\ast$arg)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+MYSQL $\ast$ \mbox{\hyperlink{class_c_remote_client_a0a39edaeac2357a6e0d702d0de535f9f}{db}}
+\item 
+\mbox{\hyperlink{struct_command__t}{Command\+\_\+t}} $\ast$ \mbox{\hyperlink{class_c_remote_client_a4542651206a37a17422a67e7ea20d3b7}{cmd\+List}}
+\item 
+\mbox{\hyperlink{class_parser}{Parser}} \mbox{\hyperlink{class_c_remote_client_ac9f527a3558a805a6ffdc971d351efc9}{cmd\+Parser}}
+\item 
+\mbox{\hyperlink{class_c_t_c_p_comm}{CTCPComm}} \mbox{\hyperlink{class_c_remote_client_a7bc866cd8d5d8901340fda1f8887f19b}{tcp}}
 \end{DoxyCompactItemize}
 
 
@@ -33,11 +58,11 @@ Definition at line \mbox{\hyperlink{_c_remote_client_8h_source_l00029}{29}} of f
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_c_remote_client_ad8e4b1c3f90c1125f14cf0fb5c4f8fb1}\label{class_c_remote_client_ad8e4b1c3f90c1125f14cf0fb5c4f8fb1}} 
+\mbox{\Hypertarget{class_c_remote_client_a4b473def768f93a3c50f02f1a6f0df79}\label{class_c_remote_client_a4b473def768f93a3c50f02f1a6f0df79}} 
 \index{CRemoteClient@{CRemoteClient}!CRemoteClient@{CRemoteClient}}
 \index{CRemoteClient@{CRemoteClient}!CRemoteClient@{CRemoteClient}}
 \doxysubsubsection{\texorpdfstring{CRemoteClient()}{CRemoteClient()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_c_remote_client}{CRemote\+Client}} (\begin{DoxyParamCaption}\item[{int}]{sd }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_c_remote_client}{CRemote\+Client}} (\begin{DoxyParamCaption}\item[{int}]{sd,  }\item[{MYSQL $\ast$}]{database }\end{DoxyParamCaption})}
 
 
 
@@ -121,7 +146,60 @@ Definition at line \mbox{\hyperlink{_c_remote_client_8cpp_source_l00045}{45}} of
 
 
 
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{class_c_remote_client_a4542651206a37a17422a67e7ea20d3b7}\label{class_c_remote_client_a4542651206a37a17422a67e7ea20d3b7}} 
+\index{CRemoteClient@{CRemoteClient}!cmdList@{cmdList}}
+\index{cmdList@{cmdList}!CRemoteClient@{CRemoteClient}}
+\doxysubsubsection{\texorpdfstring{cmdList}{cmdList}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_command__t}{Command\+\_\+t}}$\ast$ cmd\+List\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_remote_client_8h_source_l00073}{73}} of file \mbox{\hyperlink{_c_remote_client_8h_source}{CRemote\+Client.\+h}}.
+
+\mbox{\Hypertarget{class_c_remote_client_ac9f527a3558a805a6ffdc971d351efc9}\label{class_c_remote_client_ac9f527a3558a805a6ffdc971d351efc9}} 
+\index{CRemoteClient@{CRemoteClient}!cmdParser@{cmdParser}}
+\index{cmdParser@{cmdParser}!CRemoteClient@{CRemoteClient}}
+\doxysubsubsection{\texorpdfstring{cmdParser}{cmdParser}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_parser}{Parser}} cmd\+Parser\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_remote_client_8h_source_l00074}{74}} of file \mbox{\hyperlink{_c_remote_client_8h_source}{CRemote\+Client.\+h}}.
+
+\mbox{\Hypertarget{class_c_remote_client_a0a39edaeac2357a6e0d702d0de535f9f}\label{class_c_remote_client_a0a39edaeac2357a6e0d702d0de535f9f}} 
+\index{CRemoteClient@{CRemoteClient}!db@{db}}
+\index{db@{db}!CRemoteClient@{CRemoteClient}}
+\doxysubsubsection{\texorpdfstring{db}{db}}
+{\footnotesize\ttfamily MYSQL$\ast$ db\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_remote_client_8h_source_l00072}{72}} of file \mbox{\hyperlink{_c_remote_client_8h_source}{CRemote\+Client.\+h}}.
+
+\mbox{\Hypertarget{class_c_remote_client_af0ad4f5587e854dfccc730bb75fa55c9}\label{class_c_remote_client_af0ad4f5587e854dfccc730bb75fa55c9}} 
+\index{CRemoteClient@{CRemoteClient}!info@{info}}
+\index{info@{info}!CRemoteClient@{CRemoteClient}}
+\doxysubsubsection{\texorpdfstring{info}{info}}
+{\footnotesize\ttfamily Client\+Socket\+Info info}
+
+
+
+Definition at line \mbox{\hyperlink{_c_remote_client_8h_source_l00066}{66}} of file \mbox{\hyperlink{_c_remote_client_8h_source}{CRemote\+Client.\+h}}.
+
+\mbox{\Hypertarget{class_c_remote_client_a7bc866cd8d5d8901340fda1f8887f19b}\label{class_c_remote_client_a7bc866cd8d5d8901340fda1f8887f19b}} 
+\index{CRemoteClient@{CRemoteClient}!tcp@{tcp}}
+\index{tcp@{tcp}!CRemoteClient@{CRemoteClient}}
+\doxysubsubsection{\texorpdfstring{tcp}{tcp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_c_t_c_p_comm}{CTCPComm}} tcp\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_remote_client_8h_source_l00075}{75}} of file \mbox{\hyperlink{_c_remote_client_8h_source}{CRemote\+Client.\+h}}.
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-inc/\mbox{\hyperlink{_c_remote_client_8h}{CRemote\+Client.\+h}}\item 
-src/CRemote\+Client.\+cpp\end{DoxyCompactItemize}
+remote\+System/inc/\mbox{\hyperlink{_c_remote_client_8h}{CRemote\+Client.\+h}}\item 
+remote\+System/src/CRemote\+Client.\+cpp\end{DoxyCompactItemize}
