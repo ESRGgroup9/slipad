@@ -40,6 +40,7 @@ CREATE TABLE `lamppost`(
 	`id` INTEGER,
 	`address` INTEGER UNIQUE NOT NULL,
 	`status` ENUM('FAIL', 'OFF', 'ON', 'MIN') DEFAULT('OFF'),
+	`gateway_sd` INTEGER DEFAULT(-1),
 	PRIMARY KEY(`id`),
 	FOREIGN KEY(`id`) REFERENCES `location`(`id`)
 		ON UPDATE CASCADE

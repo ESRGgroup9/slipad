@@ -13,7 +13,6 @@ RCGateway::RCGateway(int sd, MYSQL* database) :
 	{
 		{"LAMP"	, lampCb},
 		{"PARK"	, parkCb},
-		{"ID"	, idCb},
 		{"CRQ"	, crqCb},
 		{0,0}
 	};
@@ -143,14 +142,15 @@ int RCGateway::crqCb(int argc, char *argv[])
 	query.str("");
 
    	// define gateway sockfd for this lamppost
-   	query << "UPDATE lamppost SET sockfd=" << thisPtr->info.sockfd;
+   	int gateway_sd = thisPtr->info.sockfd;
+   	query << "UPDATE lamppost SET gateway_sd=" << gateway_sd;
    	query << " WHERE id=" << lamppost_id;
 
 	DEBUG_MSG("[RCGateway::crqCb] " << query.str());
 	// execute query
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
-		DEBUG_MSG("[RCGateway::crqCb] Invalid sockfd("<< thisPtr->info.sockfd <<")");
+		DEBUG_MSG("[RCGateway::crqCb] Invalid gateway_sd("<< gateway_sd <<")");
 		return -1;
 	}
 
@@ -159,6 +159,7 @@ int RCGateway::crqCb(int argc, char *argv[])
 	string msg = "ID;" + to_string(lamppost_id) + ";" + argv[1];
 	// send command
     thisPtr->tcp.push(msg);
+    DEBUG_MSG("[RCGateway::crqCb] Sending from sockfd(" << gateway_sd << ") cmd(" << msg << ")");
 
 	return 0;
 }
