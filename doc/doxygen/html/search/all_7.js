@@ -1,23 +1,12 @@
 var searchData=
 [
-  ['get_0',['get',['../class_php_option_1_1_lazy_option.html#ac33ee765f5ad9f134540bac393721cfe',1,'PhpOption\LazyOption\get()'],['../class_php_option_1_1_none.html#ac33ee765f5ad9f134540bac393721cfe',1,'PhpOption\None\get()'],['../class_php_option_1_1_option.html#ac33ee765f5ad9f134540bac393721cfe',1,'PhpOption\Option\get()'],['../class_php_option_1_1_some.html#ac33ee765f5ad9f134540bac393721cfe',1,'PhpOption\Some\get()'],['../class_dotenv_1_1_repository_1_1_adapter_repository.html#a004397797e263171281784084cf4a502',1,'Dotenv\Repository\AdapterRepository\get()'],['../interface_dotenv_1_1_repository_1_1_repository_interface.html#a004397797e263171281784084cf4a502',1,'Dotenv\Repository\RepositoryInterface\get()']]],
-  ['getapcuprefix_1',['getApcuPrefix',['../class_composer_1_1_autoload_1_1_class_loader.html#a570c1269e2a739a2849b7e579e7d83b9',1,'Composer::Autoload::ClassLoader']]],
-  ['getchars_2',['getChars',['../class_dotenv_1_1_parser_1_1_value.html#acf7c7d210d55cc5b876b8aa4e148b099',1,'Dotenv::Parser::Value']]],
-  ['gethost_3',['getHost',['../class_c_t_c_pclient.html#aa6a48f4c64a4ee41d001b18e6b1b232a',1,'CTCPclient']]],
-  ['getiterator_4',['getIterator',['../class_php_option_1_1_lazy_option.html#a7a9f937c2958e6f4dd7b030f86fb70b7',1,'PhpOption\LazyOption\getIterator()'],['../class_php_option_1_1_some.html#a7a9f937c2958e6f4dd7b030f86fb70b7',1,'PhpOption\Some\getIterator()']]],
-  ['getloader_5',['getLoader',['../class_composer_autoloader_init8b80616f3af311cfefe5b8bdb4c52a84.html#a4f29c9e935451ce6ea4e4b9821ba6280',1,'ComposerAutoloaderInit8b80616f3af311cfefe5b8bdb4c52a84']]],
-  ['getlocaladdr_6',['getLocalAddr',['../class_c_lora_comm.html#af2cf1c6ca6651ea56391bd8638dc0a0d',1,'CLoraComm']]],
-  ['getmsgattr_7',['getMsgAttr',['../class_c_lora_comm.html#a6b7a5c0b3b8a2befb5f410dbe6e61cd6',1,'CLoraComm']]],
-  ['getname_8',['getName',['../class_dotenv_1_1_parser_1_1_entry.html#a3d0963e68bb313b163a73f2803c64600',1,'Dotenv::Parser::Entry']]],
-  ['getorcall_9',['getOrCall',['../class_php_option_1_1_some.html#a6e5a6d1b7f398fb9b49f9812f5f3a415',1,'PhpOption\Some\getOrCall()'],['../class_php_option_1_1_none.html#a6e5a6d1b7f398fb9b49f9812f5f3a415',1,'PhpOption\None\getOrCall()'],['../class_php_option_1_1_option.html#a6e5a6d1b7f398fb9b49f9812f5f3a415',1,'PhpOption\Option\getOrCall()'],['../class_php_option_1_1_lazy_option.html#a6e5a6d1b7f398fb9b49f9812f5f3a415',1,'PhpOption\LazyOption\getOrCall()']]],
-  ['getorelse_10',['getOrElse',['../class_php_option_1_1_some.html#a0d3d42d75bed447d6d78da820af076f3',1,'PhpOption\Some\getOrElse()'],['../class_php_option_1_1_none.html#a0d3d42d75bed447d6d78da820af076f3',1,'PhpOption\None\getOrElse()'],['../class_php_option_1_1_option.html#a0d3d42d75bed447d6d78da820af076f3',1,'PhpOption\Option\getOrElse()'],['../class_php_option_1_1_lazy_option.html#a0d3d42d75bed447d6d78da820af076f3',1,'PhpOption\LazyOption\getOrElse()']]],
-  ['getorthrow_11',['getOrThrow',['../class_php_option_1_1_some.html#a5b06a3372cf52c12596a2089ea7aab12',1,'PhpOption\Some\getOrThrow()'],['../class_php_option_1_1_none.html#a5b06a3372cf52c12596a2089ea7aab12',1,'PhpOption\None\getOrThrow()'],['../class_php_option_1_1_option.html#a5b06a3372cf52c12596a2089ea7aab12',1,'PhpOption\Option\getOrThrow()'],['../class_php_option_1_1_lazy_option.html#a5b06a3372cf52c12596a2089ea7aab12',1,'PhpOption\LazyOption\getOrThrow()']]],
-  ['getoutline_12',['getOutline',['../class_c_park_detection.html#a3c00ec5abada7216d406e10cd4e72a84',1,'CParkDetection']]],
-  ['getport_13',['getPort',['../class_c_t_c_pclient.html#a7f7ecd3594688cd1a47391cd5b77fc28',1,'CTCPclient']]],
-  ['getstatus_14',['getStatus',['../class_c_communication.html#acc857199d21ac73175bfc772bff814bf',1,'CCommunication']]],
-  ['getuseincludepath_15',['getUseIncludePath',['../class_composer_1_1_autoload_1_1_class_loader.html#a21c8a2ce47b9ab8184cce5949496414c',1,'Composer::Autoload::ClassLoader']]],
-  ['getvacants_16',['getVacants',['../class_c_park_detection.html#ab28b9ac00243fd88723399465716b66a',1,'CParkDetection']]],
-  ['getvars_17',['getVars',['../class_dotenv_1_1_parser_1_1_value.html#ab81a1d1cef7f7d6c406e60bd368f94af',1,'Dotenv::Parser::Value']]],
-  ['gpioregisters_18',['GpioRegisters',['../struct_gpio_registers.html',1,'']]],
-  ['guardedwriter_19',['GuardedWriter',['../class_dotenv_1_1_repository_1_1_adapter_1_1_guarded_writer.html',1,'Dotenv::Repository::Adapter']]]
+  ['rcapplication_0',['RCApplication',['../class_r_c_application.html',1,'RCApplication'],['../class_r_c_application.html#a2837095603cf834809ce0da1e39fe531',1,'RCApplication::RCApplication()']]],
+  ['rcapplication_2eh_1',['RCApplication.h',['../_r_c_application_8h.html',1,'']]],
+  ['rcgateway_2',['RCGateway',['../class_r_c_gateway.html',1,'RCGateway'],['../class_r_c_gateway.html#aef36450eb220deacb84227f3eda7435b',1,'RCGateway::RCGateway()']]],
+  ['rcgateway_2eh_3',['RCGateway.h',['../_r_c_gateway_8h.html',1,'']]],
+  ['rcwebsite_4',['RCWebsite',['../class_r_c_website.html',1,'']]],
+  ['rcwebsite_2eh_5',['RCWebsite.h',['../_r_c_website_8h.html',1,'']]],
+  ['recv_6',['recv',['../class_c_communication.html#adb44decdeb760ebf7c0d3d38ecb7822c',1,'CCommunication']]],
+  ['recvfunc_7',['recvFunc',['../class_c_lora_comm.html#ac0e3ed2e099fe51ef71284a00d8ecad7',1,'CLoraComm::recvFunc()'],['../class_c_t_c_p_comm.html#ac0e3ed2e099fe51ef71284a00d8ecad7',1,'CTCPComm::recvFunc()']]],
+  ['run_8',['run',['../class_c_communication.html#a283bce9561f0b8e618bbe8b89c473636',1,'CCommunication::run()'],['../class_c_remote_client.html#a13a43e6d814de94978c515cb084873b1',1,'CRemoteClient::run()'],['../class_c_remote_system.html#a13a43e6d814de94978c515cb084873b1',1,'CRemoteSystem::run()']]]
 ];

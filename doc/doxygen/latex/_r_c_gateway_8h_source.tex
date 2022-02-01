@@ -1,34 +1,35 @@
 \hypertarget{_r_c_gateway_8h_source}{}\doxysection{RCGateway.\+h}
 \label{_r_c_gateway_8h_source}\index{remoteSystem/inc/RCGateway.h@{remoteSystem/inc/RCGateway.h}}
-
+\mbox{\hyperlink{_r_c_gateway_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef \_\_RCGATEWAY\_H\_\_}}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00002}00002 \textcolor{preprocessor}{\#define \_\_RCGATEWAY\_H\_\_}}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00003}00003 }
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_remote_client_8h}{CRemoteClient.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <mysql/mysql.h>}}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00006}00006 }
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00007}\mbox{\hyperlink{class_r_c_gateway}{00007}} \textcolor{keyword}{class }\mbox{\hyperlink{class_r_c_gateway}{RCGateway}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_c_remote_client}{CRemoteClient}}}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00008}00008 \{}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00009}00009 \textcolor{keyword}{public}:}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00016}00016     \mbox{\hyperlink{class_r_c_gateway_aef36450eb220deacb84227f3eda7435b}{RCGateway}}(\textcolor{keywordtype}{int} sd, MYSQL* database);}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00017}00017     \mbox{\hyperlink{class_r_c_gateway}{\string~RCGateway}}();}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00018}00018     }
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00019}00019 \textcolor{keyword}{private}:}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00020}00020 \textcolor{comment}{// Callbacks for Gateway command list}}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00021}00021 }
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00037}00037     \textcolor{keyword}{static} \textcolor{keywordtype}{int} lampCb(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char} *[]);}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00055}00055     \textcolor{keyword}{static} \textcolor{keywordtype}{int} parkCb(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char} *[]);}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00056}00056 }
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00074}00074     \textcolor{keyword}{static} \textcolor{keywordtype}{int} crqCb(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char} *[]);}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00075}00075 }
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00076}00076 \textcolor{keyword}{private}:}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00077}00077     \textcolor{keyword}{static} \textcolor{keywordtype}{void} dynamicLightUp(\textcolor{keywordtype}{int} lamppostId);}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00010}00010 \textcolor{preprocessor}{\#ifndef \_\_RCGATEWAY\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00011}00011 \textcolor{preprocessor}{\#define \_\_RCGATEWAY\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00013}00013 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_remote_client_8h}{CRemoteClient.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00014}00014 \textcolor{preprocessor}{\#include <mysql/mysql.h>}}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00016}\mbox{\hyperlink{class_r_c_gateway}{00016}} \textcolor{keyword}{class }\mbox{\hyperlink{class_r_c_gateway}{RCGateway}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_c_remote_client}{CRemoteClient}}}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00017}00017 \{}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00018}00018 \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00025}00025     \mbox{\hyperlink{class_r_c_gateway_aef36450eb220deacb84227f3eda7435b}{RCGateway}}(\textcolor{keywordtype}{int} sd, MYSQL* database);}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00026}00026     \mbox{\hyperlink{class_r_c_gateway}{\string~RCGateway}}();}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00027}00027     }
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00028}00028 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00029}00029 \textcolor{comment}{// Callbacks for Gateway command list}}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00044}00044     \textcolor{keyword}{static} \textcolor{keywordtype}{int} lampCb(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char} *[]);}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00060}00060     \textcolor{keyword}{static} \textcolor{keywordtype}{int} parkCb(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char} *[]);}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00077}00077     \textcolor{keyword}{static} \textcolor{keywordtype}{int} crqCb(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{char} *[]);}
 \DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00078}00078 }
 \DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00079}00079 \textcolor{keyword}{private}:}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00080}00080     \textcolor{keyword}{static} \mbox{\hyperlink{class_r_c_gateway}{RCGateway}}* thisPtr;}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00081}00081 \};}
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00082}00082 }
-\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00083}00083 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_RCGATEWAY\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00080}00080     \textcolor{keyword}{static} \textcolor{keywordtype}{void} dynamicLightUp(\textcolor{keywordtype}{int} lamppostId);}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00082}00082 \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00083}00083     \textcolor{keyword}{static} \mbox{\hyperlink{class_r_c_gateway}{RCGateway}}* thisPtr;}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00084}00084 \};}
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{_r_c_gateway_8h_source_l00086}00086 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !\_\_RCGATEWAY\_H\_\_}}
 
 \end{DoxyCode}

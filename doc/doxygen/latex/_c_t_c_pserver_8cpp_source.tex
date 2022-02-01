@@ -2,7 +2,7 @@
 \label{_c_t_c_pserver_8cpp_source}\index{remoteSystem/src/CTCPserver.cpp@{remoteSystem/src/CTCPserver.cpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}CTCPserver.h"{}}}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_c_t_c_pserver_8h}{CTCPserver.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00002}00002 \textcolor{preprocessor}{\#include "{}utils.h"{}}}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}debug.h"{}}}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00004}00004 }
@@ -14,7 +14,7 @@
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00010}00010 \textcolor{keyword}{const} \textcolor{keywordtype}{int} CTCPserver::maxNumClients = 5;}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00011}00011 \textcolor{keywordtype}{int} CTCPserver::numClients = 0;}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00012}00012   }
-\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00013}00013 CTCPserver::CTCPserver(\textcolor{keywordtype}{int} port)}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00013}\mbox{\hyperlink{class_c_t_c_pserver_ac93eaa5a80680c623b2b563eeb35092f}{00013}} \mbox{\hyperlink{class_c_t_c_pserver_ac93eaa5a80680c623b2b563eeb35092f}{CTCPserver::CTCPserver}}(\textcolor{keywordtype}{int} port)}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00014}00014 \{ }
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00015}00015     this-\/>port = port;}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00016}00016     \textcolor{comment}{// create tcp socket using IPv4 and connection-\/based byte stream}}
@@ -41,22 +41,22 @@
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00037}00037         panic(\textcolor{stringliteral}{"{}listen"{}})}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00038}00038 }
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00039}00039     \textcolor{comment}{// get server host name}}
-\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00040}00040     char hostName[32];}
-\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00041}00041     gethostname(hostName, sizeof(hostName));}
-\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00042}00042     DEBUG\_MSG("{}[\mbox{\hyperlink{class_c_t_c_pserver}{CTCPserver}}] Starting server on "{} << hostName << "{}:"{} << port);}
-\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00043}00043     DEBUG\_MSG("{}[\mbox{\hyperlink{class_c_t_c_pserver}{CTCPserver}}] Listening for incoming connections on sockfd: "{} << listenSd);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00040}00040     \textcolor{keywordtype}{char} hostName[32];}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00041}00041     gethostname(hostName, \textcolor{keyword}{sizeof}(hostName));}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00042}00042     DEBUG\_MSG(\textcolor{stringliteral}{"{}[CTCPserver] Starting server on "{}} << hostName << \textcolor{stringliteral}{"{}:"{}} << port);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00043}00043     DEBUG\_MSG(\textcolor{stringliteral}{"{}[CTCPserver] Listening for incoming connections on sockfd: "{}} << listenSd);}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00044}00044 \}}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00045}00045 }
-\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00046}00046 \mbox{\hyperlink{class_c_t_c_pserver}{CTCPserver}}::\string~\mbox{\hyperlink{class_c_t_c_pserver}{CTCPserver}}()}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00046}00046 CTCPserver::\string~CTCPserver()}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00047}00047 \{}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00048}00048 }
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00049}00049 \}}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00050}00050 }
-\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00051}00051 \textcolor{keywordtype}{int} CTCPserver::accept()}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00051}\mbox{\hyperlink{class_c_t_c_pserver_a43ca48bf75470e11aea70a09e777d41b}{00051}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_t_c_pserver_a43ca48bf75470e11aea70a09e777d41b}{CTCPserver::accept}}()}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00052}00052 \{}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00053}00053     socklen\_t n = \textcolor{keyword}{sizeof}(addr);}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00054}00054     \textcolor{comment}{// // accept connections}}
-\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00055}00055     \textcolor{keywordtype}{int} sd = ::accept(listenSd, (\textcolor{keyword}{struct} sockaddr*)\&addr, \&n);}
+\DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00055}00055     \textcolor{keywordtype}{int} sd = \mbox{\hyperlink{class_c_t_c_pserver_a43ca48bf75470e11aea70a09e777d41b}{::accept}}(listenSd, (\textcolor{keyword}{struct} sockaddr*)\&addr, \&n);}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00056}00056 }
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00057}00057     \textcolor{keywordflow}{if}((sd != -\/1) \&\& (numClients < maxNumClients))}
 \DoxyCodeLine{\Hypertarget{_c_t_c_pserver_8cpp_source_l00058}00058     \{}

@@ -4,6 +4,9 @@ var dir_bfccd401955b95cf8c75461437045ac0 =
     [ "CLoraComm.h", "_c_lora_comm_8h.html", [
       [ "CLoraComm", "class_c_lora_comm.html", "class_c_lora_comm" ]
     ] ],
+    [ "CTCPclient.h", "_c_t_c_pclient_8h.html", [
+      [ "CTCPclient", "class_c_t_c_pclient.html", "class_c_t_c_pclient" ]
+    ] ],
     [ "CTCPcomm.h", "_c_t_c_pcomm_8h.html", [
       [ "CTCPComm", "class_c_t_c_p_comm.html", "class_c_t_c_p_comm" ]
     ] ],

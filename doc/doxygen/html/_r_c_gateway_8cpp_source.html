@@ -86,7 +86,7 @@ $(document).ready(function(){initNavTree('_r_c_gateway_8cpp_source.html',''); in
   <div class="headertitle"><div class="title">RCGateway.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;RCGateway.h&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_r_c_gateway_8h.html">RCGateway.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;debug.h&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using namespace </span>std;</div>
@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('_r_c_gateway_8cpp_source.html',''); in
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_class" href="class_c_remote_client.html">CRemoteClient</a>(sd, database)</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">// Command list for gateway remote client</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    cmdList = <span class="keyword">new</span> <a class="code hl_struct" href="struct_command__t.html">Command_t</a>[5]</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    cmdList = <span class="keyword">new</span> <a class="code hl_struct" href="struct_command__t.html">Command_t</a>[4]</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        {<span class="stringliteral">&quot;LAMP&quot;</span> , lampCb},</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        {<span class="stringliteral">&quot;PARK&quot;</span> , parkCb},</div>
@@ -329,9 +329,10 @@ $(document).ready(function(){initNavTree('_r_c_gateway_8cpp_source.html',''); in
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    thisPtr-&gt;tcp.<a class="code hl_function" href="class_c_communication.html#a1de846382f3fe0260a457f231935945f">push</a>(msg);</div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    DEBUG_MSG(<span class="stringliteral">&quot;[RCGateway::dynamicLightUp] Sending cmd(&quot;</span> &lt;&lt; msg &lt;&lt; <span class="stringliteral">&quot;) from sockfd(&quot;</span> &lt;&lt; thisPtr-&gt;info.sockfd &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>);</div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>}</div>
+<div class="ttc" id="a_r_c_gateway_8h_html"><div class="ttname"><a href="_r_c_gateway_8h.html">RCGateway.h</a></div><div class="ttdoc">Implements a gateway remote client, from CRemoteClient.</div></div>
 <div class="ttc" id="aclass_c_communication_html_a1de846382f3fe0260a457f231935945f"><div class="ttname"><a href="class_c_communication.html#a1de846382f3fe0260a457f231935945f">CCommunication::push</a></div><div class="ttdeci">void push(std::string msg)</div><div class="ttdoc">Adds a new message to the queue of messages to be sent.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00046">CCommunication.cpp:46</a></div></div>
 <div class="ttc" id="aclass_c_remote_client_html"><div class="ttname"><a href="class_c_remote_client.html">CRemoteClient</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_remote_client_8h_source.html#l00029">CRemoteClient.h:30</a></div></div>
-<div class="ttc" id="aclass_r_c_gateway_html"><div class="ttname"><a href="class_r_c_gateway.html">RCGateway</a></div><div class="ttdef"><b>Definition:</b> <a href="_r_c_gateway_8h_source.html#l00007">RCGateway.h:8</a></div></div>
+<div class="ttc" id="aclass_r_c_gateway_html"><div class="ttname"><a href="class_r_c_gateway.html">RCGateway</a></div><div class="ttdef"><b>Definition:</b> <a href="_r_c_gateway_8h_source.html#l00016">RCGateway.h:17</a></div></div>
 <div class="ttc" id="aclass_r_c_gateway_html_aef36450eb220deacb84227f3eda7435b"><div class="ttname"><a href="class_r_c_gateway.html#aef36450eb220deacb84227f3eda7435b">RCGateway::RCGateway</a></div><div class="ttdeci">RCGateway(int sd, MYSQL *database)</div><div class="ttdoc">Creates a Remote Client, initializes the command list and the client type.</div><div class="ttdef"><b>Definition:</b> <a href="_r_c_gateway_8cpp_source.html#l00008">RCGateway.cpp:8</a></div></div>
 <div class="ttc" id="astruct_command__t_html"><div class="ttname"><a href="struct_command__t.html">Command_t</a></div><div class="ttdef"><b>Definition:</b> <a href="parser_8h_source.html#l00013">parser.h:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

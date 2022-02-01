@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['has_0',['has',['../class_dotenv_1_1_repository_1_1_adapter_repository.html#a36c5aea84ecb000ab035e47ec3f351c3',1,'Dotenv\Repository\AdapterRepository\has()'],['../interface_dotenv_1_1_repository_1_1_repository_interface.html#a36c5aea84ecb000ab035e47ec3f351c3',1,'Dotenv\Repository\RepositoryInterface\has()']]]
+  ['timer_0',['Timer',['../class_timer.html#a4db41cff29cac0a1cbe4bca2d47c8081',1,'Timer']]],
+  ['tsend_1',['tSend',['../class_c_communication.html#a705363c9cab951334da3e07f445b209c',1,'CCommunication']]]
 ];

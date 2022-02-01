@@ -13,17 +13,63 @@
 \DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00009}00009 }
 \DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00010}00010 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])}
 \DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00011}00011 \{}
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00012}00012     \textcolor{comment}{// CREATE DAEMON ....}}
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00013}00013     }
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00014}00014 \textcolor{comment}{    /******************************************************}}
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00015}00015 \textcolor{comment}{    * Service implementation}}
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00016}00016 \textcolor{comment}{    ******************************************************/}}
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00017}00017     \mbox{\hyperlink{class_c_sensors}{CSensors}} csensors;}
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00018}00018 }
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00019}00019     csensors.run();}
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00020}00020 }
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00021}00021     DEBUG\_MSG(\textcolor{stringliteral}{"{}[dSensors] Exit success"{}});}
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00022}00022     \textcolor{keywordflow}{return} 0;}
-\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00023}00023 \}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00012}00012     \textcolor{comment}{// // Create daemon}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00013}00013     \textcolor{comment}{// pid\_t pid, sid;}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00014}00014     }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00015}00015     \textcolor{comment}{// // create a new process (child)}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00016}00016     \textcolor{comment}{// pid = fork();}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00017}00017     \textcolor{comment}{// if (pid < 0)}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00018}00018     \textcolor{comment}{// \{}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00019}00019     \textcolor{comment}{//  // on error exit}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00020}00020     \textcolor{comment}{//  perror("{}fork"{});}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00021}00021     \textcolor{comment}{//  exit(EXIT\_FAILURE);}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00022}00022     \textcolor{comment}{// \}}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00024}00024     \textcolor{comment}{// if (pid > 0)}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00025}00025     \textcolor{comment}{// \{}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00026}00026     \textcolor{comment}{//  // client\_recv\_pid = pid;}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00027}00027     \textcolor{comment}{//  cout << "{}Creating dSensors (PID "{}<< pid << "{})"{} << endl;}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00028}00028     \textcolor{comment}{//  // exit parent process}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00029}00029     \textcolor{comment}{//  exit(EXIT\_SUCCESS);}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00030}00030     \textcolor{comment}{// \}}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00032}00032     \textcolor{comment}{// // create a new session}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00033}00033     \textcolor{comment}{// sid = setsid();}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00034}00034     \textcolor{comment}{// if (sid < 0)}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00035}00035     \textcolor{comment}{// \{}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00036}00036     \textcolor{comment}{//  // on error exit}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00037}00037     \textcolor{comment}{//  perror("{}setsid"{});}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00038}00038     \textcolor{comment}{//  exit(EXIT\_FAILURE);}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00039}00039     \textcolor{comment}{// \}}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00040}00040     }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00041}00041     \textcolor{comment}{// // make '/' the root directory}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00042}00042     \textcolor{comment}{// if (chdir("{}/"{}) < 0)}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00043}00043     \textcolor{comment}{// \{}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00044}00044     \textcolor{comment}{//  // on error exit}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00045}00045     \textcolor{comment}{//  perror("{}chdir"{});}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00046}00046     \textcolor{comment}{//  exit(EXIT\_FAILURE);}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00047}00047     \textcolor{comment}{// \}}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00048}00048     }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00049}00049     \textcolor{comment}{// // reset umask to 0}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00050}00050     \textcolor{comment}{// // Any permission may be set (rwx)}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00051}00051     \textcolor{comment}{// umask(0); }}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00052}00052     \textcolor{comment}{// // close standard input file descriptor}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00053}00053     \textcolor{comment}{// close(STDIN\_FILENO); }}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00054}00054     \textcolor{comment}{// // close standard output file descriptor}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00055}00055     \textcolor{comment}{// close(STDOUT\_FILENO);}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00056}00056     \textcolor{comment}{// // close standard error file descriptor}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00057}00057     \textcolor{comment}{// close(STDERR\_FILENO);}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00058}00058     \textcolor{comment}{// syslog(LOG\_INFO, "{}Daemon created\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00059}00059     }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00060}00060 \textcolor{comment}{    /******************************************************}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00061}00061 \textcolor{comment}{    * Service implementation}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00062}00062 \textcolor{comment}{    ******************************************************/}}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00063}00063     \mbox{\hyperlink{class_c_sensors}{CSensors}} csensors;}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00065}00065     csensors.run();}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00067}00067     DEBUG\_MSG(\textcolor{stringliteral}{"{}[dSensors] Exit success"{}});}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00068}00068     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{d_sensors_8cpp_source_l00069}00069 \}}
 
 \end{DoxyCode}
