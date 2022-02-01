@@ -9,7 +9,7 @@ RCGateway::RCGateway(int sd, MYSQL* database) :
 	CRemoteClient(sd, database)
 {
 	// Command list for gateway remote client
-	cmdList = new Command_t[5]
+	cmdList = new Command_t[4]
 	{
 		{"LAMP"	, lampCb},
 		{"PARK"	, parkCb},

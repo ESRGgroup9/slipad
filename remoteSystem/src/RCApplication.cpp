@@ -67,19 +67,27 @@ int RCApplication::consultCb(int argc, char *argv[])
 {
 	if(argc != 2)
 	{
-		DEBUG_MSG("[RCApplication::consultCb] Usage: CONSULT;<post_code>");
+		DEBUG_MSG("[RCApplication::consultCb] Usage: CONSULT;<operator_id>");
 		return -1;
 	}
 	
 	stringstream query;
+	int operator_id = atoi(argv[1]);
 
 	// select p.id,p.status,l.post_code,l.street_name,r.parish,r.county,r.district,l.latitude,l.longitude
 	// from lamppost p, location l, region r
 	// where l.id=p.id and l.post_code=r.post_code and l.post_code=0;
 
-	query << "SELECT p.id,p.status,l.post_code,l.street_name,r.parish,r.county,r.district ";
-	query << "FROM lamppost p, location l, region r ";
-	query << "WHERE l.id=p.id AND l.post_code=r.post_code;";
+	// query << "SELECT p.id,p.status,l.post_code,l.street_name,r.parish,r.county,r.district ";
+	// query << "FROM lamppost p, location l, region r ";
+	// query << "WHERE l.id=p.id AND l.post_code=r.post_code;";
+
+	query << "SELECT l.street_name, p.id, p.address, p.status ";
+	query << "FROM lamppost p, location l ";
+	query << "WHERE p.id=l.id AND l.id IN ";
+
+	query << "(SELECT id FROM location WHERE post_code IN ";
+	query << "(SELECT post_code FROM region WHERE operator_id="<< operator_id << "))";
 
 	// execute query
 	DEBUG_MSG("[RCApplication::consultCb] " << query.str());
@@ -89,48 +97,56 @@ int RCApplication::consultCb(int argc, char *argv[])
 		return -1;
 	}
 
-	int lamppost_id;
+	// string post_code;
+	// string parish;
+	// string county;
+	// string district;
 	string street_name;
-	string post_code;
-	string parish;
-	string county;
-	string district;
+	int lamppost_id;
+	int address;
 	string status;
 
     // get the result set
     MYSQL_RES *res = mysql_store_result(thisPtr->db);
+    MYSQL_ROW row;
+
     // get the number of the columns
 	int num_fields = mysql_num_fields(res);
-	MYSQL_ROW row;
     int err = 0;
     int num_lamppost = 0;
 
-    if(num_fields != 7)
+    if(num_fields != 4)
     {
-    	DEBUG_MSG("[RCApplication::consultCb] Invalid result with " << num_fields << " columns instead of 7");
+    	DEBUG_MSG("[RCApplication::consultCb] Invalid result with " << num_fields << " columns instead of 4");
   		err = -1;
     }
     else
     {
-    	CTCPComm tcp(thisPtr->info.sockfd);
-
     	while((row = mysql_fetch_row(res)))
 	    {
-	    	lamppost_id = atoi(row[0]);
-	    	status 		= row[1];
-	    	post_code 	= row[2];
-	    	street_name = row[3];
-	    	parish 		= row[4];
-	    	county 		= row[5];
-	    	district	= row[6];
+	    	// lamppost_id = atoi(row[0]);
+	    	// status 		= row[1];
+	    	// post_code 	= row[2];
+	    	// street_name = row[3];
+	    	// parish 		= row[4];
+	    	// county 		= row[5];
+	    	// district	= row[6];
+
+	    	street_name = row[0];
+	    	lamppost_id = atoi(row[1]);
+	    	address 	= atoi(row[2]);
+	    	status 		= row[3];
 
 	    	char str[256];
-	    	snprintf(str, sizeof(str), "ID(%d) STATUS(%s) POST_CODE(%s) STREET(%s) PARISH(%s) COUNTY(%s) DISTRICT(%s)",
-	    		lamppost_id, status.c_str(), post_code.c_str(), street_name.c_str(), parish.c_str(), county.c_str(), district.c_str());
-	    	// DEBUG_MSG("[RCApplication::consultCb] " << string(str));
+	    	// snprintf(str, sizeof(str), "ID(%d) STATUS(%s) POST_CODE(%s) STREET(%s) PARISH(%s) COUNTY(%s) DISTRICT(%s)",
+	    		// lamppost_id, status.c_str(), post_code.c_str(), street_name.c_str(), parish.c_str(), county.c_str(), district.c_str());
 	    	
+	    	snprintf(str, sizeof(str), "\nSTREET : %s\nID : %d\nADDR : %d\nSTATUS : %s",
+	    		street_name.c_str(), lamppost_id, address, status.c_str());
+
+	    	DEBUG_MSG("[RCApplication::consultCb] " << string(str));
 	    	// send lamppost info to the remote client
-	    	// tcp.send(str);
+	    	thisPtr->tcp.send(str);
 
 	    	num_lamppost++;
 	    }

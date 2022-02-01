@@ -32,8 +32,6 @@ class CRemoteClient
 	struct ClientSocketInfo
 	{
 		enum ConnStatus state;
-		// int index;
-		// std::string name;
 		int sockfd;
 		enum ClientType type;
 	};
