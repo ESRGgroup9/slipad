@@ -9,7 +9,7 @@ using namespace std;
 
 #define GATEWAY_ADDR 	(uint8_t)(0xcc)	// destination address
 #define LS_ADDR			(uint8_t)(0xbb) // local address
-#define MSGQ_NAME "/dsensors"
+#define MSGQ_NAME 		"/dsensors"
 
 // timer periods
 #define TIM_CAM_FRAME_SECS	(0)
@@ -19,18 +19,21 @@ using namespace std;
 // minimum lamp bright - pwm value(0 - 100)
 #define MIN_BRIGHT_PWM		(50)
 
+static bool IDReceived = false;
+
 CLocalSystem* CLocalSystem::thisPtr = NULL;
 
-static Command_t loraCmdList[] =
+Command_t CLocalSystem::loraCmdList[] =
 {
 	{"ID", idCb},
+	{"LAMP", lampCb},
 	{0,0}
 };
 
 CLocalSystem::CLocalSystem() :
 	lamp(),
 	lora(433, GATEWAY_ADDR, LS_ADDR),
-	camera("video0"),
+	// camera("video0"),
 	
 	timCamFrame(TIM_CAM_FRAME_SECS, timHandler),
 	timCamProc(TIM_CAM_PROC_SECS, timHandler),
@@ -178,8 +181,23 @@ int CLocalSystem::idCb(int argc, char *argv[])
  	
  	int id = atoi(argv[1]);
  	
- 	lora.setSrcAddr(id);
+ 	thisPtr->lora.setSrcAddr(id);
+ 	IDReceived = true;
  	DEBUG_MSG("[CLS::idCb] Lamppost ID as " << id);
+	return 0;
+}
+
+int CLocalSystem::lampCb(int argc, char *argv[])
+{
+	if(argc != 2)
+	{
+		DEBUG_MSG("[CLS::lampCb] Usage: LAMP;<state>");
+		return -1;
+	}
+
+	// make sure that argv[1], that is, the lamp state, is valid
+	parseSensorsCmd(argv[1]);
+	DEBUG_MSG("[CLS::lampCb] Lamp state set at " << argv[1]);
 	return 0;
 }
 
@@ -203,41 +221,6 @@ void *CLocalSystem::tLoraRecv(void *arg)
 
 	DEBUG_MSG("[CLS::tLoraRecv] exiting thread");
 	return NULL;
-}
-
-struct cmdSensors_t
-{
-	char const *cmd;
-	uint8_t pwm;
-};
-
-static cmdSensors_t cmdSensorsList[] = 
-{
-	{"ON"	,PWM_MAX},
-	{"OFF"	,PWM_OFF},
-	{"MIN"	,MIN_BRIGHT_PWM},
-	{"FAIL"	,PWM_OFF},
-	{0,0}
-};
-
-static uint8_t parseSensorsCmd(char *str)
-{
-	cmdSensors_t *p = cmdSensorsList;
-
-	while(p->cmd)
-	{
-		if(strcmp(str, p->cmd) == 0)
-			break;
-		p++;
-	}
-
-	if((p->cmd) == 0)
-	{
-		ERROR_MSG("[parseSensorsCmd] Unexpected command from dSensors");
-		return -1;
-	}
-
-	return p->pwm;
 }
 
 // max length of a message queue
@@ -293,19 +276,16 @@ void *CLocalSystem::tRecvSensors(void *arg)
 			// else, messages to read from dSensors
 			DEBUG_MSG("[CLS::tRecvSensors] received cmd[" << string(msg) << "]");
 
-			int cmdPwm = parseSensorsCmd(msg);
-			DEBUG_MSG("[CLS::tRecvSensors] Setting lamp PWM to[" << cmdPwm << "]");
-			c->lamp.setBrightness(cmdPwm);
+			int err = parseSensorsCmd(msg);
+			if((err == 0) && IDReceived)
+			{
+				// send only if ID has been received
+				// send to remote system an update on this lamppost status
+				string loraMsg = "LAMP;" + string(msg);
+				c->lora.push(loraMsg);
 
-			if(cmdPwm == PWM_MAX)
-				// Start lamp On timeout. When this ends, the lamp PWM is set
-				// to MIN_BRIGHT_PWM
-				c->timLampOn.start();
-
-			string loraMsg = "LAMP;" + msg;
-			DEBUG_MSG("[CLS::tRecvSensors] Sending (" << loraMsg << ")");
-			// send to remote system an update on this lamppost status
-			c->lora.push(loraMsg);
+				DEBUG_MSG("[CLS::tRecvSensors] Sending (" << loraMsg << ")");
+			}
 
 			// clear message
 			memset(msg, 0, sizeof(msg));
@@ -352,9 +332,13 @@ void *CLocalSystem::tParkDetection(void *arg)
 		// new number of vacants?
 		if(vacantsNum != oldVacantsNum)
 		{
-			// send update info to remote system
-			string loraMsg = "PARK;" + vacantsNum;
-			c->lora.push(loraMsg);
+			// send only if ID has been received
+			if(IDReceived)
+			{
+				// send update info to remote system
+				string loraMsg = "PARK;" + vacantsNum;
+				c->lora.push(loraMsg);
+			}
 			oldVacantsNum = vacantsNum;
 		}
 
@@ -363,4 +347,48 @@ void *CLocalSystem::tParkDetection(void *arg)
 	}
 	
 	return NULL;
+}
+
+void CLocalSystem::lampOnCb(uint8_t pwm)
+{
+	lampAllCb(pwm);
+	// start timeout
+	thisPtr->timLampOn.start();	
+	DEBUG_MSG("[CLS::lampOnCb] Lamp ON - PWM(" << );
+}
+
+void CLocalSystem::lampAllCb(uint8_t pwm)
+{
+	thisPtr->lamp.setBrightness(pwm);
+	DEBUG_MSG("[CLS::lampOnCb] Lamp ON - Started timeout");
+}
+
+cmdSensors_t CLocalSystem::cmdSensorsList[] = 
+{
+	{"ON"	,PWM_MAX, lampOnCb},
+	{"OFF"	,PWM_OFF, lampAllCb},
+	{"MIN"	,MIN_BRIGHT_PWM, lampAllCb},
+	{"FAIL"	,PWM_OFF, lampAllCb},
+	{0,0,0}
+};
+
+int CLocalSystem::parseSensorsCmd(char *str)
+{
+	cmdSensors_t *p = cmdSensorsList;
+
+	while(p->cmd)
+	{
+		if(strcmp(str, p->cmd) == 0)
+			break;
+		p++;
+	}
+
+	if((p->cmd) == 0)
+	{
+		ERROR_MSG("[parseSensorsCmd] Received unexpected command");
+		return -1;
+	}
+
+	p->cb(p->pwm);
+	return 0;
 }

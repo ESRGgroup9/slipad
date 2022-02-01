@@ -3,13 +3,20 @@
 
 #include "CLamp.h"
 #include "CLoraComm.h"
-#include "CCamera.h"
-#include "CParkDetection.h"
+// #include "CCamera.h"
+// #include "CParkDetection.h"
 #include "timer.h"
 #include "parser.h"
 
 #include <pthread.h>
 #include <mqueue.h> // mqd_t
+
+struct cmdSensors_t
+{
+	char const *cmd;
+	uint8_t pwm;
+	void (*cb)(uint8_t);
+};
 
 class CLocalSystem 
 {
@@ -27,7 +34,12 @@ private:
 private:
 	static CLocalSystem* thisPtr;
 	static int idCb(int argc, char *argv[]);
+	static int lampCb(int argc, char *argv[]);
 	
+	static int parseSensorsCmd(char *str);
+	static void lampOnCb(uint8_t pwm);
+	static void lampAllCb(uint8_t pwm);
+
 	static void sigHandler(int sig);
 	static void timHandler(union sigval arg);
 
@@ -38,8 +50,8 @@ private:
 private:
 	CLamp lamp;
 	CLoraComm lora;
-	CCamera camera;
-	CParkDetection park;
+	// CCamera camera;
+	// CParkDetection park;
 
 	pthread_t tLoraRecv_id;
 	pthread_t tRecvSensors_id;
@@ -57,6 +69,8 @@ private:
 	
 	mqd_t msgqSensors;
 	Parser loraParser;
+	static cmdSensors_t cmdSensorsList[];
+	static Command_t loraCmdList[];
 };
 // End CLocalSystem class definition
 
