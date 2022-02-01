@@ -84,15 +84,15 @@ CREATE TRIGGER insert_parking
 -- 	UPDATE lamppost SET status=stat WHERE id=lamppostID;
 -- END$$
 
-DROP PROCEDURE IF EXISTS dynamic_light_lamppost$$
-CREATE PROCEDURE dynamic_light_lamppost(`lamppostID` INTEGER)
-BEGIN
-	DECLARE next_id, prev_id INTEGER;
+-- DROP PROCEDURE IF EXISTS dynamic_light_lamppost$$
+-- CREATE PROCEDURE dynamic_light_lamppost(`lamppostID` INTEGER)
+-- BEGIN
+-- 	DECLARE next_id, prev_id INTEGER;
 
-	SELECT id INTO next_id FROM lamppost WHERE id=(SELECT MIN(id) FROM lamppost WHERE id>lamppostID);
-	SELECT id INTO prev_id FROM lamppost WHERE id=(SELECT MAX(id) FROM lamppost WHERE id<lamppostID);
-	UPDATE lamppost set status='ON' where id IN (next_id, prev_id);
-END$$
+-- 	SELECT id INTO next_id FROM lamppost WHERE id=(SELECT MIN(id) FROM lamppost WHERE id>lamppostID);
+-- 	SELECT id INTO prev_id FROM lamppost WHERE id=(SELECT MAX(id) FROM lamppost WHERE id<lamppostID);
+-- 	UPDATE lamppost set status='ON' where id IN (next_id, prev_id);
+-- END$$
 
 -- ----------------------------------------------------------------------------
 
