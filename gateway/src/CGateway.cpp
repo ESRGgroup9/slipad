@@ -10,10 +10,11 @@ using namespace std;
 #define TCP_HOST		("localhost")
 #define TCP_PORT 		(5000)
 
+#define PARSE_DELIMITER (";")
+
 CGateway::CGateway() :
 	lora(433, LS_ADDR, GATEWAY_ADDR),
 	tcp(TCP_HOST, TCP_PORT)
-	// tcpParser(NULL, " ")
 {
 	if(pthread_create(&tLoraRecv_id, NULL, tLoraRecv, this) != 0)
 		panic("CGateway::CGateway(): pthread_create");
@@ -54,7 +55,7 @@ void *CGateway::tLoraRecv(void *arg)
 			// get received message
 			LoRaMsg loraMsg = c->lora.getMsgAttr();
 			// add LoRa sender address into TCP message payload
-			msg += " " + loraMsg.sendAddr;
+			msg += PARSE_DELIMITER + loraMsg.sendAddr;
 			// send message
 			DEBUG_MSG("[CGateway::tLoraRecv] Received[" << msg << "]");
 			c->tcp.push(msg);
@@ -81,13 +82,13 @@ void *CGateway::tTCPRecv(void *arg)
 			DEBUG_MSG("[CGateway::tTCPRecv] Received[" << msg << "]");
 
 			// "parse" receive message. Get message payload and destination addr
-			size_t i = msg.find_last_of(" ");
+			size_t i = msg.find_last_of(PARSE_DELIMITER);
 			// set message payload
 			string str = msg.substr(0,i);
 			// set destination - receiver address
 			int destAddr = atoi(msg.substr(i+1).c_str());
 			
-			c->lora.setDestination(destAddr);
+			c->lora.setDestAddr(destAddr);
 			c->lora.push(str);
 		}
 	}

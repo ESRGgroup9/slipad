@@ -2,7 +2,8 @@
 \label{class_c_lora_comm}\index{CLoraComm@{CLoraComm}}
 
 
-Inheritance diagram for CLora\+Comm\+:\nopagebreak
+Inheritance diagram for CLora\+Comm\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -11,7 +12,8 @@ Inheritance diagram for CLora\+Comm\+:\nopagebreak
 \end{figure}
 
 
-Collaboration diagram for CLora\+Comm\+:\nopagebreak
+Collaboration diagram for CLora\+Comm\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -24,7 +26,13 @@ Collaboration diagram for CLora\+Comm\+:\nopagebreak
 \mbox{\hyperlink{class_c_lora_comm_a2397fefa827f81addcb1b742ec55ab57}{CLora\+Comm}} (int freq\+Mhz, int dest, int src)
 \begin{DoxyCompactList}\small\item\em Create a \mbox{\hyperlink{class_c_lora_comm}{CLora\+Comm}} object. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_c_lora_comm_af2cf1c6ca6651ea56391bd8638dc0a0d}{get\+Local\+Addr}} (void) const
-\begin{DoxyCompactList}\small\item\em get local address \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em get local address \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_lora_comm_a795b2052249d6a3f16e2e7ce81bd91c4}{set\+Src\+Addr}} (int src)
+\begin{DoxyCompactList}\small\item\em Updates local address. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_lora_comm_a99b8a4639dfbcd774408c015ef38bd75}{set\+Dest\+Addr}} (int dest)
+\begin{DoxyCompactList}\small\item\em Updates destination address. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_lo_ra_msg}{Lo\+Ra\+Msg}} \mbox{\hyperlink{class_c_lora_comm_a6b7a5c0b3b8a2befb5f410dbe6e61cd6}{get\+Msg\+Attr}} (void) const
+\begin{DoxyCompactList}\small\item\em Returns last generated \mbox{\hyperlink{class_lo_ra_msg}{Lo\+Ra\+Msg}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -77,7 +85,7 @@ Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00020}{20}} of fil
 
 
 
-Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00039}{39}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00040}{40}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
 
 
 
@@ -97,7 +105,24 @@ int -\/ local address
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00063}{63}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00074}{74}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_lora_comm_a6b7a5c0b3b8a2befb5f410dbe6e61cd6}\label{class_c_lora_comm_a6b7a5c0b3b8a2befb5f410dbe6e61cd6}} 
+\index{CLoraComm@{CLoraComm}!getMsgAttr@{getMsgAttr}}
+\index{getMsgAttr@{getMsgAttr}!CLoraComm@{CLoraComm}}
+\doxysubsubsection{\texorpdfstring{getMsgAttr()}{getMsgAttr()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_lo_ra_msg}{Lo\+Ra\+Msg}} get\+Msg\+Attr (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns last generated \mbox{\hyperlink{class_lo_ra_msg}{Lo\+Ra\+Msg}}. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_lo_ra_msg}{Lo\+Ra\+Msg}} 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00079}{79}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
 
 \mbox{\Hypertarget{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}\label{class_c_lora_comm_ac0e3ed2e099fe51ef71284a00d8ecad7}} 
 \index{CLoraComm@{CLoraComm}!recvFunc@{recvFunc}}
@@ -123,7 +148,7 @@ Implements \mbox{\hyperlink{class_c_communication}{CCommunication}}.
 
 
 
-Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00044}{44}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00045}{45}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
 
 \mbox{\Hypertarget{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}\label{class_c_lora_comm_a9cc108d99a998ef764d401cf8ee67925}} 
 \index{CLoraComm@{CLoraComm}!sendFunc@{sendFunc}}
@@ -150,6 +175,50 @@ Implements \mbox{\hyperlink{class_c_communication}{CCommunication}}.
 
 
 Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00056}{56}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_lora_comm_a99b8a4639dfbcd774408c015ef38bd75}\label{class_c_lora_comm_a99b8a4639dfbcd774408c015ef38bd75}} 
+\index{CLoraComm@{CLoraComm}!setDestAddr@{setDestAddr}}
+\index{setDestAddr@{setDestAddr}!CLoraComm@{CLoraComm}}
+\doxysubsubsection{\texorpdfstring{setDestAddr()}{setDestAddr()}}
+{\footnotesize\ttfamily void set\+Dest\+Addr (\begin{DoxyParamCaption}\item[{int}]{dest }\end{DoxyParamCaption})}
+
+
+
+Updates destination address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & -\/ destination address \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00069}{69}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_lora_comm_a795b2052249d6a3f16e2e7ce81bd91c4}\label{class_c_lora_comm_a795b2052249d6a3f16e2e7ce81bd91c4}} 
+\index{CLoraComm@{CLoraComm}!setSrcAddr@{setSrcAddr}}
+\index{setSrcAddr@{setSrcAddr}!CLoraComm@{CLoraComm}}
+\doxysubsubsection{\texorpdfstring{setSrcAddr()}{setSrcAddr()}}
+{\footnotesize\ttfamily void set\+Src\+Addr (\begin{DoxyParamCaption}\item[{int}]{src }\end{DoxyParamCaption})}
+
+
+
+Updates local address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & -\/ local address \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_lora_comm_8cpp_source_l00062}{62}} of file \mbox{\hyperlink{_c_lora_comm_8cpp_source}{CLora\+Comm.\+cpp}}.
 
 
 

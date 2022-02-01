@@ -32,8 +32,6 @@ class CRemoteClient
 	struct ClientSocketInfo
 	{
 		enum ConnStatus state;
-		// int index;
-		// std::string name;
 		int sockfd;
 		enum ClientType type;
 	};
@@ -72,9 +70,9 @@ protected:
 	MYSQL* db;
 	Command_t *cmdList;
 	Parser cmdParser;
-
-private:
 	CTCPComm tcp;
+	
+private:
 	pthread_t tRecv_id;
 };
 

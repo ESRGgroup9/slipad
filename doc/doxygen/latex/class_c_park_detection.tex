@@ -2,22 +2,144 @@
 \label{class_c_park_detection}\index{CParkDetection@{CParkDetection}}
 
 
-Collaboration diagram for CPark\+Detection\+:\nopagebreak
+Collaboration diagram for CPark\+Detection\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=172pt]{class_c_park_detection__coll__graph}
+\includegraphics[width=199pt]{class_c_park_detection__coll__graph}
 \end{center}
 \end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_c_park_detection_a3c00ec5abada7216d406e10cd4e72a84}{get\+Outline}} (const cv\+::\+Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Get parking spots coordinates. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_c_park_detection_ab693999619e9790c7944233e95d0c9ed}{calc\+Vacants}} (const cv\+::\+Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Calculate de number of free parking spots. \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{class_c_park_detection_ab28b9ac00243fd88723399465716b66a}{get\+Vacants}} (void)
+\begin{DoxyCompactList}\small\item\em Get free parking spots number. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_park_detection_a08f62540cafc15f547592a2f1a7e9a5e}{write\+Parks}} (cv\+::\+Mat \&frame)
+\begin{DoxyCompactList}\small\item\em Circulate the free parks in green and the occupied parks in red. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 
 
-Definition at line \mbox{\hyperlink{_c_park_detection_8h_source_l00004}{4}} of file \mbox{\hyperlink{_c_park_detection_8h_source}{CPark\+Detection.\+h}}.
+Definition at line \mbox{\hyperlink{_c_park_detection_8h_source_l00017}{17}} of file \mbox{\hyperlink{_c_park_detection_8h_source}{CPark\+Detection.\+h}}.
 
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_park_detection_af4eb0088e90e0bf99f8f61c9db7b52fc}\label{class_c_park_detection_af4eb0088e90e0bf99f8f61c9db7b52fc}} 
+\index{CParkDetection@{CParkDetection}!CParkDetection@{CParkDetection}}
+\index{CParkDetection@{CParkDetection}!CParkDetection@{CParkDetection}}
+\doxysubsubsection{\texorpdfstring{CParkDetection()}{CParkDetection()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_c_park_detection}{CPark\+Detection}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_park_detection_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{_c_park_detection_8cpp_source}{CPark\+Detection.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_park_detection_a60c2f221aed2ec32b87cf109be827b3c}\label{class_c_park_detection_a60c2f221aed2ec32b87cf109be827b3c}} 
+\index{CParkDetection@{CParkDetection}!````~CParkDetection@{$\sim$CParkDetection}}
+\index{````~CParkDetection@{$\sim$CParkDetection}!CParkDetection@{CParkDetection}}
+\doxysubsubsection{\texorpdfstring{$\sim$CParkDetection()}{~CParkDetection()}}
+{\footnotesize\ttfamily $\sim$\mbox{\hyperlink{class_c_park_detection}{CPark\+Detection}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_park_detection_8cpp_source_l00022}{22}} of file \mbox{\hyperlink{_c_park_detection_8cpp_source}{CPark\+Detection.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_park_detection_ab693999619e9790c7944233e95d0c9ed}\label{class_c_park_detection_ab693999619e9790c7944233e95d0c9ed}} 
+\index{CParkDetection@{CParkDetection}!calcVacants@{calcVacants}}
+\index{calcVacants@{calcVacants}!CParkDetection@{CParkDetection}}
+\doxysubsubsection{\texorpdfstring{calcVacants()}{calcVacants()}}
+{\footnotesize\ttfamily int calc\+Vacants (\begin{DoxyParamCaption}\item[{const cv\+::\+Mat \&}]{frame }\end{DoxyParamCaption})}
+
+
+
+Calculate de number of free parking spots. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Frame} & of the parking spot with/without cars \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of parking spots 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_park_detection_8cpp_source_l00085}{85}} of file \mbox{\hyperlink{_c_park_detection_8cpp_source}{CPark\+Detection.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_park_detection_a3c00ec5abada7216d406e10cd4e72a84}\label{class_c_park_detection_a3c00ec5abada7216d406e10cd4e72a84}} 
+\index{CParkDetection@{CParkDetection}!getOutline@{getOutline}}
+\index{getOutline@{getOutline}!CParkDetection@{CParkDetection}}
+\doxysubsubsection{\texorpdfstring{getOutline()}{getOutline()}}
+{\footnotesize\ttfamily bool get\+Outline (\begin{DoxyParamCaption}\item[{const cv\+::\+Mat \&}]{frame }\end{DoxyParamCaption})}
+
+
+
+Get parking spots coordinates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Frame} & that have the parking spots without any car \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if found parking spot/ false if not 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_park_detection_8cpp_source_l00027}{27}} of file \mbox{\hyperlink{_c_park_detection_8cpp_source}{CPark\+Detection.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_park_detection_ab28b9ac00243fd88723399465716b66a}\label{class_c_park_detection_ab28b9ac00243fd88723399465716b66a}} 
+\index{CParkDetection@{CParkDetection}!getVacants@{getVacants}}
+\index{getVacants@{getVacants}!CParkDetection@{CParkDetection}}
+\doxysubsubsection{\texorpdfstring{getVacants()}{getVacants()}}
+{\footnotesize\ttfamily const int get\+Vacants (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get free parking spots number. 
+
+\begin{DoxyReturn}{Returns}
+vacants\+Num 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_park_detection_8cpp_source_l00118}{118}} of file \mbox{\hyperlink{_c_park_detection_8cpp_source}{CPark\+Detection.\+cpp}}.
+
+\mbox{\Hypertarget{class_c_park_detection_a08f62540cafc15f547592a2f1a7e9a5e}\label{class_c_park_detection_a08f62540cafc15f547592a2f1a7e9a5e}} 
+\index{CParkDetection@{CParkDetection}!writeParks@{writeParks}}
+\index{writeParks@{writeParks}!CParkDetection@{CParkDetection}}
+\doxysubsubsection{\texorpdfstring{writeParks()}{writeParks()}}
+{\footnotesize\ttfamily void write\+Parks (\begin{DoxyParamCaption}\item[{cv\+::\+Mat \&}]{frame }\end{DoxyParamCaption})}
+
+
+
+Circulate the free parks in green and the occupied parks in red. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em 3} & points forming an angle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Cosine of the angle
+\end{DoxyReturn}
+Debug Function 
+
+Definition at line \mbox{\hyperlink{_c_park_detection_8cpp_source_l00253}{253}} of file \mbox{\hyperlink{_c_park_detection_8cpp_source}{CPark\+Detection.\+cpp}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-inc/CPark\+Detection.\+h\end{DoxyCompactItemize}
+local\+System/inc/CPark\+Detection.\+h\item 
+local\+System/src/\mbox{\hyperlink{_c_park_detection_8cpp}{CPark\+Detection.\+cpp}}\end{DoxyCompactItemize}

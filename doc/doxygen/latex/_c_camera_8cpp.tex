@@ -1,0 +1,124 @@
+\hypertarget{_c_camera_8cpp}{}\doxysection{local\+System/src/\+CCamera.cpp File Reference}
+\label{_c_camera_8cpp}\index{localSystem/src/CCamera.cpp@{localSystem/src/CCamera.cpp}}
+
+
+Class that deals with camera device.  
+
+
+{\ttfamily \#include \char`\"{}CCamera.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}utils.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$imgcodecs.\+hpp$>$}\newline
+Include dependency graph for CCamera.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_c_camera_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_c_camera_8cpp_a2e9589af3c7162750f3db5cae77f0644}{FRAME\+\_\+W}}~640
+\item 
+\#define \mbox{\hyperlink{_c_camera_8cpp_af79217af847532f2535ee1dcb58d9795}{FRAME\+\_\+H}}~480
+\item 
+\#define \mbox{\hyperlink{_c_camera_8cpp_a5da9e9b958f6a57a26a13804345b3dd7}{CAM\+\_\+\+BRIGHTNESS}}~0.\+4
+\item 
+\#define \mbox{\hyperlink{_c_camera_8cpp_a40fcea2590b0752a84215645f42a70ae}{CAM\+\_\+\+CONTRAST}}~0.\+50
+\item 
+\#define \mbox{\hyperlink{_c_camera_8cpp_a2d1bacfba9fb41fac22a83b6aba44b1c}{CAM\+\_\+\+SATURATION}}~0.\+6
+\item 
+\#define \mbox{\hyperlink{_c_camera_8cpp_ad71a1794ae86aca08aeccddaa80ace39}{DEV\+\_\+\+ID}}~0
+\item 
+\#define \mbox{\hyperlink{_c_camera_8cpp_ab0139008fdda107456f13f837872b410}{PATH}}~\char`\"{}/etc/image.\+jpg\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that deals with camera device. 
+
+, \mbox{\hyperlink{_c_camera_8h_source}{CCamera.\+h}} \begin{DoxyAuthor}{Author}
+Diogo Fernandes, Tomas Abreu 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+21/01/2022 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{_c_camera_8cpp_source}{CCamera.\+cpp}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_c_camera_8cpp_a5da9e9b958f6a57a26a13804345b3dd7}\label{_c_camera_8cpp_a5da9e9b958f6a57a26a13804345b3dd7}} 
+\index{CCamera.cpp@{CCamera.cpp}!CAM\_BRIGHTNESS@{CAM\_BRIGHTNESS}}
+\index{CAM\_BRIGHTNESS@{CAM\_BRIGHTNESS}!CCamera.cpp@{CCamera.cpp}}
+\doxysubsubsection{\texorpdfstring{CAM\_BRIGHTNESS}{CAM\_BRIGHTNESS}}
+{\footnotesize\ttfamily \#define CAM\+\_\+\+BRIGHTNESS~0.\+4}
+
+
+
+Definition at line \mbox{\hyperlink{_c_camera_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{_c_camera_8cpp_source}{CCamera.\+cpp}}.
+
+\mbox{\Hypertarget{_c_camera_8cpp_a40fcea2590b0752a84215645f42a70ae}\label{_c_camera_8cpp_a40fcea2590b0752a84215645f42a70ae}} 
+\index{CCamera.cpp@{CCamera.cpp}!CAM\_CONTRAST@{CAM\_CONTRAST}}
+\index{CAM\_CONTRAST@{CAM\_CONTRAST}!CCamera.cpp@{CCamera.cpp}}
+\doxysubsubsection{\texorpdfstring{CAM\_CONTRAST}{CAM\_CONTRAST}}
+{\footnotesize\ttfamily \#define CAM\+\_\+\+CONTRAST~0.\+50}
+
+
+
+Definition at line \mbox{\hyperlink{_c_camera_8cpp_source_l00009}{9}} of file \mbox{\hyperlink{_c_camera_8cpp_source}{CCamera.\+cpp}}.
+
+\mbox{\Hypertarget{_c_camera_8cpp_a2d1bacfba9fb41fac22a83b6aba44b1c}\label{_c_camera_8cpp_a2d1bacfba9fb41fac22a83b6aba44b1c}} 
+\index{CCamera.cpp@{CCamera.cpp}!CAM\_SATURATION@{CAM\_SATURATION}}
+\index{CAM\_SATURATION@{CAM\_SATURATION}!CCamera.cpp@{CCamera.cpp}}
+\doxysubsubsection{\texorpdfstring{CAM\_SATURATION}{CAM\_SATURATION}}
+{\footnotesize\ttfamily \#define CAM\+\_\+\+SATURATION~0.\+6}
+
+
+
+Definition at line \mbox{\hyperlink{_c_camera_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{_c_camera_8cpp_source}{CCamera.\+cpp}}.
+
+\mbox{\Hypertarget{_c_camera_8cpp_ad71a1794ae86aca08aeccddaa80ace39}\label{_c_camera_8cpp_ad71a1794ae86aca08aeccddaa80ace39}} 
+\index{CCamera.cpp@{CCamera.cpp}!DEV\_ID@{DEV\_ID}}
+\index{DEV\_ID@{DEV\_ID}!CCamera.cpp@{CCamera.cpp}}
+\doxysubsubsection{\texorpdfstring{DEV\_ID}{DEV\_ID}}
+{\footnotesize\ttfamily \#define DEV\+\_\+\+ID~0}
+
+
+
+Definition at line \mbox{\hyperlink{_c_camera_8cpp_source_l00012}{12}} of file \mbox{\hyperlink{_c_camera_8cpp_source}{CCamera.\+cpp}}.
+
+\mbox{\Hypertarget{_c_camera_8cpp_af79217af847532f2535ee1dcb58d9795}\label{_c_camera_8cpp_af79217af847532f2535ee1dcb58d9795}} 
+\index{CCamera.cpp@{CCamera.cpp}!FRAME\_H@{FRAME\_H}}
+\index{FRAME\_H@{FRAME\_H}!CCamera.cpp@{CCamera.cpp}}
+\doxysubsubsection{\texorpdfstring{FRAME\_H}{FRAME\_H}}
+{\footnotesize\ttfamily \#define FRAME\+\_\+H~480}
+
+
+
+Definition at line \mbox{\hyperlink{_c_camera_8cpp_source_l00006}{6}} of file \mbox{\hyperlink{_c_camera_8cpp_source}{CCamera.\+cpp}}.
+
+\mbox{\Hypertarget{_c_camera_8cpp_a2e9589af3c7162750f3db5cae77f0644}\label{_c_camera_8cpp_a2e9589af3c7162750f3db5cae77f0644}} 
+\index{CCamera.cpp@{CCamera.cpp}!FRAME\_W@{FRAME\_W}}
+\index{FRAME\_W@{FRAME\_W}!CCamera.cpp@{CCamera.cpp}}
+\doxysubsubsection{\texorpdfstring{FRAME\_W}{FRAME\_W}}
+{\footnotesize\ttfamily \#define FRAME\+\_\+W~640}
+
+
+
+Definition at line \mbox{\hyperlink{_c_camera_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{_c_camera_8cpp_source}{CCamera.\+cpp}}.
+
+\mbox{\Hypertarget{_c_camera_8cpp_ab0139008fdda107456f13f837872b410}\label{_c_camera_8cpp_ab0139008fdda107456f13f837872b410}} 
+\index{CCamera.cpp@{CCamera.cpp}!PATH@{PATH}}
+\index{PATH@{PATH}!CCamera.cpp@{CCamera.cpp}}
+\doxysubsubsection{\texorpdfstring{PATH}{PATH}}
+{\footnotesize\ttfamily \#define PATH~\char`\"{}/etc/image.\+jpg\char`\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_camera_8cpp_source_l00014}{14}} of file \mbox{\hyperlink{_c_camera_8cpp_source}{CCamera.\+cpp}}.
+

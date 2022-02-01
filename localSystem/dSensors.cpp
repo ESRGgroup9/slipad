@@ -9,7 +9,53 @@
 
 int main(int argc, char *argv[])
 {
-	// CREATE DAEMON ....
+	// // Create daemon
+	// pid_t pid, sid;
+	
+	// // create a new process (child)
+	// pid = fork();
+	// if (pid < 0)
+	// {
+	// 	// on error exit
+	// 	perror("fork");
+	// 	exit(EXIT_FAILURE);
+	// }
+
+	// if (pid > 0)
+	// {
+	// 	// client_recv_pid = pid;
+	// 	cout << "Creating dSensors (PID "<< pid << ")" << endl;
+	// 	// exit parent process
+	// 	exit(EXIT_SUCCESS);
+	// }
+
+	// // create a new session
+	// sid = setsid();
+	// if (sid < 0)
+	// {
+	// 	// on error exit
+	// 	perror("setsid");
+	// 	exit(EXIT_FAILURE);
+	// }
+	
+	// // make '/' the root directory
+	// if (chdir("/") < 0)
+	// {
+	// 	// on error exit
+	// 	perror("chdir");
+	// 	exit(EXIT_FAILURE);
+	// }
+	
+	// // reset umask to 0
+	// // Any permission may be set (rwx)
+	// umask(0); 
+	// // close standard input file descriptor
+	// close(STDIN_FILENO); 
+	// // close standard output file descriptor
+	// close(STDOUT_FILENO);
+	// // close standard error file descriptor
+	// close(STDERR_FILENO);
+	// syslog(LOG_INFO, "Daemon created\n");
 	
 	/******************************************************
 	* Service implementation

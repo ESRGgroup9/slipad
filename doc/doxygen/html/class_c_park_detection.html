@@ -83,6 +83,8 @@ $(document).ready(function(){initNavTree('class_c_park_detection.html',''); init
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle"><div class="title">CParkDetection Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -91,14 +93,182 @@ Collaboration diagram for CParkDetection:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_c_park_detection__coll__graph.png" border="0" usemap="#a_c_park_detection_coll__map" alt="Collaboration graph"/></div>
 <map name="a_c_park_detection_coll__map" id="a_c_park_detection_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,128,83"/>
+<area shape="rect" title=" " alt="" coords="5,5,164,156"/>
 </map>
 </div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3c00ec5abada7216d406e10cd4e72a84"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_park_detection.html#a3c00ec5abada7216d406e10cd4e72a84">getOutline</a> (const cv::Mat &amp;frame)</td></tr>
+<tr class="memdesc:a3c00ec5abada7216d406e10cd4e72a84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get parking spots coordinates.  <a href="class_c_park_detection.html#a3c00ec5abada7216d406e10cd4e72a84">More...</a><br /></td></tr>
+<tr class="separator:a3c00ec5abada7216d406e10cd4e72a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab693999619e9790c7944233e95d0c9ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_park_detection.html#ab693999619e9790c7944233e95d0c9ed">calcVacants</a> (const cv::Mat &amp;frame)</td></tr>
+<tr class="memdesc:ab693999619e9790c7944233e95d0c9ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate de number of free parking spots.  <a href="class_c_park_detection.html#ab693999619e9790c7944233e95d0c9ed">More...</a><br /></td></tr>
+<tr class="separator:ab693999619e9790c7944233e95d0c9ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab28b9ac00243fd88723399465716b66a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_park_detection.html#ab28b9ac00243fd88723399465716b66a">getVacants</a> (void)</td></tr>
+<tr class="memdesc:ab28b9ac00243fd88723399465716b66a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get free parking spots number.  <a href="class_c_park_detection.html#ab28b9ac00243fd88723399465716b66a">More...</a><br /></td></tr>
+<tr class="separator:ab28b9ac00243fd88723399465716b66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08f62540cafc15f547592a2f1a7e9a5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_park_detection.html#a08f62540cafc15f547592a2f1a7e9a5e">writeParks</a> (cv::Mat &amp;frame)</td></tr>
+<tr class="memdesc:a08f62540cafc15f547592a2f1a7e9a5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Circulate the free parks in green and the occupied parks in red.  <a href="class_c_park_detection.html#a08f62540cafc15f547592a2f1a7e9a5e">More...</a><br /></td></tr>
+<tr class="separator:a08f62540cafc15f547592a2f1a7e9a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_c_park_detection_8h_source.html#l00004">4</a> of file <a class="el" href="_c_park_detection_8h_source.html">CParkDetection.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>inc/<a class="el" href="_c_park_detection_8h_source.html">CParkDetection.h</a></li>
+<p class="definition">Definition at line <a class="el" href="_c_park_detection_8h_source.html#l00017">17</a> of file <a class="el" href="_c_park_detection_8h_source.html">CParkDetection.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af4eb0088e90e0bf99f8f61c9db7b52fc" name="af4eb0088e90e0bf99f8f61c9db7b52fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4eb0088e90e0bf99f8f61c9db7b52fc">&#9670;&nbsp;</a></span>CParkDetection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_park_detection.html">CParkDetection</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_c_park_detection_8cpp_source.html#l00013">13</a> of file <a class="el" href="_c_park_detection_8cpp_source.html">CParkDetection.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a60c2f221aed2ec32b87cf109be827b3c" name="a60c2f221aed2ec32b87cf109be827b3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60c2f221aed2ec32b87cf109be827b3c">&#9670;&nbsp;</a></span>~CParkDetection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">~<a class="el" href="class_c_park_detection.html">CParkDetection</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_c_park_detection_8cpp_source.html#l00022">22</a> of file <a class="el" href="_c_park_detection_8cpp_source.html">CParkDetection.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab693999619e9790c7944233e95d0c9ed" name="ab693999619e9790c7944233e95d0c9ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab693999619e9790c7944233e95d0c9ed">&#9670;&nbsp;</a></span>calcVacants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calcVacants </td>
+          <td>(</td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>frame</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate de number of free parking spots. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Frame</td><td>of the parking spot with/without cars </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of parking spots </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_c_park_detection_8cpp_source.html#l00085">85</a> of file <a class="el" href="_c_park_detection_8cpp_source.html">CParkDetection.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3c00ec5abada7216d406e10cd4e72a84" name="a3c00ec5abada7216d406e10cd4e72a84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c00ec5abada7216d406e10cd4e72a84">&#9670;&nbsp;</a></span>getOutline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool getOutline </td>
+          <td>(</td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>frame</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get parking spots coordinates. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Frame</td><td>that have the parking spots without any car </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if found parking spot/ false if not </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_c_park_detection_8cpp_source.html#l00027">27</a> of file <a class="el" href="_c_park_detection_8cpp_source.html">CParkDetection.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab28b9ac00243fd88723399465716b66a" name="ab28b9ac00243fd88723399465716b66a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab28b9ac00243fd88723399465716b66a">&#9670;&nbsp;</a></span>getVacants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int getVacants </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get free parking spots number. </p>
+<dl class="section return"><dt>Returns</dt><dd>vacantsNum </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_c_park_detection_8cpp_source.html#l00118">118</a> of file <a class="el" href="_c_park_detection_8cpp_source.html">CParkDetection.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a08f62540cafc15f547592a2f1a7e9a5e" name="a08f62540cafc15f547592a2f1a7e9a5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08f62540cafc15f547592a2f1a7e9a5e">&#9670;&nbsp;</a></span>writeParks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void writeParks </td>
+          <td>(</td>
+          <td class="paramtype">cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>frame</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Circulate the free parks in green and the occupied parks in red. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">3</td><td>points forming an angle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Cosine of the angle</dd></dl>
+<p>Debug Function </p>
+
+<p class="definition">Definition at line <a class="el" href="_c_park_detection_8cpp_source.html#l00253">253</a> of file <a class="el" href="_c_park_detection_8cpp_source.html">CParkDetection.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>localSystem/inc/<a class="el" href="_c_park_detection_8h_source.html">CParkDetection.h</a></li>
+<li>localSystem/src/<a class="el" href="_c_park_detection_8cpp_source.html">CParkDetection.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

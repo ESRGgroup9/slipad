@@ -1,8 +1,270 @@
 \hypertarget{_c_park_detection_8cpp_source}{}\doxysection{CPark\+Detection.\+cpp}
-\label{_c_park_detection_8cpp_source}\index{src/CParkDetection.cpp@{src/CParkDetection.cpp}}
-
+\label{_c_park_detection_8cpp_source}\index{localSystem/src/CParkDetection.cpp@{localSystem/src/CParkDetection.cpp}}
+\mbox{\hyperlink{_c_park_detection_8cpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}CParkDetection.h"{}}}
 \DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00003}00003 \textcolor{preprocessor}{\#include "{}opencv2/imgproc.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00004}00004 \textcolor{preprocessor}{\#include "{}opencv2/imgcodecs.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00005}00005 \textcolor{preprocessor}{\#include "{}opencv2/highgui.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00007}00007 \textcolor{comment}{//debug}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00008}00008 \textcolor{preprocessor}{\#include <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00010}00010 \textcolor{keyword}{using namespace }cv;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00011}00011 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00013}00013 CParkDetection::CParkDetection():}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00014}00014     vacantsNum(0), }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00015}00015     parkNum(0), }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00016}00016     thresh(50),}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00017}00017     levels(11)}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00018}00018 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00020}00020 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00022}00022 CParkDetection::\string~CParkDetection()}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00023}00023 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00025}00025 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00027}\mbox{\hyperlink{class_c_park_detection_a3c00ec5abada7216d406e10cd4e72a84}{00027}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_c_park_detection_a3c00ec5abada7216d406e10cd4e72a84}{CParkDetection::getOutline}}(\textcolor{keyword}{const} Mat\& frame)}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00028}00028 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00029}00029     Mat gray0(frame.size(), CV\_8U), gray;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00031}00031     \textcolor{comment}{// Filter the noise}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00032}00032     Mat gaussian; }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00033}00033     GaussianBlur(frame, gaussian, Size(7, 7), 0);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00034}00034     }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00035}00035     vector<vector<Point> > contours;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00037}00037     \textcolor{comment}{// empty the vector}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00038}00038     parkCoords.clear();}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00040}00040     \textcolor{comment}{// find squares in every color plane of the image}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00041}00041     \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} c = 0; c < 3; c++ )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00042}00042     \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00043}00043         \textcolor{keywordtype}{int} ch[] = \{c, 0\};}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00044}00044         mixChannels(\&gaussian, 1, \&gray0, 1, ch, 1);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00045}00045         \textcolor{comment}{// try several threshold levels}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00046}00046         \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} l = 0; l < levels; l++ )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00047}00047         \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00048}00048             \textcolor{comment}{// Canny helps to catch squares with gradient shading}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00049}00049             \textcolor{keywordflow}{if}( l == 0 )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00050}00050             \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00051}00051                 \textcolor{comment}{// apply Canny. Take the upper threshold from slider}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00052}00052                 \textcolor{comment}{// and set the lower to 0 (which forces edges merging)}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00053}00053                 Canny(gray0, gray, 0, thresh, 5);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00055}00055                 \textcolor{comment}{// dilate canny output to remove potential}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00056}00056                 \textcolor{comment}{// holes between edge segments}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00057}00057                 dilate(gray, gray, Mat(), Point(-\/1,-\/1));}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00058}00058             \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00059}00059             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00060}00060             \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00061}00061                 \textcolor{comment}{// apply threshold if l!=0:}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00062}00062                 \textcolor{comment}{//     tgray(x,y) = gray(x,y) < (l+1)*255/N ? 255 : 0}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00063}00063                 gray = gray0 >= (l+1)*255/levels;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00064}00064             \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00066}00066             \textcolor{comment}{// find contours and store them all as a list}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00067}00067             findContours(gray, contours, RETR\_LIST, CHAIN\_APPROX\_SIMPLE);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00068}00068             }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00069}00069             \textcolor{comment}{// test each contour}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00070}00070             \textcolor{keywordflow}{for}( \textcolor{keywordtype}{size\_t} i = 0; i < contours.size(); i++ )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00071}00071             \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00072}00072                 addPark(contours[i]);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00073}00073             \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00074}00074         \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00075}00075     \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00077}00077     vacantsNum = parkCoords.size();}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00079}00079     \textcolor{keywordflow}{if}(vacantsNum == 0)}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00080}00080         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00082}00082     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00083}00083 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00085}\mbox{\hyperlink{class_c_park_detection_ab693999619e9790c7944233e95d0c9ed}{00085}} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_park_detection_ab693999619e9790c7944233e95d0c9ed}{CParkDetection::calcVacants}}(\textcolor{keyword}{const} Mat\& frame)}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00086}00086 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00087}00087     \textcolor{comment}{// no parking spot detected}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00088}00088     \textcolor{keywordflow}{if}(!parkCoords.size())}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00089}00089         \mbox{\hyperlink{class_c_park_detection_a3c00ec5abada7216d406e10cd4e72a84}{getOutline}}(frame);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00091}00091     \textcolor{comment}{// detect cars in the frame}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00092}00092     vector<Rect> features = detectCars(frame);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00094}00094     \textcolor{comment}{// Reset the number of parking spots available}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00095}00095     vacantsNum = parkCoords.size();}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00096}00096     fill(parkStatus.begin(), parkStatus.end(), 1);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00098}00098     \textcolor{comment}{// Evaluate the parking spot availability}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00099}00099     \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} f = 0; f < features.size(); f++ )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00100}00100     \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00101}00101         vector<Point> rect = getRectPoints(features[f]);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00102}00102         }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00103}00103         \textcolor{comment}{// Is the car over the parking spot?}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00104}00104         \textcolor{comment}{//  The center of the car match with the center of the parking spot?}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00105}00105         \textcolor{keywordtype}{int} pos = isOverlapp(rect);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00106}00106         \textcolor{keywordflow}{if}( pos != -\/1 )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00107}00107         \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00108}00108             vacantsNum-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00109}00109             \textcolor{comment}{// park unavailable}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00110}00110             parkStatus[pos] = 0;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00111}00111         \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00112}00112     \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00113}00113    }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00114}00114     \textcolor{comment}{// return number of free parking spots}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00115}00115     \textcolor{keywordflow}{return} vacantsNum;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00116}00116 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00117}00117 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00118}\mbox{\hyperlink{class_c_park_detection_ab28b9ac00243fd88723399465716b66a}{00118}} \textcolor{keyword}{const} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_c_park_detection_ab28b9ac00243fd88723399465716b66a}{CParkDetection::getVacants}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00119}00119 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00120}00120     \textcolor{keywordflow}{return} vacantsNum;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00121}00121 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00123}00123 vector<Rect> CParkDetection::detectCars(\textcolor{keyword}{const} Mat\& frame)}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00124}00124 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00125}00125     Mat gray;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00126}00126     cvtColor(frame, gray, COLOR\_BGR2GRAY);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00128}00128     \textcolor{comment}{// Load a classifier from its XML description}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00129}00129     CascadeClassifier classifier(\textcolor{stringliteral}{"{}../haar\_cars1.xml"{}});}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00131}00131     Mat gaussian;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00132}00132     \textcolor{comment}{// blur the image}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00133}00133     GaussianBlur(gray, gaussian, Size(5, 5), 0);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00134}00134 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00135}00135     Mat ones = Mat(3, 3, CV\_8UC1, Scalar(1));}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00136}00136     Mat dilated;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00137}00137     \textcolor{comment}{// dilate canny output to remove potential}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00138}00138     \textcolor{comment}{// holes between edge }}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00139}00139     dilate( gaussian, dilated, ones );}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00140}00140 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00141}00141     \textcolor{comment}{// get the desired kernel }}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00142}00142     Mat kernel = getStructuringElement(MORPH\_ELLIPSE, Size(2, 2));}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00144}00144     Mat output;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00145}00145     \textcolor{comment}{// apply morphology transformation with the desired kernel}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00146}00146     morphologyEx(dilated, output, MORPH\_CLOSE, kernel);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00148}00148     \textcolor{comment}{// Prepare a vector where the detected features will be stored}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00149}00149     vector<Rect> features;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00151}00151     \textcolor{comment}{// Detect the features in the normalized, gray-\/scale version of the image}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00152}00152     classifier.detectMultiScale(output, features, 1.1, 2,}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00153}00153                           0 | CASCADE\_SCALE\_IMAGE, Size(50, 50));}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00155}00155     \textcolor{keywordflow}{return} features;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00156}00156 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00157}00157 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00158}00158 \textcolor{keywordtype}{void} CParkDetection::addPark( vector<Point>\& contour )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00159}00159 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00160}00160     vector<Point> approx;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00162}00162     \textcolor{comment}{// aproximate the contour to a polygon}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00163}00163     approxPolyDP(contour, approx, arcLength(contour, \textcolor{keyword}{true})*0.02, \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00165}00165     \textcolor{comment}{// A square should have 4 vertices after aproximation \&\&}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00166}00166     \textcolor{comment}{// have a relatively large area \&\&}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00167}00167     \textcolor{comment}{// have a not so big area \&\& }}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00168}00168     \textcolor{comment}{// be convex}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00169}00169     \textcolor{keywordflow}{if}( (approx.size() == 4) \&\&}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00170}00170         (fabs(contourArea(approx)) > 3000) \&\&}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00171}00171         (fabs(contourArea(approx)) < 50000) \&\&}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00172}00172         isContourConvex(approx) )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00173}00173     \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00174}00174         \textcolor{keywordtype}{double} maxCosine = 0;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00175}00175         \textcolor{comment}{// find the maximum cosine of all angles of the polygon}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00176}00176         \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} j = 2; j < 5; j++ )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00177}00177         \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00178}00178             \textcolor{keywordtype}{double} cosine = fabs(angle\_cosine(approx[j\%4], approx[j-\/2], approx[j-\/1]));}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00179}00179             maxCosine = MAX(maxCosine, cosine);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00180}00180         \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00182}00182         \textcolor{comment}{// to be consired a rectangle it must have small cosines (\string~90 degrees) }}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00183}00183         \textcolor{comment}{// \&\& not be overlapped with other rectangles}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00184}00184         \textcolor{keywordflow}{if}( maxCosine < 0.1 \&\& (isOverlapp(approx) == -\/1) )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00185}00185         \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00186}00186             parkStatus.push\_back(1); \textcolor{comment}{// all available}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00187}00187             parkCoords.push\_back(approx);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00188}00188             vacantsNum++;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00189}00189         \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00190}00190     \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00191}00191 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00192}00192 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00193}00193 \textcolor{keywordtype}{int} CParkDetection::isOverlapp(vector<Point>\& approx)}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00194}00194 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00195}00195     Point approxCenter = findCenter(approx);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00196}00196 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00197}00197     \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} i=0; i < parkCoords.size(); i++ )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00198}00198     \{        }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00199}00199         Point parkCoordsCenter = findCenter(parkCoords[i]);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00200}00200 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00201}00201         \textcolor{comment}{// centers are overlapped? Distance between centers inferior to 30}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00202}00202         \textcolor{keywordflow}{if}( fabs(parkCoordsCenter.x -\/ (approxCenter.x)) < 30 \&\&}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00203}00203             fabs(parkCoordsCenter.y -\/ (approxCenter.y)) < 30 )   }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00204}00204             \textcolor{keywordflow}{return} i;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00205}00205     \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00206}00206 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00207}00207     \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00208}00208 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00209}00209 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00210}00210 Point CParkDetection::findCenter(vector<Point>\& polygon)}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00211}00211 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00212}00212     Moments m = moments(polygon);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00213}00213 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00214}00214     \textcolor{keywordflow}{return} Point( \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(m.m10 / (m.m00 + 1e-\/5)),}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00215}00215                   \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(m.m01 / (m.m00 + 1e-\/5)) );}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00216}00216 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00218}00218 \textcolor{keywordtype}{double} CParkDetection::angle\_cosine(\textcolor{keyword}{const} Point pt1, \textcolor{keyword}{const} Point pt2, \textcolor{keyword}{const} Point pt0 )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00219}00219 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00220}00220     \textcolor{keywordtype}{double} dx1 = pt1.x -\/ pt0.x;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00221}00221     \textcolor{keywordtype}{double} dy1 = pt1.y -\/ pt0.y;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00222}00222     \textcolor{keywordtype}{double} dx2 = pt2.x -\/ pt0.x;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00223}00223     \textcolor{keywordtype}{double} dy2 = pt2.y -\/ pt0.y;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00224}00224 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00225}00225     \textcolor{keywordflow}{return} (dx1*dx2 + dy1*dy2)/sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-\/10);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00226}00226 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00227}00227 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00228}00228 vector<Point> CParkDetection::getRectPoints(\textcolor{keyword}{const} Rect\& rectangle)}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00229}00229 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00230}00230     vector<Point> points;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00231}00231 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00232}00232     \textcolor{keywordtype}{float} width = rectangle.width;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00233}00233     \textcolor{keywordtype}{float} height = rectangle.height;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00234}00234 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00235}00235     \textcolor{comment}{// down left point}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00236}00236     points.push\_back(Point(rectangle.x, rectangle.y));}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00237}00237 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00238}00238     \textcolor{comment}{// down right point}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00239}00239     points.push\_back(Point(rectangle.x+width, rectangle.y));}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00240}00240 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00241}00241     \textcolor{comment}{// top right point}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00242}00242     points.push\_back(Point(rectangle.x+width, rectangle.y+height));}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00244}00244     \textcolor{comment}{// top left point }}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00245}00245     points.push\_back(Point(rectangle.x, rectangle.y+height));}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00246}00246 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00247}00247     \textcolor{keywordflow}{return} points;}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00248}00248 \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00249}00249 }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00253}\mbox{\hyperlink{class_c_park_detection_a08f62540cafc15f547592a2f1a7e9a5e}{00253}} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_c_park_detection_a08f62540cafc15f547592a2f1a7e9a5e}{CParkDetection::writeParks}}(Mat\& frame)}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00254}00254 \{}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00255}00255     \textcolor{keywordflow}{for}( \textcolor{keywordtype}{int} i = 0; i < parkCoords.size(); i++ )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00256}00256     \{ }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00257}00257         \textcolor{comment}{// Available}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00258}00258         \textcolor{keywordflow}{if}( parkStatus[i] == 1 )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00259}00259             polylines(frame, parkCoords[i], \textcolor{keyword}{true}, Scalar(0, 255, 0), 1, LINE\_AA);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00260}00260         \textcolor{comment}{// unavailable}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00261}00261         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( parkStatus[i] == 0 )}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00262}00262             polylines(frame, parkCoords[i], \textcolor{keyword}{true}, Scalar(0, 0, 255), 1, LINE\_AA);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00263}00263     \}}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00264}00264     }
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00265}00265     imwrite(\textcolor{stringliteral}{"{}image.jpg"{}}, frame);}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00266}00266     system(\textcolor{stringliteral}{"{}scp image.jpg fernandes@10.42.0.1:/home/fernandes/code/slipad/opencv"{}});}
+\DoxyCodeLine{\Hypertarget{_c_park_detection_8cpp_source_l00267}00267 \}}
 
 \end{DoxyCode}

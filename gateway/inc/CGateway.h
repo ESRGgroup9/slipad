@@ -3,7 +3,6 @@
 
 #include "CLoraComm.h"
 #include "CTCPclient.h"
-// #include "parser.h"
 #include <pthread.h>
 
 class CGateway
@@ -24,8 +23,6 @@ private:
 
 	pthread_t tLoraRecv_id;
 	pthread_t tTCPRecv_id;
-
-	// Parser tcpParser;
 };
 // End CGateway class definition
 

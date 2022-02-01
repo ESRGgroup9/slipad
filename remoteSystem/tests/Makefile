@@ -15,12 +15,15 @@ INCLDS	=-I $(INC_DIR)
 # Redefine compiler flags
 CXXFLAGS=$(INCLDS) -Wall $(LIBS) $(DEBUG)
 #------------------------------------------------------------------------------
-SRC= $(wildcard $(SRC_DIR)/*.c*)
-
-OBJS=$(filter %.o,$(patsubst $(SRC_DIR)/%.c,../$(BLD_DIR)/%.o,$(SRC)))
-OBJS+=$(filter %.o,$(patsubst $(SRC_DIR)/%.cpp,../$(BLD_DIR)/%.o,$(SRC)))
-
-DEPS= $(patsubst ../$(BLD_DIR)/%.o,../$(BLD_DIR)/%.d,$(OBJS))
+# Select all source files: *.c and *.cpp files
+SRC+=$(wildcard $(SRC_DIR)/*.c*)
+# Set object files with the name from source file to BLD_DIR/*.o
+# Get only the *_x86.o files from OBJS
+OBJS2=$(filter %_x86.o,$(OBJS))
+OBJS2+=$(filter %_x86.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_DIR)/%_x86.o,$(SRC)))
+OBJS2+=$(filter %_x86.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%_x86.o,$(SRC)))
+# Set dependency files with the name from the objects to BLD_DIR/*.d
+DEPS=$(patsubst $(BLD_DIR)/%_x86.o,$(BLD_DIR)/%_x86.d,$(OBJS2))
 #------------------------------------------------------------------------------
 PROGS=$(patsubst ./%.c, $(BIN_DIR)/%.elf, $(wildcard ./*.c))
 PROGS+=$(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
@@ -35,29 +38,29 @@ build: setup $(PROGS) ## Compile the binary program
 #------------------------------------------------------------------------------
 # Create dependencies
 
-$(BLD_DIR)/%.d: %.c
+$(BLD_DIR)/%_x86.d: %.c
 	@echo $(PRINT_GENERATING)
 	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
-$(BLD_DIR)/%.d: %.cpp
+$(BLD_DIR)/%_x86.d: %.cpp
 	@echo $(PRINT_GENERATING)
 	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
 # Create object files
 
-$(BLD_DIR)/%.o: %.c
+$(BLD_DIR)/%_x86.o: %.c
 	@echo $(PRINT_BUILDING)
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-$(BLD_DIR)/%.o: %.cpp
+$(BLD_DIR)/%_x86.o: %.cpp
 	@echo $(PRINT_BUILDING)
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
 # Create executables
 
-$(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%.o $(BLD_DIR)/%.d $(DEPS) $(OBJS)
+$(PROGS): $(BIN_DIR)/%.elf: $(BLD_DIR)/%_x86.o $(BLD_DIR)/%_x86.d $(DEPS) $(OBJS)
 	@echo $(PRINT_COMPILING)
 	@$(CXX) -o $@ $< $(OBJS) $(CXXFLAGS)
 
