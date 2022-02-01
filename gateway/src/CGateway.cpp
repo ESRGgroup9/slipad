@@ -12,8 +12,8 @@ using namespace std;
 
 CGateway::CGateway() :
 	lora(433, LS_ADDR, GATEWAY_ADDR),
-	tcp(TCP_HOST, TCP_PORT),
-	tcpParser(NULL, " ")
+	tcp(TCP_HOST, TCP_PORT)
+	// tcpParser(NULL, " ")
 {
 	if(pthread_create(&tLoraRecv_id, NULL, tLoraRecv, this) != 0)
 		panic("CGateway::CGateway(): pthread_create");
@@ -29,6 +29,11 @@ CGateway::~CGateway()
 
 void CGateway::run()
 {
+	// send remote client type to the remote system
+	// Type 0 = GATEWAY
+	tcp.push("TYPE;0");
+	
+	// wait for threads termination
 	pthread_join(tLoraRecv_id, NULL);
 	pthread_join(tTCPRecv_id, NULL);
 }

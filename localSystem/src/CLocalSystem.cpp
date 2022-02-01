@@ -35,7 +35,7 @@ CLocalSystem::CLocalSystem() :
 	timCamProc(TIM_CAM_PROC_SECS, timHandler),
 	timLampOn(TIM_LAMP_ON_SECS, timHandler, false), // set non-periodic timer
 
-	loraParser(loraCmdList, " ")
+	loraParser(loraCmdList, ";")
 {
 	if(pthread_mutex_init(&mutRecvSensors, NULL) != 0)
 		panic("CLS::CLocalSystem(): Mutex init");
@@ -280,8 +280,10 @@ void *CLocalSystem::tRecvSensors(void *arg)
 				// to MIN_BRIGHT_PWM
 				c->timLampOn.start();
 
-			DEBUG_MSG("[CLS::tRecvSensors] Sending (" << "LAMP " + string(msg) << ")");
-			c->lora.push(string("LAMP ") + msg);
+			string loraMsg = "LAMP;" + msg;
+			DEBUG_MSG("[CLS::tRecvSensors] Sending (" << loraMsg << ")");
+			// send to remote system an update on this lamppost status
+			c->lora.push(loraMsg);
 
 			// clear message
 			memset(msg, 0, sizeof(msg));
@@ -329,7 +331,8 @@ void *CLocalSystem::tParkDetection(void *arg)
 		if(vacantsNum != oldVacantsNum)
 		{
 			// send update info to remote system
-			c->lora.push("PARK "+ vacantsNum);
+			string loraMsg = "PARK;" + vacantsNum;
+			c->lora.push(loraMsg);
 			oldVacantsNum = vacantsNum;
 		}
 

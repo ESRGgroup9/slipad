@@ -136,7 +136,7 @@ void CRemoteSystem::run()
 		if(sd != -1)
 		{
 			pthread_t recvType_id;
-			// handle client addition to client list in thread
+			// handle client addition to client list in detached thread
 			client_port = sd;
 			pthread_create(&recvType_id, NULL, recvType, this);
 			pthread_detach(recvType_id);
