@@ -1,6 +1,11 @@
+-- ----------------------------------------------------------------------------
+-- Create database
+
 DROP DATABASE IF EXISTS `slipad`;
 CREATE DATABASE `slipad`;
 USE `slipad`;
+
+-- ----------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS `operator`;
 CREATE TABLE `operator`(
@@ -60,7 +65,8 @@ CREATE TABLE `parking_space`(
 SET GLOBAL log_bin_trust_function_creators = 1;
 DELIMITER $$
 
--- ------------ Triggers ------------
+-- ----------------------------------------------------------------------------
+-- Create triggers
 
 DROP TRIGGER IF EXISTS insert_parking$$
 CREATE TRIGGER insert_parking
@@ -73,7 +79,8 @@ CREATE TRIGGER insert_parking
 		INSERT INTO parking_space(id) VALUES(park_id);
 	END$$
 
--- ------------ Procedures ------------
+-- ----------------------------------------------------------------------------
+-- Create procedures
 
 -- DROP PROCEDURE IF EXISTS update_lamppost_status$$
 
@@ -83,6 +90,7 @@ CREATE TRIGGER insert_parking
 -- BEGIN
 -- 	UPDATE lamppost SET status=stat WHERE id=lamppostID;
 -- END$$
+
 
 -- DROP PROCEDURE IF EXISTS dynamic_light_lamppost$$
 -- CREATE PROCEDURE dynamic_light_lamppost(`lamppostID` INTEGER)
