@@ -90,7 +90,7 @@ int RCGateway::crqCb(int argc, char *argv[])
 {
 	if(argc != 2)
 	{
-		DEBUG_MSG("[RCGateway::crqCb] Usage: CRQ <local_addr>");
+		DEBUG_MSG("[RCGateway::crqCb] Usage: CRQ;<lsLocalAddr>");
 		return -1;
 	}
 
@@ -113,63 +113,52 @@ int RCGateway::crqCb(int argc, char *argv[])
 		return -1;
 	}
 
-	MYSQL_RES *res;
-    MYSQL_ROW row;
-    int err = 0;
-    int num_fields = 0;
-
     // get the result set
-    res = mysql_store_result(thisPtr->db);
+    MYSQL_RES *res = mysql_store_result(thisPtr->db);
 
     // get the number of the columns
-    num_fields = mysql_num_fields(res);
+    int num_fields = mysql_num_fields(res);
 
-   	if((num_fields == 1) && (row = mysql_fetch_row(res)))
+    // get rows
+    MYSQL_ROW row = mysql_fetch_row(res);
+
+  	if(res != NULL)
+    	mysql_free_result(res);
+
+    // get lamppost ID
+    int lamppost_id = -1;
+
+   	if((num_fields == 1) && (row))
    	{
-		if(row[0] != NULL)
-		{
-        	int id = atoi(row[0]);
-        	DEBUG_MSG("[RCGateway::crqCb] LS with addr(" << addr << ") has ID(" << id << ")");
-		}
+       	lamppost_id = atoi(row[0]);
+       	DEBUG_MSG("[RCGateway::crqCb] LS with addr(" << addr << ") has ID(" << lamppost_id << ")");
    	}
    	else
    	{
    		DEBUG_MSG("[RCGateway::crqCb] Invalid addr(" << addr << ")");
-   		err = -1;
+   		return -1;
    	}
 
-   	if(res != NULL)
-    	mysql_free_result(res);
+   	// clear query
+	query.str("");
 
-    // send ID to LS
-    // ....
+   	// define gateway sockfd for this lamppost
+   	query << "UPDATE lamppost SET sockfd=" << thisPtr->info.sockfd;
+   	query << " WHERE id=" << lamppost_id;
 
-	return err;
-}
-
-int RCGateway::idCb(int argc, char *argv[])
-{
-	if(argc != 2)
-	{
-		DEBUG_MSG("[RCGateway::idCb] Usage: ID <local_addr>");
-		return -1;
-	}
-
-	// get lamppost Local Address
-	int addr = atoi(argv[1]);
-	// get lamppost id
-	int id = -1;
-	stringstream query;
-
-	// create query
-	query << "UPDATE lamppost SET address=" << addr << " WHERE id=" << id;
-	DEBUG_MSG("[RCGateway::idCb] " << query.str());
-
+	DEBUG_MSG("[RCGateway::crqCb] " << query.str());
+	// execute query
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
-		DEBUG_MSG("[RCGateway::idCb] Invalid addr(" << addr << ") or ID(" << id << ")");	
+		DEBUG_MSG("[RCGateway::crqCb] Invalid sockfd("<< thisPtr->info.sockfd <<")");
 		return -1;
 	}
+
+	// send ID to LS
+	// ID command Usage: ID;<id>;<lsAddr>
+	string msg = "ID;" + to_string(lamppost_id) + ";" + argv[1];
+	// send command
+    thisPtr->tcp.push(msg);
 
 	return 0;
 }

@@ -70,7 +70,7 @@ void *CRemoteClient::tRecv(void *arg)
 				DEBUG_MSG("[CRemoteClient::tRecv] Client[" << c->info.sockfd << "] hasn't defined its type yet");
 				continue;
 			}
-
+ 
 			// parse received string
 			int err = c->cmdParser.parse(msg.c_str());
 			if(err == 0)

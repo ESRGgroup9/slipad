@@ -72,9 +72,9 @@ protected:
 	MYSQL* db;
 	Command_t *cmdList;
 	Parser cmdParser;
-
-private:
 	CTCPComm tcp;
+	
+private:
 	pthread_t tRecv_id;
 };
 

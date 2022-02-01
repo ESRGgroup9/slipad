@@ -35,11 +35,18 @@ public:
 	int getLocalAddr(void) const;
 
 /**
+ * @brief Updates local address
+ * @param int - local address
+ * @return none
+ */
+    void setSrcAddr(int src);
+
+/**
  * @brief Updates destination address
  * @param int - destination address
  * @return none
  */
-    void setDestination(int dest);
+    void setDestAddr(int dest);
 
 /**
  * @brief Returns last generated LoRaMsg

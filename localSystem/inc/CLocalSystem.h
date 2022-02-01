@@ -26,6 +26,7 @@ private:
 
 private:
 	static CLocalSystem* thisPtr;
+	static int idCb(int argc, char *argv[]);
 	
 	static void sigHandler(int sig);
 	static void timHandler(union sigval arg);

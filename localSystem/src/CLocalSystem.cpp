@@ -23,6 +23,7 @@ CLocalSystem* CLocalSystem::thisPtr = NULL;
 
 static Command_t loraCmdList[] =
 {
+	{"ID", idCb},
 	{0,0}
 };
 
@@ -128,6 +129,12 @@ void CLocalSystem::run()
 	signal(SIGUSR1, sigHandler);
 	signal(SIGINT, sigHandler);
 
+	// send CRQ - connection request to the remote system. Awaits its response,
+	// giving this local system a "virtual address" to be used in all comms.
+	lora.push("CRQ");
+	// wait for <id> using tLoraRecv thread
+	// this ID will be used in every communication from now on
+
 	// join lora threads
 	lora.run();
 
@@ -159,6 +166,21 @@ void CLocalSystem::sigHandler(int sig)
 		default:
 			ERROR_MSG("[CLS::sigHandler] caught unexpected signal");
 	}
+}
+
+int CLocalSystem::idCb(int argc, char *argv[])
+{
+	if(argc != 2)
+	{
+		DEBUG_MSG("[CLS::idCb] Usage: ID;<id>");
+		return -1;
+	}
+ 	
+ 	int id = atoi(argv[1]);
+ 	
+ 	lora.setSrcAddr(id);
+ 	DEBUG_MSG("[CLS::idCb] Lamppost ID as " << id);
+	return 0;
 }
 
 void *CLocalSystem::tLoraRecv(void *arg)
@@ -246,7 +268,11 @@ void *CLocalSystem::tRecvSensors(void *arg)
 
    	// clear message - avoid bad content
 	memset(msg, 0, sizeof(msg));
-			
+	
+	// // wait for ID attribution to this lamppost
+	// while(c->lora.getLocalAddr() == -1)
+	// 	;
+
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutRecvSensors);
@@ -311,6 +337,10 @@ void *CLocalSystem::tParkDetection(void *arg)
 	// get parking outline from captured frame
 	// park.getOutline(frame);
 
+	// wait for ID attribution to this lamppost
+	// while(c->lora.getLocalAddr() == -1)
+	// 	;
+	
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutCamFrame);
