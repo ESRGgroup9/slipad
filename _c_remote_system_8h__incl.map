@@ -1,0 +1,19 @@
+<map id="remoteSystem/inc/CRemoteSystem.h" name="remoteSystem/inc/CRemoteSystem.h">
+<area shape="rect" id="node1" title="Implements the Remote System, defining a TCP server, a list of remote clients of various types (gatew..." alt="" coords="379,5,564,47"/>
+<area shape="rect" id="node2" href="$_c_t_c_pserver_8h.html" title="Defines a TCP server with a maximum number of connected clients defined in maxNumClients." alt="" coords="5,95,108,121"/>
+<area shape="rect" id="node4" href="$_c_remote_client_8h.html" title="Implements a remote client, making use of CTCPComm to use TCP communication." alt="" coords="283,95,401,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="159,319,234,345"/>
+<area shape="rect" id="node10" href="$parser_8h_source.html" title=" " alt="" coords="412,169,480,196"/>
+<area shape="rect" id="node12" title=" " alt="" coords="505,169,609,196"/>
+<area shape="rect" id="node13" href="$timer_8h_source.html" title=" " alt="" coords="534,95,595,121"/>
+<area shape="rect" id="node16" title=" " alt="" coords="619,95,678,121"/>
+<area shape="rect" id="node17" title=" " alt="" coords="702,95,769,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="25,169,89,196"/>
+<area shape="rect" id="node5" href="$_c_communication_8h.html" title="Class that defines a communication of any kind, defining basic methods for &#39;send&#39; and &#39;recv&#39;." alt="" coords="234,244,365,271"/>
+<area shape="rect" id="node9" href="$_c_t_c_pcomm_8h.html" title="Class that implements a TCP communication derived by CCommunication class." alt="" coords="285,169,388,196"/>
+<area shape="rect" id="node7" title=" " alt="" coords="363,319,417,345"/>
+<area shape="rect" id="node8" title=" " alt="" coords="271,319,328,345"/>
+<area shape="rect" id="node11" title=" " alt="" coords="439,244,501,271"/>
+<area shape="rect" id="node14" title=" " alt="" coords="713,169,803,196"/>
+<area shape="rect" id="node15" title=" " alt="" coords="633,169,688,196"/>
+</map>
