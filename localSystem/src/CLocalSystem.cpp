@@ -132,8 +132,8 @@ void CLocalSystem::run()
 	// send CRQ - connection request to the remote system. Awaits its response,
 	// giving this local system a "virtual address" to be used in all comms.
 	lora.push("CRQ");
-	// wait for <id> using tLoraRecv thread
-	// this ID will be used in every communication from now on
+	// wait for <id> command using tLoraRecv thread
+	// this ID will be used in every communication from that moment on
 
 	// join lora threads
 	lora.run();
@@ -268,10 +268,6 @@ void *CLocalSystem::tRecvSensors(void *arg)
 
    	// clear message - avoid bad content
 	memset(msg, 0, sizeof(msg));
-	
-	// // wait for ID attribution to this lamppost
-	// while(c->lora.getLocalAddr() == -1)
-	// 	;
 
 	while(c)
 	{
@@ -337,10 +333,6 @@ void *CLocalSystem::tParkDetection(void *arg)
 	// get parking outline from captured frame
 	// park.getOutline(frame);
 
-	// wait for ID attribution to this lamppost
-	// while(c->lora.getLocalAddr() == -1)
-	// 	;
-	
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutCamFrame);

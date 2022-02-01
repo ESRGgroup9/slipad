@@ -55,11 +55,14 @@ CREATE TABLE `parking_space`(
 		ON UPDATE CASCADE
 );
 
--- ------------ Triggers ------------
+-- ----------------------------------------------------------------------------
+
+SET GLOBAL log_bin_trust_function_creators = 1;
 DELIMITER $$
 
-DROP TRIGGER IF EXISTS insert_parking$$
+-- ------------ Triggers ------------
 
+DROP TRIGGER IF EXISTS insert_parking$$
 CREATE TRIGGER insert_parking
 	AFTER INSERT ON lamppost
 	FOR EACH ROW
@@ -70,4 +73,29 @@ CREATE TRIGGER insert_parking
 		INSERT INTO parking_space(id) VALUES(park_id);
 	END$$
 
+-- ------------ Procedures ------------
+
+-- DROP PROCEDURE IF EXISTS update_lamppost_status$$
+
+-- CREATE PROCEDURE update_lamppost_status(
+-- 	`stat` ENUM('FAIL', 'OFF', 'ON', 'MIN'),
+-- 	`lamppostID` INTEGER)
+-- BEGIN
+-- 	UPDATE lamppost SET status=stat WHERE id=lamppostID;
+-- END$$
+
+DROP PROCEDURE IF EXISTS dynamic_light_lamppost$$
+CREATE PROCEDURE dynamic_light_lamppost(`lamppostID` INTEGER)
+BEGIN
+	DECLARE next_id, prev_id INTEGER;
+
+	SELECT id INTO next_id FROM lamppost WHERE id=(SELECT MIN(id) FROM lamppost WHERE id>lamppostID);
+	SELECT id INTO prev_id FROM lamppost WHERE id=(SELECT MAX(id) FROM lamppost WHERE id<lamppostID);
+	UPDATE lamppost set status='ON' where id IN (next_id, prev_id);
+END$$
+
+-- ----------------------------------------------------------------------------
+
 DELIMITER ;
+
+-- ----------------------------------------------------------------------------

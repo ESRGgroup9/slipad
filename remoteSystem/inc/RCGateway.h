@@ -71,7 +71,10 @@ private:
  * This must update the lamppost sockfd in the database, to this gateway sockfd,
  * and send to the LS its ID.
  */
-	static int crqCb(int, char *[]);
+    static int crqCb(int, char *[]);
+
+private:
+    static void dynamicLightUp(int lamppostId);
 
 private:
 	static RCGateway* thisPtr;
