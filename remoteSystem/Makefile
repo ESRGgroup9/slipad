@@ -11,7 +11,7 @@ TST_DIR=tests
 # PROGS: find *.cpp in current dir and use their name in format BIN_DIR/*.elf
 PROGS= $(patsubst ./%.cpp, $(BIN_DIR)/%.elf, $(wildcard ./*.cpp))
 # Identify the subdirectories in order to execute its makefiles
-SUBDIRS=#$(TST_DIR)
+SUBDIRS=$(TST_DIR)
 #------------------------------------------------------------------------------
 CXX 	=$(COMPILE)
 LIBS	=-lpthread -lmysqlclient -lrt

@@ -103,7 +103,7 @@ vpath %.h $(INC_DIR)
 .DEFAULT_GOAL = build-all
 
 #------------------------------------------------------------------------------
-# Generate dependencies
+# Generate dependencies for arm architecture
 
 # -M flag looks at the #include lines in the source files
 $(BLD_ARM_DIR)/%_arm.d: %.c
@@ -115,7 +115,7 @@ $(BLD_ARM_DIR)/%_arm.d: %.cpp
 	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
-# Build object files
+# Build object files for arm architecture
 
 $(BLD_ARM_DIR)/%_arm.o: %.c
 	@echo $(PRINT_BUILDING)
@@ -125,10 +125,9 @@ $(BLD_ARM_DIR)/%_arm.o: %.cpp
 	@echo $(PRINT_BUILDING)
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-# $(BLD_DIR)/%.o: %.cpp
-# 	@$(MAKE) CCamera
-
 #------------------------------------------------------------------------------
+# Generate dependencies for x86 architecture
+
 # -M flag looks at the #include lines in the source files
 $(BLD_x86_DIR)/%_x86.d: %.c
 	@echo $(PRINT_GENERATING)
@@ -139,7 +138,7 @@ $(BLD_x86_DIR)/%_x86.d: %.cpp
 	@$(COMPILE) -M $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
-# Build object files
+# Build object files for x86 architecture
 
 $(BLD_x86_DIR)/%_x86.o: %.c
 	@echo $(PRINT_BUILDING)
@@ -148,6 +147,7 @@ $(BLD_x86_DIR)/%_x86.o: %.c
 $(BLD_x86_DIR)/%_x86.o: %.cpp
 	@echo $(PRINT_BUILDING)
 	@$(COMPILE) -c $< -o $@ $(CXXFLAGS)
+
 #------------------------------------------------------------------------------
 # Build sub directories
 .PHONY: build $(BLD_SUBDIRS)
@@ -166,6 +166,19 @@ build-all: build $(BLD_SUBDIRS) #build-localsys ## Compile all
 $(BLD_SUBDIRS): build-%:
 	@echo "Making $* ..."
 	@$(MAKE) -s -C $* build
+
+#------------------------------------------------------------------------------
+# Generate tests from sub directories
+TST_SUBDIRS=$(addprefix tests-,$(SUBDIRS))
+tests-all: $(TST_SUBDIRS) ## Generate all tests
+.PHONY: tests-all $(TST_SUBDIRS)
+
+# call 'make build-tests' in subdirectories
+# Despite is not shown in make help, user can execute 'make tests-<subdir>'
+# Ex: $ make tests-remoteSystem
+$(TST_SUBDIRS): tests-%:
+	@echo "Making $* ..."
+	@$(MAKE) -s -C $* build-tests
 
 #------------------------------------------------------------------------------
 # Transfer sub directories
@@ -196,7 +209,7 @@ $(PRINT_TARGET): print-$(BIN_DIR)/%:
 # 	@scp $(TARGET) root@$(IP):$(DIR)
 
 # transfer-all: transfer $(TRANSF_SUBDIRS) ## Transfer all
-transfer-all: $(TRANSF_SUBDIRS) ## Transfer all
+transfer: $(TRANSF_SUBDIRS) ## Transfer all
 
 #------------------------------------------------------------------------------
 CLEAN_SUBDIRS=$(addprefix clean-,$(SUBDIRS))
