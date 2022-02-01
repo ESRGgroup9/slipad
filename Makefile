@@ -73,7 +73,7 @@ DEPS=$(patsubst $(BLD_ARM_DIR)/%_arm.o,$(BLD_ARM_DIR)/%_arm.d,$(OBJS))
 #------------------------------------------------------------------------------
 # Select all source files: *.c and *.cpp files
 # Select files that need to be compiled in x86
-SRC2=$(addprefix $(SRC_DIR)/, CTCPcomm.cpp timer.cpp parser.cpp CCommunication.cpp)
+SRC2=$(addprefix $(SRC_DIR)/, CCommunication.cpp CTCPcomm.cpp timer.cpp parser.cpp)
 # Set object files with the name from source file to BLD_DIR/*.o
 OBJS+=$(filter %_x86.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_x86_DIR)/%_x86.o,$(SRC2)))
 OBJS+=$(filter %_x86.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_x86_DIR)/%_x86.o,$(SRC2)))
