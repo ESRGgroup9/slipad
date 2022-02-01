@@ -52,7 +52,7 @@ GAT_DIR=gateway
 DDR_DIR=ddrivers
 #------------------------------------------------------------------------------
 # Identify the subdirectories in order to execute its makefiles
-SUBDIRS=$(RS_DIR) $(GAT_DIR) $(DDR_DIR) #$(LS_DIR) 
+SUBDIRS=$(LS_DIR) $(GAT_DIR) $(RS_DIR)#$(DDR_DIR)
 # Doxygen configuration file
 DOXYFILE=$(DOX_DIR)/Doxyfile
 #------------------------------------------------------------------------------
