@@ -10,8 +10,8 @@ export KDIR :=$(BLDROOT_OUT)/build/linux-custom/
 
 # host/ contains the tools built for the host
 # export CROSS_COMPILE:=$(BLDROOT_OUT)/host/bin/arm-buildroot-linux-gnueabihf-
-# export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
-export CROSS_COMPILE:=arm-linux-
+export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
+# export CROSS_COMPILE:=arm-linux-
 
 # compiler in use
 export COMPILE=g++
@@ -157,11 +157,6 @@ print_build_all:
 
 build: print_build_all .setup $(DEPS) $(OBJS) ## Build the object files
 
-#build-localsys: 
-	#$(shell cmake ./localSystem)
-#	@echo "Making localSystem"
-#	$(MAKE) -s -C ./localSystem
-
 BLD_SUBDIRS=$(addprefix build-,$(SUBDIRS))
 build-all: build $(BLD_SUBDIRS) #build-localsys ## Compile all
 
@@ -219,10 +214,9 @@ $(CLEAN_SUBDIRS): clean-%:
 
 clean-localsys:
 	@echo "${CYAN}Cleaning localSystem ... $(RESET)"
-	@-$(MAKE) -s -C $(LS_DIR) clean
-	@rm -rf $(LS_DIR)/CMakeFiles $(LS_DIR)/CMakeCache.txt $(LS_DIR)/cmake_install.cmake
+	@rm -rf $(LS_DIR)/CMakeFiles $(LS_DIR)/CMakeCache.txt $(LS_DIR)/cmake_install.cmake $(LS_DIR)/bin
 	
-clean-all: clean $(CLEAN_SUBDIRS) ## Delete all built artifacts
+clean-all: clean $(CLEAN_SUBDIRS) clean-localsys ## Delete all built artifacts
 
 clean-doc: ## Delete Doxygen built artifacts
 	@echo "$(CYAN)Cleaning Doxyfile docs ...$(RESET)"

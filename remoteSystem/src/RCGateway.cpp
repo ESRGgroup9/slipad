@@ -37,7 +37,7 @@ int RCGateway::lampCb(int argc, char *argv[])
 {
 	if(argc != 3)
 	{
-		DEBUG_MSG("[RCGateway::lampCb] Usage: LAMP <status> <lampID>");
+		DEBUG_MSG("[RCGateway::lampCb] Usage: LAMP;<status>;<lampID>");
 		// <status> can be: MIN | FAIL | ON | OFF
 		return -1;
 	}
@@ -50,11 +50,7 @@ int RCGateway::lampCb(int argc, char *argv[])
 	query << "UPDATE lamppost SET status='" << argv[1] << "' WHERE id=" << id;
 	DEBUG_MSG("[RCGateway::lampCb] " << query.str());
 
-	if(mysql_query(thisPtr->db, query.str().c_str()) == 0)
-	{
-		DEBUG_MSG("[RCGateway::lampCb] Query OK");
-	}
-	else
+	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCGateway::lampCb] Invalid status(" << argv[1] << ") or ID(" << id << ")");	
 		return -1;
@@ -67,7 +63,7 @@ int RCGateway::parkCb(int argc, char *argv[])
 {
 	if(argc != 3)
 	{
-		DEBUG_MSG("[RCGateway::parkCb] Usage: PARK <num_vacants> <lampID>");
+		DEBUG_MSG("[RCGateway::parkCb] Usage: PARK;<num_vacants>;<lampID>");
 		return -1;
 	}
 
@@ -81,11 +77,7 @@ int RCGateway::parkCb(int argc, char *argv[])
 	query << "UPDATE parking_space SET num_vacants=" << num_vacants << " WHERE id=" << id;
 	DEBUG_MSG("[RCGateway::parkCb] " << query.str());
 
-	if(mysql_query(thisPtr->db, query.str().c_str()) == 0)
-	{
-		DEBUG_MSG("[RCGateway::parkCb] Query OK");
-	}
-	else
+	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCGateway::parkCb] Invalid num_vacants(" << num_vacants << ") or ID(" << id << ")");	
 		return -1;
@@ -173,11 +165,7 @@ int RCGateway::idCb(int argc, char *argv[])
 	query << "UPDATE lamppost SET address=" << addr << " WHERE id=" << id;
 	DEBUG_MSG("[RCGateway::idCb] " << query.str());
 
-	if(mysql_query(thisPtr->db, query.str().c_str()) == 0)
-	{
-		DEBUG_MSG("[RCGateway::idCb] Query OK");
-	}
-	else
+	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCGateway::idCb] Invalid addr(" << addr << ") or ID(" << id << ")");	
 		return -1;
