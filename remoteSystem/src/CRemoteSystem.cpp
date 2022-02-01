@@ -138,7 +138,7 @@ void CRemoteSystem::run()
 			pthread_t recvType_id;
 			// handle client addition to client list in detached thread
 			client_port = sd;
-			pthread_create(&recvType_id, NULL, recvType, this);
+			pthread_create(&recvType_id, NULL, tRecvType, this);
 			pthread_detach(recvType_id);
 			DEBUG_MSG("[CRemoteSystem::run] Continue listening for new connections...");
 		}
@@ -195,7 +195,7 @@ int CRemoteSystem::typeCb(int argc, char *argv[])
 	return 0;
 }
  
-void *CRemoteSystem::recvType(void *arg)
+void *CRemoteSystem::tRecvType(void *arg)
 {
 	// get CRemoteSystem instance
 	CRemoteSystem *c = reinterpret_cast<CRemoteSystem*>(arg);

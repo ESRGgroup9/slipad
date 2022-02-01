@@ -1,3 +1,12 @@
+/**
+ * @file RCGateway.h
+ * @author Tomas Abreu, Diogo Fernandes
+ * @date 1 fev 2022
+ *
+ * @brief Implements a gateway remote client, from CRemoteClient
+ * 
+ * This class is used in CRemoteSystem as a result of a new CTCPserver connection.
+ */
 #ifndef __RCGATEWAY_H__
 #define __RCGATEWAY_H__
 
@@ -25,10 +34,8 @@ private:
  * @param char** - command arguments
  * @return 0 if successfull, -1 if an error occured
  *
- * Executed when the command (LAMP) from the LS is received.
  * Usage: LAMP;<status>;<lamppost_id>
  * 
- * - LAMP - command
  * - <status> - lamp status. Can be: MIN | OFF | ON | FAIL
  * - <lamppost_id> - lamppost ID
  * 
@@ -42,10 +49,8 @@ private:
  * @param char** - command arguments
  * @return 0 if successfull, -1 if an error occured
  *
- * Executed when the command (PARK) from the LS is received.
  * Usage: PARK;<num_vacants>;<lamppost_id>
  * 
- * - PARK - command
  * - <num_vacants> - number of vacants
  * - <lamppost_id> - lamppost ID
  * 
@@ -61,10 +66,8 @@ private:
  * @param char** - command arguments
  * @return 0 if successfull, -1 if an error occured
  *
- * Executed when the command (CRQ) from the LS is received.
  * Usage: CRQ;<id>;<lamppost_addr>
  * 
- * - LAMP - command
  * - <id> - lamppost id
  * - <lamppost_addr> - lamppost address
  * 
