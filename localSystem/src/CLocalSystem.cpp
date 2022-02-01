@@ -354,13 +354,13 @@ void CLocalSystem::lampOnCb(uint8_t pwm)
 	lampAllCb(pwm);
 	// start timeout
 	thisPtr->timLampOn.start();	
-	DEBUG_MSG("[CLS::lampOnCb] Lamp ON - PWM(" << );
+	DEBUG_MSG("[CLS::lampOnCb] Lamp set PWM(" << (int)pwm << ")");
 }
 
 void CLocalSystem::lampAllCb(uint8_t pwm)
 {
 	thisPtr->lamp.setBrightness(pwm);
-	DEBUG_MSG("[CLS::lampOnCb] Lamp ON - Started timeout");
+	DEBUG_MSG("[CLS::lampAllCb] Lamp set PWM(" << (int)pwm << ")");
 }
 
 cmdSensors_t CLocalSystem::cmdSensorsList[] = 
@@ -389,6 +389,7 @@ int CLocalSystem::parseSensorsCmd(char *str)
 		return -1;
 	}
 
+	// DEBUG_MSG("[CLS::lampAllCb] Lamp " << p->cmd);
 	p->cb(p->pwm);
 	return 0;
 }
