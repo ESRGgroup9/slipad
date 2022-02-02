@@ -6,7 +6,7 @@
 #include <cstring> // memset
 using namespace std;
 
-#define TIM_READ_LDR_SECS	(0)
+#define TIM_READ_LDR_SECS	(5)
 
 CSensors* CSensors::thisPtr = NULL;
 
@@ -59,11 +59,11 @@ void CSensors::isrHandler(int n, siginfo_t *info, void *unused)
 
 	switch(n)
 	{
-		case PIR_SIG_NUM:
+		case PIR_SIG_NUM: //SIGUSR1:
 			thisPtr->pirISR();
 			break;
 
-		case LAMPF_SIG_NUM:
+		case LAMPF_SIG_NUM: //SIGUSR2: 
 			thisPtr->lampfISR();
 			break;
 
@@ -133,8 +133,8 @@ void CSensors::run()
 	DEBUG_MSG("[CSensors::run] Received main PID[" << mainPID << "]");
 
 #ifdef DEBUG
-	// lampf.enable();
-	// pir.enable();
+	//lampf.enable();
+	//pir.enable();
 #endif // !DEBUG
 	
 	// start sampling LDR sensor

@@ -53,6 +53,9 @@ int main(int argc, char *argv[])
 
 void sigHigh(int n, siginfo_t *info, void *unused)
 {
-	// int pinValue = info->si_int;
-	printf("Lamp failure detected\n");
+	int pinValue = info->si_int;
+	// static int pinval = 0;
+	// pinval++;
+	// pinval &= 0x1;
+	printf("Lamp failure: %d\n", pinValue);
 }

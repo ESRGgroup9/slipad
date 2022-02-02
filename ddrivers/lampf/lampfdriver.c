@@ -187,7 +187,7 @@ static int __init lampf_driver_init(void)
     	
 	irqNumber = gpio_to_irq(pinNum);
 
-	if (request_irq(irqNumber, irq_handler, IRQF_TRIGGER_RISING, DEVICE_NAME, (void *)(irq_handler)))
+	if (request_irq(irqNumber, irq_handler, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING , DEVICE_NAME, (void *)(irq_handler)))
 	{
 		printk(KERN_INFO "[LampF] Cannot register IRQ\n");
 		free_irq(irqNumber,(void *)(irq_handler));

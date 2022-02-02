@@ -2,7 +2,7 @@
 #include "utils.h"
 #include "defs.h"
 
-#define SIGH 	(PIR_SIG_NUM)
+#define SIGH 	(PIR_SIG_NUM) //SIGUSR1
 #define DEV_NAME "pir"
 
 CPir::CPir(ISR isr) : CCharacterDev(DEV_NAME)
@@ -13,20 +13,24 @@ CPir::CPir(ISR isr) : CCharacterDev(DEV_NAME)
 
 CPir::~CPir()
 {
-
+	CCharacterDev::Close();
 }
 
 void CPir::enable(void)
 {	
+	CCharacterDev::Open();
+
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = handler;
 	
-	sigaction(SIGH, &act, NULL);
+	sigaction(SIGUSR1, &act, NULL);
 }
 
 void CPir::disable(void)
 {
+	CCharacterDev::Close();
+
 	act.sa_handler = SIG_IGN;
 
-	sigaction(SIGH, &act, NULL);
+	sigaction(SIGUSR1, &act, NULL);
 }

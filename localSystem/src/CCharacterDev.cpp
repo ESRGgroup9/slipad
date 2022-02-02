@@ -11,9 +11,18 @@ using namespace std;
 
 CCharacterDev::CCharacterDev(string devName)
 {
+	this->devStr = "/dev/" + devName;
+}
+
+CCharacterDev::~CCharacterDev()
+{
+	close(dev);
+}
+
+void CCharacterDev::Open()
+{
 	pid_t pid;
 	
-	this->devStr = "/dev/" + devName;
 	this->dev = open(devStr.c_str(), O_RDWR);
 
 	if(dev < 0)
@@ -29,7 +38,7 @@ CCharacterDev::CCharacterDev(string devName)
 	}
 }
 
-CCharacterDev::~CCharacterDev()
+void CCharacterDev::Close()
 {
 	close(dev);
 }
