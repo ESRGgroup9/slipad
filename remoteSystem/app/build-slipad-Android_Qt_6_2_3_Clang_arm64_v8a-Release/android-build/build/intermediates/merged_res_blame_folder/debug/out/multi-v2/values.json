@@ -1,0 +1,45 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Release/android-build/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "map": [
+                {
+                    "source": "/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Release/android-build/res/values/libs.xml",
+                    "from": {
+                        "startLines": "4,44,8,50,48,49",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "148,2059,203,2435,2288,2387",
+                        "endLines": "6,46,42,50,48,49",
+                        "endColumns": "12,12,12,50,98,47",
+                        "endOffsets": "197,2282,2053,2481,2382,2430"
+                    },
+                    "to": {
+                        "startLines": "2,5,8,43,45,47",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,109,337,2192,2351,2548",
+                        "endLines": "4,7,42,43,45,47",
+                        "endColumns": "12,12,12,50,98,47",
+                        "endOffsets": "104,332,2187,2238,2445,2591"
+                    }
+                },
+                {
+                    "source": "/home/fernandes/Qt/6.2.3/android_arm64_v8a/src/android/java/res/values/strings.xml",
+                    "from": {
+                        "startLines": "3,4",
+                        "startColumns": "4,4",
+                        "startOffsets": "85,193",
+                        "endColumns": "107,97",
+                        "endOffsets": "188,286"
+                    },
+                    "to": {
+                        "startLines": "44,46",
+                        "startColumns": "4,4",
+                        "startOffsets": "2243,2450",
+                        "endColumns": "107,97",
+                        "endOffsets": "2346,2543"
+                    }
+                }
+            ]
+        }
+    ]
+}

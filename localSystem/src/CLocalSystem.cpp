@@ -133,6 +133,7 @@ void CLocalSystem::run()
 	// send CRQ - connection request to the remote system. Awaits its response,
 	// giving this local system a "virtual address" to be used in all comms.
 	lora.push("CRQ");
+	
 	// wait for <id> command using tLoraRecv thread
 	// this ID will be used in every communication from that moment on
 

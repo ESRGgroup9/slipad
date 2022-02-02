@@ -20,6 +20,9 @@ public:
 	virtual void enable(void) = 0;
 	virtual void disable(void) = 0;
 
+	void Open();
+	void Close();
+
 private:
 	int dev;
 	std::string devStr;

@@ -10,15 +10,15 @@ export KDIR :=$(BLDROOT_OUT)/build/linux-custom/
 
 # host/ contains the tools built for the host
 # export CROSS_COMPILE:=$(BLDROOT_OUT)/host/bin/arm-buildroot-linux-gnueabihf-
-export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
-# export CROSS_COMPILE:=arm-linux-
+# export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
+export CROSS_COMPILE:=arm-linux-
 
 # compiler in use
 export COMPILE=g++
 #------------------------------------------------------------------------------
 # Variables specifying destination of 'make transfer'
 # Destination IP
-export IP=10.42.0.254
+export IP=10.42.0.30
 # Destination user
 export USR=root
 # Destination directory in IP connection
@@ -52,7 +52,7 @@ GAT_DIR=gateway
 DDR_DIR=ddrivers
 #------------------------------------------------------------------------------
 # Identify the subdirectories in order to execute its makefiles
-SUBDIRS=$(LS_DIR) $(GAT_DIR) $(RS_DIR)#$(DDR_DIR)
+SUBDIRS=$(LS_DIR) $(GAT_DIR) $(RS_DIR) $(DDR_DIR)
 # Doxygen configuration file
 DOXYFILE=$(DOX_DIR)/Doxyfile
 #------------------------------------------------------------------------------

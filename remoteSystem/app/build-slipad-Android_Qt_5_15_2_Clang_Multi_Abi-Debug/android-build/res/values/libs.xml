@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <array name="qt_sources">
+        <item>https://download.qt.io/ministro/android/qt5/qt-5.14</item>
+    </array>
+
+    <!-- The following is handled automatically by the deployment tool. It should
+         not be edited manually. -->
+
+    <array name="bundled_libs">
+        
+    </array>
+
+    <array name="qt_libs">
+        <item>arm64-v8a;c++_shared</item>
+        <item>arm64-v8a;Qt5Core_arm64-v8a</item>
+        <item>arm64-v8a;Qt5Gui_arm64-v8a</item>
+        <item>arm64-v8a;Qt5Positioning_arm64-v8a</item>
+        <item>arm64-v8a;Qt5Network_arm64-v8a</item>
+        <item>arm64-v8a;Qt5Qml_arm64-v8a</item>
+        <item>arm64-v8a;Qt5QmlModels_arm64-v8a</item>
+        <item>arm64-v8a;Qt5Quick_arm64-v8a</item>
+        <item>arm64-v8a;Qt5WebView_arm64-v8a</item>
+        <item>arm64-v8a;Qt5Widgets_arm64-v8a</item>
+        <item>arm64-v8a;Qt5QmlWorkerScript_arm64-v8a</item>
+        <item>arm64-v8a;Qt5Concurrent_arm64-v8a</item>
+        <item>arm64-v8a;Qt5PositioningQuick_arm64-v8a</item>
+        <item>arm64-v8a;Qt5Location_arm64-v8a</item>
+        <item>arm64-v8a;Qt5RemoteObjects_arm64-v8a</item>
+    </array>
+
+    <array name="load_local_libs">
+        <item>arm64-v8a;libplugins_bearer_qandroidbearer_arm64-v8a.so:libplugins_platforms_qtforandroid_arm64-v8a.so:libplugins_position_qtposition_android_arm64-v8a.so:libplugins_webview_qtwebview_android_arm64-v8a.so</item>
+    </array>
+
+</resources>

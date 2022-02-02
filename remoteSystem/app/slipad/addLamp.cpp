@@ -36,15 +36,18 @@ void addLamp::on_addLamp_b_released()
     QString parish = ui->parish->text();
     QString county = ui->county->text();
     QString district = ui->district->text();
+    QString id = ui->id->text();
 
     ui->street->clear();
     ui->postCode->clear();
     ui->parish->clear();
     ui->county->clear();
     ui->district->clear();
+    ui->id->clear();
 
     if( !street.size() && !postCode.size() &&
-        !parish.size() && !county.size() && !district.size() )
+        !parish.size() && !county.size() &&
+        !district.size() && !id.size() )
     {
         QMessageBox::warning(this,"Add Lamppost", "Empty fields: All fields required!");
         return;
