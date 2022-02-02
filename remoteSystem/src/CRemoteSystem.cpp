@@ -4,6 +4,7 @@
 #include "RCApplication.h"
 #include "RCWebsite.h"
 #include "CTCPcomm.h"
+#include "defs.h"
 
 #include "utils.h"
 #include "debug.h"
@@ -11,12 +12,6 @@
 #include <pthread.h>
 
 using namespace std;
-
-#define SERVER_PORT (5000)
-#define HOST		("localhost")
-#define USER		("root")
-#define PASSWORD	("Password123#@!")
-#define DATABASE 	("slipad")
 
 // check client connections after TIM_CHECK_CONN seconds
 #define TIM_CHECK_CONN (5)
@@ -136,9 +131,9 @@ void CRemoteSystem::run()
 		if(sd != -1)
 		{
 			pthread_t recvType_id;
-			// handle client addition to client list in thread
+			// handle client addition to client list in detached thread
 			client_port = sd;
-			pthread_create(&recvType_id, NULL, recvType, this);
+			pthread_create(&recvType_id, NULL, tRecvType, this);
 			pthread_detach(recvType_id);
 			DEBUG_MSG("[CRemoteSystem::run] Continue listening for new connections...");
 		}
@@ -195,7 +190,7 @@ int CRemoteSystem::typeCb(int argc, char *argv[])
 	return 0;
 }
  
-void *CRemoteSystem::recvType(void *arg)
+void *CRemoteSystem::tRecvType(void *arg)
 {
 	// get CRemoteSystem instance
 	CRemoteSystem *c = reinterpret_cast<CRemoteSystem*>(arg);

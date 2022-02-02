@@ -20,12 +20,13 @@ using namespace std;
 CLoraComm::CLoraComm(int freqMhz, int dest, int src)
 {
 	this->freqMhz = freqMhz;
-	this->dest_addr = dest;
-	this->local_addr = src;
-
+	
 	// set LoRa local address
-	lora.setLocalAddress(src);
+	setSrcAddr(src);
 
+	// set default destination address
+	setDestAddr(dest);
+	
 	// set LoRa pins
 	lora.setPins(LORA_SS_PIN, LORA_RESET_PIN, LORA_DIO0_PIN);
 	
@@ -43,7 +44,6 @@ CLoraComm::~CLoraComm()
 
 int CLoraComm::recvFunc(string &msg)
 {
-	LoRaMsg loraMsg;
 	LoRaError err;
 
 	err = lora.receive(loraMsg);
@@ -55,12 +55,28 @@ int CLoraComm::recvFunc(string &msg)
 
 int CLoraComm::sendFunc(std::string msg)
 {
-	LoRaMsg loraMsg;
 	loraMsg = lora.sendTo(msg, dest_addr);
 	return 0;
+}
+
+void CLoraComm::setSrcAddr(int src)
+{
+	this->local_addr = src;
+	// set LoRa local address
+	lora.setLocalAddress(src);
+}
+
+void CLoraComm::setDestAddr(int dest)
+{
+	this->dest_addr = dest;
 }
 
 int CLoraComm::getLocalAddr(void) const
 {
 	return local_addr;
+}
+
+LoRaMsg CLoraComm::getMsgAttr(void) const
+{
+	return loraMsg;
 }

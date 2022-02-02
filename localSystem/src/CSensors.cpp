@@ -1,16 +1,12 @@
 #include "CSensors.h"
 #include "utils.h"
 #include "debug.h"
+#include "defs.h"
+
 #include <cstring> // memset
 using namespace std;
 
 #define TIM_READ_LDR_SECS	(0)
-#define SIG_NOTIFY_MAIN (SIGUSR1)
-#define MSGQ_NAME "/dsensors"
-
-// must see ddriver definition and classes definitions
-#define PIR_SIG_NUM 	(SIGUSR1)
-#define LAMPF_SIG_NUM	(SIGUSR2)
 
 CSensors* CSensors::thisPtr = NULL;
 
@@ -96,8 +92,6 @@ void CSensors::timHandler(union sigval arg)
 	if(id == thisPtr->timReadLdr.id)
 	{
 		thisPtr->timReadLdrISR();
-		// DEBUG_MSG("[CSensors::timHandler] Signal condReadLdr");
-		// pthread_cond_signal(&thisPtr->condReadLdr);
 	}
 	else
 	{
@@ -139,8 +133,8 @@ void CSensors::run()
 	DEBUG_MSG("[CSensors::run] Received main PID[" << mainPID << "]");
 
 #ifdef DEBUG
-	lampf.enable();
-	pir.enable();
+	// lampf.enable();
+	// pir.enable();
 #endif // !DEBUG
 	
 	// start sampling LDR sensor
@@ -197,6 +191,6 @@ void CSensors::sendCmd(string cmd)
 		panic("In mq_send()");
 
 	// DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
-	kill(mainPID, SIG_NOTIFY_MAIN);
+	kill(mainPID, SIG_dSENSORS);
 	// DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
 }

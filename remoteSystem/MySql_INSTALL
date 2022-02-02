@@ -1,0 +1,11 @@
+# get mysql client
+sudo apt-get install libmysqlclient-dev
+
+# check that exists
+find /usr/ -name 'mysql.h'
+
+# enter mysql using password
+mysql -u root -p
+
+# create slipad database
+source /home/tomas/slipad/database/slipad.sql

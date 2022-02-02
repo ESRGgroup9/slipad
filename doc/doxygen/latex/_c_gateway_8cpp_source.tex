@@ -1,5 +1,5 @@
 \hypertarget{_c_gateway_8cpp_source}{}\doxysection{CGateway.\+cpp}
-\label{_c_gateway_8cpp_source}\index{src/CGateway.cpp@{src/CGateway.cpp}}
+\label{_c_gateway_8cpp_source}\index{gateway/src/CGateway.cpp@{gateway/src/CGateway.cpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00001}00001 \textcolor{preprocessor}{\#include "{}CGateway.h"{}}}
@@ -14,75 +14,91 @@
 \DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00010}00010 \textcolor{preprocessor}{\#define TCP\_HOST        ("{}localhost"{}})}
 \DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00011}00011 \textcolor{preprocessor}{\#define TCP\_PORT        (5000)}}
 \DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00012}00012 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00013}00013 CGateway::CGateway() :}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00014}00014     lora(433, LS\_ADDR, GATEWAY\_ADDR),}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00015}00015     tcp(TCP\_HOST, TCP\_PORT),}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00016}00016     tcpParser(NULL, \textcolor{stringliteral}{"{} "{}})}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00017}00017 \{}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00018}00018     \textcolor{keywordflow}{if}(pthread\_create(\&tLoraRecv\_id, NULL, tLoraRecv, \textcolor{keyword}{this}) != 0)}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00019}00019         panic(\textcolor{stringliteral}{"{}CGateway::CGateway(): pthread\_create"{}});}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00020}00020 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00021}00021     \textcolor{keywordflow}{if}(pthread\_create(\&tTCPRecv\_id, NULL, tTCPRecv, \textcolor{keyword}{this}) != 0)}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00022}00022         panic(\textcolor{stringliteral}{"{}CGateway::CGateway(): pthread\_create"{}});}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00023}00023 \}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00024}00024 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00025}00025 CGateway::\string~CGateway()}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00026}00026 \{}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00027}00027 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00028}00028 \}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00029}00029 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00030}00030 \textcolor{keywordtype}{void} CGateway::run()}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00031}00031 \{}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00032}00032 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00033}00033     pthread\_join(tLoraRecv\_id, NULL);}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00034}00034     pthread\_join(tTCPRecv\_id, NULL);}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00035}00035 \}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00036}00036 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00037}00037 \textcolor{keywordtype}{void} *CGateway::tLoraRecv(\textcolor{keywordtype}{void} *arg)}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00038}00038 \{}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00039}00039     \textcolor{comment}{// get CGateway instance}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00040}00040     \mbox{\hyperlink{class_c_gateway}{CGateway}} *c = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{class_c_gateway}{CGateway}}*\textcolor{keyword}{>}(arg);}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00041}00041     \textcolor{keywordtype}{string} msg;}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00042}00042     \textcolor{keywordtype}{int} err = 0;}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00043}00043 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00044}00044     \textcolor{keywordflow}{while}(c)}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00045}00045     \{}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00046}00046         err = c-\/>lora.\mbox{\hyperlink{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}{recv}}(msg);}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00047}00047 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00048}00048         \textcolor{keywordflow}{if}(err == \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(LoRaError::MSGOK))}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00049}00049         \{}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00050}00050             DEBUG\_MSG(\textcolor{stringliteral}{"{}[CGateway::tLoraRecv] Received["{}} << msg << \textcolor{stringliteral}{"{}]"{}});}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00051}00051             c-\/>tcp.push(msg);}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00052}00052         \}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00053}00053     \}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00054}00054 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00055}00055     DEBUG\_MSG(\textcolor{stringliteral}{"{}[CGateway::tLoraRecv] exiting thread"{}});}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00056}00056     \textcolor{keywordflow}{return} NULL;}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00057}00057 \}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00058}00058 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00059}00059 \textcolor{keywordtype}{void} *CGateway::tTCPRecv(\textcolor{keywordtype}{void} *arg)}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00060}00060 \{}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00061}00061     \textcolor{comment}{// get CGateway instance}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00062}00062     \mbox{\hyperlink{class_c_gateway}{CGateway}} *c = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{class_c_gateway}{CGateway}}*\textcolor{keyword}{>}(arg);}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00063}00063     \textcolor{keywordtype}{string} msg;}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00064}00064     \textcolor{keywordtype}{int} err = 0;}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00065}00065 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00066}00066     \textcolor{keywordflow}{while}(c)}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00067}00067     \{}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00068}00068         err = c-\/>tcp.recv(msg);}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00069}00069 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00070}00070         \textcolor{keywordflow}{if}(err == 0)}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00071}00071         \{}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00072}00072             DEBUG\_MSG(\textcolor{stringliteral}{"{}[CGateway::tTCPRecv] Received["{}} << msg << \textcolor{stringliteral}{"{}]"{}});}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00073}00073             \textcolor{comment}{// c-\/>tcpParser.parse(msg.c\_str());}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00074}00074             \textcolor{comment}{// |-\/> returns cmd}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00075}00075             \textcolor{comment}{// string cmd;}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00076}00076             c-\/>lora.\mbox{\hyperlink{class_c_communication_a1de846382f3fe0260a457f231935945f}{push}}(msg);}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00077}00077         \}}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00078}00078     \}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00013}00013 \textcolor{preprocessor}{\#define PARSE\_DELIMITER ("{};"{}})}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00015}00015 CGateway::CGateway() :}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00016}00016     lora(433, LS\_ADDR, GATEWAY\_ADDR),}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00017}00017     tcp(TCP\_HOST, TCP\_PORT)}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00018}00018 \{}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00019}00019     \textcolor{keywordflow}{if}(pthread\_create(\&tLoraRecv\_id, NULL, tLoraRecv, \textcolor{keyword}{this}) != 0)}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00020}00020         panic(\textcolor{stringliteral}{"{}CGateway::CGateway(): pthread\_create"{}});}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00022}00022     \textcolor{keywordflow}{if}(pthread\_create(\&tTCPRecv\_id, NULL, tTCPRecv, \textcolor{keyword}{this}) != 0)}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00023}00023         panic(\textcolor{stringliteral}{"{}CGateway::CGateway(): pthread\_create"{}});}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00024}00024 \}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00026}00026 CGateway::\string~CGateway()}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00027}00027 \{}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00029}00029 \}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00031}00031 \textcolor{keywordtype}{void} CGateway::run()}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00032}00032 \{}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00033}00033     \textcolor{comment}{// send remote client type to the remote system}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00034}00034     \textcolor{comment}{// Type 0 = GATEWAY}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00035}00035     tcp.push(\textcolor{stringliteral}{"{}TYPE;0"{}});}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00036}00036     }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00037}00037     \textcolor{comment}{// wait for threads termination}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00038}00038     pthread\_join(tLoraRecv\_id, NULL);}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00039}00039     pthread\_join(tTCPRecv\_id, NULL);}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00040}00040 \}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00042}00042 \textcolor{keywordtype}{void} *CGateway::tLoraRecv(\textcolor{keywordtype}{void} *arg)}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00043}00043 \{}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00044}00044     \textcolor{comment}{// get CGateway instance}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00045}00045     \mbox{\hyperlink{class_c_gateway}{CGateway}} *c = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{class_c_gateway}{CGateway}}*\textcolor{keyword}{>}(arg);}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00046}00046     \textcolor{keywordtype}{string} msg;}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00047}00047     \textcolor{keywordtype}{int} err = 0;}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00049}00049     \textcolor{keywordflow}{while}(c)}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00050}00050     \{}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00051}00051         err = c-\/>lora.\mbox{\hyperlink{class_c_communication_adb44decdeb760ebf7c0d3d38ecb7822c}{recv}}(msg);}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00053}00053         \textcolor{keywordflow}{if}(err == \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(LoRaError::MSGOK))}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00054}00054         \{}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00055}00055             \textcolor{comment}{// get received message}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00056}00056             \mbox{\hyperlink{class_lo_ra_msg}{LoRaMsg}} loraMsg = c-\/>lora.\mbox{\hyperlink{class_c_lora_comm_a6b7a5c0b3b8a2befb5f410dbe6e61cd6}{getMsgAttr}}();}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00057}00057             \textcolor{comment}{// add LoRa sender address into TCP message payload}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00058}00058             msg += PARSE\_DELIMITER + loraMsg.sendAddr;}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00059}00059             \textcolor{comment}{// send message}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00060}00060             DEBUG\_MSG(\textcolor{stringliteral}{"{}[CGateway::tLoraRecv] Received["{}} << msg << \textcolor{stringliteral}{"{}]"{}});}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00061}00061             c-\/>tcp.push(msg);}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00062}00062         \}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00063}00063     \}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00065}00065     DEBUG\_MSG(\textcolor{stringliteral}{"{}[CGateway::tLoraRecv] exiting thread"{}});}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00066}00066     \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00067}00067 \}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00069}00069 \textcolor{keywordtype}{void} *CGateway::tTCPRecv(\textcolor{keywordtype}{void} *arg)}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00070}00070 \{}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00071}00071     \textcolor{comment}{// get CGateway instance}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00072}00072     \mbox{\hyperlink{class_c_gateway}{CGateway}} *c = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{class_c_gateway}{CGateway}}*\textcolor{keyword}{>}(arg);}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00073}00073     \textcolor{keywordtype}{string} msg;}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00074}00074     \textcolor{keywordtype}{int} err = 0;}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00076}00076     \textcolor{keywordflow}{while}(c)}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00077}00077     \{}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00078}00078         err = c-\/>tcp.recv(msg);}
 \DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00079}00079 }
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00080}00080     DEBUG\_MSG(\textcolor{stringliteral}{"{}[CGateway::tTCPRecv] exiting thread"{}});}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00081}00081     \textcolor{keywordflow}{return} NULL;}
-\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00082}00082 \}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00080}00080         \textcolor{keywordflow}{if}(err == 0)}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00081}00081         \{}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00082}00082             DEBUG\_MSG(\textcolor{stringliteral}{"{}[CGateway::tTCPRecv] Received["{}} << msg << \textcolor{stringliteral}{"{}]"{}});}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00084}00084             \textcolor{comment}{// "{}parse"{} receive message. Get message payload and destination addr}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00085}00085             \textcolor{keywordtype}{size\_t} i = msg.find\_last\_of(PARSE\_DELIMITER);}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00086}00086             \textcolor{comment}{// set message payload}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00087}00087             \textcolor{keywordtype}{string} str = msg.substr(0,i);}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00088}00088             \textcolor{comment}{// set destination -\/ receiver address}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00089}00089             \textcolor{keywordtype}{int} destAddr = atoi(msg.substr(i+1).c\_str());}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00090}00090             }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00091}00091             c-\/>lora.\mbox{\hyperlink{class_c_lora_comm_a99b8a4639dfbcd774408c015ef38bd75}{setDestAddr}}(destAddr);}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00092}00092             c-\/>lora.\mbox{\hyperlink{class_c_communication_a1de846382f3fe0260a457f231935945f}{push}}(str);}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00093}00093         \}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00094}00094     \}}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00096}00096     DEBUG\_MSG(\textcolor{stringliteral}{"{}[CGateway::tTCPRecv] exiting thread"{}});}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00097}00097     \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{\Hypertarget{_c_gateway_8cpp_source_l00098}00098 \}}
 
 \end{DoxyCode}

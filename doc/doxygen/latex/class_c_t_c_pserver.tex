@@ -2,7 +2,8 @@
 \label{class_c_t_c_pserver}\index{CTCPserver@{CTCPserver}}
 
 
-Collaboration diagram for CTCPserver\+:\nopagebreak
+Collaboration diagram for CTCPserver\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -13,15 +14,20 @@ Collaboration diagram for CTCPserver\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_c_t_c_pserver_ac93eaa5a80680c623b2b563eeb35092f}{CTCPserver}} (int port)
-\item 
+\begin{DoxyCompactList}\small\item\em Create TCP server on a given port. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_c_t_c_pserver_a43ca48bf75470e11aea70a09e777d41b}{accept}} ()
+\begin{DoxyCompactList}\small\item\em Accept new connection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{class_c_t_c_pserver_a547581576c445dfdb127df601ad7b993}{num\+Clients}} = 0
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 
 
-Definition at line \mbox{\hyperlink{_c_t_c_pserver_8h_source_l00007}{7}} of file \mbox{\hyperlink{_c_t_c_pserver_8h_source}{CTCPserver.\+h}}.
+Definition at line \mbox{\hyperlink{_c_t_c_pserver_8h_source_l00016}{16}} of file \mbox{\hyperlink{_c_t_c_pserver_8h_source}{CTCPserver.\+h}}.
 
 
 
@@ -34,7 +40,19 @@ Definition at line \mbox{\hyperlink{_c_t_c_pserver_8h_source_l00007}{7}} of file
 
 
 
-Definition at line \mbox{\hyperlink{_c_t_c_pserver_8cpp_source_l00016}{16}} of file \mbox{\hyperlink{_c_t_c_pserver_8cpp_source}{CTCPserver.\+cpp}}.
+Create TCP server on a given port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & -\/ port to listen for new connections \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_t_c_pserver_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{_c_t_c_pserver_8cpp_source}{CTCPserver.\+cpp}}.
 
 \mbox{\Hypertarget{class_c_t_c_pserver_a81a5da2d8c9d03b98ca9b423976b3fd5}\label{class_c_t_c_pserver_a81a5da2d8c9d03b98ca9b423976b3fd5}} 
 \index{CTCPserver@{CTCPserver}!````~CTCPserver@{$\sim$CTCPserver}}
@@ -44,7 +62,7 @@ Definition at line \mbox{\hyperlink{_c_t_c_pserver_8cpp_source_l00016}{16}} of f
 
 
 
-Definition at line \mbox{\hyperlink{_c_t_c_pserver_8cpp_source_l00049}{49}} of file \mbox{\hyperlink{_c_t_c_pserver_8cpp_source}{CTCPserver.\+cpp}}.
+Definition at line \mbox{\hyperlink{_c_t_c_pserver_8cpp_source_l00046}{46}} of file \mbox{\hyperlink{_c_t_c_pserver_8cpp_source}{CTCPserver.\+cpp}}.
 
 
 
@@ -57,11 +75,31 @@ Definition at line \mbox{\hyperlink{_c_t_c_pserver_8cpp_source_l00049}{49}} of f
 
 
 
-Definition at line \mbox{\hyperlink{_c_t_c_pserver_8cpp_source_l00054}{54}} of file \mbox{\hyperlink{_c_t_c_pserver_8cpp_source}{CTCPserver.\+cpp}}.
+Accept new connection. 
+
+\begin{DoxyReturn}{Returns}
+int -\/ socket file descriptor of new connection 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_c_t_c_pserver_8cpp_source_l00051}{51}} of file \mbox{\hyperlink{_c_t_c_pserver_8cpp_source}{CTCPserver.\+cpp}}.
+
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{class_c_t_c_pserver_a547581576c445dfdb127df601ad7b993}\label{class_c_t_c_pserver_a547581576c445dfdb127df601ad7b993}} 
+\index{CTCPserver@{CTCPserver}!numClients@{numClients}}
+\index{numClients@{numClients}!CTCPserver@{CTCPserver}}
+\doxysubsubsection{\texorpdfstring{numClients}{numClients}}
+{\footnotesize\ttfamily int num\+Clients = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_c_t_c_pserver_8h_source_l00034}{34}} of file \mbox{\hyperlink{_c_t_c_pserver_8h_source}{CTCPserver.\+h}}.
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-inc/CTCPserver.\+h\item 
-src/CTCPserver.\+cpp\end{DoxyCompactItemize}
+remote\+System/inc/\mbox{\hyperlink{_c_t_c_pserver_8h}{CTCPserver.\+h}}\item 
+remote\+System/src/CTCPserver.\+cpp\end{DoxyCompactItemize}

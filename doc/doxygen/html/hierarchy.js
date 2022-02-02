@@ -16,7 +16,11 @@ var hierarchy =
     [ "cmdSensors_t", "structcmd_sensors__t.html", null ],
     [ "Command_t", "struct_command__t.html", null ],
     [ "CParkDetection", "class_c_park_detection.html", null ],
-    [ "CRemoteClient", "class_c_remote_client.html", null ],
+    [ "CRemoteClient", "class_c_remote_client.html", [
+      [ "RCApplication", "class_r_c_application.html", null ],
+      [ "RCGateway", "class_r_c_gateway.html", null ],
+      [ "RCWebsite", "class_r_c_website.html", null ]
+    ] ],
     [ "CRemoteSystem", "class_c_remote_system.html", null ],
     [ "CSensors", "class_c_sensors.html", null ],
     [ "CTCPclient", "class_c_t_c_pclient.html", null ],

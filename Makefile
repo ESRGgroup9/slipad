@@ -10,8 +10,8 @@ export KDIR :=$(BLDROOT_OUT)/build/linux-custom/
 
 # host/ contains the tools built for the host
 # export CROSS_COMPILE:=$(BLDROOT_OUT)/host/bin/arm-buildroot-linux-gnueabihf-
-# export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
-export CROSS_COMPILE:=arm-linux-
+export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
+# export CROSS_COMPILE:=arm-linux-
 
 # compiler in use
 export COMPILE=g++
@@ -52,7 +52,7 @@ GAT_DIR=gateway
 DDR_DIR=ddrivers
 #------------------------------------------------------------------------------
 # Identify the subdirectories in order to execute its makefiles
-SUBDIRS=$(RS_DIR) $(GAT_DIR) $(DDR_DIR) #$(LS_DIR) 
+SUBDIRS=$(LS_DIR) $(GAT_DIR) $(RS_DIR)#$(DDR_DIR)
 # Doxygen configuration file
 DOXYFILE=$(DOX_DIR)/Doxyfile
 #------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ DEPS=$(patsubst $(BLD_ARM_DIR)/%_arm.o,$(BLD_ARM_DIR)/%_arm.d,$(OBJS))
 #------------------------------------------------------------------------------
 # Select all source files: *.c and *.cpp files
 # Select files that need to be compiled in x86
-SRC2=$(addprefix $(SRC_DIR)/, CTCPcomm.cpp timer.cpp parser.cpp CCommunication.cpp)
+SRC2=$(addprefix $(SRC_DIR)/, CCommunication.cpp CTCPcomm.cpp timer.cpp parser.cpp)
 # Set object files with the name from source file to BLD_DIR/*.o
 OBJS+=$(filter %_x86.o,$(patsubst $(SRC_DIR)/%.c,$(BLD_x86_DIR)/%_x86.o,$(SRC2)))
 OBJS+=$(filter %_x86.o,$(patsubst $(SRC_DIR)/%.cpp,$(BLD_x86_DIR)/%_x86.o,$(SRC2)))
@@ -103,7 +103,7 @@ vpath %.h $(INC_DIR)
 .DEFAULT_GOAL = build-all
 
 #------------------------------------------------------------------------------
-# Generate dependencies
+# Generate dependencies for arm architecture
 
 # -M flag looks at the #include lines in the source files
 $(BLD_ARM_DIR)/%_arm.d: %.c
@@ -115,7 +115,7 @@ $(BLD_ARM_DIR)/%_arm.d: %.cpp
 	@$(CXX) -M $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
-# Build object files
+# Build object files for arm architecture
 
 $(BLD_ARM_DIR)/%_arm.o: %.c
 	@echo $(PRINT_BUILDING)
@@ -125,10 +125,9 @@ $(BLD_ARM_DIR)/%_arm.o: %.cpp
 	@echo $(PRINT_BUILDING)
 	@$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-# $(BLD_DIR)/%.o: %.cpp
-# 	@$(MAKE) CCamera
-
 #------------------------------------------------------------------------------
+# Generate dependencies for x86 architecture
+
 # -M flag looks at the #include lines in the source files
 $(BLD_x86_DIR)/%_x86.d: %.c
 	@echo $(PRINT_GENERATING)
@@ -139,7 +138,7 @@ $(BLD_x86_DIR)/%_x86.d: %.cpp
 	@$(COMPILE) -M $< -o $@ $(CXXFLAGS)
 
 #------------------------------------------------------------------------------
-# Build object files
+# Build object files for x86 architecture
 
 $(BLD_x86_DIR)/%_x86.o: %.c
 	@echo $(PRINT_BUILDING)
@@ -148,6 +147,7 @@ $(BLD_x86_DIR)/%_x86.o: %.c
 $(BLD_x86_DIR)/%_x86.o: %.cpp
 	@echo $(PRINT_BUILDING)
 	@$(COMPILE) -c $< -o $@ $(CXXFLAGS)
+
 #------------------------------------------------------------------------------
 # Build sub directories
 .PHONY: build $(BLD_SUBDIRS)
@@ -156,11 +156,6 @@ print_build_all:
 	@echo "Making main ..."
 
 build: print_build_all .setup $(DEPS) $(OBJS) ## Build the object files
-
-#build-localsys: 
-	#$(shell cmake ./localSystem)
-#	@echo "Making localSystem"
-#	$(MAKE) -s -C ./localSystem
 
 BLD_SUBDIRS=$(addprefix build-,$(SUBDIRS))
 build-all: build $(BLD_SUBDIRS) #build-localsys ## Compile all
@@ -171,6 +166,19 @@ build-all: build $(BLD_SUBDIRS) #build-localsys ## Compile all
 $(BLD_SUBDIRS): build-%:
 	@echo "Making $* ..."
 	@$(MAKE) -s -C $* build
+
+#------------------------------------------------------------------------------
+# Generate tests from sub directories
+TST_SUBDIRS=$(addprefix tests-,$(SUBDIRS))
+tests-all: $(TST_SUBDIRS) ## Generate all tests
+.PHONY: tests-all $(TST_SUBDIRS)
+
+# call 'make build-tests' in subdirectories
+# Despite is not shown in make help, user can execute 'make tests-<subdir>'
+# Ex: $ make tests-remoteSystem
+$(TST_SUBDIRS): tests-%:
+	@echo "Making $* ..."
+	@$(MAKE) -s -C $* build-tests
 
 #------------------------------------------------------------------------------
 # Transfer sub directories
@@ -201,7 +209,7 @@ $(PRINT_TARGET): print-$(BIN_DIR)/%:
 # 	@scp $(TARGET) root@$(IP):$(DIR)
 
 # transfer-all: transfer $(TRANSF_SUBDIRS) ## Transfer all
-transfer-all: $(TRANSF_SUBDIRS) ## Transfer all
+transfer: $(TRANSF_SUBDIRS) ## Transfer all
 
 #------------------------------------------------------------------------------
 CLEAN_SUBDIRS=$(addprefix clean-,$(SUBDIRS))
@@ -219,10 +227,9 @@ $(CLEAN_SUBDIRS): clean-%:
 
 clean-localsys:
 	@echo "${CYAN}Cleaning localSystem ... $(RESET)"
-	@-$(MAKE) -s -C $(LS_DIR) clean
-	@rm -rf $(LS_DIR)/CMakeFiles $(LS_DIR)/CMakeCache.txt $(LS_DIR)/cmake_install.cmake
+	@rm -rf $(LS_DIR)/CMakeFiles $(LS_DIR)/CMakeCache.txt $(LS_DIR)/cmake_install.cmake $(LS_DIR)/bin
 	
-clean-all: clean $(CLEAN_SUBDIRS) ## Delete all built artifacts
+clean-all: clean $(CLEAN_SUBDIRS) clean-localsys ## Delete all built artifacts
 
 clean-doc: ## Delete Doxygen built artifacts
 	@echo "$(CYAN)Cleaning Doxyfile docs ...$(RESET)"

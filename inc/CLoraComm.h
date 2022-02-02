@@ -34,6 +34,26 @@ public:
  */
 	int getLocalAddr(void) const;
 
+/**
+ * @brief Updates local address
+ * @param int - local address
+ * @return none
+ */
+    void setSrcAddr(int src);
+
+/**
+ * @brief Updates destination address
+ * @param int - destination address
+ * @return none
+ */
+    void setDestAddr(int dest);
+
+/**
+ * @brief Returns last generated LoRaMsg
+ * @return LoRaMsg
+ */
+    LoRaMsg getMsgAttr(void) const;
+
 protected:
 /**
  * @brief Receive a message using LoRa communication
@@ -57,6 +77,8 @@ protected:
 
 private:
 	LoRaClass lora;
+    LoRaMsg loraMsg;
+
 	int freqMhz;
 	int dest_addr;
 	int local_addr;

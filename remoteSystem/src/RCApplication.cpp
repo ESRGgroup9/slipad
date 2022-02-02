@@ -57,9 +57,11 @@ int RCApplication::modifyCb(int argc, char *argv[])
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCApplication::modifyCb] Invalid lamppost id(" << lamppost_id << ")");
+		thisPtr->tcp.push("MOD FAIL");
 		return -1;
 	}
 
+	thisPtr->tcp.push("MOD OK");
 	return 0;
 }
 
@@ -67,70 +69,75 @@ int RCApplication::consultCb(int argc, char *argv[])
 {
 	if(argc != 2)
 	{
-		DEBUG_MSG("[RCApplication::consultCb] Usage: CONSULT;<post_code>");
+		DEBUG_MSG("[RCApplication::consultCb] Usage: CONSULT;<operator_id>");
 		return -1;
 	}
 	
 	stringstream query;
+	int operator_id = atoi(argv[1]);
 
 	// select p.id,p.status,l.post_code,l.street_name,r.parish,r.county,r.district,l.latitude,l.longitude
 	// from lamppost p, location l, region r
 	// where l.id=p.id and l.post_code=r.post_code and l.post_code=0;
 
-	query << "SELECT p.id,p.status,l.post_code,l.street_name,r.parish,r.county,r.district ";
-	query << "FROM lamppost p, location l, region r ";
-	query << "WHERE l.id=p.id AND l.post_code=r.post_code;";
+	// query << "SELECT p.id,p.status,l.post_code,l.street_name,r.parish,r.county,r.district ";
+	// query << "FROM lamppost p, location l, region r ";
+	// query << "WHERE l.id=p.id AND l.post_code=r.post_code;";
+
+	query << "SELECT l.street_name, p.id, p.address, p.status ";
+	query << "FROM lamppost p, location l ";
+	query << "WHERE p.id=l.id AND l.id IN ";
+
+	query << "(SELECT id FROM location WHERE post_code IN ";
+	query << "(SELECT post_code FROM region WHERE operator_id="<< operator_id << "))";
 
 	// execute query
 	DEBUG_MSG("[RCApplication::consultCb] " << query.str());
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCApplication::consultCb] Invalid consult: " << mysql_error(thisPtr->db));
+		thisPtr->tcp.push("CONSULT FAIL");
 		return -1;
 	}
 
-	int lamppost_id;
 	string street_name;
-	string post_code;
-	string parish;
-	string county;
-	string district;
+	int lamppost_id;
+	int address;
 	string status;
 
     // get the result set
     MYSQL_RES *res = mysql_store_result(thisPtr->db);
+    MYSQL_ROW row;
+
     // get the number of the columns
 	int num_fields = mysql_num_fields(res);
-	MYSQL_ROW row;
     int err = 0;
     int num_lamppost = 0;
 
-    if(num_fields != 7)
+    if(num_fields != 4)
     {
-    	DEBUG_MSG("[RCApplication::consultCb] Invalid result with " << num_fields << " columns instead of 7");
+    	DEBUG_MSG("[RCApplication::consultCb] Invalid result with " << num_fields << " columns instead of 4");
+    	thisPtr->tcp.push("CONSULT FAIL");
   		err = -1;
     }
     else
     {
-    	CTCPComm tcp(thisPtr->info.sockfd);
-
     	while((row = mysql_fetch_row(res)))
 	    {
-	    	lamppost_id = atoi(row[0]);
-	    	status 		= row[1];
-	    	post_code 	= row[2];
-	    	street_name = row[3];
-	    	parish 		= row[4];
-	    	county 		= row[5];
-	    	district	= row[6];
+	    	street_name = row[0];
+	    	lamppost_id = atoi(row[1]);
+	    	address 	= atoi(row[2]);
+	    	status 		= row[3];
 
 	    	char str[256];
-	    	snprintf(str, sizeof(str), "ID(%d) STATUS(%s) POST_CODE(%s) STREET(%s) PARISH(%s) COUNTY(%s) DISTRICT(%s)",
-	    		lamppost_id, status.c_str(), post_code.c_str(), street_name.c_str(), parish.c_str(), county.c_str(), district.c_str());
-	    	// DEBUG_MSG("[RCApplication::consultCb] " << string(str));
-	    	
-	    	// send lamppost info to the remote client
-	    	// tcp.send(str);
+	    	// snprintf(str, sizeof(str), "\nSTREET : %s\nID     : %d\nADDR   : %d\nSTATUS : %s",
+	    	// 	street_name.c_str(), lamppost_id, address, status.c_str());
+	    	snprintf(str, sizeof(str), "%s;%d;%d;%s",street_name.c_str(), lamppost_id, address, status.c_str());
+
+	    	DEBUG_MSG("[RCApplication::consultCb] " << string(str));
+			
+			// send lamppost info to the remote client
+	    	thisPtr->tcp.push(str);
 
 	    	num_lamppost++;
 	    }
@@ -164,40 +171,37 @@ int RCApplication::signInCb(int argc, char *argv[])
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCApplication::signInCb] Invalid sign IN: " << mysql_error(thisPtr->db));
+		thisPtr->tcp.push("SIGNIN FAIL");
 		return -1;
 	}
 
 	// just check if the query returned an empty set or not
-	MYSQL_RES *res;
-    MYSQL_ROW row;
-    int err = 0;
-    int num_fields = 0;
-
-    // get the result set
-    res = mysql_store_result(thisPtr->db);
-
+	// get the result set
+	MYSQL_RES *res = mysql_store_result(thisPtr->db);
+    MYSQL_ROW row = mysql_fetch_row(res);
     // get the number of the columns
-    num_fields = mysql_num_fields(res);
-
-   	if((num_fields == 1) && (row = mysql_fetch_row(res)))
-   	{
-		if(row[0] != NULL)
-		{
-        	// operator_id is the same as atoi(argv[1]), as declared before
-        	operator_id = atoi(row[0]);
-        	DEBUG_MSG("[RCApplication::signInCb] Operator with id(" << operator_id << ") signed IN");
-		}
-   	}
-   	else
-   	{
-   		DEBUG_MSG("[RCApplication::signInCb] Invalid sign IN: operator("<< operator_id << ") credentials doesnt match");
-   		err = -1;
-   	}
+    int num_fields = mysql_num_fields(res);
 
    	if(res != NULL)
     	mysql_free_result(res);
 
-	return err;
+   	if((num_fields == 1) && (row))
+   	{
+		// operator_id is the same as atoi(argv[1]), as declared before
+        operator_id = atoi(row[0]);
+        DEBUG_MSG("[RCApplication::signInCb] Operator with id(" << operator_id << ") signed IN");
+   	}
+   	else
+   	{
+   		DEBUG_MSG("[RCApplication::signInCb] Invalid sign IN: operator("<< operator_id << ") credentials doesnt match");
+   		thisPtr->tcp.push("SIGNIN FAIL");
+   		return -1;
+   	}
+
+   	// send sign in confirmation
+   	thisPtr->tcp.push("SIGNIN OK");
+
+	return 0;
 } 
 
 int RCApplication::signUpCb(int argc, char *argv[])
@@ -222,13 +226,16 @@ int RCApplication::signUpCb(int argc, char *argv[])
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCApplication::signUpCb] Insert signUp: " << mysql_error(thisPtr->db));
+		thisPtr->tcp.push("SIGNUP FAIL");
 		return -1;
 	}
 
 	// retrieve operator ID
 	int operator_id = mysql_insert_id(thisPtr->db);
 	DEBUG_MSG("[RCApplication::signUpCb] New operator has id(" << operator_id << ")");
-	// ....
+	
+	// confirm sign up
+	thisPtr->tcp.push("SIGNUP OK");
 
 	return 0;
 }
@@ -250,39 +257,25 @@ int RCApplication::addCb(int argc, char *argv[])
 	const string district 	= string("'") + argv[7] + string("'");
 	double latitude 	= atof(argv[8]);
 	double longitude 	= atof(argv[9]);
-
-	DEBUG_MSG("convert ok");	
+	
 	// start transaction
-	// mysql_query(thisPtr->db, "START TRANSACTION");
+	mysql_query(thisPtr->db, "START TRANSACTION");
 
-	if(!thisPtr->db)
-	{
-		DEBUG_MSG("db is null");
-		return -1;
-	}
-
-	if(mysql_query(thisPtr->db, "START TRANSACTION") != 0)
-	{
-		DEBUG_MSG("[RCApplication::addCb] Start transaction: " << mysql_error(thisPtr->db));
-		return -1;
-	}
-
-	DEBUG_MSG("start TRANSACTION");	
 	try
 	{
-		DEBUG_MSG("in try()");	
 		addRegion(post_code, operator_id, parish, county, district);
 		addLocation(latitude, longitude, post_code, street_name);
 		
 		// retrieve location ID which is generated by an AUTO_INCREMENT;
-		int locationID = mysql_insert_id(thisPtr->db);
+		int lamppostID = mysql_insert_id(thisPtr->db);
 
-		addLamppost(locationID, address);
-		// addParkingSpace(locationID);
+		addLamppost(lamppostID, address);
 	}
 	catch(invalid_argument& e)
 	{
 		DEBUG_MSG(e.what());
+		thisPtr->tcp.push("ADD FAIL");
+
 		// rollback transaction
 		mysql_query(thisPtr->db, "ROLLBACK");
 		return -1;
@@ -291,7 +284,7 @@ int RCApplication::addCb(int argc, char *argv[])
 	// else, no error
 	mysql_query(thisPtr->db, "COMMIT");
 	DEBUG_MSG("[RCGateway::addCb] Commit in database");
-
+	thisPtr->tcp.push("ADD OK");
 	return 0;
 }
 
@@ -387,24 +380,6 @@ void RCApplication::addLamppost(int lamppost_id, int address)
 	{
 		char str[256];
 		snprintf(str, sizeof(str), "[RCGateway::addCb] Invalid lamppost_id(%d) or address(%d) exists" ,lamppost_id, address);
-		throw invalid_argument(str);
-	}
-}
-
-// INSERT parking_space: lamppostID, num_vacants
-void RCApplication::addParkingSpace(int lamppost_id)
-{
-	stringstream query;
-	query << "INSERT INTO parking_space VALUES(";
-	query << lamppost_id << ",";
-	query << "0" << ")"; // num vacants default = 0
-
-	// execute query
-	DEBUG_MSG("[RCGateway::addCb] " << query.str());
-	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
-	{
-		char str[256];
-		snprintf(str, sizeof(str), "[RCGateway::addCb] Insert parking_space: %s", mysql_error(thisPtr->db));
 		throw invalid_argument(str);
 	}
 }
