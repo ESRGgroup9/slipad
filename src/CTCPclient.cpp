@@ -6,6 +6,7 @@
 using namespace std;
 
 CTCPclient::CTCPclient(std::string host, int port)
+	: CTCPComm()
 {
 	struct hostent* hostent;
 
@@ -20,7 +21,7 @@ CTCPclient::CTCPclient(std::string host, int port)
 		panic("socket");
 	
 	// use sockfd in tcp communications
-	tcp.setSockfd(sockfd);
+	CTCPComm::setSockfd(sockfd);
 
 	/* create & zero struct */
 	memset(&addr, 0, sizeof(addr));
@@ -32,9 +33,9 @@ CTCPclient::CTCPclient(std::string host, int port)
 	addr.sin_addr.s_addr = *(long*)(hostent->h_addr_list[0]);
 
 	// get host name
-	char str[32];
-	gethostname(str, sizeof(str));
-	DEBUG_MSG("[CTCPclient] '" << str << "' set to connect to " << host << ":" << port);
+	// char str[32];
+	// gethostname(str, sizeof(str));
+	// DEBUG_MSG("[CTCPclient] '" << str << "' set to connect to " << host << ":" << port);
 }
 
 CTCPclient::~CTCPclient()
@@ -48,28 +49,7 @@ CTCPclient::~CTCPclient()
 
 int CTCPclient::connect()
 {
-	int ret = 0;
-	int err = 0;
-
-	DEBUG_MSG("[CTCPclient::connect] Connecting to " << host << ":" << port << " ...");
-	// connect to server
-	do
-	{
-		ret = ::connect(sockfd, (struct sockaddr*)&addr, sizeof(addr));
-		err = errno;
-	}
-	while((ret == -1) && (err == EAGAIN));
-
-	if(ret == 0)
-	{
-		DEBUG_MSG("[CTCPclient::connect] Connection successful");	
-	}
-	else
-	{
-		ERROR_MSG("[CTCPclient::connect] Exit with return error[" << ret << "] errno[" << err << "]");
-	}
-
-	return ret;
+	return ::connect(sockfd, (struct sockaddr*)&addr, sizeof(addr));
 }
 
 string CTCPclient::getHost(void) const

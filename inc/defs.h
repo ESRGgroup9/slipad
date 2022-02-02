@@ -14,7 +14,7 @@
  * Local System Definitions
  *****************************************************************************/
 // Local system LoRa address
-#define LS_ADDR			(uint8_t)(0xaa)
+#define LS_ADDR			(0xaa)
 // Message queue name - used to transmit data from dSensors -> CLocalSystem
 #define MSGQ_NAME 		"/dsensors"
 #define SIG_dSENSORS 	(SIGUSR1)
@@ -38,7 +38,7 @@
  * Gateway Definitions
  *****************************************************************************/
 // Gateway LoRa address
-#define GATEWAY_ADDR 	(uint8_t)(0xff)
+#define GATEWAY_ADDR 	(0xff)
 
 // Gateway TCP client
 #define TCP_HOST		("10.42.0.1")

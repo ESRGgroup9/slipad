@@ -102,7 +102,8 @@ protected:
  * send a message.
  */
 	static void *tSend(void *arg);		
-	ConnStatus status;
+	pthread_cond_t condtSend;
+    ConnStatus status;
 
 	// pure virtual methods
 	virtual int recvFunc(std::string &msg) = 0;
@@ -115,7 +116,6 @@ private:
 	pthread_t tSend_id;
 	pthread_mutex_t mutComms;
 	pthread_mutex_t mutTxMsgs;
-	pthread_cond_t condtSend;
 };
 // End CCommunication class definition
 

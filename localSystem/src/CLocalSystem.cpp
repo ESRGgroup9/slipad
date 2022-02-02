@@ -64,6 +64,8 @@ CLocalSystem::CLocalSystem() :
 	if(pthread_create(&tParkDetection_id, NULL, tParkDetection, this) != 0)
 		panic("CLS::CLocalSystem(): pthread_create");
 
+	lora.init(2);
+	
 	// this pointer for static member functions use -> timer handler
 	thisPtr = this;
 }
@@ -123,9 +125,6 @@ void CLocalSystem::run()
 {
 	// start camera frame timer
 	timCamFrame.start();
-
-	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>> set prio
-	lora.init(2);
 
 	// set signal handler for dSensors signal
 	signal(SIGUSR1, sigHandler);
