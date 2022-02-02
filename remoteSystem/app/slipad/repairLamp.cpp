@@ -10,18 +10,6 @@ repairLamp::repairLamp(QWidget *parent)
     , ui(new Ui::repairLamp)
 {
     ui->setupUi(this);
-
-    // set up GPS
-    source = QGeoPositionInfoSource::createDefaultSource(this);
-    if ( source )
-    {
-        // conect to GPS
-        connect(source, SIGNAL(positionUpdated(QGeoPositionInfo)),
-                this, SLOT(positionUpdated(QGeoPositionInfo)));
-
-        // start updating localization
-        source->startUpdates();
-    }
 }
 
 repairLamp::~repairLamp()
@@ -31,21 +19,27 @@ repairLamp::~repairLamp()
 
 void repairLamp::on_selectLamp_b_released()
 {
-    QString street = ui->street->text();
-    QString postCode = ui->postCode->text();
     QString id = ui->id->text();
 
-    ui->street->clear();
-    ui->postCode->clear();
     ui->id->clear();
 
-    if( !street.size() && !postCode.size() && !id.size()  )
+    if( !id.size() )
     {
-        QMessageBox::warning(this,"Add Lamppost", "Empty fields: All fields required!");
+        QMessageBox::warning(this,"Repair Lamppost", "Provide an ID!");
         return;
     }
 
+    // SEARCH ID IN DATABASE
+    int id_db;
+    if(id_db != id.toInt())
+        QMessageBox::warning(this,"Repair Lamppost", "ID not found!");
+    else
+    {
+        // UPDATE STATUS IN DATABASE
+        QMessageBox::warning(this,"Repair Lamppost", "Lamppost status updated!");
+    }
 
+    return;
 }
 
 void repairLamp::on_back_b_released()

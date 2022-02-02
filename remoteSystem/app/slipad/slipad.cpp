@@ -11,6 +11,8 @@ slipad::slipad(QWidget *parent)
 {
     ui->setupUi(this);
     ui->wrong_txt->setHidden(true);
+
+    //resize();
 }
 
 slipad::~slipad()
@@ -40,4 +42,11 @@ void slipad::on_login_b_released()
     else
         //QMessageBox::warning(this,"Login", "Operator ID/ password incorrect");
         ui->wrong_txt->show();
+}
+
+void slipad::resize()
+{
+    ui->SLIPAD->resize(360*3, 101*3);
+    //slipad.resize(360*3, 720*3);
+    ui->op_id->resize(280*3,30*3);
 }

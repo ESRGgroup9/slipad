@@ -1,7 +1,7 @@
 QT       += core gui
-QT       += positioning
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += widgets webview
+#positioning
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets positioning
 
 CONFIG += c++11
 
@@ -11,6 +11,7 @@ CONFIG += c++11
 
 SOURCES += \
     addLamp.cpp \
+    consult.cpp \
     main.cpp \
     menu.cpp \
     repairLamp.cpp \
@@ -18,12 +19,15 @@ SOURCES += \
 
 HEADERS += \
     addLamp.h \
+    consult.h \
+    lamppost.h \
     menu.h \
     repairLamp.h \
     slipad.h
 
 FORMS += \
     addLamp.ui \
+    consult.ui \
     menu.ui \
     repairLamp.ui \
     slipad.ui
