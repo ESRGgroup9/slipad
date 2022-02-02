@@ -9,11 +9,11 @@ This project aims the implementation of applications for a Smart City, regarding
 
 The network architecture to be developed in this project is presented in the following image. This is a star topology, in which the gateway relay messages between each local system (lamppost) and a central network server, the remote system. In order for the local systems to communicate with the gateway, **LoRa communication** is used. This wireless communication takes advantage of the Long Range characteristics of the LoRa physical layer, allowing a single-hop link between the local system and the gateway. All communication modes are capable of bi-directional communication, and there is support for multicast addressing groups. The gateway is connected to the internet, through **TCP-IP**, in order to store new information about the network in the remote system.
 
-![alt text](https://github.com/TomasLAbreu/slipad/blob/main/report/images/03system_overview/network_arch.png?raw=true)
+![Network Architecture](doc/report/images/03system_overview/network_arch.png)
 
 We can divide the system into three subsystems: the **local system**, which represents a lamppost, the **gateway**, a device that links the lampposts network to the remote server, and the **remote system**, that stores information about the lamppost network and allows interaction with the system users by the use of remote client applications. The system overview diagram is shown next.
 
-![alt text](https://github.com/TomasLAbreu/slipad/blob/main/report/images/03system_overview/system_overview.png?raw=true)
+![System Overview](doc/report/images/03system_overview/system_overview.png)
 
 ### Workflow
 This project follows Waterfall model:
@@ -21,7 +21,7 @@ This project follows Waterfall model:
 - [x] Requirements
 - [x] Analysis
 - [x] Design
-- [ ] Implementation
+- [x] Implementation
 - [ ] Testing
 - [ ] Deployment
 - [ ] Maintenance
@@ -36,6 +36,10 @@ Since this project serves educational purposes, the last two phases of the Water
 - `build/` — The compiler's build files
 - `doc/` — Documentation of any kind
 - README
+
+### Documentation
+Available in github-pages: https://esrggroup9.github.io/slipad/index.html. \
+This project's documentation was generated using Doxygen.
 
 ### <!--Dependencies-->
 
