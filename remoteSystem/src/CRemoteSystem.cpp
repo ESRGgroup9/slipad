@@ -36,9 +36,10 @@ CRemoteSystem::CRemoteSystem(int port) :
 	if(pthread_mutex_init(&mutAddClient, NULL) != 0)
 		panic("CRemoteSystem: Mutex init");
 
+	// initialize database conection
 	db = new MYSQL;
+	
 	mysql_init(db);
-
 	if(!db)
 		panic("CRemoteSystem: MySQL initialization failed");
 
@@ -51,7 +52,6 @@ CRemoteSystem::CRemoteSystem(int port) :
 
 	this->client_port = port;
 	thisPtr = this;
-	clientList.clear();
 }
 
 CRemoteSystem::~CRemoteSystem()
@@ -80,7 +80,7 @@ void CRemoteSystem::timCheckConnISR()
    		if(clientList[i]->info.state == ConnStatus::CLOSED)
 		{
 			// client has disconnected
-			DEBUG_MSG("[CRemoteSystem::checkConn] Removing dead client with sockfd[" << clientList[i]->info.sockfd << "]");
+			DEBUG_MSG("[CRemoteSystem::checkConn] Removing dead client[" << clientList[i]->info.sockfd << "]");
 			// remove it from the client list
 			clientList.erase(clientList.begin() + i);
 			// decrease client list size used as loop variable
@@ -185,7 +185,7 @@ int CRemoteSystem::typeCb(int argc, char *argv[])
 
 	thisPtr->clientList[i]->init(1,2);
 	thisPtr->clientList[i]->run();
-	DEBUG_MSG("[CRemoteSystem::typeCb] Client of type(" << static_cast<int>(type) << ") created successfully");
+	// DEBUG_MSG("[CRemoteSystem::typeCb] Client of type(" << static_cast<int>(type) << ") created successfully");
 
 	return 0;
 }

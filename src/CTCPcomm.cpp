@@ -52,7 +52,7 @@ int CTCPComm::sendFunc(std::string msg)
 	if(err == -1)
 	{
 		err = errno;
-		ERROR_MSG("[CTCPComm::sendFunc] return -1: " << string(strerror(err)));
+		ERROR_MSG("[CTCPComm::sendFunc] " << string(strerror(err)));
 	}
 	// else, return the number of bytes sent
 	return err;
