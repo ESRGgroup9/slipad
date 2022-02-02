@@ -1,15 +1,12 @@
 #include "CLocalSystem.h"
 #include "utils.h" // panic
 #include "debug.h"
+#include "defs.h"
 
 #include <unistd.h> // getpid
 #include <cstring>
 #include <iostream>
 using namespace std;
-
-#define GATEWAY_ADDR 	(uint8_t)(0xcc)	// destination address
-#define LS_ADDR			(uint8_t)(0xbb) // local address
-#define MSGQ_NAME 		"/dsensors"
 
 // timer periods
 #define TIM_CAM_FRAME_SECS	(0)
@@ -19,6 +16,7 @@ using namespace std;
 // minimum lamp bright - pwm value(0 - 100)
 #define MIN_BRIGHT_PWM		(50)
 
+// bad solution
 static bool IDReceived = false;
 
 CLocalSystem* CLocalSystem::thisPtr = NULL;
@@ -80,6 +78,7 @@ void CLocalSystem::timLampOnISR()
 	DEBUG_MSG("[CLS::timLampOnISR] Lamp at minimum bright");
 	// turn off lamp
 	lamp.setBrightness(MIN_BRIGHT_PWM);
+	lora.push("LAMP;MIN");
 }
 
 void CLocalSystem::timCamFrameISR()
@@ -150,8 +149,8 @@ void CLocalSystem::sigHandler(int sig)
 {
 	switch(sig)
 	{
-		case SIGUSR1:
-			DEBUG_MSG("[CLS::sigHandler] caught SIGUSR1");
+		case SIG_dSENSORS:
+			DEBUG_MSG("[CLS::sigHandler] caught SIG_dSENSORS");
 			pthread_cond_signal(&thisPtr->condRecvSensors);
 			break;
 

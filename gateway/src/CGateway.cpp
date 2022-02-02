@@ -1,14 +1,16 @@
 #include "CGateway.h"
 #include "utils.h"
 #include "debug.h"
+#include "defs.h"
+
 #include <string>
 using namespace std;
 
-#define GATEWAY_ADDR 	(uint8_t)(0xcc)	// destination address
-#define LS_ADDR			(uint8_t)(0xbb) // local address
+// #define GATEWAY_ADDR 	(uint8_t)(0xcc)	// destination address
+// #define LS_ADDR			(uint8_t)(0xbb) // local address
 
-#define TCP_HOST		("localhost")
-#define TCP_PORT 		(5000)
+// #define TCP_HOST		("localhost")
+// #define TCP_PORT 		(5000)
 
 #define PARSE_DELIMITER (";")
 

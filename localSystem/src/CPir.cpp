@@ -1,7 +1,8 @@
 #include "CPir.h"
 #include "utils.h"
+#include "defs.h"
 
-#define SIGH 	(SIGUSR1)
+#define SIGH 	(PIR_SIG_NUM)
 #define DEV_NAME "pir"
 
 CPir::CPir(ISR isr) : CCharacterDev(DEV_NAME)

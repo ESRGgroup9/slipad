@@ -4,6 +4,7 @@
 #include "RCApplication.h"
 #include "RCWebsite.h"
 #include "CTCPcomm.h"
+#include "defs.h"
 
 #include "utils.h"
 #include "debug.h"
@@ -11,12 +12,6 @@
 #include <pthread.h>
 
 using namespace std;
-
-#define SERVER_PORT (5000)
-#define HOST		("localhost")
-#define USER		("root")
-#define PASSWORD	("Password123#@!")
-#define DATABASE 	("slipad")
 
 // check client connections after TIM_CHECK_CONN seconds
 #define TIM_CHECK_CONN (5)

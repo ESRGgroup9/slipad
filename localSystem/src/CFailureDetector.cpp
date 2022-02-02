@@ -1,7 +1,8 @@
 #include "CFailureDetector.h"
 #include "utils.h"
+#include "defs.h"
 
-#define SIGH 	(SIGUSR2)
+#define SIGH 	(LAMPF_SIG_NUM)
 #define DEV_NAME "lampf"
 
 CFailureDetector::CFailureDetector(ISR isr) : CCharacterDev(DEV_NAME)
