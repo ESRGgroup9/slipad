@@ -22,7 +22,7 @@ export IP=10.42.0.254
 # Destination user
 export USR=root
 # Destination directory in IP connection
-export DIR=/etc
+export DIR=/etc/slipad
 #------------------------------------------------------------------------------
 # Project directory
 export PROJ_DIR=$(shell pwd)

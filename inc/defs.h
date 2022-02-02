@@ -41,7 +41,7 @@
 #define GATEWAY_ADDR 	(uint8_t)(0xff)
 
 // Gateway TCP client
-#define TCP_HOST		("localhost")
+#define TCP_HOST		("10.42.0.1")
 #define TCP_PORT 		(SERVER_PORT)
 
 #endif // !__DEFS_H__
