@@ -92,16 +92,16 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <p >This project aims the implementation of applications for a Smart City, regarding Smart Lighting and Smart Parking, in order to decrease the energy consumption in public streets, while improving the lives of citizens around the world. The solution will embrace a centralized system, composed by smart street lights capable of turning on only when they detect movement in the surroundings, at night time, and also, capable of detecting available parking spaces in the street post vicinity.</p>
 <h1>System Overview</h1>
 <p >The network architecture to be developed in this project is presented in the following image. This is a star topology, in which the gateway relay messages between each local system (lamppost) and a central network server, the remote system. In order for the local systems to communicate with the gateway, <b>LoRa communication</b> is used. This wireless communication takes advantage of the Long Range characteristics of the LoRa physical layer, allowing a single-hop link between the local system and the gateway. All communication modes are capable of bi-directional communication, and there is support for multicast addressing groups. The gateway is connected to the internet, through <b>TCP-IP</b>, in order to store new information about the network in the remote system.</p>
-<p ><img src="https://github.com/TomasLAbreu/slipad/blob/main/report/images/03system_overview/network_arch.png?raw=true" alt="alt text" class="inline"/></p>
+<p ><img src="doc/report/images/03system_overview/network_arch.png" alt="Network Architecture" class="inline"/></p>
 <p >We can divide the system into three subsystems: the <b>local system</b>, which represents a lamppost, the <b>gateway</b>, a device that links the lampposts network to the remote server, and the <b>remote system</b>, that stores information about the lamppost network and allows interaction with the system users by the use of remote client applications. The system overview diagram is shown next.</p>
-<p ><img src="https://github.com/TomasLAbreu/slipad/blob/main/report/images/03system_overview/system_overview.png?raw=true" alt="alt text" class="inline"/></p>
+<p ><img src="doc/report/images/03system_overview/system_overview.png" alt="System Overview" class="inline"/></p>
 <h3>Workflow</h3>
 <p >This project follows Waterfall model:</p>
 <ul>
 <li>[x] Requirements</li>
 <li>[x] Analysis</li>
 <li>[x] Design</li>
-<li>[ ] Implementation</li>
+<li>[x] Implementation</li>
 <li>[ ] Testing</li>
 <li>[ ] Deployment</li>
 <li>[ ] Maintenance</li>
@@ -117,6 +117,8 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li><code>doc/</code> — Documentation of any kind</li>
 <li>README</li>
 </ul>
+<h3>Documentation</h3>
+<p >Available in github-pages: <a href="https://esrggroup9.github.io/slipad/index.html">https://esrggroup9.github.io/slipad/index.html</a>. \ This project's documentation was generated using Doxygen.</p>
 <h3></h3>
 <h3></h3>
 <h3></h3>
