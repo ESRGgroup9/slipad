@@ -6,5 +6,5 @@ var searchData=
   ['setdestaddr_3',['setDestAddr',['../class_c_lora_comm.html#a99b8a4639dfbcd774408c015ef38bd75',1,'CLoraComm']]],
   ['setsockfd_4',['setSockfd',['../class_c_t_c_p_comm.html#ac9645d2f362f00fef4fb3d309285b8e9',1,'CTCPComm']]],
   ['setsrcaddr_5',['setSrcAddr',['../class_c_lora_comm.html#a795b2052249d6a3f16e2e7ce81bd91c4',1,'CLoraComm']]],
-  ['slipad_20_2d_20smart_20lighting_20and_20parking_20detection_6',['SLiPaD - Smart Lighting and Parking Detection',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['slipad_20_2d_20smart_20lighting_20and_20parking_20detection_6',['SLiPaD - Smart Lighting and Parking Detection',['../index.html',1,'']]]
 ];

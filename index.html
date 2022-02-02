@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SLiPaD: Main Page</title>
+<title>SLiPaD: SLiPaD - Smart Lighting and Parking Detection</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,10 +82,56 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </iframe>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">SLiPaD Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">SLiPaD - Smart Lighting and Parking Detection </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p ><a class="anchor" id="md_README"></a></p><h2>Problem</h2>
+<p >Nowadays, the energy crisis is a constant theme because of the inflated energy prices. [1] Furthermore, huge energy consumption is a burden to the environment, as not all means of energy production are non-polluting. According to ”Our World in Data” [2], in 2019, 63,3 % of eletrical energy production comes from fossil fuels. It is known that generally, street lamps are continuously switched on at night, most of the time unnecessarily glowing with its full intensity, in the absence of any activities in the street, leading to a great waste of energy. Furthermore, it is in cities where the consequences of using cars are most noticeable. An example of this is the search for a parking space. According to the RAC Foundation [3], in England, an average car is parked 95 % of the time, which explains how hard it can get sometimes when trying to find a parking spot. This struggle leads to an increase in carbon dioxide production as well as fuel and energy consumption.</p>
+<h2>Project Goal</h2>
+<p >This project aims the implementation of applications for a Smart City, regarding Smart Lighting and Smart Parking, in order to decrease the energy consumption in public streets, while improving the lives of citizens around the world. The solution will embrace a centralized system, composed by smart street lights capable of turning on only when they detect movement in the surroundings, at night time, and also, capable of detecting available parking spaces in the street post vicinity.</p>
+<h1>System Overview</h1>
+<p >The network architecture to be developed in this project is presented in the following image. This is a star topology, in which the gateway relay messages between each local system (lamppost) and a central network server, the remote system. In order for the local systems to communicate with the gateway, <b>LoRa communication</b> is used. This wireless communication takes advantage of the Long Range characteristics of the LoRa physical layer, allowing a single-hop link between the local system and the gateway. All communication modes are capable of bi-directional communication, and there is support for multicast addressing groups. The gateway is connected to the internet, through <b>TCP-IP</b>, in order to store new information about the network in the remote system.</p>
+<p ><img src="https://github.com/TomasLAbreu/slipad/blob/main/report/images/03system_overview/network_arch.png?raw=true" alt="alt text" class="inline"/></p>
+<p >We can divide the system into three subsystems: the <b>local system</b>, which represents a lamppost, the <b>gateway</b>, a device that links the lampposts network to the remote server, and the <b>remote system</b>, that stores information about the lamppost network and allows interaction with the system users by the use of remote client applications. The system overview diagram is shown next.</p>
+<p ><img src="https://github.com/TomasLAbreu/slipad/blob/main/report/images/03system_overview/system_overview.png?raw=true" alt="alt text" class="inline"/></p>
+<h3>Workflow</h3>
+<p >This project follows Waterfall model:</p>
+<ul>
+<li>[x] Requirements</li>
+<li>[x] Analysis</li>
+<li>[x] Design</li>
+<li>[ ] Implementation</li>
+<li>[ ] Testing</li>
+<li>[ ] Deployment</li>
+<li>[ ] Maintenance</li>
+</ul>
+<p >Since this project serves educational purposes, the last two phases of the Waterfall model, <em>Deployment</em> and <em>Maintenance</em>, won't be approached.</p>
+<h3>Project Tree</h3>
+<ul>
+<li><code>src/</code> — Source files</li>
+<li><code>inc/</code> — Header files</li>
+<li><code>ext/</code> — Contains third-party libraries</li>
+<li><code>bin/</code> — Compiled executables goes here</li>
+<li><code>build/</code> — The compiler's build files</li>
+<li><code>doc/</code> — Documentation of any kind</li>
+<li>README</li>
+</ul>
+<h3></h3>
+<h3></h3>
+<h3></h3>
+<h2>Done by</h2>
+<ul>
+<li>José Tomás Lima de Abreu</li>
+<li>Diogo Miguel Cunha Fernandes</li>
+</ul>
+<p >Master in Embedded Systems @ Universidade do Minho, 2021/2022</p>
+<hr  />
+<h2>References</h2>
+<p ><a class="anchor" id="1"></a>[1] C. Helman, “Energy crisis 2021: How bad is it, and how long will it last?” Forbes, 2021, <a href="https://www.forbes.com/sites/christopherhelman/2021/10/19/energy-crisis-2021-how-bad-is-it-and-how-long-will-it-last/?sh=6a5feff14c63">https://www.forbes.com/sites/christopherhelman/2021/10/19/energy-crisis-2021-how-bad-is-it-and-how-long-will-it-last/?sh=6a5feff14c63</a> [Accessed on 28/10/2021].</p>
+<p ><a class="anchor" id="2"></a>[2] H. Ritchie and M. Roser, “Energy,” Our World in Data, 2020, <a href="https://ourworldindata.org/energy">https://ourworldindata.org/energy</a> [Accessed on 28/10/2021].</p>
+<p ><a class="anchor" id="3"></a>[3] "Cars parked 23 hours a day,” https://www.racfoundation.org/media-centre/cars-parked-23-hours-a-day [Accessed on 8/11/2021]." </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
