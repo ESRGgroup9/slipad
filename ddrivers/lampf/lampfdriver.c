@@ -19,27 +19,12 @@
 #define CLASS_NAME "lampfClass"
 #define REG_CURRENT_TASK _IOW('a','a',int32_t*)
 
-// #define SIGH 10 	// SIGUSR1
-#define SIGH SIGUSR2
-
 #define IOCTL_PID 1
 #define GPIO_INPUT 0
 
 MODULE_LICENSE("GPL");
 
-// Debounce mechanisms
-#define EN_DEBOUNCE 
-#ifdef EN_DEBOUNCE
-
-#include <linux/jiffies.h> 
-extern unsigned long volatile jiffies;
-unsigned long old_jiffie = 0;
-
-#endif // !EN_DEBOUNCE
-
-static struct kernel_siginfo info;
 static pid_t pid;
-static struct task_struct *task = NULL;
 
 static dev_t dev;
 static struct class *dev_class = NULL;
@@ -49,8 +34,6 @@ struct GpioRegisters *s_pGpioRegisters;
 
 static unsigned int pinNum = 26;
 
-static unsigned int irqNumber;
-
 static int __init lampf_driver_init(void);
 static void __exit lampf_driver_exit(void);
 static int lampf_open(struct inode *inode, struct file *file);
@@ -58,36 +41,6 @@ static int lampf_close(struct inode *inode, struct file *file);
 static ssize_t lampf_read(struct file *filp, char __user *buf, size_t len, loff_t *off);
 static ssize_t lampf_write(struct file *filp, const char *buf, size_t len, loff_t *off);
 static long lampf_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
-
-static irqreturn_t irq_handler(int irq, void *dev_id)
-{
-	int pinVal = gpio_get_value(pinNum);
-
-	//Debounce mechanisms
-#ifdef EN_DEBOUNCE
-	unsigned long diff = jiffies - old_jiffie;
-
-	if (diff < 200)
-	{
-		return IRQ_HANDLED;
-	}
-
-	old_jiffie = jiffies;
-#endif
-
-	printk(KERN_INFO "[PIR] Interruption handler: PIN -> %d.\n", pinVal);
-
-	info.si_signo = SIGH;
-	info.si_code = SI_QUEUE;
-	info.si_int = gpio_get_value(pinNum);
- 	
- 	task = pid_task(find_pid_ns(pid, &init_pid_ns), PIDTYPE_PID);
-	
-	if(task != NULL)
-		send_sig_info(SIGH, &info, task);
-
-	return IRQ_HANDLED;
-}
 
 static int lampf_open(struct inode* inode, struct file *file)
 {
@@ -184,16 +137,6 @@ static int __init lampf_driver_init(void)
 		class_destroy(dev_class);
 		unregister_chrdev_region(dev,1);
 	}
-    	
-	irqNumber = gpio_to_irq(pinNum);
-
-	if (request_irq(irqNumber, irq_handler, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING , DEVICE_NAME, (void *)(irq_handler)))
-	{
-		printk(KERN_INFO "[LampF] Cannot register IRQ\n");
-		free_irq(irqNumber,(void *)(irq_handler));
-		class_destroy(dev_class);
-		unregister_chrdev_region(dev,1);
-	}
     
     s_pGpioRegisters = (struct GpioRegisters *)ioremap(GPIO_BASE, sizeof(struct GpioRegisters));
 	// s_pGpioRegisters = (struct GpioRegisters *)ioremap_nocache(GPIO_BASE, sizeof(struct GpioRegisters));
@@ -207,7 +150,6 @@ static void __exit lampf_driver_exit(void)
 	SetGPIOFunction(s_pGpioRegisters, pinNum, GPIO_INPUT);
 	iounmap(s_pGpioRegisters);
 	
-	free_irq(irqNumber,(void *)(irq_handler));
 	device_destroy(dev_class, dev);
 	class_destroy(dev_class);
 	cdev_del(&c_dev);
