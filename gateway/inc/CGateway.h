@@ -16,10 +16,11 @@ public:
 private:
 	static void *tLoraRecv(void*);
 	static void *tTCPRecv(void*);
+	void connect();
 
 private:
 	CLoraComm lora;
-	CTCPclient tcp;
+	CTCPclient *tcp;
 
 	pthread_t tLoraRecv_id;
 	pthread_t tTCPRecv_id;
