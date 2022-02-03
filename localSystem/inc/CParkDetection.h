@@ -25,14 +25,14 @@ public:
 	 * @param 	Frame that have the parking spots without any car
 	 * @return  True if found parking spot/ false if not
 	 * */
-	bool getOutline(const cv::Mat& frame);
+	bool getOutline(void);
 	
 	/**
 	 * @brief 	Calculate de number of free parking spots
 	 * @param 	Frame of the parking spot with/without cars 
 	 * @return  Number of parking spots
 	 * */
-	int calcVacants(const cv::Mat& frame);
+	int calcVacants(void);
 
 	/**
 	 * @brief 	Get free parking spots number
