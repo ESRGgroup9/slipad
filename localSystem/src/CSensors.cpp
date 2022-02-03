@@ -7,19 +7,32 @@
 using namespace std;
 
 #define TIM_READ_LDR_SECS	(5)
+#define TIM_READ_LAMPF_SECS	(5)
+
+// static bool lampFailed = false;
+
+static char lampfState = 0;
+static char oldLampfState = 0;
 
 CSensors* CSensors::thisPtr = NULL;
 
 CSensors::CSensors() :
 	pir(isrHandler),
 	ldr(),
-	lampf(isrHandler),
-	timReadLdr(TIM_READ_LDR_SECS, timHandler)
+	lampf(),
+	timReadLdr(TIM_READ_LDR_SECS, timHandler),
+	timReadLampF(TIM_READ_LAMPF_SECS, timHandler)
 {
 	if(pthread_cond_init(&condReadLdr, NULL) != 0)
 		panic("CSensors::CSensors(): Condition variable init");	
 
+	if(pthread_cond_init(&condReadLampF, NULL) != 0)
+		panic("CSensors::CSensors(): Condition variable init");	
+
 	if(pthread_mutex_init(&mutReadLdr, NULL) != 0)
+		panic("CSensors::CSensors(): Mutex init");
+
+	if(pthread_mutex_init(&mutReadLampF, NULL) != 0)
 		panic("CSensors::CSensors(): Mutex init");
 
 	msgqSensors = mq_open(MSGQ_NAME, O_RDWR | O_CREAT | O_NONBLOCK, NULL);
@@ -27,6 +40,9 @@ CSensors::CSensors() :
 		panic("CSensors::CSensors(): Creating message queue");
 
 	if(pthread_create(&tReadLdr_id, NULL, tReadLdr, this) != 0)
+		panic("CSensors::CSensors(): pthread_create");
+
+	if(pthread_create(&tReadLampF_id, NULL, tReadLampF, this) != 0)
 		panic("CSensors::CSensors(): pthread_create");
 
 	// init ISR handler pointer
@@ -40,22 +56,22 @@ CSensors::~CSensors()
 
 void CSensors::pirISR()
 {
-	DEBUG_MSG("[pirISR] Motion detected - Sending[ON]...");
+	// DEBUG_MSG("[pirISR] Motion detected - Sending[ON]...");
 	sendCmd("ON");
 }
 
-void CSensors::lampfISR()
-{
-	DEBUG_MSG("[lampfISR] Lamp failure detected - Sending[FAIL]...");
-	sendCmd("FAIL");
-}
+// void CSensors::lampfISR()
+// {
+// 	DEBUG_MSG("[lampfISR] Lamp failure detected - Sending[FAIL]...");
+// 	sendCmd("FAIL");
+// }
 
 void CSensors::isrHandler(int n, siginfo_t *info, void *unused)
 {
 	if(!thisPtr)
 		panic("CSensors::isrHandler(): thisPtr not defined");
 
-	DEBUG_MSG("[CSensors::isrHandler] handling interrupt[" << n << "]...");
+	// DEBUG_MSG("[CSensors::isrHandler] handling interrupt[" << n << "]...");
 
 	switch(n)
 	{
@@ -63,9 +79,9 @@ void CSensors::isrHandler(int n, siginfo_t *info, void *unused)
 			thisPtr->pirISR();
 			break;
 
-		case LAMPF_SIG_NUM: //SIGUSR2: 
-			thisPtr->lampfISR();
-			break;
+		// case LAMPF_SIG_NUM: //SIGUSR2: 
+		// 	thisPtr->lampfISR();
+		// 	break;
 
 		default:
 		{
@@ -76,8 +92,14 @@ void CSensors::isrHandler(int n, siginfo_t *info, void *unused)
 
 void CSensors::timReadLdrISR()
 {
-	DEBUG_MSG("[CSensors::timReadLdrISR] Signal condReadLdr");
+	// DEBUG_MSG("[CSensors::timReadLdrISR] Signal condReadLdr");
 	pthread_cond_signal(&condReadLdr);
+}
+
+void CSensors::timReadLampFISR()
+{
+	// DEBUG_MSG("[CSensors::timReadLampFISR] Signal condReadLampF");
+	pthread_cond_signal(&condReadLampF);
 }
 
 void CSensors::timHandler(union sigval arg)
@@ -86,12 +108,16 @@ void CSensors::timHandler(union sigval arg)
 		panic("CLS::timHandler(): thisPtr not defined");
 
 	int id = arg.sival_int;
-	DEBUG_MSG("[CLS::timHandler] handling timer[" << id << "] timeout...");
+	// DEBUG_MSG("[CLS::timHandler] handling timer[" << id << "] timeout...");
 
 	// cannot do switch statement since tim*.id is not a compile time constant
 	if(id == thisPtr->timReadLdr.id)
 	{
 		thisPtr->timReadLdrISR();
+	}
+	else if( id == thisPtr->timReadLampF.id )
+	{
+		thisPtr->timReadLampFISR();
 	}
 	else
 	{
@@ -139,9 +165,15 @@ void CSensors::run()
 	
 	// start sampling LDR sensor
 	timReadLdr.start();
+	// start sampling Lamp Failure sensor
+	timReadLampF.start();
+
+		// wait for thread termination
+	pthread_join(tReadLampF_id, NULL);
 
 	// wait for thread termination
 	pthread_join(tReadLdr_id, NULL);
+
 }
 
 void *CSensors::tReadLdr(void *arg)
@@ -154,17 +186,17 @@ void *CSensors::tReadLdr(void *arg)
 	{
 		pthread_mutex_lock(&c->mutReadLdr);
 		
-		DEBUG_MSG("[CSensors::tReadLdr] Waiting for condReadLdr...");
+		// DEBUG_MSG("[CSensors::tReadLdr] Waiting for condReadLdr...");
 		pthread_cond_wait(&c->condReadLdr, &c->mutReadLdr);
-		DEBUG_MSG("[CSensors::tReadLdr] Im awake!");
+		// DEBUG_MSG("[CSensors::tReadLdr] Im awake!");
 
 		luxState = c->ldr.getLuxState();
 		pthread_mutex_unlock(&c->mutReadLdr);
 
 		// is there a change in lux State?
-		if(luxState != oldLuxState)
+		if( (luxState != oldLuxState) || (lampfState != oldLampfState) )
 		{
-			if(luxState == LuxState::NIGHT)
+			if(luxState == LuxState::NIGHT) 
 			{
 				c->lampf.enable();
 				c->pir.enable();
@@ -202,4 +234,42 @@ void CSensors::sendCmd(string cmd)
 	DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
 	kill(mainPID, SIG_dSENSORS);
 	// DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
+}
+
+void *CSensors::tReadLampF(void *arg)
+{
+	CSensors *c = reinterpret_cast<CSensors*>(arg);
+
+	while(c)
+	{
+		pthread_mutex_lock(&c->mutReadLampF);
+		
+		// DEBUG_MSG("[CSensors::tReadLampF] Waiting for condReadLampF...");
+		pthread_cond_wait(&c->condReadLampF, &c->mutReadLampF);
+		// DEBUG_MSG("[CSensors::tReadLampF] Im awake!");
+
+		oldLampfState = lampfState;
+		lampfState = c->lampf.read();
+
+		pthread_mutex_unlock(&c->mutReadLampF);
+
+		if ( (lampfState != oldLampfState) && (lampfState != -1) )
+		{
+			if( lampfState == '1' )
+			{
+				c->sendCmd("FAIL");
+				c->pir.disable();
+				// lampFailed = true;
+			}	
+			else
+			{
+				// lampFailed = false;
+				c->pir.enable();
+			}	
+		}
+	}
+
+	DEBUG_MSG("[CSensors::tReadLampF] Exiting thread...");
+	c->lampf.disable();
+	return NULL;
 }

@@ -9,12 +9,12 @@ CLdr::CLdr()
 {
 	if(!Init_TSL2581())
 		panic("Init_TSL2581()");
-};
+}
 	
 CLdr::~CLdr()
 {
 
-};
+}
 
 LuxState CLdr::getLuxState(void)
 {	
