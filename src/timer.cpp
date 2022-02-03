@@ -1,3 +1,5 @@
+#undef DEBUG
+
 /*
  * ORIGINAL HEADER 
  *

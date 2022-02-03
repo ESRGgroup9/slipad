@@ -2,13 +2,14 @@
 #include "utils.h"
 #include "defs.h"
 
-#define SIGH 	(LAMPF_SIG_NUM) //SIGUSR1
+#include <unistd.h> 
+
+// #define SIGH 	(LAMPF_SIG_NUM) //SIGUSR1
 #define DEV_NAME "lampf"
 
-CFailureDetector::CFailureDetector(ISR isr) : CCharacterDev(DEV_NAME)
+CFailureDetector::CFailureDetector() : CCharacterDev(DEV_NAME)
 {
-	sigemptyset(&act.sa_mask);
-	handler = isr;
+
 }
 
 CFailureDetector::~CFailureDetector(void)
@@ -19,18 +20,22 @@ CFailureDetector::~CFailureDetector(void)
 void CFailureDetector::enable(void)
 {	
 	CCharacterDev::Open();
-
-	act.sa_flags = SA_SIGINFO;
-	act.sa_sigaction = handler;
-	
-	sigaction(SIGH, &act, NULL);
 }
 
 void CFailureDetector::disable(void)
 {
 	CCharacterDev::Close();
+}
 
-	act.sa_handler = SIG_IGN;
+char CFailureDetector::read(void)
+{
+	char readState;
 
-	sigaction(SIGH, &act, NULL);
+	// read successfuly
+	if(::read(dev, &readState, 1) == 0)
+		return readState;
+
+	// error reading 
+	//panic("[Lampf] Failed to read sensor value...\n");
+	return -1;
 }

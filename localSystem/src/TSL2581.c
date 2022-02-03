@@ -128,6 +128,11 @@ bool Init_TSL2581(void)
 	return true;
 }
 
+void Exit_TSL2581(void)
+{
+	DEV_ModuleExit();
+}
+
 void powerOnSensor(void)
 {
 	/* write date from tsl2561 */

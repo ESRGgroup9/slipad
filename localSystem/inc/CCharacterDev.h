@@ -23,8 +23,10 @@ public:
 	void Open();
 	void Close();
 
-private:
+protected:
 	int dev;
+
+private:
 	std::string devStr;
 };
 

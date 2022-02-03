@@ -4,6 +4,7 @@
 #include <stdint.h> // uintx_t
 
 bool Init_TSL2581(void);
+void Exit_TSL2581(void);
 void powerOnSensor(void);
 
 void Reload_register(void);

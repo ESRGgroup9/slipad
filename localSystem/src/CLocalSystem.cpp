@@ -75,7 +75,7 @@ CLocalSystem::~CLocalSystem()
 
 void CLocalSystem::timLampOnISR()
 {
-	DEBUG_MSG("[CLS::timLampOnISR] Lamp at minimum bright");
+	DEBUG_MSG("[CLS::timLampOnISR] Sending (LAMP;MIN)");
 	// turn off lamp
 	lamp.setBrightness(MIN_BRIGHT_PWM);
 	lora.push("LAMP;MIN");
@@ -83,13 +83,13 @@ void CLocalSystem::timLampOnISR()
 
 void CLocalSystem::timCamFrameISR()
 {
-	DEBUG_MSG("[CLS::timCamFrameISR] Signal tParkDetection");
+	// DEBUG_MSG("[CLS::timCamFrameISR] Signal tParkDetection");
 	pthread_cond_signal(&condCamFrame);
 }
 
 void CLocalSystem::timCamProcISR()
 {
-	DEBUG_MSG("[CLS::timCamProcISR] Camera processing taking too much time");
+	// DEBUG_MSG("[CLS::timCamProcISR] Camera processing taking too much time");
 }
 
 void CLocalSystem::timHandler(union sigval arg)
@@ -98,7 +98,7 @@ void CLocalSystem::timHandler(union sigval arg)
 		panic("CLS::timHandler(): thisPtr not defined");
 
 	int id = arg.sival_int;
-	DEBUG_MSG("[CLS::timHandler] handling timer[" << id << "] timeout...");
+	// DEBUG_MSG("[CLS::timHandler] handling timer[" << id << "] timeout...");
 
 	// cannot do switch statement since tim*.id is not a compile time constant
 	if(id == thisPtr->timCamFrame.id)
@@ -128,7 +128,7 @@ void CLocalSystem::run()
 	lora.init(2);
 
 	// set signal handler for dSensors signal
-	signal(SIGUSR1, sigHandler);
+	signal(SIG_dSENSORS, sigHandler);
 	signal(SIGINT, sigHandler);
 
 	// send CRQ - connection request to the remote system. Awaits its response,
@@ -183,7 +183,7 @@ int CLocalSystem::idCb(int argc, char *argv[])
  	
  	thisPtr->lora.setSrcAddr(id);
  	IDReceived = true;
- 	DEBUG_MSG("[CLS::idCb] Lamppost ID as " << id);
+ 	DEBUG_MSG("[CLS::idCb] Lamppost ID = " << id);
 	return 0;
 }
 
@@ -249,14 +249,20 @@ void *CLocalSystem::tRecvSensors(void *arg)
    	}
    	while(msgqAttr.mq_curmsgs != 0);
 
+   	DEBUG_MSG("[CLS::tRecvSensors] PID was read.");
+
    	// clear message - avoid bad content
 	memset(msg, 0, sizeof(msg));
 
+	int ret;
+ 
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutRecvSensors);
 
-		if(mq_receive(c->msgqSensors, msg, MAX_MSG_LEN_R, NULL) == -1)
+		ret = mq_receive(c->msgqSensors, msg, MAX_MSG_LEN_R, NULL);
+
+		if(ret == -1)
 		{ 
 			// get error from errno
 			err = errno;
@@ -266,15 +272,16 @@ void *CLocalSystem::tRecvSensors(void *arg)
 				panic("In mq_receive()");
 
 			// else, message queue is empty
-			DEBUG_MSG("[CLS::tRecvSensors] Waiting for condRecvSensors...");
+			// DEBUG_MSG("[CLS::tRecvSensors] Waiting for condRecvSensors...");
 			pthread_cond_wait(&c->condRecvSensors, &c->mutRecvSensors);
-			DEBUG_MSG("[CLS::tRecvSensors] Im awake!");
+			// DEBUG_MSG("[CLS::tRecvSensors] Im awake!");
 			pthread_mutex_unlock(&c->mutRecvSensors);
 		}
 		else
 		{
 			// else, messages to read from dSensors
-			DEBUG_MSG("[CLS::tRecvSensors] received cmd[" << string(msg) << "]");
+			// DEBUG_MSG("[CLS::tRecvSensors] received cmd[" << string(msg) << "]");
+			msg[ret] = '\0';
 
 			int err = parseSensorsCmd(msg);
 			if((err == 0) && IDReceived)
@@ -286,9 +293,6 @@ void *CLocalSystem::tRecvSensors(void *arg)
 
 				DEBUG_MSG("[CLS::tRecvSensors] Sending (" << loraMsg << ")");
 			}
-
-			// clear message
-			memset(msg, 0, sizeof(msg));
 			
 			pthread_mutex_unlock(&c->mutRecvSensors);
 		}
@@ -316,9 +320,9 @@ void *CLocalSystem::tParkDetection(void *arg)
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutCamFrame);
-		DEBUG_MSG("[CLS::tParkDetection] Waiting for condCamFrame...");
+		// DEBUG_MSG("[CLS::tParkDetection] Waiting for condCamFrame...");
 		pthread_cond_wait(&c->condCamFrame, &c->mutCamFrame);
-		DEBUG_MSG("[CLS::tParkDetection] Im awake!");
+		// DEBUG_MSG("[CLS::tParkDetection] Im awake!");
 		
 		// camera.capture();
 		pthread_mutex_unlock(&c->mutCamFrame);
@@ -354,13 +358,13 @@ void CLocalSystem::lampOnCb(uint8_t pwm)
 	lampAllCb(pwm);
 	// start timeout
 	thisPtr->timLampOn.start();	
-	DEBUG_MSG("[CLS::lampOnCb] Lamp set PWM(" << (int)pwm << ")");
+	// DEBUG_MSG("[CLS::lampOnCb] Lamp set PWM(" << (int)pwm << ")");
 }
 
 void CLocalSystem::lampAllCb(uint8_t pwm)
 {
 	thisPtr->lamp.setBrightness(pwm);
-	DEBUG_MSG("[CLS::lampAllCb] Lamp set PWM(" << (int)pwm << ")");
+	// DEBUG_MSG("[CLS::lampAllCb] Lamp set PWM(" << (int)pwm << ")");
 }
 
 cmdSensors_t CLocalSystem::cmdSensorsList[] = 
