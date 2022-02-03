@@ -15,6 +15,9 @@ public:
 	CLdr(void);
 	~CLdr(void);
 
+	void enable(void);
+	void disable(void);
+
 	LuxState getLuxState(void);
 
 private:

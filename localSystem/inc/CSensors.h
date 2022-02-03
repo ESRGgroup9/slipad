@@ -21,6 +21,7 @@ public:
 
 private:
 	static void *tReadLdr(void*);
+	static void *tReadLampF(void*);
 	void sendCmd(std::string cmd);
 
 private:
@@ -30,6 +31,7 @@ private:
 	static void timHandler(union sigval arg);
 
 	void timReadLdrISR();
+	void timReadLampFISR();
 	void pirISR();
 	void lampfISR();
 
@@ -39,13 +41,17 @@ private:
 	CFailureDetector lampf;
 
 	pthread_t tReadLdr_id;
+	pthread_t tReadLampF_id;
 	
 	pthread_mutex_t mutReadLdr;
+	pthread_mutex_t mutReadLampF;
 	pthread_cond_t condReadLdr;
+	pthread_cond_t condReadLampF;
 
 	mqd_t msgqSensors;
 	pid_t mainPID;
 	Timer timReadLdr;
+	Timer timReadLampF;
 };
 // End CSensors class definition
 

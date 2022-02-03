@@ -17,15 +17,14 @@
 class CFailureDetector : public CCharacterDev
 {
 public:
-	CFailureDetector(ISR isr);
+	CFailureDetector(void);
 	~CFailureDetector(void);
 
 	virtual void enable(void);
 	virtual void disable(void);
 
-private:
-	struct sigaction act;
-	ISR handler;
+	char read(void);
+	
 };
 
 #endif //!__CFAILUREDETECTOR_H__
