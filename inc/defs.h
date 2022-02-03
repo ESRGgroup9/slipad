@@ -24,6 +24,9 @@
 #define PIR_SIG_NUM 	(SIGUSR1)
 #define LAMPF_SIG_NUM	(SIGUSR2)
 
+// Image path
+#define IMAGE_PATH      ("/etc/image.jpg")
+
 /******************************************************************************
  * Remote System Definitions
  *****************************************************************************/

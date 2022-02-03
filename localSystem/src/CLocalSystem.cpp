@@ -9,9 +9,9 @@
 using namespace std;
 
 // timer periods
-#define TIM_CAM_FRAME_SECS	(0)
+#define TIM_CAM_FRAME_SECS	(10)
 #define TIM_CAM_PROC_SECS	(0)
-#define TIM_LAMP_ON_SECS	(5)
+#define TIM_LAMP_ON_SECS	(10)
 
 // minimum lamp bright - pwm value(0 - 100)
 #define MIN_BRIGHT_PWM		(50)
@@ -31,7 +31,8 @@ Command_t CLocalSystem::loraCmdList[] =
 CLocalSystem::CLocalSystem() :
 	lamp(),
 	lora(433, GATEWAY_ADDR, LS_ADDR),
-	// camera("video0"),
+	camera("video0"),
+	park(),
 	
 	timCamFrame(TIM_CAM_FRAME_SECS, timHandler),
 	timCamProc(TIM_CAM_PROC_SECS, timHandler),
@@ -214,7 +215,7 @@ void *CLocalSystem::tLoraRecv(void *arg)
 		if(err == LoRaError::MSGOK)
 		{
 			c->loraParser.parse(msg.c_str());
-			cout << "Received[" << msg << "]" << endl;
+			//cout << "Received[" << msg << "]" << endl;
 		}
 	}
 
@@ -235,18 +236,31 @@ void *CLocalSystem::tRecvSensors(void *arg)
 	// send PID to dSensors
 	string pid_str = to_string(getpid());
 	DEBUG_MSG("[CLS::tRecvSensors] Sending PID[" << pid_str << "]");
-	if(mq_send(c->msgqSensors, pid_str.c_str(), pid_str.length(), 1) != 0)
-		panic("In mq_send()");
+	
+	do
+	{
+		err = mq_send(c->msgqSensors, pid_str.c_str(), pid_str.length()+1, 1);
+		if(err == -1)
+		{
+			err = errno;
+			if(err != EAGAIN)
+				panic("In mq_send()");
+		}
+	} while(err == EAGAIN);
+	
 
 	// make sure that mq_receive does not happen before dSensors read the msg
 	mq_attr msgqAttr;
    	// wait while there are messages in msgq
    	DEBUG_MSG("[CLS::tRecvSensors] Waiting for dSensors to read PID...");
+   	
    	do
    	{
-   		mq_getattr(c->msgqSensors, &msgqAttr);
+   		if( mq_getattr(c->msgqSensors, &msgqAttr) == -1)
+   			panic("In mq_getattr()");
    	}
    	while(msgqAttr.mq_curmsgs != 0);
+   	DEBUG_MSG("[CLS::tRecvSensors] PID was read.");
 
    	// clear message - avoid bad content
 	memset(msg, 0, sizeof(msg));
@@ -306,11 +320,11 @@ void *CLocalSystem::tParkDetection(void *arg)
 
 	pthread_mutex_lock(&c->mutCamFrame);
 	// capture frame
-	// camera.capture();
+	c->camera.captureFrame();
 	pthread_mutex_unlock(&c->mutCamFrame);
 
 	// get parking outline from captured frame
-	// park.getOutline(frame);
+	c->park.getOutline();
 
 	while(c)
 	{
@@ -319,14 +333,16 @@ void *CLocalSystem::tParkDetection(void *arg)
 		pthread_cond_wait(&c->condCamFrame, &c->mutCamFrame);
 		DEBUG_MSG("[CLS::tParkDetection] Im awake!");
 		
-		// camera.capture();
+		c->camera.captureFrame();
 		pthread_mutex_unlock(&c->mutCamFrame);
 
 		// start camera processing timer
 		// used to detect if processing is taking too much time
-		c->timCamProc.start();
+		// c->timCamProc.start();
+
 		// get vacants number
-		// vacantsNum = c->park.getVacants(frame);
+		vacantsNum = c->park.calcVacants();
+		DEBUG_MSG("[CLS::tParkDetection] vacantsNum: " << vacantsNum);
 
 		// new number of vacants?
 		if(vacantsNum != oldVacantsNum)
@@ -335,14 +351,14 @@ void *CLocalSystem::tParkDetection(void *arg)
 			if(IDReceived)
 			{
 				// send update info to remote system
-				string loraMsg = "PARK;" + vacantsNum;
+				string loraMsg = "PARK;" + to_string(vacantsNum);
 				c->lora.push(loraMsg);
 			}
 			oldVacantsNum = vacantsNum;
 		}
 
 		// stop camera processing timer
-		c->timCamProc.stop();
+		// c->timCamProc.stop();
 	}
 	
 	return NULL;

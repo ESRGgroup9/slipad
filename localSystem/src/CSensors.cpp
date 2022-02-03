@@ -187,10 +187,19 @@ void *CSensors::tReadLdr(void *arg)
 
 void CSensors::sendCmd(string cmd)
 {
-	if(mq_send(msgqSensors, cmd.c_str(), cmd.length(), 1) != 0)
-		panic("In mq_send()");
+	int err = 0;
+	do
+	{
+		if(mq_send(msgqSensors, cmd.c_str(), cmd.length()+1, 1) == -1)
+		{
+			err = errno;
 
-	// DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
+			if( err != EAGAIN )
+				panic("In mq_send()");
+		}
+	} while (err == EAGAIN);
+
+	DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
 	kill(mainPID, SIG_dSENSORS);
 	// DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
 }
