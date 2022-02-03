@@ -38,6 +38,7 @@ private:
 	
 	static int parseSensorsCmd(char *str);
 	static void lampOnCb(uint8_t pwm);
+	static void lampOffCb(uint8_t pwm);
 	static void lampAllCb(uint8_t pwm);
 
 	static void sigHandler(int sig);

@@ -81,7 +81,9 @@ void CLocalSystem::timLampOnISR()
 	DEBUG_MSG("[CLS::timLampOnISR] Sending (LAMP;MIN)");
 	// turn off lamp
 	lamp.setBrightness(MIN_BRIGHT_PWM);
-	lora.push("LAMP;MIN");
+
+	if(IDReceived)
+		lora.push("LAMP;MIN");
 }
 
 void CLocalSystem::timCamFrameISR()
@@ -376,6 +378,15 @@ void CLocalSystem::lampOnCb(uint8_t pwm)
 	// DEBUG_MSG("[CLS::lampOnCb] Lamp set PWM(" << (int)pwm << ")");
 }
 
+void CLocalSystem::lampOffCb(uint8_t pwm)
+{
+	//setBrightness(pwm)
+	lampAllCb(pwm);
+
+	// stop timer
+	thisPtr->timLampOn.stop();
+}
+
 void CLocalSystem::lampAllCb(uint8_t pwm)
 {
 	thisPtr->lamp.setBrightness(pwm);
@@ -385,9 +396,9 @@ void CLocalSystem::lampAllCb(uint8_t pwm)
 cmdSensors_t CLocalSystem::cmdSensorsList[] = 
 {
 	{"ON"	,PWM_MAX, lampOnCb},
-	{"OFF"	,PWM_OFF, lampAllCb},
+	{"OFF"	,PWM_OFF, lampOffCb},
 	{"MIN"	,MIN_BRIGHT_PWM, lampAllCb},
-	{"FAIL"	,PWM_OFF, lampAllCb},
+	{"FAIL"	,PWM_OFF, lampOffCb},
 	{0,0,0}
 };
 

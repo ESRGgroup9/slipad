@@ -31,7 +31,11 @@ char CFailureDetector::read(void)
 {
 	char readState;
 
-	// read successfuly
+	// // read successfuly
+	// if(dev < 0)
+	// {
+	// 	CCharacterDev::open();
+	// }
 	if(::read(dev, &readState, 1) == 0)
 		return readState;
 

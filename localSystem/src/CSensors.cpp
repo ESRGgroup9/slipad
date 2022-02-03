@@ -9,9 +9,7 @@ using namespace std;
 #define TIM_READ_LDR_SECS	(5)
 #define TIM_READ_LAMPF_SECS	(5)
 
-// static bool lampFailed = false;
-
-static char lampfState = 0;
+static LuxState oldLuxState = LuxState::DAY;
 static char oldLampfState = 0;
 
 CSensors* CSensors::thisPtr = NULL;
@@ -162,11 +160,13 @@ void CSensors::run()
 	//lampf.enable();
 	//pir.enable();
 #endif // !DEBUG
+
+	lampf.enable();
 	
 	// start sampling LDR sensor
 	timReadLdr.start();
 	// start sampling Lamp Failure sensor
-	timReadLampF.start();
+	// timReadLampF.start();
 
 		// wait for thread termination
 	pthread_join(tReadLampF_id, NULL);
@@ -176,11 +176,13 @@ void CSensors::run()
 
 }
 
+#define LAMP_FAIL 	 ('1')
+#define LAMP_WORKING ('0')
+
 void *CSensors::tReadLdr(void *arg)
 {
 	CSensors *c = reinterpret_cast<CSensors*>(arg);
 	LuxState luxState = LuxState::DAY;
-	LuxState oldLuxState = LuxState::DAY;
 	
 	while(c)
 	{
@@ -190,26 +192,26 @@ void *CSensors::tReadLdr(void *arg)
 		pthread_cond_wait(&c->condReadLdr, &c->mutReadLdr);
 		// DEBUG_MSG("[CSensors::tReadLdr] Im awake!");
 
+		oldLuxState = luxState;
 		luxState = c->ldr.getLuxState();
 		pthread_mutex_unlock(&c->mutReadLdr);
 
 		// is there a change in lux State?
-		if( (luxState != oldLuxState) || (lampfState != oldLampfState) )
+		if( (luxState != oldLuxState) )
 		{
 			if(luxState == LuxState::NIGHT) 
 			{
-				c->lampf.enable();
+				c->timReadLampF.start();
 				c->pir.enable();
 				c->sendCmd("MIN");
 			}
-			else
+			else if(oldLampfState != LAMP_FAIL)
 			{
-				c->lampf.disable();
+				// c->lampf.disable();
+				c->timReadLampF.stop();
 				c->pir.disable();
 				c->sendCmd("OFF");
 			}
-
-			oldLuxState = luxState;
 		}
 	}
 
@@ -240,6 +242,8 @@ void *CSensors::tReadLampF(void *arg)
 {
 	CSensors *c = reinterpret_cast<CSensors*>(arg);
 
+	char lampfState = 0;
+
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutReadLampF);
@@ -253,20 +257,29 @@ void *CSensors::tReadLampF(void *arg)
 
 		pthread_mutex_unlock(&c->mutReadLampF);
 
-		if ( (lampfState != oldLampfState) && (lampfState != -1) )
-		{
-			if( lampfState == '1' )
-			{
-				c->sendCmd("FAIL");
-				c->pir.disable();
-				// lampFailed = true;
-			}	
-			else
-			{
-				// lampFailed = false;
-				c->pir.enable();
-			}	
-		}
+	    if(lampfState == -1)
+	    	panic("On read lampf dev.\n");
+
+	    if((oldLampfState == lampfState))
+	        // lamp if in FAIL or is WORKING for the past two cycles
+	        continue;
+
+	    // old state is different that current state
+	    if(lampfState == LAMP_FAIL)
+	    // lamp FAIL
+	    {
+	        c->pir.disable();
+	        c->sendCmd("FAIL");
+	    }
+	    // lamp is WORKING
+	    else if((oldLuxState == LuxState::NIGHT) && (lampfState == LAMP_WORKING))
+	    {
+	        // lamp was in FAIL and now its WORKING
+	        DEBUG_MSG("[CSensors::tReadLampF] sent min");
+	        // reactivate sensors
+	        c->pir.enable();
+	        c->sendCmd("MIN");
+	    }
 	}
 
 	DEBUG_MSG("[CSensors::tReadLampF] Exiting thread...");
