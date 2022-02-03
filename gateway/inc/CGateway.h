@@ -8,7 +8,7 @@
 class CGateway
 {
 public:
-	CGateway();
+	CGateway(string host, int port);
 	~CGateway();
 
 	void run();

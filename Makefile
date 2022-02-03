@@ -18,7 +18,7 @@ export COMPILE=g++
 #------------------------------------------------------------------------------
 # Variables specifying destination of 'make transfer'
 # Destination IP
-export IP=10.42.0.30
+export IP=10.42.0.254
 # Destination user
 export USR=root
 # Destination directory in IP connection
@@ -33,7 +33,6 @@ export INC_PROJ_DIR=$(PROJ_DIR)/inc
 #------------------------------------------------------------------------------
 SRC_DIR=$(SRC_PROJ_DIR)
 INC_DIR=$(INC_PROJ_DIR)
-# BLD_DIR=$(PROJ_DIR)/build
 
 BLD_ARM_DIR=$(PROJ_DIR)/build_arm
 BLD_x86_DIR=$(PROJ_DIR)/build_x86

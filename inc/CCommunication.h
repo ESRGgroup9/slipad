@@ -101,13 +101,15 @@ protected:
  * This thread is usually in sleep, being awaken by 'push' when one wants to
  * send a message.
  */
-	static void *tSend(void *arg);		
-	pthread_cond_t condtSend;
-    ConnStatus status;
+	static void *tSend(void *arg);
 
 	// pure virtual methods
 	virtual int recvFunc(std::string &msg) = 0;
 	virtual int sendFunc(std::string msg) = 0;
+
+protected:
+    pthread_cond_t condtSend;
+    ConnStatus status;
 
 private:
 	// list of strings to be sent

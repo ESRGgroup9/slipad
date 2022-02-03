@@ -219,6 +219,34 @@ void *CSensors::tReadLdr(void *arg)
 	return NULL;
 }
 
+{
+	oldLampfState = lampfState;
+	lampfState = lampfReadPin();
+
+	if(oldLampfState == lampfState)
+		// lamp if in FAIL or is WORKING for the past two cycles
+		return;
+
+	// old state is different that current state
+	if(lampfState == FAIL)
+	// lamp FAIL
+	{
+		pir.disable();
+		send("FAIL");
+	}
+	// lamp was in FAIL and now its WORKING
+	else
+	{
+		// reactivate sensors
+		pir.enable();
+		sendCmd("MIN")
+	}
+}
+MIN->FAIL->MIN
+ON->FAIL->MIN
+OFF
+FAIL
+
 void CSensors::sendCmd(string cmd)
 {
 	int err = 0;
