@@ -201,6 +201,7 @@ void *CSensors::tReadLdr(void *arg)
 		{
 			if(luxState == LuxState::NIGHT) 
 			{
+				// start timer with expire now flag
 				c->timReadLampF.start();
 				c->pir.enable();
 				c->sendCmd("MIN");
@@ -218,34 +219,6 @@ void *CSensors::tReadLdr(void *arg)
 	DEBUG_MSG("[CSensors::tReadLdr] Exiting thread...");
 	return NULL;
 }
-
-{
-	oldLampfState = lampfState;
-	lampfState = lampfReadPin();
-
-	if(oldLampfState == lampfState)
-		// lamp if in FAIL or is WORKING for the past two cycles
-		return;
-
-	// old state is different that current state
-	if(lampfState == FAIL)
-	// lamp FAIL
-	{
-		pir.disable();
-		send("FAIL");
-	}
-	// lamp was in FAIL and now its WORKING
-	else
-	{
-		// reactivate sensors
-		pir.enable();
-		sendCmd("MIN")
-	}
-}
-MIN->FAIL->MIN
-ON->FAIL->MIN
-OFF
-FAIL
 
 void CSensors::sendCmd(string cmd)
 {
@@ -303,7 +276,6 @@ void *CSensors::tReadLampF(void *arg)
 	    else if((oldLuxState == LuxState::NIGHT) && (lampfState == LAMP_WORKING))
 	    {
 	        // lamp was in FAIL and now its WORKING
-	        DEBUG_MSG("[CSensors::tReadLampF] sent min");
 	        // reactivate sensors
 	        c->pir.enable();
 	        c->sendCmd("MIN");

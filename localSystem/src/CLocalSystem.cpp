@@ -17,7 +17,7 @@ using namespace std;
 #define MIN_BRIGHT_PWM		(50)
 
 // bad solution
-static bool IDReceived = false;
+static volatile bool IDReceived = false;
 
 CLocalSystem* CLocalSystem::thisPtr = NULL;
 
@@ -124,6 +124,7 @@ void CLocalSystem::timHandler(union sigval arg)
 	}
 }
 
+#include <bcm2835.h>
 void CLocalSystem::run()
 {
 	// start camera frame timer
@@ -133,15 +134,20 @@ void CLocalSystem::run()
 	signal(SIG_dSENSORS, sigHandler);
 	signal(SIGINT, sigHandler);
 
+	// join lora threads
+	lora.run(RUN_NONBLOCK);
+
 	// send CRQ - connection request to the remote system. Awaits its response,
 	// giving this local system a "virtual address" to be used in all comms.
-	lora.push("CRQ");
-	
-	// wait for <id> command using tLoraRecv thread
-	// this ID will be used in every communication from that moment on
+	do
+	{
+		lora.send("CRQ");
+		bcm2835_delay(2000);
+	}
+	while(IDReceived == false);
 
-	// join lora threads
-	lora.run();
+	// wait for <id> command using tLoraRecv thread
+	// this ID will be used in every communication from that moment o
 
 	pthread_join(tLoraRecv_id, NULL);
 	pthread_join(tRecvSensors_id, NULL);
@@ -153,7 +159,7 @@ void CLocalSystem::sigHandler(int sig)
 	switch(sig)
 	{
 		case SIG_dSENSORS:
-			DEBUG_MSG("[CLS::sigHandler] caught SIG_dSENSORS");
+			// DEBUG_MSG("[CLS::sigHandler] caught SIG_dSENSORS");
 			pthread_cond_signal(&thisPtr->condRecvSensors);
 			break;
 
@@ -217,8 +223,11 @@ void *CLocalSystem::tLoraRecv(void *arg)
 		if(err == LoRaError::MSGOK)
 		{
 			c->loraParser.parse(msg.c_str());
-			//cout << "Received[" << msg << "]" << endl;
+			DEBUG_MSG("[CLS::tLoraRecv] Received[" << msg << "]");
 		}
+		else if(err != LoRaError::ENOMSGR)
+			DEBUG_MSG("[CLS::tLoraRecv] != no message...");
+
 	}
 
 	DEBUG_MSG("[CLS::tLoraRecv] exiting thread");
@@ -262,8 +271,6 @@ void *CLocalSystem::tRecvSensors(void *arg)
    			panic("In mq_getattr()");
    	}
    	while(msgqAttr.mq_curmsgs != 0);
-   	DEBUG_MSG("[CLS::tRecvSensors] PID was read.");
-
    	DEBUG_MSG("[CLS::tRecvSensors] PID was read.");
 
    	// clear message - avoid bad content
@@ -348,7 +355,7 @@ void *CLocalSystem::tParkDetection(void *arg)
 
 		// get vacants number
 		vacantsNum = c->park.calcVacants();
-		DEBUG_MSG("[CLS::tParkDetection] vacantsNum: " << vacantsNum);
+		// DEBUG_MSG("[CLS::tParkDetection] vacantsNum: " << vacantsNum);
 
 		// new number of vacants?
 		if(vacantsNum != oldVacantsNum)
@@ -359,6 +366,7 @@ void *CLocalSystem::tParkDetection(void *arg)
 				// send update info to remote system
 				string loraMsg = "PARK;" + to_string(vacantsNum);
 				c->lora.push(loraMsg);
+				DEBUG_MSG("[CLS::tParkDetection] Sending (" << loraMsg << ")");
 			}
 			oldVacantsNum = vacantsNum;
 		}

@@ -15,7 +15,7 @@ public:
 	int id;
 
 private:
-	void setPeriod(unsigned period_secs, bool expireNow);
+	void setPeriod(unsigned period_secs, bool expireNow = false);
 	static int ID;
 
 private:
