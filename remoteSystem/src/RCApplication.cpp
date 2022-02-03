@@ -57,11 +57,11 @@ int RCApplication::modifyCb(int argc, char *argv[])
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCApplication::modifyCb] Invalid lamppost id(" << lamppost_id << ")");
-		thisPtr->tcp.push("MOD FAIL");
+		thisPtr->tcp.push("MOD;FAIL");
 		return -1;
 	}
 
-	thisPtr->tcp.push("MOD OK");
+	thisPtr->tcp.push("MOD;OK");
 	return 0;
 }
 
@@ -88,7 +88,7 @@ int RCApplication::consultCb(int argc, char *argv[])
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCApplication::consultCb] Invalid consult: " << mysql_error(thisPtr->db));
-		thisPtr->tcp.push("CONSULT FAIL");
+		thisPtr->tcp.push("CONSULT;FAIL");
 		return -1;
 	}
 
@@ -109,7 +109,7 @@ int RCApplication::consultCb(int argc, char *argv[])
     if(num_fields != 4)
     {
     	DEBUG_MSG("[RCApplication::consultCb] Invalid result with " << num_fields << " columns instead of 4");
-    	thisPtr->tcp.push("CONSULT FAIL");
+    	thisPtr->tcp.push("CONSULT;FAIL");
   		err = -1;
     }
     else
@@ -145,9 +145,9 @@ int RCApplication::consultCb(int argc, char *argv[])
 
 int RCApplication::signInCb(int argc, char *argv[])
 {
-	if(argc != 4)
+	if(argc != 3)
 	{
-		DEBUG_MSG("[RCApplication::signInCb] Usage: SIGNIN;<operator_id>;<name>;<password>");
+		DEBUG_MSG("[RCApplication::signInCb] Usage: SIGNIN;<operator_id>;<password>");
 		return -1;
 	}
 	
@@ -155,15 +155,14 @@ int RCApplication::signInCb(int argc, char *argv[])
 	int operator_id = atoi(argv[1]);
 	query << "SELECT id FROM operator WHERE ";
 	query << "id=" << operator_id << " AND ";
-	query << "name='" << argv[2] << "' AND ";
-	query << "password='" << argv[3] << "'";
+	query << "password='" << argv[2] << "'";
 
 	// execute query
-	DEBUG_MSG("[RCApplication::signInCb] " << query.str());
+	// DEBUG_MSG("[RCApplication::signInCb] " << query.str());
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCApplication::signInCb] Invalid sign IN: " << mysql_error(thisPtr->db));
-		thisPtr->tcp.push("SIGNIN FAIL");
+		thisPtr->tcp.push("SIGNIN;FAIL");
 		return -1;
 	}
 
@@ -186,12 +185,12 @@ int RCApplication::signInCb(int argc, char *argv[])
    	else
    	{
    		DEBUG_MSG("[RCApplication::signInCb] Invalid sign IN: operator("<< operator_id << ") credentials doesnt match");
-   		thisPtr->tcp.push("SIGNIN FAIL");
+   		thisPtr->tcp.push("SIGNIN;FAIL");
    		return -1;
    	}
 
    	// send sign in confirmation
-   	thisPtr->tcp.push("SIGNIN OK");
+   	thisPtr->tcp.push("SIGNIN;OK");
 
 	return 0;
 } 
@@ -214,20 +213,20 @@ int RCApplication::signUpCb(int argc, char *argv[])
 	query << "'" << argv[2] << "')";
 
 	// execute query
-	DEBUG_MSG("[RCApplication::signUpCb] " << query.str());
+	// DEBUG_MSG("[RCApplication::signUpCb] " << query.str());
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCApplication::signUpCb] Insert signUp: " << mysql_error(thisPtr->db));
-		thisPtr->tcp.push("SIGNUP FAIL");
+		thisPtr->tcp.push("SIGNUP;FAIL");
 		return -1;
 	}
 
 	// retrieve operator ID
 	int operator_id = mysql_insert_id(thisPtr->db);
-	DEBUG_MSG("[RCApplication::signUpCb] New operator has id(" << operator_id << ")");
+	DEBUG_MSG("[RCApplication::signUpCb] New operator '"<< argv[1] << "' has id(" << operator_id << ")");
 	
 	// confirm sign up
-	thisPtr->tcp.push("SIGNUP OK");
+	thisPtr->tcp.push("SIGNUP;OK");
 
 	return 0;
 }
@@ -266,7 +265,9 @@ int RCApplication::addCb(int argc, char *argv[])
 	catch(invalid_argument& e)
 	{
 		DEBUG_MSG(e.what());
-		thisPtr->tcp.push("ADD FAIL");
+		// DEBUG_MSG("Query error:  " << mysql_error(thisPtr->db));
+
+		thisPtr->tcp.push("ADD;FAIL");
 
 		// rollback transaction
 		mysql_query(thisPtr->db, "ROLLBACK");
@@ -275,22 +276,20 @@ int RCApplication::addCb(int argc, char *argv[])
 
 	// else, no error
 	mysql_query(thisPtr->db, "COMMIT");
-	DEBUG_MSG("[RCGateway::addCb] Commit in database");
-	thisPtr->tcp.push("ADD OK");
+	// DEBUG_MSG("[RCGateway::addCb] Commit in database");
+	thisPtr->tcp.push("ADD;OK");
 	return 0;
 }
 
 void RCApplication::addRegion(string post_code, int operator_id, string parish, string county, string district)
 {
 	stringstream query;
-	
-	DEBUG_MSG("ok");
+
 	// check if region already exists
 	query << "SELECT post_code FROM region WHERE post_code=" << post_code;
-	
-	DEBUG_MSG("ok2");
+
 	// execute query
-	DEBUG_MSG("[RCGateway::addCb] " << query.str());
+	// DEBUG_MSG("[RCGateway::addCb] " << query.str());
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		char str[256];
@@ -327,13 +326,15 @@ void RCApplication::addRegion(string post_code, int operator_id, string parish, 
 	query << district << ")";
 
 	// execute query
-	DEBUG_MSG("[RCGateway::addCb] " << query.str());
+	// DEBUG_MSG("[RCGateway::addCb] " << query.str());
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		char str[256];
 		snprintf(str, sizeof(str), "[RCGateway::addCb] Invalid operator_id(%d) or (%s)" ,operator_id, post_code.c_str());
 		throw invalid_argument(str);
 	}
+
+	DEBUG_MSG("[RCGateway::addCb] Adding region " << parish << " in " << post_code << " - " << county << ", " << district);
 }
 
 // INSERT location: id, latitude, longitude, post_code, street_name
@@ -348,30 +349,33 @@ void RCApplication::addLocation(double latitude, double longitude, string post_c
 	query << street_name << ")";
 
 	// execute query
-	DEBUG_MSG("[RCGateway::addCb] " << query.str());
+	// DEBUG_MSG("[RCGateway::addCb] " << query.str());
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		char str[256];
 		snprintf(str, sizeof(str), "[RCGateway::addCb] Insert location: latitude(%f) longitude(%f) exists" ,latitude, longitude);
 		throw invalid_argument(str);
 	}
+
+	DEBUG_MSG("[RCGateway::addCb] Adding location " << street_name << " in " << post_code << " [lat:" << latitude << "; long:" << longitude << "]");
 }
 
 // INSERT lamppost: locationID, address, status
 void RCApplication::addLamppost(int lamppost_id, int address)
 {
 	stringstream query;
-	query << "INSERT INTO lamppost VALUES(";
+	query << "INSERT INTO lamppost(id, address) VALUES(";
 	query << lamppost_id << ",";
-	query << address << ",";
-	query << "'OFF'" << ")";
+	query << address << ")";
 
 	// execute query
-	DEBUG_MSG("[RCGateway::addCb] " << query.str());
+	// DEBUG_MSG("[RCGateway::addCb] " << query.str());
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		char str[256];
 		snprintf(str, sizeof(str), "[RCGateway::addCb] Invalid lamppost_id(%d) or address(%d) exists" ,lamppost_id, address);
 		throw invalid_argument(str);
 	}
+
+	DEBUG_MSG("[RCGateway::addCb] Adding lamppost(" << lamppost_id << ") with address(" << address << ")");
 }

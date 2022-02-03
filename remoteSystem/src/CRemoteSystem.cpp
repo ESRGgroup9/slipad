@@ -121,11 +121,11 @@ void CRemoteSystem::run()
 {
 	int sd;
 
-	DEBUG_MSG("[CRemoteSystem::run] Listening for new connections...");
 	timCheckConn.start();
 
 	while(1)
 	{
+		DEBUG_MSG("[CRemoteSystem::run] Listening for new connections...");
 		sd = server.accept();
 
 		if(sd != -1)
@@ -135,7 +135,6 @@ void CRemoteSystem::run()
 			client_port = sd;
 			pthread_create(&recvType_id, NULL, tRecvType, this);
 			pthread_detach(recvType_id);
-			DEBUG_MSG("[CRemoteSystem::run] Continue listening for new connections...");
 		}
 	}
 }
@@ -210,9 +209,12 @@ void *CRemoteSystem::tRecvType(void *arg)
 
 		if(ret > 0)
 		{
-			DEBUG_MSG("[CRemoteSystem::tRecvType] Received ["<< msg << "]");
 			// parse received string
 			err = c->typeParser.parse(msg.c_str());
+			if(err != 0)
+			{
+				DEBUG_MSG("[CRemoteSystem::tRecvType] Received ["<< msg << "]");
+			}
 		}
 	}
 	while(err != 0);
