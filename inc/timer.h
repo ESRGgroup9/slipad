@@ -10,12 +10,12 @@ public:
 	Timer(unsigned seconds, void (*handler)(union sigval), bool is_periodic = true);
 	~Timer();
 
-	void start();
+	void start(bool expireNow = false);
 	void stop();
 	int id;
 
 private:
-	void setPeriod(unsigned period_secs);
+	void setPeriod(unsigned period_secs, bool expireNow);
 	static int ID;
 
 private:

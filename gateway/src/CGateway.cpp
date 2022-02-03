@@ -9,7 +9,7 @@ using namespace std;
 
 #define PARSE_DELIMITER ";"
 
-CGateway::CGateway() :
+CGateway::CGateway(string host, int port) :
 	lora(433, LS_ADDR, GATEWAY_ADDR)
 {
 	// create LoRa receive from LS
@@ -18,6 +18,8 @@ CGateway::CGateway() :
 	
 	// init lora threads for sending messages
 	lora.init(1);
+	// create TCP client
+	tcp = new CTCPclient(host, port);
 }
 
 CGateway::~CGateway()
@@ -60,11 +62,6 @@ void CGateway::run()
 
 	while(1)
 	{
-		// Since a socket that had been connected once cannot be reused with
-		// another call to connect() one has to create TCPclient dynamically
-		// for each connection successfull established
-		tcp = new CTCPclient(TCP_HOST, TCP_PORT);
-
 		// connect to remote system
 		connect();
 
@@ -77,7 +74,7 @@ void CGateway::run()
 
 		// send remote client type to the remote system - Type 0 = GATEWAY
 		DEBUG_MSG("[CGateway::run] Identifying as GATEWAY ...");
-		tcp->push("TYPE;0");
+		tcp->send("TYPE;0");
 
 		// wait for threads termination
 		pthread_join(tTCPRecv_id, NULL);
@@ -87,6 +84,11 @@ void CGateway::run()
 
 		// delete created TCP client and try to reconnect
 		tcp->~CTCPclient();
+
+		// Since a socket that had been connected once cannot be reused with
+		// another call to connect() one has to create TCPclient dynamically
+		// for each connection successfull established
+		tcp = new CTCPclient(TCP_HOST, TCP_PORT);
 	}
 }
 

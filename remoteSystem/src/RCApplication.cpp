@@ -76,14 +76,6 @@ int RCApplication::consultCb(int argc, char *argv[])
 	stringstream query;
 	int operator_id = atoi(argv[1]);
 
-	// select p.id,p.status,l.post_code,l.street_name,r.parish,r.county,r.district,l.latitude,l.longitude
-	// from lamppost p, location l, region r
-	// where l.id=p.id and l.post_code=r.post_code and l.post_code=0;
-
-	// query << "SELECT p.id,p.status,l.post_code,l.street_name,r.parish,r.county,r.district ";
-	// query << "FROM lamppost p, location l, region r ";
-	// query << "WHERE l.id=p.id AND l.post_code=r.post_code;";
-
 	query << "SELECT l.street_name, p.id, p.address, p.status ";
 	query << "FROM lamppost p, location l ";
 	query << "WHERE p.id=l.id AND l.id IN ";

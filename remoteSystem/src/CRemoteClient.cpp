@@ -48,14 +48,15 @@ void *CRemoteClient::tRecv(void *arg)
 	CRemoteClient *c = reinterpret_cast<CRemoteClient*>(arg);
 	string msg;
 	int ret = 0;
-	
+	int err = 0;
+
 	do
 	{
 		ret = c->tcp.recv(msg);
 
 		if(ret == -1)
 		{
-			int err = errno;
+			err = errno;
 
 			// non blocking operation?
 			if(err != EAGAIN)
@@ -66,7 +67,7 @@ void *CRemoteClient::tRecv(void *arg)
 		}
 		else if(ret > 0)
 		{
-			DEBUG_MSG("[CRemoteClient("<< c->info.sockfd << ")::tRecv] Received[" << msg << "]");
+			// DEBUG_MSG("[CRemoteClient("<< c->info.sockfd << ")::tRecv] Received[" << msg << "]");
 			// make sure that the client has already identified himself
 			if(c->info.type == ClientType::UNDEF)
 			{
@@ -75,7 +76,11 @@ void *CRemoteClient::tRecv(void *arg)
 			}
  
 			// parse received string
-			c->cmdParser.parse(msg.c_str());
+			err = c->cmdParser.parse(msg.c_str());
+			if(err != 0)
+			{
+				DEBUG_MSG("[CRemoteClient("<< c->info.sockfd << ")::tRecv] Parsing [" << msg << "] - error["<< err << "]");
+			}
 		}
 	}
 	while(ret != 0);

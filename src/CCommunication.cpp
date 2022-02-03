@@ -1,4 +1,4 @@
-#undef DEBUG
+// #undef DEBUG
 
 #include "CCommunication.h"
 #include "utils.h"
@@ -57,6 +57,7 @@ int CCommunication::send(string msg)
 	int ret = 0;
 
 	pthread_mutex_lock(&mutComms);
+	DEBUG_MSG("[CComms::send] Sending "<< msg << " ...");
 	ret = sendFunc(msg);
 	pthread_mutex_unlock(&mutComms);
 

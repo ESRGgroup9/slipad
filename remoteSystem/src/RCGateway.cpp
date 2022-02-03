@@ -49,13 +49,15 @@ int RCGateway::parkCb(int argc, char *argv[])
 	// execute query
 	stringstream query;
 	query << "UPDATE parking_space SET num_vacants=" << num_vacants << " WHERE id=" << id;
-	DEBUG_MSG("[RCGateway::parkCb] " << query.str());
+	// DEBUG_MSG("[RCGateway::parkCb] " << query.str());
 
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCGateway::parkCb] Invalid num_vacants(" << num_vacants << ") or ID(" << id << ")");	
 		return -1;
 	}
+
+	DEBUG_MSG("[RCGateway::parkCb] parking_space("<< id <<") has "<< num_vacants << " vacants");
 
 	return 0;
 }
@@ -74,7 +76,7 @@ int RCGateway::crqCb(int argc, char *argv[])
 
 	// get lamppost ID from database
 	query << "SELECT id FROM lamppost WHERE address=" << addr;
-	DEBUG_MSG("[RCGateway::crqCb] " << query.str());
+	// DEBUG_MSG("[RCGateway::crqCb] " << query.str());
 	// execute query
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
@@ -116,7 +118,7 @@ int RCGateway::crqCb(int argc, char *argv[])
    	query << "UPDATE lamppost SET gateway_sd=" << gateway_sd;
    	query << " WHERE id=" << lamppost_id;
 
-	DEBUG_MSG("[RCGateway::crqCb] " << query.str());
+	// DEBUG_MSG("[RCGateway::crqCb] " << query.str());
 	// execute query
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
@@ -129,7 +131,7 @@ int RCGateway::crqCb(int argc, char *argv[])
 	string msg = "ID;" + to_string(lamppost_id) + ";" + argv[1];
 	// send command
     thisPtr->tcp.push(msg);
-    DEBUG_MSG("[RCGateway::crqCb] Sending cmd(" << msg << ") from sockfd(" << gateway_sd << ")");
+    // DEBUG_MSG("[RCGateway::crqCb] Sending cmd(" << msg << ") from sockfd(" << gateway_sd << ")");
 
 	return 0;
 }
@@ -149,13 +151,15 @@ int RCGateway::lampCb(int argc, char *argv[])
 	// execute query
 	stringstream query;
 	query << "UPDATE lamppost SET status='" << argv[1] << "' WHERE id=" << lamppostId;
-	DEBUG_MSG("[RCGateway::lampCb] " << query.str());
+	// DEBUG_MSG("[RCGateway::lampCb] " << query.str());
 
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCGateway::lampCb] Invalid status(" << argv[1] << ") or ID(" << lamppostId << ")");	
 		return -1;
 	}
+
+	DEBUG_MSG("[RCGateway::lampCb] lamppost("<< lamppostId << ") with status("<< argv[1] << ")");
 
 	// check if the lamppost has turned on, i.e, status=ON
 	if(strcmp(argv[1], "ON") == 0)
@@ -228,16 +232,18 @@ void RCGateway::dynamicLightUp(int lamppostId)
 	query << "UPDATE lamppost set status='ON' where id IN (";
 	query << next_lamppostId << "," << prev_lamppostId << ")";
 	mysql_query(thisPtr->db, query.str().c_str());
-	DEBUG_MSG("[RCGateway::dynamicLightUp] "<< query.str());
+	// DEBUG_MSG("[RCGateway::dynamicLightUp] "<< query.str());
 
 	// send request to turn on the lamp of next and prev lamppost
 	string msg;
 
 	msg = "LAMP;ON;" + to_string(prev_lamppostId);
     thisPtr->tcp.push(msg);
-    DEBUG_MSG("[RCGateway::dynamicLightUp] Sending cmd(" << msg << ") from sockfd(" << thisPtr->info.sockfd << ")");
+    // DEBUG_MSG("[RCGateway::dynamicLightUp] Sending cmd(" << msg << ") from sockfd(" << thisPtr->info.sockfd << ")");
+	DEBUG_MSG("[RCGateway::dynamicLightUp] requesting lamppost("<< prev_lamppostId << ") ON");
 
 	msg = "LAMP;ON;" + to_string(next_lamppostId);
     thisPtr->tcp.push(msg);
-    DEBUG_MSG("[RCGateway::dynamicLightUp] Sending cmd(" << msg << ") from sockfd(" << thisPtr->info.sockfd << ")");
+    // DEBUG_MSG("[RCGateway::dynamicLightUp] Sending cmd(" << msg << ") from sockfd(" << thisPtr->info.sockfd << ")");
+    DEBUG_MSG("[RCGateway::dynamicLightUp] requesting lamppost("<< next_lamppostId << ") ON");
 }

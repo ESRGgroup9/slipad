@@ -47,8 +47,11 @@ int CTCPComm::sendFunc(std::string msg)
 {
 	int err = 0;
 
+	DEBUG_MSG("[CTCPComm::sendFunc] Sending "<< msg << " ...");
+
 	// send message to server
-	err = ::send(sockfd, msg.c_str(), msg.size(), MSG_DONTWAIT);
+	// err = ::send(sockfd, msg.c_str(), msg.size(), MSG_DONTWAIT);
+	err = ::send(sockfd, msg.c_str(), msg.length()+1, MSG_DONTWAIT);
 	if(err == -1)
 	{
 		err = errno;

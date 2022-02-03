@@ -79,10 +79,10 @@ Timer::~Timer()
  * If 'is_periodic' is true then one wants the timer to reload 'interval'
  * each time the timer expires. Therefore 'interval' must be nonzero
  */
-void Timer::setPeriod(unsigned period_secs)
+void Timer::setPeriod(unsigned period_secs, bool expireNow)
 {
 	// period between now and the first timer interrupt
-  	ts.it_value.tv_sec = period_secs;
+  	ts.it_value.tv_sec = period_secs * (!expireNow);
   	ts.it_value.tv_nsec = 0;
   	// period between successive timer interrupts
   	ts.it_interval.tv_sec = period_secs * (is_periodic);
@@ -92,9 +92,9 @@ void Timer::setPeriod(unsigned period_secs)
 		panic("Set timer");
 }
 
-void Timer::start()
+void Timer::start(bool expireNow)
 {
-	setPeriod(period_secs);
+	setPeriod(period_secs, expireNow);
 	DEBUG_MSG("Timer["<< (int)id << "] started with timeout " << period_secs << " seconds");
 }
 

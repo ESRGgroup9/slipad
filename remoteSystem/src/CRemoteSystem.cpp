@@ -210,6 +210,7 @@ void *CRemoteSystem::tRecvType(void *arg)
 
 		if(ret > 0)
 		{
+			DEBUG_MSG("[CRemoteSystem::tRecvType] Received ["<< msg << "]");
 			// parse received string
 			err = c->typeParser.parse(msg.c_str());
 		}

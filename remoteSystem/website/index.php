@@ -26,10 +26,7 @@ FROM location l, parking_space p, region r
 WHERE l.id=p.id AND r.post_code=l.post_code AND p.id IN
   (SELECT id
   FROM parking_space
-  WHERE num_vacants>=0)";
-
-// execute query
-$result=mysqli_query($con, $query);
+  WHERE num_vacants>0)";
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +75,9 @@ $result=mysqli_query($con, $query);
       // get latitude, longitude, post_code, street_name, num_vacants, parish, county, district
       var j = 0;
       <?php
+      // execute query
+      $result=mysqli_query($con, $query);
+
       while($rows=$result->fetch_assoc())
       {
       ?>
