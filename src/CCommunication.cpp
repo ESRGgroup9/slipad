@@ -1,4 +1,4 @@
-// #undef DEBUG
+#undef DEBUG
 
 #include "CCommunication.h"
 #include "utils.h"

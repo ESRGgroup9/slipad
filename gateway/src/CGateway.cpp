@@ -127,7 +127,7 @@ void *CGateway::tTCPRecv(void *arg)
 			c->lora.setDestAddr(destAddr);
 			c->lora.push(str);
 
-			DEBUG_MSG("[CGateway::tTCPRecv] Forwarding[" << msg << "] to LS[" << destAddr << "]");
+			DEBUG_MSG("[CGateway::tTCPRecv] Forwarding[" << str << "] to LS[" << destAddr << "]");
 		}
 	}
 	while(ret != 0);
