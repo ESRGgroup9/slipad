@@ -263,7 +263,7 @@ CREATE TABLE `lamppost`(
 );
 \end{lstlisting}
 
-In table \verb|location| there are a set of attributes needed to identify a particular location. Each location instance is directly connected with the existance of a lamppost. That way, the primary key for the lamppost table references the primary key from \verb|location|, which is the location \verb|id|.
+In table \verb|location| there are a set of attributes needed to identify a particular location. Each location instance is directly connected with the existence of a lamppost. That way, the primary key for the lamppost table references the primary key from \verb|location|, which is the location \verb|id|.
 
 Each lamppost is connected to the remote system, and that way to the database, through a gateway. For that reason, each lamppost instance needs to contain the socket file descriptor of the TCP connection established by the gateway that is connected to that lamppost (local system).\\
 
@@ -303,7 +303,70 @@ INSERT INTO lamppost(id, address) VALUES
 
 
 \section{Parking spots detection}
+As previously stated before, the parking spots detection algorithm is based on OpenCv API. First one needs to capture a frame using the Raspberry Pi camera and store it, as shown in listing \ref{lst:captureframe}. 
+
+\begin{lstlisting}[language=C, caption={Capture and Store frame from Camera.}, label={lst:captureframe}]
+// read frame into lastFrame
+camDev.read(lastFrame);
+
+// write image to path
+imwrite(IMAGE_PATH, lastFrame);
+\end{lstlisting}
+
+To capture the frame, one used the \ac{v4l} API and calibrated the camera parameters using the code present in listing \ref{lst:calibrateCamera}, in order to get a clear image from the camera. 
+
+\begin{lstlisting}[language=C, caption={Capture and Store frame from Camera.}, label={lst:captureframe}]
+camDev.set(CAP_PROP_FRAME_WIDTH , FRAME_W); // 640
+camDev.set(CAP_PROP_FRAME_HEIGHT, FRAME_H); // 480
+camDev.set(CAP_PROP_BRIGHTNESS, CAM_BRIGHTNESS); // 20
+camDev.set(CAP_PROP_CONTRAST, CAM_CONTRAST); // 0
+camDev.set(CAP_PROP_SATURATION, CAM_SATURATION); //10
+
+system("v4l2-ctl --set-ctrl=auto_exposure=0");
+system("v4l2-ctl --set-ctrl=iso_sensitivity=4");
+system("v4l2-ctl --set-ctrl=auto_exposure_bias=18");
+system("v4l2-ctl --set-ctrl=exposure_time_absolute=1000");
+system("v4l2-ctl --set-ctrl=exposure_dynamic_framerate=1");
+system("v4l2-ctl --set-ctrl=white_balance_auto_preset=7");
+
+system("v4l2-ctl --set-ctrl=sharpness=30");
+\end{lstlisting}
+
+When there is a image from the empty parking spots, one can identify the number of parking spots available for that lamppost. For that, it was used an algorithm that detect rectangles in an image since a parking spot shape is a rectangle. First, we apply the Gaussian blur to the image, in order to filter the image noise. Then, one searches for squares in every colour plane of the image, starting for mixing the channels an try several threshold levels with the canny edge detection function. After dilate the image to remove the holes between edge segments, one can find contours and store them in a list of 2D points. In the end, it is verified if the contours are between a defined size and if they don't overlap another rectangles. If the answer is affirmative, then contour is added to the park coordinates in the image held in the vector \verb|parkCoords|. In the listing \ref{lst:getOutline}, is shown the algorithm that detects parking spots in an image.
+
+\begin{lstlisting}[language=C, caption={Parking Spots Detection.}, label={lst:getOutline}]
+// apply gaussian
+GaussianBlur(frame, gaussian, Size(7, 7), 0);
+
+Canny(gray0, gray, 0, thresh, 5);
+		
+// find contours and store them all as a list
+findContours(gray, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
+	
+// test each contour
+for( size_t i = 0; i < contours.size(); i++ )
+{
+	addPark(contours[i]);
+}
+\end{lstlisting}
+
+When one have the the parking spot outline, it is ready to detect if the parking spot is empty or vacant, using for that, the algorithm that detect objects from OpenCv using a Haar Cascade classifier, \verb|detectMultiScale|. It was used a pre-trained classifier to detect cars. If the centre of the detected car is near the centre of the parking spot than it means that the parking spot is occupied. In listing \ref{lst:detectCars}, is shown the algorithm that determines if the parking spots are empty or occupied. 
+
+\begin{lstlisting}[language=C, caption={Empty Parking Spots Detection.}, label={lst:detectCars}]
+vector<Point> rect = getRectPoints(features[f]);
+	
+// Is the car over the parking spot?
+//  The center of the car match with the center of the parking spot?
+int pos = isOverlapp(rect);
+if( pos != -1 )
+{
+	vacantsNum--;
+	// park unavailable
+	parkStatus[pos] = 0;
+}
+\end{lstlisting}
 
 \section{Website}
 
 \section{Mobile Application}
+

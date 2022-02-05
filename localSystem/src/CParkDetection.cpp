@@ -48,7 +48,7 @@ bool CParkDetection::getOutline(void)
     // empty the vector
     parkCoords.clear();
 
-    // find squares in every color plane of the image
+    // find squares in every colour plane of the image
     for( int c = 0; c < 3; c++ )
     {
         int ch[] = {c, 0};
