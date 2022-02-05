@@ -1,6 +1,9 @@
 #include "CLocalSystem.h"
 #include <iostream>
+#include "debug.h"
+
 using namespace std;
+
 
 int main(int argc, char *argv[])
 {

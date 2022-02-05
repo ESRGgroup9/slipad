@@ -29,3 +29,56 @@ dtparam=i2c_arm=on 		# enable i2c
 start_x=1             	# enable camera
 gpu_mem=128           
 \end{lstlisting}
+
+%**********************************************************
+\subsection{Init Scripts}
+\verb|/etc/init.d| is a directory containing initialization and termination scripts for changing init states. File names in this directory are of the form \verb|[SK]nn<init.d filename>|, where \verb|S| means start this job, \verb|K| means kill this job, and \verb|nn| is the relative sequence number for killing or starting the job. \cite{initScript} For this reason, one must create a script, with name started by \verb|S|, inside \verb|/etc/init.d| in the Raspberry Pi, using for that, \verb|vi|.
+
+In order to guarantee that each program is running after the system boots up, its necessary to create the respective init scripts, following the procedure detailed in listing \ref{lst:initScript}.
+
+\begin{lstlisting}[caption={Procedure for creating an init script, named Sscript\_name}, label={lst:initScript}]
+$ cd /etc/init.d
+$ vi S<scriptName>.sh
+$ chmod +x S<scriptName>.sh
+\end{lstlisting}
+
+The local system has the init script detailed bellow, in listing \ref{lst:lsScript}. This script must insert all necessary device drivers in order to correctly execute the local system's daemon, dSensors, and the main process. 
+
+\begin{lstlisting}[caption={Init script for local system.}, label={lst:lsScript}]
+#!/bin/sh
+
+# Inserting i2c-tools
+modprobe i2c-bcm2835
+modprobe i2c-dev
+
+# Inserting PIR DDriver
+insmod /etc/pir.ko
+
+# Inserting lampf DDriver
+insmod /etc/lampf.ko
+
+# Run local system's daemon sensor and main process
+/etc/dSensors.elf &
+/etc/localSys.elf
+\end{lstlisting}
+
+The gateway system has the init script detailed in listing \ref{lst:gatScript}. The gateway, \verb|gateway.elf| is connected via TCP-IP to the remote system. Therefore one can set the gateway to connect to \verb|10.42.0.1|, which is the network address of remote system in the same network as the gateway, in port \verb|5000|.
+
+\begin{lstlisting}[caption={Init script for Gateway system.}, label={lst:gatScript}]
+#!/bin/sh
+
+etc/gateway.elf 10.42.0.1 5000
+\end{lstlisting}
+
+The remote system also has an init script, as shown in listing \ref{lst:rsScript}. This is responsible for running the website PHP server \cite{phpserver} and running the remote system in port \verb|5000|.
+
+\begin{lstlisting}[caption={Init script for remote system.}, label={lst:rsScript}]
+#!/bin/sh
+
+# run website PHP server
+php -S localhost:8000 -t ~/slipad/remoteSystem/website/ &
+
+# run remote system
+~/slipad/remoteSystem/bin/remoteSystem.elf 5000
+
+\end{lstlisting}

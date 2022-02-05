@@ -3,8 +3,9 @@
 
 #include <stdio.h> // perror
 #include <stdlib.h> // abort
+#include "debug.h"
 
 void panic(char *msg);
-#define panic(m)	{perror(m); abort();}
+#define panic(m)	{perror(m); DEBUG_MSG(m); abort();}
 
 #endif // !__UTILS_H__

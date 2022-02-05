@@ -1,25 +1,25 @@
+#define DEBUG
+
 #include "CLocalSystem.h"
 #include "utils.h" // panic
 #include "debug.h"
+#include "defs.h"
 
 #include <unistd.h> // getpid
 #include <cstring>
 #include <iostream>
 using namespace std;
 
-#define GATEWAY_ADDR 	(uint8_t)(0xcc)	// destination address
-#define LS_ADDR			(uint8_t)(0xbb) // local address
-#define MSGQ_NAME 		"/dsensors"
-
 // timer periods
-#define TIM_CAM_FRAME_SECS	(0)
+#define TIM_CAM_FRAME_SECS	(5)
 #define TIM_CAM_PROC_SECS	(0)
-#define TIM_LAMP_ON_SECS	(5)
+#define TIM_LAMP_ON_SECS	(10)
 
 // minimum lamp bright - pwm value(0 - 100)
 #define MIN_BRIGHT_PWM		(50)
 
-static bool IDReceived = false;
+// bad solution
+static volatile bool IDReceived = false;
 
 CLocalSystem* CLocalSystem::thisPtr = NULL;
 
@@ -33,7 +33,8 @@ Command_t CLocalSystem::loraCmdList[] =
 CLocalSystem::CLocalSystem() :
 	lamp(),
 	lora(433, GATEWAY_ADDR, LS_ADDR),
-	// camera("video0"),
+	camera("video0"),
+	park(),
 	
 	timCamFrame(TIM_CAM_FRAME_SECS, timHandler),
 	timCamProc(TIM_CAM_PROC_SECS, timHandler),
@@ -66,6 +67,8 @@ CLocalSystem::CLocalSystem() :
 	if(pthread_create(&tParkDetection_id, NULL, tParkDetection, this) != 0)
 		panic("CLS::CLocalSystem(): pthread_create");
 
+	lora.init(2);
+	
 	// this pointer for static member functions use -> timer handler
 	thisPtr = this;
 }
@@ -77,20 +80,26 @@ CLocalSystem::~CLocalSystem()
 
 void CLocalSystem::timLampOnISR()
 {
-	DEBUG_MSG("[CLS::timLampOnISR] Lamp at minimum bright");
+	stringstream debug_msg;
+	debug_msg << "[CLS::timLampOnISR] Sending (LAMP;MIN)";
+	DEBUG_MSG(debug_msg.str().c_str());
+
 	// turn off lamp
 	lamp.setBrightness(MIN_BRIGHT_PWM);
+
+	if(IDReceived)
+		lora.push("LAMP;MIN");
 }
 
 void CLocalSystem::timCamFrameISR()
 {
-	DEBUG_MSG("[CLS::timCamFrameISR] Signal tParkDetection");
+	// DEBUG_MSG("[CLS::timCamFrameISR] Signal tParkDetection");
 	pthread_cond_signal(&condCamFrame);
 }
 
 void CLocalSystem::timCamProcISR()
 {
-	DEBUG_MSG("[CLS::timCamProcISR] Camera processing taking too much time");
+	// DEBUG_MSG("[CLS::timCamProcISR] Camera processing taking too much time");
 }
 
 void CLocalSystem::timHandler(union sigval arg)
@@ -99,7 +108,7 @@ void CLocalSystem::timHandler(union sigval arg)
 		panic("CLS::timHandler(): thisPtr not defined");
 
 	int id = arg.sival_int;
-	DEBUG_MSG("[CLS::timHandler] handling timer[" << id << "] timeout...");
+	// DEBUG_MSG("[CLS::timHandler] handling timer[" << id << "] timeout...");
 
 	// cannot do switch statement since tim*.id is not a compile time constant
 	if(id == thisPtr->timCamFrame.id)
@@ -116,30 +125,34 @@ void CLocalSystem::timHandler(union sigval arg)
 	}
 	else
 	{
-		ERROR_MSG("[CLS::timHandler] unexpected timer event");
+		ERROR_MSG("ERROR> [CLS::timHandler] unexpected timer event");
 	}
 }
 
+#include <bcm2835.h> // delay
 void CLocalSystem::run()
 {
 	// start camera frame timer
 	timCamFrame.start();
 
-	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>> set prio
-	lora.init(2);
-
 	// set signal handler for dSensors signal
-	signal(SIGUSR1, sigHandler);
+	signal(SIG_dSENSORS, sigHandler);
 	signal(SIGINT, sigHandler);
+
+	// join lora threads
+	lora.run(RUN_NONBLOCK);
 
 	// send CRQ - connection request to the remote system. Awaits its response,
 	// giving this local system a "virtual address" to be used in all comms.
-	lora.push("CRQ");
-	// wait for <id> command using tLoraRecv thread
-	// this ID will be used in every communication from that moment on
-
-	// join lora threads
-	lora.run();
+	do
+	{
+		lora.send("CRQ");
+		// wait for <id> command using tLoraRecv thread
+		// this ID will be used in every communication from that moment o
+		bcm2835_delay(2000);
+		// try again if ID was not received
+	}
+	while(IDReceived == false);
 
 	pthread_join(tLoraRecv_id, NULL);
 	pthread_join(tRecvSensors_id, NULL);
@@ -148,15 +161,19 @@ void CLocalSystem::run()
 
 void CLocalSystem::sigHandler(int sig)
 {
+	stringstream debug_msg;
 	switch(sig)
 	{
-		case SIGUSR1:
-			DEBUG_MSG("[CLS::sigHandler] caught SIGUSR1");
+		case SIG_dSENSORS:
+			// DEBUG_MSG("[CLS::sigHandler] caught SIG_dSENSORS");
 			pthread_cond_signal(&thisPtr->condRecvSensors);
 			break;
 
 		case SIGINT:
-			DEBUG_MSG("[CLS::sigHandler] caught SIGINT");
+			debug_msg.str("");
+			debug_msg << "[CLS::sigHandler] caught SIGINT";
+			DEBUG_MSG(debug_msg.str().c_str());
+
 			// closing the queue
     		mq_close(thisPtr->msgqSensors);
 
@@ -164,15 +181,21 @@ void CLocalSystem::sigHandler(int sig)
 		    if (mq_unlink(MSGQ_NAME) == -1)
 	   			panic("Removing queue error");
     		
-    		DEBUG_MSG("[CLS::sigHandler] closing...");
+    		debug_msg.str("");
+			debug_msg << "[CLS::sigHandler] closing...";
+			DEBUG_MSG(debug_msg.str().c_str());
+
 			exit(0);
 		default:
-			ERROR_MSG("[CLS::sigHandler] caught unexpected signal");
+			debug_msg.str("");
+			debug_msg << "[CLS::sigHandler] caught unexpected signal";
+			DEBUG_MSG(debug_msg.str().c_str());
 	}
 }
 
 int CLocalSystem::idCb(int argc, char *argv[])
 {
+
 	if(argc != 2)
 	{
 		DEBUG_MSG("[CLS::idCb] Usage: ID;<id>");
@@ -183,7 +206,11 @@ int CLocalSystem::idCb(int argc, char *argv[])
  	
  	thisPtr->lora.setSrcAddr(id);
  	IDReceived = true;
- 	DEBUG_MSG("[CLS::idCb] Lamppost ID as " << id);
+
+ 	stringstream debug_msg;
+	debug_msg << "[CLS::idCb] Lamppost ID = " << id;
+	DEBUG_MSG(debug_msg.str().c_str());
+
 	return 0;
 }
 
@@ -197,7 +224,10 @@ int CLocalSystem::lampCb(int argc, char *argv[])
 
 	// make sure that argv[1], that is, the lamp state, is valid
 	parseSensorsCmd(argv[1]);
-	DEBUG_MSG("[CLS::lampCb] Lamp state set at " << argv[1]);
+
+	stringstream debug_msg;
+	debug_msg << "[CLS::lampCb] Lamp state set at " << argv[1];
+	DEBUG_MSG(debug_msg.str().c_str());
 	return 0;
 }
 
@@ -215,8 +245,12 @@ void *CLocalSystem::tLoraRecv(void *arg)
 		if(err == LoRaError::MSGOK)
 		{
 			c->loraParser.parse(msg.c_str());
-			cout << "Received[" << msg << "]" << endl;
+
+			stringstream debug_msg;
+			debug_msg << "[CLS::tLoraRecv] Received[" << msg << "]";
+			DEBUG_MSG(debug_msg.str().c_str());
 		}
+
 	}
 
 	DEBUG_MSG("[CLS::tLoraRecv] exiting thread");
@@ -235,28 +269,48 @@ void *CLocalSystem::tRecvSensors(void *arg)
 
 	// send PID to dSensors
 	string pid_str = to_string(getpid());
-	DEBUG_MSG("[CLS::tRecvSensors] Sending PID[" << pid_str << "]");
-	if(mq_send(c->msgqSensors, pid_str.c_str(), pid_str.length(), 1) != 0)
-		panic("In mq_send()");
+
+	stringstream debug_msg;
+	debug_msg << "[CLS::tRecvSensors] Sending PID[" << pid_str << "]";
+	DEBUG_MSG(debug_msg.str().c_str());
+	
+	do
+	{
+		err = mq_send(c->msgqSensors, pid_str.c_str(), pid_str.length()+1, 1);
+		if(err == -1)
+		{
+			err = errno;
+			if(err != EAGAIN)
+				panic("In mq_send()");
+		}
+	} while(err == EAGAIN);
+	
 
 	// make sure that mq_receive does not happen before dSensors read the msg
 	mq_attr msgqAttr;
    	// wait while there are messages in msgq
    	DEBUG_MSG("[CLS::tRecvSensors] Waiting for dSensors to read PID...");
+   	
    	do
    	{
-   		mq_getattr(c->msgqSensors, &msgqAttr);
+   		if( mq_getattr(c->msgqSensors, &msgqAttr) == -1)
+   			panic("In mq_getattr()");
    	}
    	while(msgqAttr.mq_curmsgs != 0);
+   	DEBUG_MSG("[CLS::tRecvSensors] PID was read.");
 
    	// clear message - avoid bad content
 	memset(msg, 0, sizeof(msg));
 
+	int ret;
+ 
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutRecvSensors);
 
-		if(mq_receive(c->msgqSensors, msg, MAX_MSG_LEN_R, NULL) == -1)
+		ret = mq_receive(c->msgqSensors, msg, MAX_MSG_LEN_R, NULL);
+
+		if(ret == -1)
 		{ 
 			// get error from errno
 			err = errno;
@@ -266,15 +320,16 @@ void *CLocalSystem::tRecvSensors(void *arg)
 				panic("In mq_receive()");
 
 			// else, message queue is empty
-			DEBUG_MSG("[CLS::tRecvSensors] Waiting for condRecvSensors...");
+			// DEBUG_MSG("[CLS::tRecvSensors] Waiting for condRecvSensors...");
 			pthread_cond_wait(&c->condRecvSensors, &c->mutRecvSensors);
-			DEBUG_MSG("[CLS::tRecvSensors] Im awake!");
+			// DEBUG_MSG("[CLS::tRecvSensors] Im awake!");
 			pthread_mutex_unlock(&c->mutRecvSensors);
 		}
 		else
 		{
 			// else, messages to read from dSensors
-			DEBUG_MSG("[CLS::tRecvSensors] received cmd[" << string(msg) << "]");
+			// DEBUG_MSG("[CLS::tRecvSensors] received cmd[" << string(msg) << "]");
+			msg[ret] = '\0';
 
 			int err = parseSensorsCmd(msg);
 			if((err == 0) && IDReceived)
@@ -284,11 +339,10 @@ void *CLocalSystem::tRecvSensors(void *arg)
 				string loraMsg = "LAMP;" + string(msg);
 				c->lora.push(loraMsg);
 
-				DEBUG_MSG("[CLS::tRecvSensors] Sending (" << loraMsg << ")");
+				debug_msg.str("");
+				debug_msg << "[CLS::tRecvSensors] Sending (" << loraMsg << ")";
+				DEBUG_MSG(debug_msg.str().c_str());
 			}
-
-			// clear message
-			memset(msg, 0, sizeof(msg));
 			
 			pthread_mutex_unlock(&c->mutRecvSensors);
 		}
@@ -307,27 +361,29 @@ void *CLocalSystem::tParkDetection(void *arg)
 
 	pthread_mutex_lock(&c->mutCamFrame);
 	// capture frame
-	// camera.capture();
+	c->camera.captureFrame();
 	pthread_mutex_unlock(&c->mutCamFrame);
 
 	// get parking outline from captured frame
-	// park.getOutline(frame);
+	c->park.getOutline();
 
 	while(c)
 	{
 		pthread_mutex_lock(&c->mutCamFrame);
-		DEBUG_MSG("[CLS::tParkDetection] Waiting for condCamFrame...");
+		// DEBUG_MSG("[CLS::tParkDetection] Waiting for condCamFrame...");
 		pthread_cond_wait(&c->condCamFrame, &c->mutCamFrame);
-		DEBUG_MSG("[CLS::tParkDetection] Im awake!");
+		// DEBUG_MSG("[CLS::tParkDetection] Im awake!");
 		
-		// camera.capture();
+		c->camera.captureFrame();
 		pthread_mutex_unlock(&c->mutCamFrame);
 
 		// start camera processing timer
 		// used to detect if processing is taking too much time
-		c->timCamProc.start();
+		// c->timCamProc.start();
+
 		// get vacants number
-		// vacantsNum = c->park.getVacants(frame);
+		vacantsNum = c->park.calcVacants();
+		// DEBUG_MSG("[CLS::tParkDetection] vacantsNum: " << vacantsNum);
 
 		// new number of vacants?
 		if(vacantsNum != oldVacantsNum)
@@ -336,14 +392,18 @@ void *CLocalSystem::tParkDetection(void *arg)
 			if(IDReceived)
 			{
 				// send update info to remote system
-				string loraMsg = "PARK;" + vacantsNum;
+				string loraMsg = "PARK;" + to_string(vacantsNum);
 				c->lora.push(loraMsg);
+
+				stringstream debug_msg;
+				debug_msg << "[CLS::tParkDetection] Sending (" << loraMsg << ")";
+				DEBUG_MSG(debug_msg.str().c_str());
 			}
 			oldVacantsNum = vacantsNum;
 		}
 
 		// stop camera processing timer
-		c->timCamProc.stop();
+		// c->timCamProc.stop();
 	}
 	
 	return NULL;
@@ -354,21 +414,30 @@ void CLocalSystem::lampOnCb(uint8_t pwm)
 	lampAllCb(pwm);
 	// start timeout
 	thisPtr->timLampOn.start();	
-	DEBUG_MSG("[CLS::lampOnCb] Lamp set PWM(" << (int)pwm << ")");
+	// DEBUG_MSG("[CLS::lampOnCb] Lamp set PWM(" << (int)pwm << ")");
+}
+
+void CLocalSystem::lampOffCb(uint8_t pwm)
+{
+	//setBrightness(pwm)
+	lampAllCb(pwm);
+
+	// stop timer
+	thisPtr->timLampOn.stop();
 }
 
 void CLocalSystem::lampAllCb(uint8_t pwm)
 {
 	thisPtr->lamp.setBrightness(pwm);
-	DEBUG_MSG("[CLS::lampAllCb] Lamp set PWM(" << (int)pwm << ")");
+	// DEBUG_MSG("[CLS::lampAllCb] Lamp set PWM(" << (int)pwm << ")");
 }
 
 cmdSensors_t CLocalSystem::cmdSensorsList[] = 
 {
 	{"ON"	,PWM_MAX, lampOnCb},
-	{"OFF"	,PWM_OFF, lampAllCb},
+	{"OFF"	,PWM_OFF, lampOffCb},
 	{"MIN"	,MIN_BRIGHT_PWM, lampAllCb},
-	{"FAIL"	,PWM_OFF, lampAllCb},
+	{"FAIL"	,PWM_OFF, lampOffCb},
 	{0,0,0}
 };
 
@@ -385,7 +454,7 @@ int CLocalSystem::parseSensorsCmd(char *str)
 
 	if((p->cmd) == 0)
 	{
-		ERROR_MSG("[parseSensorsCmd] Received unexpected command");
+		ERROR_MSG("ERROR> [parseSensorsCmd] Received unexpected command");
 		return -1;
 	}
 

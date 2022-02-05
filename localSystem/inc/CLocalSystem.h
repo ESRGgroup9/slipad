@@ -3,8 +3,8 @@
 
 #include "CLamp.h"
 #include "CLoraComm.h"
-// #include "CCamera.h"
-// #include "CParkDetection.h"
+#include "CCamera.h"
+#include "CParkDetection.h"
 #include "timer.h"
 #include "parser.h"
 
@@ -38,6 +38,7 @@ private:
 	
 	static int parseSensorsCmd(char *str);
 	static void lampOnCb(uint8_t pwm);
+	static void lampOffCb(uint8_t pwm);
 	static void lampAllCb(uint8_t pwm);
 
 	static void sigHandler(int sig);
@@ -50,8 +51,8 @@ private:
 private:
 	CLamp lamp;
 	CLoraComm lora;
-	// CCamera camera;
-	// CParkDetection park;
+	CCamera camera;
+	CParkDetection park;
 
 	pthread_t tLoraRecv_id;
 	pthread_t tRecvSensors_id;

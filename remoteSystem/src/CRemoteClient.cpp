@@ -27,7 +27,7 @@ void CRemoteClient::init(int recvPrio, int sendPrio)
 {
 	// >>>>>>>>>>>>>>>>>>>>>>>> set recvPrio
 	if(pthread_create(&tRecv_id, NULL, tRecv, this) != 0)
-		panic("CRemoteClient::initThFunc(): pthread_create");
+		panic("CRemoteClient::init(): pthread_create");
 
 	tcp.init(sendPrio);
 }
@@ -36,10 +36,10 @@ void CRemoteClient::run()
 {
 	// detach from tRecv
 	pthread_detach(tRecv_id);
-	// detach from CTCPcomm threads
-	tcp.run(RUN_NONBLOCK);
 	// update client state
 	info.state = ConnStatus::ONLINE;
+	// detach from CTCPcomm threads
+	tcp.run(RUN_NONBLOCK);
 }
 
 void *CRemoteClient::tRecv(void *arg)
@@ -48,42 +48,44 @@ void *CRemoteClient::tRecv(void *arg)
 	CRemoteClient *c = reinterpret_cast<CRemoteClient*>(arg);
 	string msg;
 	int ret = 0;
-	
-	while(c)
+	int err = 0;
+
+	do
 	{
 		ret = c->tcp.recv(msg);
 
-		if(ret == 0)
+		if(ret == -1)
 		{
-			// client has closed the connection
-			DEBUG_MSG("[CRemoteClient::tRecv] Stream socket peer[" << c->info.sockfd << "] has performed an orderly shutdown");
-			c->info.state = ConnStatus::CLOSED;
-			break;
-		}
+			err = errno;
 
-		if(ret > 0)
+			// non blocking operation?
+			if(err != EAGAIN)
+			{
+				// unexpected error
+				ERROR_MSG("[CRemoteClient::tRecv] " << string(strerror(err)));
+			}
+		}
+		else if(ret > 0)
 		{
-			DEBUG_MSG("[CRemoteClient::tRecv] Received[" << msg << "] from sockfd[" << c->info.sockfd << "]");
+			// DEBUG_MSG("[CRemoteClient("<< c->info.sockfd << ")::tRecv] Received[" << msg << "]");
 			// make sure that the client has already identified himself
 			if(c->info.type == ClientType::UNDEF)
 			{
-				DEBUG_MSG("[CRemoteClient::tRecv] Client[" << c->info.sockfd << "] hasn't defined its type yet");
+				DEBUG_MSG("[CRemoteClient("<< c->info.sockfd << ")::tRecv] Client type is not defined");
 				continue;
 			}
  
 			// parse received string
-			int err = c->cmdParser.parse(msg.c_str());
-			if(err == 0)
+			err = c->cmdParser.parse(msg.c_str());
+			if(err != 0)
 			{
-				// c->tcp.push(msg);
-			}
-			else
-			{
-				DEBUG_MSG("[CRemoteClient::tRecv] Parse returned[" << err << "]");
+				DEBUG_MSG("[CRemoteClient("<< c->info.sockfd << ")::tRecv] Parsing [" << msg << "] - error["<< err << "]");
 			}
 		}
 	}
+	while(ret != 0);
 
-	// DEBUG_MSG("[CRemoteClient::tRecv] Client[" << c->info.sockfd << "] tRecv exit");
+	DEBUG_MSG("[CRemoteClient("<< c->info.sockfd << ")::tRecv] Connection closed");
+	c->info.state = ConnStatus::CLOSED;
 	return NULL;
 }

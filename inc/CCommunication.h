@@ -24,9 +24,11 @@ enum class ConnStatus
 
 // Define CCommunication::run as blocking - waits for threads termination
 #define RUN_BLOCK 		(bool)(false)
-// Define CCommunication::run as non-blocking - detachs from threads
+// Define CCommunication::run as non-blocking - detaches from threads
 #define RUN_NONBLOCK	(bool)(true)
 
+// Define CCommunication::push to insert at the top of the queue
+#define PUSH_FRONT      (bool)(true)
 
 class CCommunication
 {
@@ -101,21 +103,24 @@ protected:
  * This thread is usually in sleep, being awaken by 'push' when one wants to
  * send a message.
  */
-	static void *tSend(void *arg);		
-	ConnStatus status;
+	static void *tSend(void *arg);
 
 	// pure virtual methods
 	virtual int recvFunc(std::string &msg) = 0;
 	virtual int sendFunc(std::string msg) = 0;
 
+protected:
+    pthread_cond_t condtSend;
+    ConnStatus status;
+
 private:
 	// list of strings to be sent
-	std::queue<std::string> TxMsgs;
+	// std::queue<std::string> TxMsgs;
+    std::queue<std::string> TxMsgs;
 
 	pthread_t tSend_id;
 	pthread_mutex_t mutComms;
 	pthread_mutex_t mutTxMsgs;
-	pthread_cond_t condtSend;
 };
 // End CCommunication class definition
 

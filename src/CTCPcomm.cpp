@@ -8,7 +8,7 @@ using namespace std;
 CTCPComm::CTCPComm(int sd)
 {
 	// initialize as non valid file descriptor
-	this->sockfd = sd;
+	setSockfd(sd);
 	
 	// set status
 	this->status = ConnStatus::ONLINE;
@@ -25,23 +25,19 @@ int CTCPComm::recvFunc(std::string &msg)
 	char buffer[256];
 
 	// recv message from server
-	ret = ::recv(sockfd, buffer, sizeof(buffer), 0);
-	if(ret == -1)
-	{
-		ERROR_MSG("[CTCPComm::recvFunc] return -1: " << string(strerror(errno)));
-	}
-	else if(ret == 0)
-	{
-		// DEBUG_MSG("[CTCPComm::recvFunc] return 0: Stream socket peer has performed an orderly shutdown");
-	}
-	// else, return the number of bytes read
-	else if(ret > 0)
+	ret = ::recv(sockfd, buffer, sizeof(buffer), MSG_DONTWAIT);
+	if(ret > 0)
 	{
 		// place null character at end of string
 		buffer[ret] = '\0';
 		// copy received message to msg
 		msg = string(buffer);
-		// DEBUG_MSG("[CTCPComm::recvFunc] return " << ret << ": Received [" << msg << "]");
+	}
+	else if(ret == 0)
+	{
+		CCommunication::status = ConnStatus::CLOSED;
+		// signal tSend in order to exit the thread
+		pthread_cond_signal(&this->condtSend);
 	}
 
 	return ret;
@@ -51,12 +47,15 @@ int CTCPComm::sendFunc(std::string msg)
 {
 	int err = 0;
 
+	// DEBUG_MSG("[CTCPComm::sendFunc] Sending "<< msg << " to sd:" << sockfd << "...");
+
 	// send message to server
-	err = ::send(sockfd, msg.c_str(), msg.size(), 0);
+	// err = ::send(sockfd, msg.c_str(), msg.size(), MSG_DONTWAIT);
+	err = ::send(sockfd, msg.c_str(), msg.length()+1, MSG_DONTWAIT);
 	if(err == -1)
 	{
 		err = errno;
-		ERROR_MSG("[CTCPComm::sendFunc] return -1: " << string(strerror(errno)));
+		ERROR_MSG("[CTCPComm::sendFunc] " << string(strerror(err)));
 	}
 	// else, return the number of bytes sent
 	return err;

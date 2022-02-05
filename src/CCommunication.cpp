@@ -57,9 +57,10 @@ int CCommunication::send(string msg)
 	int ret = 0;
 
 	pthread_mutex_lock(&mutComms);
+	DEBUG_MSG("[CComms::send] Sending "<< msg << " ...");
 	ret = sendFunc(msg);
 	pthread_mutex_unlock(&mutComms);
-	
+
 	return ret;
 }
 
@@ -70,9 +71,50 @@ int CCommunication::recv(string &msg)
 	pthread_mutex_lock(&mutComms);
 	err = recvFunc(msg);
 	pthread_mutex_unlock(&mutComms);
-	
+
 	return err;
 }
+
+// void *CCommunication::tSend(void *arg)
+// {
+// 	// get CCommunication instance
+// 	CCommunication *ccomm = reinterpret_cast<CCommunication*>(arg);
+// 	string msg;
+
+// 	do
+// 	{
+// 		pthread_mutex_lock(&ccomm->mutTxMsgs);
+
+// 		// is there any message queued to send?
+// 		if(ccomm->TxMsgs.empty())
+// 		{
+// 			// no messages to send. wait for condtSend
+// 			DEBUG_MSG("[CComms::tSend] Waiting for condtSend...");
+// 			pthread_cond_wait(&ccomm->condtSend, &ccomm->mutTxMsgs);
+
+// 			if(ccomm->status == ConnStatus::CLOSED)
+// 				break;
+			
+// 			DEBUG_MSG("[CComms::tSend] Im awake!");
+// 		}
+
+// 		// pop msg from queue
+// 		msg = ccomm->TxMsgs.front();
+// 		// Removes the next element in the queue, reducing its size by one
+// 		ccomm->TxMsgs.pop();
+// 		// ccomm->TxMsgs.pop_front();
+// 		pthread_mutex_unlock(&ccomm->mutTxMsgs);
+		
+// 		DEBUG_MSG("[CComms::tSend] Popped(" << msg << ") - " << ccomm->TxMsgs.size() << " msgs queued");
+// 		// send message
+// 		ccomm->send(msg);
+// 		DEBUG_MSG("[CComms::tSend] Sent(" << msg << ")");
+// 		msg.clear();
+// 	}
+// 	while(ccomm->status != ConnStatus::CLOSED);
+
+// 	return NULL;
+// }
 
 void *CCommunication::tSend(void *arg)
 {
@@ -80,9 +122,7 @@ void *CCommunication::tSend(void *arg)
 	CCommunication *ccomm = reinterpret_cast<CCommunication*>(arg);
 	string msg;
 
-	DEBUG_MSG("[CComms::tSend] entering thread");
-
-	while(ccomm)
+	do
 	{
 		pthread_mutex_lock(&ccomm->mutTxMsgs);
 
@@ -92,6 +132,10 @@ void *CCommunication::tSend(void *arg)
 			// no messages to send. wait for condtSend
 			DEBUG_MSG("[CComms::tSend] Waiting for condtSend...");
 			pthread_cond_wait(&ccomm->condtSend, &ccomm->mutTxMsgs);
+
+			if(ccomm->status == ConnStatus::CLOSED)
+				break;
+			
 			DEBUG_MSG("[CComms::tSend] Im awake!");
 		}
 
@@ -99,14 +143,26 @@ void *CCommunication::tSend(void *arg)
 		msg = ccomm->TxMsgs.front();
 		// Removes the next element in the queue, reducing its size by one
 		ccomm->TxMsgs.pop();
+		// ccomm->TxMsgs.pop_front();
 		pthread_mutex_unlock(&ccomm->mutTxMsgs);
 		
-		DEBUG_MSG("[CComms::tSend] Popped(" << msg << ") - [" << ccomm->TxMsgs.size() << "] msgs queued");
-		// send message
-		ccomm->send(msg);
+		DEBUG_MSG("[CComms::tSend] Popped(" << msg << ") - " << ccomm->TxMsgs.size() << " msgs queued");
+
+		// send message		
+		int ret = -1;
+		int err =  EAGAIN;
+		do
+		{
+			ret = ccomm->send(msg);
+			err = errno;
+		}
+		// wait for non blocking operation
+		while((ret == -1) && (err == EAGAIN));
+
 		DEBUG_MSG("[CComms::tSend] Sent(" << msg << ")");
 		msg.clear();
 	}
+	while(ccomm->status != ConnStatus::CLOSED);
 
 	return NULL;
 }

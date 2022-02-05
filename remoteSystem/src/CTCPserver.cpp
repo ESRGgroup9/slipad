@@ -20,6 +20,10 @@ CTCPserver::CTCPserver(int port)
 		// socket file descriptor not created
 		panic("socket");
 
+	int enable = 1;
+	if (setsockopt(listenSd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
+   		panic("setsockopt(SO_REUSEADDR) failed");
+
 	// bind port/addr to socket 
 	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
@@ -58,7 +62,7 @@ int CTCPserver::accept()
 	{
 		// new client connected
 		numClients++;
-		DEBUG_MSG("[CTCPserver::accept] Client on sockfd["<< sd << "] connected (slot "<< numClients << "/" << maxNumClients << ")");
+		DEBUG_MSG("[CTCPserver::accept] Client on sockfd["<< sd << "] trying to connect (slot "<< numClients << "/" << maxNumClients << ")");
 	}
 	else
 	{

@@ -10,8 +10,8 @@ export KDIR :=$(BLDROOT_OUT)/build/linux-custom/
 
 # host/ contains the tools built for the host
 # export CROSS_COMPILE:=$(BLDROOT_OUT)/host/bin/arm-buildroot-linux-gnueabihf-
-export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
-# export CROSS_COMPILE:=arm-linux-
+# export CROSS_COMPILE:=arm-buildroot-linux-gnueabihf-
+export CROSS_COMPILE:=arm-linux-
 
 # compiler in use
 export COMPILE=g++
@@ -22,7 +22,7 @@ export IP=10.42.0.254
 # Destination user
 export USR=root
 # Destination directory in IP connection
-export DIR=/etc
+export DIR=/etc/slipad
 #------------------------------------------------------------------------------
 # Project directory
 export PROJ_DIR=$(shell pwd)
@@ -33,7 +33,6 @@ export INC_PROJ_DIR=$(PROJ_DIR)/inc
 #------------------------------------------------------------------------------
 SRC_DIR=$(SRC_PROJ_DIR)
 INC_DIR=$(INC_PROJ_DIR)
-# BLD_DIR=$(PROJ_DIR)/build
 
 BLD_ARM_DIR=$(PROJ_DIR)/build_arm
 BLD_x86_DIR=$(PROJ_DIR)/build_x86
@@ -52,14 +51,14 @@ GAT_DIR=gateway
 DDR_DIR=ddrivers
 #------------------------------------------------------------------------------
 # Identify the subdirectories in order to execute its makefiles
-SUBDIRS=$(LS_DIR) $(GAT_DIR) $(RS_DIR)#$(DDR_DIR)
+SUBDIRS=$(LS_DIR) $(GAT_DIR) $(RS_DIR) $(DDR_DIR)
 # Doxygen configuration file
 DOXYFILE=$(DOX_DIR)/Doxyfile
 #------------------------------------------------------------------------------
 CXX 	=$(CROSS_COMPILE)$(COMPILE)
 LIBS	=-lpthread -lbcm2835 -lrt
 
-export DEBUG	=-D DEBUG #-g
+export DEBUG	=#-D DEBUG #-g
 export INCLDS	=-I $(INC_DIR)
 CXXFLAGS		=$(INCLDS) -Wall $(LIBS) $(DEBUG)
 #------------------------------------------------------------------------------

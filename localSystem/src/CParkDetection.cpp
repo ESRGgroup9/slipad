@@ -6,6 +6,9 @@
 
 //debug
 #include <unistd.h>
+#include "utils.h"
+#include "defs.h"
+#include "debug.h"
 
 using namespace cv;
 using namespace std;
@@ -24,9 +27,17 @@ CParkDetection::~CParkDetection()
 
 }
 
-bool CParkDetection::getOutline(const Mat& frame)
+bool CParkDetection::getOutline(void)
 {
-    Mat gray0(frame.size(), CV_8U), gray;
+    Mat frame, gray;
+
+    frame = imread(IMAGE_PATH, IMREAD_COLOR);
+    if( frame.empty() )
+    {
+        panic("Couldn't load image");
+    }
+
+    Mat gray0(frame.size(), CV_8U);
 
     // Filter the noise
     Mat gaussian; 
@@ -41,6 +52,7 @@ bool CParkDetection::getOutline(const Mat& frame)
     for( int c = 0; c < 3; c++ )
     {
         int ch[] = {c, 0};
+
         mixChannels(&gaussian, 1, &gray0, 1, ch, 1);
         // try several threshold levels
         for( int l = 0; l < levels; l++ )
@@ -82,11 +94,19 @@ bool CParkDetection::getOutline(const Mat& frame)
 	return true;
 }
 
-int CParkDetection::calcVacants(const Mat& frame)
+int CParkDetection::calcVacants(void)
 {
+    Mat frame;
+
+    frame = imread(IMAGE_PATH, IMREAD_COLOR);
+    if( frame.empty() )
+    {
+        panic("Couldn't load image");
+    }
+
     // no parking spot detected
     if(!parkCoords.size())
-        getOutline(frame);
+        getOutline();
 
     // detect cars in the frame
 	vector<Rect> features = detectCars(frame);
@@ -110,6 +130,8 @@ int CParkDetection::calcVacants(const Mat& frame)
             parkStatus[pos] = 0;
         }
     }
+
+    writeParks(frame);
    
 	// return number of free parking spots
 	return vacantsNum;
@@ -126,7 +148,10 @@ vector<Rect> CParkDetection::detectCars(const Mat& frame)
     cvtColor(frame, gray, COLOR_BGR2GRAY);
 
     // Load a classifier from its XML description
-    CascadeClassifier classifier("../haar_cars1.xml");
+    CascadeClassifier classifier("/etc/slipad/haar_cars1.xml");
+
+    if( classifier.empty() )
+        DEBUG_MSG("Classifier not loaded.\n");
 
     Mat gaussian;
     // blur the image
@@ -168,7 +193,7 @@ void CParkDetection::addPark( vector<Point>& contour )
     // be convex
     if( (approx.size() == 4) &&
         (fabs(contourArea(approx)) > 3000) &&
-        (fabs(contourArea(approx)) < 50000) &&
+        (fabs(contourArea(approx)) < 20000) &&
         isContourConvex(approx) )
     {
         double maxCosine = 0;
@@ -199,8 +224,8 @@ int CParkDetection::isOverlapp(vector<Point>& approx)
         Point parkCoordsCenter = findCenter(parkCoords[i]);
 
         // centers are overlapped? Distance between centers inferior to 30
-        if( fabs(parkCoordsCenter.x - (approxCenter.x)) < 30 &&
-            fabs(parkCoordsCenter.y - (approxCenter.y)) < 30 )   
+        if( fabs(parkCoordsCenter.x - (approxCenter.x)) < 50 &&
+            fabs(parkCoordsCenter.y - (approxCenter.y)) < 50 )   
             return i;
     }
 
@@ -262,6 +287,6 @@ void CParkDetection::writeParks(Mat& frame)
             polylines(frame, parkCoords[i], true, Scalar(0, 0, 255), 1, LINE_AA);
     }
     
-    imwrite("image.jpg", frame);
-    system("scp image.jpg fernandes@10.42.0.1:/home/fernandes/code/slipad/opencv");
+    imwrite(IMAGE_PATH, frame);
+    //system("scp image.jpg fernandes@10.42.0.1:/home/fernandes/code/slipad/opencv");
 }

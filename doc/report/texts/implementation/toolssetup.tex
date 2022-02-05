@@ -1,5 +1,6 @@
 Before doing the system configuration it is necessary to first setup all of the used tools, as will be next presented.
 
+%**********************************************************
 \subsection{Git}
 In order to make collaboration easier, allowing change by multiple people to all be merged into one source, Git will be used. Git is the most commonly used version control system. Before using it, it is necessary to do the correct setup as shown bellow.
 \begin{lstlisting}
@@ -13,6 +14,7 @@ $ git clone git@github.com:ESRGgroup9/slipad.git
 
 With this steps, Git is installed in a local machine, username and user email is defined alongside with the default core editor. After this, one can clone the repository for this project, created in GitHub.
 
+%**********************************************************
 \subsection{Buildroot}
 Buildroot is a simple, efficient and easy-to-use tool used to generate this project's embedded Linux system, through cross-compilation. The steps in order to install Buildroot in a local machine is shown bellow.
 
@@ -43,11 +45,22 @@ The first command is used to configure a kernel image for the Raspberry Pi 4, as
 	\label{fig:menuconfig}
 \end{figure}
 
+%**********************************************************
 \subsection{Qt}
 
+%**********************************************************
 \subsection{MySQL}
+In order to have a fully managed database service to deploy cloud-native applications as MySQL, one has to firstly install it properly, as shown bellow.
 
+\begin{lstlisting}
+$ sudo apt-get install libmysqlclient-dev
+\end{lstlisting}
 
-
+After first run of \verb|mysql|, on can create insert Slipad's database and populate it, by typing the following commands.
+\begin{lstlisting}
+$ mysql -u root -p
+mysql> source ~/slipad/database/slipad.sql
+mysql> source ~/slipad/database/slipadPop.sql
+\end{lstlisting}
 
 

@@ -1,6 +1,8 @@
 #include "repairLamp.h"
 #include "ui_repairLamp.h"
 
+#include "comms.h"
+
 #include <QString>
 #include <QDebug>
 #include <QMessageBox>
@@ -10,18 +12,6 @@ repairLamp::repairLamp(QWidget *parent)
     , ui(new Ui::repairLamp)
 {
     ui->setupUi(this);
-
-    // set up GPS
-    source = QGeoPositionInfoSource::createDefaultSource(this);
-    if ( source )
-    {
-        // conect to GPS
-        connect(source, SIGNAL(positionUpdated(QGeoPositionInfo)),
-                this, SLOT(positionUpdated(QGeoPositionInfo)));
-
-        // start updating localization
-        source->startUpdates();
-    }
 }
 
 repairLamp::~repairLamp()
@@ -31,21 +21,36 @@ repairLamp::~repairLamp()
 
 void repairLamp::on_selectLamp_b_released()
 {
-    QString street = ui->street->text();
-    QString postCode = ui->postCode->text();
-    QString id = ui->id->text();
+    QString address = ui->address->text();
 
-    ui->street->clear();
-    ui->postCode->clear();
-    ui->id->clear();
+    ui->address->clear();
 
-    if( !street.size() && !postCode.size() && !id.size()  )
+    if( !address.size() )
     {
-        QMessageBox::warning(this,"Add Lamppost", "Empty fields: All fields required!");
+        QMessageBox::warning(this,"Repair Lamppost", "Provide an address!");
         return;
     }
 
+    // SEARCH ID IN DATABASE
+    //Usage: REP;<lamppost_address>
+    QString msg = address;
 
+    // add to database
+    int err = execCmd("REP;", msg);
+    if(err == EXEC_OK)
+    {
+        QMessageBox::warning(this,"Repair Lamppost", "Lamppost status updated!");
+        // success login
+        this->deleteLater();
+    }
+    else if(err == EXEC_FAIL)
+    {
+        QMessageBox::warning(this,"Repair Lamppost", "Address not found!");
+        return;
+    }
+    else
+        QMessageBox::critical(this, "Info", "Failed: Check your connection!");
+    return;
 }
 
 void repairLamp::on_back_b_released()

@@ -1,9 +1,13 @@
 #include "addLamp.h"
 #include "ui_addLamp.h"
 
+#include "comms.h"
+
 #include <QString>
 #include <QDebug>
 #include <QMessageBox>
+
+extern QString op_id;
 
 addLamp::addLamp(QWidget *parent)
     : QMainWindow(parent)
@@ -36,15 +40,18 @@ void addLamp::on_addLamp_b_released()
     QString parish = ui->parish->text();
     QString county = ui->county->text();
     QString district = ui->district->text();
+    QString address = ui->id->text();
 
     ui->street->clear();
     ui->postCode->clear();
     ui->parish->clear();
     ui->county->clear();
     ui->district->clear();
+    ui->id->clear();
 
-    if( !street.size() && !postCode.size() &&
-        !parish.size() && !county.size() && !district.size() )
+    if( !street.size() || !postCode.size() ||
+        !parish.size() || !county.size() ||
+        !district.size() || !address.size() )
     {
         QMessageBox::warning(this,"Add Lamppost", "Empty fields: All fields required!");
         return;
@@ -57,15 +64,30 @@ void addLamp::on_addLamp_b_released()
     double longitude = coords.longitude();
     double latitude = coords.latitude();
 
+    //qDebug() << "longitude: " << QVariant {latitude}.toString() << " latitude: " << QVariant {longitude}.toString();
+
     if( (longitude != 0) && (latitude != 0) )
     {
         // stop updating coordinates
         source->stopUpdates();
 
-        // ADD LAMPPOST TO DATABASE
-        qDebug() << "Position (" << latitude << "," << longitude<< ")";
-        //this->hide();
-        this->deleteLater();
+        // ADD;<operator_id>;<addr>;<street_name>;<post_code>;<parish>;<county>;<district>;<latitude>;<longitude>
+        QString msg = op_id + ";" + address + ";" + street + ";" + postCode + ";" + parish + ";" + county + ";"
+                + district + ";" + QVariant {latitude}.toString() + ";" + QVariant {longitude}.toString();
+
+        // add to database
+        int err = execCmd("ADD;", msg);
+        if(err == EXEC_OK)
+            // success login
+            this->deleteLater();
+
+        else if(err == EXEC_FAIL)
+        {
+            QMessageBox::warning(this,"Add Lamppost", "Lamppost already defined in database!");
+            return;
+        }
+        else
+            QMessageBox::critical(this, "Info", "Failed: Check your connection!");
     }
 }
 

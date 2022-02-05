@@ -1,0 +1,250 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="org.qtproject.example.slipad"
+4    android:installLocation="auto"
+5    android:versionCode="1"
+6    android:versionName="1.0" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="21"
+9-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml
+10        android:targetSdkVersion="28" />
+10-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml
+11    <!--
+12         The following comment will be replaced upon deployment with default permissions based on the dependencies of the application.
+13         Remove the comment if you do not require these default permissions.
+14    -->
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:5:5-79
+15-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:5:22-76
+16    <uses-permission android:name="android.permission.INTERNET" />
+16-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:6:5-67
+16-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:6:22-64
+17    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+17-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:7:5-81
+17-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:7:22-78
+18    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+18-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:8:5-79
+18-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:8:22-76
+19
+20    <!--
+21         The following comment will be replaced upon deployment with default features based on the dependencies of the application.
+22         Remove the comment if you do not require these default features.
+23    -->
+24    <uses-feature
+24-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:12:5-91
+25        android:name="android.hardware.location.gps"
+25-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:12:19-63
+26        android:required="false" />
+26-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:12:64-88
+27
+28    <supports-screens
+28-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:14:5-135
+29        android:anyDensity="true"
+29-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:14:80-105
+30        android:largeScreens="true"
+30-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:14:23-50
+31        android:normalScreens="true"
+31-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:14:51-79
+32        android:smallScreens="true" />
+32-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:14:106-133
+33
+34    <application
+34-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:15:5-85:19
+35        android:name="org.qtproject.qt5.android.bindings.QtApplication"
+35-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:15:53-116
+36        android:debuggable="true"
+37        android:extractNativeLibs="true"
+37-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:15:140-172
+38        android:hardwareAccelerated="true"
+38-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:15:18-52
+39        android:label="slipad" >
+39-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:15:117-139
+40        <activity
+40-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:16:9-81:16
+41            android:name="org.qtproject.qt5.android.bindings.QtActivity"
+41-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:16:189-249
+42            android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
+42-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:16:19-188
+43            android:label="slipad"
+43-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:16:250-272
+44            android:launchMode="singleTop"
+44-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:16:313-343
+45            android:screenOrientation="unspecified" >
+45-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:16:273-312
+46            <intent-filter>
+46-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:17:13-20:29
+47                <action android:name="android.intent.action.MAIN" />
+47-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:18:17-68
+47-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:18:25-66
+48
+49                <category android:name="android.intent.category.LAUNCHER" />
+49-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:19:17-76
+49-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:19:27-74
+50            </intent-filter>
+51
+52            <!-- Application arguments -->
+53            <!-- meta-data android:name="android.app.arguments" android:value="arg1 arg2 arg3"/ -->
+54            <!-- Application arguments -->
+55
+56            <meta-data
+56-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:26:13-84
+57                android:name="android.app.lib_name"
+57-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:26:24-59
+58                android:value="slipad" />
+58-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:26:60-82
+59            <meta-data
+59-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:27:13-112
+60                android:name="android.app.qt_sources_resource_id"
+60-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:27:24-73
+61                android:resource="@array/qt_sources" />
+61-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:27:74-110
+62            <meta-data
+62-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:28:13-87
+63                android:name="android.app.repository"
+63-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:28:24-61
+64                android:value="default" />
+64-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:28:62-85
+65            <meta-data
+65-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:29:13-106
+66                android:name="android.app.qt_libs_resource_id"
+66-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:29:24-70
+67                android:resource="@array/qt_libs" />
+67-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:29:71-104
+68            <meta-data
+68-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:30:13-116
+69                android:name="android.app.bundled_libs_resource_id"
+69-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:30:24-75
+70                android:resource="@array/bundled_libs" />
+70-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:30:76-114
+71            <!-- Deploy Qt libs as part of package -->
+72            <meta-data
+72-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:32:13-91
+73                android:name="android.app.bundle_local_qt_libs"
+73-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:32:24-71
+74                android:value="1" />
+74-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:32:72-89
+75
+76            <!-- Run with local libs -->
+77            <meta-data
+77-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:35:13-88
+78                android:name="android.app.use_local_qt_libs"
+78-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:35:24-68
+79                android:value="1" />
+79-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:35:69-86
+80            <meta-data
+80-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:36:13-100
+81                android:name="android.app.libs_prefix"
+81-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:36:24-62
+82                android:value="/data/local/tmp/qt/" />
+82-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:36:63-98
+83            <meta-data
+83-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:37:13-122
+84                android:name="android.app.load_local_libs_resource_id"
+84-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:37:24-78
+85                android:resource="@array/load_local_libs" />
+85-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:37:79-120
+86            <meta-data
+86-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:38:13-173
+87                android:name="android.app.load_local_jars"
+87-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:38:24-66
+88                android:value="jar/QtAndroidBearer.jar:jar/QtAndroid.jar:jar/QtPositioning.jar:jar/QtAndroidWebView.jar" />
+88-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:38:67-171
+89            <meta-data
+89-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:39:13-140
+90                android:name="android.app.static_init_classes"
+90-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:39:24-70
+91                android:value="org.qtproject.qt5.android.positioning.QtPositioning" />
+91-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:39:71-138
+92            <!-- Used to specify custom system library path to run with local system libs -->
+93            <!-- <meta-data android:name="android.app.system_libs_prefix" android:value="/system/lib/"/> -->
+94            <!-- Messages maps -->
+95            <meta-data
+95-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:43:13-122
+96                android:name="android.app.ministro_not_found_msg"
+96-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:43:71-120
+97                android:value="@string/ministro_not_found_msg" />
+97-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:43:24-70
+98            <meta-data
+98-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:44:13-116
+99                android:name="android.app.ministro_needed_msg"
+99-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:44:68-114
+100                android:value="@string/ministro_needed_msg" />
+100-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:44:24-67
+101            <meta-data
+101-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:45:13-108
+102                android:name="android.app.fatal_error_msg"
+102-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:45:64-106
+103                android:value="@string/fatal_error_msg" />
+103-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:45:24-63
+104            <meta-data
+104-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:46:13-132
+105                android:name="android.app.unsupported_android_version"
+105-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:46:76-130
+106                android:value="@string/unsupported_android_version" />
+106-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:46:24-75
+107            <!-- Messages maps -->
+108
+109
+110            <!-- Splash screen -->
+111            <!--
+112                 Orientation-specific (portrait/landscape) data is checked first. If not available for current orientation,
+113                 then android.app.splash_screen_drawable. For best results, use together with splash_screen_sticky and
+114                 use hideSplashScreen() with a fade-out animation from Qt Android Extras to hide the splash screen when you
+115                 are done populating your window with content.
+116            -->
+117            <!-- meta-data android:name="android.app.splash_screen_drawable_portrait" android:resource="@drawable/logo_portrait" / -->
+118            <!-- meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/logo_landscape" / -->
+119            <!-- meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/logo"/ -->
+120            <!-- meta-data android:name="android.app.splash_screen_sticky" android:value="true"/ -->
+121            <!-- Splash screen -->
+122
+123
+124            <!-- Background running -->
+125            <!--
+126                 Warning: changing this value to true may cause unexpected crashes if the
+127                          application still try to draw after
+128                          "applicationStateChanged(Qt::ApplicationSuspended)"
+129                          signal is sent!
+130            -->
+131            <meta-data
+131-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:65:13-93
+132                android:name="android.app.background_running"
+132-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:65:24-69
+133                android:value="false" />
+133-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:65:70-91
+134            <!-- Background running -->
+135
+136
+137            <!-- auto screen scale factor -->
+138            <meta-data
+138-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:69:13-99
+139                android:name="android.app.auto_screen_scale_factor"
+139-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:69:24-75
+140                android:value="false" />
+140-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:69:76-97
+141            <!-- auto screen scale factor -->
+142
+143
+144            <!-- extract android style -->
+145            <!--
+146                 available android:values :
+147                * default - In most cases this will be the same as "full", but it can also be something else if needed, e.g., for compatibility reasons
+148                * full - useful QWidget & Quick Controls 1 apps
+149                * minimal - useful for Quick Controls 2 apps, it is much faster than "full"
+150                * none - useful for apps that don't use any of the above Qt modules
+151            -->
+152            <meta-data
+152-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:79:13-98
+153                android:name="android.app.extract_android_style"
+153-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:79:24-72
+154                android:value="default" />
+154-->/home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_5_15_2_Clang_Multi_Abi-Debug/android-build/AndroidManifest.xml:79:73-96
+155            <!-- extract android style -->
+156        </activity>
+157
+158        <!-- For adding service(s) please check: https://wiki.qt.io/AndroidServices -->
+159
+160    </application>
+161
+162</manifest>

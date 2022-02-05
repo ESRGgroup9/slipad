@@ -71,7 +71,7 @@ protected:
 	Command_t *cmdList;
 	Parser cmdParser;
 	CTCPComm tcp;
-	
+
 private:
 	pthread_t tRecv_id;
 };

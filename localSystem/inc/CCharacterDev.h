@@ -20,8 +20,13 @@ public:
 	virtual void enable(void) = 0;
 	virtual void disable(void) = 0;
 
-private:
+	void Open();
+	void Close();
+
+protected:
 	int dev;
+
+private:
 	std::string devStr;
 };
 

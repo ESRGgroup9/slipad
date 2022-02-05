@@ -1,6 +1,9 @@
 #include "CCamera.h"
 #include "utils.h"
 #include <unistd.h>
+#include "defs.h"
+
+#include <imgcodecs.hpp>
 
 #define FRAME_W 		640
 #define FRAME_H 		480
@@ -11,9 +14,6 @@
 
 #define DEV_ID 			0
 
-#define PATH 			"/etc/image.jpg"
-
-#include <imgcodecs.hpp>
 
 using namespace cv;
 using namespace std;
@@ -81,7 +81,7 @@ bool CCamera::captureFrame()
     //cvtColor(lastFrame,lastFrame, CV_BGR2GRAY);
 
     // write image to path
-    imwrite(PATH, lastFrame);
+    imwrite(IMAGE_PATH, lastFrame);
 
     // close device
     close();

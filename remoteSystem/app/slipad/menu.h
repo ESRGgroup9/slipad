@@ -5,6 +5,7 @@
 
 #include "addLamp.h"
 #include "repairLamp.h"
+#include "consult.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class menu; }
@@ -32,5 +33,6 @@ private:
 
     addLamp *addMenu;
     repairLamp *repairMenu;
+    consult *consultMenu;
 };
 #endif // MENU_H
