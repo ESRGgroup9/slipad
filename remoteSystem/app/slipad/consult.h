@@ -2,6 +2,7 @@
 #define CONSULT_H
 
 #include <QMainWindow>
+#include <QTableWidgetItem>
 
 #include "lamppost.h"
 
@@ -19,7 +20,17 @@ public:
 
     void printList(Node *n);
 
+private slots:
+    void on_lampList_itemClicked(QTableWidgetItem *item);
+
+    void on_back_b_released();
+
 private:
     Ui::consult *ui;
+
+    enum collumns
+    {
+        ID, STREET, ADDRESS, STATUS
+    };
 };
 #endif // CONSULT_H

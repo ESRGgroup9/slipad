@@ -10,6 +10,7 @@ void ERROR_MSG(char *msg);
 #include <iostream>
 #include <cstring>
 #include <syslog.h>
+#include <sstream>
 
 #define DEBUG_MSG(str) (syslog(LOG_INFO, str))
 #define ERROR_MSG(str)	{DEBUG_MSG(str); abort();}
@@ -22,3 +23,5 @@ void ERROR_MSG(char *msg);
 
 #endif // !DEBUG
 #endif // !__DEBUG_H__
+
+

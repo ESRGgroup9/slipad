@@ -1,18 +1,18 @@
 #ifndef LAMPPOST_H
 #define LAMPPOST_H
 
-#include <QString>
+#include <string>
 
-class lamppost
+struct lamppost
 {
-public:
     int id;
+    int address;
     int status;
-    QString street;
-    QString post_code;
+    std::string street;
+    /*QString post_code;
     QString parish;
     QString county;
-    QString district;
+    QString district;*/
 };
 
 class Node

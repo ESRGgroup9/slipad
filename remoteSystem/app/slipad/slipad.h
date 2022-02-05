@@ -20,8 +20,6 @@ public:
 private slots:
     void on_login_b_released();
 
-    void resize();
-
 private:
     Ui::slipad *ui;
 

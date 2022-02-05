@@ -1,3 +1,5 @@
+#define DEBUG
+
 #include "CSensors.h"
 #include "utils.h"
 #include "debug.h"
@@ -154,7 +156,10 @@ void CSensors::run()
 
 	// mainPID received
 	mainPID = static_cast<int>(atoi(msg));
-	DEBUG_MSG("[CSensors::run] Received main PID[" << mainPID << "]");
+
+	stringstream debug_msg;
+	debug_msg << "[CSensors::run] Received main PID[" << mainPID << "]";
+	DEBUG_MSG(debug_msg.str().c_str());
 
 #ifdef DEBUG
 	//lampf.enable();
@@ -234,7 +239,10 @@ void CSensors::sendCmd(string cmd)
 		}
 	} while (err == EAGAIN);
 
-	DEBUG_MSG("[CSensors::sendCmd] sent(" << cmd << ")");
+	stringstream debug_msg;
+	debug_msg << "[CSensors::sendCmd] sent(" << cmd << ")";
+	DEBUG_MSG(debug_msg.str().c_str());
+
 	kill(mainPID, SIG_dSENSORS);
 	// DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");
 }

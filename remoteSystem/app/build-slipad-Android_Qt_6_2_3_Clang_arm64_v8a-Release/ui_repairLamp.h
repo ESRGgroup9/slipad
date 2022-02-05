@@ -28,7 +28,7 @@ public:
     QTextBrowser *smart_lighting;
     QPushButton *selectLamp_b;
     QPushButton *back_b;
-    QLineEdit *id;
+    QLineEdit *address;
     QTextBrowser *ID_txt;
     QTextBrowser *repair_txt;
 
@@ -332,11 +332,11 @@ public:
         back_b->setIcon(icon);
         back_b->setIconSize(QSize(30, 25));
         back_b->setFlat(true);
-        id = new QLineEdit(centralwidget);
-        id->setObjectName(QString::fromUtf8("id"));
-        id->setGeometry(QRect(40, 290, 280, 30));
-        id->setFont(font);
-        id->setEchoMode(QLineEdit::Normal);
+        address = new QLineEdit(centralwidget);
+        address->setObjectName(QString::fromUtf8("address"));
+        address->setGeometry(QRect(40, 290, 280, 30));
+        address->setFont(font);
+        address->setEchoMode(QLineEdit::Normal);
         ID_txt = new QTextBrowser(centralwidget);
         ID_txt->setObjectName(QString::fromUtf8("ID_txt"));
         ID_txt->setGeometry(QRect(40, 260, 280, 30));
@@ -532,7 +532,7 @@ public:
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">ID</span></p></body></html>", nullptr));
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">Address</span></p></body></html>", nullptr));
 #if QT_CONFIG(accessibility)
         repair_txt->setAccessibleName(QString());
 #endif // QT_CONFIG(accessibility)

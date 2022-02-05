@@ -333,7 +333,7 @@ public:
         street_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         postCode_txt = new QTextBrowser(centralwidget);
         postCode_txt->setObjectName(QString::fromUtf8("postCode_txt"));
-        postCode_txt->setGeometry(QRect(40, 290, 280, 30));
+        postCode_txt->setGeometry(QRect(40, 280, 280, 30));
         QPalette palette3;
         palette3.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette3.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -417,7 +417,7 @@ public:
         postCode_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         postCode = new QLineEdit(centralwidget);
         postCode->setObjectName(QString::fromUtf8("postCode"));
-        postCode->setGeometry(QRect(40, 320, 280, 30));
+        postCode->setGeometry(QRect(40, 310, 280, 30));
         QFont font;
         font.setPointSize(13);
         postCode->setFont(font);
@@ -429,7 +429,7 @@ public:
         street->setEchoMode(QLineEdit::Normal);
         addLamp_b = new QPushButton(centralwidget);
         addLamp_b->setObjectName(QString::fromUtf8("addLamp_b"));
-        addLamp_b->setGeometry(QRect(200, 650, 121, 31));
+        addLamp_b->setGeometry(QRect(200, 610, 121, 31));
         QPalette palette4;
         palette4.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette4.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -523,12 +523,12 @@ public:
         back_b->setFlat(true);
         parish = new QLineEdit(centralwidget);
         parish->setObjectName(QString::fromUtf8("parish"));
-        parish->setGeometry(QRect(40, 390, 280, 30));
+        parish->setGeometry(QRect(40, 370, 280, 30));
         parish->setFont(font);
         parish->setEchoMode(QLineEdit::Normal);
         parish_txt = new QTextBrowser(centralwidget);
         parish_txt->setObjectName(QString::fromUtf8("parish_txt"));
-        parish_txt->setGeometry(QRect(40, 360, 280, 30));
+        parish_txt->setGeometry(QRect(40, 340, 280, 30));
         QPalette palette5;
         palette5.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette5.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -612,7 +612,7 @@ public:
         parish_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         count_txt = new QTextBrowser(centralwidget);
         count_txt->setObjectName(QString::fromUtf8("count_txt"));
-        count_txt->setGeometry(QRect(40, 430, 280, 30));
+        count_txt->setGeometry(QRect(40, 400, 280, 30));
         QPalette palette6;
         palette6.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette6.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -696,17 +696,17 @@ public:
         count_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         county = new QLineEdit(centralwidget);
         county->setObjectName(QString::fromUtf8("county"));
-        county->setGeometry(QRect(40, 460, 280, 30));
+        county->setGeometry(QRect(40, 430, 280, 30));
         county->setFont(font);
         county->setEchoMode(QLineEdit::Normal);
         district = new QLineEdit(centralwidget);
         district->setObjectName(QString::fromUtf8("district"));
-        district->setGeometry(QRect(40, 530, 280, 30));
+        district->setGeometry(QRect(40, 490, 280, 30));
         district->setFont(font);
         district->setEchoMode(QLineEdit::Normal);
         district_txt = new QTextBrowser(centralwidget);
         district_txt->setObjectName(QString::fromUtf8("district_txt"));
-        district_txt->setGeometry(QRect(40, 500, 280, 30));
+        district_txt->setGeometry(QRect(40, 460, 280, 30));
         QPalette palette7;
         palette7.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette7.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -874,7 +874,7 @@ public:
         add_lamp_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         id_txt = new QTextBrowser(centralwidget);
         id_txt->setObjectName(QString::fromUtf8("id_txt"));
-        id_txt->setGeometry(QRect(40, 570, 280, 30));
+        id_txt->setGeometry(QRect(40, 520, 280, 30));
         QPalette palette9;
         palette9.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette9.setBrush(QPalette::Active, QPalette::Button, brush1);
@@ -958,7 +958,7 @@ public:
         id_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         id = new QLineEdit(centralwidget);
         id->setObjectName(QString::fromUtf8("id"));
-        id->setGeometry(QRect(40, 600, 280, 30));
+        id->setGeometry(QRect(40, 550, 280, 30));
         id->setFont(font);
         id->setEchoMode(QLineEdit::Normal);
         addLamp->setCentralWidget(centralwidget);
@@ -1038,7 +1038,7 @@ public:
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">ID</span></p></body></html>", nullptr));
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">Address</span></p></body></html>", nullptr));
     } // retranslateUi
 
 };

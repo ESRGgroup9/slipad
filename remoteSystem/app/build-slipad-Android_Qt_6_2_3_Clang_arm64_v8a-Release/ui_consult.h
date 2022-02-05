@@ -13,9 +13,10 @@
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QTableView>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
@@ -29,7 +30,9 @@ public:
     QTextBrowser *smart_lighting;
     QPushButton *back_b;
     QTextBrowser *add_lamp_txt;
-    QTableView *tableView;
+    QTableWidget *lampList;
+    QLineEdit *street_amp;
+    QTextBrowser *add_lamp_txt_2;
 
     void setupUi(QMainWindow *consult)
     {
@@ -333,9 +336,108 @@ public:
         add_lamp_txt->setFrameShape(QFrame::NoFrame);
         add_lamp_txt->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         add_lamp_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
-        tableView = new QTableView(centralwidget);
-        tableView->setObjectName(QString::fromUtf8("tableView"));
-        tableView->setGeometry(QRect(30, 250, 291, 401));
+        lampList = new QTableWidget(centralwidget);
+        lampList->setObjectName(QString::fromUtf8("lampList"));
+        lampList->setGeometry(QRect(10, 220, 330, 391));
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(lampList->sizePolicy().hasHeightForWidth());
+        lampList->setSizePolicy(sizePolicy);
+        lampList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        lampList->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+        lampList->setAutoScrollMargin(20);
+        lampList->setProperty("showDropIndicator", QVariant(false));
+        lampList->setSelectionMode(QAbstractItemView::NoSelection);
+        lampList->setSelectionBehavior(QAbstractItemView::SelectRows);
+        lampList->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+        street_amp = new QLineEdit(centralwidget);
+        street_amp->setObjectName(QString::fromUtf8("street_amp"));
+        street_amp->setGeometry(QRect(10, 640, 331, 25));
+        add_lamp_txt_2 = new QTextBrowser(centralwidget);
+        add_lamp_txt_2->setObjectName(QString::fromUtf8("add_lamp_txt_2"));
+        add_lamp_txt_2->setGeometry(QRect(10, 620, 331, 20));
+        QPalette palette3;
+        palette3.setBrush(QPalette::Active, QPalette::WindowText, brush);
+        palette3.setBrush(QPalette::Active, QPalette::Button, brush1);
+        palette3.setBrush(QPalette::Active, QPalette::Light, brush2);
+        palette3.setBrush(QPalette::Active, QPalette::Midlight, brush3);
+        palette3.setBrush(QPalette::Active, QPalette::Dark, brush4);
+        palette3.setBrush(QPalette::Active, QPalette::Mid, brush5);
+        palette3.setBrush(QPalette::Active, QPalette::Text, brush);
+        palette3.setBrush(QPalette::Active, QPalette::BrightText, brush2);
+        palette3.setBrush(QPalette::Active, QPalette::ButtonText, brush);
+        palette3.setBrush(QPalette::Active, QPalette::Base, brush2);
+        palette3.setBrush(QPalette::Active, QPalette::Window, brush2);
+        palette3.setBrush(QPalette::Active, QPalette::Shadow, brush6);
+        palette3.setBrush(QPalette::Active, QPalette::Highlight, brush7);
+        palette3.setBrush(QPalette::Active, QPalette::HighlightedText, brush2);
+        palette3.setBrush(QPalette::Active, QPalette::Link, brush8);
+        palette3.setBrush(QPalette::Active, QPalette::LinkVisited, brush9);
+        palette3.setBrush(QPalette::Active, QPalette::AlternateBase, brush10);
+        QBrush brush25(QColor(0, 0, 0, 255));
+        brush25.setStyle(Qt::NoBrush);
+        palette3.setBrush(QPalette::Active, QPalette::NoRole, brush25);
+        palette3.setBrush(QPalette::Active, QPalette::ToolTipBase, brush12);
+        palette3.setBrush(QPalette::Active, QPalette::ToolTipText, brush);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette3.setBrush(QPalette::Active, QPalette::PlaceholderText, brush13);
+#endif
+        palette3.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        palette3.setBrush(QPalette::Inactive, QPalette::Button, brush1);
+        palette3.setBrush(QPalette::Inactive, QPalette::Light, brush2);
+        palette3.setBrush(QPalette::Inactive, QPalette::Midlight, brush3);
+        palette3.setBrush(QPalette::Inactive, QPalette::Dark, brush4);
+        palette3.setBrush(QPalette::Inactive, QPalette::Mid, brush5);
+        palette3.setBrush(QPalette::Inactive, QPalette::Text, brush);
+        palette3.setBrush(QPalette::Inactive, QPalette::BrightText, brush2);
+        palette3.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        palette3.setBrush(QPalette::Inactive, QPalette::Base, brush2);
+        palette3.setBrush(QPalette::Inactive, QPalette::Window, brush1);
+        palette3.setBrush(QPalette::Inactive, QPalette::Shadow, brush6);
+        palette3.setBrush(QPalette::Inactive, QPalette::Highlight, brush7);
+        palette3.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush2);
+        palette3.setBrush(QPalette::Inactive, QPalette::Link, brush8);
+        palette3.setBrush(QPalette::Inactive, QPalette::LinkVisited, brush9);
+        palette3.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush10);
+        QBrush brush26(QColor(0, 0, 0, 255));
+        brush26.setStyle(Qt::NoBrush);
+        palette3.setBrush(QPalette::Inactive, QPalette::NoRole, brush26);
+        palette3.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush12);
+        palette3.setBrush(QPalette::Inactive, QPalette::ToolTipText, brush);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette3.setBrush(QPalette::Inactive, QPalette::PlaceholderText, brush13);
+#endif
+        palette3.setBrush(QPalette::Disabled, QPalette::WindowText, brush15);
+        palette3.setBrush(QPalette::Disabled, QPalette::Button, brush1);
+        palette3.setBrush(QPalette::Disabled, QPalette::Light, brush2);
+        palette3.setBrush(QPalette::Disabled, QPalette::Midlight, brush3);
+        palette3.setBrush(QPalette::Disabled, QPalette::Dark, brush15);
+        palette3.setBrush(QPalette::Disabled, QPalette::Mid, brush5);
+        palette3.setBrush(QPalette::Disabled, QPalette::Text, brush15);
+        palette3.setBrush(QPalette::Disabled, QPalette::BrightText, brush2);
+        palette3.setBrush(QPalette::Disabled, QPalette::ButtonText, brush15);
+        palette3.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        palette3.setBrush(QPalette::Disabled, QPalette::Window, brush2);
+        palette3.setBrush(QPalette::Disabled, QPalette::Shadow, brush16);
+        palette3.setBrush(QPalette::Disabled, QPalette::Highlight, brush17);
+        palette3.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush2);
+        palette3.setBrush(QPalette::Disabled, QPalette::Link, brush8);
+        palette3.setBrush(QPalette::Disabled, QPalette::LinkVisited, brush9);
+        palette3.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush10);
+        QBrush brush27(QColor(0, 0, 0, 255));
+        brush27.setStyle(Qt::NoBrush);
+        palette3.setBrush(QPalette::Disabled, QPalette::NoRole, brush27);
+        palette3.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush12);
+        palette3.setBrush(QPalette::Disabled, QPalette::ToolTipText, brush);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette3.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush13);
+#endif
+        add_lamp_txt_2->setPalette(palette3);
+        add_lamp_txt_2->setMouseTracking(false);
+        add_lamp_txt_2->setFrameShape(QFrame::NoFrame);
+        add_lamp_txt_2->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        add_lamp_txt_2->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         consult->setCentralWidget(centralwidget);
 
         retranslateUi(consult);
@@ -365,6 +467,14 @@ public:
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt;\">Consult Lamppost Network </span></p></body></html>", nullptr));
+#if QT_CONFIG(accessibility)
+        add_lamp_txt_2->setAccessibleName(QString());
+#endif // QT_CONFIG(accessibility)
+        add_lamp_txt_2->setHtml(QCoreApplication::translate("consult", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:700;\">Item</span></p></body></html>", nullptr));
     } // retranslateUi
 
 };
