@@ -61,18 +61,11 @@ void slipad::on_login_b_released()
     ui->op_id->clear();
     ui->password->clear();
 
-    /*int err = tcp.connect();
-    if(err == -1)
-    {
-        //qDebug() << "Connection error: " << errno;
-        QMessageBox::warning(this, "Remote Server Connection", "Not able to connect to remote server: Make sure you are connected to the same network.");
-        return;
-    }*/
     // next window
     menuWind = new menu(this);
 
     // SIGNIN;<operator_id>;<name>;<password>
-    QString query = operator_id + ";" + password;
+    /*QString query = operator_id + ";" + password;
     // search in database
     int err = execCmd("SIGNIN;", query);
 
@@ -86,11 +79,11 @@ void slipad::on_login_b_released()
         //QMessageBox::warning(this,"Login", "Operator ID/ password incorrect");
         ui->wrong_txt->show();
     else
-        QMessageBox::critical(this, "Info", "Failed: Check your connection!");
+        QMessageBox::critical(this, "Info", "Failed: Check your connection!");*/
 
 
     // ------------------------------------------ DEBUG
-    /*if( (operator_id == "D") && (password == "1") )
+    if( (operator_id == "D") && (password == "1") )
     {
         // success login
         menuWind->show();
@@ -98,5 +91,5 @@ void slipad::on_login_b_released()
     }
     else
         //QMessageBox::warning(this,"Login", "Operator ID/ password incorrect");
-        ui->wrong_txt->show();*/
+        ui->wrong_txt->show();
 }

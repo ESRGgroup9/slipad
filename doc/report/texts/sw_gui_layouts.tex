@@ -4,7 +4,7 @@ In this section it is presented the \ac{gui} layouts, where the users can intera
 
 The mobile application is used by the operator, in order to manage the network of lampposts that is assigned to him. 
 
-The first step is to login the system, so he has to insert is credentials \textit{ID Operator} and \textit{Password}, provided by the company. The login layout is shown in figure \ref{fig:login}. If the login was successful, then the operator can select one of this operations: \textit{Add New Lamppost}, \textit{Repair Lamppost} or \textit{Consult Lamppost Network}, as shown in figure \ref{fig:selectOperation}. The operator can also logout of his account.
+The first step is to login the system, so he has to insert is credentials, \textit{ID Operator} and \textit{Password}, provided by the company. The login layout is shown in figure \ref{fig:login}. If the login was successful, then the operator can select one of this operations: \textit{Add New Lamppost}, \textit{Repair Lamppost} or \textit{Consult Lamppost Network}, as shown in figure \ref{fig:selectOperation}. The operator can also logout of his account.
 %\begin{figure}[H]
 %	\centering	
 %	\includegraphics[width=.3\textwidth]{10gui_layouts/App/login}
@@ -22,13 +22,13 @@ The first step is to login the system, so he has to insert is credentials \texti
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}{.5\textwidth}
+	\begin{subfigure}{.4\textwidth}
 		\centering
 		\includegraphics[width=.95\linewidth]{10gui_layouts/App/login}
 		\caption{Login.}
 		\label{fig:login}
 	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
+	\begin{subfigure}{.4\textwidth}
 		\centering
 		\includegraphics[width=.95\linewidth]{10gui_layouts/App/selectOperation}
 		\caption{Select Operation.}
@@ -38,7 +38,7 @@ The first step is to login the system, so he has to insert is credentials \texti
 	\label{fig:App}
 \end{figure}
 
-If the operator clicks on the \textit{Add New Lamppost} option, then he is redirected to the layout represented in figure \ref{fig:addNewLamppost}, where he can add a new lamppost to the network, inserting all the information about the location of the post or use his mobile device actual location. 
+If the operator clicks on the \textit{Add New Lamppost} option, then he is redirected to the layout represented in figure \ref{fig:addNewLamppost}, where he can add a new lamppost to the network, inserting all the information about the location of the post. After insert all the information about the post, the mobile phone sends the actual \ac{gps} coordinates to the database along with the data inserted. 
 
 \begin{figure}[H]
 	\centering	
@@ -48,44 +48,35 @@ If the operator clicks on the \textit{Add New Lamppost} option, then he is redir
 \end{figure}
 
 \clearpage
-If the option chosen was the \textit{Repair Lamppost}, in order to change the lamppost status, he can insert the location of the post or use his mobile device actual location, as seen in figure \ref{fig:repair}.
-
-%\begin{figure}[H]
-%	\centering	
-%	\includegraphics[width=.3\textwidth]{10gui_layouts/App/modifyLamppost}
-%	\caption{Mobile Application Layout: Modify Lamppost.}
-%	\label{fig:modifyLamppost}
-%\end{figure}
-
-If the lamppost selection was valid, then the layout represented in figure \ref{fig:acceptRepair} appears, to the operator confirm that he wants to update the lamppost status.
-
-%\begin{figure}[H]
-%	\centering	
-%	\includegraphics[width=.3\textwidth]{10gui_layouts/App/acceptModify}
-%	\caption{Mobile Application Layout: Modify Lamppost Confirmation.}
-%	\label{fig:acceptModify}
-%\end{figure}
+If the option chosen was the \textit{Repair Lamppost}, in order to change the lamppost status, the operator must insert the lamppost address (physical address), as seen in figure \ref{fig:repair}.
 
 \begin{figure}[H]
-	\centering
-	\begin{subfigure}{.5\textwidth}
-		\centering
-		\includegraphics[width=.95\linewidth]{10gui_layouts/App/repair}
-		\caption{Repair Lamppost.}
-		\label{fig:repair}
-	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
-		\centering
-		\includegraphics[width=.95\linewidth]{10gui_layouts/App/acceptRepair}
-		\caption{Repair Lamppost Confirmation.}
-		\label{fig:acceptRepair}
-	\end{subfigure}
-	\caption{Mobile Application Layout.}
-	\label{fig:App2}
+	\centering	
+	\includegraphics[width=.5\textwidth]{10gui_layouts/App/repair}
+	\caption{Mobile Application Layout: Repair Lamppost.}
+	\label{fig:repair}
 \end{figure}
 
+%\begin{figure}[H]
+%	\centering
+%	\begin{subfigure}{.5\textwidth}
+%		\centering
+%		\includegraphics[width=.95\linewidth]{10gui_layouts/App/repair}
+%		\caption{Repair Lamppost.}
+%		\label{fig:repair}
+%	\end{subfigure}%
+%	\begin{subfigure}{.5\textwidth}
+%		\centering
+%		\includegraphics[width=.95\linewidth]{10gui_layouts/App/acceptRepair}
+%		\caption{Repair Lamppost Confirmation.}
+%		\label{fig:acceptRepair}
+%	\end{subfigure}
+%	\caption{Mobile Application Layout.}
+%	\label{fig:App2}
+%\end{figure}
+
 \clearpage
-On the other hand, if the operator selects the option \textit{Consult Lamppost Network}, the network information will appear like shown in figure \ref{fig:consultNetwork}, where the red point are lampposts with a broken lamp and the green points are the lampposts with no lamp problems.
+On the other hand, if the operator selects the option \textit{Consult Lamppost Network}, the network information will appear like shown in figure \ref{fig:consultNetwork}. This table contains information about the each lamppost ID, street, address and status of its lamp. If the street field is larger than the window, the operator can see that information in the filed "Item" by clicking the field he wants to see.
 
 \begin{figure}[H]
 	\centering	
