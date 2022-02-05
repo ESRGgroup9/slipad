@@ -91,8 +91,8 @@ $(document).ready(function(){initNavTree('_c_local_system_8h_source.html',''); i
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;CLamp.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_c_lora_comm_8h.html">CLoraComm.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">// #include &quot;CCamera.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">// #include &quot;CParkDetection.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CCamera.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;CParkDetection.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;timer.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;parser.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
@@ -126,47 +126,50 @@ $(document).ready(function(){initNavTree('_c_local_system_8h_source.html',''); i
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">static</span> <span class="keywordtype">int</span> parseSensorsCmd(<span class="keywordtype">char</span> *str);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> lampOnCb(uint8_t pwm);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> lampAllCb(uint8_t pwm);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> sigHandler(<span class="keywordtype">int</span> sig);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> timHandler(<span class="keyword">union</span> sigval arg);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> timCamFrameISR();</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> timCamProcISR();</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">void</span> timLampOnISR();</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_class" href="class_c_lamp.html">CLamp</a> lamp;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_class" href="class_c_lora_comm.html">CLoraComm</a> lora;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">// CCamera camera;</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// CParkDetection park;</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    pthread_t tLoraRecv_id;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    pthread_t tRecvSensors_id;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    pthread_t tParkDetection_id;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    pthread_mutex_t mutRecvSensors;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    pthread_mutex_t mutCamFrame;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    pthread_cond_t condRecvSensors;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    pthread_cond_t condCamFrame; </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <a class="code hl_class" href="class_timer.html">Timer</a> timCamFrame;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_class" href="class_timer.html">Timer</a> timCamProc;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_class" href="class_timer.html">Timer</a> timLampOn;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    mqd_t msgqSensors;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_class" href="class_parser.html">Parser</a> loraParser;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">static</span> <a class="code hl_struct" href="structcmd_sensors__t.html">cmdSensors_t</a> cmdSensorsList[];</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">static</span> <a class="code hl_struct" href="struct_command__t.html">Command_t</a> loraCmdList[];</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>};</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">// End CLocalSystem class definition</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif </span><span class="comment">// !__CLOCALSYSTEM_H__</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> lampOffCb(uint8_t pwm);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> lampAllCb(uint8_t pwm);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> sigHandler(<span class="keywordtype">int</span> sig);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> timHandler(<span class="keyword">union</span> sigval arg);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> timCamFrameISR();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">void</span> timCamProcISR();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">void</span> timLampOnISR();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_class" href="class_c_lamp.html">CLamp</a> lamp;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_class" href="class_c_lora_comm.html">CLoraComm</a> lora;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="class_c_camera.html">CCamera</a> camera;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_class" href="class_c_park_detection.html">CParkDetection</a> park;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    pthread_t tLoraRecv_id;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    pthread_t tRecvSensors_id;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    pthread_t tParkDetection_id;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    pthread_mutex_t mutRecvSensors;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    pthread_mutex_t mutCamFrame;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    pthread_cond_t condRecvSensors;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    pthread_cond_t condCamFrame; </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_class" href="class_timer.html">Timer</a> timCamFrame;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_class" href="class_timer.html">Timer</a> timCamProc;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_class" href="class_timer.html">Timer</a> timLampOn;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    mqd_t msgqSensors;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_class" href="class_parser.html">Parser</a> loraParser;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">static</span> <a class="code hl_struct" href="structcmd_sensors__t.html">cmdSensors_t</a> cmdSensorsList[];</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">static</span> <a class="code hl_struct" href="struct_command__t.html">Command_t</a> loraCmdList[];</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">// End CLocalSystem class definition</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif </span><span class="comment">// !__CLOCALSYSTEM_H__</span></div>
 <div class="ttc" id="a_c_lora_comm_8h_html"><div class="ttname"><a href="_c_lora_comm_8h.html">CLoraComm.h</a></div><div class="ttdoc">Defines class to use LoRaClass functions, inheriting from CCommunication.</div></div>
+<div class="ttc" id="aclass_c_camera_html"><div class="ttname"><a href="class_c_camera.html">CCamera</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_camera_8h_source.html#l00015">CCamera.h:16</a></div></div>
 <div class="ttc" id="aclass_c_lamp_html"><div class="ttname"><a href="class_c_lamp.html">CLamp</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_lamp_8h_source.html#l00010">CLamp.h:11</a></div></div>
 <div class="ttc" id="aclass_c_local_system_html"><div class="ttname"><a href="class_c_local_system.html">CLocalSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_local_system_8h_source.html#l00021">CLocalSystem.h:22</a></div></div>
 <div class="ttc" id="aclass_c_lora_comm_html"><div class="ttname"><a href="class_c_lora_comm.html">CLoraComm</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_lora_comm_8h_source.html#l00016">CLoraComm.h:17</a></div></div>
+<div class="ttc" id="aclass_c_park_detection_html"><div class="ttname"><a href="class_c_park_detection.html">CParkDetection</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_park_detection_8h_source.html#l00017">CParkDetection.h:18</a></div></div>
 <div class="ttc" id="aclass_parser_html"><div class="ttname"><a href="class_parser.html">Parser</a></div><div class="ttdef"><b>Definition:</b> <a href="parser_8h_source.html#l00019">parser.h:20</a></div></div>
 <div class="ttc" id="aclass_timer_html"><div class="ttname"><a href="class_timer.html">Timer</a></div><div class="ttdef"><b>Definition:</b> <a href="timer_8h_source.html#l00007">timer.h:8</a></div></div>
 <div class="ttc" id="astruct_command__t_html"><div class="ttname"><a href="struct_command__t.html">Command_t</a></div><div class="ttdef"><b>Definition:</b> <a href="parser_8h_source.html#l00013">parser.h:14</a></div></div>

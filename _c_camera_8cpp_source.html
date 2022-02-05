@@ -89,19 +89,19 @@ $(document).ready(function(){initNavTree('_c_camera_8cpp_source.html',''); initR
 <a href="_c_camera_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;CCamera.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;utils.h&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#define FRAME_W         640</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#define FRAME_H         480</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="defs_8h.html">defs.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;imgcodecs.hpp&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define CAM_BRIGHTNESS  0.4  </span><span class="comment">//-&gt; 20</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define CAM_CONTRAST    0.50 </span><span class="comment">//-&gt; 0</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define CAM_SATURATION  0.6  </span><span class="comment">//-&gt; 10</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define DEV_ID          0</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define PATH            &quot;/etc/image.jpg&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;imgcodecs.hpp&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define FRAME_W         640</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define FRAME_H         480</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define CAM_BRIGHTNESS  0.4  </span><span class="comment">//-&gt; 20</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define CAM_CONTRAST    0.50 </span><span class="comment">//-&gt; 0</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define CAM_SATURATION  0.6  </span><span class="comment">//-&gt; 10</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define DEV_ID          0</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">using namespace </span>cv;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">using namespace </span>std;</div>
@@ -169,7 +169,7 @@ $(document).ready(function(){initNavTree('_c_camera_8cpp_source.html',''); initR
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">//cvtColor(lastFrame,lastFrame, CV_BGR2GRAY);</span></div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment">// write image to path</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    imwrite(PATH, lastFrame);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    imwrite(IMAGE_PATH, lastFrame);</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">// close device</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_function" href="class_c_camera.html#a5ae591df94fc66ccb85cbb6565368bca">close</a>();</div>
@@ -180,6 +180,7 @@ $(document).ready(function(){initNavTree('_c_camera_8cpp_source.html',''); initR
 <div class="ttc" id="aclass_c_camera_html_a3507806cad14f891ab88de43be88cf34"><div class="ttname"><a href="class_c_camera.html#a3507806cad14f891ab88de43be88cf34">CCamera::captureFrame</a></div><div class="ttdeci">bool captureFrame()</div><div class="ttdoc">Capture image and store it.</div><div class="ttdef"><b>Definition:</b> <a href="_c_camera_8cpp_source.html#l00064">CCamera.cpp:64</a></div></div>
 <div class="ttc" id="aclass_c_camera_html_a5ae591df94fc66ccb85cbb6565368bca"><div class="ttname"><a href="class_c_camera.html#a5ae591df94fc66ccb85cbb6565368bca">CCamera::close</a></div><div class="ttdeci">void close()</div><div class="ttdoc">Close camera device.</div><div class="ttdef"><b>Definition:</b> <a href="_c_camera_8cpp_source.html#l00059">CCamera.cpp:59</a></div></div>
 <div class="ttc" id="aclass_c_camera_html_adb20eae91802d6ad6366cdee0220c280"><div class="ttname"><a href="class_c_camera.html#adb20eae91802d6ad6366cdee0220c280">CCamera::open</a></div><div class="ttdeci">bool open()</div><div class="ttdoc">Open camera device.</div><div class="ttdef"><b>Definition:</b> <a href="_c_camera_8cpp_source.html#l00050">CCamera.cpp:50</a></div></div>
+<div class="ttc" id="adefs_8h_html"><div class="ttname"><a href="defs_8h.html">defs.h</a></div><div class="ttdoc">Define project definitions used in several modules.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

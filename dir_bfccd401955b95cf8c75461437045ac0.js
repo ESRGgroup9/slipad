@@ -11,6 +11,7 @@ var dir_bfccd401955b95cf8c75461437045ac0 =
       [ "CTCPComm", "class_c_t_c_p_comm.html", "class_c_t_c_p_comm" ]
     ] ],
     [ "debug.h", "debug_8h_source.html", null ],
+    [ "defs.h", "defs_8h.html", null ],
     [ "interrupt.h", "interrupt_8h_source.html", null ],
     [ "LoRa.h", "_lo_ra_8h_source.html", null ],
     [ "parser.h", "parser_8h_source.html", null ],

@@ -1,10 +1,12 @@
 var searchData=
 [
-  ['send_0',['send',['../class_c_communication.html#ad48d712afc67b70f3a98f70877a9d6d0',1,'CCommunication']]],
-  ['sendfunc_1',['sendFunc',['../class_c_lora_comm.html#a9cc108d99a998ef764d401cf8ee67925',1,'CLoraComm::sendFunc()'],['../class_c_t_c_p_comm.html#a9cc108d99a998ef764d401cf8ee67925',1,'CTCPComm::sendFunc()']]],
-  ['setbrightness_2',['setBrightness',['../class_c_lamp.html#aac174a0cd7523a281d5fda5c105e4039',1,'CLamp']]],
-  ['setdestaddr_3',['setDestAddr',['../class_c_lora_comm.html#a99b8a4639dfbcd774408c015ef38bd75',1,'CLoraComm']]],
-  ['setsockfd_4',['setSockfd',['../class_c_t_c_p_comm.html#ac9645d2f362f00fef4fb3d309285b8e9',1,'CTCPComm']]],
-  ['setsrcaddr_5',['setSrcAddr',['../class_c_lora_comm.html#a795b2052249d6a3f16e2e7ce81bd91c4',1,'CLoraComm']]],
-  ['slipad_20_2d_20smart_20lighting_20and_20parking_20detection_6',['SLiPaD - Smart Lighting and Parking Detection',['../index.html',1,'']]]
+  ['rcapplication_0',['RCApplication',['../class_r_c_application.html',1,'RCApplication'],['../class_r_c_application.html#a2837095603cf834809ce0da1e39fe531',1,'RCApplication::RCApplication()']]],
+  ['rcapplication_2eh_1',['RCApplication.h',['../_r_c_application_8h.html',1,'']]],
+  ['rcgateway_2',['RCGateway',['../class_r_c_gateway.html',1,'RCGateway'],['../class_r_c_gateway.html#aef36450eb220deacb84227f3eda7435b',1,'RCGateway::RCGateway()']]],
+  ['rcgateway_2eh_3',['RCGateway.h',['../_r_c_gateway_8h.html',1,'']]],
+  ['rcwebsite_4',['RCWebsite',['../class_r_c_website.html',1,'']]],
+  ['rcwebsite_2eh_5',['RCWebsite.h',['../_r_c_website_8h.html',1,'']]],
+  ['recv_6',['recv',['../class_c_communication.html#adb44decdeb760ebf7c0d3d38ecb7822c',1,'CCommunication']]],
+  ['recvfunc_7',['recvFunc',['../class_c_lora_comm.html#ac0e3ed2e099fe51ef71284a00d8ecad7',1,'CLoraComm::recvFunc()'],['../class_c_t_c_p_comm.html#ac0e3ed2e099fe51ef71284a00d8ecad7',1,'CTCPComm::recvFunc()']]],
+  ['run_8',['run',['../class_c_communication.html#a283bce9561f0b8e618bbe8b89c473636',1,'CCommunication::run()'],['../class_c_remote_client.html#a13a43e6d814de94978c515cb084873b1',1,'CRemoteClient::run()'],['../class_c_remote_system.html#a13a43e6d814de94978c515cb084873b1',1,'CRemoteSystem::run()']]]
 ];

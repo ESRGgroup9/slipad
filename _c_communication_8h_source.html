@@ -105,56 +105,61 @@ $(document).ready(function(){initNavTree('_c_communication_8h_source.html',''); 
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">// Define CCommunication::run as blocking - waits for threads termination</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define RUN_BLOCK       (bool)(false)</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// Define CCommunication::run as non-blocking - detachs from threads</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// Define CCommunication::run as non-blocking - detaches from threads</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define RUN_NONBLOCK    (bool)(true)</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_c_communication.html">   31</a></span><span class="keyword">class </span><a class="code hl_class" href="class_c_communication.html">CCommunication</a></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>{</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_function" href="class_c_communication.html#a9b40a76054d08aa93ae7f102c2f9ffbd">CCommunication</a>();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_communication.html#a839f85b3b6f2ea59a5480e219c0f925e">init</a>(<span class="keywordtype">int</span> tprio);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_communication.html#a283bce9561f0b8e618bbe8b89c473636">run</a>(<span class="keywordtype">bool</span> async = RUN_BLOCK);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    ConnStatus <a class="code hl_function" href="class_c_communication.html#acc857199d21ac73175bfc772bff814bf">getStatus</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_communication.html#a1de846382f3fe0260a457f231935945f">push</a>(std::string msg);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="class_c_communication.html#ad48d712afc67b70f3a98f70877a9d6d0">send</a>(std::string msg);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="class_c_communication.html#adb44decdeb760ebf7c0d3d38ecb7822c">recv</a>(std::string &amp;msg);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> *<a class="code hl_function" href="class_c_communication.html#a705363c9cab951334da3e07f445b209c">tSend</a>(<span class="keywordtype">void</span> *arg);      </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    ConnStatus status;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="comment">// pure virtual methods</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> recvFunc(std::string &amp;msg) = 0;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> sendFunc(std::string msg) = 0;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="comment">// list of strings to be sent</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    std::queue&lt;std::string&gt; TxMsgs;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    pthread_t tSend_id;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    pthread_mutex_t mutComms;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    pthread_mutex_t mutTxMsgs;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    pthread_cond_t condtSend;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>};</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">// End CCommunication class definition</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">#endif </span><span class="comment">// !__CCOMMUNICATION_H__</span></div>
-<div class="ttc" id="aclass_c_communication_html"><div class="ttname"><a href="class_c_communication.html">CCommunication</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8h_source.html#l00031">CCommunication.h:32</a></div></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// Define CCommunication::push to insert at the top of the queue</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#define PUSH_FRONT      (bool)(true)</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_c_communication.html">   33</a></span><span class="keyword">class </span><a class="code hl_class" href="class_c_communication.html">CCommunication</a></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_function" href="class_c_communication.html#a9b40a76054d08aa93ae7f102c2f9ffbd">CCommunication</a>();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_communication.html#a839f85b3b6f2ea59a5480e219c0f925e">init</a>(<span class="keywordtype">int</span> tprio);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_communication.html#a283bce9561f0b8e618bbe8b89c473636">run</a>(<span class="keywordtype">bool</span> async = RUN_BLOCK);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    ConnStatus <a class="code hl_function" href="class_c_communication.html#acc857199d21ac73175bfc772bff814bf">getStatus</a>(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_c_communication.html#a1de846382f3fe0260a457f231935945f">push</a>(std::string msg);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="class_c_communication.html#ad48d712afc67b70f3a98f70877a9d6d0">send</a>(std::string msg);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="class_c_communication.html#adb44decdeb760ebf7c0d3d38ecb7822c">recv</a>(std::string &amp;msg);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> *<a class="code hl_function" href="class_c_communication.html#a705363c9cab951334da3e07f445b209c">tSend</a>(<span class="keywordtype">void</span> *arg);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="comment">// pure virtual methods</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> recvFunc(std::string &amp;msg) = 0;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> sendFunc(std::string msg) = 0;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    pthread_cond_t condtSend;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    ConnStatus status;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="comment">// list of strings to be sent</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="comment">// std::queue&lt;std::string&gt; TxMsgs;</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    std::queue&lt;std::string&gt; TxMsgs;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    pthread_t tSend_id;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    pthread_mutex_t mutComms;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    pthread_mutex_t mutTxMsgs;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>};</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">// End CCommunication class definition</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#endif </span><span class="comment">// !__CCOMMUNICATION_H__</span></div>
+<div class="ttc" id="aclass_c_communication_html"><div class="ttname"><a href="class_c_communication.html">CCommunication</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8h_source.html#l00033">CCommunication.h:34</a></div></div>
 <div class="ttc" id="aclass_c_communication_html_a1de846382f3fe0260a457f231935945f"><div class="ttname"><a href="class_c_communication.html#a1de846382f3fe0260a457f231935945f">CCommunication::push</a></div><div class="ttdeci">void push(std::string msg)</div><div class="ttdoc">Adds a new message to the queue of messages to be sent.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00046">CCommunication.cpp:46</a></div></div>
 <div class="ttc" id="aclass_c_communication_html_a283bce9561f0b8e618bbe8b89c473636"><div class="ttname"><a href="class_c_communication.html#a283bce9561f0b8e618bbe8b89c473636">CCommunication::run</a></div><div class="ttdeci">void run(bool async=RUN_BLOCK)</div><div class="ttdoc">Waits for thread termination (default action), or detaches from them.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00031">CCommunication.cpp:31</a></div></div>
-<div class="ttc" id="aclass_c_communication_html_a705363c9cab951334da3e07f445b209c"><div class="ttname"><a href="class_c_communication.html#a705363c9cab951334da3e07f445b209c">CCommunication::tSend</a></div><div class="ttdeci">static void * tSend(void *arg)</div><div class="ttdoc">Thread in charge of dispatching the messages in queue TxMsgs.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00077">CCommunication.cpp:77</a></div></div>
+<div class="ttc" id="aclass_c_communication_html_a705363c9cab951334da3e07f445b209c"><div class="ttname"><a href="class_c_communication.html#a705363c9cab951334da3e07f445b209c">CCommunication::tSend</a></div><div class="ttdeci">static void * tSend(void *arg)</div><div class="ttdoc">Thread in charge of dispatching the messages in queue TxMsgs.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00119">CCommunication.cpp:119</a></div></div>
 <div class="ttc" id="aclass_c_communication_html_a839f85b3b6f2ea59a5480e219c0f925e"><div class="ttname"><a href="class_c_communication.html#a839f85b3b6f2ea59a5480e219c0f925e">CCommunication::init</a></div><div class="ttdeci">void init(int tprio)</div><div class="ttdoc">Creates thread for sending messages (tSend)</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00024">CCommunication.cpp:24</a></div></div>
 <div class="ttc" id="aclass_c_communication_html_a9b40a76054d08aa93ae7f102c2f9ffbd"><div class="ttname"><a href="class_c_communication.html#a9b40a76054d08aa93ae7f102c2f9ffbd">CCommunication::CCommunication</a></div><div class="ttdeci">CCommunication()</div><div class="ttdoc">Initialize all variables and set connection state to ConnStatus::CREATED.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00010">CCommunication.cpp:10</a></div></div>
 <div class="ttc" id="aclass_c_communication_html_acc857199d21ac73175bfc772bff814bf"><div class="ttname"><a href="class_c_communication.html#acc857199d21ac73175bfc772bff814bf">CCommunication::getStatus</a></div><div class="ttdeci">ConnStatus getStatus(void) const</div><div class="ttdoc">Get current communication status.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00041">CCommunication.cpp:41</a></div></div>
 <div class="ttc" id="aclass_c_communication_html_ad48d712afc67b70f3a98f70877a9d6d0"><div class="ttname"><a href="class_c_communication.html#ad48d712afc67b70f3a98f70877a9d6d0">CCommunication::send</a></div><div class="ttdeci">int send(std::string msg)</div><div class="ttdoc">Send a message.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00055">CCommunication.cpp:55</a></div></div>
-<div class="ttc" id="aclass_c_communication_html_adb44decdeb760ebf7c0d3d38ecb7822c"><div class="ttname"><a href="class_c_communication.html#adb44decdeb760ebf7c0d3d38ecb7822c">CCommunication::recv</a></div><div class="ttdeci">int recv(std::string &amp;msg)</div><div class="ttdoc">Receive a message.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00066">CCommunication.cpp:66</a></div></div>
+<div class="ttc" id="aclass_c_communication_html_adb44decdeb760ebf7c0d3d38ecb7822c"><div class="ttname"><a href="class_c_communication.html#adb44decdeb760ebf7c0d3d38ecb7822c">CCommunication::recv</a></div><div class="ttdeci">int recv(std::string &amp;msg)</div><div class="ttdoc">Receive a message.</div><div class="ttdef"><b>Definition:</b> <a href="_c_communication_8cpp_source.html#l00067">CCommunication.cpp:67</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

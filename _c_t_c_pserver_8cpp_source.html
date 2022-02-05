@@ -108,58 +108,62 @@ $(document).ready(function(){initNavTree('_c_t_c_pserver_8cpp_source.html',''); 
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">// socket file descriptor not created</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        panic(<span class="stringliteral">&quot;socket&quot;</span>);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// bind port/addr to socket </span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    memset(&amp;addr, 0, <span class="keyword">sizeof</span>(addr));</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    addr.sin_family = AF_INET;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// Translate an unsigned short integer into network byte order</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">// x86 is litle-endian / network-order is big-endian</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    addr.sin_port = htons(port);;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">// any interface</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    addr.sin_addr.s_addr = INADDR_ANY;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span>(bind(listenSd, (<span class="keyword">struct</span> sockaddr*)&amp;addr, <span class="keyword">sizeof</span>(addr)) != 0)</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        panic(<span class="stringliteral">&quot;bind&quot;</span>);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment">// make listener with a maximum number of client slots</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span>(listen(listenSd, maxNumClients) != 0)</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        panic(<span class="stringliteral">&quot;listen&quot;</span>)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">int</span> enable = 1;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">if</span> (setsockopt(listenSd, SOL_SOCKET, SO_REUSEADDR, &amp;enable, <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>)) &lt; 0)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        panic(<span class="stringliteral">&quot;setsockopt(SO_REUSEADDR) failed&quot;</span>);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">// bind port/addr to socket </span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    memset(&amp;addr, 0, <span class="keyword">sizeof</span>(addr));</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    addr.sin_family = AF_INET;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">// Translate an unsigned short integer into network byte order</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// x86 is litle-endian / network-order is big-endian</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    addr.sin_port = htons(port);;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="comment">// any interface</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    addr.sin_addr.s_addr = INADDR_ANY;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span>(bind(listenSd, (<span class="keyword">struct</span> sockaddr*)&amp;addr, <span class="keyword">sizeof</span>(addr)) != 0)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        panic(<span class="stringliteral">&quot;bind&quot;</span>);</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">// get server host name</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">char</span> hostName[32];</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    gethostname(hostName, <span class="keyword">sizeof</span>(hostName));</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    DEBUG_MSG(<span class="stringliteral">&quot;[CTCPserver] Starting server on &quot;</span> &lt;&lt; hostName &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; port);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    DEBUG_MSG(<span class="stringliteral">&quot;[CTCPserver] Listening for incoming connections on sockfd: &quot;</span> &lt;&lt; listenSd);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>CTCPserver::~CTCPserver()</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>{</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_c_t_c_pserver.html#a43ca48bf75470e11aea70a09e777d41b">   51</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="class_c_t_c_pserver.html#a43ca48bf75470e11aea70a09e777d41b">CTCPserver::accept</a>()</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>{</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    socklen_t n = <span class="keyword">sizeof</span>(addr);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// // accept connections</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">int</span> sd = <a class="code hl_function" href="class_c_t_c_pserver.html#a43ca48bf75470e11aea70a09e777d41b">::accept</a>(listenSd, (<span class="keyword">struct</span> sockaddr*)&amp;addr, &amp;n);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">if</span>((sd != -1) &amp;&amp; (numClients &lt; maxNumClients))</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="comment">// new client connected</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        numClients++;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        DEBUG_MSG(<span class="stringliteral">&quot;[CTCPserver::accept] Client on sockfd[&quot;</span>&lt;&lt; sd &lt;&lt; <span class="stringliteral">&quot;] connected (slot &quot;</span>&lt;&lt; numClients &lt;&lt; <span class="stringliteral">&quot;/&quot;</span> &lt;&lt; maxNumClients &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        DEBUG_MSG(<span class="stringliteral">&quot;[CTCPserver::accept] Cannot accept new connection&quot;</span>);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="comment">// return -1 in case accept() returned a non zero value but the maximum</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="comment">// number of clients was reached</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        sd = -1;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">return</span> sd;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">// make listener with a maximum number of client slots</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span>(listen(listenSd, maxNumClients) != 0)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        panic(<span class="stringliteral">&quot;listen&quot;</span>)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// get server host name</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">char</span> hostName[32];</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    gethostname(hostName, <span class="keyword">sizeof</span>(hostName));</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    DEBUG_MSG(<span class="stringliteral">&quot;[CTCPserver] Starting server on &quot;</span> &lt;&lt; hostName &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; port);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    DEBUG_MSG(<span class="stringliteral">&quot;[CTCPserver] Listening for incoming connections on sockfd: &quot;</span> &lt;&lt; listenSd);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>CTCPserver::~CTCPserver()</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>{</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="class_c_t_c_pserver.html#a43ca48bf75470e11aea70a09e777d41b">   55</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="class_c_t_c_pserver.html#a43ca48bf75470e11aea70a09e777d41b">CTCPserver::accept</a>()</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    socklen_t n = <span class="keyword">sizeof</span>(addr);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">// // accept connections</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">int</span> sd = <a class="code hl_function" href="class_c_t_c_pserver.html#a43ca48bf75470e11aea70a09e777d41b">::accept</a>(listenSd, (<span class="keyword">struct</span> sockaddr*)&amp;addr, &amp;n);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">if</span>((sd != -1) &amp;&amp; (numClients &lt; maxNumClients))</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="comment">// new client connected</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        numClients++;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        DEBUG_MSG(<span class="stringliteral">&quot;[CTCPserver::accept] Client on sockfd[&quot;</span>&lt;&lt; sd &lt;&lt; <span class="stringliteral">&quot;] trying to connect (slot &quot;</span>&lt;&lt; numClients &lt;&lt; <span class="stringliteral">&quot;/&quot;</span> &lt;&lt; maxNumClients &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        DEBUG_MSG(<span class="stringliteral">&quot;[CTCPserver::accept] Cannot accept new connection&quot;</span>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="comment">// return -1 in case accept() returned a non zero value but the maximum</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="comment">// number of clients was reached</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        sd = -1;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">return</span> sd;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
 <div class="ttc" id="a_c_t_c_pserver_8h_html"><div class="ttname"><a href="_c_t_c_pserver_8h.html">CTCPserver.h</a></div><div class="ttdoc">Defines a TCP server with a maximum number of connected clients defined in maxNumClients.</div></div>
-<div class="ttc" id="aclass_c_t_c_pserver_html_a43ca48bf75470e11aea70a09e777d41b"><div class="ttname"><a href="class_c_t_c_pserver.html#a43ca48bf75470e11aea70a09e777d41b">CTCPserver::accept</a></div><div class="ttdeci">int accept()</div><div class="ttdoc">Accept new connection.</div><div class="ttdef"><b>Definition:</b> <a href="_c_t_c_pserver_8cpp_source.html#l00051">CTCPserver.cpp:51</a></div></div>
+<div class="ttc" id="aclass_c_t_c_pserver_html_a43ca48bf75470e11aea70a09e777d41b"><div class="ttname"><a href="class_c_t_c_pserver.html#a43ca48bf75470e11aea70a09e777d41b">CTCPserver::accept</a></div><div class="ttdeci">int accept()</div><div class="ttdoc">Accept new connection.</div><div class="ttdef"><b>Definition:</b> <a href="_c_t_c_pserver_8cpp_source.html#l00055">CTCPserver.cpp:55</a></div></div>
 <div class="ttc" id="aclass_c_t_c_pserver_html_ac93eaa5a80680c623b2b563eeb35092f"><div class="ttname"><a href="class_c_t_c_pserver.html#ac93eaa5a80680c623b2b563eeb35092f">CTCPserver::CTCPserver</a></div><div class="ttdeci">CTCPserver(int port)</div><div class="ttdoc">Create TCP server on a given port.</div><div class="ttdef"><b>Definition:</b> <a href="_c_t_c_pserver_8cpp_source.html#l00013">CTCPserver.cpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['open_0',['open',['../class_c_camera.html#adb20eae91802d6ad6366cdee0220c280',1,'CCamera']]]
+  ['loraclass_0',['LoRaClass',['../class_lo_ra_class.html',1,'']]],
+  ['loramsg_1',['LoRaMsg',['../class_lo_ra_msg.html',1,'']]]
 ];
