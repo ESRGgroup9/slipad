@@ -22,7 +22,7 @@ This project follows Waterfall model:
 - [x] Analysis
 - [x] Design
 - [x] Implementation
-- [ ] Testing
+- [x] Testing
 - [ ] Deployment
 - [ ] Maintenance
 
@@ -38,8 +38,8 @@ Since this project serves educational purposes, the last two phases of the Water
 - README
 
 ### Documentation
-Available in github-pages: https://esrggroup9.github.io/slipad/index.html. \
-This project's documentation was generated using Doxygen.
+- `/doc/report` — [PDF](https://github.com/ESRGgroup9/slipad/blob/main/doc/deliveries/design.pdf)
+- `gh-pages` — [GitHub Pages](https://esrggroup9.github.io/slipad/index.html), generated using Doxygen.
 
 ### <!--Dependencies-->
 
