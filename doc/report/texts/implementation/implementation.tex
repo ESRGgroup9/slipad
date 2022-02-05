@@ -315,7 +315,7 @@ imwrite(IMAGE_PATH, lastFrame);
 
 To capture the frame, one used the \ac{v4l} API and calibrated the camera parameters using the code present in listing \ref{lst:calibrateCamera}, in order to get a clear image from the camera. 
 
-\begin{lstlisting}[language=C, caption={Capture and Store frame from Camera.}, label={lst:captureframe}]
+\begin{lstlisting}[language=C, caption={Capture and Store frame from Camera.}, label={lst:calibrateCamera}]
 camDev.set(CAP_PROP_FRAME_WIDTH , FRAME_W); // 640
 camDev.set(CAP_PROP_FRAME_HEIGHT, FRAME_H); // 480
 camDev.set(CAP_PROP_BRIGHTNESS, CAM_BRIGHTNESS); // 20

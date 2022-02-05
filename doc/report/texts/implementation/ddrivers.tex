@@ -46,6 +46,73 @@
 %
 %After the device driver insertion, one can use it to communicate with the sensor in order to acquire the ambient luminosity. For that, a “single” on-demand read can be issued by user-space directly by reading \linebreak \verb|/sys/bus/devices/iio:device/in_<type><index>_raw|. In this case, the \verb|read_raw()| callback should handle basically all the steps necessary to get the required measurement. \cite{read_tsl}
 %**********************************************************
+As previously seen, it was implemented a device driver for two identical devices, the movement detector, PIR HC-SR501, and the failure detector, the LDR sensor. In this section, one will only reference one device driver, as the other is uses the same algorithm. As they are sensors, one used the device drivers to read the signals send by the sensors. In listing \ref{lst:fops}, is shown the device operations to the PIR driver.
+
+\begin{lstlisting}[language=C, caption={Device Driver Operations.}, label={lst:fops}]
+static struct file_operations fops = 
+{
+	.owner = THIS_MODULE,
+	.write = pir_write,
+	.read = pir_read,
+	.release = pir_close,
+	.open = pir_open,
+	.unlocked_ioctl = pir_ioctl,
+};
+\end{lstlisting}
+
+Although it is only used the function to read the device, one has to implement all the access functions. As seen in listing \ref{lst:accessFunc}, the write function only returns after its execution, as one doesn't write to this device driver. The functions used by the device driver are the read function and the function to control the device. The read function reads the sensor pin and returns the value to user space.
+
+\begin{lstlisting}[language=C, caption={Device Driver access functions implementation.}, label={lst:accessFunc}]
+static ssize_t pir_write(struct file *filp, const char __user *buf, size_t len, loff_t *off) 
+{	
+	printk(KERN_INFO "[PIR] Write function\n");
+	return 0;
+}
+
+static ssize_t pir_read(struct file *filp, char __user *buf, size_t len, loff_t *off)
+{
+	char buffer[2];
+	int i = gpio_get_value(pinNum);
+	int ret = 0;
+	
+	sprintf(buffer, "%d", i);
+	ret = copy_to_user(buf, buffer, 1);
+	printk(KERN_INFO "[PIR] PIN -> %d\n", i);
+	
+	// returns number of bytes that cannot be read
+	// in success it must be zero
+	return ret;
+}
+
+static long pir_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+{	
+	if(cmd == IOCTL_PID)
+	{
+		if(copy_from_user(&pid, (pid_t*)arg, sizeof(pid_t))) 
+		{
+			printk(KERN_INFO "[PIR] copy_from_user failed\n"); 
+			return -1;
+		}
+		// printk(KERN_INFO "[PIR] PID-> %d\n", pid);
+		printk(KERN_INFO "[PIR] Requested by PID %d\n", pid);
+	}
+	else
+	{
+		printk(KERN_INFO "[PIR] ioctl failed\n");	
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+
+The functions presented in listing \ref{lst:insertRemove} are used to insert and remove the device driver, through the \verb|insmod| and \verb|rmmod| commands, respectively.
+
+\begin{lstlisting}[language=C, caption={Device Driver insert and remove functions.}, label={lst:insertRemove}]
+module_init(pir_driver_init);
+module_exit(pir_driver_exit);
+\end{lstlisting}
+
+
 \subsection{PIR}
 
 %**********************************************************
