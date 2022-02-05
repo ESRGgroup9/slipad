@@ -46,7 +46,29 @@ The first command is used to configure a kernel image for the Raspberry Pi 4, as
 \end{figure}
 
 %**********************************************************
-\subsection{Qt}
+\subsection{Qt Creator}
+
+The Qt Creator IDE was used to create an application that is used by the operator to interact with the system. The IDE instalation is done by downloading the open-source online installer present on the official site, in the download page \cite{qt_creator}. In the figure \ref{fig:qt_instalation} is shown all the packages installed for this IDE.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.80\textwidth]{11configs/qt_instalation}
+	\caption{Qt Creator: Instalation.}
+	\label{fig:qt_instalation}
+\end{figure}
+
+Since one is deploying the application to an Android device, it was necessary to install and configure the Android Studio and SDK tools \cite{android_studio}, and also Android NDK \cite{android_ndk} in the Qt Creator. To install the Android Studio run \verb|<path-to-android-studio>/android-studio/bin/studio.sh|. Next, one needs to configure the platform of the Android Studio accordingly to the android phone version. The Android NDK must be the \verb|r23| version, and the Qt creator configure the packages missing.
+
+It is also necessary to install a Java SE Development (JDK) \cite{java}. The JDK version shouldn't be the latest and the installed one was the version 11. Now, run \verb|<path-to-android-studio>/android/tools/bin/sdkmanager --licenses| in order to accept the licenses. 
+
+At last, the \verb|QT -> Tools -> Options -> Devices -> Android|, sould look like shown in figure \ref{fig:qt_config}.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.80\textwidth]{11configs/qt_config}
+	\caption{Qt Creator: Configuration.}
+	\label{fig:qt_config}
+\end{figure}
 
 %**********************************************************
 \subsection{MySQL}
