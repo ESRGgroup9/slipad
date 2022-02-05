@@ -4,6 +4,7 @@
 #include "CLoraComm.h"
 #include "CTCPclient.h"
 #include <pthread.h>
+#include <string>
 
 class CGateway
 {
@@ -24,6 +25,9 @@ private:
 
 	pthread_t tLoraRecv_id;
 	pthread_t tTCPRecv_id;
+
+	std::string tcphost;
+	int tcpport;
 };
 // End CGateway class definition
 

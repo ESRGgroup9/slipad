@@ -82,7 +82,7 @@ void CLocalSystem::timLampOnISR()
 {
 	stringstream debug_msg;
 	debug_msg << "[CLS::timLampOnISR] Sending (LAMP;MIN)";
-	DEBUG_MSG(debug_msg.str());
+	DEBUG_MSG(debug_msg.str().c_str());
 
 	// turn off lamp
 	lamp.setBrightness(MIN_BRIGHT_PWM);
@@ -129,7 +129,7 @@ void CLocalSystem::timHandler(union sigval arg)
 	}
 }
 
-#include <bcm2835.h>
+#include <bcm2835.h> // delay
 void CLocalSystem::run()
 {
 	// start camera frame timer
@@ -147,12 +147,12 @@ void CLocalSystem::run()
 	do
 	{
 		lora.send("CRQ");
+		// wait for <id> command using tLoraRecv thread
+		// this ID will be used in every communication from that moment o
 		bcm2835_delay(2000);
+		// try again if ID was not received
 	}
 	while(IDReceived == false);
-
-	// wait for <id> command using tLoraRecv thread
-	// this ID will be used in every communication from that moment o
 
 	pthread_join(tLoraRecv_id, NULL);
 	pthread_join(tRecvSensors_id, NULL);
@@ -172,7 +172,7 @@ void CLocalSystem::sigHandler(int sig)
 		case SIGINT:
 			debug_msg.str("");
 			debug_msg << "[CLS::sigHandler] caught SIGINT";
-			DEBUG_MSG(debug_msg.str());
+			DEBUG_MSG(debug_msg.str().c_str());
 
 			// closing the queue
     		mq_close(thisPtr->msgqSensors);
@@ -183,13 +183,13 @@ void CLocalSystem::sigHandler(int sig)
     		
     		debug_msg.str("");
 			debug_msg << "[CLS::sigHandler] closing...";
-			DEBUG_MSG(msg.str());
+			DEBUG_MSG(debug_msg.str().c_str());
 
 			exit(0);
 		default:
 			debug_msg.str("");
 			debug_msg << "[CLS::sigHandler] caught unexpected signal";
-			DEBUG_MSG(msg.str());
+			DEBUG_MSG(debug_msg.str().c_str());
 	}
 }
 
@@ -209,7 +209,7 @@ int CLocalSystem::idCb(int argc, char *argv[])
 
  	stringstream debug_msg;
 	debug_msg << "[CLS::idCb] Lamppost ID = " << id;
-	DEBUG_MSG(debug_msg.str());
+	DEBUG_MSG(debug_msg.str().c_str());
 
 	return 0;
 }
@@ -227,7 +227,7 @@ int CLocalSystem::lampCb(int argc, char *argv[])
 
 	stringstream debug_msg;
 	debug_msg << "[CLS::lampCb] Lamp state set at " << argv[1];
-	DEBUG_MSG(debug_msg.str());
+	DEBUG_MSG(debug_msg.str().c_str());
 	return 0;
 }
 
@@ -248,7 +248,7 @@ void *CLocalSystem::tLoraRecv(void *arg)
 
 			stringstream debug_msg;
 			debug_msg << "[CLS::tLoraRecv] Received[" << msg << "]";
-			DEBUG_MSG(debug_msg.str());
+			DEBUG_MSG(debug_msg.str().c_str());
 		}
 
 	}
@@ -272,7 +272,7 @@ void *CLocalSystem::tRecvSensors(void *arg)
 
 	stringstream debug_msg;
 	debug_msg << "[CLS::tRecvSensors] Sending PID[" << pid_str << "]";
-	DEBUG_MSG(debug_msg.str());
+	DEBUG_MSG(debug_msg.str().c_str());
 	
 	do
 	{
@@ -341,7 +341,7 @@ void *CLocalSystem::tRecvSensors(void *arg)
 
 				debug_msg.str("");
 				debug_msg << "[CLS::tRecvSensors] Sending (" << loraMsg << ")";
-				DEBUG_MSG(debug_msg.str());
+				DEBUG_MSG(debug_msg.str().c_str());
 			}
 			
 			pthread_mutex_unlock(&c->mutRecvSensors);
@@ -397,7 +397,7 @@ void *CLocalSystem::tParkDetection(void *arg)
 
 				stringstream debug_msg;
 				debug_msg << "[CLS::tParkDetection] Sending (" << loraMsg << ")";
-				DEBUG_MSG(debug_msg.str());
+				DEBUG_MSG(debug_msg.str().c_str());
 			}
 			oldVacantsNum = vacantsNum;
 		}

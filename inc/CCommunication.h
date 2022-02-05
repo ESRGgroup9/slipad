@@ -24,9 +24,11 @@ enum class ConnStatus
 
 // Define CCommunication::run as blocking - waits for threads termination
 #define RUN_BLOCK 		(bool)(false)
-// Define CCommunication::run as non-blocking - detachs from threads
+// Define CCommunication::run as non-blocking - detaches from threads
 #define RUN_NONBLOCK	(bool)(true)
 
+// Define CCommunication::push to insert at the top of the queue
+#define PUSH_FRONT      (bool)(true)
 
 class CCommunication
 {
@@ -113,7 +115,8 @@ protected:
 
 private:
 	// list of strings to be sent
-	std::queue<std::string> TxMsgs;
+	// std::queue<std::string> TxMsgs;
+    std::queue<std::string> TxMsgs;
 
 	pthread_t tSend_id;
 	pthread_mutex_t mutComms;

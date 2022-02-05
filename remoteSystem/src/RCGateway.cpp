@@ -22,7 +22,7 @@ RCGateway::RCGateway(int sd, MYSQL* database) :
 
 	// update remote client type
 	info.type = ClientType::GATEWAY;
-	DEBUG_MSG("[RCGateway] New GATEWAY client");
+	DEBUG_MSG("[RCGateway] New GATEWAY client connected");
 
 	thisPtr = this;
 }

@@ -159,7 +159,7 @@ void CSensors::run()
 
 	stringstream debug_msg;
 	debug_msg << "[CSensors::run] Received main PID[" << mainPID << "]";
-	DEBUG_MSG(debug_msg.str());
+	DEBUG_MSG(debug_msg.str().c_str());
 
 #ifdef DEBUG
 	//lampf.enable();
@@ -241,7 +241,7 @@ void CSensors::sendCmd(string cmd)
 
 	stringstream debug_msg;
 	debug_msg << "[CSensors::sendCmd] sent(" << cmd << ")";
-	DEBUG_MSG(debug_msg.str());
+	DEBUG_MSG(debug_msg.str().c_str());
 
 	kill(mainPID, SIG_dSENSORS);
 	// DEBUG_MSG("[CSensors::sendCmd] signaled PID[" << static_cast<int>(mainPID) << "]");

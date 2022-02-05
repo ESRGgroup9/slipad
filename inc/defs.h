@@ -30,8 +30,10 @@
 /******************************************************************************
  * Remote System Definitions
  *****************************************************************************/
+// TCP server listening port
+// #define SERVER_PORT     (5000)
+
 // Database connection details
-#define SERVER_PORT 	(5000)
 #define HOST			("localhost")
 #define USER			("root")
 #define PASSWORD		("Password123#@!")
@@ -44,7 +46,7 @@
 #define GATEWAY_ADDR 	(0xff)
 
 // Gateway TCP client
-#define TCP_HOST		("10.42.0.1")
-#define TCP_PORT 		(SERVER_PORT)
+// #define TCP_HOST		("10.42.0.1")
+// #define TCP_PORT 		(SERVER_PORT)
 
 #endif // !__DEFS_H__

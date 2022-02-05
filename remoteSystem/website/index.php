@@ -26,7 +26,7 @@ FROM location l, parking_space p, region r
 WHERE l.id=p.id AND r.post_code=l.post_code AND p.id IN
   (SELECT id
   FROM parking_space
-  WHERE num_vacants>0)";
+  WHERE num_vacants>=0)";
 ?>
 
 <!DOCTYPE html>

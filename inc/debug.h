@@ -12,11 +12,8 @@ void ERROR_MSG(char *msg);
 #include <syslog.h>
 #include <sstream>
 
-//#define DEBUG_MSG(str) (std::cout << str << std::endl)
-#define DEBUG_MSG(str) { std::stringstream msg; msg << str << std::endl; }
-						 //syslog(LOG_INFO, msg.str().c_str()); }
-
-#define ERROR_MSG(str)	{DEBUG_MSG("ERROR> " << str); abort();}
+#define DEBUG_MSG(str) (syslog(LOG_INFO, str))
+#define ERROR_MSG(str)	{DEBUG_MSG(str); abort();}
 
 // **********************************************
 #else // DEBUG not defined

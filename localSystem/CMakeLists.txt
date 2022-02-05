@@ -21,7 +21,7 @@ set(OpenCV_INCLUDE_DIRS "/usr/include/opencv2")
 
 # BCM2835 flags
 #set(CMAKE_CXX_FLAGS -D DEBUG -lbcm2835 -lrt)
-add_compile_options(-D DEBUG)
+#add_compile_options(-D DEBUG)
 
 add_compile_options(-lrt)
 add_compile_options(-lbcm2835)

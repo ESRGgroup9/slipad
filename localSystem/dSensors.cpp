@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 		// client_recv_pid = pid;
 		stringstream debug_msg;
 		debug_msg << "Creating dSensors (PID "<< pid << ")" << endl;
-		DEBUG_MSG(debug_msg.str());
+		DEBUG_MSG(debug_msg.str().c_str());
 
 		// exit parent process
 		exit(EXIT_SUCCESS);
