@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 	if(argc < 3)
 	{
 		debug_msg << "Usage: " << argv[0] << " <host> <portNum>" << endl;
-		debug_msg(debug_msg.srt().c_str());
+		DEBUG_MSG(debug_msg.srt().c_str());
 		return 1;
 	}
 
