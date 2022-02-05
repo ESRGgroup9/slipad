@@ -27,8 +27,11 @@ int main(int argc, char *argv)
 		if(read(lampf, &rec_data, 1) == 0){
 			if ( rec_data != state)
 			{
-				state = rec_data;
-				printf("lampf: %c\n", rec_data);
+				if( rec_data == '0')
+				{
+					state = rec_data;
+					printf("Failure Detected!\n");
+				}	
 			}
 		}
 	}
