@@ -124,7 +124,7 @@ void CLocalSystem::timHandler(union sigval arg)
 	}
 }
 
-#include <bcm2835.h>
+#include <bcm2835.h> // delay
 void CLocalSystem::run()
 {
 	// start camera frame timer
@@ -142,12 +142,12 @@ void CLocalSystem::run()
 	do
 	{
 		lora.send("CRQ");
+		// wait for <id> command using tLoraRecv thread
+		// this ID will be used in every communication from that moment o
 		bcm2835_delay(2000);
+		// try again if ID was not received
 	}
 	while(IDReceived == false);
-
-	// wait for <id> command using tLoraRecv thread
-	// this ID will be used in every communication from that moment o
 
 	pthread_join(tLoraRecv_id, NULL);
 	pthread_join(tRecvSensors_id, NULL);

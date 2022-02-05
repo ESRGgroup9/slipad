@@ -9,9 +9,10 @@ void ERROR_MSG(char *msg);
 #include <stdarg.h>
 #include <iostream>
 #include <cstring>
+#include <syslog.h>
 
-#define DEBUG_MSG(str) (std::cout << str << std::endl)
-#define ERROR_MSG(str)	{DEBUG_MSG("ERROR> " << str); abort();}
+#define DEBUG_MSG(str) (syslog(LOG_INFO, str))
+#define ERROR_MSG(str)	{DEBUG_MSG(str); abort();}
 
 // **********************************************
 #else // DEBUG not defined

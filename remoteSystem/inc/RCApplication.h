@@ -51,14 +51,14 @@ private:
   static void addRegion(string post_code, int operator_id, string parish, string county, string district);
 
 /**
-  * @brief  Modify lamppost
+  * @brief  Repair lamppost
   * @param int - number of command arguments
   * @param char** - command arguments
   * @return 0 if successfull, -1 if an error occured
   *
-  * Usage: MOD;<lamppost_id>
+  * Usage: REP;<lamppost_addr>
   */
-	static int modifyCb(int, char *[]);
+	static int repairCb(int, char *[]);
 
 /**
  * @brief Consult Lamppost Network

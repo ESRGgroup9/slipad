@@ -4,9 +4,12 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+	stringstream debug_msg;
+
 	if(argc < 3)
 	{
-		cout << "Usage: " << argv[0] << " <host> <portNum>" << endl;
+		debug_msg << "Usage: " << argv[0] << " <host> <portNum>" << endl;
+		debug_msg(debug_msg.srt().c_str());
 		return 1;
 	}
 

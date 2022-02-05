@@ -36,10 +36,10 @@ void CRemoteClient::run()
 {
 	// detach from tRecv
 	pthread_detach(tRecv_id);
-	// detach from CTCPcomm threads
-	tcp.run(RUN_NONBLOCK);
 	// update client state
 	info.state = ConnStatus::ONLINE;
+	// detach from CTCPcomm threads
+	tcp.run(RUN_NONBLOCK);
 }
 
 void *CRemoteClient::tRecv(void *arg)

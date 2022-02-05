@@ -15,7 +15,7 @@ RCApplication::RCApplication(int sd, MYSQL* database) :
 	cmdList = new Command_t[6]
 	{
 		{"ADD"		, addCb},
-		{"MOD"		, modifyCb},
+		{"REP"		, repairCb},
 		{"CONSULT"	, consultCb},
 		{"SIGNIN"	, signInCb},
 		{"SIGNUP"	, signUpCb},
@@ -27,9 +27,9 @@ RCApplication::RCApplication(int sd, MYSQL* database) :
 
 	// update remote client type
 	info.type = ClientType::APPLICATION;
-	DEBUG_MSG("[RCApplication] New APPLICATION client");
+	DEBUG_MSG("[RCApplication] New APPLICATION client connected");
 
-	thisPtr = this;
+	thisPtr = this; 
 }
 
 RCApplication::~RCApplication()
@@ -37,31 +37,65 @@ RCApplication::~RCApplication()
 	delete[] cmdList;
 }
 
-int RCApplication::modifyCb(int argc, char *argv[])
+int RCApplication::repairCb(int argc, char *argv[])
 {
 	if(argc != 2)
 	{
-		// DEBUG_MSG("[RCApplication::modifyCb] Usage: MOD <operator_id> <lamppost_id>");
-		DEBUG_MSG("[RCApplication::modifyCb] Usage: MOD;<lamppost_id>");
+		DEBUG_MSG("[RCApplication::repairCb] Usage: REP;<lamppost_addr>");
 		return -1;
 	}
 
 	stringstream query;
-	int lamppost_id = atoi(argv[1]);
+	int lamppost_addr = atoi(argv[1]);
 
-	query << "UPDATE lamppost SET status='OFF' WHERE ";
-	query << "id=" << lamppost_id;
+	query << "SELECT id FROM lamppost WHERE ";
+	query << "address=" << lamppost_addr;
+	query << " AND status='FAIL'";
 
-	// execute query
-	DEBUG_MSG("[RCApplication::modifyCb] " << query.str());
+	// DEBUG_MSG("[RCApplication::repairCb] " << query.str());
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
-		DEBUG_MSG("[RCApplication::modifyCb] Invalid lamppost id(" << lamppost_id << ")");
-		thisPtr->tcp.push("MOD;FAIL");
+		DEBUG_MSG("[RCApplication::repairCb] Invalid repair: " << mysql_error(thisPtr->db));
+		thisPtr->tcp.push("REP;FAIL");
 		return -1;
 	}
 
-	thisPtr->tcp.push("MOD;OK");
+    // get the result set
+    MYSQL_RES *res = mysql_store_result(thisPtr->db);
+    // get the number of the columns
+    int num_rows = mysql_num_rows(res);
+    // get rows content
+    MYSQL_ROW row = mysql_fetch_row(res);
+
+	if(res != NULL)
+		mysql_free_result(res);
+
+   	if((num_rows != 1) || (!row))
+   	{
+       	DEBUG_MSG("[RCApplication::repairCb] Lamppost hasn't FAIL status or invalid lamppost_addr(" << lamppost_addr << ")");
+		thisPtr->tcp.push("REP;FAIL");
+		return -1;
+   	}
+
+	// clear query
+	query.str("");
+
+	query << "UPDATE lamppost SET status='OFF' WHERE ";
+	query << "address=" << lamppost_addr;
+
+	if(row)
+	{
+		DEBUG_MSG("[RCApplication::repairCb] Lamppost("<< row[0]<<") has been repared");
+	}
+	else
+	{
+		// this is must certainly not used because if row is not defined
+		// the num_rows may be != 1 and therefore, the function shall return there
+		DEBUG_MSG("[RCApplication::repairCb] Lamppost addr("<< lamppost_addr <<") has been repared");
+	}
+	mysql_query(thisPtr->db, query.str().c_str());
+	thisPtr->tcp.push("REP;OK");
+
 	return 0;
 }
 
@@ -81,10 +115,11 @@ int RCApplication::consultCb(int argc, char *argv[])
 	query << "WHERE p.id=l.id AND l.id IN ";
 
 	query << "(SELECT id FROM location WHERE post_code IN ";
-	query << "(SELECT post_code FROM region WHERE operator_id="<< operator_id << "))";
+	query << "(SELECT post_code FROM region WHERE operator_id="<< operator_id << ")) ";
+	query << " ORDER BY id";
 
 	// execute query
-	DEBUG_MSG("[RCApplication::consultCb] " << query.str());
+	// DEBUG_MSG("[RCApplication::consultCb] " << query.str());
 	if(mysql_query(thisPtr->db, query.str().c_str()) != 0)
 	{
 		DEBUG_MSG("[RCApplication::consultCb] Invalid consult: " << mysql_error(thisPtr->db));
@@ -96,6 +131,7 @@ int RCApplication::consultCb(int argc, char *argv[])
 	int lamppost_id;
 	int address;
 	string status;
+    int num_lamppost_ret = 0;
 
     // get the result set
     MYSQL_RES *res = mysql_store_result(thisPtr->db);
@@ -103,8 +139,9 @@ int RCApplication::consultCb(int argc, char *argv[])
 
     // get the number of the columns
 	int num_fields = mysql_num_fields(res);
-    int err = 0;
-    int num_lamppost = 0;
+	int err = 0;
+	int ret = 0;
+	string msg;
 
     if(num_fields != 4)
     {
@@ -114,6 +151,12 @@ int RCApplication::consultCb(int argc, char *argv[])
     }
     else
     {
+    	int num_rows = mysql_num_rows(res);
+    	// DEBUG_MSG("[RCApplication::consultCb] Returning " << num_rows << " lampposts info");
+    	
+    	// send number of lamppost that will be sent
+	    thisPtr->tcp.push("CONSULT;" + to_string(num_rows));
+
     	while((row = mysql_fetch_row(res)))
 	    {
 	    	street_name = row[0];
@@ -122,24 +165,50 @@ int RCApplication::consultCb(int argc, char *argv[])
 	    	status 		= row[3];
 
 	    	char str[256];
-	    	// snprintf(str, sizeof(str), "\nSTREET : %s\nID     : %d\nADDR   : %d\nSTATUS : %s",
-	    	// 	street_name.c_str(), lamppost_id, address, status.c_str());
 	    	snprintf(str, sizeof(str), "%s;%d;%d;%s",street_name.c_str(), lamppost_id, address, status.c_str());
-
-	    	DEBUG_MSG("[RCApplication::consultCb] " << string(str));
+	    	// DEBUG_MSG("[RCApplication::consultCb] " << string(str));
 			
 			// send lamppost info to the remote client
 	    	thisPtr->tcp.push(str);
+	    	num_lamppost_ret++;
 
-	    	num_lamppost++;
+	    	// wait for client receival confirmation
+	    	do
+			{
+				ret = thisPtr->tcp.recv(msg);
+				err = errno;
+			}
+			while((ret == -1) && (err == EAGAIN));
+
+			if((ret == -1) && (err != EAGAIN))
+			{
+				DEBUG_MSG("[RCApplication::consultCb] Error receiving confirmation msg: " << mysql_error(thisPtr->db));
+				err= -1;
+				break;
+			}
+
+			if(msg.compare("CONSULT;OK") != 0)
+			{
+				DEBUG_MSG("[RCApplication::consultCb] Invalid confirmation msg("<< msg << ")");
+				err= -1;
+				break;
+			}
 	    }
 
-	    DEBUG_MSG("[RCApplication::consultCb] Successfully returned " << num_lamppost << " lampposts registers");
+	    if(num_lamppost_ret != num_rows)
+	    {
+	    	DEBUG_MSG("[RCApplication::consultCb] Invalid result with " << num_lamppost_ret << " columns instead of "<< num_rows);
+	    	thisPtr->tcp.push("CONSULT;FAIL");
+  			err = -1;
+	    }
+	    else
+	    	err = 0;
 	}
 
    	if(res != NULL)
     	mysql_free_result(res);
 
+    DEBUG_MSG("[RCApplication::consultCb] Consult of " << num_lamppost_ret << " lamppost successfull");
 	return err;
 }
 
@@ -235,7 +304,8 @@ int RCApplication::addCb(int argc, char *argv[])
 {
 	if(argc != 10)
 	{
-		DEBUG_MSG("[RCApplication::addCb] Usage: ADD;<operator_id>;<addr>;<street_name>;<post_code>;<parish>;<county>;<district>;<latitude>;<longitude>");		return -1; 
+		DEBUG_MSG("[RCApplication::addCb] Usage: ADD;<operator_id>;<addr>;<street_name>;<post_code>;<parish>;<county>;<district>;<latitude>;<longitude>");
+		return -1; 
 	}
  
 	// improve readability

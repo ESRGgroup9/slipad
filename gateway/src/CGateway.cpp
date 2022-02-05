@@ -1,9 +1,10 @@
+#define DEBUG
+
 #include "CGateway.h"
 #include "utils.h"
 #include "debug.h"
 #include "defs.h"
 
-#include <bcm2835.h>
 #include <string>
 using namespace std;
 
@@ -19,7 +20,9 @@ CGateway::CGateway(string host, int port) :
 	// init lora threads for sending messages
 	lora.init(1);
 	// create TCP client
-	tcp = new CTCPclient(host, port);
+	this->tcphost = host;
+	this->tcpport = port; 
+	tcp = new CTCPclient(tcphost, tcpport);
 }
 
 CGateway::~CGateway()
@@ -32,7 +35,9 @@ void CGateway::connect()
 	int ret = -1;
 	int err;
 
-	DEBUG_MSG("[CGateway::connect] Connecting to " << TCP_HOST << ":" << TCP_PORT << " ...");
+	stringstream debug_msg;
+	debug_msg << "[CGateway::connect] Connecting to " << tcphost << ":" << tcpport << " ..." << endl;
+	DEBUG_MSG(debug_msg.str().c_str());
 
 	do
 	{
@@ -41,7 +46,7 @@ void CGateway::connect()
 
 		if(ret == 0)
 		{
-			DEBUG_MSG("[CGateway::connect] Connection established");	
+			DEBUG_MSG("[CGateway::connect] Connection established");
 			break;
 		}
 
@@ -49,12 +54,15 @@ void CGateway::connect()
 		if(err != ECONNREFUSED)
 		{
 			// unexpected connection error
-			DEBUG_MSG("[CGateway::connect] Connect failed: " << string(strerror(err)));
+			debug_msg.str("");
+			debug_msg << "[CGateway::connect] Connect failed: " << string(strerror(err));
+			DEBUG_MSG(debug_msg.str().c_str());
 		}
 	}
 	while(err == ECONNREFUSED);
 }
 
+#include <bcm2835.h>
 void CGateway::run()
 {
 	// detach from LoRa threads
@@ -65,16 +73,27 @@ void CGateway::run()
 		// connect to remote system
 		connect();
 
+		// send remote client type to the remote system - Type 0 = GATEWAY
+		DEBUG_MSG("[CGateway::run] Identifying as GATEWAY ...");
+		
+		int ret = -1;
+		int err = EAGAIN;
+
+		do
+		{
+			ret = tcp->send("TYPE;0");
+			err = errno;
+		}
+		while((ret == -1) && (err == EAGAIN));
+
+		bcm2835_delay(2000);
+
 		// create TCP receive thread
 		if(pthread_create(&tTCPRecv_id, NULL, tTCPRecv, this) != 0)
 			panic("CGateway::CGateway(): pthread_create");
 
 		// start TCP threads
 		tcp->init(1);
-
-		// send remote client type to the remote system - Type 0 = GATEWAY
-		DEBUG_MSG("[CGateway::run] Identifying as GATEWAY ...");
-		tcp->send("TYPE;0");
 
 		// wait for threads termination
 		pthread_join(tTCPRecv_id, NULL);
@@ -88,7 +107,7 @@ void CGateway::run()
 		// Since a socket that had been connected once cannot be reused with
 		// another call to connect() one has to create TCPclient dynamically
 		// for each connection successfull established
-		tcp = new CTCPclient(TCP_HOST, TCP_PORT);
+		tcp = new CTCPclient(tcphost, tcpport);
 	}
 }
 
@@ -111,7 +130,9 @@ void *CGateway::tTCPRecv(void *arg)
 			if(err != EAGAIN)
 			{
 				// unexpected error
-				ERROR_MSG("[CGateway::tTCPRecv] " << string(strerror(err)));
+				stringstream debug_msg;
+				debug_msg << "ERROR> [CGateway::tTCPRecv] " << string(strerror(err)) << endl;
+				ERROR_MSG(debug_msg.str().c_str());
 			}
 		}
 		else if(ret > 0)
@@ -127,7 +148,9 @@ void *CGateway::tTCPRecv(void *arg)
 			c->lora.setDestAddr(destAddr);
 			c->lora.push(str);
 
-			DEBUG_MSG("[CGateway::tTCPRecv] Forwarding[" << str << "] to LS[" << destAddr << "]");
+			stringstream debug_msg;
+			debug_msg << "[CGateway::tTCPRecv] Forwarding[" << str << "] to LS[" << destAddr << "]" << endl;
+			DEBUG_MSG(debug_msg.str().c_str());
 		}
 	}
 	while(ret != 0);
@@ -142,6 +165,7 @@ void *CGateway::tLoraRecv(void *arg)
 	CGateway *c = reinterpret_cast<CGateway*>(arg);
 	string msg;
 	LoRaError err = LoRaError::ENOMSGR;
+	stringstream debug_msg;
 
 	while(c)
 	{
@@ -154,7 +178,10 @@ void *CGateway::tLoraRecv(void *arg)
 			// add LoRa sender address into TCP message payload
 			msg += PARSE_DELIMITER + to_string(loraMsg.sendAddr);
 			// send message
-			DEBUG_MSG("[CGateway::tLoraRecv] Received[" << msg << "]");
+			
+			debug_msg.str("");
+			debug_msg << "[CGateway::tLoraRecv] Received[" << msg << "]" << endl;
+			DEBUG_MSG(debug_msg.str().c_str());
 			c->tcp->push(msg);
 		}
 		else if(err != LoRaError::ENOMSGR)
