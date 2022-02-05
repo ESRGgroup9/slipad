@@ -263,6 +263,12 @@ CREATE TABLE `lamppost`(
 );
 \end{lstlisting}
 
+In table \verb|location| there are a set of attributes needed to identify a particular location. Each location instance is directly connected with the existance of a lamppost. That way, the primary key for the lamppost table references the primary key from \verb|location|, which is the location \verb|id|.
+
+Each lamppost is connected to the remote system, and that way to the database, through a gateway. For that reason, each lamppost instance needs to contain the socket file descriptor of the TCP connection established by the gateway that is connected to that lamppost (local system).\\
+
+As in lamppost table, in table \verb|parking_space| each row is linked to a unique lamppost, which is connected to a unique location. Considering that the number of vacants in each parking space is initialized as zero, there is only the need of creating a parking space by defining its \verb|id|. For that reason, a trigger is used to insert a parking spot, in table \verb|parking_space|, after an insertion in \verb|lamppost|, using the id of the inserted lamppost as the id of the parking space. In listing \ref{lst:triggerinspark} it shown the implementation of the trigger in question.
+
 \begin{lstlisting}[language=SQL, caption={Trigger to insert a parking spot after lampost insert.}, label={lst:triggerinspark}]
 DELIMITER $$
 
@@ -277,8 +283,21 @@ END$$
 DELIMITER ;
 \end{lstlisting}
 
+\subsection{Populating the database}
+In order to populate the database faster one defined the queries format shown bellow, in listing \ref{lst:populatedb}.
 
-\begin{lstlisting}[caption={.}, label={lst:}]
+\begin{lstlisting}[language=SQL, caption={Queries examples to populate database.}, label={lst:populatedb}]
+INSERT INTO operator(id, name, password) VALUES
+(NULL, 'Jonh', 'pass');
+
+INSERT INTO region(post_code, operator_id, parish, county, district) VALUES
+('9999-999', 1, 'Azurem', 'Guimaraes', 'Braga');
+
+INSERT INTO location(id, latitude, longitude, post_code, street_name) VALUES
+(1, 41.447986, -8.300469, '4800-045', 'Alameda Dr. Alfredo Pimenta');
+
+INSERT INTO lamppost(id, address) VALUES
+(1, 0xa2);
 
 \end{lstlisting}
 
