@@ -148,10 +148,10 @@ vector<Rect> CParkDetection::detectCars(const Mat& frame)
     cvtColor(frame, gray, COLOR_BGR2GRAY);
 
     // Load a classifier from its XML description
-    CascadeClassifier classifier("haar_cars1.xml");
+    CascadeClassifier classifier("/etc/slipad/haar_cars1.xml");
 
     if( classifier.empty() )
-        panic("Classifier not loaded.\n");
+        DEBUG_MSG("Classifier not loaded.\n");
 
     Mat gaussian;
     // blur the image
