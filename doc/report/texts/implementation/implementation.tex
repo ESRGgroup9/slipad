@@ -103,6 +103,7 @@ In order to define LoRa status before a send/receive operation, a class is defin
 enum class LoRaError
 {
 	MSGOK = 0,  	// Message OK
+	ENOADDR,		// Local address not defined
 	ENOMSGR,    	// No message received
 	ENOTME,     	// Message received is not for this device
 	EBADLMSG    	// Message received lengths does not match
