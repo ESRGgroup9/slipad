@@ -11,19 +11,32 @@ CONFIG += c++11
 
 SOURCES += \
     addLamp.cpp \
+    comms.cpp \
     consult.cpp \
     main.cpp \
     menu.cpp \
     repairLamp.cpp \
-    slipad.cpp
+    slipad.cpp \
+    tcp/CCommunication.cpp \
+    tcp/CTCPclient.cpp \
+    tcp/CTCPcomm.cpp \
+    tcp/parser.cpp
 
 HEADERS += \
     addLamp.h \
+    comms.h \
     consult.h \
     lamppost.h \
     menu.h \
     repairLamp.h \
-    slipad.h
+    slipad.h \
+    tcp/CCommunication.h \
+    tcp/CTCPclient.h \
+    tcp/CTCPcomm.h \
+    tcp/debug.h \
+    tcp/defs.h \
+    tcp/parser.h \
+    tcp/utils.h
 
 FORMS += \
     addLamp.ui \

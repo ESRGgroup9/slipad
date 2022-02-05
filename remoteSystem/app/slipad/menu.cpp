@@ -28,7 +28,8 @@ void menu::on_mod_lamp_released()
 
 void menu::on_consult_released()
 {
-
+    consultMenu = new consult(this);
+    consultMenu->show();
 }
 
 void menu::on_logout_b_released()

@@ -31,6 +31,7 @@ public:
     QLineEdit *op_id;
     QPushButton *login_b;
     QTextBrowser *wrong_txt;
+    QTextBrowser *no_con_txt;
 
     void setupUi(QMainWindow *slipad)
     {
@@ -582,6 +583,90 @@ public:
         wrong_txt->setFrameShape(QFrame::NoFrame);
         wrong_txt->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         wrong_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
+        no_con_txt = new QTextBrowser(centralwidget);
+        no_con_txt->setObjectName(QString::fromUtf8("no_con_txt"));
+        no_con_txt->setEnabled(true);
+        no_con_txt->setGeometry(QRect(40, 300, 280, 30));
+        QPalette palette6;
+        palette6.setBrush(QPalette::Active, QPalette::WindowText, brush);
+        palette6.setBrush(QPalette::Active, QPalette::Button, brush1);
+        palette6.setBrush(QPalette::Active, QPalette::Light, brush2);
+        palette6.setBrush(QPalette::Active, QPalette::Midlight, brush3);
+        palette6.setBrush(QPalette::Active, QPalette::Dark, brush4);
+        palette6.setBrush(QPalette::Active, QPalette::Mid, brush5);
+        palette6.setBrush(QPalette::Active, QPalette::Text, brush);
+        palette6.setBrush(QPalette::Active, QPalette::BrightText, brush2);
+        palette6.setBrush(QPalette::Active, QPalette::ButtonText, brush);
+        palette6.setBrush(QPalette::Active, QPalette::Base, brush2);
+        palette6.setBrush(QPalette::Active, QPalette::Window, brush2);
+        palette6.setBrush(QPalette::Active, QPalette::Shadow, brush6);
+        palette6.setBrush(QPalette::Active, QPalette::Highlight, brush7);
+        palette6.setBrush(QPalette::Active, QPalette::HighlightedText, brush2);
+        palette6.setBrush(QPalette::Active, QPalette::Link, brush8);
+        palette6.setBrush(QPalette::Active, QPalette::LinkVisited, brush9);
+        palette6.setBrush(QPalette::Active, QPalette::AlternateBase, brush10);
+        QBrush brush34(QColor(0, 0, 0, 255));
+        brush34.setStyle(Qt::NoBrush);
+        palette6.setBrush(QPalette::Active, QPalette::NoRole, brush34);
+        palette6.setBrush(QPalette::Active, QPalette::ToolTipBase, brush12);
+        palette6.setBrush(QPalette::Active, QPalette::ToolTipText, brush);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette6.setBrush(QPalette::Active, QPalette::PlaceholderText, brush13);
+#endif
+        palette6.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        palette6.setBrush(QPalette::Inactive, QPalette::Button, brush1);
+        palette6.setBrush(QPalette::Inactive, QPalette::Light, brush2);
+        palette6.setBrush(QPalette::Inactive, QPalette::Midlight, brush3);
+        palette6.setBrush(QPalette::Inactive, QPalette::Dark, brush4);
+        palette6.setBrush(QPalette::Inactive, QPalette::Mid, brush5);
+        palette6.setBrush(QPalette::Inactive, QPalette::Text, brush);
+        palette6.setBrush(QPalette::Inactive, QPalette::BrightText, brush2);
+        palette6.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        palette6.setBrush(QPalette::Inactive, QPalette::Base, brush2);
+        palette6.setBrush(QPalette::Inactive, QPalette::Window, brush1);
+        palette6.setBrush(QPalette::Inactive, QPalette::Shadow, brush6);
+        palette6.setBrush(QPalette::Inactive, QPalette::Highlight, brush7);
+        palette6.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush2);
+        palette6.setBrush(QPalette::Inactive, QPalette::Link, brush8);
+        palette6.setBrush(QPalette::Inactive, QPalette::LinkVisited, brush9);
+        palette6.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush10);
+        QBrush brush35(QColor(0, 0, 0, 255));
+        brush35.setStyle(Qt::NoBrush);
+        palette6.setBrush(QPalette::Inactive, QPalette::NoRole, brush35);
+        palette6.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush12);
+        palette6.setBrush(QPalette::Inactive, QPalette::ToolTipText, brush);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette6.setBrush(QPalette::Inactive, QPalette::PlaceholderText, brush13);
+#endif
+        palette6.setBrush(QPalette::Disabled, QPalette::WindowText, brush15);
+        palette6.setBrush(QPalette::Disabled, QPalette::Button, brush1);
+        palette6.setBrush(QPalette::Disabled, QPalette::Light, brush2);
+        palette6.setBrush(QPalette::Disabled, QPalette::Midlight, brush3);
+        palette6.setBrush(QPalette::Disabled, QPalette::Dark, brush15);
+        palette6.setBrush(QPalette::Disabled, QPalette::Mid, brush5);
+        palette6.setBrush(QPalette::Disabled, QPalette::Text, brush15);
+        palette6.setBrush(QPalette::Disabled, QPalette::BrightText, brush2);
+        palette6.setBrush(QPalette::Disabled, QPalette::ButtonText, brush15);
+        palette6.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        palette6.setBrush(QPalette::Disabled, QPalette::Window, brush2);
+        palette6.setBrush(QPalette::Disabled, QPalette::Shadow, brush16);
+        palette6.setBrush(QPalette::Disabled, QPalette::Highlight, brush17);
+        palette6.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush2);
+        palette6.setBrush(QPalette::Disabled, QPalette::Link, brush8);
+        palette6.setBrush(QPalette::Disabled, QPalette::LinkVisited, brush9);
+        palette6.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush10);
+        QBrush brush36(QColor(0, 0, 0, 255));
+        brush36.setStyle(Qt::NoBrush);
+        palette6.setBrush(QPalette::Disabled, QPalette::NoRole, brush36);
+        palette6.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush12);
+        palette6.setBrush(QPalette::Disabled, QPalette::ToolTipText, brush);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette6.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush13);
+#endif
+        no_con_txt->setPalette(palette6);
+        no_con_txt->setFrameShape(QFrame::NoFrame);
+        no_con_txt->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        no_con_txt->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse);
         slipad->setCentralWidget(centralwidget);
 
         retranslateUi(slipad);
@@ -618,6 +703,12 @@ public:
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">Incorrect operator credentials .</span></p></body></html>", nullptr));
+        no_con_txt->setHtml(QCoreApplication::translate("slipad", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">No connection available.</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>", nullptr));
     } // retranslateUi
 
 };

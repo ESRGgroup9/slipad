@@ -1,3 +1,5 @@
+#define DEBUG
+
 #include "CLocalSystem.h"
 #include "utils.h" // panic
 #include "debug.h"
@@ -9,7 +11,7 @@
 using namespace std;
 
 // timer periods
-#define TIM_CAM_FRAME_SECS	(10)
+#define TIM_CAM_FRAME_SECS	(5)
 #define TIM_CAM_PROC_SECS	(0)
 #define TIM_LAMP_ON_SECS	(10)
 
@@ -78,7 +80,10 @@ CLocalSystem::~CLocalSystem()
 
 void CLocalSystem::timLampOnISR()
 {
-	DEBUG_MSG("[CLS::timLampOnISR] Sending (LAMP;MIN)");
+	stringstream debug_msg;
+	debug_msg << "[CLS::timLampOnISR] Sending (LAMP;MIN)";
+	DEBUG_MSG(debug_msg.str());
+
 	// turn off lamp
 	lamp.setBrightness(MIN_BRIGHT_PWM);
 
@@ -120,7 +125,7 @@ void CLocalSystem::timHandler(union sigval arg)
 	}
 	else
 	{
-		ERROR_MSG("[CLS::timHandler] unexpected timer event");
+		ERROR_MSG("ERROR> [CLS::timHandler] unexpected timer event");
 	}
 }
 
@@ -156,6 +161,7 @@ void CLocalSystem::run()
 
 void CLocalSystem::sigHandler(int sig)
 {
+	stringstream debug_msg;
 	switch(sig)
 	{
 		case SIG_dSENSORS:
@@ -164,7 +170,10 @@ void CLocalSystem::sigHandler(int sig)
 			break;
 
 		case SIGINT:
-			DEBUG_MSG("[CLS::sigHandler] caught SIGINT");
+			debug_msg.str("");
+			debug_msg << "[CLS::sigHandler] caught SIGINT";
+			DEBUG_MSG(debug_msg.str());
+
 			// closing the queue
     		mq_close(thisPtr->msgqSensors);
 
@@ -172,15 +181,21 @@ void CLocalSystem::sigHandler(int sig)
 		    if (mq_unlink(MSGQ_NAME) == -1)
 	   			panic("Removing queue error");
     		
-    		DEBUG_MSG("[CLS::sigHandler] closing...");
+    		debug_msg.str("");
+			debug_msg << "[CLS::sigHandler] closing...";
+			DEBUG_MSG(msg.str());
+
 			exit(0);
 		default:
-			ERROR_MSG("[CLS::sigHandler] caught unexpected signal");
+			debug_msg.str("");
+			debug_msg << "[CLS::sigHandler] caught unexpected signal";
+			DEBUG_MSG(msg.str());
 	}
 }
 
 int CLocalSystem::idCb(int argc, char *argv[])
 {
+
 	if(argc != 2)
 	{
 		DEBUG_MSG("[CLS::idCb] Usage: ID;<id>");
@@ -191,7 +206,11 @@ int CLocalSystem::idCb(int argc, char *argv[])
  	
  	thisPtr->lora.setSrcAddr(id);
  	IDReceived = true;
- 	DEBUG_MSG("[CLS::idCb] Lamppost ID = " << id);
+
+ 	stringstream debug_msg;
+	debug_msg << "[CLS::idCb] Lamppost ID = " << id;
+	DEBUG_MSG(debug_msg.str());
+
 	return 0;
 }
 
@@ -205,7 +224,10 @@ int CLocalSystem::lampCb(int argc, char *argv[])
 
 	// make sure that argv[1], that is, the lamp state, is valid
 	parseSensorsCmd(argv[1]);
-	DEBUG_MSG("[CLS::lampCb] Lamp state set at " << argv[1]);
+
+	stringstream debug_msg;
+	debug_msg << "[CLS::lampCb] Lamp state set at " << argv[1];
+	DEBUG_MSG(debug_msg.str());
 	return 0;
 }
 
@@ -223,10 +245,11 @@ void *CLocalSystem::tLoraRecv(void *arg)
 		if(err == LoRaError::MSGOK)
 		{
 			c->loraParser.parse(msg.c_str());
-			DEBUG_MSG("[CLS::tLoraRecv] Received[" << msg << "]");
+
+			stringstream debug_msg;
+			debug_msg << "[CLS::tLoraRecv] Received[" << msg << "]";
+			DEBUG_MSG(debug_msg.str());
 		}
-		else if(err != LoRaError::ENOMSGR)
-			DEBUG_MSG("[CLS::tLoraRecv] != no message...");
 
 	}
 
@@ -246,7 +269,10 @@ void *CLocalSystem::tRecvSensors(void *arg)
 
 	// send PID to dSensors
 	string pid_str = to_string(getpid());
-	DEBUG_MSG("[CLS::tRecvSensors] Sending PID[" << pid_str << "]");
+
+	stringstream debug_msg;
+	debug_msg << "[CLS::tRecvSensors] Sending PID[" << pid_str << "]";
+	DEBUG_MSG(debug_msg.str());
 	
 	do
 	{
@@ -313,7 +339,9 @@ void *CLocalSystem::tRecvSensors(void *arg)
 				string loraMsg = "LAMP;" + string(msg);
 				c->lora.push(loraMsg);
 
-				DEBUG_MSG("[CLS::tRecvSensors] Sending (" << loraMsg << ")");
+				debug_msg.str("");
+				debug_msg << "[CLS::tRecvSensors] Sending (" << loraMsg << ")";
+				DEBUG_MSG(debug_msg.str());
 			}
 			
 			pthread_mutex_unlock(&c->mutRecvSensors);
@@ -366,7 +394,10 @@ void *CLocalSystem::tParkDetection(void *arg)
 				// send update info to remote system
 				string loraMsg = "PARK;" + to_string(vacantsNum);
 				c->lora.push(loraMsg);
-				DEBUG_MSG("[CLS::tParkDetection] Sending (" << loraMsg << ")");
+
+				stringstream debug_msg;
+				debug_msg << "[CLS::tParkDetection] Sending (" << loraMsg << ")";
+				DEBUG_MSG(debug_msg.str());
 			}
 			oldVacantsNum = vacantsNum;
 		}
@@ -423,7 +454,7 @@ int CLocalSystem::parseSensorsCmd(char *str)
 
 	if((p->cmd) == 0)
 	{
-		ERROR_MSG("[parseSensorsCmd] Received unexpected command");
+		ERROR_MSG("ERROR> [parseSensorsCmd] Received unexpected command");
 		return -1;
 	}
 

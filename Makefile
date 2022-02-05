@@ -58,7 +58,7 @@ DOXYFILE=$(DOX_DIR)/Doxyfile
 CXX 	=$(CROSS_COMPILE)$(COMPILE)
 LIBS	=-lpthread -lbcm2835 -lrt
 
-export DEBUG	=-D DEBUG #-g
+export DEBUG	=#-D DEBUG #-g
 export INCLDS	=-I $(INC_DIR)
 CXXFLAGS		=$(INCLDS) -Wall $(LIBS) $(DEBUG)
 #------------------------------------------------------------------------------

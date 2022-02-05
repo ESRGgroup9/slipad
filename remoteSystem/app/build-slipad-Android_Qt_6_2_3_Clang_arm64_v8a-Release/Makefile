@@ -53,22 +53,32 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../slipad/addLamp.cpp \
+		../slipad/comms.cpp \
 		../slipad/consult.cpp \
 		../slipad/main.cpp \
 		../slipad/menu.cpp \
 		../slipad/repairLamp.cpp \
-		../slipad/slipad.cpp qrc_resources.cpp \
+		../slipad/slipad.cpp \
+		../slipad/tcp/CCommunication.cpp \
+		../slipad/tcp/CTCPclient.cpp \
+		../slipad/tcp/CTCPcomm.cpp \
+		../slipad/tcp/parser.cpp qrc_resources.cpp \
 		moc_addLamp.cpp \
 		moc_consult.cpp \
 		moc_menu.cpp \
 		moc_repairLamp.cpp \
 		moc_slipad.cpp
 OBJECTS       = addLamp.o \
+		comms.o \
 		consult.o \
 		main.o \
 		menu.o \
 		repairLamp.o \
 		slipad.o \
+		CCommunication.o \
+		CTCPclient.o \
+		CTCPcomm.o \
+		parser.o \
 		qrc_resources.o \
 		moc_addLamp.o \
 		moc_consult.o \
@@ -269,16 +279,29 @@ DIST          = /home/fernandes/Qt/6.2.3/android_arm64_v8a/mkspecs/features/spec
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/mkspecs/features/yacc.prf \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/mkspecs/features/lex.prf \
 		../slipad/slipad.pro ../slipad/addLamp.h \
+		../slipad/comms.h \
 		../slipad/consult.h \
 		../slipad/lamppost.h \
 		../slipad/menu.h \
 		../slipad/repairLamp.h \
-		../slipad/slipad.h ../slipad/addLamp.cpp \
+		../slipad/slipad.h \
+		../slipad/tcp/CCommunication.h \
+		../slipad/tcp/CTCPclient.h \
+		../slipad/tcp/CTCPcomm.h \
+		../slipad/tcp/debug.h \
+		../slipad/tcp/defs.h \
+		../slipad/tcp/parser.h \
+		../slipad/tcp/utils.h ../slipad/addLamp.cpp \
+		../slipad/comms.cpp \
 		../slipad/consult.cpp \
 		../slipad/main.cpp \
 		../slipad/menu.cpp \
 		../slipad/repairLamp.cpp \
-		../slipad/slipad.cpp
+		../slipad/slipad.cpp \
+		../slipad/tcp/CCommunication.cpp \
+		../slipad/tcp/CTCPclient.cpp \
+		../slipad/tcp/CTCPcomm.cpp \
+		../slipad/tcp/parser.cpp
 QMAKE_TARGET  = libslipad_arm64-v8a.so
 DESTDIR       = 
 TARGET        = libslipad_arm64-v8a.so
@@ -707,8 +730,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../slipad/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /home/fernandes/Qt/6.2.3/android_arm64_v8a/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../slipad/addLamp.h ../slipad/consult.h ../slipad/lamppost.h ../slipad/menu.h ../slipad/repairLamp.h ../slipad/slipad.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../slipad/addLamp.cpp ../slipad/consult.cpp ../slipad/main.cpp ../slipad/menu.cpp ../slipad/repairLamp.cpp ../slipad/slipad.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../slipad/addLamp.h ../slipad/comms.h ../slipad/consult.h ../slipad/lamppost.h ../slipad/menu.h ../slipad/repairLamp.h ../slipad/slipad.h ../slipad/tcp/CCommunication.h ../slipad/tcp/CTCPclient.h ../slipad/tcp/CTCPcomm.h ../slipad/tcp/debug.h ../slipad/tcp/defs.h ../slipad/tcp/parser.h ../slipad/tcp/utils.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../slipad/addLamp.cpp ../slipad/comms.cpp ../slipad/consult.cpp ../slipad/main.cpp ../slipad/menu.cpp ../slipad/repairLamp.cpp ../slipad/slipad.cpp ../slipad/tcp/CCommunication.cpp ../slipad/tcp/CTCPclient.cpp ../slipad/tcp/CTCPcomm.cpp ../slipad/tcp/parser.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../slipad/addLamp.ui ../slipad/consult.ui ../slipad/menu.ui ../slipad/repairLamp.ui ../slipad/slipad.ui $(DISTDIR)/
 
 
@@ -1039,6 +1062,26 @@ moc_consult.cpp: ../slipad/consult.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qnativeinterface.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtabwidget.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qicon.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTableWidgetItem \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtablewidget.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtableview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qframe.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qabstractitemmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qitemselectionmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemdelegate.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyleoption.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qlocale.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractspinbox.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qvalidator.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qregularexpression.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyle.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtabbar.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qrubberband.h \
+		../slipad/lamppost.h \
 		moc_predefs.h \
 		/home/fernandes/Qt/6.2.3/gcc_64/libexec/moc
 	/home/fernandes/Qt/6.2.3/gcc_64/libexec/moc $(DEFINES) --include /home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Release/moc_predefs.h -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/mkspecs/android-clang -I/home/fernandes/code/slipad/remoteSystem/app/slipad -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWebView -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtPositioning -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/local/include -I/home/fernandes/programs/android/sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.8/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../slipad/consult.h -o moc_consult.cpp
@@ -1191,6 +1234,26 @@ moc_menu.cpp: ../slipad/menu.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcalendar.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qlocale.h \
 		../slipad/repairLamp.h \
+		../slipad/consult.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTableWidgetItem \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtablewidget.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtableview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qframe.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qabstractitemmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qitemselectionmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemdelegate.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyleoption.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractspinbox.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qvalidator.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qregularexpression.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyle.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtabbar.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qrubberband.h \
+		../slipad/lamppost.h \
 		moc_predefs.h \
 		/home/fernandes/Qt/6.2.3/gcc_64/libexec/moc
 	/home/fernandes/Qt/6.2.3/gcc_64/libexec/moc $(DEFINES) --include /home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Release/moc_predefs.h -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/mkspecs/android-clang -I/home/fernandes/code/slipad/remoteSystem/app/slipad -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWebView -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtPositioning -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/local/include -I/home/fernandes/programs/android/sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.8/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../slipad/menu.h -o moc_menu.cpp
@@ -1494,6 +1557,26 @@ moc_slipad.cpp: ../slipad/slipad.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcalendar.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qlocale.h \
 		../slipad/repairLamp.h \
+		../slipad/consult.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTableWidgetItem \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtablewidget.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtableview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qframe.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qabstractitemmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qitemselectionmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemdelegate.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyleoption.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractspinbox.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qvalidator.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qregularexpression.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyle.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtabbar.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qrubberband.h \
+		../slipad/lamppost.h \
 		moc_predefs.h \
 		/home/fernandes/Qt/6.2.3/gcc_64/libexec/moc
 	/home/fernandes/Qt/6.2.3/gcc_64/libexec/moc $(DEFINES) --include /home/fernandes/code/slipad/remoteSystem/app/build-slipad-Android_Qt_6_2_3_Clang_arm64_v8a-Release/moc_predefs.h -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/mkspecs/android-clang -I/home/fernandes/code/slipad/remoteSystem/app/slipad -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWebView -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtPositioning -I/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/local/include -I/home/fernandes/programs/android/sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.8/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../slipad/slipad.h -o moc_slipad.cpp
@@ -1719,10 +1802,95 @@ addLamp.o: ../slipad/addLamp.cpp ../slipad/addLamp.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextdocument.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QWidget \
+		../slipad/comms.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QMessageBox \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qmessagebox.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addLamp.o ../slipad/addLamp.cpp
+
+comms.o: ../slipad/comms.cpp ../slipad/comms.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QString \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qstring.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qchar.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qglobal.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qconfig-bootstrapped.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qconfig.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qtcore-config.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qsystemdetection.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qprocessordetection.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcompilerdetection.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qtypeinfo.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcontainerfwd.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qsysinfo.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qlogging.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qflags.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qatomic.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qbasicatomic.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qatomic_bootstrap.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qgenericatomic.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qatomic_cxx11.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qglobalstatic.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qnumeric.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qversiontagging.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qstringview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qbytearray.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qrefcount.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qnamespace.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qtmetamacros.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qarraydata.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qpair.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qarraydatapointer.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qarraydataops.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcontainertools_impl.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qbytearrayalgorithms.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qbytearrayview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qstringliteral.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qstringalgorithms.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qanystringview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qutf8stringview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qstringtokenizer.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qstringbuilder.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QDebug \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qdebug.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qalgorithms.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qhash.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qhashfunctions.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qiterator.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qlist.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qbytearraylist.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qstringlist.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qstringmatcher.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qmath.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qmap.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qshareddata.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qshareddata_impl.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qtextstream.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qiodevicebase.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qscopedpointer.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qstringconverter.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qset.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcontiguouscache.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qsharedpointer.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qsharedpointer_impl.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qobject.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qobjectdefs.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qobjectdefs_impl.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcoreevent.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qmetatype.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcompare.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qvarlengtharray.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qscopeguard.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qdatastream.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qiterable.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qmetacontainer.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcontainerinfo.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qtaggedpointer.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qobject_impl.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qbindingstorage.h \
+		../slipad/tcp/CTCPclient.h \
+		../slipad/tcp/CTCPcomm.h \
+		../slipad/tcp/CCommunication.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o comms.o ../slipad/comms.cpp
 
 consult.o: ../slipad/consult.cpp ../slipad/consult.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QMainWindow \
@@ -1854,6 +2022,26 @@ consult.o: ../slipad/consult.cpp ../slipad/consult.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qnativeinterface.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtabwidget.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qicon.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTableWidgetItem \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtablewidget.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtableview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qframe.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qabstractitemmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qitemselectionmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemdelegate.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyleoption.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qlocale.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractspinbox.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qvalidator.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qregularexpression.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyle.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtabbar.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qrubberband.h \
+		../slipad/lamppost.h \
 		ui_consult.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QVariant \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/QIcon \
@@ -1875,41 +2063,24 @@ consult.o: ../slipad/consult.cpp ../slipad/consult.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qexception.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qguiapplication.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qinputmethod.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qlocale.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qguiapplication_platform.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QHeaderView \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qheaderview.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemview.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qframe.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qabstractitemmodel.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qitemselectionmodel.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemdelegate.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyleoption.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractspinbox.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qvalidator.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qregularexpression.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qslider.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractslider.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyle.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtabbar.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qrubberband.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QLineEdit \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qlineedit.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextcursor.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextformat.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qpen.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextoption.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QPushButton \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qpushbutton.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractbutton.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTableView \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtableview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTableWidget \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTextBrowser \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtextbrowser.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtextedit.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextdocument.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextoption.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextcursor.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextformat.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qpen.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QWidget \
-		../slipad/lamppost.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QString \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWebView/QtWebView \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWebView/QtWebViewDepends \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QtCore \
@@ -2103,10 +2274,27 @@ consult.o: ../slipad/consult.cpp ../slipad/consult.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWebView/qtwebviewfunctions.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWebView/qwebview_global.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWebView/qtwebviewversion.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QString \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QDebug \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QMessageBox \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qmessagebox.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qdialog.h
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qdialog.h \
+		../slipad/slipad.h \
+		../slipad/menu.h \
+		../slipad/addLamp.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtPositioning/QGeoPositionInfoSource \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtPositioning/qgeopositioninfosource.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtPositioning/QGeoPositionInfo \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtPositioning/qgeopositioninfo.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtPositioning/QGeoCoordinate \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtPositioning/qgeocoordinate.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QMetaType \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QSharedDataPointer \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtPositioning/qpositioningglobal.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QExplicitlySharedDataPointer \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QDateTime \
+		../slipad/repairLamp.h \
+		../slipad/comms.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o consult.o ../slipad/consult.cpp
 
 main.o: ../slipad/main.cpp ../slipad/slipad.h \
@@ -2258,6 +2446,26 @@ main.o: ../slipad/main.cpp ../slipad/slipad.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcalendar.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qlocale.h \
 		../slipad/repairLamp.h \
+		../slipad/consult.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTableWidgetItem \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtablewidget.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtableview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qframe.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qabstractitemmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qitemselectionmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemdelegate.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyleoption.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractspinbox.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qvalidator.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qregularexpression.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyle.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtabbar.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qrubberband.h \
+		../slipad/lamppost.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QApplication \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qapplication.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcoreapplication.h \
@@ -2276,7 +2484,13 @@ main.o: ../slipad/main.cpp ../slipad/slipad.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qexception.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qguiapplication.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qinputmethod.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qguiapplication_platform.h
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qguiapplication_platform.h \
+		../slipad/tcp/CTCPclient.h \
+		../slipad/tcp/CTCPcomm.h \
+		../slipad/tcp/CCommunication.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QMessageBox \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qmessagebox.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../slipad/main.cpp
 
 menu.o: ../slipad/menu.cpp ../slipad/menu.h \
@@ -2427,6 +2641,26 @@ menu.o: ../slipad/menu.cpp ../slipad/menu.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcalendar.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qlocale.h \
 		../slipad/repairLamp.h \
+		../slipad/consult.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTableWidgetItem \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtablewidget.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtableview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qframe.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qabstractitemmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qitemselectionmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemdelegate.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyleoption.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractspinbox.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qvalidator.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qregularexpression.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyle.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtabbar.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qrubberband.h \
+		../slipad/lamppost.h \
 		ui_menu.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QVariant \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QApplication \
@@ -2454,8 +2688,6 @@ menu.o: ../slipad/menu.cpp ../slipad/menu.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTextBrowser \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtextbrowser.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtextedit.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qframe.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextdocument.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextoption.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextcursor.h \
@@ -2648,6 +2880,7 @@ repairLamp.o: ../slipad/repairLamp.cpp ../slipad/repairLamp.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextdocument.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QWidget \
+		../slipad/comms.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QMessageBox \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qmessagebox.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qdialog.h
@@ -2802,6 +3035,26 @@ slipad.o: ../slipad/slipad.cpp ../slipad/slipad.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qcalendar.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qlocale.h \
 		../slipad/repairLamp.h \
+		../slipad/consult.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTableWidgetItem \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtablewidget.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtableview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemview.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qframe.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qabstractitemmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qitemselectionmodel.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractitemdelegate.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyleoption.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractspinbox.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qvalidator.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/qregularexpression.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractslider.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qstyle.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtabbar.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qrubberband.h \
+		../slipad/lamppost.h \
 		ui_slipad.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtCore/QVariant \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QApplication \
@@ -2825,7 +3078,6 @@ slipad.o: ../slipad/slipad.cpp ../slipad/slipad.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qguiapplication_platform.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QLineEdit \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qlineedit.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qframe.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextcursor.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextformat.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qpen.h \
@@ -2836,10 +3088,36 @@ slipad.o: ../slipad/slipad.cpp ../slipad/slipad.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QTextBrowser \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtextbrowser.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qtextedit.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qabstractscrollarea.h \
 		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtGui/qtextdocument.h \
-		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QWidget
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QWidget \
+		../slipad/comms.h \
+		../slipad/tcp/CTCPclient.h \
+		../slipad/tcp/CTCPcomm.h \
+		../slipad/tcp/CCommunication.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/QMessageBox \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qmessagebox.h \
+		/home/fernandes/Qt/6.2.3/android_arm64_v8a/include/QtWidgets/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o slipad.o ../slipad/slipad.cpp
+
+CCommunication.o: ../slipad/tcp/CCommunication.cpp ../slipad/tcp/CCommunication.h \
+		../slipad/tcp/utils.h \
+		../slipad/tcp/debug.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CCommunication.o ../slipad/tcp/CCommunication.cpp
+
+CTCPclient.o: ../slipad/tcp/CTCPclient.cpp ../slipad/tcp/CTCPclient.h \
+		../slipad/tcp/CTCPcomm.h \
+		../slipad/tcp/CCommunication.h \
+		../slipad/tcp/utils.h \
+		../slipad/tcp/debug.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CTCPclient.o ../slipad/tcp/CTCPclient.cpp
+
+CTCPcomm.o: ../slipad/tcp/CTCPcomm.cpp ../slipad/tcp/CTCPcomm.h \
+		../slipad/tcp/CCommunication.h \
+		../slipad/tcp/debug.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CTCPcomm.o ../slipad/tcp/CTCPcomm.cpp
+
+parser.o: ../slipad/tcp/parser.cpp ../slipad/tcp/parser.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parser.o ../slipad/tcp/parser.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

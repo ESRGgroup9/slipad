@@ -12,6 +12,8 @@
  * 		54 MHz / 16 = 3,375 MHz
  *  	RANGE = 3,375MHz / 50 Hz
  * 		RANGE = 67500
+ * 
+ * 
  */
 
 #include "CLamp.h"
@@ -24,7 +26,7 @@
  */
 #define PWM_PIN		(RPI_GPIO_P1_12)
 #define PWM_CHANNEL (0)
-#define RANGE 		(67500)
+#define RANGE 		(67500)//(3375)
 
 CLamp::CLamp()
 {
@@ -45,6 +47,8 @@ CLamp::CLamp()
 
     if(pthread_mutex_init(&mutChangePWM, NULL) != 0)
         panic("CLamp::CLamp(): Mutex init");
+
+    setBrightness(0);
 }
 
 CLamp::~CLamp()
@@ -63,8 +67,8 @@ void CLamp::setBrightness(uint8_t lux)
         return;
     }
 
-    float duty = lux/100;
-	pthread_mutex_lock(&mutChangePWM);
+    float duty = (float)lux/100;
+    pthread_mutex_lock(&mutChangePWM);
 	pwmVal = lux;
 	bcm2835_pwm_set_data(PWM_CHANNEL, (duty*RANGE));
     pthread_mutex_unlock(&mutChangePWM);

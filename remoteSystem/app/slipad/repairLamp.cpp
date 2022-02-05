@@ -1,6 +1,8 @@
 #include "repairLamp.h"
 #include "ui_repairLamp.h"
 
+#include "comms.h"
+
 #include <QString>
 #include <QDebug>
 #include <QMessageBox>
@@ -19,26 +21,35 @@ repairLamp::~repairLamp()
 
 void repairLamp::on_selectLamp_b_released()
 {
-    QString id = ui->id->text();
+    QString address = ui->address->text();
 
-    ui->id->clear();
+    ui->address->clear();
 
-    if( !id.size() )
+    if( !address.size() )
     {
-        QMessageBox::warning(this,"Repair Lamppost", "Provide an ID!");
+        QMessageBox::warning(this,"Repair Lamppost", "Provide an address!");
         return;
     }
 
     // SEARCH ID IN DATABASE
-    int id_db;
-    if(id_db != id.toInt())
-        QMessageBox::warning(this,"Repair Lamppost", "ID not found!");
-    else
-    {
-        // UPDATE STATUS IN DATABASE
-        QMessageBox::warning(this,"Repair Lamppost", "Lamppost status updated!");
-    }
+    //Usage: REP;<lamppost_address>
+    QString msg = address;
 
+    // add to database
+    int err = execCmd("REP;", msg);
+    if(err == EXEC_OK)
+    {
+        QMessageBox::warning(this,"Repair Lamppost", "Lamppost status updated!");
+        // success login
+        this->deleteLater();
+    }
+    else if(err == EXEC_FAIL)
+    {
+        QMessageBox::warning(this,"Repair Lamppost", "Address not found!");
+        return;
+    }
+    else
+        QMessageBox::critical(this, "Info", "Failed: Check your connection!");
     return;
 }
 

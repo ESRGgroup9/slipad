@@ -9,8 +9,13 @@ void ERROR_MSG(char *msg);
 #include <stdarg.h>
 #include <iostream>
 #include <cstring>
+#include <syslog.h>
+#include <sstream>
 
-#define DEBUG_MSG(str) (std::cout << str << std::endl)
+//#define DEBUG_MSG(str) (std::cout << str << std::endl)
+#define DEBUG_MSG(str) { std::stringstream msg; msg << str << std::endl; }
+						 //syslog(LOG_INFO, msg.str().c_str()); }
+
 #define ERROR_MSG(str)	{DEBUG_MSG("ERROR> " << str); abort();}
 
 // **********************************************
@@ -21,3 +26,5 @@ void ERROR_MSG(char *msg);
 
 #endif // !DEBUG
 #endif // !__DEBUG_H__
+
+
