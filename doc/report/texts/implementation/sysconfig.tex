@@ -2,11 +2,12 @@ In the Buildroot, using \verb|make menuconfig| one can use a graphic interface (
 
 Under \verb|Target-Packages| select:
 \begin{itemize}
-	\item \verb|Development tools|, select:
-	\begin{itemize}
-		\item \verb|git|
-	\end{itemize}
-
+%	\item \verb|Development tools|, select:
+%	\begin{itemize}
+%		\item \verb|git|
+%	\end{itemize}
+	
+	% *****************************************************************************
 	\item \verb|Networking applications|, select:
 	\begin{itemize}
 		\item \verb|arp-scan|: scan the network of a certain interface for alive hosts;
@@ -14,15 +15,37 @@ Under \verb|Target-Packages| select:
 		\item \verb|dhcpcd|: open source DHCP client;
 		\item \verb|dropbear|: small SSH server which will let us log in remotely;
 	\end{itemize}
-
+	
+	% *****************************************************************************
 	\item \verb|Hardware Handling|
 	\begin{itemize}
 		\item \verb|spi-tools|: tools needed to use SPI. Used for LoRa module communication;
 		\item \verb|i2c-tools|: tools needed to use I2C. Used for light sensor module, TSL2581;
+		\item \verb|rpi-userland|: Used to detect camera hardware;
 	\end{itemize}
 	
-	\item \verb|Libraries -> Hardware Handling|, select:
+	% *****************************************************************************
+	\item \verb|Libraries|, select:
 	\begin{itemize}
-		\item \verb|bcm2835|: C library for Raspberry Pi user programs;
+		% *******************************
+		\item \verb|Hardware Handling|
+		\begin{itemize}
+			\item \verb|bcm2835|: C library for Raspberry Pi user programs;
+			\item \verb|libv4l|: select \verb|v4l-utils tools|: API for real time video capture;
+		\end{itemize}
+		
+		% *******************************
+		\item \verb|Graphics|
+		\begin{itemize}
+			\item \verb|OpenCV3|: select \verb|jpeg support|, \verb|png support|, \verb|v4L support|, \verb|videoio|, \verb|highgui|, \verb|imgcodecs|, \verb|imgproc|, \verb|v4l support|: Used for image capturing and processing;
+		\end{itemize}
 	\end{itemize}
+
+	% *****************************************************************************
+	\item \verb|Audio and Video Applications|, select:
+	\begin{itemize}
+		\item \verb|v4l2grab|: utility for grabbing JPEG images;
+	\end{itemize}
+	% *****************************************************************************
+	
 \end{itemize}

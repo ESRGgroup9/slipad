@@ -46,6 +46,17 @@ The first command is used to configure a kernel image for the Raspberry Pi 4, as
 \end{figure}
 
 %**********************************************************
+\subsection{OpenCV}
+
+\begin{lstlisting}
+$ cd ~/buildroot/buildroot-2021.02.5/output/build/opencv3-3.4.13/buildroot-build
+$ cmake-gui
+$ cmake .
+$ make -j8
+$ sudo make install
+\end{lstlisting}
+
+%**********************************************************
 \subsection{Qt Creator}
 
 The Qt Creator IDE was used to create an application that is used by the operator to interact with the system. The IDE instalation is done by downloading the open-source online installer present on the official site, in the download page \cite{qt_creator}. In the figure \ref{fig:qt_instalation} is shown all the packages installed for this IDE.
