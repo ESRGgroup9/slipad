@@ -264,7 +264,16 @@ One has recorded a video (available on \url{https://www.youtube.com/watch?v=6i_d
 \section{Local System}
 Regarding Local System tests, one recorded a video (available on \linebreak \url{https://youtu.be/DqlRUeHZ5FM}) demonstrating the local system working, with all the modules integrated.
 
-The first tests presented was the parking spots detection algorithms, previously seen in this chapter. Next, the video shows all the sensors working. In figure \ref{fig:localSys}, one can observe the local system tests with the sensors integrated. At first, the local system waits for the sensors daemon to read the PID. When the PID is read, the sensors daemon may start to send commands. When it gets dark, the light sensor, TSL2581, detects low luminosity and the daemon sends a command to the main process to turn on the light at the minimum brightness, \verb|MIN|. If the movement sensor, PIR, sensor detects movement, the daemon sends a command to turn on the light at maximum brightness. The lamp continues at maximum brightness until the lamp timer has a timeout, putting it to the minimum brightness again. If the lamp fails, i.e., the lamp failure detector doesn't detect light, then the daemon send a command, informing the main process that the lamp failed, \verb|FAIL|. At last, if the light sensor detects day time lux values, the daemon sends the command \verb|OFF|, in order to the main process turn off the light. 
+The first tests presented was the parking spots detection algorithms, previously seen in this chapter. The tests for the parking spots detection integrated in the local system are shown in a recorded video (available on \url{https://www.youtube.com/watch?v=6i_ds_ChGGM}). In figure \ref{fig:testpark}, one can see that the algorithm detected 3 parking spots. After putting one car in a parking spot, the local system detected only two parks available and sent it to the remote system. When another car is added to the parking spot, the local system does the same and send the information that there's only one parking spot detected.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.55\textwidth]{13tests/tParkDetection}
+	\caption{Test Local System: Parking spots detection.}
+	\label{fig:testpark}
+\end{figure}
+
+Next, the video shows all the sensors working. For this tests, one also recorded another video showing the movement detection (available on \url{https://youtu.be/kcBeJNxGR2k}). In figure \ref{fig:localSys}, one can observe the local system tests with the sensors integrated. At first, the local system waits for the sensors daemon to read the PID. When the PID is read, the sensors daemon may start to send commands. When it gets dark, the light sensor, TSL2581, detects low luminosity and the daemon sends a command to the main process to turn on the light at the minimum brightness, \verb|MIN|. If the movement sensor, PIR, sensor detects movement, the daemon sends a command to turn on the light at maximum brightness. The lamp continues at maximum brightness until the lamp timer has a timeout, putting it to the minimum brightness again. If the lamp fails, i.e., the lamp failure detector doesn't detect light, then the daemon send a command, informing the main process that the lamp failed, \verb|FAIL|. At last, if the light sensor detects day time lux values, the daemon sends the command \verb|OFF|, in order to the main process turn off the light. 
 
 \begin{figure}[H]
 	\centering
@@ -403,11 +412,20 @@ To test the mobile application, the remote server was started in the machine wit
 	\label{fig:applogin}
 \end{figure}
 
-If the credentials were wrong, the message presented in figure \ref{fig:login_wrong} is shown, and the login fails.
+If the credentials were wrong, the message presented in figure \ref{fig:login_wrong} is shown, and the login fails. Furthermore, if any operation performed by the operator fails, the application shows an error message.
 
 \begin{figure}[H]
 	\centering	
 	\includegraphics[width=.4\textwidth]{13tests/app/login_wrong}
 	\caption{Test Mobile Application: Test login - Wrong credentials.}
 	\label{fig:login_wrong}
+\end{figure}
+
+When the operator selects \verb|Consult Lamppost Network|, the mobile application sends a request for the remote server and receive all the lamppost information relative to that operator. In figure \ref{fig:consult}, one can observed the lamppost network information relative to the operator with ID number 2.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.4\textwidth]{13tests/app/consult}
+	\caption{Test Mobile Application: Consult lamppost network.}
+	\label{fig:consult}
 \end{figure}
