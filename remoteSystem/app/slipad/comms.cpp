@@ -27,7 +27,7 @@ int execCmd(QString cmd, QString args)
     return (int)(str.compare(cmd.toStdString()+string("OK")) == 0);
 }
 
-int execMultipleCmd(QVector<string> &received, QString cmd, QString args)
+/*int execMultipleCmd(QVector<string> &received, QString cmd, QString args)
 {
     string msg = cmd.toStdString() + args.toStdString();
     int num_msg = 0;
@@ -53,7 +53,7 @@ int execMultipleCmd(QVector<string> &received, QString cmd, QString args)
     }
 
     return 0;
-}
+}*/
 
 int send_cmd(string str)
 {
@@ -107,7 +107,7 @@ int receive_return(string &str)
             if(err != EAGAIN)
             {
                 // unexpected error
-                qDebug() << "[CGateway::tTCPRecv] " << err;
+                qDebug() << "[Comms::receive_return] " << err;
                 return COMM_FAIL;
             }
         }

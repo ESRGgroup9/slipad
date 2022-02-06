@@ -9,7 +9,7 @@
 #include <string>
 
 int execCmd(QString cmd, QString args);
-int execMultipleCmd(QVector<std::string> &received, QString cmd, QString args);
+//int execMultipleCmd(QVector<std::string> &received, QString cmd, QString args);
 
 int receive_return(std::string &str);
 int send_cmd(std::string str);
