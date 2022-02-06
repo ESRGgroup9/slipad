@@ -297,7 +297,7 @@ The local system transmits all the information via LoRa communication to the gat
 
 %**********************************************************
 \section{Gateway}
-The gateway is connected to the remote system through TCP-IP, using an ethernet cable. In this case, when connecting to the remote system, the gateway tries to connect to IP \verb|10.42.0.1|, network address of the remote system which is listening for incoming connections on port \verb|5000|. After TCP connection has been established, the gateway needs to identify himself as a remote client, specifying its type, i.e, \verb|GATEWAY|. This identification is done using \verb|TYPE;<clientType>| command.
+The gateway is connected to the remote system through TCP-IP, using an Ethernet cable. In this case, when connecting to the remote system, the gateway tries to connect to IP \verb|10.42.0.1|, network address of the remote system which is listening for incoming connections on port \verb|5000|. After TCP connection has been established, the gateway needs to identify himself as a remote client, specifying its type, i.e, \verb|GATEWAY|. This identification is done using \verb|TYPE;<clientType>| command.
 
 \begin{figure}[H]
 	\centering	
@@ -412,7 +412,7 @@ In figure \ref{fig:rsnewgateway} is shown the process of connecting a gateway to
 
 After connection between gateway and remote system has been established, the local system sends the \verb|CRQ;<localAddr>| command, regarding a connection request. This command is an handshake from the two systems, where the remote system gives to the local system a new ID. The local system, from now on, uses the given ID in all communications.
 
-In figure \ref{fig:RScmdsfromLS} is shown the receival of local system's commands. It is visible that after the \verb|CRQ| command, where a local system with address 170 receives an ID of 10, the communications are made using that ID, in \verb|lamppost(10)|. Firstly, one can see the lamppost changing its status to \verb|MIN|. When the lamppost changes its status to \verb|ON|, the remote system must determine which lampposts should also turn on, executing a dynamic light up of the network lampposts. As a proof of concept, the remote system considers the neighbour lampposts as the ones with the ID above and below of the ID of the lamppost that turned on. For that reason, one can see that when \verb|lamppost(10)| turns on, the remote system requests \verb|lamppost(9)| and \verb|lamppost(11)| to turn on their lamp.
+In figure \ref{fig:RScmdsfromLS} is shown the receive of local system's commands. It is visible that after the \verb|CRQ| command, where a local system with address 170 receives an ID of 10, the communications are made using that ID, in \verb|lamppost(10)|. Firstly, one can see the lamppost changing its status to \verb|MIN|. When the lamppost changes its status to \verb|ON|, the remote system must determine which lampposts should also turn on, executing a dynamic light up of the network lampposts. As a proof of concept, the remote system considers the neighbour lampposts as the ones with the ID above and below of the ID of the lamppost that turned on. For that reason, one can see that when \verb|lamppost(10)| turns on, the remote system requests \verb|lamppost(9)| and \verb|lamppost(11)| to turn on their lamp.
 
 \begin{figure}[H]
 	\centering	
@@ -439,7 +439,7 @@ Regarding a mobile application remote client, the procedure for identifying the 
 	\label{fig:RScmdsApp}
 \end{figure}
 
-In figure \ref{fig:RSrepairApp} is shown the output of the mobile application using the repair funcionality. A lamppost with status \verb|FAIL| can be repaired by the operator, having its state back to \verb|OFF|, if the repair was made during the day, or back to \verb|MIN|, if the repair was made late in the afternoon, and the local system has already detected low luminosity conditions.
+In figure \ref{fig:RSrepairApp} is shown the output of the mobile application using the repair functionality. A lamppost with status \verb|FAIL| can be repaired by the operator, having its state back to \verb|OFF|, if the repair was made during the day, or back to \verb|MIN|, if the repair was made late in the afternoon, and the local system has already detected low luminosity conditions.
 
 \begin{figure}[H]
 	\centering	
