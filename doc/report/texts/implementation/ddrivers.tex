@@ -93,7 +93,6 @@ static long pir_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 			printk(KERN_INFO "[PIR] copy_from_user failed\n"); 
 			return -1;
 		}
-		// printk(KERN_INFO "[PIR] PID-> %d\n", pid);
 		printk(KERN_INFO "[PIR] Requested by PID %d\n", pid);
 	}
 	else
