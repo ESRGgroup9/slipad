@@ -15,13 +15,6 @@ extern QString op_id;
 
 CTCPclient tcp(string("192.168.1.114"), 5000);
 
-enum States
-{
-     LOGIN, MENU, ADD, REPAIR, CONSULT
-};
-
-States nstate = LOGIN;
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

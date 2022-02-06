@@ -370,3 +370,63 @@ if( pos != -1 )
 
 \section{Mobile Application}
 
+The mobile application interacts with the database via TCP/IP via local server. When the application is executed, it tries to connect to the server held, in this case in the IP \verb|192.168.1.114| and port \verb|5000|. In the listing \ref{lst:appConnection}, is represented the connection establishment with the server. After the connection is done, the application sends a message to the server, indicating the type of its device, in this case, an application (\verb|TYPE;2|).
+
+\begin{lstlisting}[language=C, caption={Mobile Application: Connection to the server.}, label={lst:appConnection}]
+CTCPclient tcp(string("192.168.1.114"), 5000);
+
+int main(int argc, char *argv[])
+{
+	// connect to tcp server
+	ret = tcp.connect();
+	if(ret == 0)
+	{
+		qDebug() << "Connection established";
+		break;
+	}
+	
+	err = errno;
+	if(err != ECONNREFUSED)
+	{
+		// unexpected connection error
+		qDebug() << "[CGateway::connect] Connect failed: " << err;
+	}
+	
+	// send type to remote system
+	QString msg = "TYPE;2";	
+	do
+	{
+		ret = tcp.send(msg.toStdString());
+		err = errno;
+	} while((ret == -1) && (err == EAGAIN));
+	
+	// Handle errors
+	...
+}
+\end{lstlisting}
+
+When the operator tries to add a lamppost to the database, the application has to get the actual GPS location from the mobile phone. In the listing \ref{lst:appLocation} is shown the code that obtains the location from a \verb|QGeoPositionInfoSource|, connecting first to it and then start receiving updates in a period of 1 second. When the application wants to access the location, it can be done using the \verb|source->lastKnownPosition().coordinate()|, that return the last known position coordinates.
+
+\begin{lstlisting}[language=C, caption={Mobile Application: Obtain GPS coordinates.}, label={lst:appLocation}]
+source = QGeoPositionInfoSource::createDefaultSource(this);
+if ( source )
+{
+	// conect to GPS
+	connect(source, SIGNAL(positionUpdated(QGeoPositionInfo)), 
+			this, SLOT(positionUpdated(QGeoPositionInfo)));
+	// start updating localization
+	source->startUpdates();
+}
+\end{lstlisting}
+
+When a button is pressed in a window, it is executed the correspondent trigger function and when one wants to show other windows, it must be defined one instance of the window and call the \verb|show| function. In listing \ref{lst:appButton}, one can see an example of a button pressed call back function that invokes another window.
+
+\begin{lstlisting}[language=C, caption={Mobile Application: Button trigger function.}, label={lst:appButton}]
+void menu::on_add_new_released()
+{
+	addMenu = new addLamp(this);
+	addMenu->show();
+}
+\end{lstlisting}
+
+
