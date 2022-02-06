@@ -12,7 +12,7 @@ $ cd ~
 $ git clone git@github.com:ESRGgroup9/slipad.git
 \end{lstlisting}
 
-With this steps, Git is installed in a local machine, username and user email is defined alongside with the default core editor. After this, one can clone the repository for this project, created in GitHub.
+With this steps, Git is installed in a local machine, username and user email is defined alongside with the default core editor. After this, one can clone the repository for this project, created in GitHub, by executing line 6.
 
 %**********************************************************
 \subsection{Buildroot}
@@ -46,7 +46,42 @@ The first command is used to configure a kernel image for the Raspberry Pi 4, as
 \end{figure}
 
 %**********************************************************
-\subsection{Qt}
+\subsection{OpenCV}
+
+Afer configuring OpenCv in the buildroot as seen in section \ref{systemConfig}, in order to make the compiled OpenCv libraries available in the host machine, one needs to do some configurations. In the listing below is shown the procedure to install the OpenCv libraries. This libraries are installed on the directory \verb|usr/lib|, in order to cross-compile with the OpenCv. For this configuration, one needs to install \verb|cmake| and \verb|cmake-gui|.
+
+\begin{lstlisting}
+$ cd ~/buildroot/buildroot-2021.02.5/output/build/opencv3-3.4.13/buildroot-build
+$ cmake-gui
+$ cmake .
+$ make -j8
+$ sudo make install
+\end{lstlisting}
+
+%**********************************************************
+\subsection{Qt Creator}
+
+The Qt Creator IDE was used to create an application that is used by the operator to interact with the system. The IDE instalation is done by downloading the open-source online installer present on the official site, in the download page \cite{qt_creator}. In the figure \ref{fig:qt_instalation} is shown all the packages installed for this IDE.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.80\textwidth]{11configs/qt_instalation}
+	\caption{Qt Creator: Instalation.}
+	\label{fig:qt_instalation}
+\end{figure}
+
+Since one is deploying the application to an Android device, it was necessary to install and configure the Android Studio and SDK tools \cite{android_studio}, and also Android NDK \cite{android_ndk} in the Qt Creator. To install the Android Studio run \verb|<path-to-android-studio>/android-studio/bin/studio.sh|. Next, one needs to configure the platform of the Android Studio accordingly to the android phone version. The Android NDK must be the \verb|r23| version, and the Qt creator configure the packages missing.
+
+It is also necessary to install a Java SE Development (JDK) \cite{java}. The JDK version shouldn't be the latest and the installed one was the version 11. Now, run \verb|<path-to-android-studio>/android/tools/bin/sdkmanager --licenses| in order to accept the licenses. 
+
+At last, the \verb|QT -> Tools -> Options -> Devices -> Android|, sould look like shown in figure \ref{fig:qt_config}.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.80\textwidth]{11configs/qt_config}
+	\caption{Qt Creator: Configuration.}
+	\label{fig:qt_config}
+\end{figure}
 
 %**********************************************************
 \subsection{MySQL}
@@ -56,11 +91,39 @@ In order to have a fully managed database service to deploy cloud-native applica
 $ sudo apt-get install libmysqlclient-dev
 \end{lstlisting}
 
-After first run of \verb|mysql|, on can create insert Slipad's database and populate it, by typing the following commands.
+First time runnning \verb|mysql|, one can create a strong password for \verb|mysql| access. After that, one can login into \verb|mysql| by typing:
+
 \begin{lstlisting}
 $ mysql -u root -p
-mysql> source ~/slipad/database/slipad.sql
-mysql> source ~/slipad/database/slipadPop.sql
 \end{lstlisting}
 
+%**********************************************************
+\subsection{PHP}
+In order to fetch data from the remote server database to the website that will present available parking spots, one uses PHP, which must first be configured. The following commands must be executed so that one gets a PHP client and PHP with MySql.
 
+\begin{lstlisting}
+$ sudo apt install php7.4-cli
+$ sudo apt install php-mysqli
+\end{lstlisting}
+
+Knowing that fetching data from a remote database envolves secret keys, such as servername, username, port number, database password, it is usefull to have a \verb|.env| file which will contain all of them. In order to load those variables into the website index file one needs to setup \verb|phpdotenv| following the steps bellow. \cite{phpdotenv}
+
+\begin{lstlisting}
+$ sudo apt install composer
+$ composer install
+$ composer require vlucas/phpdotenv
+\end{lstlisting}
+
+%**********************************************************
+\subsection{Google Maps Credentials}
+In order for the website to present the parking spaces at a given location in a map, one uses Google Maps API. In order to generate a Google API key, one needs to go to Google API Console \cite{googleapi} and:
+
+\begin{enumerate}
+	\item Create a \textbf{new project};
+	\item In API Manager go into \textbf{Library} and select \textbf{Google Maps Javascript API};
+	\item Select the created project to enable APIs;
+	\item Enable API;
+	\item In API Manager go into \textbf{Credentials} and in \textbf{Create Credentials} click \textbf{Create API key}	
+\end{enumerate}
+
+After this steps, one may retrieve the generated key and use it within website source file. Make sure that this does not leak since it is a secret key that it is not meant be shared.

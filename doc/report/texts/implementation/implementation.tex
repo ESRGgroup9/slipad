@@ -235,7 +235,7 @@ lux_temp = temp >> LUX_SCALE;			// strip off fractional portion
 %**********************************************************
 \clearpage
 \section{Database}
-As previously stated, this system's database is developed using MySql. Analysing the two main entities of the database, \verb|lamppost| and \verb|location|, one can see its implementation in listing \ref{lst:locationLamppost}.
+As previously stated, this system's database is developed using MySql. One can create a file, \verb|slipad.sql| to have the queries needed to create the database. Analysing the two main entities of the database, \verb|lamppost| and \verb|location|, one can see its implementation in listing \ref{lst:locationLamppost}.
 
 \begin{lstlisting}[language=SQL, caption={Queries to create tables location and lamppost.}, label={lst:locationLamppost}]
 DROP TABLE IF EXISTS `location`;
@@ -263,6 +263,12 @@ CREATE TABLE `lamppost`(
 );
 \end{lstlisting}
 
+In table \verb|location| there are a set of attributes needed to identify a particular location. Each location instance is directly connected with the existence of a lamppost. That way, the primary key for the lamppost table references the primary key from \verb|location|, which is the location \verb|id|.
+
+Each lamppost is connected to the remote system, and that way to the database, through a gateway. For that reason, each lamppost instance needs to contain the socket file descriptor of the TCP connection established by the gateway that is connected to that lamppost (local system).\\
+
+As in lamppost table, in table \verb|parking_space| each row is linked to a unique lamppost, which is connected to a unique location. Considering that the number of vacants in each parking space is initialized as zero, there is only the need of creating a parking space by defining its \verb|id|. For that reason, a trigger is used to insert a parking spot, in table \verb|parking_space|, after an insertion in \verb|lamppost|, using the id of the inserted lamppost as the id of the parking space. In listing \ref{lst:triggerinspark} it shown the implementation of the trigger in question.
+
 \begin{lstlisting}[language=SQL, caption={Trigger to insert a parking spot after lampost insert.}, label={lst:triggerinspark}]
 DELIMITER $$
 
@@ -277,14 +283,308 @@ END$$
 DELIMITER ;
 \end{lstlisting}
 
+One can execute all the queries in \verb|slipad.sql| in order to create the database by login into MySql and typing the command:
+\begin{lstlisting}
+mysql> source ~/slipad/database/slipad.sql;
+\end{lstlisting}
 
-\begin{lstlisting}[caption={.}, label={lst:}]
+After this, one should see the result shown in figure \ref{fig:showtables}, by typing the command \verb|show tables;|.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=0.3\textwidth]{13tests/database/showtables}
+	\caption{Database: created tables}
+	\label{fig:showtables}
+\end{figure}
+
+
+\subsection{Populating the database}
+In order to populate the database faster, one used the queries format shown bellow, in listing \ref{lst:populatedb}.
+
+\begin{lstlisting}[language=SQL, caption={Queries examples to populate database.}, label={lst:populatedb}]
+INSERT INTO operator(id, name, password) VALUES
+(NULL, 'Jonh', 'pass');
+
+INSERT INTO region(post_code, operator_id, parish, county, district) VALUES
+('9999-999', 1, 'Azurem', 'Guimaraes', 'Braga');
+
+INSERT INTO location(id, latitude, longitude, post_code, street_name) VALUES
+(1, 41.447986, -8.300469, '4800-045', 'Alameda Dr. Alfredo Pimenta');
+
+INSERT INTO lamppost(id, address) VALUES
+(1, 0xa2);
 
 \end{lstlisting}
 
-
+%**********************************************************
 \section{Parking spots detection}
+As previously stated before, the parking spots detection algorithm is based on OpenCv API. First one needs to capture a frame using the Raspberry Pi camera and store it, as shown in listing \ref{lst:captureframe}. 
 
+\begin{lstlisting}[language=C, caption={Capture and Store frame from Camera.}, label={lst:captureframe}]
+// read frame into lastFrame
+camDev.read(lastFrame);
+
+// write image to path
+imwrite(IMAGE_PATH, lastFrame);
+\end{lstlisting}
+
+To capture the frame, one used the \ac{v4l} API and calibrated the camera parameters using the code present in listing \ref{lst:calibrateCamera}, in order to get a clear image from the camera. 
+
+\begin{lstlisting}[language=C, caption={Capture and Store frame from Camera.}, label={lst:calibrateCamera}]
+camDev.set(CAP_PROP_FRAME_WIDTH , FRAME_W); // 640
+camDev.set(CAP_PROP_FRAME_HEIGHT, FRAME_H); // 480
+camDev.set(CAP_PROP_BRIGHTNESS, CAM_BRIGHTNESS); // 20
+camDev.set(CAP_PROP_CONTRAST, CAM_CONTRAST); // 0
+camDev.set(CAP_PROP_SATURATION, CAM_SATURATION); //10
+
+system("v4l2-ctl --set-ctrl=auto_exposure=0");
+system("v4l2-ctl --set-ctrl=iso_sensitivity=4");
+system("v4l2-ctl --set-ctrl=auto_exposure_bias=18");
+system("v4l2-ctl --set-ctrl=exposure_time_absolute=1000");
+system("v4l2-ctl --set-ctrl=exposure_dynamic_framerate=1");
+system("v4l2-ctl --set-ctrl=white_balance_auto_preset=7");
+
+system("v4l2-ctl --set-ctrl=sharpness=30");
+\end{lstlisting}
+
+When there is a image from the empty parking spots, one can identify the number of parking spots available for that lamppost. For that, it was used an algorithm that detect rectangles in an image since a parking spot shape is a rectangle. First, we apply the Gaussian blur to the image, in order to filter the image noise. Then, one searches for squares in every colour plane of the image, starting for mixing the channels an try several threshold levels with the canny edge detection function. After dilate the image to remove the holes between edge segments, one can find contours and store them in a list of 2D points. In the end, it is verified if the contours are between a defined size and if they don't overlap another rectangles. If the answer is affirmative, then contour is added to the park coordinates in the image held in the vector \verb|parkCoords|. In the listing \ref{lst:getOutline}, is shown the algorithm that detects parking spots in an image.
+
+\begin{lstlisting}[language=C, caption={Parking Spots Detection.}, label={lst:getOutline}]
+// apply gaussian
+GaussianBlur(frame, gaussian, Size(7, 7), 0);
+
+Canny(gray0, gray, 0, thresh, 5);
+		
+// find contours and store them all as a list
+findContours(gray, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
+	
+// test each contour
+for( size_t i = 0; i < contours.size(); i++ )
+{
+	addPark(contours[i]);
+}
+\end{lstlisting}
+
+When one have the the parking spot outline, it is ready to detect if the parking spot is empty or vacant, using for that, the algorithm that detect objects from OpenCv using a Haar Cascade classifier, \verb|detectMultiScale|. It was used a pre-trained classifier to detect cars. If the centre of the detected car is near the centre of the parking spot than it means that the parking spot is occupied. In listing \ref{lst:detectCars}, is shown the algorithm that determines if the parking spots are empty or occupied. 
+
+\begin{lstlisting}[language=C, caption={Empty Parking Spots Detection.}, label={lst:detectCars}]
+vector<Point> rect = getRectPoints(features[f]);
+	
+// Is the car over the parking spot?
+//  The center of the car match with the center of the parking spot?
+int pos = isOverlapp(rect);
+if( pos != -1 )
+{
+	vacantsNum--;
+	// park unavailable
+	parkStatus[pos] = 0;
+}
+\end{lstlisting}
+
+%**********************************************************
+\clearpage
 \section{Website}
+The website will present to the user the location and the number of available parking spots in a map. Since the website needs to know the informations about the lampposts network, PHP is used, to fetch data from the database. HTML is used to design the body of the website. That way, one will have a source file, named \verb|index.php|.
+
+Firstly, using \verb|dotenv|, third-party software \cite{phpdotenv}, one loads the secret variables regarding the database connection, from the \verb|.env| file which contains the secret variables definitions, with the format shown in listing \ref{lst:dotenv}.
+
+\begin{lstlisting}[language=php, caption={.env file example.}, label={lst:dotenv}]
+SERVER=servername
+USERNAME=username
+PASSWORD='password'
+DATABASE=database
+\end{lstlisting}
+
+Using \verb|$_ENV['var']| one can load \verb|var| from \verb|.env| file, into a variable in \verb|index.php|. After all necessary variables are loaded one can connect to the database using \verb|mysqli_connect|, as shown in listing \ref{lst:phpwebsite} Then, a query is made to the database, retrieving all lamppost information of where their number of vacants in the respective parking spaces are greater than zero.
+
+\begin{lstlisting}[language=php, caption={Create PHP connection to the database.}, label={lst:phpwebsite}]
+<?php
+// load secret variables from .env
+require_once 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$servername=$_ENV['SERVER'];
+$username=$_ENV['USERNAME'];
+$password=$_ENV['PASSWORD'];
+$database=$_ENV['DATABASE'];
+
+// connect to database
+$con = mysqli_connect($servername, $username, $password, $database);
+
+// execute query
+// ...
+?>
+\end{lstlisting}
+
+Entering the HTML section of the \verb|index| file, one will follow Google Maps documentation \cite{mapsdoc} in order to add a Google Map with several markers, relative to lampposts locations, using the HTML body presented in listing \ref{lst:website}. Lines 18 to 21 refer to the Google API script, that in order to use it, one needs to insert the Google API key, previously generated, in \verb|YOUR_API_KEY| (line 19). This is a secret key that should only be defined in \verb|.env| file. 
+
+\begin{lstlisting}[language=HTML, caption={Website: Adding a map with a marker.},label={lst:website}]
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#map {
+				height: 400px;
+				width: 10%;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>My Google Maps Demo</h3>
+		
+		<!--The div element for the map -->
+		<div id="map"></div>
+		
+		<!-- Async script executes immediately -->
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=
+		initMap">
+		</script>
+	</body>
+</html>
+\end{lstlisting}
+
+In the Google API script, one can see that it has a parameter called \verb|callback| that is set to \verb|initMap|, which will be tried to be loaded. That way, its necessary to add another \verb|script| tag in HTML, where one will have to define \verb|function initMap()|. Inside \verb|initMap()| one must set a new Google Map object in order to have a map displayed.
+
+Having the map displayed, then one needs to add markers of where the parking spaces available are. That way, a function \verb|addMarker| is created using JavaScript, as shown in listing \ref{lst:addmarker}. This function receives the marker coordinates, \verb|props.coords| and text message, \verb|props.content| which will pop up in a \verb|InfoWindow| when the user clicks on the marker.
+
+\begin{lstlisting}[language=HTML, caption={Website: Function for adding a marker.},label={lst:addmarker}]
+// Add Marker Function
+function addMarker(props){
+	var marker = new google.maps.Marker({
+		position:props.coords,
+		map:map,
+	});
+
+	// Check content
+	if(props.content){
+		var infoWindow = new google.maps.InfoWindow({
+			content:props.content
+		});
+		
+		marker.addListener('click', function(){
+			infoWindow.open(map, marker);
+		});
+	}
+}
+\end{lstlisting}
+
+By executing the command \verb|php -S localhost:8000|, inside the directory where \verb|index.php| is, one can open it in the browser and check the final result, presented in figure \ref{fig:websiteWindow}.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=1\textwidth]{13tests/website/website}
+	\caption{Website: window.}
+	\label{fig:websiteWindow}
+\end{figure}
+
+Whenever any of the markers is clicked on, the respective parking space informations are displayed, as shown in figure \ref{fig:websiteMarker}.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.4\textwidth]{13tests/website/websiteMarker}
+	\caption{Website: Marker info window.}
+	\label{fig:websiteMarker}
+\end{figure}
+
 
 \section{Mobile Application}
+
+The mobile application interacts with the database via TCP/IP via local server. When the application is executed, it tries to connect to the server held, in this case in the IP \verb|192.168.1.114| and port \verb|5000|. In the listing \ref{lst:appConnection}, is represented the connection establishment with the server. After the connection is done, the application sends a message to the server, indicating the type of its device, in this case, an application (\verb|TYPE;2|).
+
+\begin{lstlisting}[language=C, caption={Mobile Application: Connection to the server.}, label={lst:appConnection}]
+CTCPclient tcp(string("192.168.1.114"), 5000);
+
+int main(int argc, char *argv[])
+{
+	// connect to tcp server
+	ret = tcp.connect();
+	if(ret == 0)
+	{
+		qDebug() << "Connection established";
+		break;
+	}
+	
+	err = errno;
+	if(err != ECONNREFUSED)
+	{
+		// unexpected connection error
+		qDebug() << "[CGateway::connect] Connect failed: " << err;
+	}
+	
+	// send type to remote system
+	QString msg = "TYPE;2";	
+	do
+	{
+		ret = tcp.send(msg.toStdString());
+		err = errno;
+	} while((ret == -1) && (err == EAGAIN));
+	
+	// Handle errors
+	...
+}
+\end{lstlisting}
+
+When the operator tries to add a lamppost to the database, the application has to get the actual GPS location from the mobile phone. In the listing \ref{lst:appLocation} is shown the code that obtains the location from a \verb|QGeoPositionInfoSource|, connecting first to it and then start receiving updates in a period of 1 second. When the application wants to access the location, it can be done using the \verb|source->lastKnownPosition().coordinate()|, that return the last known position coordinates.
+
+\begin{lstlisting}[language=C, caption={Mobile Application: Obtain GPS coordinates.}, label={lst:appLocation}]
+source = QGeoPositionInfoSource::createDefaultSource(this);
+if ( source )
+{
+	// conect to GPS
+	connect(source, SIGNAL(positionUpdated(QGeoPositionInfo)), 
+			this, SLOT(positionUpdated(QGeoPositionInfo)));
+	// start updating localization
+	source->startUpdates();
+}
+\end{lstlisting}
+
+When a button is pressed in a window, it is executed the correspondent trigger function and when one wants to show other windows, it must be defined one instance of the window and call the \verb|show| function. In listing \ref{lst:appButton}, one can see an example of a button pressed call back function that invokes another window.
+
+\begin{lstlisting}[language=C, caption={Mobile Application: Button trigger function.}, label={lst:appButton}]
+void menu::on_add_new_released()
+{
+	addMenu = new addLamp(this);
+	addMenu->show();
+}
+\end{lstlisting}
+
+%**********************************************************
+%\section{Local System}
+%
+%%**********************************************************
+%\section{Gateway}
+%
+%%**********************************************************
+%\section{Remote System}
+
+%%**********************************************************
+\section{Local System's Model}
+In order to facilitate testing the whole system, one developed a simple model of a public street, using basic card boxes, as shown in figure \ref{fig:front}. At the right, there is the lamppost, were the power module and the Raspberry Pi are stored. Above, there is the lamppost head, were the majority of the sensors are placed.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=0.5\textwidth]{mechanicalStructure/front}
+	\caption{Mechanical Structure: Front.}
+	\label{fig:front}
+\end{figure}
+
+\clearpage
+In figure \ref{fig:lamp_pir} one can see in more detail the lower surface of the lamppost head. At the center there is the lamp, at the left there is the motion detector and at the right, one can see a small hole of were the camera is placed. At the down right one can see another small hole of were the lamp failure detector is placed, being strategically positioned so that it can detect the lamp brightness.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=0.5\textwidth]{mechanicalStructure/lamp_pir}
+	\caption{Mechanical Structure: Lamp failure and PIR sensors.}
+	\label{fig:lamp_pir}
+\end{figure}
+
+\clearpage
+In figure \ref{fig:tsl_lora} one can see the top of the lamppost head, where the luminosity sensor and the LoRa module sticks out. At the right, one can see the LoRa module antenna, and at the center, one can see a small hole so that light can enter the luminosity sensor.
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=0.5\textwidth]{mechanicalStructure/tsl_lora}
+	\caption{Mechanical Structure: Luminosity sensor and LoRa Module Antenna.}
+	\label{fig:tsl_lora}
+\end{figure}

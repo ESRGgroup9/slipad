@@ -123,7 +123,7 @@ It is important to know how the light sensor works, and how it will behave upon 
 			\hline
 			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 			\\\hline\hline
-			Read ambient luminosity & Return ambient luminosity  & -
+			Read ambient luminosity & Return ambient luminosity  & As expected
 			\\\hline
 		\end{tabular}
 	}
@@ -213,9 +213,9 @@ It is important to know how the motion detector module works, and how it will be
 			\hline
 			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 			\\\hline\hline
-			Movement in front of the sensor & Pin SIGNAL high (3,3 V) & -
+			Movement in front of the sensor & Pin SIGNAL high (3,3 V) & As expected
 			\\\hline
-			No movement in front of the sensor & Pin SIGNAL low (0,3 V) & -
+			No movement in front of the sensor & Pin SIGNAL low (0,3 V) & As expected
 			\\\hline
 		\end{tabular}
 	}
@@ -268,7 +268,7 @@ It is important to know how the camera module will behave upon certain events. I
 		\hline
 		\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 		\\\hline\hline
-		Take picture & Clear output image & -
+		Take picture & Clear output image & As expected after camera calibration 
 		\\\hline
 	\end{tabular}
 	}
@@ -395,11 +395,11 @@ It is important to know how the LoRa module works, and how it will behave upon c
 			\hline
 			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 			\\\hline\hline
-			Establish connection & Stable connection established & -
+			Establish connection & Stable connection established & As expected
 			\\\hline
-			Send data & Data sent correctly & -
+			Send data & Data sent correctly & As expected
 			\\\hline
-			Receive data & Data received correctly & -
+			Receive data & Data received correctly & As expected
 			\\\hline
 		\end{tabular}
 	}
@@ -621,11 +621,11 @@ It is important to know how the step down works, and how it will behave upon cer
 			\hline
 			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 			\\\hline\hline
-			Connect power supply to the power grid & Provide 12 V \ac{dc} & -
+			Connect power supply to the power grid & Provide 12 V \ac{dc} & As expected
 			\\\hline
-			Connect step down to the power supply & Provide 5 V \ac{dc} & -
+			Connect step down to the power supply & Provide 5 V \ac{dc} & As expected
 			\\\hline
-			Connect voltage regulator to the step-down & Provide 3,3 V \ac{dc} & -
+			Connect voltage regulator to the step-down & Provide 3,3 V \ac{dc} & As expected
 			\\\hline
 		\end{tabular}
 	}
@@ -722,11 +722,11 @@ It is important to know how the driver works, and how it will behave upon certai
 			\hline
 			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 			\\\hline\hline
-			Apply 3,3 V to the transistor & Lamp at maximum bright & -
+			Apply 3,3 V to the transistor & Lamp at maximum bright & Lamp off. Amplifier montage was needed\
 			\\\hline
-			Apply 0 V to the transistor & Lamp off & -
+			Apply 0 V to the transistor & Lamp off & As expected
 			\\\hline
-			Change \ac{pwm} signal & Variable lamp brightness & -
+			Change \ac{pwm} signal & Variable lamp brightness & As expected
 			\\\hline
 		\end{tabular}
 	}
@@ -815,10 +815,10 @@ It is important to know how the lamp failure detector works, and how it will beh
 			\hline
 			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 			\\\hline\hline
-			Place sensor near a turned on lamp & Output Low (0 V) & - 
+			Place sensor near a turned on lamp & Output Low (0 V) & As expected 
 			\\\hline
 			
-			Place sensor near a turned off lamp  & Output High (3,3 V) & - 
+			Place sensor near a turned off lamp  & Output High (3,3 V) & As expected
 			\\\hline
 		\end{tabular}
 	}
@@ -865,3 +865,43 @@ In figure \ref{fig:connLayout} is shown all the sensors connections with the pow
 	\caption{Connections Layout.}
 	\label{fig:connLayout}
 \end{figure}
+
+\clearpage
+\section{Final Budget}
+In table \ref{table:finalBudget} one presents the final budget for the SLiPaD's system. Comparing to the table \ref{table:data} one can see that the estimated budget is approximately the same as this one. 
+
+\begin{table}[ht]
+	\centering
+	
+	\begin{tabular}{||c | c | c||} 
+		\hline
+		\textbf{Device} & \textbf{Product} & \textbf{Price(€)}\\
+		\hline\hline
+		
+		\multirow{4}{4em}{Gateway}
+		& Raspberry Pi 4B & 63,50				\\
+		& LoRa Module SX1278 Ra-02 & 7,90 		\\
+		& \textbf{Gateway Cost} & \textbf{71,40}\\
+		\hline
+		
+		\multirow{10}{4em}{Local System}
+		& Raspberry Pi 4B	& 63,50 \\
+		& LoRa Module SX1278 Ra-02 	& 7,90\\
+		& Antena RF &	2,95\\
+		& Raspberry Pi Camera V1 &	15,95\\
+		& PIR HC-SR501 &	4,60\\
+		& LDR &	1,90\\
+		& TSL2581 &	4,90\\
+		& LED lamp &	3,63\\
+		& Power Supply ORNO 12 V 5 A &	14,14\\
+		& Step Down 9-38V &	7,96\\
+		& Voltage regulator 5 to 3,3 V	 &1,00\\
+		& Basic Eletronic Components &	3,80\\
+		
+		& \textbf{Local System Cost} & \textbf{132,23}\\
+		\hline\hline
+		& \textbf{Total} & \textbf{203,63}\\\hline
+	\end{tabular}
+	\caption{Final budget.}
+	\label{table:finalBudget}
+\end{table}

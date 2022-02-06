@@ -32,7 +32,7 @@ gpu_mem=128
 
 %**********************************************************
 \subsection{Init Scripts}
-\verb|/etc/init.d| is a directory containing initialization and termination scripts for changing init states. File names in this directory are of the form \verb|[SK]nn<init.d filename>|, where \verb|S| means start this job, \verb|K| means kill this job, and \verb|nn| is the relative sequence number for killing or starting the job. \cite{initScript} For this reason, one must create a script, with name started by \verb|S|, inside \verb|/etc/init.d| in the Raspberry Pi, using for that, \verb|vi|.
+\verb|/etc/init.d| is a directory containing initialization and termination scripts for changing init states. File names in this directory are of the form \linebreak \verb|[SK]nn<init.d filename>|, where \verb|S| means start this job, \verb|K| means kill this job, and \verb|nn| is the relative sequence number for killing or starting the job. \cite{initScript} For this reason, one must create a script, with name started by \verb|S|, inside \verb|/etc/init.d| in the Raspberry Pi, using for that, \verb|vi|.
 
 In order to guarantee that each program is running after the system boots up, its necessary to create the respective init scripts, following the procedure detailed in listing \ref{lst:initScript}.
 
