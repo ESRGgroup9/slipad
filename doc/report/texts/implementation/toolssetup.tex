@@ -12,7 +12,7 @@ $ cd ~
 $ git clone git@github.com:ESRGgroup9/slipad.git
 \end{lstlisting}
 
-With this steps, Git is installed in a local machine, username and user email is defined alongside with the default core editor. After this, one can clone the repository for this project, created in GitHub.
+With this steps, Git is installed in a local machine, username and user email is defined alongside with the default core editor. After this, one can clone the repository for this project, created in GitHub, by executing line 6.
 
 %**********************************************************
 \subsection{Buildroot}
@@ -78,11 +78,10 @@ In order to have a fully managed database service to deploy cloud-native applica
 $ sudo apt-get install libmysqlclient-dev
 \end{lstlisting}
 
-After first run of \verb|mysql|, on can create insert Slipad's database and populate it, by typing the following commands.
+First time runnning \verb|mysql|, one can create a strong password for \verb|mysql| access. After that, one can login into \verb|mysql| by typing:
+
 \begin{lstlisting}
 $ mysql -u root -p
-mysql> source ~/slipad/database/slipad.sql
-mysql> source ~/slipad/database/slipadPop.sql
 \end{lstlisting}
 
 %**********************************************************
@@ -103,7 +102,7 @@ $ composer require vlucas/phpdotenv
 \end{lstlisting}
 
 %**********************************************************
-\subsection{Google Maps API}
+\subsection{Google Maps Credentials}
 In order for the website to present the parking spaces at a given location in a map, one uses Google Maps API. In order to generate a Google API key, one needs to go to Google API Console \cite{googleapi} and:
 
 \begin{enumerate}
@@ -114,4 +113,4 @@ In order for the website to present the parking spaces at a given location in a 
 	\item In API Manager go into \textbf{Credentials} and in \textbf{Create Credentials} click \textbf{Create API key}	
 \end{enumerate}
 
-After this steps, one may retrieve the generated key and use it within website source file. Make sure that this does not leak since it is a secret key that its not meant be shared.
+After this steps, one may retrieve the generated key and use it within website source file. Make sure that this does not leak since it is a secret key that it is not meant be shared.

@@ -235,7 +235,7 @@ lux_temp = temp >> LUX_SCALE;			// strip off fractional portion
 %**********************************************************
 \clearpage
 \section{Database}
-As previously stated, this system's database is developed using MySql. Analysing the two main entities of the database, \verb|lamppost| and \verb|location|, one can see its implementation in listing \ref{lst:locationLamppost}.
+As previously stated, this system's database is developed using MySql. One can create a file, \verb|slipad.sql| to have the queries needed to create the database. Analysing the two main entities of the database, \verb|lamppost| and \verb|location|, one can see its implementation in listing \ref{lst:locationLamppost}.
 
 \begin{lstlisting}[language=SQL, caption={Queries to create tables location and lamppost.}, label={lst:locationLamppost}]
 DROP TABLE IF EXISTS `location`;
@@ -282,6 +282,21 @@ END$$
 
 DELIMITER ;
 \end{lstlisting}
+
+One can execute all the queries in \verb|slipad.sql| in order to create the database by login into MySql and typing the command:
+\begin{lstlisting}
+mysql> source ~/slipad/database/slipad.sql;
+\end{lstlisting}
+
+After this, one should see the result shown in figure \ref{fig:showtables}, by typing the command \verb|show tables;|.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=0.3\textwidth]{13tests/database/showtables}
+	\caption{Database: created tables}
+	\label{fig:showtables}
+\end{figure}
+
 
 \subsection{Populating the database}
 In order to populate the database faster, one used the queries format shown bellow, in listing \ref{lst:populatedb}.
@@ -402,7 +417,7 @@ $con = mysqli_connect($servername, $username, $password, $database);
 ?>
 \end{lstlisting}
 
-Entering the HTML section of the \verb|index| file, one will follow Google Maps documentation \cite{mapsdoc} in order to add a Google Map with several markers, relative to lampposts locations, using the HTML body presented in listing \ref{lst:website};
+Entering the HTML section of the \verb|index| file, one will follow Google Maps documentation \cite{mapsdoc} in order to add a Google Map with several markers, relative to lampposts locations, using the HTML body presented in listing \ref{lst:website}. Lines 18 to 21 refer to the Google API script, that in order to use it, one needs to insert the Google API key, previously generated, in \verb|YOUR_API_KEY| (line 19). This is a secret key that should only be defined in \verb|.env| file. 
 
 \begin{lstlisting}[language=HTML, caption={Website: Adding a map with a marker.},label={lst:website}]
 <!DOCTYPE html>
@@ -422,22 +437,24 @@ Entering the HTML section of the \verb|index| file, one will follow Google Maps 
 		<div id="map"></div>
 		
 		<!-- Async script executes immediately -->
-		<script async defer			src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=
 		initMap">
 		</script>
 	</body>
 </html>
 \end{lstlisting}
 
-In order to use this, one needs to insert the Google API key, previously generated, in \verb|YOUR_API_KEY|. This is a secret key that should only be defined in \verb|.env| file.
+In the Google API script, one can see that it has a parameter called \verb|callback| that is set to \verb|initMap|, which will be tried to be loaded. That way, its necessary to add another \verb|script| tag in HTML, where one will have to define \verb|function initMap()|. Inside \verb|initMap()| one must set a new Google Map object in order to have a map displayed.
 
-\begin{lstlisting}[language=HTML, caption={Website: Adding a map with a marker.},label={lst:website}]
+Having the map displayed, then one needs to add markers of where the parking spaces available are. That way, a function \verb|addMarker| is created using JavaScript, as shown in listing \ref{lst:addmarker}. This function receives the marker coordinates, \verb|props.coords| and text message, \verb|props.content| which will pop up in a \verb|InfoWindow| when the user clicks on the marker.
+
+\begin{lstlisting}[language=HTML, caption={Website: Function for adding a marker.},label={lst:addmarker}]
 // Add Marker Function
 function addMarker(props){
 	var marker = new google.maps.Marker({
 		position:props.coords,
 		map:map,
-		//icon:props.iconImage
 	});
 
 	// Check content
@@ -452,6 +469,26 @@ function addMarker(props){
 	}
 }
 \end{lstlisting}
+
+By executing the command \verb|php -S localhost:8000|, inside the directory where \verb|index.php| is, one can open it in the browser and check the final result, presented in figure \ref{fig:websiteWindow}.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=1\textwidth]{13tests/website/website}
+	\caption{Website: window.}
+	\label{fig:websiteWindow}
+\end{figure}
+
+Whenever any of the markers is clicked on, the respective parking space informations are displayed, as shown in figure \ref{fig:websiteMarker}.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.4\textwidth]{13tests/website/websiteMarker}
+	\caption{Website: Marker info window.}
+	\label{fig:websiteMarker}
+\end{figure}
+
+
 \section{Mobile Application}
 
 The mobile application interacts with the database via TCP/IP via local server. When the application is executed, it tries to connect to the server held, in this case in the IP \verb|192.168.1.114| and port \verb|5000|. In the listing \ref{lst:appConnection}, is represented the connection establishment with the server. After the connection is done, the application sends a message to the server, indicating the type of its device, in this case, an application (\verb|TYPE;2|).
@@ -512,3 +549,12 @@ void menu::on_add_new_released()
 	addMenu->show();
 }
 \end{lstlisting}
+
+%**********************************************************
+\section{Local System}
+
+%**********************************************************
+\section{Gateway}
+
+%**********************************************************
+\section{Remote System}
