@@ -560,12 +560,31 @@ void menu::on_add_new_released()
 %\section{Remote System}
 
 %%**********************************************************
-\section{Mechanical Structure}
+\section{Local System's Model}
+In order to facilitate testing the whole system, one developed a simple model of a public street, using basic card boxes, as shown in figure \ref{fig:front}. At the right, there is the lamppost, were the power module and the Raspberry Pi are stored. Above, there is the lamppost head, were the majority of the sensors are placed.
 
 \begin{figure}[H]
 	\centering	
-	\includegraphics[width=1\textwidth]{13tests/mechanicalStructure/front}
+	\includegraphics[width=0.5\textwidth]{mechanicalStructure/front}
 	\caption{Mechanical Structure: Front.}
-	\label{fig:}
+	\label{fig:front}
 \end{figure}
 
+\clearpage
+In figure \ref{fig:lamp_pir} one can see in more detail the lower surface of the lamppost head. At the center there is the lamp, at the left there is the motion detector and at the right, one can see a small hole of were the camera is placed. At the down right one can see another small hole of were the lamp failure detector is placed, being strategically positioned so that it can detect the lamp brightness.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=0.5\textwidth]{mechanicalStructure/lamp_pir}
+	\caption{Mechanical Structure: Lamp failure and PIR sensors.}
+	\label{fig:lamp_pir}
+\end{figure}
+
+\clearpage
+In figure \ref{fig:tsl_lora} one can see the top of the lamppost head, where the luminosity sensor and the LoRa module sticks out. At the right, one can see the LoRa module antenna, and at the center, one can see a small hole so that light can enter the luminosity sensor.
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=0.5\textwidth]{mechanicalStructure/tsl_lora}
+	\caption{Mechanical Structure: Luminosity sensor and LoRa Module Antenna.}
+	\label{fig:tsl_lora}
+\end{figure}
