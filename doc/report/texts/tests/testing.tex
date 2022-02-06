@@ -255,6 +255,8 @@ Finally, one tested the two algorithms together. In figure \ref{fig:2parks}, is 
 	\label{fig:1park}
 \end{figure}
 
+One has recorded a video (available on \url{https://www.youtube.com/watch?v=6i_ds_ChGGM}) demonstrating the parking spots detection algorithm tests, already integrated in the local system.
+
 %%**********************************************************
 %\section{Database}
 
@@ -262,9 +264,7 @@ Finally, one tested the two algorithms together. In figure \ref{fig:2parks}, is 
 \section{Local System}
 Regarding Local System tests, one recorded a video (available on \url{https://youtu.be/DqlRUeHZ5FM}) demonstrating the local system working, with all the modules integrated.
 
-The first tests presented
-
-In figure \ref{fig:localSys}, one can observe the local system tests. At first, the local system waits for the sensors daemon to read the PID. When the PID was read, the sensors daemon starts to sending commands. When it gets dark, the system sends 
+The first tests presented was the parking spots detection algorithms, previously seen in this chapter. Next, the video shows all the sensors working. In figure \ref{fig:localSys}, one can observe the local system tests with the sensors integrated. At first, the local system waits for the sensors daemon to read the PID. When the PID is read, the sensors daemon may start to send commands. When it gets dark, the light sensor, TSL2581, detects low luminosity and the daemon sends a command to the main process to turn on the light at the minimum brightness, \verb|MIN|. If the movement sensor, PIR, sensor detects movement, the daemon sends a command to turn on the light at maximum brightness. The lamp continues at maximum brightness until the lamp timer has a timeout, putting it to the minimum brightness again. If the lamp fails, i.e., the lamp failure detector doesn't detect light, then the daemon send a command, informing the main process that the lamp failed, \verb|FAIL|. At last, if the light sensor detects day time lux values, the daemon sends the command \verb|OFF|, in order to the main process turn off the light. 
 
 \begin{figure}[H]
 	\centering
@@ -283,6 +283,8 @@ In figure \ref{fig:localSys}, one can observe the local system tests. At first, 
 	\caption{Testing Local System.}
 	\label{fig:localSys}
 \end{figure}
+
+The local system transmits all the commands via LoRa communication to the gateway, if it is connected to him, in order to update the remote system. In the next section, one will see the communication tests in the gateway.
 
 %**********************************************************
 
