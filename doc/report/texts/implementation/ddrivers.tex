@@ -46,7 +46,7 @@
 %
 %After the device driver insertion, one can use it to communicate with the sensor in order to acquire the ambient luminosity. For that, a “single” on-demand read can be issued by user-space directly by reading \linebreak \verb|/sys/bus/devices/iio:device/in_<type><index>_raw|. In this case, the \verb|read_raw()| callback should handle basically all the steps necessary to get the required measurement. \cite{read_tsl}
 %**********************************************************
-As previously seen, it was implemented a device driver for two identical devices, the movement detector, PIR HC-SR501, and the failure detector, the LDR sensor. In this section, one will only reference one device driver, as the other is uses the same algorithm. As they are sensors, one used the device drivers to read the signals send by the sensors. In listing \ref{lst:fops}, is shown the device operations to the PIR driver.
+As previously seen, it was implemented a device driver for two identical devices, the movement detector, PIR HC-SR501, and the failure detector, the LDR sensor. In this section, one will only reference one device driver, as the other uses the same algorithm. As they are sensors, one used the device driver to read the signals send by the sensors. In listing \ref{lst:fops}, is shown the device operations to the PIR driver.
 
 \begin{lstlisting}[language=C, caption={Device Driver Operations.}, label={lst:fops}]
 static struct file_operations fops = 
@@ -112,7 +112,7 @@ module_exit(pir_driver_exit);
 \end{lstlisting}
 
 
-\subsection{PIR}
-
-%**********************************************************
-\subsection{Lamp Failure Detector}
+%\subsection{PIR}
+%
+%%**********************************************************
+%\subsection{Lamp Failure Detector}
