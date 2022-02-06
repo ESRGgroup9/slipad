@@ -96,7 +96,7 @@ bool CParkDetection::getOutline(void)
 
 int CParkDetection::calcVacants(void)
 {
-    Mat frame;
+    Mat frame, gray;
 
     frame = imread(IMAGE_PATH, IMREAD_COLOR);
     if( frame.empty() )
@@ -108,8 +108,10 @@ int CParkDetection::calcVacants(void)
     if(!parkCoords.size())
         getOutline();
 
+    cvtColor(frame, gray, COLOR_BGR2GRAY);
+
     // detect cars in the frame
-	vector<Rect> features = detectCars(frame);
+	vector<Rect> features = detectCars(gray);
 
     // Reset the number of parking spots available
     vacantsNum = parkCoords.size();
