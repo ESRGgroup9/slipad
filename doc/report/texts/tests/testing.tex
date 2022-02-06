@@ -255,14 +255,33 @@ Finally, one tested the two algorithms together. In figure \ref{fig:2parks}, is 
 	\label{fig:1park}
 \end{figure}
 
-
-
 \section{Database}
 
 %**********************************************************
 \section{Local System}
+Regarding Local System tests, one recorded a video (available on \url{https://youtu.be/DqlRUeHZ5FM}) demonstrating the local system working, with all the modules integrated.
 
+The first tests presented
 
+In figure \ref{fig:localSys}, one can observe the local system tests. At first, the local system waits for the sensors daemon to read the PID. When the PID was read, the sensors daemon starts to sending commands. When it gets dark, the system sends 
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.4\textwidth}
+		\centering	
+		\includegraphics[width=.95\textwidth]{13tests/localSys}
+		\caption{Main Process.}
+		\label{fig:main}
+	\end{subfigure}%
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/dSensors}
+		\caption{Sensors Daemon.}
+		\label{fig:dSensors}
+	\end{subfigure}
+	\caption{Testing Local System.}
+	\label{fig:localSys}
+\end{figure}
 
 \section{Gateway}
 \section{Remote System}
