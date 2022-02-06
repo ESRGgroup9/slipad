@@ -169,7 +169,7 @@ To know if the camera was detected by the Raspberry Pi, it was used the command 
 		\caption{Photo after calibration.}
 		\label{fig:secpic}
 	\end{subfigure}
-	\caption{Testing: Camera.}
+	\caption{Test Camera.}
 	\label{fig:pics}
 \end{figure}
 
@@ -179,19 +179,58 @@ To know if the camera was detected by the Raspberry Pi, it was used the command 
 Regarding the parking spots detection, it was done a three phase tests. First, it was tested the algorithm that detects the parking spot outline, next the algorithm that detects cars in an image and, at last, the empty parking spots detection.
 
 
-
+%**********************************************************
 \section{Database}
 
 %**********************************************************
 \section{Local System}
 
 
-
+%**********************************************************
 \section{Gateway}
+
+%**********************************************************
 \section{Remote System}
+
+%**********************************************************
 \section{Website}
+In order to validate that the website is correctly reading all parking spaces information from the database, one can see the result of fetching info from the database before and after inserting a parking space into the database.
 
+In listing \ref{lst:testwebsite} is presented the queries needed to insert a parking space which is linked to a lamppost and to a location. In line 9 one defines the number of vacants at 3.
 
+\begin{lstlisting}[language=SQL, caption={Test Website: add parking space to the database.}, label={lst:testwebsite}]
+INSERT INTO region(post_code, operator_id, parish, county, district) 
+	VALUES('4800-073', 2, 'Azurem', 'Guimaraes', 'Braga');
+
+INSERT INTO location(id, latitude, longitude, post_code, street_name) 
+	VALUES(1, 41.447849, -8.298462, '4800-073', 'Rua Teixeira de Pascoais');
+
+INSERT INTO lamppost(id, address) VALUES (1, 0xa2);
+
+UPDATE parking_space SET num_vacants=3 WHERE id=1;
+\end{lstlisting}
+
+Below one can see the result in the website, before and after the insertion of the parking space.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/website/beforeinsert}
+		\caption{Before parking space insert.}
+		\label{fig:login}
+	\end{subfigure}%
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/website/afterinsert}
+		\caption{After parking space insert.}
+		\label{fig:menu}
+	\end{subfigure}
+	\caption{Test website.}
+	\label{fig:applogin}
+\end{figure}
+
+%**********************************************************
 \clearpage
 \section{Mobile Application}
 
