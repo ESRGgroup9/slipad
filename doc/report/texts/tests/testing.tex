@@ -262,19 +262,19 @@ One has recorded a video (available on \url{https://www.youtube.com/watch?v=6i_d
 
 %**********************************************************
 \section{Local System}
-Regarding Local System tests, one recorded a video (available on \url{https://youtu.be/DqlRUeHZ5FM}) demonstrating the local system working, with all the modules integrated.
+Regarding Local System tests, one recorded a video (available on \linebreak \url{https://youtu.be/DqlRUeHZ5FM}) demonstrating the local system working, with all the modules integrated.
 
 The first tests presented was the parking spots detection algorithms, previously seen in this chapter. Next, the video shows all the sensors working. In figure \ref{fig:localSys}, one can observe the local system tests with the sensors integrated. At first, the local system waits for the sensors daemon to read the PID. When the PID is read, the sensors daemon may start to send commands. When it gets dark, the light sensor, TSL2581, detects low luminosity and the daemon sends a command to the main process to turn on the light at the minimum brightness, \verb|MIN|. If the movement sensor, PIR, sensor detects movement, the daemon sends a command to turn on the light at maximum brightness. The lamp continues at maximum brightness until the lamp timer has a timeout, putting it to the minimum brightness again. If the lamp fails, i.e., the lamp failure detector doesn't detect light, then the daemon send a command, informing the main process that the lamp failed, \verb|FAIL|. At last, if the light sensor detects day time lux values, the daemon sends the command \verb|OFF|, in order to the main process turn off the light. 
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}{.4\textwidth}
+	\begin{subfigure}{.5\textwidth}
 		\centering	
 		\includegraphics[width=.95\textwidth]{13tests/localSys}
 		\caption{Main Process.}
 		\label{fig:main}
 	\end{subfigure}%
-	\begin{subfigure}{.4\textwidth}
+	\begin{subfigure}{.5\textwidth}
 		\centering
 		\includegraphics[width=.95\linewidth]{13tests/dSensors}
 		\caption{Sensors Daemon.}
@@ -287,7 +287,6 @@ The first tests presented was the parking spots detection algorithms, previously
 The local system transmits all the commands via LoRa communication to the gateway, if it is connected to him, in order to update the remote system. In the next section, one will see the communication tests in the gateway.
 
 %**********************************************************
-
 \section{Gateway}
 The gateway is connected to the remote system through TCP-IP, using an ethernet cable. In this case, when connecting to the remote system, the gateway tries to connect to IP \verb|10.42.0.1|, network address of the remote system which is listening for incoming connections on port \verb|5000|. After TCP connection has been established, the gateway needs to identify himself as a remote client, specifying its type, i.e, \verb|GATEWAY|. This identification is done using \verb|TYPE;<clientType>| command.
 
@@ -308,7 +307,6 @@ When the remote system acknowledges the connection from the gateway, it will ans
 \end{figure}
 
 %**********************************************************
-\clearpage
 \section{Remote System}
 
 Regarding Remote Systems tests, one recorded a video (available on \linebreak \url{https://youtu.be/KpZ--wc1S-c}) demonstrating the connection between the local system's parking detection, and the remote system's website.
@@ -343,6 +341,7 @@ In figure \ref{fig:RSpark} is shown the remote system output of when receiving \
 \end{figure}
 
 %**********************************************************
+\clearpage
 \section{Website}
 In order to validate that the website is correctly reading all parking spaces information from the database, one can see the result of fetching info from the database before and after inserting a parking space into the database.
 
