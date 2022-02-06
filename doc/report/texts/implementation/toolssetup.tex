@@ -48,6 +48,8 @@ The first command is used to configure a kernel image for the Raspberry Pi 4, as
 %**********************************************************
 \subsection{OpenCV}
 
+Afer configuring OpenCv in the buildroot as seen in section \ref{systemConfig}, in order to make the compiled OpenCv libraries available in the host machine, one needs to do some configurations. In the listing below is shown the procedure to install the OpenCv libraries. This libraries are installed on the directory \verb|usr/lib|, in order to cross-compile with the OpenCv. For this configuration, one needs to install \verb|cmake| and \verb|cmake-gui|.
+
 \begin{lstlisting}
 $ cd ~/buildroot/buildroot-2021.02.5/output/build/opencv3-3.4.13/buildroot-build
 $ cmake-gui
