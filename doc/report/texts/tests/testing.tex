@@ -178,6 +178,83 @@ To know if the camera was detected by the Raspberry Pi, it was used the command 
 
 Regarding the parking spots detection, it was done a three phase tests. First, it was tested the algorithm that detects the parking spot outline, next the algorithm that detects cars in an image and, at last, the empty parking spots detection.
 
+In figure \ref{fig:parkoutline} is shown the result of the parking spots outline detection. As one can see, the algorithm detected the rectangles that compose a parking spot.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.45\textwidth]{13tests/park/ParkOutline}
+	\caption{Test Parking Spots Detection: Parking spot outline.}
+	\label{fig:parkoutline}
+\end{figure}
+
+Regarding the cars detection, in figure \ref{fig:carsDetect}, one can see that all cars were detected in the image.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.45\textwidth]{13tests/park/3cars_W}
+	\caption{Test Parking Spots Detection: 3 cars detection.}
+	\label{fig:carsDetect}
+\end{figure}
+
+However, this detection showed some errors, principally when detecting cars near other cars, as reflects the figure \ref{fig:carsNW}, or detecting false positives in the image as observed in figure \ref{fig:0carsNW}. This happens because, to train the classifier, was used a different angle of the cars than in this images. 
+%The solution for this problem would be train the haar cascade classifier with other images or use other object detection algorithms, like CNN or YOLO.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/park/3cars_nw}
+		\caption{3 cars detection.}
+		\label{fig:carsNW}
+	\end{subfigure}%
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/park/0car_NW}
+		\caption{0 cars detection.}
+		\label{fig:0carsNW}
+	\end{subfigure}
+	\caption{Testing Parking Spots Detection: Bad cars detection.}
+	\label{fig:cars}
+\end{figure}
+
+Finally, one tested the two algorithms together. In figure \ref{fig:2parks}, is shown the detection of two parking spots available, as one car is occupying one parking spot, and, in figure \ref{fig:1park}, can be observed one park detection, as there are two cars occupying parking spots. Note that the the empty parking spots are represented as green rectangles and the occupied parking spots are represented as red rectangles.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{13tests/park/2parks_t}
+		\caption{Program execution.}
+		\label{fig:2parkst}
+	\end{subfigure}%
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/park/2parks}
+		\caption{Detection.}
+		\label{fig:2parksim}
+	\end{subfigure}
+	\caption{Testing Parking Spots Detection: 2 empty parking spots.}
+	\label{fig:2parks}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.99\linewidth]{13tests/park/1park_t}
+		\caption{Program execution.}
+		\label{fig:1parkst}
+	\end{subfigure}%
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/park/1park}
+		\caption{Detection.}
+		\label{fig:1parksim}
+	\end{subfigure}
+	\caption{Testing Parking Spots Detection: 1 empty parking spots.}
+	\label{fig:1park}
+\end{figure}
+
 
 %**********************************************************
 \section{Database}
