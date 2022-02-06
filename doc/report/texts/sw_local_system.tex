@@ -410,47 +410,47 @@ It is important to know how the local system works, and how it will behave upon 
 			\textbf{Test Case} & \textbf{Expected Output} & \textbf{Real Output}
 			\\\hline\hline
 			\multicolumn{3}{c}{\textbf{LoRa Communications}}\\\hline
-			Establish connection with the gateway & Connection established & - 
+			Establish connection with the gateway & Connection established & As expected
 			\\\hline
-			Send a command to the gateway & Command sent & -
+			Send a command to the gateway & Command sent & As expected
 			\\\hline
-			Receive commands & Command received & -
+			Receive commands & Command received & As expected
 			\\\hline
-			Process commands & Execute command if valid & -
+			Process commands & Execute command if valid & As expected
 			\\\hline
 			
 			\multicolumn{3}{c}{\textbf{Lamp PWM Control}}\\\hline
-			Set PWM=100 & Lamp at maximum bright & -
+			Set PWM=100 & Lamp at maximum bright & As expected
 			\\\hline
-			Set PWM=0 & Lamp off & -
+			Set PWM=0 & Lamp off & As expected
 			\\\hline
-			Change PWM signal & Variable lamp brightness & -
+			Change PWM signal & Variable lamp brightness & As expected
 			\\\hline
 			
 			\multicolumn{3}{c}{\textbf{Sensors}}\\\hline
-			Motion detected & Lamp at maximum bright & -
+			Motion detected & Lamp at maximum bright & As expected
 			\\\hline
-			Lamp at maximum bright & Lamp ON for a defined period of time & -
+			Lamp at maximum bright & Lamp ON for a defined period of time & As expected
 			\\\hline
-			LDR detect nighttime & Lamp at minimum bright & -
+			LDR detect nighttime & Lamp at minimum bright & As expected
 			\\\hline
-			LDR detect daytime & Lamp OFF & -
+			LDR detect daytime & Lamp OFF & As expected
 			\\\hline
-			Motion/LDR detection & Send correct commands to remote system & -
+			Motion/LDR detection & Send correct commands to remote system & As expected
 			\\\hline
-			Lamp Failure Detected & Sent correct command to remote system & -
+			Lamp Failure Detected & Sent correct command to remote system & As expected
 			\\\hline
 			
 			\multicolumn{3}{c}{\textbf{Camera}}\\\hline
-			Open camera device & Device opened correctly & -
+			Open camera device & Device opened correctly & As expected
 			\\\hline
-			Capture camera image & Variable containing image & -
+			Capture camera image & Variable containing image & As expected. Image saved in file system.
 			\\\hline
-			Get parking outline & Obtain parking coordinates from the image & -
+			Get parking outline & Obtain parking coordinates from the image & As expected
 			\\\hline
-			Car detection & Car detected inside parking outline & -
+			Car detection & Car detected inside parking outline & Reasonable. Sporadic false positives detections
 			\\\hline
-			Parking detection & Get number of available parks & -
+			Parking detection & Get number of available parks & As expected
 			\\\hline
 		\end{tabular}
 	}
