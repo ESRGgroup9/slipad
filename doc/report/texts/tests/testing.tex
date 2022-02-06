@@ -161,4 +161,36 @@ As seen in the previous chapter, one will use the Lamp Failure Detector to know 
 \section{Gateway}
 \section{Remote System}
 \section{Website}
+
+
+\clearpage
 \section{Mobile Application}
+
+To test the mobile application, the remote server was started in the machine with IP \verb|192.168.1.114|. After connecting to the remote server, the operator can login in the application. In figure \ref{fig:applogin}, one can see that, after inserting the correct credentials, the application menu appears, showing that the login process was successfully done.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/app/login}
+		\caption{Login.}
+		\label{fig:login}
+	\end{subfigure}%
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/app/menu}
+		\caption{Menu.}
+		\label{fig:menu}
+	\end{subfigure}
+	\caption{Mobile Application Login Process.}
+	\label{fig:applogin}
+\end{figure}
+
+If the credentials were wrong, the message presented in figure \ref{fig:login_wrong} is shown, and the login fails.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.4\textwidth]{13tests/app/login_wrong}
+	\caption{Test Mobile Application: Test login - Wrong credentials.}
+	\label{fig:login_wrong}
+\end{figure}
