@@ -382,8 +382,6 @@ DATABASE=database
 
 Using \verb|$_ENV['var']| one can load \verb|var| from \verb|.env| file, into a variable in \verb|index.php|. After all necessary variables are loaded one can connect to the database using \verb|mysqli_connect|, as shown in listing \ref{lst:phpwebsite} Then, a query is made to the database, retrieving all lamppost information of where their number of vacants in the respective parking spaces are greater than zero.
 
-
-<<<<<<< HEAD
 \begin{lstlisting}[language=php, caption={Create PHP connection to the database.}, label={lst:phpwebsite}]
 <?php
 // load secret variables from .env
@@ -455,8 +453,6 @@ function addMarker(props){
 }
 \end{lstlisting}
 \section{Mobile Application}
-=======
-\section{Mobile Application}
 
 The mobile application interacts with the database via TCP/IP via local server. When the application is executed, it tries to connect to the server held, in this case in the IP \verb|192.168.1.114| and port \verb|5000|. In the listing \ref{lst:appConnection}, is represented the connection establishment with the server. After the connection is done, the application sends a message to the server, indicating the type of its device, in this case, an application (\verb|TYPE;2|).
 
@@ -516,4 +512,3 @@ void menu::on_add_new_released()
 	addMenu->show();
 }
 \end{lstlisting}
->>>>>>> d4894c8aa3070be7786ef7f3330d96fb01c46ef5
