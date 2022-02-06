@@ -311,27 +311,33 @@ The local system transmits all the commands via LoRa communication to the gatewa
 
 Regarding Remote Systems tests, one recorded a video (available on \linebreak \url{https://youtu.be/KpZ--wc1S-c}) demonstrating the conection between the local system's parking detection, and the remote system's website.
 
+In figure \ref{fig:rsnewgateway} is shown the process of connecting a gateway to the remote system. Initially, the remote system is put to run, having its TCP server listening for incoming connections on port \verb|5000|, on socket file descriptor 3. When a new client connects via TCP it needs to send the \verb|TYPE <clientType>| command. This command is used by any of the remote clients (gateway or mobile application) and identifies which type of remote client the new client is. If the received type, \verb|<clientType>|, equals 0, as shown in the figure, then the remote client trying to connect is a gateway.
+
 \begin{figure}[H]
 	\centering	
 	\includegraphics[width=.76\textwidth]{13tests/RS/RSsendID}
 	\caption{Test Remote System: New gateway connection.}
-	\label{fig:}
+	\label{fig:rsnewgateway}
 \end{figure}
 
+After connection between gateway and remote system has been established, the local system sends the \verb|CRQ <localAddr>| command, regarding a connection request. This command is an handshake from the two systems, where the remote system gives to the local system a new ID. The local system, from now on, uses the given ID in all communications.
 
-\begin{figure}[H]
-	\centering	
-	\includegraphics[width=.7\textwidth]{13tests/RS/RSpark}
-	\caption{Test Remote System: Parking space detection from LS.}
-	\label{fig:}
-\end{figure}
-
+In figure \ref{fig:RScmdsfromLS} is shown the receival of local system's commands. It is visible that after the \verb|CRQ| command, where a local system with address 170 receives an ID of 10, the communications are made using that ID, in \verb|lamppost(10)|. Firstly, one can see the lamppost changing its status to \verb|MIN|. When the lamppost changes its status to \verb|ON|, the remote system must determine which lampposts should also turn on, executing a dynamic light up of the network lampposts. As a proof of concept, the remote system considers the neighbor lampposts as the ones with the ID above and below of the ID of the lamppost that turned on. For that reason, one can see that when \verb|lamppost(10)| turns on, the remote system requests \verb|lamppost(9)| and \verb|lamppost(11)| to turn on their lamp.
 
 \begin{figure}[H]
 	\centering	
 	\includegraphics[width=.7\textwidth]{13tests/RS/RScmdsfromLS}
 	\caption{Test Remote System: Dynamic control of lamps.}
-	\label{fig:}
+	\label{fig:RScmdsfromLS}
+\end{figure}
+
+In figure \ref{fig:RSpark} is shown the remote system output of when receiving \linebreak \verb|PARK <numVacants>| command. This information is updated on the database, allowing the fetch from the website to retrieve the most updated network information, which will be detailed in the following section.
+
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=.7\textwidth]{13tests/RS/RSpark}
+	\caption{Test Remote System: Parking space detection from LS.}
+	\label{fig:RSpark}
 \end{figure}
 
 %**********************************************************
