@@ -8,12 +8,37 @@ TargetPackages
 			png support
 			v4l support
 		-> hardware handling -> libv4l
+		
+	Target packages -> Libraries -> Hardware handling -> libv4l
+
+	Target packages -> Libraries -> Hardware handling -> bcm2835
+	
+
 
 	-> Audio and video applications
 		v4l2grab                                                       
 		v4l2loopback    
     		v4l2loopback-> utils 
+    		Target packages → Audio and video applications -> v4l2grab 
+
+		Target packages → Audio and video applications -> gstreamer 1.x
+
+		Target packages → Audio and video applications → gst1-plugins-bad -> camerabin2
+
+		Target packages → Audio and video applications → gst1-plugins-bad -> v4lcodecs
     		
+    		Target packages → Audio and video applications -> ffmpeg
+    		
+    	Target packages -> Hardware Handling -> Firmware -> rpi-firmware
+
+	Target packages -> Hardware Handling -> rpi-userland
+
+System configuration -> /dev management -> Dynamic using devtmpfs + eudev
+
+Target packages -> Hardware Handling -> eudev
+    		
+------------------------------
+
 Depois de gerar o opencv no makemenuconfig:
 	Ir a /output/build/opencv3-3.4.13/buildroot-build: fazer $ cmake-gui, "configure" e ativar os packages necessários (imgproc, videoio, etc). No final "Generate". Sair
 	$ cmake .
@@ -24,30 +49,6 @@ NOTA:
 	no caso de ter instalado o opencv no host machine, deve fazer $ sudo apt remove libopencv-dev
 
 ------------------------------
-
-Target packages -> Hardware Handling -> Firmware -> rpi-firmware
-
-Target packages → Audio and video applications -> ffmpeg
-
-Target packages -> Hardware Handling -> rpi-userland
-
-System configuration -> /dev management -> Dynamic using devtmpfs + eudev
-
-Target packages -> Hardware Handling -> eudev
-
-Target packages -> Libraries -> Hardware handling -> libv4l
-
-Target packages -> Libraries -> Hardware handling -> bcm2835
-
-Target packages → Libraries → Graphics -> jpeg support
-
-Target packages → Audio and video applications -> v4l2grab 
-
-Target packages → Audio and video applications -> gstreamer 1.x
-
-Target packages → Audio and video applications → gst1-plugins-bad -> camerabin2
-
-Target packages → Audio and video applications → gst1-plugins-bad -> v4lcodecs
 
 Na pasta do buildroot:
 	$ make clean
