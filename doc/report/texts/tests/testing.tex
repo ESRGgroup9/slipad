@@ -377,6 +377,7 @@ To test the mobile application, the remote server was started in the machine wit
 	\label{fig:applogin}
 \end{figure}
 
+\clearpage
 If the credentials were wrong, the message presented in figure \ref{fig:login_wrong} is shown, and the login fails. Furthermore, if any operation performed by the operator fails, the application shows an error message.
 
 \begin{figure}[H]
@@ -386,13 +387,24 @@ If the credentials were wrong, the message presented in figure \ref{fig:login_wr
 	\label{fig:login_wrong}
 \end{figure}
 
-When the operator selects \verb|Consult Lamppost Network|, the mobile application sends a request for the remote server and receive all the lamppost information relative to that operator. In figure \ref{fig:consult}, one can observed the lamppost network information relative to the operator with ID number 2.
+When the operator selects \verb|Consult Lamppost Network|, the mobile application sends a request for the remote server and receive all the lamppost information relative to that operator. In figure \ref{fig:consult}, one can observed the lamppost network information relative to the operator with ID number 2, which is confirmed in the database information, listed in figure \ref{fig:db}.
 
 \begin{figure}[H]
-	\centering	
-	\includegraphics[width=.4\textwidth]{13tests/app/consult}
-	\caption{Test Mobile Application: Consult lamppost network.}
-	\label{fig:consult}
+	\centering
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/app/consult}
+		\caption{Consult lamppost network.}
+		\label{fig:consult}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/database/lamppostList}
+		\caption{Database lamppost network information.}
+		\label{fig:db}
+	\end{subfigure}%
+	\caption{Test Mobile Application}
+	\label{fig:consultLamppost}
 \end{figure}
 
 %**********************************************************
