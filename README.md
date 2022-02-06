@@ -38,7 +38,7 @@ Since this project serves educational purposes, the last two phases of the Water
 - README
 
 ### Documentation
-- `/doc/report` — [PDF](https://github.com/ESRGgroup9/slipad/blob/main/doc/deliveries/design.pdf)
+- `/doc/report` — [PDF](https://github.com/ESRGgroup9/slipad/blob/main/doc/deliveries/group9.pdf)
 - `gh-pages` — [GitHub Pages](https://esrggroup9.github.io/slipad/index.html), generated using Doxygen.
 
 ### <!--Dependencies-->
