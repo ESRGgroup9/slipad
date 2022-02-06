@@ -150,6 +150,35 @@ As seen in the previous chapter, one will use the Lamp Failure Detector to know 
 	\label{fig:testlampf}
 \end{figure}
 
+%**********************************************************
+\section{Camera}
+
+To know if the camera was detected by the Raspberry Pi, it was used the command \verb|vcgencmd get_camera|, and the result was \verb|supported=1 detected=1|, showing that the camera was successfully detected. Next, it was used a small program to open the camera, take a picture and store it locally. In the figure \ref{fig:firstpic} is shown the first photo taken with the camera and the figure \ref{fig:secpic} shows a photo taken after calibrating the camera values.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/camera/firstpic}
+		\caption{Photo before calibration.}
+		\label{fig:firstpic}
+	\end{subfigure}%
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.95\linewidth]{13tests/camera/secpic}
+		\caption{Photo after calibration.}
+		\label{fig:secpic}
+	\end{subfigure}
+	\caption{Testing: Camera.}
+	\label{fig:pics}
+\end{figure}
+
+%**********************************************************
+\section{Parking Spots Detection}
+
+Regarding the parking spots detection, it was done a three phase tests. First, it was tested the algorithm that detects the parking spot outline, next the algorithm that detects cars in an image and, at last, the empty parking spots detection.
+
+
 
 \section{Database}
 
