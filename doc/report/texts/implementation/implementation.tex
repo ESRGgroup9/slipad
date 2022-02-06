@@ -284,7 +284,7 @@ DELIMITER ;
 \end{lstlisting}
 
 \subsection{Populating the database}
-In order to populate the database faster one defined the queries format shown bellow, in listing \ref{lst:populatedb}.
+In order to populate the database faster, one used the queries format shown bellow, in listing \ref{lst:populatedb}.
 
 \begin{lstlisting}[language=SQL, caption={Queries examples to populate database.}, label={lst:populatedb}]
 INSERT INTO operator(id, name, password) VALUES
@@ -301,9 +301,94 @@ INSERT INTO lamppost(id, address) VALUES
 
 \end{lstlisting}
 
-
+%**********************************************************
 \section{Parking spots detection}
 
+%**********************************************************
+\clearpage
 \section{Website}
+The website will present to the user the location and the number of available parking spots in a map. Since the website needs to know the informations about the lampposts network, PHP is used, to fetch data from the database. HTML is used to design the body of the website. That way, one will have a source file, named \verb|index.php|.
 
+Firstly, using \verb|dotenv|, third-party software \cite{phpdotenv}, one loads the secret variables regarding the database connection, from the \verb|.env| file which contains the secret variables definitions, with the format shown in listing \ref{lst:dotenv}.
+
+\begin{lstlisting}[language=php, caption={.env file example.}, label={lst:dotenv}]
+SERVER=servername
+USERNAME=username
+PASSWORD='password'
+DATABASE=database
+\end{lstlisting}
+
+Using \verb|$_ENV['var']| one can load \verb|var| from \verb|.env| file, into a variable in \verb|index.php|. After all necessary variables are loaded one can connect to the database using \verb|mysqli_connect|, as shown in listing \ref{lst:phpwebsite} Then, a query is made to the database, retrieving all lamppost information of where their number of vacants in the respective parking spaces are greater than zero.
+
+
+\begin{lstlisting}[language=php, caption={Create PHP connection to the database.}, label={lst:phpwebsite}]
+<?php
+// load secret variables from .env
+require_once 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$servername=$_ENV['SERVER'];
+$username=$_ENV['USERNAME'];
+$password=$_ENV['PASSWORD'];
+$database=$_ENV['DATABASE'];
+
+// connect to database
+$con = mysqli_connect($servername, $username, $password, $database);
+
+// execute query
+// ...
+?>
+\end{lstlisting}
+
+Entering the HTML section of the \verb|index| file, one will follow Google Maps documentation \cite{mapsdoc} in order to add a Google Map with several markers, relative to lampposts locations, using the HTML body presented in listing \ref{lst:website};
+
+\begin{lstlisting}[language=HTML, caption={Website: Adding a map with a marker.},label={lst:website}]
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#map {
+				height: 400px;
+				width: 10%;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>My Google Maps Demo</h3>
+		
+		<!--The div element for the map -->
+		<div id="map"></div>
+		
+		<!-- Async script executes immediately -->
+		<script async defer			src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=
+		initMap">
+		</script>
+	</body>
+</html>
+\end{lstlisting}
+
+In order to use this, one needs to insert the Google API key, previously generated, in \verb|YOUR_API_KEY|. This is a secret key that should only be defined in \verb|.env| file.
+
+\begin{lstlisting}[language=HTML, caption={Website: Adding a map with a marker.},label={lst:website}]
+// Add Marker Function
+function addMarker(props){
+	var marker = new google.maps.Marker({
+		position:props.coords,
+		map:map,
+		//icon:props.iconImage
+	});
+
+	// Check content
+	if(props.content){
+		var infoWindow = new google.maps.InfoWindow({
+			content:props.content
+		});
+		
+		marker.addListener('click', function(){
+			infoWindow.open(map, marker);
+		});
+	}
+}
+\end{lstlisting}
 \section{Mobile Application}
