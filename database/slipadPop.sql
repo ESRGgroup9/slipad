@@ -11,7 +11,7 @@ INSERT INTO operator(id, name, password) VALUES
 INSERT INTO region(post_code, operator_id, parish, county, district) VALUES
 -- ('4800-015', 1, 'Aldao', 'Guimaraes', 'Braga'),
 -- ('4800-424', 1, 'Gominhaes', 'Guimaraes', 'Braga'),
-('4800-073', 2, 'Azurem', 'Guimaraes', 'Braga'),
+('4800-073', 1, 'Azurem', 'Guimaraes', 'Braga'),
 ('4810-420', 2, 'Azurem', 'Guimaraes', 'Braga'),
 ('4800-045', 2, 'Azurem', 'Guimaraes', 'Braga');
 
@@ -60,3 +60,21 @@ INSERT INTO lamppost(id, address) VALUES
 (17, 0xb1);
 
 # trigger inserts Parking space when insert on lamppost is done
+-- UPDATE parking_space SET num_vacants=1 WHERE id=2;
+-- UPDATE parking_space SET num_vacants=2 WHERE id=3;
+-- UPDATE parking_space SET num_vacants=1 WHERE id=4;
+-- UPDATE parking_space SET num_vacants=2 WHERE id=5;
+-- UPDATE parking_space SET num_vacants=3 WHERE id=6;
+-- UPDATE parking_space SET num_vacants=1 WHERE id=7;
+
+-- UPDATE parking_space SET num_vacants=2 WHERE id=8;
+-- UPDATE parking_space SET num_vacants=1 WHERE id=9;
+-- UPDATE parking_space SET num_vacants=3 WHERE id=10;
+-- UPDATE parking_space SET num_vacants=1 WHERE id=11;
+-- UPDATE parking_space SET num_vacants=2 WHERE id=12;
+
+-- UPDATE parking_space SET num_vacants=2 WHERE id=13;
+-- UPDATE parking_space SET num_vacants=2 WHERE id=14;
+-- UPDATE parking_space SET num_vacants=1 WHERE id=15;
+-- UPDATE parking_space SET num_vacants=2 WHERE id=16;
+-- UPDATE parking_space SET num_vacants=1 WHERE id=17;
